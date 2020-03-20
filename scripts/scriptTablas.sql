@@ -1,7 +1,7 @@
 CREATE TABLE tarifas(
 	codTarifa SERIAL NOT NULL,
 	nome VARCHAR(50) NOT NULL,
-	maxActivades SMALLINT NOT NULL,
+	maxActividades SMALLINT NOT NULL,
 	precioBase DECIMAL NOT NULL,
 	precioExtra DECIMAL NOT NULL,
 	PRIMARY KEY (codTarifa)
@@ -9,11 +9,11 @@ CREATE TABLE tarifas(
 
 CREATE TABLE usuarios(
 	login 		VARCHAR(25) NOT NULL,
-	contrasinal VARCHAR(50) NOT NULL,
+	contrasinal VARCHAR(64) NOT NULL,
 	nome 		VARCHAR(200) NOT NULL,
 	numTelefono CHAR(9) NOT NULL,
 	DNI 		CHAR(9) NOT NULL UNIQUE,
-	correoElectronico CHAR(9) NOT NULL,
+	correoElectronico VARCHAR(200) NOT NULL,
 	IBAN 		CHAR(24) NOT NULL,
 	PRIMARY KEY (login)
 );
@@ -61,7 +61,7 @@ CREATE TABLE areas(
 	descricion 	VARCHAR(200) NOT NULL,
 	aforoMaximo INT NOT NULL,
 	PRIMARY KEY (codArea,instalacion),
-	FOREIGN KEY (codArea) REFERENCES instalacions(codInstalacion) 
+	FOREIGN KEY (instalacion) REFERENCES instalacions(codInstalacion) 
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
