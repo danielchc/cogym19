@@ -69,7 +69,7 @@ CREATE TABLE materiais(
 	codMaterial 	SERIAL NOT NULL,
 	area			INT NOT NULL,
 	instalacion 	INT NOT NULL,
-	nome			VARCHAR(50),
+	nome			VARCHAR(50) NOT NULL,
 	dataCompra		DATE,
 	prezoCompra 	DECIMAL,
 	PRIMARY KEY (codMaterial),
