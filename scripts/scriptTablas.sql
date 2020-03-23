@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS persoal;
 DROP TABLE IF EXISTS socios;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS tarifas;
-
+DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcursos CASCADE;
+DROP FUNCTION IF EXISTS insertarActividades();
 
 
 CREATE TABLE tarifas(
@@ -197,6 +198,7 @@ CREATE TABLE enviarMensaxes(
 	receptor	VARCHAR(25) NOT NULL,
 	dataEnvio 	TIMESTAMP 	NOT NULL,
 	contido 	VARCHAR(500) NOT NULL,
+	lido		BOOLEAN	DEFAULT FALSE,
 	PRIMARY KEY (emisor,receptor,dataEnvio),
 	FOREIGN KEY (emisor) REFERENCES usuarios(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE,
@@ -212,3 +214,19 @@ CREATE TABLE estarCapacitado(
 	FOREIGN KEY (tipoActividade) REFERENCES tipoActividades(codTipoActividade) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
+	DECLARE
+		tr RECORD;
+	BEGIN
+		FOR tr IN
+			SELECT * FROM actividades WHERE curso=NEW.curso
+		LOOP
+			INSERT INTO realizarActividades(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
+		END LOOP;
+		RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcursos FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
