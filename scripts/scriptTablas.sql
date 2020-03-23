@@ -22,7 +22,7 @@ CREATE TABLE usuarios(
 
 CREATE TABLE socios(
 	login 			VARCHAR(25) NOT NULL,
-	dataNacemento 	DATE NOT NULL,
+	dataNacemento 	DATE NOT NULL CHECK ((NOW()- INTERVAL'16 years')>dataNacemento),
 	dificultades 	VARCHAR(500),
 	tarifa 			INT NOT NULL,
 	PRIMARY KEY(login),
@@ -74,7 +74,7 @@ CREATE TABLE materiais(
 	instalacion 	INT NOT NULL,
 	nome			VARCHAR(50) NOT NULL,
 	dataCompra		DATE,
-	prezoCompra 	DECIMAL	CHECK (prezoCompra>0),
+	prezoCompra 	DECIMAL	CHECK (prezoCompra>=0),
 	PRIMARY KEY (codMaterial),
 	FOREIGN KEY (area,instalacion) REFERENCES areas(codArea,instalacion)
 	ON UPDATE CASCADE ON DELETE RESTRICT
@@ -154,7 +154,7 @@ CREATE TABLE realizarActividades(
 	area 			INT NOT NULL,
 	instalacion 	INT NOT NULL,
 	usuario 		VARCHAR(25) NOT NULL,
-	valoracion 		SMALLINT,
+	valoracion 		SMALLINT CHECK (valoracion>=0 AND valoracion<=5),
 	PRIMARY KEY (dataActividade,area,instalacion,usuario),
 	FOREIGN KEY (dataActividade,area,instalacion) REFERENCES actividades(dataActividade,area,instalacion)
 	ON UPDATE CASCADE ON DELETE CASCADE,
