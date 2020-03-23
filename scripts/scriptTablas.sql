@@ -1,20 +1,20 @@
-DROP TABLE IF EXISTS tarifas;
-DROP TABLE IF EXISTS usuarios;
-DROP TABLE IF EXISTS socios;
-DROP TABLE IF EXISTS persoal;
-DROP TABLE IF EXISTS profesores;
-DROP TABLE IF EXISTS instalacions;
-DROP TABLE IF EXISTS areas;
-DROP TABLE IF EXISTS materiais;
-DROP TABLE IF EXISTS tipoActividades;
-DROP TABLE IF EXISTS cursos;
-DROP TABLE IF EXISTS actividades;
-DROP TABLE IF EXISTS incidenciasMateriais;
-DROP TABLE IF EXISTS incidenciasAreas;
-DROP TABLE IF EXISTS realizarActividades;
-DROP TABLE IF EXISTS realizarCursos;
-DROP TABLE IF EXISTS enviarMensaxes;
 DROP TABLE IF EXISTS estarCapacitado;
+DROP TABLE IF EXISTS enviarMensaxes;
+DROP TABLE IF EXISTS realizarCursos;
+DROP TABLE IF EXISTS realizarActividades;
+DROP TABLE IF EXISTS incidenciasAreas;
+DROP TABLE IF EXISTS incidenciasMateriais;
+DROP TABLE IF EXISTS actividades;
+DROP TABLE IF EXISTS cursos;
+DROP TABLE IF EXISTS tipoActividades;
+DROP TABLE IF EXISTS materiais;
+DROP TABLE IF EXISTS areas;
+DROP TABLE IF EXISTS instalacions;
+DROP TABLE IF EXISTS profesores;
+DROP TABLE IF EXISTS persoal;
+DROP TABLE IF EXISTS socios;
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS tarifas;
 
 
 
@@ -212,4 +212,3 @@ CREATE TABLE estarCapacitado(
 	FOREIGN KEY (tipoActividade) REFERENCES tipoActividades(codTipoActividade) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
-
