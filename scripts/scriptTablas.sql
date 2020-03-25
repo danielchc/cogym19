@@ -22,7 +22,7 @@ DROP FUNCTION IF EXISTS insertarActividades();
 CREATE TABLE tarifas(
 	codTarifa 		SERIAL NOT NULL,
 	nome 			VARCHAR(50) NOT NULL UNIQUE,
-	maxActividades 	SMALLINT NOT NULL,
+	maxActividades 	SMALLINT CHECK(maxActividades>=0) NOT NULL ,
 	precioBase 		DECIMAL NOT NULL,
 	precioExtra 	DECIMAL NOT NULL,
 	PRIMARY KEY (codTarifa)
@@ -54,9 +54,9 @@ CREATE TABLE socios(
 );
 
 CREATE TABLE persoal(
-	login 	VARCHAR(25) NOT NULL,
-	dataIncorporacion DATE NOT NULL DEFAULT NOW(),
-	NUSS	CHAR(11) NOT NULL UNIQUE,
+	login 				VARCHAR(25) NOT NULL,
+	dataIncorporacion 	DATE NOT NULL DEFAULT NOW(),
+	NUSS				CHAR(11) NOT NULL UNIQUE,
 	PRIMARY KEY(login),
 	FOREIGN KEY (login) REFERENCES usuarios(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE
@@ -141,7 +141,8 @@ CREATE TABLE incidenciasMateriais(
 	numero 			SERIAL NOT NULL,
 	material		INT NOT NULL,
 	usuario			VARCHAR(25) NOT NULL,
-	descricion		VARCHAR(200) NOT NULL,
+	descricion		VARCHAR(500) NOT NULL,
+	comentarioResolucion VARCHAR(500),
 	dataFalla		DATE NOT NULL DEFAULT NOW(),
 	dataResolucion 	DATE CHECK (dataResolucion>dataFalla),
 	custoReparacion DECIMAL CHECK (custoReparacion>=0),
@@ -158,7 +159,8 @@ CREATE TABLE incidenciasAreas(
 	area			INT	NOT NULL,
 	instalacion		INT NOT NULL,
 	usuario			VARCHAR(25) NOT NULL,
-	descricion		VARCHAR(200) NOT NULL,
+	descricion		VARCHAR(500) NOT NULL,
+	comentarioResolucion VARCHAR(500),
 	dataFalla		DATE DEFAULT NOW(),
 	dataResolucion 	DATE,
 	custoReparacion DECIMAL CHECK (custoReparacion>=0),
@@ -185,7 +187,7 @@ CREATE TABLE realizarActividades(
  
 CREATE TABLE realizarCursos(
 	curso		INT NOT NULL,
-	usuario		VARCHAR(25),
+	usuario		VARCHAR(25) NOT NULL,
 	PRIMARY KEY (curso,usuario),
 	FOREIGN KEY (curso) REFERENCES cursos(codCurso) 
 	ON UPDATE CASCADE ON DELETE CASCADE,
