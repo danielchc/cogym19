@@ -36,22 +36,23 @@ public final class DAOUsuarios extends AbstractDAO {
 
         if(usuario instanceof Socio) {
             Socio socio=(Socio)usuario;
-            stmPersoal=con.prepareStatement(
+            stmSocio=con.prepareStatement(
                     "INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values (?,?,?,?);"
             );
-            stmPersoal.setString(1,socio.getLogin());
-            stmPersoal.setDate(2, (Date) socio.getDataNacemento());
-            stmPersoal.setString(3,socio.getDificultades());
-            stmPersoal.setInt(4,socio.getTarifa().getCodTarifa());
-            stmPersoal.executeUpdate();
+            stmSocio.setString(1,socio.getLogin());
+            stmSocio.setDate(2, Date.valueOf(socio.getDataNacemento().toString()));
+            stmSocio.setString(3,socio.getDificultades());
+            stmSocio.setInt(4,socio.getTarifa().getCodTarifa());
+            stmSocio.executeUpdate();
         }else if (usuario instanceof Persoal){
             Persoal persoal=(Persoal)usuario;
             stmPersoal=con.prepareStatement(
                     "INSERT INTO persoal (login,dataIncorporacion,NUSS) VALUES (?,?,?);"
             );
             stmPersoal.setString(1,persoal.getLogin());
-            stmPersoal.setDate(2, (Date) persoal.getDataIncorporacion());
+            stmPersoal.setDate(2, Date.valueOf(persoal.getDataIncorporacion().toString()));
             stmPersoal.setString(3,persoal.getNUSS());
+            stmPersoal.executeUpdate();
             if(usuario instanceof Profesor){
                 Profesor profesor=(Profesor)usuario;
                 stmProfesor=con.prepareStatement(
