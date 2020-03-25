@@ -70,10 +70,6 @@ public final class DAOUsuarios extends AbstractDAO {
             }
         }
         con.commit();
-        stmUsuario.close();
-        stmPersoal.close();
-        stmProfesor.close();
-        stmSocio.close();
     }
 
     public void actualizarUsuario(String loginVello,Usuario usuario) throws SQLException {

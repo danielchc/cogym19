@@ -110,7 +110,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.TestJavaFx">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -159,6 +159,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestJavaFx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.TestJavaFx" />
+      <module name="CentroDeportivo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -198,6 +212,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestJavaFx" />
         <item itemvalue="Application.Main (1)" />
       </list>
     </recent_temporary>
