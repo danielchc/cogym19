@@ -5,10 +5,8 @@ import aplicacion.Profesor;
 import aplicacion.Socio;
 import aplicacion.Usuario;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public final class DAOUsuarios extends AbstractDAO {
 
@@ -66,7 +64,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stmPersoal.executeUpdate();
             if(usuario instanceof Profesor){
                 Profesor profesor=(Profesor)usuario;
-                stmProfesor=con.prepareStatement("INSERT INTO profesor (login) VALUES (?);");
+                stmProfesor=con.prepareStatement("INSERT INTO profesores (login) VALUES (?);");
                 stmProfesor.setString(1,profesor.getLogin());
                 stmProfesor.executeUpdate();
             }
@@ -123,6 +121,39 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario.close();
     }
 
+    public ArrayList<Socio> listarSocios() throws SQLException {
+        return buscarSocios("","");
+    }
+
+    public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
+        PreparedStatement stmUsuario = null;
+        ArrayList<Socio> socios=new ArrayList<Socio>();
+        ResultSet rsUsuarios;
+        Connection con=super.getConexion();
+        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN socios WHERE login LIKE ? OR nome LIKE ?;");
+        stmUsuario.setString(1, "%"+login+"%");
+        stmUsuario.setString(2, "%"+nome+"%");
+        System.out.println(stmUsuario);
+        rsUsuarios = stmUsuario.executeQuery();
+        while (rsUsuarios.next()) {
+            socios.add(new Socio(
+               rsUsuarios.getString("login"),
+               rsUsuarios.getString("contrasinal"),
+               rsUsuarios.getString("nome"),
+               rsUsuarios.getString("numTelefono"),
+               rsUsuarios.getString("DNI"),
+               rsUsuarios.getString("correoElectronico"),
+               rsUsuarios.getString("iban"),
+               rsUsuarios.getDate("dataAlta"),
+               rsUsuarios.getDate("dataNacemento"),
+               rsUsuarios.getString("dificultades")
+            ));
+        }
+        return socios;
+        //"SELECT * FROM usuarios NATURAL JOIN persoal WHERE login NOT IN (SELECT login FROM profesores);";
+        //"SELECT * FROM usuarios NATURAL JOIN persoal WHERE login IN (SELECT login FROM profesores);";
+
+    }
 
 
 }
