@@ -1,6 +1,6 @@
 package aplicacion;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Persoal extends Usuario {
     private Date dataIncorporacion;

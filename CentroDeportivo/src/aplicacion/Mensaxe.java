@@ -1,6 +1,7 @@
 package aplicacion;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public final class Mensaxe {
     private String emisor;

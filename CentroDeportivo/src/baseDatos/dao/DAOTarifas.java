@@ -36,11 +36,12 @@ public final class DAOTarifas extends AbstractDAO {
         PreparedStatement stmTarfia=null;
 
         conexion.setAutoCommit(false);
-        stmTarfia=conexion.prepareStatement("UPDATE tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?)");
+        stmTarfia=conexion.prepareStatement("UPDATE tarifas SET nome=?, maxActividades=?, precioBase=?, precioExtra=? WHERE codTarifa=?");
         stmTarfia.setString(1,t.getNome());
         stmTarfia.setInt(2,t.getMaxActividades());
         stmTarfia.setFloat(3,t.getPrezoBase());
         stmTarfia.setFloat(4,t.getPrezoExtras());
+        stmTarfia.setInt(5,t.getCodTarifa());
         stmTarfia.executeUpdate();
         conexion.commit();
     }
