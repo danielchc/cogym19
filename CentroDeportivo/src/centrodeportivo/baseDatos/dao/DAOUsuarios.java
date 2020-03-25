@@ -133,7 +133,6 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN socios WHERE login LIKE ? OR nome LIKE ?;");
         stmUsuario.setString(1, "%"+login+"%");
         stmUsuario.setString(2, "%"+nome+"%");
-        System.out.println(stmUsuario);
         rsUsuarios = stmUsuario.executeQuery();
         while (rsUsuarios.next()) {
             socios.add(new Socio(
@@ -160,7 +159,6 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE login NOT IN (SELECT login FROM profesores) AND (login LIKE ? OR nome LIKE ?);");
         stmUsuario.setString(1, "%"+login+"%");
         stmUsuario.setString(2, "%"+nome+"%");
-        System.out.println(stmUsuario);
         rsUsuarios = stmUsuario.executeQuery();
         while (rsUsuarios.next()) {
             persoal.add(new Persoal(
