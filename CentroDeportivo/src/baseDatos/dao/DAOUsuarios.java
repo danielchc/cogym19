@@ -33,14 +33,13 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario.setString(6,usuario.getCorreoElectronico());
         stmUsuario.setString(7,usuario.getIBANconta());
         stmUsuario.executeUpdate();
-
         if(usuario instanceof Socio) {
             Socio socio=(Socio)usuario;
             stmSocio=con.prepareStatement(
                     "INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values (?,?,?,?);"
             );
             stmSocio.setString(1,socio.getLogin());
-            stmSocio.setDate(2, Date.valueOf(socio.getDataNacemento().toString()));
+            stmSocio.setDate(2, socio.getDataNacemento());
             stmSocio.setString(3,socio.getDificultades());
             stmSocio.setInt(4,socio.getTarifa().getCodTarifa());
             stmSocio.executeUpdate();
@@ -50,7 +49,7 @@ public final class DAOUsuarios extends AbstractDAO {
                     "INSERT INTO persoal (login,dataIncorporacion,NUSS) VALUES (?,?,?);"
             );
             stmPersoal.setString(1,persoal.getLogin());
-            stmPersoal.setDate(2, Date.valueOf(persoal.getDataIncorporacion().toString()));
+            stmPersoal.setDate(2, persoal.getDataIncorporacion());
             stmPersoal.setString(3,persoal.getNUSS());
             stmPersoal.executeUpdate();
             if(usuario instanceof Profesor){
