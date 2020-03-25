@@ -5,33 +5,39 @@ import java.sql.Date;
 public class Incidencia {
     private TipoIncidencia tipoIncidencia;
     private int numero;
-    private Usuario usuario;
-    private String descripcion;
+    private String usuario;
+    private String descricion;
     private String comentarioResolucion;
     private Date dataFalla;
     private Date dataResolucion;
     private float custoReparacion;
     private int area;
+    private int instalacion;
     //private Area area;
     private int material;
     //private Material material;
 
-
-    public Incidencia(TipoIncidencia tipoIncidencia, int numero, Usuario usuario, String descripcion,int area) {
-        this(tipoIncidencia, numero, usuario, descripcion);
-        this.area=area;
+    public Incidencia(TipoIncidencia tipoIncidencia, String usuario, String descricion) {
+        this.tipoIncidencia = tipoIncidencia;
+        this.usuario = usuario;
+        this.descricion = descricion;
     }
 
-    /*public Incidencia(TipoIncidencia tipoIncidencia, int numero, Usuario usuario, String descripcion,int material) {
-        this(tipoIncidencia, numero, usuario, descripcion);
-        this.material=material;
-    }*/
+    public Incidencia(TipoIncidencia tipoIncidencia,String usuario, String descripcion,int area,int instalacion) {
+        this(tipoIncidencia, usuario, descripcion);
+        this.area=area;
+        this.instalacion=instalacion;
+    }
 
-    public Incidencia(TipoIncidencia tipoIncidencia, int numero, Usuario usuario, String descripcion) {
-        this.tipoIncidencia = tipoIncidencia;
+    public Incidencia(TipoIncidencia tipoIncidencia, String usuario, String descripcion,int material) {
+        this(tipoIncidencia, usuario, descripcion);
+        this.material=material;
+    }
+
+
+    public Incidencia(TipoIncidencia tipoIncidencia, int numero, String usuario, String descripcion) {
+        this(tipoIncidencia, usuario, descripcion);
         this.numero = numero;
-        this.usuario = usuario;
-        this.descripcion = descripcion;
     }
 
     public TipoIncidencia getTipoIncidencia() {
@@ -50,20 +56,20 @@ public class Incidencia {
         this.numero = numero;
     }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescricion() {
+        return descricion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescricion(String descricion) {
+        this.descricion = descricion;
     }
 
     public String getComentarioResolucion() {
@@ -104,6 +110,14 @@ public class Incidencia {
 
     public void setArea(int area) {
         this.area = area;
+    }
+
+    public int getInstalacion() {
+        return instalacion;
+    }
+
+    public void setInstalacion(int instalacion) {
+        this.instalacion = instalacion;
     }
 
     public int getMaterial() {

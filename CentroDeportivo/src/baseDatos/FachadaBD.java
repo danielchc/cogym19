@@ -1,5 +1,6 @@
 package baseDatos;
 
+import baseDatos.dao.DAOIncidencias;
 import baseDatos.dao.DAOMensaxes;
 import baseDatos.dao.DAOTarifas;
 import baseDatos.dao.DAOUsuarios;
@@ -16,6 +17,7 @@ public final class FachadaBD {
     private DAOUsuarios daoUsuarios;
     private DAOTarifas daoTarifas;
     private DAOMensaxes daoMensaxes;
+    private DAOIncidencias daoIncidencias;
 
     public FachadaBD() throws IOException, SQLException {
         Properties configuracion = new Properties();
@@ -32,6 +34,7 @@ public final class FachadaBD {
         this.daoUsuarios=new DAOUsuarios(this.conexion);
         this.daoTarifas=new DAOTarifas(this.conexion);
         this.daoMensaxes=new DAOMensaxes(this.conexion);
+        this.daoIncidencias=new DAOIncidencias(this.conexion);
     }
 
     public Connection getConexion() {
@@ -64,5 +67,13 @@ public final class FachadaBD {
 
     public void setDaoMensaxes(DAOMensaxes daoMensaxes) {
         this.daoMensaxes = daoMensaxes;
+    }
+
+    public DAOIncidencias getDaoIncidencias() {
+        return daoIncidencias;
+    }
+
+    public void setDaoIncidencias(DAOIncidencias daoIncidencias) {
+        this.daoIncidencias = daoIncidencias;
     }
 }
