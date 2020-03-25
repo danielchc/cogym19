@@ -1,4 +1,6 @@
-package aplicacion;
+package centrodeportivo.aplicacion.obxectos;
+
+import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 
 import java.sql.Date;
 

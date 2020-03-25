@@ -1,4 +1,4 @@
-package gui;
+package centrodeportivo.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,13 +9,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*Parent root = FXMLLoader.load(getClass().getResource("./fxmls/personal/vPrincipalPersoal.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("./fxmls/socios/vPrincipalSocio.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("./vistas/VPrincipal.fxml"));
         primaryStage.setTitle("Centro Deportivo");
-        primaryStage.setScene(new Scene(root, 900, 550));
-        primaryStage.setMinWidth(900);
-        primaryStage.setMinHeight(590);
-        primaryStage.show();*/
+        primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(600);
+        primaryStage.show();
     }
 
 

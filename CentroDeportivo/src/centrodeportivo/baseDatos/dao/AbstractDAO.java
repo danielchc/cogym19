@@ -1,4 +1,4 @@
-package baseDatos.dao;
+package centrodeportivo.baseDatos.dao;
 
 import java.sql.Connection;
 

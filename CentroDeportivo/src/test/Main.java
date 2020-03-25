@@ -1,12 +1,14 @@
 package test;
 
-import aplicacion.*;
-import baseDatos.FachadaBD;
+import centrodeportivo.aplicacion.*;
+import centrodeportivo.aplicacion.obxectos.Tarifa;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.baseDatos.FachadaBD;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String [] args) {

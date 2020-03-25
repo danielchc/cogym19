@@ -1,4 +1,6 @@
-package aplicacion;
+package centrodeportivo.aplicacion.obxectos.usuarios;
+
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Date;
 

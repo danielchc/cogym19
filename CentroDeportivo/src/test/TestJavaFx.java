@@ -1,7 +1,7 @@
 package test;
 
-import aplicacion.Usuario;
-import baseDatos.FachadaBD;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.baseDatos.FachadaBD;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;

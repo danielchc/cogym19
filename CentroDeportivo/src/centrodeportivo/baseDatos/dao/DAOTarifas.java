@@ -1,7 +1,7 @@
-package baseDatos.dao;
+package centrodeportivo.baseDatos.dao;
 
 
-import aplicacion.Tarifa;
+import centrodeportivo.aplicacion.obxectos.Tarifa;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

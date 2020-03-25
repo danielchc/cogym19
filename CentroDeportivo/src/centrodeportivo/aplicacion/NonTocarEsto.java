@@ -1,9 +1,8 @@
-package aplicacion;
+package centrodeportivo.aplicacion;
 
 import javax.swing.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.concurrent.ExecutionException;
 
 public class NonTocarEsto {
 

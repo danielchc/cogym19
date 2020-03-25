@@ -1,9 +1,9 @@
-package baseDatos;
+package centrodeportivo.baseDatos;
 
-import baseDatos.dao.DAOIncidencias;
-import baseDatos.dao.DAOMensaxes;
-import baseDatos.dao.DAOTarifas;
-import baseDatos.dao.DAOUsuarios;
+import centrodeportivo.baseDatos.dao.DAOIncidencias;
+import centrodeportivo.baseDatos.dao.DAOMensaxes;
+import centrodeportivo.baseDatos.dao.DAOTarifas;
+import centrodeportivo.baseDatos.dao.DAOUsuarios;
 
 import java.io.FileInputStream;
 import java.io.IOException;

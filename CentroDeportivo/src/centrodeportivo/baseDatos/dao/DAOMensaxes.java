@@ -1,7 +1,7 @@
-package baseDatos.dao;
+package centrodeportivo.baseDatos.dao;
 
-import aplicacion.Mensaxe;
-import aplicacion.Usuario;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

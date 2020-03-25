@@ -1,12 +1,11 @@
-package baseDatos.dao;
+package centrodeportivo.baseDatos.dao;
 
-import aplicacion.Incidencia;
-import aplicacion.TipoIncidencia;
+import centrodeportivo.aplicacion.obxectos.Incidencia;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class DAOIncidencias extends  AbstractDAO{
 

@@ -1,9 +1,9 @@
-package baseDatos.dao;
+package centrodeportivo.baseDatos.dao;
 
-import aplicacion.Persoal;
-import aplicacion.Profesor;
-import aplicacion.Socio;
-import aplicacion.Usuario;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;

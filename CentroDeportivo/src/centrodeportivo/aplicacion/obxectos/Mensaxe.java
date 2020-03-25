@@ -1,7 +1,6 @@
-package aplicacion;
+package centrodeportivo.aplicacion.obxectos;
 
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public final class Mensaxe {
