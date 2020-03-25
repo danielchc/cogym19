@@ -75,4 +75,18 @@ public final class DAOTarifas extends AbstractDAO {
         }
         return tarifas;
     }
+
+    public Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
+        Connection conexion=super.getConexion();
+        PreparedStatement stmTarifa = null;
+        ResultSet resultTarifas;
+
+        stmTarifa=conexion.prepareStatement("SELECT * FROM tarifas WHERE codTarifa IN (SELECT tarifa FROM socios WHERE login=?)");
+        stmTarifa.setString(1,loginSocio);
+        resultTarifas=stmTarifa.executeQuery();
+        if(resultTarifas.next()){
+            return new Tarifa(resultTarifas.getInt("codTarifa"),resultTarifas.getString("nome"),resultTarifas.getInt("maxActividades"),resultTarifas.getFloat("precioBase"),resultTarifas.getFloat("precioExtra"));
+        }
+        return null;
+    }
 }

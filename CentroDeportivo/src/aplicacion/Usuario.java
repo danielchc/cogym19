@@ -107,4 +107,19 @@ public class Usuario {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "login='" + login + '\'' +
+                ", contrasinal='" + contrasinal + '\'' +
+                ", nome='" + nome + '\'' +
+                ", numTelefono='" + numTelefono + '\'' +
+                ", DNI='" + DNI + '\'' +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                ", IBANconta='" + IBANconta + '\'' +
+                ", dataAlta=" + dataAlta +
+                ", dataBaixa=" + dataBaixa +
+                '}';
+    }
 }

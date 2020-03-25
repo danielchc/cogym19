@@ -2,19 +2,28 @@ package aplicacion;
 
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public final class Mensaxe {
     private String emisor;
     private String receptor;
-    private Date dataEnvio;
+    private Timestamp dataEnvio;
     private String contido;
+    private boolean lido;
 
-    public Mensaxe(String emisor,String receptor,Date dataEnvio,String contido){
+    public Mensaxe(String emisor,String receptor,Timestamp dataEnvio,String contido,boolean lido){
+        this(emisor, receptor, contido);
+        this.dataEnvio=dataEnvio;
+        this.lido=lido;
+    }
+
+    public Mensaxe(String emisor,String receptor,String contido){
         this.emisor=emisor;
         this.receptor=receptor;
-        this.dataEnvio=dataEnvio;
         this.contido=contido;
+        this.lido=false;
     }
+
 
     public String getEmisor() {
         return emisor;
@@ -32,11 +41,11 @@ public final class Mensaxe {
         this.receptor = receptor;
     }
 
-    public Date getDataEnvio() {
+    public Timestamp getDataEnvio() {
         return dataEnvio;
     }
 
-    public void setDataEnvio(Date dataEnvio) {
+    public void setDataEnvio(Timestamp dataEnvio) {
         this.dataEnvio = dataEnvio;
     }
 
@@ -48,11 +57,30 @@ public final class Mensaxe {
         this.contido = contido;
     }
 
+    public boolean isLido() {
+        return lido;
+    }
+
+    public void setLido(boolean lido) {
+        this.lido = lido;
+    }
+
     @Override
     public boolean equals(Object o){
         if(o instanceof Mensaxe){
             return ((Mensaxe) o).getEmisor().equals(this.emisor) && ((Mensaxe) o).getReceptor().equals(this.receptor) && ((Mensaxe) o).getDataEnvio().equals(this.dataEnvio);
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Mensaxe{" +
+                "emisor='" + emisor + '\'' +
+                ", receptor='" + receptor + '\'' +
+                ", dataEnvio=" + dataEnvio +
+                ", contido='" + contido + '\'' +
+                ", lido=" + lido +
+                '}';
     }
 }

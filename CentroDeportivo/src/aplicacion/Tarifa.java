@@ -66,4 +66,15 @@ public final class Tarifa {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Tarifa{" +
+                "codTarifa=" + codTarifa +
+                ", nome='" + nome + '\'' +
+                ", maxActividades=" + maxActividades +
+                ", prezoBase=" + prezoBase +
+                ", prezoExtras=" + prezoExtras +
+                '}';
+    }
 }
