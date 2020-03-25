@@ -65,7 +65,13 @@ public class DAOMensaxes extends AbstractDAO {
         stmMensaxe.setString(1,loginReceptor);
         resultMensaxes=stmMensaxe.executeQuery();
         while (resultMensaxes.next()){
-            mensaxes.add(new Mensaxe(resultMensaxes.getString("emisor"),resultMensaxes.getString("receptor"),resultMensaxes.getTimestamp("dataEnvio"),resultMensaxes.getString("contido"),resultMensaxes.getBoolean("lido")));
+            mensaxes.add(new Mensaxe(
+                    resultMensaxes.getString("emisor"),
+                    resultMensaxes.getString("receptor"),
+                    resultMensaxes.getTimestamp("dataEnvio"),
+                    resultMensaxes.getString("contido"),
+                    resultMensaxes.getBoolean("lido")
+            ));
         }
         return mensaxes;
     }

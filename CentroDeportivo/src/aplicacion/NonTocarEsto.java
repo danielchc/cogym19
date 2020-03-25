@@ -1,7 +1,9 @@
 package aplicacion;
 
+import javax.swing.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.concurrent.ExecutionException;
 
 public class NonTocarEsto {
 
@@ -22,5 +24,18 @@ public class NonTocarEsto {
             System.err.println("Error calculando hash");
         }
         return null;
+    }
+
+
+    public static void mostarExcepcion(Exception e){
+        JOptionPane.showMessageDialog(null,e.getStackTrace(),"Notificación",JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void mostrarMensaxe(String mensaxe){
+        JOptionPane.showMessageDialog(null,mensaxe,"Notificación",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void a(){
+        throw new NullPointerException();
     }
 }

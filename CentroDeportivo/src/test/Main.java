@@ -4,12 +4,15 @@ import aplicacion.*;
 import baseDatos.FachadaBD;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String [] args) {
+        FachadaBD fb=null;
         try{
-            FachadaBD fb=new FachadaBD();
+            fb=new FachadaBD();
             Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
             Socio usu=new Socio("pocha",
                     "abc123..",
@@ -60,13 +63,23 @@ public class Main {
             }
             System.out.println(fb.getDaoTarifas().consultarTarifaSocio("pocha"));*/
 
-            System.out.println(NonTocarEsto.hashSHA256("puto mono verde"));
+            /*System.out.println(NonTocarEsto.hashSHA256("puto mono verde"));
             System.out.println(NonTocarEsto.hashSHA256("puto  verde"));
             System.out.println(NonTocarEsto.hashSHA256("sadASDadadde"));
-            System.out.println(NonTocarEsto.hashSHA256("sssadadqd2qwqjndsjfnkdsajfnaskdjfnskdjfnskafnsdkjfnsjdfnksdjnfakjfdnsajfnksfnnksdjfanjdse"));
+            System.out.println(NonTocarEsto.hashSHA256("sssadadqd2qwqjndsjfnkdsajfnaskdjfnskdjfnskafnsdkjfnsjdfnksdjnfakjfdnsajfnksfnnksdjfanjdse"));*/
+            char[] a={'p','a','s','s','w','o','r','d'};
+            System.out.println(String.valueOf(a));
+            System.out.println(NonTocarEsto.hashSHA256(String.valueOf(a)));
+            System.out.println(NonTocarEsto.hashSHA256("password"));
+
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
+            try {
+                fb.getConexion().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

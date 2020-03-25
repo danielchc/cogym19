@@ -71,7 +71,13 @@ public final class DAOTarifas extends AbstractDAO {
         stmTarifa=conexion.prepareStatement("SELECT * FROM tarifas");
         resultTarifas=stmTarifa.executeQuery();
         while (resultTarifas.next()){
-            tarifas.add(new Tarifa(resultTarifas.getInt("codTarifa"),resultTarifas.getString("nome"),resultTarifas.getInt("maxActividades"),resultTarifas.getFloat("precioBase"),resultTarifas.getFloat("precioExtra")));
+            tarifas.add(new Tarifa(
+                    resultTarifas.getInt("codTarifa"),
+                    resultTarifas.getString("nome"),
+                    resultTarifas.getInt("maxActividades"),
+                    resultTarifas.getFloat("precioBase"),
+                    resultTarifas.getFloat("precioExtra")
+            ));
         }
         return tarifas;
     }
@@ -85,7 +91,13 @@ public final class DAOTarifas extends AbstractDAO {
         stmTarifa.setString(1,loginSocio);
         resultTarifas=stmTarifa.executeQuery();
         if(resultTarifas.next()){
-            return new Tarifa(resultTarifas.getInt("codTarifa"),resultTarifas.getString("nome"),resultTarifas.getInt("maxActividades"),resultTarifas.getFloat("precioBase"),resultTarifas.getFloat("precioExtra"));
+            return new Tarifa(
+                    resultTarifas.getInt("codTarifa"),
+                    resultTarifas.getString("nome"),
+                    resultTarifas.getInt("maxActividades"),
+                    resultTarifas.getFloat("precioBase"),
+                    resultTarifas.getFloat("precioExtra")
+            );
         }
         return null;
     }
