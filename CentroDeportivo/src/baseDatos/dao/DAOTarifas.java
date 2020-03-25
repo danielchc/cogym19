@@ -5,6 +5,7 @@ import aplicacion.Tarifa;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public final class DAOTarifas extends AbstractDAO {
@@ -15,15 +16,15 @@ public final class DAOTarifas extends AbstractDAO {
 
     public void insertarTarifa(Tarifa t) throws SQLException{
         Connection conexion=super.getConexion();
-        PreparedStatement stmTarfia=null;
+        PreparedStatement stmTarifa=null;
 
         conexion.setAutoCommit(false);
-        stmTarfia=conexion.prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?)");
-        stmTarfia.setString(1,t.getNome());
-        stmTarfia.setInt(2,t.getMaxActividades());
-        stmTarfia.setFloat(3,t.getPrezoBase());
-        stmTarfia.setFloat(4,t.getPrezoExtras());
-        stmTarfia.executeUpdate();
+        stmTarifa=conexion.prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
+        stmTarifa.setString(1,t.getNome());
+        stmTarifa.setInt(2,t.getMaxActividades());
+        stmTarifa.setFloat(3,t.getPrezoBase());
+        stmTarifa.setFloat(4,t.getPrezoExtras());
+        stmTarifa.executeUpdate();
         conexion.commit();
     }
 
@@ -33,16 +34,27 @@ public final class DAOTarifas extends AbstractDAO {
 
     public void actualizarTarifa(Tarifa t) throws SQLException{
         Connection conexion=super.getConexion();
-        PreparedStatement stmTarfia=null;
+        PreparedStatement stmTarifa=null;
 
         conexion.setAutoCommit(false);
-        stmTarfia=conexion.prepareStatement("UPDATE tarifas SET nome=?, maxActividades=?, precioBase=?, precioExtra=? WHERE codTarifa=?");
-        stmTarfia.setString(1,t.getNome());
-        stmTarfia.setInt(2,t.getMaxActividades());
-        stmTarfia.setFloat(3,t.getPrezoBase());
-        stmTarfia.setFloat(4,t.getPrezoExtras());
-        stmTarfia.setInt(5,t.getCodTarifa());
-        stmTarfia.executeUpdate();
+        stmTarifa=conexion.prepareStatement("UPDATE tarifas SET nome=?, maxActividades=?, precioBase=?, precioExtra=? WHERE codTarifa=?;");
+        stmTarifa.setString(1,t.getNome());
+        stmTarifa.setInt(2,t.getMaxActividades());
+        stmTarifa.setFloat(3,t.getPrezoBase());
+        stmTarifa.setFloat(4,t.getPrezoExtras());
+        stmTarifa.setInt(5,t.getCodTarifa());
+        stmTarifa.executeUpdate();
         conexion.commit();
+    }
+
+    public boolean estaEnUsoTarifa(Tarifa t) throws SQLException{
+        Connection conexion=super.getConexion();
+        PreparedStatement stmTarifa = null;
+        ResultSet resultTarifas;
+
+        stmTarifa=conexion.prepareStatement("SELECT * FROM tarifas WHERE codTarifa=? AND codTarifa IN (SELECT tarifa FROM socios);");
+        stmTarifa.setInt(1,t.getCodTarifa());
+        resultTarifas=stmTarifa.executeQuery();
+        return resultTarifas.next();
     }
 }

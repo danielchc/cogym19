@@ -8,7 +8,11 @@ public final class Tarifa {
     private float prezoExtras;
 
     public Tarifa(int codTarifa,String nome,Integer maxActividades,float prezoBase,float prezoExtras){
+        this(nome, maxActividades, prezoBase, prezoExtras);
         this.codTarifa=codTarifa;
+    }
+
+    public Tarifa(String nome,Integer maxActividades,float prezoBase,float prezoExtras){
         this.nome=nome;
         this.maxActividades=maxActividades;
         this.prezoBase=prezoBase;
