@@ -1,5 +1,6 @@
 package baseDatos;
 
+import baseDatos.dao.DAOTarifas;
 import baseDatos.dao.DAOUsuarios;
 
 import java.io.FileInputStream;
@@ -12,6 +13,7 @@ import java.util.Properties;
 public final class FachadaBD {
     Connection conexion;
     DAOUsuarios daoUsuarios;
+    DAOTarifas daoTarifas;
 
     public FachadaBD() throws IOException, SQLException {
         Properties configuracion = new Properties();
@@ -25,6 +27,7 @@ public final class FachadaBD {
         String con=String.format("jdbc:{}://{}:{}/{}", configuracion.getProperty("gestor"),configuracion.getProperty("servidor"),configuracion.getProperty("servidor"),configuracion.getProperty("puerto"),configuracion.getProperty("baseDatos"));
         this.conexion= DriverManager.getConnection(con,usuario);
         this.daoUsuarios=new DAOUsuarios(this.conexion);
+        this.daoTarifas=new DAOTarifas(this.conexion);
     }
 
     public Connection getConexion() {
