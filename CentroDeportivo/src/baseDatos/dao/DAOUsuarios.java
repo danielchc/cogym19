@@ -41,7 +41,6 @@ public final class DAOUsuarios extends AbstractDAO {
         Connection con= this.getConexion();
         PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null,stmProfesor=null;
         con.setAutoCommit(false);
-
         stmUsuario= con.prepareStatement("INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
         stmUsuario.setString(1,usuario.getLogin());
         stmUsuario.setString(2,usuario.getContrasinal());
@@ -61,10 +60,9 @@ public final class DAOUsuarios extends AbstractDAO {
             stmSocio.executeUpdate();
         }else if (usuario instanceof Persoal){
             Persoal persoal=(Persoal)usuario;
-            stmPersoal=con.prepareStatement("INSERT INTO persoal (login,dataIncorporacion,NUSS) VALUES (?,?,?);");
+            stmPersoal=con.prepareStatement("INSERT INTO persoal (login,NUSS) VALUES (?,?);");
             stmPersoal.setString(1,persoal.getLogin());
-            stmPersoal.setDate(2, persoal.getDataIncorporacion());
-            stmPersoal.setString(3,persoal.getNUSS());
+            stmPersoal.setString(2,persoal.getNUSS());
             stmPersoal.executeUpdate();
             if(usuario instanceof Profesor){
                 Profesor profesor=(Profesor)usuario;
@@ -93,7 +91,6 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario.setString(6,usuario.getCorreoElectronico());
         stmUsuario.setString(7,usuario.getIBANconta());
         stmUsuario.setString(8,loginVello);
-        System.out.println(stmUsuario);
         stmUsuario.executeUpdate();
         if(usuario instanceof Socio) {
             Socio socio=(Socio)usuario;
@@ -102,15 +99,12 @@ public final class DAOUsuarios extends AbstractDAO {
             stmSocio.setString(2,socio.getDificultades());
             stmSocio.setInt(3,socio.getTarifa().getCodTarifa());
             stmSocio.setString(4,socio.getLogin());
-            System.out.println(stmSocio);
-
             stmSocio.executeUpdate();
         }else if (usuario instanceof Persoal){
             Persoal persoal=(Persoal)usuario;
-            stmPersoal=con.prepareStatement("UPDATE persoal SET dataIncorporacion=?,NUSS=? WHERE login=?;");
-            stmPersoal.setDate(1, persoal.getDataIncorporacion());
-            stmPersoal.setString(2,persoal.getNUSS());
-            stmPersoal.setString(3,persoal.getLogin());
+            stmPersoal=con.prepareStatement("UPDATE persoal SET NUSS=? WHERE login=?;");
+            stmPersoal.setString(1,persoal.getNUSS());
+            stmPersoal.setString(2,persoal.getLogin());
             stmPersoal.executeUpdate();
         }
         con.commit();

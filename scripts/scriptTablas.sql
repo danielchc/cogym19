@@ -37,7 +37,7 @@ CREATE TABLE usuarios(
 	correoElectronico 	VARCHAR(200) NOT NULL,
 	IBAN 				CHAR(24) NOT NULL,
 	dataAlta			DATE NOT NULL DEFAULT NOW(),
-	dataBaixa			DATE CHECK(dataBaixa>dataAlta),
+	dataBaixa			DATE CHECK(dataBaixa>=dataAlta),
 	PRIMARY KEY (login)
 );
 
