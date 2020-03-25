@@ -125,6 +125,10 @@ public final class DAOUsuarios extends AbstractDAO {
         return buscarSocios("","");
     }
 
+    public ArrayList<Persoal> listarPersoal() throws SQLException {
+        return buscarPersoal("","");
+    }
+
     public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
         PreparedStatement stmUsuario = null;
         ArrayList<Socio> socios=new ArrayList<Socio>();
@@ -150,9 +154,31 @@ public final class DAOUsuarios extends AbstractDAO {
             ));
         }
         return socios;
-        //"SELECT * FROM usuarios NATURAL JOIN persoal WHERE login NOT IN (SELECT login FROM profesores);";
-        //"SELECT * FROM usuarios NATURAL JOIN persoal WHERE login IN (SELECT login FROM profesores);";
+    }
 
+    public ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
+        PreparedStatement stmUsuario = null;
+        ArrayList<Persoal> persoal=new ArrayList<Persoal>();
+        ResultSet rsUsuarios;
+        Connection con=super.getConexion();
+        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE login NOT IN (SELECT login FROM profesores) AND (login LIKE ? OR nome LIKE ?);");
+        stmUsuario.setString(1, "%"+login+"%");
+        stmUsuario.setString(2, "%"+nome+"%");
+        System.out.println(stmUsuario);
+        rsUsuarios = stmUsuario.executeQuery();
+        while (rsUsuarios.next()) {
+            persoal.add(new Persoal(
+               rsUsuarios.getString("login"),
+               rsUsuarios.getString("contrasinal"),
+               rsUsuarios.getString("nome"),
+               rsUsuarios.getString("numTelefono"),
+               rsUsuarios.getString("DNI"),
+               rsUsuarios.getString("correoElectronico"),
+               rsUsuarios.getString("iban"),
+               rsUsuarios.getString("NUSS")
+            ));
+        }
+        return persoal;
     }
 
 
