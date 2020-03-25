@@ -1,13 +1,13 @@
 package aplicacion;
 
 public final class Tarifa {
-    private String codTarifa;
+    private int codTarifa;
     private String nome;
     private Integer maxActividades;
     private float prezoBase;
     private float prezoExtras;
 
-    public Tarifa(String codTarifa,String nome,Integer maxActividades,float prezoBase,float prezoExtras){
+    public Tarifa(int codTarifa,String nome,Integer maxActividades,float prezoBase,float prezoExtras){
         this.codTarifa=codTarifa;
         this.nome=nome;
         this.maxActividades=maxActividades;
@@ -15,11 +15,11 @@ public final class Tarifa {
         this.prezoExtras=prezoExtras;
     }
 
-    public String getCodTarifa() {
+    public int getCodTarifa() {
         return codTarifa;
     }
 
-    public void setCodTarifa(String codTarifa) {
+    public void setCodTarifa(int codTarifa) {
         this.codTarifa = codTarifa;
     }
 
@@ -58,7 +58,7 @@ public final class Tarifa {
     @Override
     public boolean equals(Object o){
         if(o instanceof Tarifa){
-            return ((Tarifa) o).getCodTarifa().equals(this.codTarifa);
+            return ((Tarifa) o).getCodTarifa()==(this.codTarifa);
         }
         return false;
     }

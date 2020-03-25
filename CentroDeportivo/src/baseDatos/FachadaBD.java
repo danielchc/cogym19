@@ -38,4 +38,19 @@ public final class FachadaBD {
         this.conexion = conexion;
     }
 
+    public DAOUsuarios getDaoUsuarios() {
+        return daoUsuarios;
+    }
+
+    public void setDaoUsuarios(DAOUsuarios daoUsuarios) {
+        this.daoUsuarios = daoUsuarios;
+    }
+
+    public DAOTarifas getDaoTarifas() {
+        return daoTarifas;
+    }
+
+    public void setDaoTarifas(DAOTarifas daoTarifas) {
+        this.daoTarifas = daoTarifas;
+    }
 }
