@@ -71,3 +71,11 @@ INSERT INTO cursos (nome, descricion, prezo) values ('Álgebra lineal','Lorem ip
 INSERT INTO cursos (nome, descricion, prezo) values ('Curso zumba 2020','Lorem ipsum dolor sit amet, consectetur cras amet.',250);
 INSERT INTO cursos (nome, descricion, prezo) values ('Fútbol 7 2019-2020','Lorem ipsum dolor sit amet, consectetur cras amet.',250);
 INSERT INTO cursos (nome, descricion, prezo) values ('Curso aprendizaxe natación','Lorem ipsum dolor sit amet, consectetur cras amet.',250);
+
+SELECT * FROM actividades;
+INSERT INTO actividades VALUES('2020-01-22',1,1,1,1,'barjita69','Pochedad',35);
+INSERT INTO actividades VALUES('2020-01-26',2,1,2,1,'doralaexploradora','Cumbiotes',35);
+
+INSERT INTO realizarCursos VALUES(1,'david_pocho62');
+
+SELECT * FROM realizarActividades;
