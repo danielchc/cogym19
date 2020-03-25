@@ -26,6 +26,7 @@ public final class FachadaBD {
         usuario.setProperty("password", configuracion.getProperty("clave"));
         String con=String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"),configuracion.getProperty("servidor"),configuracion.getProperty("puerto"),configuracion.getProperty("baseDatos"));
         this.conexion= DriverManager.getConnection(con,usuario);
+        this.conexion.setAutoCommit(false);
         this.daoUsuarios=new DAOUsuarios(this.conexion);
         this.daoTarifas=new DAOTarifas(this.conexion);
     }
