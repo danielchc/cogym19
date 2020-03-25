@@ -12,6 +12,11 @@ public class Persoal extends Usuario {
         this.NUSS=NUSS;
     }
 
+    public Persoal(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,String NUSS){
+        super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
+        this.NUSS=NUSS;
+    }
+
     public Date getDataIncorporacion() {
         return dataIncorporacion;
     }

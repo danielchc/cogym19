@@ -14,6 +14,11 @@ public class Usuario {
     private Date dataBaixa;
 
     public Usuario(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,Date dataAlta){
+        this(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
+        this.dataAlta=dataAlta;
+    }
+
+    public Usuario(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta){
         this.login=login;
         this.contrasinal=contrasinal;
         this.nome=nome;
@@ -21,7 +26,6 @@ public class Usuario {
         this.DNI=DNI;
         this.correoElectronico=correoElectronico;
         this.IBANconta=IBANconta;
-        this.dataAlta=dataAlta;
     }
 
     public String getLogin() {

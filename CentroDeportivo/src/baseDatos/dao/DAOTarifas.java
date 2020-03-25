@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public final class DAOTarifas extends AbstractDAO {
 
@@ -56,5 +57,19 @@ public final class DAOTarifas extends AbstractDAO {
         stmTarifa.setInt(1,t.getCodTarifa());
         resultTarifas=stmTarifa.executeQuery();
         return resultTarifas.next();
+    }
+
+    public ArrayList<Tarifa> listarTarifas() throws SQLException{
+        ArrayList<Tarifa> tarifas=new ArrayList<>();
+        Connection conexion=super.getConexion();
+        PreparedStatement stmTarifa = null;
+        ResultSet resultTarifas;
+
+        stmTarifa=conexion.prepareStatement("SELECT * FROM tarifas");
+        resultTarifas=stmTarifa.executeQuery();
+        while (resultTarifas.next()){
+            tarifas.add(new Tarifa(resultTarifas.getInt("codTarifa"),resultTarifas.getString("nome"),resultTarifas.getInt("maxActividades"),resultTarifas.getFloat("precioBase"),resultTarifas.getFloat("precioExtra")));
+        }
+        return tarifas;
     }
 }
