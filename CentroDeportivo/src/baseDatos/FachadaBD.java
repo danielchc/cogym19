@@ -1,5 +1,6 @@
 package baseDatos;
 
+import baseDatos.dao.DAOMensaxes;
 import baseDatos.dao.DAOTarifas;
 import baseDatos.dao.DAOUsuarios;
 
@@ -11,9 +12,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public final class FachadaBD {
-    Connection conexion;
-    DAOUsuarios daoUsuarios;
-    DAOTarifas daoTarifas;
+    private Connection conexion;
+    private DAOUsuarios daoUsuarios;
+    private DAOTarifas daoTarifas;
+    private DAOMensaxes daoMensaxes;
 
     public FachadaBD() throws IOException, SQLException {
         Properties configuracion = new Properties();
@@ -29,6 +31,7 @@ public final class FachadaBD {
         this.conexion.setAutoCommit(false);
         this.daoUsuarios=new DAOUsuarios(this.conexion);
         this.daoTarifas=new DAOTarifas(this.conexion);
+        this.daoMensaxes=new DAOMensaxes(this.conexion);
     }
 
     public Connection getConexion() {
@@ -53,5 +56,13 @@ public final class FachadaBD {
 
     public void setDaoTarifas(DAOTarifas daoTarifas) {
         this.daoTarifas = daoTarifas;
+    }
+
+    public DAOMensaxes getDaoMensaxes() {
+        return daoMensaxes;
+    }
+
+    public void setDaoMensaxes(DAOMensaxes daoMensaxes) {
+        this.daoMensaxes = daoMensaxes;
     }
 }
