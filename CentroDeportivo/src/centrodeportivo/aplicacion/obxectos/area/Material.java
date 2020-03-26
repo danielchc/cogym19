@@ -1,4 +1,4 @@
-package centrodeportivo.aplicacion.area;
+package centrodeportivo.aplicacion.obxectos.area;
 
 import java.sql.Date;
 
