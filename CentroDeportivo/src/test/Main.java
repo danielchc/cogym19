@@ -2,9 +2,11 @@ package test;
 
 import centrodeportivo.aplicacion.*;
 import centrodeportivo.aplicacion.obxectos.Tarifa;
+import centrodeportivo.aplicacion.obxectos.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 
 import java.sql.Date;
@@ -14,7 +16,7 @@ public class Main {
     public static void main(String [] args) {
         FachadaBD fb=null;
         try{
-            fb=new FachadaBD();
+            fb=new FachadaBD(new FachadaAplicacion());
             Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
             Socio usu=new Socio("pocha",
                     "abc123..",
@@ -69,11 +71,12 @@ public class Main {
             System.out.println(NonTocarEsto.hashSHA256("puto  verde"));
             System.out.println(NonTocarEsto.hashSHA256("sadASDadadde"));
             System.out.println(NonTocarEsto.hashSHA256("sssadadqd2qwqjndsjfnkdsajfnaskdjfnskdjfnskafnsdkjfnsjdfnksdjnfakjfdnsajfnksfnnksdjfanjdse"));*/
-            char[] a={'p','a','s','s','w','o','r','d'};
+            /*char[] a={'p','a','s','s','w','o','r','d'};
             System.out.println(String.valueOf(a));
             System.out.println(NonTocarEsto.hashSHA256(String.valueOf(a)));
-            System.out.println(NonTocarEsto.hashSHA256("password"));
-
+            System.out.println(NonTocarEsto.hashSHA256("password"));*/
+            //System.out.println(fb.getDaoUsuarios().listarProfesores().size());
+            System.out.println(Criptografia.hashSHA256("adfasdda"));
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

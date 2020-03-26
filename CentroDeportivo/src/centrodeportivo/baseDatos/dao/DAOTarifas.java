@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos.dao;
 
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Tarifa;
 
 import java.sql.Connection;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 
 public final class DAOTarifas extends AbstractDAO {
 
-    public DAOTarifas(Connection conexion) {
-        super(conexion);
+    public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        super(conexion,fachadaAplicacion);
     }
 
     public void insertarTarifa(Tarifa t) throws SQLException{

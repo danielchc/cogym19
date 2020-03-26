@@ -1,5 +1,6 @@
 package centrodeportivo.baseDatos.dao;
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -10,8 +11,8 @@ import java.util.ArrayList;
 
 public final class DAOUsuarios extends AbstractDAO {
 
-    public DAOUsuarios(Connection conexion) {
-        super(conexion);
+    public DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        super(conexion,fachadaAplicacion);
     }
 
     public boolean existeUsuario(String login) throws SQLException {
@@ -129,6 +130,10 @@ public final class DAOUsuarios extends AbstractDAO {
         return buscarProfesores("","");
     }
 
+    public ArrayList<Usuario> listarUsuarios() throws SQLException {
+        return buscarUsuarios("","");
+    }
+
     public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
         PreparedStatement stmUsuario = null;
         ArrayList<Socio> socios=new ArrayList<Socio>();
@@ -203,4 +208,27 @@ public final class DAOUsuarios extends AbstractDAO {
         return profesores;
     }
 
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
+        PreparedStatement stmUsuario = null;
+        ArrayList<Usuario> usuarios=new ArrayList<>();
+        ResultSet rsUsuarios;
+        Connection con=super.getConexion();
+        stmUsuario = con.prepareStatement("SELECT * FROM usuarios WHERE login LIKE ? OR nome LIKE ?;");
+        stmUsuario.setString(1, "%"+login+"%");
+        stmUsuario.setString(2, "%"+nome+"%");
+        rsUsuarios = stmUsuario.executeQuery();
+        while (rsUsuarios.next()) {
+            usuarios.add(new Usuario(
+                    rsUsuarios.getString("login"),
+                    rsUsuarios.getString("contrasinal"),
+                    rsUsuarios.getString("nome"),
+                    rsUsuarios.getString("numTelefono"),
+                    rsUsuarios.getString("DNI"),
+                    rsUsuarios.getString("correoElectronico"),
+                    rsUsuarios.getString("iban"),
+                    rsUsuarios.getDate("dataAlta")
+            ));
+        }
+        return usuarios;
+    }
 }

@@ -1,5 +1,6 @@
 package centrodeportivo.baseDatos.dao;
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 
 public class DAOMensaxes extends AbstractDAO {
 
-    public DAOMensaxes(Connection conexion) {
-        super(conexion);
+    public DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        super(conexion,fachadaAplicacion);
     }
 
     public void enviarMensaxe(Mensaxe m) throws SQLException {
