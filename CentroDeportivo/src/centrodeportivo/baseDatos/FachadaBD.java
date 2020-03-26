@@ -1,6 +1,8 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -40,7 +42,7 @@ public final class FachadaBD {
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
         this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
-        this.daoIncidencias=new DAOIncidencias(this.conexion);
+        this.daoIncidencias=new DAOIncidencias(this.conexion,this.fachadaAplicacion);
     }
 
     /*
@@ -75,121 +77,79 @@ public final class FachadaBD {
     }
 
     public ArrayList<Profesor> listarProfesores() throws SQLException {
-        return buscarProfesores("","");
+        return daoUsuarios.listarProfesores();
     }
 
     public ArrayList<Usuario> listarUsuarios() throws SQLException {
-        return buscarUsuarios("","");
+        return daoUsuarios.listarUsuarios();
     }
 
     public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
-        PreparedStatement stmUsuario = null;
-        ArrayList<Socio> socios=new ArrayList<Socio>();
-        ResultSet rsUsuarios;
-        Connection con=super.getConexion();
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN socios WHERE login LIKE ? OR nome LIKE ?;");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            socios.add(new Socio(
-                    rsUsuarios.getString("login"),
-                    rsUsuarios.getString("contrasinal"),
-                    rsUsuarios.getString("nome"),
-                    rsUsuarios.getString("numTelefono"),
-                    rsUsuarios.getString("DNI"),
-                    rsUsuarios.getString("correoElectronico"),
-                    rsUsuarios.getString("iban"),
-                    rsUsuarios.getDate("dataAlta"),
-                    rsUsuarios.getDate("dataNacemento"),
-                    rsUsuarios.getString("dificultades")
-            ));
-        }
-        return socios;
+        return daoUsuarios.buscarSocios(login,nome);
     }
 
     public ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
-        PreparedStatement stmUsuario = null;
-        ArrayList<Persoal> persoal=new ArrayList<Persoal>();
-        ResultSet rsUsuarios;
-        Connection con=super.getConexion();
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE login NOT IN (SELECT login FROM profesores) AND (login LIKE ? OR nome LIKE ?);");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            persoal.add(new Persoal(
-                    rsUsuarios.getString("login"),
-                    rsUsuarios.getString("contrasinal"),
-                    rsUsuarios.getString("nome"),
-                    rsUsuarios.getString("numTelefono"),
-                    rsUsuarios.getString("DNI"),
-                    rsUsuarios.getString("correoElectronico"),
-                    rsUsuarios.getString("iban"),
-                    rsUsuarios.getString("NUSS")
-            ));
-        }
-        return persoal;
+        return daoUsuarios.buscarPersoal(login, nome);
     }
 
     public ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
-        PreparedStatement stmUsuario = null;
-        ArrayList<Profesor> profesores=new ArrayList<>();
-        ResultSet rsUsuarios;
-        Connection con=super.getConexion();
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE login IN (SELECT login FROM profesores) AND (login LIKE ? OR nome LIKE ?);");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            profesores.add(new Profesor(
-                    rsUsuarios.getString("login"),
-                    rsUsuarios.getString("contrasinal"),
-                    rsUsuarios.getString("nome"),
-                    rsUsuarios.getString("numTelefono"),
-                    rsUsuarios.getString("DNI"),
-                    rsUsuarios.getString("correoElectronico"),
-                    rsUsuarios.getString("iban"),
-                    rsUsuarios.getString("NUSS")
-            ));
-        }
-        return profesores;
+        return daoUsuarios.buscarProfesores(login, nome);
     }
 
     public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
-        PreparedStatement stmUsuario = null;
-        ArrayList<Usuario> usuarios=new ArrayList<>();
-        ResultSet rsUsuarios;
-        Connection con=super.getConexion();
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios WHERE login LIKE ? OR nome LIKE ?;");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            usuarios.add(new Usuario(
-                    rsUsuarios.getString("login"),
-                    rsUsuarios.getString("contrasinal"),
-                    rsUsuarios.getString("nome"),
-                    rsUsuarios.getString("numTelefono"),
-                    rsUsuarios.getString("DNI"),
-                    rsUsuarios.getString("correoElectronico"),
-                    rsUsuarios.getString("iban"),
-                    rsUsuarios.getDate("dataAlta")
-            ));
-        }
-        return usuarios;
+        return daoUsuarios.buscarUsuarios(login, nome);
     }
+
     /*
         Funcions DAOTarifas
      */
+    public void insertarTarifa(Tarifa t) throws SQLException{
+        daoTarifas.insertarTarifa(t);
+    }
+
+    public void borrarTarifa(Integer codTarifa) throws SQLException{
+        daoTarifas.borrarTarifa(codTarifa);
+    }
+
+    public void actualizarTarifa(Tarifa t) throws SQLException{
+        daoTarifas.actualizarTarifa(t);
+    }
+
+    public boolean estaEnUsoTarifa(Integer codTarifa) throws SQLException{
+        return daoTarifas.estaEnUsoTarifa(codTarifa);
+    }
+
+    public ArrayList<Tarifa> listarTarifas() throws SQLException{
+        return daoTarifas.listarTarifas();
+    }
+
+    public Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
+        return daoTarifas.consultarTarifaSocio(loginSocio);
+    }
 
     /*
         Funcions DAOMensaxes
      */
+    public void enviarMensaxe(Mensaxe m) throws SQLException {
+        daoMensaxes.enviarMensaxe(m);
+    }
+
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws SQLException{
+        daoMensaxes.enviarMensaxe(emisor, receptores, mensaxe);
+    }
+
+    public void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
+        daoMensaxes.marcarMensaxeComoLido(m);
+    }
+
+    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
+        return daoMensaxes.listarMensaxesRecibidos(loginReceptor);
+    }
 
     /*
         Funcions DAOIncidencias
      */
+
 
 
 

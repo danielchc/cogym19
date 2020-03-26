@@ -7,7 +7,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Date;
 
-public class Incidencia {
+public final class Incidencia {
     private TipoIncidencia tipoIncidencia;
     private int numero;
     private Usuario usuario;

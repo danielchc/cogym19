@@ -1,5 +1,6 @@
 package centrodeportivo.baseDatos.dao;
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.area.Area;
 import centrodeportivo.aplicacion.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
@@ -15,8 +16,8 @@ import java.util.ArrayList;
 
 public class DAOIncidencias extends  AbstractDAO{
 
-    public DAOIncidencias(Connection conexion) {
-        super(conexion);
+    public DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        super(conexion,fachadaAplicacion);
     }
 
     public void insertarIncidencia(Incidencia incidencia) throws SQLException {

@@ -1,5 +1,6 @@
 package test;
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import javafx.application.Application;
@@ -32,7 +33,7 @@ public class TestJavaFx extends Application {
 
         tableView.getColumns().addAll(column1,column2);
 
-        FachadaBD fb=new FachadaBD();
+        FachadaBD fb=new FachadaBD(new FachadaAplicacion());
         tableView.getItems().addAll(fb.getDaoUsuarios().listarPersoal());
 
         VBox vbox = new VBox(tableView);
