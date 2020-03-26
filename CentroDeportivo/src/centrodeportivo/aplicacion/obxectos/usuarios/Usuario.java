@@ -32,6 +32,7 @@ public class Usuario {
         this.IBANconta=IBANconta;
     }
 
+
     public String getLogin() {
         return login;
     }

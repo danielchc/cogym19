@@ -8,6 +8,10 @@ public class Persoal extends Usuario {
     private Date dataIncorporacion;
     private String NUSS;
 
+    public Persoal(String login){
+        super(login);
+    }
+
     public Persoal(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,Date dataAlta,Date dataIncorporacion,String NUSS){
         super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta, dataAlta);
         this.dataIncorporacion=dataIncorporacion;

@@ -9,6 +9,10 @@ public final class Socio extends Usuario {
     private String dificultades;
     private Tarifa tarifa;
 
+    public Socio(String login){
+        super(login);
+    }
+
     public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta, Date dataAlta,Date dataNacemento,String dificultades){
         super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta, dataAlta);
         this.dataNacemento=dataNacemento;
