@@ -12,12 +12,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
-CentroDeportivo/.idea/**/workspace.xml
-CentroDeportivo/.idea/**/misc.xml
-CentroDeportivo/.idea/**/tasks.xml
-CentroDeportivo/.idea/**/usage.statistics.xml
-CentroDeportivo/.idea/**/dictionaries
-CentroDeportivo/.idea/**/shelf
+CentroDeportivo/.idea/
 
 # Generated files
 .idea/**/contentModel.xml
