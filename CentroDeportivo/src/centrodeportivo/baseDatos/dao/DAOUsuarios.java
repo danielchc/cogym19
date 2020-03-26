@@ -125,6 +125,10 @@ public final class DAOUsuarios extends AbstractDAO {
         return buscarPersoal("","");
     }
 
+    public ArrayList<Profesor> listarProfesores() throws SQLException {
+        return buscarProfesores("","");
+    }
+
     public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
         PreparedStatement stmUsuario = null;
         ArrayList<Socio> socios=new ArrayList<Socio>();
@@ -175,5 +179,28 @@ public final class DAOUsuarios extends AbstractDAO {
         return persoal;
     }
 
+    public ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
+        PreparedStatement stmUsuario = null;
+        ArrayList<Profesor> profesores=new ArrayList<>();
+        ResultSet rsUsuarios;
+        Connection con=super.getConexion();
+        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE login IN (SELECT login FROM profesores) AND (login LIKE ? OR nome LIKE ?);");
+        stmUsuario.setString(1, "%"+login+"%");
+        stmUsuario.setString(2, "%"+nome+"%");
+        rsUsuarios = stmUsuario.executeQuery();
+        while (rsUsuarios.next()) {
+            profesores.add(new Profesor(
+                    rsUsuarios.getString("login"),
+                    rsUsuarios.getString("contrasinal"),
+                    rsUsuarios.getString("nome"),
+                    rsUsuarios.getString("numTelefono"),
+                    rsUsuarios.getString("DNI"),
+                    rsUsuarios.getString("correoElectronico"),
+                    rsUsuarios.getString("iban"),
+                    rsUsuarios.getString("NUSS")
+            ));
+        }
+        return profesores;
+    }
 
 }
