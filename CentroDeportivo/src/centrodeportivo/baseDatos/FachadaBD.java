@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
@@ -14,6 +15,9 @@ import centrodeportivo.baseDatos.dao.DAOUsuarios;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -26,13 +30,22 @@ public final class FachadaBD {
     private DAOMensaxes daoMensaxes;
     private DAOIncidencias daoIncidencias;
 
-    public FachadaBD(FachadaAplicacion fachadaAplicacion) throws IOException, SQLException {
+    public FachadaBD(FachadaAplicacion fachadaAplicacion) throws SQLException {
         this.fachadaAplicacion=fachadaAplicacion;
         Properties configuracion = new Properties();
         FileInputStream prop;
-        prop = new FileInputStream("baseDatos.properties");
-        configuracion.load(prop);
-        prop.close();
+
+        //prop = new FileInputStream("baseDatos.properties");
+        //configuracion.load(prop);
+        //prop.close();
+        try{
+            String conf=new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
+            //System.out.println(conf);
+            configuracion.load(new StringReader(conf));
+        }catch (Exception ex){
+            System.out.println("Non se pudo cargar o arquivo cifrado");
+            System.exit(1);
+        }
         Properties usuario = new Properties();
         usuario.setProperty("user", configuracion.getProperty("usuario"));
         usuario.setProperty("password", configuracion.getProperty("clave"));

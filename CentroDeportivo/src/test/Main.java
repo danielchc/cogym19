@@ -2,13 +2,14 @@ package test;
 
 import centrodeportivo.aplicacion.*;
 import centrodeportivo.aplicacion.obxectos.Tarifa;
-import centrodeportivo.aplicacion.obxectos.funcionsAux.Criptografia;
+import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -17,8 +18,8 @@ public class Main {
         FachadaBD fb=null;
         try{
             fb=new FachadaBD(new FachadaAplicacion());
-            Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
-            Socio usu=new Socio("pocha",
+            //Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
+            /*Socio usu=new Socio("pocha",
                     "abc123..",
                     "Juan",
                     "9999",
@@ -45,7 +46,7 @@ public class Main {
                     "correo@correo",
                     "aaaaa",
                     "aaaaaa"
-            );
+            );*/
             //fb.getDaoUsuarios().insertarUsuario(prof);
             //fb.getDaoMensaxes().enviarMensaxe(new Mensaxe("pocha","manolinha","Que pasa puto mono!!!"));
             //ArrayList<Usuario> a=new ArrayList<>();
@@ -76,7 +77,9 @@ public class Main {
             System.out.println(NonTocarEsto.hashSHA256(String.valueOf(a)));
             System.out.println(NonTocarEsto.hashSHA256("password"));*/
             //System.out.println(fb.getDaoUsuarios().listarProfesores().size());
-            System.out.println(Criptografia.hashSHA256("adfasdda"));
+            //System.out.println(Criptografia.hashSHA256("adfasdda"));
+            //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
+            //Files.write(Paths.get("baseDatos.encrypted"),k);
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
