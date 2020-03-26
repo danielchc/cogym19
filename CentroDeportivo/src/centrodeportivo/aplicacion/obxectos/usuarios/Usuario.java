@@ -13,6 +13,10 @@ public class Usuario {
     private Date dataAlta;
     private Date dataBaixa;
 
+    public Usuario(String login){
+        this.login=login;
+    }
+
     public Usuario(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,Date dataAlta){
         this(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
         this.dataAlta=dataAlta;

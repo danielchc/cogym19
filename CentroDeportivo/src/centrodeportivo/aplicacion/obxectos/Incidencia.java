@@ -1,43 +1,42 @@
 package centrodeportivo.aplicacion.obxectos;
 
+import centrodeportivo.aplicacion.area.Area;
+import centrodeportivo.aplicacion.area.Material;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Date;
 
 public class Incidencia {
     private TipoIncidencia tipoIncidencia;
     private int numero;
-    private String usuario;
+    private Usuario usuario;
     private String descricion;
     private String comentarioResolucion;
     private Date dataFalla;
     private Date dataResolucion;
     private float custoReparacion;
-    private int area;
-    private int instalacion;
-    //private Area area;
-    private int material;
-    //private Material material;
+    private Area area;
+    private Material material;
 
-    public Incidencia(TipoIncidencia tipoIncidencia, String usuario, String descricion) {
+    public Incidencia(TipoIncidencia tipoIncidencia, Usuario usuario, String descricion) {
         this.tipoIncidencia = tipoIncidencia;
         this.usuario = usuario;
         this.descricion = descricion;
     }
 
-    public Incidencia(TipoIncidencia tipoIncidencia,String usuario, String descripcion,int area,int instalacion) {
+    public Incidencia(TipoIncidencia tipoIncidencia,Usuario usuario, String descripcion,Area area) {
         this(tipoIncidencia, usuario, descripcion);
         this.area=area;
-        this.instalacion=instalacion;
     }
 
-    public Incidencia(TipoIncidencia tipoIncidencia, String usuario, String descripcion,int material) {
+    public Incidencia(TipoIncidencia tipoIncidencia, Usuario usuario, String descripcion,Material material) {
         this(tipoIncidencia, usuario, descripcion);
         this.material=material;
     }
 
 
-    public Incidencia(TipoIncidencia tipoIncidencia, int numero, String usuario, String descripcion) {
+    private Incidencia(TipoIncidencia tipoIncidencia, int numero, Usuario usuario, String descripcion) {
         this(tipoIncidencia, usuario, descripcion);
         this.numero = numero;
     }
@@ -58,11 +57,11 @@ public class Incidencia {
         this.numero = numero;
     }
 
-    public String getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -106,27 +105,35 @@ public class Incidencia {
         this.custoReparacion = custoReparacion;
     }
 
-    public int getArea() {
+    public Area getArea() {
         return area;
     }
 
-    public void setArea(int area) {
+    public void setArea(Area area) {
         this.area = area;
     }
 
-    public int getInstalacion() {
-        return instalacion;
-    }
-
-    public void setInstalacion(int instalacion) {
-        this.instalacion = instalacion;
-    }
-
-    public int getMaterial() {
+    public Material getMaterial() {
         return material;
     }
 
-    public void setMaterial(int material) {
+    public void setMaterial(Material material) {
         this.material = material;
+    }
+
+    @Override
+    public String toString() {
+        return "Incidencia{" +
+                "tipoIncidencia=" + tipoIncidencia +
+                ", numero=" + numero +
+                ", usuario=" + usuario +
+                ", descricion='" + descricion + '\'' +
+                ", comentarioResolucion='" + comentarioResolucion + '\'' +
+                ", dataFalla=" + dataFalla +
+                ", dataResolucion=" + dataResolucion +
+                ", custoReparacion=" + custoReparacion +
+                ", area=" + area +
+                ", material=" + material +
+                '}';
     }
 }
