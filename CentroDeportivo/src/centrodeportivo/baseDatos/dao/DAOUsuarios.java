@@ -281,13 +281,14 @@ public final class DAOUsuarios extends AbstractDAO {
         public Actividade(Timestamp dataActividade, int area, int instalacion, int tipoActividade, int curso, String profesor, String nome, float duracion) {
         }
     }
-
     class Curso{
-
+        public Curso(int codCurso, String nome, String descricion, float prezo) {
+        }
         public float getPrezo() {
             return 0;
         }
     }
+    /////////////////////////////
 
     public Cuota consultarCuota(String login) throws SQLException{
         PreparedStatement stm = null;
@@ -305,10 +306,10 @@ public final class DAOUsuarios extends AbstractDAO {
         tarifa=socio.getTarifa();
 
         stm = con.prepareStatement(
-                "SELECT * \n" +
-                "FROM realizarActividades NATURAL JOIN actividades\n" +
-                "WHERE dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() \n" +
-                "AND usuario=?;"
+                "SELECT * " +
+                "FROM realizarActividades NATURAL JOIN actividades " +
+                "WHERE dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
+                "AND usuario=? AND curso IS NULL;"
         );
         stm.setString(1, login);
         resultSet = stm.executeQuery();
@@ -325,12 +326,20 @@ public final class DAOUsuarios extends AbstractDAO {
             ));
         }
 
-        stm = con.prepareStatement("select * from cursos");
+        stm = con.prepareStatement(
+                "SELECT * " +
+                "FROM cursos " +
+                "WHERE codCurso IN (SELECT curso FROM realizarCursos WHERE usuario=?) " +
+                "AND codCurso IN (SELECT curso FROM actividades GROUP BY curso HAVING MAX(dataActividade)>=NOW());"
+        );
         stm.setString(1, login);
         resultSet = stm.executeQuery();
         while(resultSet.next()){
             cursosMes.add(new Curso(
-
+                resultSet.getInt("codCurso"),
+                resultSet.getString("nome"),
+                resultSet.getString("descricion"),
+                resultSet.getFloat("prezo")
             ));
         }
 
