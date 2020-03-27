@@ -12,9 +12,11 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public final class DAOUsuarios extends AbstractDAO {
-    Connection con;
+    private Connection con;
+
     public DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
+        this.con=conexion;
     }
 
     public boolean existeUsuario(String login) throws SQLException {
@@ -243,8 +245,8 @@ public final class DAOUsuarios extends AbstractDAO {
         con.commit();
     }
 
-    public Cuota consultarCuota(String login){
-        return  null;
+    public Cuota consultarCuota(String login) throws SQLException{
+
     }
 
 
