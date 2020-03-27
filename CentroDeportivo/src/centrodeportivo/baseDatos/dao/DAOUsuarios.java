@@ -276,22 +276,7 @@ public final class DAOUsuarios extends AbstractDAO {
         con.commit();
     }
 
-    ////clases de xoguete
-    class Actividade{
-        public Actividade(Timestamp dataActividade, int area, int instalacion, int tipoActividade, int curso, String profesor, String nome, float duracion) {
-        }
-    }
-    class Curso{
-        float prezo;
-        public Curso(int codCurso, String nome, String descricion, float prezo) {
-            this.prezo=prezo;
-        }
-        public float getPrezo() {
-            return prezo;
-        }
-    }
-    /////////////////////////////
-
+    /*
     public Cuota consultarCuota(String login) throws SQLException{
         PreparedStatement stm = null;
         ResultSet resultSet;
@@ -355,7 +340,7 @@ public final class DAOUsuarios extends AbstractDAO {
         totalPrezo=totalActividades+totalCursos;
 
         return new Cuota(socio,tarifa,prezoActividadesExtra,totalActividades,totalCursos,totalPrezo,actividadesMes,cursosMes);
-    }
+    }*/
 
 
 }

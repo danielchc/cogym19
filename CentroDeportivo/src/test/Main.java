@@ -80,7 +80,7 @@ public class Main {
             //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
             //Files.write(Paths.get("baseDatos.encrypted"),k);
 
-            System.out.println(fb.getDaoUsuarios().consultarCuota("pocha"));
+            //System.out.println(fb.getDaoUsuarios().consultarCuota("pocha"));
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
