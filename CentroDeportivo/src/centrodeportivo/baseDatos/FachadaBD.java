@@ -2,6 +2,7 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.funcionsAux.Criptografia;
+import centrodeportivo.aplicacion.obxectos.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
@@ -160,13 +161,19 @@ public final class FachadaBD {
 
     /*
         Funcions DAOIncidencias
-     */
+    */
 
+    public void insertarIncidencia(Incidencia incidencia) throws SQLException {
+        daoIncidencias.insertarIncidencia(incidencia);
+    }
 
+    public ArrayList<Incidencia> listarIncidencia() throws SQLException  {
+        return daoIncidencias.listarIncidencia();
+    }
 
-
-
-
+    public void resolverIncidencia(Incidencia incidencia) throws SQLException{
+        daoIncidencias.resolverIncidencia(incidencia);
+    }
 
     public Connection getConexion() {
         return conexion;
