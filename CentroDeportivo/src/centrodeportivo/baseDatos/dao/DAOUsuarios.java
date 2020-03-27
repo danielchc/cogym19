@@ -3,6 +3,7 @@ package centrodeportivo.baseDatos.dao;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
+import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -227,6 +228,36 @@ public final class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
+    public Socio buscarSocio(String login) throws SQLException{
+        PreparedStatement stmUsuario = null;
+        ResultSet rsUsuarios;
+        stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
+        stmUsuario.setString(1, login);
+        rsUsuarios = stmUsuario.executeQuery();
+        if(rsUsuarios.next()) {
+            return new Socio(
+                    rsUsuarios.getString("login"),
+                    rsUsuarios.getString("contrasinal"),
+                    rsUsuarios.getString("nomeUsuario"),
+                    rsUsuarios.getString("numTelefono"),
+                    rsUsuarios.getString("DNI"),
+                    rsUsuarios.getString("correoElectronico"),
+                    rsUsuarios.getString("iban"),
+                    rsUsuarios.getDate("dataAlta"),
+                    rsUsuarios.getDate("dataNacemento"),
+                    rsUsuarios.getString("dificultades"),
+                    new Tarifa(
+                            rsUsuarios.getInt("tarifa"),
+                            rsUsuarios.getString("nomeTarifa"),
+                            rsUsuarios.getInt("maxActividades"),
+                            rsUsuarios.getFloat("precioBase"),
+                            rsUsuarios.getFloat("precioExtra")
+                    )
+            );
+        }
+        return null;
+    }
+
     public void engadirCapadidade(String login, TipoActividade tipoActividade) throws SQLException{
         PreparedStatement stmAct=null;
         stmAct= con.prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
@@ -246,7 +277,28 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
     public Cuota consultarCuota(String login) throws SQLException{
+        PreparedStatement stm = null;
+        ResultSet resultSet;
+        Socio socio;
+        Tarifa tarifa;
+        int actividadesRealizadas=0;
+        //ArrayList<Actividade> actividadesMes=new ArrayList<>();
+        //ArrayList<Curso> cursosMes=new ArrayList<>();
+        float prezoActividadesExtra;
+        float totalActividades;
+        float totalCursos;
+        float totalPrezo;
 
+        socio=this.buscarSocio(login);
+        tarifa=socio.getTarifa();
+
+        stm = con.prepareStatement("select COUNT(*) AS total FROM realizarActividades WHERE usuario='pocha' AND dataActividade BETWEEN ;");
+        stm.setString(1, login);
+        resultSet = stm.executeQuery();
+        //select * from realizarActividades where dataActividade > to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),'01','01'),'YYYY-MM-DD');
+
+
+        return null;//new Cuota(socio,tarifa,);
     }
 
 

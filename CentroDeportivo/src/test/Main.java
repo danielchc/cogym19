@@ -1,7 +1,6 @@
 package test;
 
 import centrodeportivo.aplicacion.*;
-import centrodeportivo.aplicacion.obxectos.Tarifa;
 import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
@@ -81,7 +80,7 @@ public class Main {
             //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
             //Files.write(Paths.get("baseDatos.encrypted"),k);
 
-            System.out.println(fb.getDaoIncidencias().listarIncidencia());
+            System.out.println(fb.getDaoUsuarios().consultarCuota("pocha"));
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

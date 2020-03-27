@@ -17,10 +17,9 @@ public final class Socio extends Usuario {
         super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta, dataAlta);
         this.dataNacemento=dataNacemento;
         this.dificultades=dificultades;
-        this.tarifa=tarifa;
     }
 
-    public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta,Date dataNacemento,String dificultades,Tarifa tarifa){
+    public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta, Date dataAlta,Date dataNacemento,String dificultades,Tarifa tarifa){
         super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
         this.dataNacemento=dataNacemento;
         this.dificultades=dificultades;

@@ -1,10 +1,12 @@
 package centrodeportivo.aplicacion.obxectos.tarifas;
 
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public final class Cuota {
-    private String usuario;
+    private Socio usuario;
     private Tarifa tarifa;
     //private ArrayList<Actividade> actividadesMes;
     //private ArrayList<Curso> cursosMes;
@@ -13,28 +15,23 @@ public final class Cuota {
     private float totalCursos;
     private float totalPrezo;
 
-    socio-> pocha
-    tarifa-> 1 pochisima
-    realizarActividades
-    realizarcursos
 
-
-    public Cuota(String usuario, Tarifa tarifa, float prezoActividadesExtra, float totalActividades, float totalCursos, float totalPrezo) {
+    public Cuota(Socio usuario, Tarifa tarifa, float prezoActividadesExtra, float totalActividades, float totalCursos, float totalPrezo,ArrayList actividades,ArrayList cursos){
         this.usuario = usuario;
         this.tarifa = tarifa;
         this.prezoActividadesExtra = prezoActividadesExtra;
         this.totalActividades = totalActividades;
         this.totalCursos = totalCursos;
         this.totalPrezo = totalPrezo;
-        //this.actividadesMes=new ArrayList<>();
-        //this.cursosMes=new ArrayList<>();
+        //this.actividadesMes=actividades;
+        //this.cursosMes=cursos;
     }
 
-    public String getUsuario() {
+    public Socio getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(Socio usuario) {
         this.usuario = usuario;
     }
 
