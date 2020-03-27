@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DAOMensaxes extends AbstractDAO {
-    Connection con;
-    public DAOMensaxes(Connection con, FachadaAplicacion fachadaAplicacion) {
-        super(con,fachadaAplicacion);
-        this.con=super.getConexion();
+    private Connection con;
+    public DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        super(conexion,fachadaAplicacion);
+        this.con=conexion;
     }
 
     public void enviarMensaxe(Mensaxe m) throws SQLException {

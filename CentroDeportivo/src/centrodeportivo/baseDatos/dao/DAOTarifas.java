@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class DAOTarifas extends AbstractDAO {
-    Connection con;
+    private Connection con;
     public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
-        this.con=super.getConexion();
+        this.con=conexion;
     }
 
     public void insertarTarifa(Tarifa t) throws SQLException{

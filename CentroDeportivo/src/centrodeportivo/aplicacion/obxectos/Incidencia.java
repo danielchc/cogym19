@@ -23,26 +23,23 @@ public final class Incidencia {
         this.numero = numero;
     }
 
-    public Incidencia(TipoIncidencia tipoIncidencia, Usuario usuario, String descricion) {
-        this.tipoIncidencia = tipoIncidencia;
-        this.usuario = usuario;
-        this.descricion = descricion;
-    }
 
-    public Incidencia(TipoIncidencia tipoIncidencia,Usuario usuario, String descripcion,Area area) {
-        this(tipoIncidencia, usuario, descripcion);
+    public Incidencia(TipoIncidencia tipoIncidencia,int numero, Usuario usuario, String descripcion,Area area) {
+        this(tipoIncidencia, numero, usuario, descripcion);
         this.area=area;
     }
 
-    public Incidencia(TipoIncidencia tipoIncidencia, Usuario usuario, String descripcion,Material material) {
-        this(tipoIncidencia, usuario, descripcion);
+    public Incidencia(TipoIncidencia tipoIncidencia,int numero, Usuario usuario, String descripcion,Material material) {
+        this(tipoIncidencia, numero, usuario, descripcion);
         this.material=material;
     }
 
 
     private Incidencia(TipoIncidencia tipoIncidencia, int numero, Usuario usuario, String descripcion) {
-        this(tipoIncidencia, usuario, descripcion);
+        this.tipoIncidencia=tipoIncidencia;
         this.numero = numero;
+        this.usuario=usuario;
+        this.descricion=descripcion;
     }
 
     public TipoIncidencia getTipoIncidencia() {

@@ -11,11 +11,11 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DAOIncidencias extends  AbstractDAO{
-    Connection con;
+public final class DAOIncidencias extends  AbstractDAO{
+    private Connection con;
     public DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
-        this.con=super.getConexion();
+        this.con=conexion;
     }
 
     public void insertarIncidencia(Incidencia incidencia) throws SQLException {
@@ -60,6 +60,7 @@ public class DAOIncidencias extends  AbstractDAO{
             );
             incidencias.add(new Incidencia(
                     TipoIncidencia.Area,
+                    rsIncidencias.getInt("numero"),
                     new Usuario(rsIncidencias.getString("usuario")),
                     rsIncidencias.getString("descricionIncidencia"),
                     area
@@ -78,6 +79,7 @@ public class DAOIncidencias extends  AbstractDAO{
             );
             incidencias.add(new Incidencia(
                     TipoIncidencia.Material,
+                    rsIncidencias.getInt("numero"),
                     new Usuario(rsIncidencias.getString("usuario")),
                     rsIncidencias.getString("descricionIncidencia"),
                     material
@@ -86,19 +88,23 @@ public class DAOIncidencias extends  AbstractDAO{
         return incidencias;
     }
 
-    public void resolverIncidencia(Incidencia incidencia){
-
-//        PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null;
-//        stmUsuario= con.prepareStatement("UPDATE usuarios SET login=?,contrasinal=?,nome=?,numTelefono=?,DNI=?,correoElectronico=?,IBAN=? WHERE login=?;");
-//        stmUsuario.setString(1,usuario.getLogin());
-//        stmUsuario.setString(2,usuario.getContrasinal());
-//        stmUsuario.setString(3,usuario.getNome());
-//        stmUsuario.setString(4,usuario.getNumTelefono());
-//        stmUsuario.setString(5,usuario.getDNI());
-//        stmUsuario.setString(6,usuario.getCorreoElectronico());
-//        stmUsuario.setString(7,usuario.getIBANconta());
-//        stmUsuario.setString(8,loginVello);
-//        stmUsuario.executeUpdate();
+    public void resolverIncidencia(Incidencia incidencia) throws SQLException {
+        PreparedStatement stmIncidencia=null;
+        if(incidencia.getTipoIncidencia()==TipoIncidencia.Area) {
+            stmIncidencia = con.prepareStatement("UPDATE incidenciasAreas SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
+            stmIncidencia.setString(1, incidencia.getComentarioResolucion());
+            stmIncidencia.setDouble(2, incidencia.getCustoReparacion());
+            stmIncidencia.setInt(3, incidencia.getNumero());
+            System.out.println(stmIncidencia);
+            stmIncidencia.executeUpdate();
+        }else {
+            stmIncidencia = con.prepareStatement("UPDATE incidenciasMateriais SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
+            stmIncidencia.setString(1, incidencia.getComentarioResolucion());
+            stmIncidencia.setDouble(2, incidencia.getCustoReparacion());
+            stmIncidencia.setInt(3, incidencia.getNumero());
+            stmIncidencia.executeUpdate();
+        }
+        con.commit();
     }
 
 }
