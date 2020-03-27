@@ -6,9 +6,9 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.aplicacion.obxectos.xestion.XestionMensaxes;
-import centrodeportivo.aplicacion.obxectos.xestion.XestionTarifas;
-import centrodeportivo.aplicacion.obxectos.xestion.XestionUsuarios;
+import centrodeportivo.aplicacion.xestion.XestionMensaxes;
+import centrodeportivo.aplicacion.xestion.XestionTarifas;
+import centrodeportivo.aplicacion.xestion.XestionUsuarios;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 

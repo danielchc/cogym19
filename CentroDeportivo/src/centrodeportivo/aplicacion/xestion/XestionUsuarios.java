@@ -1,4 +1,4 @@
-package centrodeportivo.aplicacion.obxectos.xestion;
+package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
