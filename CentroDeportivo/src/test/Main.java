@@ -80,6 +80,8 @@ public class Main {
             //System.out.println(Criptografia.hashSHA256("adfasdda"));
             //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
             //Files.write(Paths.get("baseDatos.encrypted"),k);
+
+            System.out.println(fb.getDaoIncidencias().listarIncidencia());
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

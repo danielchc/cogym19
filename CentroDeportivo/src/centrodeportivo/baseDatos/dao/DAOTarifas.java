@@ -11,32 +11,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class DAOTarifas extends AbstractDAO {
-
+    Connection con;
     public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
+        this.con=super.getConexion();
     }
 
     public void insertarTarifa(Tarifa t) throws SQLException{
-        Connection conexion=super.getConexion();
         PreparedStatement stmTarifa=null;
 
-        stmTarifa=conexion.prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
+        stmTarifa=con.prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
         stmTarifa.setString(1,t.getNome());
         stmTarifa.setInt(2,t.getMaxActividades());
         stmTarifa.setFloat(3,t.getPrezoBase());
         stmTarifa.setFloat(4,t.getPrezoExtras());
         stmTarifa.executeUpdate();
-        conexion.commit();
+        con.commit();
     }
 
     public void borrarTarifa(Integer codTarifa) throws SQLException{
-        Connection conexion=super.getConexion();
         PreparedStatement stmTarifa=null;
 
-        stmTarifa=conexion.prepareStatement("DELETE FROM tarifas WHERE codTarifa=?");
+        stmTarifa=con.prepareStatement("DELETE FROM tarifas WHERE codTarifa=?");
         stmTarifa.setInt(1, codTarifa);
         stmTarifa.executeUpdate();
-        conexion.commit();
+        con.commit();
     }
 
     public void actualizarTarifa(Tarifa t) throws SQLException{
@@ -84,11 +83,11 @@ public final class DAOTarifas extends AbstractDAO {
     }
 
     public Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
-        Connection conexion=super.getConexion();
+
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
 
-        stmTarifa=conexion.prepareStatement("SELECT * FROM tarifas WHERE codTarifa IN (SELECT tarifa FROM socios WHERE login=?)");
+        stmTarifa=con.prepareStatement("SELECT * FROM tarifas WHERE codTarifa IN (SELECT tarifa FROM socios WHERE login=?)");
         stmTarifa.setString(1,loginSocio);
         resultTarifas=stmTarifa.executeQuery();
         if(resultTarifas.next()){

@@ -19,6 +19,10 @@ public final class Incidencia {
     private Area area;
     private Material material;
 
+    public Incidencia(int numero) {
+        this.numero = numero;
+    }
+
     public Incidencia(TipoIncidencia tipoIncidencia, Usuario usuario, String descricion) {
         this.tipoIncidencia = tipoIncidencia;
         this.usuario = usuario;

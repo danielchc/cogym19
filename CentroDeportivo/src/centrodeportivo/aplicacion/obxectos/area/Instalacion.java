@@ -7,6 +7,10 @@ public class Instalacion {
     private String numTelefono;
     private String direccion;
 
+    public Instalacion(int codInstalacion) {
+        this.codInstalacion = codInstalacion;
+    }
+
     public Instalacion(String nome, String numTelefono, String direccion) {
         this.nome = nome;
         this.numTelefono = numTelefono;

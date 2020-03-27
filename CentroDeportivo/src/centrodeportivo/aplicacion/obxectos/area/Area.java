@@ -10,12 +10,18 @@ public class Area {
     private int aforoMaximo;
     private Date dataBaixa;
 
+    public Area(int codArea,Instalacion instalacion) {
+        this.codArea = codArea;
+        this.instalacion = instalacion;
+    }
+
     public Area(Instalacion instalacion, String nome, String descricion, int aforoMaximo) {
         this.instalacion = instalacion;
         this.nome = nome;
         this.descricion = descricion;
         this.aforoMaximo = aforoMaximo;
     }
+
     public Area(int codArea,Instalacion instalacion, String nome, String descricion, int aforoMaximo,Date dataBaixa) {
         this(instalacion, nome, descricion, aforoMaximo);
         this.codArea = codArea;
