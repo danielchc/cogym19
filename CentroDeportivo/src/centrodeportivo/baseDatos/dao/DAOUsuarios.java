@@ -1,6 +1,8 @@
 package centrodeportivo.baseDatos.dao;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -231,4 +233,30 @@ public final class DAOUsuarios extends AbstractDAO {
         }
         return usuarios;
     }
+
+    public void engadirCapadidade(String login, TipoActividade tipoActividade) throws SQLException{
+        Connection conexion= this.getConexion();
+        PreparedStatement stmAct=null;
+        stmAct= conexion.prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
+        stmAct.setInt(1,tipoActividade.getCodTipoActividade());
+        stmAct.setString(2,login);
+        stmAct.executeUpdate();
+        conexion.commit();
+    }
+
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade) throws SQLException{
+        Connection conexion= this.getConexion();
+        PreparedStatement stmAct=null;
+        stmAct= conexion.prepareStatement("DELETE FROM estarCapacitado WHERE tipoActividade=? AND profesor=?;");
+        stmAct.setInt(1,tipoActividade.getCodTipoActividade());
+        stmAct.setString(2,login);
+        stmAct.executeUpdate();
+        conexion.commit();
+    }
+
+    public Cuota consultarCuota(String login){
+        return  null;
+    }
+
+
 }

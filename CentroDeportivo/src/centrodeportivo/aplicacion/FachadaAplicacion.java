@@ -1,7 +1,7 @@
 package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
-import centrodeportivo.aplicacion.obxectos.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;

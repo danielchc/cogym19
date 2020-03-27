@@ -1,4 +1,4 @@
-package centrodeportivo.aplicacion.obxectos;
+package centrodeportivo.aplicacion.obxectos.tarifas;
 
 public final class Tarifa {
     private int codTarifa;

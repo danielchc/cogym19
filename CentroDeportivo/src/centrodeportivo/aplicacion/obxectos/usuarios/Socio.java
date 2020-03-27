@@ -1,6 +1,6 @@
 package centrodeportivo.aplicacion.obxectos.usuarios;
 
-import centrodeportivo.aplicacion.obxectos.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 
 import java.sql.Date;
 

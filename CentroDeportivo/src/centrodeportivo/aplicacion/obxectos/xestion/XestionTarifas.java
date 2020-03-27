@@ -1,6 +1,6 @@
 package centrodeportivo.aplicacion.obxectos.xestion;
 
-import centrodeportivo.aplicacion.obxectos.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 

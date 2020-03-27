@@ -3,7 +3,7 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
-import centrodeportivo.aplicacion.obxectos.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -14,7 +14,6 @@ import centrodeportivo.baseDatos.dao.DAOTarifas;
 import centrodeportivo.baseDatos.dao.DAOUsuarios;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
