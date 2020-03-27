@@ -282,10 +282,12 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
     class Curso{
+        float prezo;
         public Curso(int codCurso, String nome, String descricion, float prezo) {
+            this.prezo=prezo;
         }
         public float getPrezo() {
-            return 0;
+            return prezo;
         }
     }
     /////////////////////////////
