@@ -276,29 +276,74 @@ public final class DAOUsuarios extends AbstractDAO {
         con.commit();
     }
 
+    ////clases de xoguete
+    class Actividade{
+        public Actividade(Timestamp dataActividade, int area, int instalacion, int tipoActividade, int curso, String profesor, String nome, float duracion) {
+        }
+    }
+
+    class Curso{
+
+        public float getPrezo() {
+            return 0;
+        }
+    }
+
     public Cuota consultarCuota(String login) throws SQLException{
         PreparedStatement stm = null;
         ResultSet resultSet;
         Socio socio;
         Tarifa tarifa;
-        int actividadesRealizadas=0;
-        //ArrayList<Actividade> actividadesMes=new ArrayList<>();
-        //ArrayList<Curso> cursosMes=new ArrayList<>();
-        float prezoActividadesExtra;
-        float totalActividades;
-        float totalCursos;
-        float totalPrezo;
+        ArrayList<Actividade> actividadesMes=new ArrayList<>();
+        ArrayList<Curso> cursosMes=new ArrayList<>();
+        float prezoActividadesExtra=0.0f;
+        float totalActividades=0.0f;
+        float totalCursos=0.0f;
+        float totalPrezo=0.0f;
 
         socio=this.buscarSocio(login);
         tarifa=socio.getTarifa();
 
-        stm = con.prepareStatement("select COUNT(*) AS total FROM realizarActividades WHERE usuario='pocha' AND dataActividade BETWEEN ;");
+        stm = con.prepareStatement(
+                "SELECT * \n" +
+                "FROM realizarActividades NATURAL JOIN actividades\n" +
+                "WHERE dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() \n" +
+                "AND usuario=?;"
+        );
         stm.setString(1, login);
         resultSet = stm.executeQuery();
-        //select * from realizarActividades where dataActividade > to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),'01','01'),'YYYY-MM-DD');
+        while(resultSet.next()){
+            actividadesMes.add(new Actividade(
+                resultSet.getTimestamp("dataActividade"),
+                resultSet.getInt("area"),
+                resultSet.getInt("instalacion"),
+                resultSet.getInt("tipoActividade"),
+                resultSet.getInt("curso"),
+                resultSet.getString("profesor"),
+                resultSet.getString("nome"),
+                resultSet.getFloat("duracion")
+            ));
+        }
 
+        stm = con.prepareStatement("select * from cursos");
+        stm.setString(1, login);
+        resultSet = stm.executeQuery();
+        while(resultSet.next()){
+            cursosMes.add(new Curso(
 
-        return null;//new Cuota(socio,tarifa,);
+            ));
+        }
+
+        if(actividadesMes.size()>tarifa.getMaxActividades()){
+            prezoActividadesExtra=tarifa.getPrezoExtras()*(actividadesMes.size()-tarifa.getMaxActividades());
+        }
+        totalActividades=tarifa.getPrezoBase()+prezoActividadesExtra;
+        for(Curso c:cursosMes){
+            totalCursos+=c.getPrezo();
+        }
+        totalPrezo=totalActividades+totalCursos;
+
+        return new Cuota(socio,tarifa,prezoActividadesExtra,totalActividades,totalCursos,totalPrezo,actividadesMes,cursosMes);
     }
 
 
