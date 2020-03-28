@@ -25,17 +25,10 @@ public abstract class ValidacionDatos {
 
     public static boolean isCorrectoNUSS(String nuss){
         if(nuss.length()<9 || nuss.length()>12) return false;
-        for(int i=0;i<nuss.length();i++){
-            if(!Character.isDigit(nuss.charAt(i))) return false;
-        }
-        return true;
+        return nuss.matches("[0-9]+");
     }
 
     public static boolean isCorrectoTelefono(String tlf){
-        if(tlf.length()!=9) return false;
-        for(int i=0;i<tlf.length();i++){
-            if(!Character.isDigit(tlf.charAt(i))) return false;
-        }
-        return true;
+        return tlf.matches("[0-9]+") && tlf.length()==9;
     }
 }
