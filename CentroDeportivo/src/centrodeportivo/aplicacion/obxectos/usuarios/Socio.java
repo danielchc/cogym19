@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion.obxectos.usuarios;
 
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 
 import java.sql.Date;
 
@@ -11,6 +12,7 @@ public final class Socio extends Usuario {
 
     public Socio(String login){
         super(login);
+        super.setTipoUsuario(TipoUsuario.Socio);
     }
 
     public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta, Date dataAlta,Date dataNacemento,String dificultades){

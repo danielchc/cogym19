@@ -1,5 +1,6 @@
 package centrodeportivo.gui.controladores.persoal;
 
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class vPrincipalController implements Initializable {
-
+    private Usuario u;
     public Button btnIncidencia;
     public Button btnMaterial;
     public Button btnActividades;
@@ -126,5 +127,9 @@ public class vPrincipalController implements Initializable {
 
     public void btnSliderAction(ActionEvent actionEvent) {
         mostrarMenu(PantallasPersoal.valueOf(((Button)actionEvent.getSource()).getId()));
+    }
+
+    public void setUsuario(String login){
+
     }
 }

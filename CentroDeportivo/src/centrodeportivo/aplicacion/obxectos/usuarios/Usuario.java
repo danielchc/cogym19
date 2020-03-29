@@ -14,6 +14,7 @@ public class Usuario {
     private String IBANconta;
     private Date dataAlta;
     private Date dataBaixa;
+    private TipoUsuario tipoUsuario;
 
     public Usuario(String login){
         this.login=login;
@@ -105,6 +106,14 @@ public class Usuario {
 
     public void setDataBaixa(Date dataBaixa) {
         this.dataBaixa = dataBaixa;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     @Override
