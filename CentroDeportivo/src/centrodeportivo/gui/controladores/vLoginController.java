@@ -56,7 +56,7 @@ public class vLoginController  implements Initializable {
                 System.out.println(ex);
             }
         }else{
-            labelError.setText("Algún campo incompleto");
+            labelError.setText("Algún campo está incompleto");
         }
     }
 
