@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class FachadaGUI {
     private FachadaAplicacion fachadaAplicacion;
-    FXMLLoader fxmlLoader = new FXMLLoader();
-    Stage stage = new Stage();
+    FXMLLoader fxmlLoader;
+    Stage stage;
     Scene scene;
     //vprincipal
     //vlogin
@@ -18,6 +18,8 @@ public class FachadaGUI {
 
     public FachadaGUI(FachadaAplicacion fachadaAplicacion) {
         this.fachadaAplicacion = fachadaAplicacion;
+        stage = new Stage();
+        fxmlLoader= new FXMLLoader();
     }
 
     public void mostrarVentaPersoal() throws IOException {

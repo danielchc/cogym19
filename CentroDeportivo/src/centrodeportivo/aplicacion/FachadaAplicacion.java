@@ -147,6 +147,10 @@ public class FachadaAplicacion {
         fachadaGUI.mostrarVentaPersoal();
     }
 
+    public Usuario consultarUsuario(String login) throws SQLException {
+        return fachadaBD.consultarUsuario(login);
+    }
+
     /*
         Xestion incidencias
      */

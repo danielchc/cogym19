@@ -71,7 +71,12 @@ public class XestionUsuarios {
     public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
         return fachadaBD.buscarUsuarios(login, nome);
     }
+
     public TipoUsuario consultarTipo(String login) throws SQLException {
         return fachadaBD.consultarTipo(login);
+    }
+
+    public Usuario consultarUsuario(String login) throws SQLException {
+        return fachadaBD.consultarUsuario(login);
     }
 }

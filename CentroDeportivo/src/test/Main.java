@@ -18,7 +18,7 @@ public class Main {
     public static void main(String [] args) {
         FachadaBD fb=null;
         try{
-            fb=new FachadaBD(new FachadaAplicacion());
+            fb=new FachadaBD(null);
             //Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
             /*Socio usu=new Socio("pocha",
                     "abc123..",
@@ -81,13 +81,6 @@ public class Main {
             //System.out.println(Criptografia.hashSHA256("adfasdda"));
             //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
             //Files.write(Paths.get("baseDatos.encrypted"),k);
-
-            //System.out.println(fb.getDaoUsuarios().consultarCuota("pocha"));
-
-
-            for(Usuario u:fb.listarUsuarios()){
-                System.out.println(u.getLogin()+"->"+fb.consultarTipo(u.getLogin()));
-            }
 
         }catch (Exception ex){
             System.out.println(ex.getMessage());

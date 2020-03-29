@@ -229,36 +229,6 @@ public final class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
-    protected Socio buscarSocio(String login) throws SQLException{
-        PreparedStatement stmUsuario = null;
-        ResultSet rsUsuarios;
-        stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
-        stmUsuario.setString(1, login);
-        rsUsuarios = stmUsuario.executeQuery();
-        if(rsUsuarios.next()) {
-            return new Socio(
-                    rsUsuarios.getString("login"),
-                    rsUsuarios.getString("contrasinal"),
-                    rsUsuarios.getString("nomeUsuario"),
-                    rsUsuarios.getString("numTelefono"),
-                    rsUsuarios.getString("DNI"),
-                    rsUsuarios.getString("correoElectronico"),
-                    rsUsuarios.getString("iban"),
-                    rsUsuarios.getDate("dataAlta"),
-                    rsUsuarios.getDate("dataNacemento"),
-                    rsUsuarios.getString("dificultades"),
-                    new Tarifa(
-                            rsUsuarios.getInt("tarifa"),
-                            rsUsuarios.getString("nomeTarifa"),
-                            rsUsuarios.getInt("maxActividades"),
-                            rsUsuarios.getFloat("precioBase"),
-                            rsUsuarios.getFloat("precioExtra")
-                    )
-            );
-        }
-        return null;
-    }
-
     protected void engadirCapadidade(String login, TipoActividade tipoActividade) throws SQLException{
         PreparedStatement stmAct=null;
         stmAct= con.prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
@@ -294,6 +264,70 @@ public final class DAOUsuarios extends AbstractDAO {
         if(rsUsuarios.getBoolean("eProfesor"))return TipoUsuario.Profesor;
         if(rsUsuarios.getBoolean("ePersoal"))return TipoUsuario.Persoal;
         return TipoUsuario.Desconocido;
+    }
+
+    protected Usuario consultarUsuario(String login) throws SQLException {
+        PreparedStatement stmUsuario = null;
+        ResultSet rsUsuarios;
+        TipoUsuario tipoUsuario=consultarTipo(login);
+        if(tipoUsuario==TipoUsuario.Socio) {
+            stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
+            stmUsuario.setString(1, login);
+            rsUsuarios = stmUsuario.executeQuery();
+            if (rsUsuarios.next()) {
+                return new Socio(
+                       rsUsuarios.getString("login"),
+                       rsUsuarios.getString("contrasinal"),
+                       rsUsuarios.getString("nomeUsuario"),
+                       rsUsuarios.getString("numTelefono"),
+                       rsUsuarios.getString("DNI"),
+                       rsUsuarios.getString("correoElectronico"),
+                       rsUsuarios.getString("iban"),
+                       rsUsuarios.getDate("dataAlta"),
+                       rsUsuarios.getDate("dataNacemento"),
+                       rsUsuarios.getString("dificultades"),
+                       new Tarifa(
+                               rsUsuarios.getInt("tarifa"),
+                               rsUsuarios.getString("nomeTarifa"),
+                               rsUsuarios.getInt("maxActividades"),
+                               rsUsuarios.getFloat("precioBase"),
+                               rsUsuarios.getFloat("precioExtra")
+                       )
+               );
+            }
+        }else{
+            stmUsuario = con.prepareStatement("SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login=?;");
+            stmUsuario.setString(1, login);
+            rsUsuarios = stmUsuario.executeQuery();
+            if(tipoUsuario==TipoUsuario.Profesor){
+                if (rsUsuarios.next()) {
+                    return new Profesor(
+                            rsUsuarios.getString("login"),
+                            rsUsuarios.getString("contrasinal"),
+                            rsUsuarios.getString("nome"),
+                            rsUsuarios.getString("numTelefono"),
+                            rsUsuarios.getString("DNI"),
+                            rsUsuarios.getString("correoElectronico"),
+                            rsUsuarios.getString("iban"),
+                            rsUsuarios.getString("NUSS")
+                    ) ;
+                }
+            }else if(tipoUsuario==TipoUsuario.Persoal){
+                if (rsUsuarios.next()) {
+                    return new Persoal(
+                            rsUsuarios.getString("login"),
+                            rsUsuarios.getString("contrasinal"),
+                            rsUsuarios.getString("nome"),
+                            rsUsuarios.getString("numTelefono"),
+                            rsUsuarios.getString("DNI"),
+                            rsUsuarios.getString("correoElectronico"),
+                            rsUsuarios.getString("iban"),
+                            rsUsuarios.getString("NUSS")
+                    ) ;
+                }
+            }
+        }
+        return null;
     }
     /*
     protected Cuota consultarCuota(String login) throws SQLException{

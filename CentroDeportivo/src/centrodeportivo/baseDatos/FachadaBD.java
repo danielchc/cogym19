@@ -113,6 +113,11 @@ public final class FachadaBD {
     public TipoUsuario consultarTipo(String login) throws SQLException{
         return daoUsuarios.consultarTipo(login);
     }
+
+    public Usuario consultarUsuario(String login) throws SQLException {
+        return daoUsuarios.consultarUsuario(login);
+    }
+
     /*
         Funcions DAOTarifas
      */
