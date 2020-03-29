@@ -1,5 +1,6 @@
 package centrodeportivo.aplicacion.xestion;
 
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -69,5 +70,8 @@ public class XestionUsuarios {
 
     public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
         return fachadaBD.buscarUsuarios(login, nome);
+    }
+    public TipoUsuario consultarTipo(String login) throws SQLException {
+        return fachadaBD.consultarTipo(login);
     }
 }

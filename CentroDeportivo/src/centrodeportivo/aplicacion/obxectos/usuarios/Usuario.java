@@ -1,5 +1,7 @@
 package centrodeportivo.aplicacion.obxectos.usuarios;
 
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
+
 import java.sql.Date;
 
 public class Usuario {

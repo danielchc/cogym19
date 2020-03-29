@@ -1,13 +1,14 @@
-package centrodeportivo.baseDatos.dao;
+package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
-import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.baseDatos.AbstractDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,12 +16,12 @@ import java.util.ArrayList;
 public final class DAOUsuarios extends AbstractDAO {
     private Connection con;
 
-    public DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+    protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
         this.con=conexion;
     }
 
-    public boolean existeUsuario(String login) throws SQLException {
+    protected boolean existeUsuario(String login) throws SQLException {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         stmUsuario=con.prepareStatement("SELECT * FROM usuarios WHERE login=?");
@@ -29,7 +30,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return resultValidacion.next();
     }
 
-    public boolean validarUsuario(String login,String password) throws SQLException {
+    protected boolean validarUsuario(String login,String password) throws SQLException {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         stmUsuario=con.prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=?");
@@ -39,7 +40,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return resultValidacion.next();
     }
 
-    public void insertarUsuario(Usuario usuario) throws SQLException {
+    protected void insertarUsuario(Usuario usuario) throws SQLException {
         PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null,stmProfesor=null;
         con.setAutoCommit(false);
         stmUsuario= con.prepareStatement("INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
@@ -75,7 +76,7 @@ public final class DAOUsuarios extends AbstractDAO {
         con.commit();
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario) throws SQLException {
+    protected void actualizarUsuario(String loginVello,Usuario usuario) throws SQLException {
         PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null;
         con.setAutoCommit(false);
         stmUsuario= con.prepareStatement("UPDATE usuarios SET login=?,contrasinal=?,nome=?,numTelefono=?,DNI=?,correoElectronico=?,IBAN=? WHERE login=?;");
@@ -109,7 +110,7 @@ public final class DAOUsuarios extends AbstractDAO {
         stmSocio.close();
     }
 
-    public void darBaixaUsuario(String login) throws SQLException {
+    protected void darBaixaUsuario(String login) throws SQLException {
         PreparedStatement stmUsuario;
         stmUsuario= con.prepareStatement("UPDATE usuarios SET dataBaixa=NOW() WHERE login=?");
         stmUsuario.setString(1,login);
@@ -118,23 +119,23 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario.close();
     }
 
-    public ArrayList<Socio> listarSocios() throws SQLException {
+    protected ArrayList<Socio> listarSocios() throws SQLException {
         return buscarSocios("","");
     }
 
-    public ArrayList<Persoal> listarPersoal() throws SQLException {
+    protected ArrayList<Persoal> listarPersoal() throws SQLException {
         return buscarPersoal("","");
     }
 
-    public ArrayList<Profesor> listarProfesores() throws SQLException {
+    protected ArrayList<Profesor> listarProfesores() throws SQLException {
         return buscarProfesores("","");
     }
 
-    public ArrayList<Usuario> listarUsuarios() throws SQLException {
+    protected ArrayList<Usuario> listarUsuarios() throws SQLException {
         return buscarUsuarios("","");
     }
 
-    public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
+    protected ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
         PreparedStatement stmUsuario = null;
         ArrayList<Socio> socios=new ArrayList<Socio>();
         ResultSet rsUsuarios;
@@ -159,7 +160,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return socios;
     }
 
-    public ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
+    protected ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
         PreparedStatement stmUsuario = null;
         ArrayList<Persoal> persoal=new ArrayList<Persoal>();
         ResultSet rsUsuarios;
@@ -182,7 +183,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return persoal;
     }
 
-    public ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
+    protected ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
         PreparedStatement stmUsuario = null;
         ArrayList<Profesor> profesores=new ArrayList<>();
         ResultSet rsUsuarios;
@@ -205,7 +206,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return profesores;
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
+    protected ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
         PreparedStatement stmUsuario = null;
         ArrayList<Usuario> usuarios=new ArrayList<>();
         ResultSet rsUsuarios;
@@ -228,7 +229,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
-    public Socio buscarSocio(String login) throws SQLException{
+    protected Socio buscarSocio(String login) throws SQLException{
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
         stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
@@ -258,7 +259,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
-    public void engadirCapadidade(String login, TipoActividade tipoActividade) throws SQLException{
+    protected void engadirCapadidade(String login, TipoActividade tipoActividade) throws SQLException{
         PreparedStatement stmAct=null;
         stmAct= con.prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
         stmAct.setInt(1,tipoActividade.getCodTipoActividade());
@@ -267,7 +268,7 @@ public final class DAOUsuarios extends AbstractDAO {
         con.commit();
     }
 
-    public void eliminarCapacidade(String login, TipoActividade tipoActividade) throws SQLException{
+    protected void eliminarCapacidade(String login, TipoActividade tipoActividade) throws SQLException{
         PreparedStatement stmAct=null;
         stmAct= con.prepareStatement("DELETE FROM estarCapacitado WHERE tipoActividade=? AND profesor=?;");
         stmAct.setInt(1,tipoActividade.getCodTipoActividade());
@@ -276,8 +277,26 @@ public final class DAOUsuarios extends AbstractDAO {
         con.commit();
     }
 
+    protected TipoUsuario consultarTipo(String login) throws SQLException {
+        PreparedStatement stmUsuario = null;
+        ResultSet rsUsuarios;
+        stmUsuario = con.prepareStatement("SELECT " +
+                "login," +
+                "(SELECT 1 FROM socios AS s WHERE s.login=u.login) AS eSocio," +
+                "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login) AS ePersoal," +
+                "(SELECT 1 FROM profesores AS pf WHERE pf.login=u.login) AS eProfesor " +
+                "FROM usuarios as u WHERE u.login=?"
+        );
+        stmUsuario.setString(1,login);
+        rsUsuarios = stmUsuario.executeQuery();
+        rsUsuarios.next();
+        if(rsUsuarios.getBoolean("eSocio"))return TipoUsuario.Socio;
+        if(rsUsuarios.getBoolean("eProfesor"))return TipoUsuario.Profesor;
+        if(rsUsuarios.getBoolean("ePersoal"))return TipoUsuario.Persoal;
+        return TipoUsuario.Desconocido;
+    }
     /*
-    public Cuota consultarCuota(String login) throws SQLException{
+    protected Cuota consultarCuota(String login) throws SQLException{
         PreparedStatement stm = null;
         ResultSet resultSet;
         Socio socio;

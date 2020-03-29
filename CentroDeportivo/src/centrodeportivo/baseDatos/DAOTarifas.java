@@ -1,8 +1,9 @@
-package centrodeportivo.baseDatos.dao;
+package centrodeportivo.baseDatos;
 
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.baseDatos.AbstractDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public final class DAOTarifas extends AbstractDAO {
         this.con=conexion;
     }
 
-    public void insertarTarifa(Tarifa t) throws SQLException{
+    protected void insertarTarifa(Tarifa t) throws SQLException{
         PreparedStatement stmTarifa=null;
 
         stmTarifa=con.prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
@@ -29,7 +30,7 @@ public final class DAOTarifas extends AbstractDAO {
         con.commit();
     }
 
-    public void borrarTarifa(Integer codTarifa) throws SQLException{
+    protected void borrarTarifa(Integer codTarifa) throws SQLException{
         PreparedStatement stmTarifa=null;
 
         stmTarifa=con.prepareStatement("DELETE FROM tarifas WHERE codTarifa=?");
@@ -38,7 +39,7 @@ public final class DAOTarifas extends AbstractDAO {
         con.commit();
     }
 
-    public void actualizarTarifa(Tarifa t) throws SQLException{
+    protected void actualizarTarifa(Tarifa t) throws SQLException{
         Connection conexion=super.getConexion();
         PreparedStatement stmTarifa=null;
 
@@ -51,7 +52,7 @@ public final class DAOTarifas extends AbstractDAO {
         conexion.commit();
     }
 
-    public boolean estaEnUsoTarifa(Integer codTarifa) throws SQLException{
+    protected boolean estaEnUsoTarifa(Integer codTarifa) throws SQLException{
         Connection conexion=super.getConexion();
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
@@ -62,7 +63,7 @@ public final class DAOTarifas extends AbstractDAO {
         return resultTarifas.next();
     }
 
-    public ArrayList<Tarifa> listarTarifas() throws SQLException{
+    protected ArrayList<Tarifa> listarTarifas() throws SQLException{
         ArrayList<Tarifa> tarifas=new ArrayList<>();
         Connection conexion=super.getConexion();
         PreparedStatement stmTarifa = null;
@@ -82,7 +83,7 @@ public final class DAOTarifas extends AbstractDAO {
         return tarifas;
     }
 
-    public Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
+    protected Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
 
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;

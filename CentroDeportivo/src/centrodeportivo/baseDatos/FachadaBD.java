@@ -5,14 +5,11 @@ import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.baseDatos.dao.DAOIncidencias;
-import centrodeportivo.baseDatos.dao.DAOMensaxes;
-import centrodeportivo.baseDatos.dao.DAOTarifas;
-import centrodeportivo.baseDatos.dao.DAOUsuarios;
 
 import java.io.FileInputStream;
 import java.io.StringReader;
@@ -113,6 +110,9 @@ public final class FachadaBD {
         return daoUsuarios.buscarUsuarios(login, nome);
     }
 
+    public TipoUsuario consultarTipo(String login) throws SQLException{
+        return daoUsuarios.consultarTipo(login);
+    }
     /*
         Funcions DAOTarifas
      */

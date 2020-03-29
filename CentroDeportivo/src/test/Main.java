@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.funcionsAux.ValidacionDatos;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 
 import java.nio.file.Files;
@@ -82,10 +83,11 @@ public class Main {
             //Files.write(Paths.get("baseDatos.encrypted"),k);
 
             //System.out.println(fb.getDaoUsuarios().consultarCuota("pocha"));
-            System.out.println(ValidacionDatos.isCorrectoNUSS("999111222"));
-            System.out.println(ValidacionDatos.isCorrectoNUSS("999111222222"));
-            System.out.println(ValidacionDatos.isCorrectoNUSS("9991112222222"));
-            System.out.println(ValidacionDatos.isCorrectoNUSS("999111222s2"));
+
+
+            for(Usuario u:fb.listarUsuarios()){
+                System.out.println(u.getLogin()+"->"+fb.consultarTipo(u.getLogin()));
+            }
 
         }catch (Exception ex){
             System.out.println(ex.getMessage());

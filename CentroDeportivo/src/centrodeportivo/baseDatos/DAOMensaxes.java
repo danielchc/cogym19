@@ -1,8 +1,9 @@
-package centrodeportivo.baseDatos.dao;
+package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.baseDatos.AbstractDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DAOMensaxes extends AbstractDAO {
+public final class DAOMensaxes extends AbstractDAO {
     private Connection con;
-    public DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+    protected DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
         this.con=conexion;
     }
 
-    public void enviarMensaxe(Mensaxe m) throws SQLException {
+    protected void enviarMensaxe(Mensaxe m) throws SQLException {
 
         PreparedStatement stmMensaxe=null;
 
@@ -30,7 +31,7 @@ public class DAOMensaxes extends AbstractDAO {
         con.commit();
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws SQLException{
+    protected void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws SQLException{
         PreparedStatement stmMensaxe=null;
 
         for(Usuario receptor:receptores){
@@ -44,7 +45,7 @@ public class DAOMensaxes extends AbstractDAO {
         con.commit();
     }
 
-    public void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
+    protected void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
         PreparedStatement stmMensaxe=null;
 
         stmMensaxe=con.prepareStatement("UPDATE enviarMensaxes SET lido=TRUE WHERE emisor=? AND receptor=? AND dataEnvio=?;");
@@ -55,7 +56,7 @@ public class DAOMensaxes extends AbstractDAO {
         con.commit();
     }
 
-    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
+    protected ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
         ArrayList<Mensaxe> mensaxes=new ArrayList<>();
         PreparedStatement stmMensaxe = null;
         ResultSet resultMensaxes;

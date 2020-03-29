@@ -1,4 +1,4 @@
-package centrodeportivo.baseDatos.dao;
+package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 

@@ -1,4 +1,4 @@
-package centrodeportivo.baseDatos.dao;
+package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Area;
@@ -7,18 +7,19 @@ import centrodeportivo.aplicacion.obxectos.Incidencia;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.baseDatos.AbstractDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public final class DAOIncidencias extends  AbstractDAO{
+public final class DAOIncidencias extends AbstractDAO {
     private Connection con;
     public DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
         this.con=conexion;
     }
 
-    public void insertarIncidencia(Incidencia incidencia) throws SQLException {
+    protected void insertarIncidencia(Incidencia incidencia) throws SQLException {
         PreparedStatement stmIncidencia=null;
         if(incidencia.getTipoIncidencia()== TipoIncidencia.Area){
             stmIncidencia=con.prepareStatement("INSERT INTO incidenciasAreas(usuario,descricion,area,instalacion)  VALUES (?,?,?,?);");
@@ -35,7 +36,7 @@ public final class DAOIncidencias extends  AbstractDAO{
         con.commit();
     }
 
-    public ArrayList<Incidencia> listarIncidencia() throws SQLException {
+    protected ArrayList<Incidencia> listarIncidencia() throws SQLException {
         PreparedStatement stmIncidencia = null;
         ArrayList<Incidencia> incidencias=new ArrayList<Incidencia>();
         ResultSet rsIncidencias;
@@ -88,7 +89,7 @@ public final class DAOIncidencias extends  AbstractDAO{
         return incidencias;
     }
 
-    public void resolverIncidencia(Incidencia incidencia) throws SQLException {
+    protected void resolverIncidencia(Incidencia incidencia) throws SQLException {
         PreparedStatement stmIncidencia=null;
         if(incidencia.getTipoIncidencia()==TipoIncidencia.Area) {
             stmIncidencia = con.prepareStatement("UPDATE incidenciasAreas SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
