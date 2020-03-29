@@ -26,31 +26,55 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Usuario" textFill="WHITE" onAction="#btnSliderAction">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imaxes/modificarusuario.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Baixa Usuario" textFill="WHITE" onAction="#btnSliderAction">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imaxes/borrarusuario.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </VBox>
 
       <VBox id="vb-sidebar" fx:id="sideBarMensaxes" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Mensaxe" textFill="WHITE" onAction="#btnSliderAction">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imaxes/placeholder.png" />
+                        <Image url="@../../imaxes/novomensaxe.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Buzón Mensaxes" textFill="WHITE" onAction="#btnSliderAction">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imaxes/placeholder.png" />
+                        <Image url="@../../imaxes/buzon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -60,14 +84,38 @@
 
       <VBox id="vb-sidebar" fx:id="sideBarTarifas" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Tarifa" textFill="WHITE" onAction="#btnSliderAction">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imaxes/placeholder.png" />
+                        <Image url="@../../imaxes/novatarifa.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Tarifa" textFill="WHITE" onAction="#btnSliderAction">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imaxes/editartarifa.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Tarifa" textFill="WHITE" onAction="#btnSliderAction">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imaxes/borrartarifa.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -76,20 +124,78 @@
       </VBox>
 
       <VBox id="vb-sidebar" fx:id="sideBarAreas" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../imaxes/placeholder.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/novo.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Instalación" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/editar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Instalación" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/borrar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Área" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/novo.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Área" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/editar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Área" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/borrar.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
       </VBox>
 
       <VBox id="vb-sidebar" fx:id="sideBarActividades" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
@@ -127,20 +233,30 @@
       </VBox>
 
       <VBox id="vb-sidebar" fx:id="sideBarIncidencias" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../imaxes/placeholder.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Incidencia" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/novo.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Listar Incidencias" textFill="WHITE" onAction="#btnSliderAction">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+               <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imaxes/lista.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
       </VBox>
 
 
