@@ -1,7 +1,9 @@
 package centrodeportivo.aplicacion;
 
+import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -41,7 +43,7 @@ public class FachadaAplicacion {
     }
 
     public boolean validarUsuario(String login,String password) throws SQLException{
-        return xestionUsuarios.validarUsuario(login,password);
+        return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
     }
 
     public void insertarUsuario(Usuario usuario) throws SQLException{
@@ -88,6 +90,9 @@ public class FachadaAplicacion {
         return xestionUsuarios.buscarUsuarios(login, nome);
     }
 
+    public TipoUsuario consultarTipo(String login) throws SQLException {
+        return xestionUsuarios.consultarTipo(login);
+    }
     /*
         Xestion tarifas
      */
@@ -132,6 +137,14 @@ public class FachadaAplicacion {
 
     public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
         return xestionMensaxes.listarMensaxesRecibidos(loginReceptor);
+    }
+
+    public void mostrarVentaSocios() throws IOException {
+        fachadaGUI.mostrarVentaSocios();
+    }
+
+    public void mostrarVentaPersoal() throws IOException {
+        fachadaGUI.mostrarVentaPersoal();
     }
 
     /*

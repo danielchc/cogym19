@@ -4,20 +4,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="284.0" prefWidth="371.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrodeportivo.gui.vistas.VLogin">
+<AnchorPane prefHeight="284.0" prefWidth="371.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrodeportivo.gui.controladores.vLoginController">
    <children>
-      <Button layoutX="305.0" layoutY="245.0" mnemonicParsing="false" text="Iniciar" />
-      <PasswordField layoutX="180.0" layoutY="159.0" />
-      <TextField layoutX="180.0" layoutY="100.0" />
-      <Label layoutX="55.0" layoutY="100.0" text="Usuario">
+       <TextField fx:id="tfUsuario" layoutX="180.0" layoutY="100.0" />
+       <PasswordField fx:id="tfContrasinal" layoutX="180.0" layoutY="159.0" />
+      <Label fx:id="lblUsuario" layoutX="55.0" layoutY="100.0" text="Usuario">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="55.0" layoutY="159.0" text="Contrasinal">
+      <Label fx:id="lblContrasinal" layoutX="55.0" layoutY="159.0" text="Contrasinal">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
+       <Button fx:id="btnIniciar" onAction="#btnIniciarAction" layoutX="305.0" layoutY="245.0" mnemonicParsing="false" text="Iniciar" />
    </children>
 </AnchorPane>

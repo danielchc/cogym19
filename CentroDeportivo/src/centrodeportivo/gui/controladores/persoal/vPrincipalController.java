@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class ControllerVPrincipal implements Initializable {
+public class vPrincipalController implements Initializable {
 
     public Button btnIncidencia;
     public Button btnMaterial;
