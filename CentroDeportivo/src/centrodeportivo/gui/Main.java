@@ -9,11 +9,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("./vistas/VPrincipal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("./vistas/persoal/vPrincipal.fxml"));
+        primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("Centro Deportivo");
-        primaryStage.setScene(new Scene(root, 600, 600));
-        primaryStage.setMinWidth(600);
-        primaryStage.setMinHeight(600);
         primaryStage.show();
     }
 
