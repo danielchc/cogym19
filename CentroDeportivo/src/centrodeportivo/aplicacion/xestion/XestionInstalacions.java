@@ -16,18 +16,18 @@ public class XestionInstalacions {
     }
 
     public void darAltaInstalacion(Instalacion instalacion){
-
+        fachadaBD.darAltaInstalacion(instalacion);
     }
 
     public void borrarInstalacion(Instalacion instalacion){
-
+        fachadaBD.borrarInstalacion(instalacion);
     }
 
     public void modificarInstalacion(Instalacion instalacion){
-
+        fachadaBD.modificarInstalacion(instalacion);
     }
 
     public ArrayList<Instalacion> listarInstalacions(){
-        return new ArrayList<>();
+        return fachadaBD.listarInstalacions();
     }
 }
