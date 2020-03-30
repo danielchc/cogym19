@@ -64,7 +64,8 @@ CREATE TABLE areas(
 	dataBaixa 	DATE,
 	PRIMARY KEY (codArea,instalacion),
 	FOREIGN KEY (instalacion) REFERENCES instalacions(codInstalacion) 
-	ON UPDATE CASCADE ON DELETE RESTRICT
+	ON UPDATE CASCADE ON DELETE RESTRICT,
+	UNIQUE(instalacion,nome)
 );
 
 CREATE TABLE materiais(
