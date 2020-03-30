@@ -69,12 +69,9 @@ public final class Tarifa {
 
     @Override
     public String toString() {
-        return "Tarifa{" +
-                "codTarifa=" + codTarifa +
-                ", nome='" + nome + '\'' +
-                ", maxActividades=" + maxActividades +
+        return  "["+nome+"]:" +
+                " maxActividades=" + maxActividades +
                 ", prezoBase=" + prezoBase +
-                ", prezoExtras=" + prezoExtras +
-                '}';
+                ", prezoExtras=" + prezoExtras;
     }
 }
