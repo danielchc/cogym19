@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -110,6 +111,7 @@ public final class DAOInstalacions extends AbstractDAO {
         ArrayList<Instalacion> instalacions = new ArrayList<>();
 
         PreparedStatement stmInstalacions = null;
+        ResultSet rsInstalacions = null;
         Connection con;
 
         //Recuperamos a conexión:
@@ -117,19 +119,36 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos a consulta:
         try{
-            stmInstalacions = con.prepareStatement("");
+            stmInstalacions = con.prepareStatement("SELECT codinstalacion, nome, numtelefono, direccion " +
+                    " FROM instalacions " +
+                    " WHERE nome like ? " +
+                    "   and numtelefono like ? " +
+                    "   and direccion like ? ");
+
+            //Establecemos os valores da consulta segundo a instancia de instalación pasada:
+            stmInstalacions.setString(1, "%" + instalacion.getNome() + "%");
+            stmInstalacions.setString(2, "%" + instalacion.getNumTelefono() + "%");
+            stmInstalacions.setString(3, "%" + instalacion.getDireccion() + "%");
+
+            //Realizamos a consulta:
+            rsInstalacions = stmInstalacions.executeQuery();
+
+            //Recibida a consulta, procesámola:
+            while(rsInstalacions.next()){
+                //Imos engadindo ao ArrayList do resultado cada Instalación consultada:
+                instalacions.add(new Instalacion(rsInstalacions.getInt(1), rsInstalacions.getString(2),
+                        rsInstalacions.getString(3), rsInstalacions.getString(4)));
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             //Peche do statement:
             try {
                 stmInstalacions.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
-
-
         return instalacions;
     }
 }

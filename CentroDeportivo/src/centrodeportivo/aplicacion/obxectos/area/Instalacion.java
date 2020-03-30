@@ -67,7 +67,7 @@ public class Instalacion {
     @Override
     public boolean equals(Object obj){
         if(obj instanceof Instalacion){
-            if(((Instalacion)obj).getCodInstalacion().equals(this.codInstalacion)){
+            if(((Instalacion)obj).getCodInstalacion() == this.codInstalacion){
                 return true;
             }
         }
