@@ -40,38 +40,6 @@ public class XestionUsuarios {
         fachadaBD.darBaixaUsuario(login);
     }
 
-    public ArrayList<Socio> listarSocios() throws SQLException {
-        return fachadaBD.listarSocios();
-    }
-
-    public ArrayList<Persoal> listarPersoal() throws SQLException {
-        return fachadaBD.listarPersoal();
-    }
-
-    public ArrayList<Profesor> listarProfesores() throws SQLException {
-        return fachadaBD.listarProfesores();
-    }
-
-    public ArrayList<Usuario> listarUsuarios() throws SQLException {
-        return fachadaBD.listarUsuarios();
-    }
-
-    public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
-        return fachadaBD.buscarSocios(login,nome);
-    }
-
-    public ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
-        return fachadaBD.buscarPersoal(login, nome);
-    }
-
-    public ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
-        return fachadaBD.buscarProfesores(login, nome);
-    }
-
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
-        return fachadaBD.buscarUsuarios(login, nome);
-    }
-
     public TipoUsuario consultarTipo(String login) throws SQLException {
         return fachadaBD.consultarTipo(login);
     }
@@ -79,4 +47,17 @@ public class XestionUsuarios {
     public Usuario consultarUsuario(String login) throws SQLException {
         return fachadaBD.consultarUsuario(login);
     }
+
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
+        return fachadaBD.buscarUsuarios(login,nome,filtro);
+    }
+
+    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro) throws SQLException {
+        return fachadaBD.buscarUsuarios("","",filtro);
+    }
+
+    public ArrayList<Usuario> listarUsuarios() throws SQLException {
+        return fachadaBD.buscarUsuarios("","",TipoUsuario.Desconocido);
+    }
+
 }

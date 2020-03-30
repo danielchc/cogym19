@@ -3,6 +3,7 @@ package test;
 import centrodeportivo.aplicacion.*;
 import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.funcionsAux.ValidacionDatos;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -81,7 +82,10 @@ public class Main {
             //System.out.println(Criptografia.hashSHA256("adfasdda"));
             //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
             //Files.write(Paths.get("baseDatos.encrypted"),k);
-
+            System.out.println("PROFESOR");
+            System.out.println(fb.getDaoUsuarios().buscarUsuarios("","", TipoUsuario.Profesor));
+            System.out.println("PERSOAL");
+            System.out.println(fb.getDaoUsuarios().buscarUsuarios("","", TipoUsuario.Persoal));
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

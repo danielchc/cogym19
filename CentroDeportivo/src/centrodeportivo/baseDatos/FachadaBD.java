@@ -78,44 +78,16 @@ public final class FachadaBD {
         daoUsuarios.darBaixaUsuario(login);
     }
 
-    public ArrayList<Socio> listarSocios() throws SQLException {
-        return daoUsuarios.listarSocios();
-    }
-
-    public ArrayList<Persoal> listarPersoal() throws SQLException {
-        return daoUsuarios.listarPersoal();
-    }
-
-    public ArrayList<Profesor> listarProfesores() throws SQLException {
-        return daoUsuarios.listarProfesores();
-    }
-
-    public ArrayList<Usuario> listarUsuarios() throws SQLException {
-        return daoUsuarios.listarUsuarios();
-    }
-
-    public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
-        return daoUsuarios.buscarSocios(login,nome);
-    }
-
-    public ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
-        return daoUsuarios.buscarPersoal(login, nome);
-    }
-
-    public ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
-        return daoUsuarios.buscarProfesores(login, nome);
-    }
-
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
-        return daoUsuarios.buscarUsuarios(login, nome);
-    }
-
     public TipoUsuario consultarTipo(String login) throws SQLException{
         return daoUsuarios.consultarTipo(login);
     }
 
     public Usuario consultarUsuario(String login) throws SQLException {
         return daoUsuarios.consultarUsuario(login);
+    }
+
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
+        return daoUsuarios.buscarUsuarios(login,nome,filtro);
     }
 
     /*

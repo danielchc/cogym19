@@ -58,41 +58,22 @@ public class FachadaAplicacion {
         xestionUsuarios.darBaixaUsuario(login);
     }
 
-    public ArrayList<Socio> listarSocios() throws SQLException {
-        return xestionUsuarios.listarSocios();
-    }
-
-    public ArrayList<Persoal> listarPersoal() throws SQLException {
-        return xestionUsuarios.listarPersoal();
-    }
-
-    public ArrayList<Profesor> listarProfesores() throws SQLException {
-        return xestionUsuarios.listarProfesores();
-    }
-
-    public ArrayList<Usuario> listarUsuarios() throws SQLException {
-        return xestionUsuarios.listarUsuarios();
-    }
-
-    public ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
-        return xestionUsuarios.buscarSocios(login,nome);
-    }
-
-    public ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
-        return xestionUsuarios.buscarPersoal(login, nome);
-    }
-
-    public ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
-        return xestionUsuarios.buscarProfesores(login, nome);
-    }
-
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
-        return xestionUsuarios.buscarUsuarios(login, nome);
-    }
-
     public TipoUsuario consultarTipo(String login) throws SQLException {
         return xestionUsuarios.consultarTipo(login);
     }
+
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
+        return xestionUsuarios.buscarUsuarios(login,nome,filtro);
+    }
+
+    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro) throws SQLException {
+        return xestionUsuarios.buscarUsuarios("","",filtro);
+    }
+
+    public ArrayList<Usuario> listarUsuarios() throws SQLException {
+        return xestionUsuarios.buscarUsuarios("","",TipoUsuario.Desconocido);
+    }
+
     /*
         Xestion tarifas
      */

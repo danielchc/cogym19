@@ -34,7 +34,7 @@ public class TestJavaFx extends Application {
         tableView.getColumns().addAll(column1,column2);
 
         FachadaBD fb=new FachadaBD(new FachadaAplicacion());
-        tableView.getItems().addAll(fb.listarUsuarios());
+        //tableView.getItems().addAll(fb.listarUsuarios());
 
         VBox vbox = new VBox(tableView);
 

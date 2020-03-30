@@ -136,6 +136,7 @@ public class Usuario {
                 ", IBANconta='" + IBANconta + '\'' +
                 ", dataAlta=" + dataAlta +
                 ", dataBaixa=" + dataBaixa +
-                '}';
+                ", tipoUsuario=" + tipoUsuario +
+                "}\n";
     }
 }

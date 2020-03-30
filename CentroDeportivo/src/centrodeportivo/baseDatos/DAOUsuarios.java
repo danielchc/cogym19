@@ -119,116 +119,6 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario.close();
     }
 
-    protected ArrayList<Socio> listarSocios() throws SQLException {
-        return buscarSocios("","");
-    }
-
-    protected ArrayList<Persoal> listarPersoal() throws SQLException {
-        return buscarPersoal("","");
-    }
-
-    protected ArrayList<Profesor> listarProfesores() throws SQLException {
-        return buscarProfesores("","");
-    }
-
-    protected ArrayList<Usuario> listarUsuarios() throws SQLException {
-        return buscarUsuarios("","");
-    }
-
-    protected ArrayList<Socio> buscarSocios(String login,String nome) throws SQLException {
-        PreparedStatement stmUsuario = null;
-        ArrayList<Socio> socios=new ArrayList<Socio>();
-        ResultSet rsUsuarios;
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN socios WHERE login LIKE ? OR nome LIKE ?;");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            socios.add(new Socio(
-               rsUsuarios.getString("login"),
-               rsUsuarios.getString("contrasinal"),
-               rsUsuarios.getString("nome"),
-               rsUsuarios.getString("numTelefono"),
-               rsUsuarios.getString("DNI"),
-               rsUsuarios.getString("correoElectronico"),
-               rsUsuarios.getString("iban"),
-               rsUsuarios.getDate("dataAlta"),
-               rsUsuarios.getDate("dataNacemento"),
-               rsUsuarios.getString("dificultades")
-            ));
-        }
-        return socios;
-    }
-
-    protected ArrayList<Persoal> buscarPersoal(String login,String nome) throws SQLException {
-        PreparedStatement stmUsuario = null;
-        ArrayList<Persoal> persoal=new ArrayList<Persoal>();
-        ResultSet rsUsuarios;
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE login NOT IN (SELECT login FROM profesores) AND (login LIKE ? OR nome LIKE ?);");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            persoal.add(new Persoal(
-               rsUsuarios.getString("login"),
-               rsUsuarios.getString("contrasinal"),
-               rsUsuarios.getString("nome"),
-               rsUsuarios.getString("numTelefono"),
-               rsUsuarios.getString("DNI"),
-               rsUsuarios.getString("correoElectronico"),
-               rsUsuarios.getString("iban"),
-               rsUsuarios.getString("NUSS")
-            ));
-        }
-        return persoal;
-    }
-
-    protected ArrayList<Profesor> buscarProfesores(String login,String nome) throws SQLException {
-        PreparedStatement stmUsuario = null;
-        ArrayList<Profesor> profesores=new ArrayList<>();
-        ResultSet rsUsuarios;
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE login IN (SELECT login FROM profesores) AND (login LIKE ? OR nome LIKE ?);");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            profesores.add(new Profesor(
-                    rsUsuarios.getString("login"),
-                    rsUsuarios.getString("contrasinal"),
-                    rsUsuarios.getString("nome"),
-                    rsUsuarios.getString("numTelefono"),
-                    rsUsuarios.getString("DNI"),
-                    rsUsuarios.getString("correoElectronico"),
-                    rsUsuarios.getString("iban"),
-                    rsUsuarios.getString("NUSS")
-            ));
-        }
-        return profesores;
-    }
-
-    protected ArrayList<Usuario> buscarUsuarios(String login,String nome) throws SQLException{
-        PreparedStatement stmUsuario = null;
-        ArrayList<Usuario> usuarios=new ArrayList<>();
-        ResultSet rsUsuarios;
-        stmUsuario = con.prepareStatement("SELECT * FROM usuarios WHERE login LIKE ? OR nome LIKE ?;");
-        stmUsuario.setString(1, "%"+login+"%");
-        stmUsuario.setString(2, "%"+nome+"%");
-        rsUsuarios = stmUsuario.executeQuery();
-        while (rsUsuarios.next()) {
-            usuarios.add(new Usuario(
-                    rsUsuarios.getString("login"),
-                    rsUsuarios.getString("contrasinal"),
-                    rsUsuarios.getString("nome"),
-                    rsUsuarios.getString("numTelefono"),
-                    rsUsuarios.getString("DNI"),
-                    rsUsuarios.getString("correoElectronico"),
-                    rsUsuarios.getString("iban"),
-                    rsUsuarios.getDate("dataAlta")
-            ));
-        }
-        return usuarios;
-    }
-
     protected void engadirCapadidade(String login, TipoActividade tipoActividade) throws SQLException{
         PreparedStatement stmAct=null;
         stmAct= con.prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
@@ -266,16 +156,20 @@ public final class DAOUsuarios extends AbstractDAO {
         return TipoUsuario.Desconocido;
     }
 
-    protected Usuario consultarUsuario(String login) throws SQLException {
+    protected ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
         PreparedStatement stmUsuario = null;
+        ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
         ResultSet rsUsuarios;
-        TipoUsuario tipoUsuario=consultarTipo(login);
-        if(tipoUsuario==TipoUsuario.Socio) {
-            stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
-            stmUsuario.setString(1, login);
+        if(filtro==TipoUsuario.Socio || filtro==TipoUsuario.Desconocido) {
+            stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
+                    "FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa " +
+                    "WHERE u.login LIKE ? OR u.nome LIKE ?;"
+            );
+            stmUsuario.setString(1, "%"+login+"%");
+            stmUsuario.setString(2, "%"+nome+"%");
             rsUsuarios = stmUsuario.executeQuery();
-            if (rsUsuarios.next()) {
-                return new Socio(
+            while (rsUsuarios.next()) {
+                usuarios.add(new Socio(
                        rsUsuarios.getString("login"),
                        rsUsuarios.getString("contrasinal"),
                        rsUsuarios.getString("nomeUsuario"),
@@ -293,7 +187,79 @@ public final class DAOUsuarios extends AbstractDAO {
                                rsUsuarios.getFloat("precioBase"),
                                rsUsuarios.getFloat("precioExtra")
                        )
-               );
+               ));
+            }
+        }
+        if (filtro==TipoUsuario.Profesor || filtro==TipoUsuario.Desconocido){
+            stmUsuario = con.prepareStatement(
+                    "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (u.login LIKE ? OR u.nome LIKE ?);");
+            stmUsuario.setString(1, "%"+login+"%");
+            stmUsuario.setString(2, "%"+nome+"%");
+            System.out.println(stmUsuario);
+            rsUsuarios = stmUsuario.executeQuery();
+                while (rsUsuarios.next()) {
+                    usuarios.add(new Profesor(
+                            rsUsuarios.getString("login"),
+                            rsUsuarios.getString("contrasinal"),
+                            rsUsuarios.getString("nome"),
+                            rsUsuarios.getString("numTelefono"),
+                            rsUsuarios.getString("DNI"),
+                            rsUsuarios.getString("correoElectronico"),
+                            rsUsuarios.getString("iban"),
+                            rsUsuarios.getString("NUSS")
+                    ));
+                }
+            }
+        if (filtro==TipoUsuario.Persoal || filtro==TipoUsuario.Desconocido){
+            stmUsuario = con.prepareStatement(
+                    "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (u.login LIKE ? OR u.nome LIKE ?);");
+            stmUsuario.setString(1, "%"+login+"%");
+            stmUsuario.setString(2, "%"+nome+"%");
+            rsUsuarios = stmUsuario.executeQuery();
+                while (rsUsuarios.next()) {
+                    usuarios.add( new Persoal(
+                            rsUsuarios.getString("login"),
+                            rsUsuarios.getString("contrasinal"),
+                            rsUsuarios.getString("nome"),
+                            rsUsuarios.getString("numTelefono"),
+                            rsUsuarios.getString("DNI"),
+                            rsUsuarios.getString("correoElectronico"),
+                            rsUsuarios.getString("iban"),
+                            rsUsuarios.getString("NUSS")
+                    ));
+                }
+        }
+        return usuarios;
+    }
+
+    protected Usuario consultarUsuario(String login) throws SQLException {
+        PreparedStatement stmUsuario = null;
+        ResultSet rsUsuarios;
+        TipoUsuario tipoUsuario=consultarTipo(login);
+        if(tipoUsuario==TipoUsuario.Socio) {
+            stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
+            stmUsuario.setString(1, login);
+            rsUsuarios = stmUsuario.executeQuery();
+            if (rsUsuarios.next()) {
+                return new Socio(
+                        rsUsuarios.getString("login"),
+                        rsUsuarios.getString("contrasinal"),
+                        rsUsuarios.getString("nomeUsuario"),
+                        rsUsuarios.getString("numTelefono"),
+                        rsUsuarios.getString("DNI"),
+                        rsUsuarios.getString("correoElectronico"),
+                        rsUsuarios.getString("iban"),
+                        rsUsuarios.getDate("dataAlta"),
+                        rsUsuarios.getDate("dataNacemento"),
+                        rsUsuarios.getString("dificultades"),
+                        new Tarifa(
+                                rsUsuarios.getInt("tarifa"),
+                                rsUsuarios.getString("nomeTarifa"),
+                                rsUsuarios.getInt("maxActividades"),
+                                rsUsuarios.getFloat("precioBase"),
+                                rsUsuarios.getFloat("precioExtra")
+                        )
+                );
             }
         }else{
             stmUsuario = con.prepareStatement("SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login=?;");
@@ -329,6 +295,8 @@ public final class DAOUsuarios extends AbstractDAO {
         }
         return null;
     }
+
+
     /*
     protected Cuota consultarCuota(String login) throws SQLException{
         PreparedStatement stm = null;
