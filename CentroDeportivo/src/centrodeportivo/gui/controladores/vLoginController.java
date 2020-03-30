@@ -41,7 +41,7 @@ public class vLoginController  implements Initializable {
                     }
                     ((Stage) tfUsuario.getScene().getWindow()).close();
                 }else{
-                    labelError.setText("Login Incorrecto");
+                    labelError.setText("Algún campo incorrecto");
                 }
             }catch (Exception ex){
                 System.out.println(ex);
@@ -52,7 +52,7 @@ public class vLoginController  implements Initializable {
     }
 
     public void keyPressedIniciar(KeyEvent keyEvent) {
-        if(keyEvent.getCode()== KeyCode.ENTER) btnIniciarAction();
+        if(keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
     }
 
     public FachadaAplicacion getFa() {
