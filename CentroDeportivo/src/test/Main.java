@@ -1,8 +1,11 @@
 package test;
 
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.baseDatos.FachadaBD;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String [] args) {
@@ -71,9 +74,13 @@ public class Main {
             //System.out.println(Criptografia.hashSHA256("adfasdda"));
             //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
             //Files.write(Paths.get("baseDatos.encrypted"),k);
-            System.out.println("PROFESOR");
-            System.out.println(fb.consultarTipo("pepe"));
+            //System.out.println("PROFESOR");
+            //System.out.println(fb.consultarTipo("pepe"));
 
+            fb.borrarInstalacion(new Instalacion(6,"Casa", "981809922", "Rua da casa de Victor"));
+            for(Instalacion a: fb.buscarInstalacions(new Instalacion("", "", ""))) {
+                System.out.println(a);
+            }
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

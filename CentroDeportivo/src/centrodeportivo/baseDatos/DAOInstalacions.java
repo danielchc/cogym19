@@ -33,6 +33,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Realizamos a actualización:
             stmInstalacions.executeUpdate();
+            con.commit();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         } finally {
@@ -59,6 +60,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Realizamos a actualización:
             stmInstalacions.executeUpdate();
+            con.commit();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         } finally {
@@ -94,6 +96,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Executamos a actualización:
             stmInstalacions.executeUpdate();
+            con.commit();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

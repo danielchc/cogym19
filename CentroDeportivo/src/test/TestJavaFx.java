@@ -1,6 +1,7 @@
 package test;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import javafx.application.Application;
@@ -24,17 +25,22 @@ public class TestJavaFx extends Application {
 
         TableView tableView = new TableView();
 
-        TableColumn<String, Usuario> column1 = new TableColumn<>("Nome");
-        column1.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        TableColumn<Integer, Instalacion> column1 = new TableColumn<>("Codigo");
+        column1.setCellValueFactory(new PropertyValueFactory<>("codInstalacion"));
 
+        TableColumn<String, Instalacion> column2 = new TableColumn<>("Nome");
+        column2.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        TableColumn<String, Usuario> column2 = new TableColumn<>("Login");
-        column2.setCellValueFactory(new PropertyValueFactory<>("login"));
+        TableColumn<String, Instalacion> column3 = new TableColumn<>("Número de teléfono");
+        column3.setCellValueFactory(new PropertyValueFactory<>("numTelefono"));
 
-        tableView.getColumns().addAll(column1,column2);
+        TableColumn<String, Instalacion> column4 = new TableColumn<>("Dirección");
+        column4.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+
+        tableView.getColumns().addAll(column1,column2, column3, column4);
 
         FachadaBD fb=new FachadaBD(new FachadaAplicacion());
-        //tableView.getItems().addAll(fb.listarUsuarios());
+        tableView.getItems().addAll(fb.buscarInstalacions(new Instalacion("", "", "")));
 
         VBox vbox = new VBox(tableView);
 
