@@ -1,7 +1,7 @@
 package centrodeportivo.gui.controladores;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
-import centrodeportivo.aplicacion.funcionsAux.ValidacionDatos;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
