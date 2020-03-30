@@ -19,7 +19,7 @@ public class Main extends Application {
         ((vLoginController)loader.getController()).setFa(fachadaAplicacion);
 
         primaryStage.setScene(new Scene(root));
-
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Centro Deportivo");
         primaryStage.show();
     }

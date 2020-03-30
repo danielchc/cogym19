@@ -12,48 +12,46 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class DAOMensaxes extends AbstractDAO {
-    private Connection con;
     protected DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
-        this.con=conexion;
     }
 
     protected void enviarMensaxe(Mensaxe m) throws SQLException {
 
         PreparedStatement stmMensaxe=null;
 
-        stmMensaxe=con.prepareStatement("INSERT INTO enviarMensaxes (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
+        stmMensaxe=super.getConexion().prepareStatement("INSERT INTO enviarMensaxes (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
         stmMensaxe.setString(1,m.getEmisor().getLogin());
         stmMensaxe.setString(2,m.getReceptor().getLogin());
         stmMensaxe.setString(3,m.getContido());
         stmMensaxe.setBoolean(4,m.isLido());
         stmMensaxe.executeUpdate();
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws SQLException{
         PreparedStatement stmMensaxe=null;
 
         for(Usuario receptor:receptores){
-            stmMensaxe=con.prepareStatement("INSERT INTO enviarMensaxes (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
+            stmMensaxe=super.getConexion().prepareStatement("INSERT INTO enviarMensaxes (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
             stmMensaxe.setString(1,emisor.getLogin());
             stmMensaxe.setString(2,receptor.getLogin());
             stmMensaxe.setString(3,mensaxe);
             stmMensaxe.setBoolean(4,false);
             stmMensaxe.executeUpdate();
         }
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
         PreparedStatement stmMensaxe=null;
 
-        stmMensaxe=con.prepareStatement("UPDATE enviarMensaxes SET lido=TRUE WHERE emisor=? AND receptor=? AND dataEnvio=?;");
+        stmMensaxe=super.getConexion().prepareStatement("UPDATE enviarMensaxes SET lido=TRUE WHERE emisor=? AND receptor=? AND dataEnvio=?;");
         stmMensaxe.setString(1,m.getEmisor().getLogin());
         stmMensaxe.setString(2,m.getReceptor().getLogin());
         stmMensaxe.setTimestamp(3,m.getDataEnvio());
         stmMensaxe.executeUpdate();
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
@@ -61,7 +59,7 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe = null;
         ResultSet resultMensaxes;
 
-        stmMensaxe=con.prepareStatement("SELECT * FROM enviarMensaxes WHERE receptor=? ORDER BY dataEnvio DESC;");
+        stmMensaxe=super.getConexion().prepareStatement("SELECT * FROM enviarMensaxes WHERE receptor=? ORDER BY dataEnvio DESC;");
         stmMensaxe.setString(1,loginReceptor);
         resultMensaxes=stmMensaxe.executeQuery();
         while (resultMensaxes.next()){

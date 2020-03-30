@@ -13,17 +13,15 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public final class DAOUsuarios extends AbstractDAO {
-    private Connection con;
 
     protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
-        this.con=conexion;
     }
 
     protected boolean existeUsuario(String login) throws SQLException {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
-        stmUsuario=con.prepareStatement("SELECT * FROM usuarios WHERE login=?");
+        stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=?");
         stmUsuario.setString(1,login);
         resultValidacion=stmUsuario.executeQuery();
         return resultValidacion.next();
@@ -32,7 +30,7 @@ public final class DAOUsuarios extends AbstractDAO {
     protected boolean validarUsuario(String login,String password) throws SQLException {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
-        stmUsuario=con.prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=?");
+        stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=?");
         stmUsuario.setString(1,login);
         stmUsuario.setString(2,password);
         resultValidacion=stmUsuario.executeQuery();
@@ -41,8 +39,8 @@ public final class DAOUsuarios extends AbstractDAO {
 
     protected void insertarUsuario(Usuario usuario) throws SQLException {
         PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null,stmProfesor=null;
-        con.setAutoCommit(false);
-        stmUsuario= con.prepareStatement("INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
+        super.getConexion().setAutoCommit(false);
+        stmUsuario= super.getConexion().prepareStatement("INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
         stmUsuario.setString(1,usuario.getLogin());
         stmUsuario.setString(2,usuario.getContrasinal());
         stmUsuario.setString(3,usuario.getNome());
@@ -53,7 +51,7 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario.executeUpdate();
         if(usuario instanceof Socio) {
             Socio socio=(Socio)usuario;
-            stmSocio=con.prepareStatement("INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values (?,?,?,?);");
+            stmSocio=super.getConexion().prepareStatement("INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values (?,?,?,?);");
             stmSocio.setString(1,socio.getLogin());
             stmSocio.setDate(2, socio.getDataNacemento());
             stmSocio.setString(3,socio.getDificultades());
@@ -61,24 +59,24 @@ public final class DAOUsuarios extends AbstractDAO {
             stmSocio.executeUpdate();
         }else if (usuario instanceof Persoal){
             Persoal persoal=(Persoal)usuario;
-            stmPersoal=con.prepareStatement("INSERT INTO persoal (login,NUSS) VALUES (?,?);");
+            stmPersoal=super.getConexion().prepareStatement("INSERT INTO persoal (login,NUSS) VALUES (?,?);");
             stmPersoal.setString(1,persoal.getLogin());
             stmPersoal.setString(2,persoal.getNUSS());
             stmPersoal.executeUpdate();
             if(usuario instanceof Profesor){
                 Profesor profesor=(Profesor)usuario;
-                stmProfesor=con.prepareStatement("INSERT INTO profesores (login) VALUES (?);");
+                stmProfesor=super.getConexion().prepareStatement("INSERT INTO profesores (login) VALUES (?);");
                 stmProfesor.setString(1,profesor.getLogin());
                 stmProfesor.executeUpdate();
             }
         }
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected void actualizarUsuario(String loginVello,Usuario usuario) throws SQLException {
         PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null;
-        con.setAutoCommit(false);
-        stmUsuario= con.prepareStatement("UPDATE usuarios SET login=?,contrasinal=?,nome=?,numTelefono=?,DNI=?,correoElectronico=?,IBAN=? WHERE login=?;");
+        super.getConexion().setAutoCommit(false);
+        stmUsuario= super.getConexion().prepareStatement("UPDATE usuarios SET login=?,contrasinal=?,nome=?,numTelefono=?,DNI=?,correoElectronico=?,IBAN=? WHERE login=?;");
         stmUsuario.setString(1,usuario.getLogin());
         stmUsuario.setString(2,usuario.getContrasinal());
         stmUsuario.setString(3,usuario.getNome());
@@ -90,7 +88,7 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario.executeUpdate();
         if(usuario instanceof Socio) {
             Socio socio=(Socio)usuario;
-            stmSocio=con.prepareStatement("UPDATE socios SET dataNacemento=?,dificultades=?,tarifa=? WHERE login=?;");
+            stmSocio=super.getConexion().prepareStatement("UPDATE socios SET dataNacemento=?,dificultades=?,tarifa=? WHERE login=?;");
             stmSocio.setDate(1, socio.getDataNacemento());
             stmSocio.setString(2,socio.getDificultades());
             stmSocio.setInt(3,socio.getTarifa().getCodTarifa());
@@ -98,12 +96,12 @@ public final class DAOUsuarios extends AbstractDAO {
             stmSocio.executeUpdate();
         }else if (usuario instanceof Persoal){
             Persoal persoal=(Persoal)usuario;
-            stmPersoal=con.prepareStatement("UPDATE persoal SET NUSS=? WHERE login=?;");
+            stmPersoal=super.getConexion().prepareStatement("UPDATE persoal SET NUSS=? WHERE login=?;");
             stmPersoal.setString(1,persoal.getNUSS());
             stmPersoal.setString(2,persoal.getLogin());
             stmPersoal.executeUpdate();
         }
-        con.commit();
+        super.getConexion().commit();
         stmUsuario.close();
         stmPersoal.close();
         stmSocio.close();
@@ -111,35 +109,35 @@ public final class DAOUsuarios extends AbstractDAO {
 
     protected void darBaixaUsuario(String login) throws SQLException {
         PreparedStatement stmUsuario;
-        stmUsuario= con.prepareStatement("UPDATE usuarios SET dataBaixa=NOW() WHERE login=?");
+        stmUsuario= super.getConexion().prepareStatement("UPDATE usuarios SET dataBaixa=NOW() WHERE login=?");
         stmUsuario.setString(1,login);
         stmUsuario.executeUpdate();
-        con.commit();
+        super.getConexion().commit();
         stmUsuario.close();
     }
 
     protected void engadirCapadidade(String login, TipoActividade tipoActividade) throws SQLException{
         PreparedStatement stmAct=null;
-        stmAct= con.prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
+        stmAct= super.getConexion().prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
         stmAct.setInt(1,tipoActividade.getCodTipoActividade());
         stmAct.setString(2,login);
         stmAct.executeUpdate();
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected void eliminarCapacidade(String login, TipoActividade tipoActividade) throws SQLException{
         PreparedStatement stmAct=null;
-        stmAct= con.prepareStatement("DELETE FROM estarCapacitado WHERE tipoActividade=? AND profesor=?;");
+        stmAct= super.getConexion().prepareStatement("DELETE FROM estarCapacitado WHERE tipoActividade=? AND profesor=?;");
         stmAct.setInt(1,tipoActividade.getCodTipoActividade());
         stmAct.setString(2,login);
         stmAct.executeUpdate();
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected TipoUsuario consultarTipo(String login) throws SQLException {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
-        stmUsuario = con.prepareStatement("SELECT " +
+        stmUsuario = super.getConexion().prepareStatement("SELECT " +
                 "login," +
                 "(SELECT 1 FROM socios AS s WHERE s.login=u.login) AS eSocio," +
                 "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND u.login NOT IN (SELECT login FROM profesores)) AS ePersoal," +
@@ -161,7 +159,7 @@ public final class DAOUsuarios extends AbstractDAO {
         ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
         ResultSet rsUsuarios;
         if(filtro==TipoUsuario.Socio || filtro==TipoUsuario.Todos) {
-            stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
+            stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
                     "FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa " +
                     "WHERE u.login LIKE ? OR u.nome LIKE ?;"
             );
@@ -191,7 +189,7 @@ public final class DAOUsuarios extends AbstractDAO {
             }
         }
         if (filtro==TipoUsuario.Profesor || filtro==TipoUsuario.Todos){
-            stmUsuario = con.prepareStatement(
+            stmUsuario = super.getConexion().prepareStatement(
                     "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (u.login LIKE ? OR u.nome LIKE ?);");
             stmUsuario.setString(1, "%"+login+"%");
             stmUsuario.setString(2, "%"+nome+"%");
@@ -211,7 +209,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 }
             }
         if (filtro==TipoUsuario.Persoal || filtro==TipoUsuario.Todos){
-            stmUsuario = con.prepareStatement(
+            stmUsuario = super.getConexion().prepareStatement(
                     "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (u.login LIKE ? OR u.nome LIKE ?);");
             stmUsuario.setString(1, "%"+login+"%");
             stmUsuario.setString(2, "%"+nome+"%");
@@ -237,7 +235,7 @@ public final class DAOUsuarios extends AbstractDAO {
         ResultSet rsUsuarios;
         TipoUsuario tipoUsuario=consultarTipo(login);
         if(tipoUsuario==TipoUsuario.Socio) {
-            stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
+            stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
             stmUsuario.setString(1, login);
             rsUsuarios = stmUsuario.executeQuery();
             if (rsUsuarios.next()) {
@@ -262,7 +260,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 );
             }
         }else{
-            stmUsuario = con.prepareStatement("SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login=?;");
+            stmUsuario = super.getConexion().prepareStatement("SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login=?;");
             stmUsuario.setString(1, login);
             rsUsuarios = stmUsuario.executeQuery();
             if(tipoUsuario==TipoUsuario.Profesor){
@@ -313,7 +311,7 @@ public final class DAOUsuarios extends AbstractDAO {
         socio=this.buscarSocio(login);
         tarifa=socio.getTarifa();
 
-        stm = con.prepareStatement(
+        stm = super.getConexion().prepareStatement(
                 "SELECT * " +
                 "FROM realizarActividades NATURAL JOIN actividades " +
                 "WHERE dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
@@ -334,7 +332,7 @@ public final class DAOUsuarios extends AbstractDAO {
             ));
         }
 
-        stm = con.prepareStatement(
+        stm = super.getConexion().prepareStatement(
                 "SELECT * " +
                 "FROM cursos " +
                 "WHERE codCurso IN (SELECT curso FROM realizarCursos WHERE usuario=?) " +

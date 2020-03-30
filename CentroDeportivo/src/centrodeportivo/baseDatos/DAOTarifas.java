@@ -12,31 +12,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class DAOTarifas extends AbstractDAO {
-    private Connection con;
     public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
-        this.con=conexion;
     }
 
     protected void insertarTarifa(Tarifa t) throws SQLException{
         PreparedStatement stmTarifa=null;
 
-        stmTarifa=con.prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
+        stmTarifa=super.getConexion().prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
         stmTarifa.setString(1,t.getNome());
         stmTarifa.setInt(2,t.getMaxActividades());
         stmTarifa.setFloat(3,t.getPrezoBase());
         stmTarifa.setFloat(4,t.getPrezoExtras());
         stmTarifa.executeUpdate();
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected void borrarTarifa(Integer codTarifa) throws SQLException{
         PreparedStatement stmTarifa=null;
 
-        stmTarifa=con.prepareStatement("DELETE FROM tarifas WHERE codTarifa=?");
+        stmTarifa=super.getConexion().prepareStatement("DELETE FROM tarifas WHERE codTarifa=?");
         stmTarifa.setInt(1, codTarifa);
         stmTarifa.executeUpdate();
-        con.commit();
+        super.getConexion().commit();
     }
 
     protected void actualizarTarifa(Tarifa t) throws SQLException{
@@ -88,7 +86,7 @@ public final class DAOTarifas extends AbstractDAO {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
 
-        stmTarifa=con.prepareStatement("SELECT * FROM tarifas WHERE codTarifa IN (SELECT tarifa FROM socios WHERE login=?)");
+        stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifas WHERE codTarifa IN (SELECT tarifa FROM socios WHERE login=?)");
         stmTarifa.setString(1,loginSocio);
         resultTarifas=stmTarifa.executeQuery();
         if(resultTarifas.next()){
