@@ -27,6 +27,15 @@ public final class DAOUsuarios extends AbstractDAO {
         return resultValidacion.next();
     }
 
+    protected boolean existeDNI(String dni) throws SQLException {
+        PreparedStatement stmUsuario = null;
+        ResultSet resultValidacion;
+        stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE dni=?");
+        stmUsuario.setString(1,dni);
+        resultValidacion=stmUsuario.executeQuery();
+        return resultValidacion.next();
+    }
+
     protected boolean validarUsuario(String login,String password) throws SQLException {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;

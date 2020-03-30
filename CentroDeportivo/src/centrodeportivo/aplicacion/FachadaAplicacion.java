@@ -43,6 +43,10 @@ public class FachadaAplicacion {
         return xestionUsuarios.existeUsuario(login);
     }
 
+    public boolean existeDNI(String dni) throws SQLException {
+        return xestionUsuarios.existeDNI(dni);
+    }
+
     public boolean validarUsuario(String login,String password) throws SQLException{
         return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
     }

@@ -21,6 +21,10 @@ public class XestionUsuarios {
         return fachadaBD.existeUsuario(login);
     }
 
+    public boolean existeDNI(String dni) throws SQLException {
+        return fachadaBD.existeDNI(dni);
+    }
+
     public boolean validarUsuario(String login,String password) throws SQLException{
         return fachadaBD.validarUsuario(login,password);
     }

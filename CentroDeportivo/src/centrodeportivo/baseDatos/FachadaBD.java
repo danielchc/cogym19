@@ -62,6 +62,10 @@ public final class FachadaBD {
         return daoUsuarios.existeUsuario(login);
     }
 
+    public boolean existeDNI(String dni) throws SQLException {
+        return daoUsuarios.existeDNI(dni);
+    }
+
     public boolean validarUsuario(String login,String password) throws SQLException{
         return daoUsuarios.validarUsuario(login,password);
     }
