@@ -1,5 +1,7 @@
 package centrodeportivo.aplicacion;
 
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
@@ -21,6 +23,7 @@ public class FachadaAplicacion {
     private XestionUsuarios xestionUsuarios;
     private XestionMensaxes xestionMensaxes;
     private XestionTarifas xestionTarifas;
+    private XestionInstalacions xestionInstalacions;
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
@@ -28,6 +31,7 @@ public class FachadaAplicacion {
         this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
         this.xestionMensaxes=new XestionMensaxes(fachadaGUI,fachadaBD);
         this.xestionTarifas=new XestionTarifas(fachadaGUI,fachadaBD);
+        this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
     }
 
 
@@ -132,4 +136,23 @@ public class FachadaAplicacion {
     /*
         Xestion incidencias
      */
+
+    /*
+        Xestion instalacións
+     */
+    public void darAltaInstalacion(Instalacion instalacion){
+        xestionInstalacions.darAltaInstalacion(instalacion);
+    }
+
+    public void borrarInstalacion(Instalacion instalacion){
+        xestionInstalacions.borrarInstalacion(instalacion);
+    }
+
+    public void modificarInstalacion(Instalacion instalacion){
+        xestionInstalacions.modificarInstalacion(instalacion);
+    }
+
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+        return xestionInstalacions.buscarInstalacions(instalacion);
+    }
 }

@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -23,6 +24,7 @@ public final class FachadaBD {
     private DAOTarifas daoTarifas;
     private DAOMensaxes daoMensaxes;
     private DAOIncidencias daoIncidencias;
+    private DAOInstalacions daoInstalacions;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion) throws SQLException {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -50,6 +52,7 @@ public final class FachadaBD {
         this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
         this.daoIncidencias=new DAOIncidencias(this.conexion,this.fachadaAplicacion);
+        this.daoInstalacions=new DAOInstalacions(this.conexion, this.fachadaAplicacion);
     }
 
     /*
@@ -148,6 +151,29 @@ public final class FachadaBD {
     public void resolverIncidencia(Incidencia incidencia) throws SQLException{
         daoIncidencias.resolverIncidencia(incidencia);
     }
+
+    /*
+        Funcións DAOInstalacions
+     */
+
+    public void darAltaInstalacion(Instalacion instalacion){
+        daoInstalacions.darAltaInstalacion(instalacion);
+    }
+
+    public void borrarInstalacion(Instalacion instalacion){
+        daoInstalacions.borrarInstalacion(instalacion);
+    }
+
+    public void modificarInstalacion(Instalacion instalacion){
+        daoInstalacions.modificarInstalacion(instalacion);
+    }
+
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+        return daoInstalacions.buscarInstalacions(instalacion);
+    }
+
+
+    //Funcións propias:
 
     public Connection getConexion() {
         return conexion;
