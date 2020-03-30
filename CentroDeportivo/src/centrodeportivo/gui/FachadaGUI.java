@@ -13,10 +13,6 @@ public class FachadaGUI {
     private FachadaAplicacion fachadaAplicacion;
     FXMLLoader fxmlLoader;
     Stage stage;
-    Scene scene;
-    //vprincipal
-    //vlogin
-
 
     public FachadaGUI(FachadaAplicacion fachadaAplicacion) {
         this.fachadaAplicacion = fachadaAplicacion;
@@ -30,6 +26,7 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/persoal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
+        stage.setResizable(false);
         stage.show();
     }
     public void mostrarVentaSocios() throws IOException {
@@ -37,6 +34,7 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/socios/test.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
+        stage.setResizable(false);
         stage.show();
     }
 

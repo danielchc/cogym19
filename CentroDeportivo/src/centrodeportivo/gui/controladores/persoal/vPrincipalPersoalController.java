@@ -3,7 +3,9 @@ package centrodeportivo.gui.controladores.persoal;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Transicion;
+import centrodeportivo.gui.controladores.persoal.usuarios.vNovoUsuarioController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -39,17 +41,13 @@ public class vPrincipalPersoalController extends  AbstractController implements 
 
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
-    private HashMap<PantallasPersoal, String> pantallas;
-    private HashMap<PantallasPersoal, AbstractController> pantallas2;
-    private FXMLLoader fxmlLoader;
+    private HashMap<PantallasPersoal, DatosVista> pantallas;
 
     public vPrincipalPersoalController(FachadaAplicacion fachadaAplicacion) {
         super(fachadaAplicacion);
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
         this.pantallas=new HashMap<>();
-        this.pantallas2=new HashMap<>();
-        this.fxmlLoader=new FXMLLoader();
         cargarPantallas();
     }
 
@@ -89,8 +87,7 @@ public class vPrincipalPersoalController extends  AbstractController implements 
 
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
-        this.pantallas.put(PantallasPersoal.NOVOUSUARIO, "../../vistas/persoal/vNovoUsuario.fxml");
-        this.pantallas2.put(PantallasPersoal.NOVOUSUARIO, new vNovoUsuarioController(super.getFachadaAplicacion()));
+        this.pantallas.put(PantallasPersoal.NOVOUSUARIO,new DatosVista("../../vistas/persoal/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion())));
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {
@@ -123,8 +120,10 @@ public class vPrincipalPersoalController extends  AbstractController implements 
     private void mostrarMenu(PantallasPersoal idPantalla){
         this.mainContainer.getChildren().removeAll(this.mainContainer.getChildren());
         try {
-            fxmlLoader.setController(this.pantallas2.get(idPantalla));
-            fxmlLoader.setLocation(getClass().getResource(this.pantallas.get(idPantalla)));
+            DatosVista dv=this.pantallas.get(idPantalla);
+            FXMLLoader fxmlLoader=new FXMLLoader();
+            fxmlLoader.setController(dv.getControlador());
+            fxmlLoader.setLocation(getClass().getResource(dv.getPathFXML()));
             this.mainContainer.getChildren().add(fxmlLoader.load());
         } catch (Exception e) {
             e.printStackTrace();

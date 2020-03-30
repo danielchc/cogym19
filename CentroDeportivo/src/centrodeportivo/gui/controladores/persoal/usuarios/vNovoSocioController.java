@@ -1,7 +1,8 @@
-package centrodeportivo.gui.controladores.persoal;
+package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import javafx.event.ActionEvent;
@@ -10,7 +11,10 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -28,21 +32,20 @@ public class vNovoSocioController extends AbstractController implements Initiali
     public TextArea campoDificultades;
     public Button btnGadar;
     public Label labelError;
-    private ArrayList<Tarifa> tarifas;
 
 
     public vNovoSocioController(FachadaAplicacion fachadaAplicacion) {
         super(fachadaAplicacion);
-        try {
-            tarifas=getFachadaAplicacion().listarTarifas();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ArrayList<Tarifa> tarifas= null;
+        try {
+            tarifas = super.getFachadaAplicacion().listarTarifas();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.comboTarifa.getItems().addAll(tarifas);
         this.comboTarifa.getSelectionModel().selectFirst();
     }
@@ -50,7 +53,23 @@ public class vNovoSocioController extends AbstractController implements Initiali
     public void btnGardarAccion(ActionEvent actionEvent) {
         if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
             if(!comprobarFormatos()) return;
-            //meter no couso
+            if(!comprobarDataMais16anos()) return;
+            String nome=campoNome.getText();
+            String login=campoLogin.getText();
+            String pass=campoPassword.getText();
+            String tlf=campoTelf.getText();
+            String dni=campoDNI.getText();
+            String correo=campoCorreo.getText();
+            String iban=campoIBAN.getText();
+            Date data=Date.valueOf(campoData.getValue());
+            Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
+            String dificultades=campoDificultades.getText();
+
+            try {
+                super.getFachadaAplicacion().insertarUsuario(new Socio(login,pass,nome,tlf,dni,correo,iban,data,dificultades,tarifa));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }else{
             this.labelError.setText("Algún campo sen cubrir.");
         }
@@ -75,6 +94,16 @@ public class vNovoSocioController extends AbstractController implements Initiali
         }
         if(campoData.getValue()==null){
             this.labelError.setText("Data non introducida");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean comprobarDataMais16anos(){
+        LocalDate data=this.campoData.getValue();
+        LocalDate fechaLimite=LocalDate.now().minus(Period.ofYears(16));
+        if(data.compareTo(fechaLimite)>0){
+            this.labelError.setText("O usuario debe ter polo menos 16 anos.");
             return false;
         }
         return true;

@@ -24,7 +24,7 @@
    <center>
       <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <RadioButton fx:id="radioSocio" onAction="#accionSocio" layoutX="218.0" layoutY="146.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="108.0" text="Socio" AnchorPane.bottomAnchor="238.79999999999998" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="361.20000000000005" AnchorPane.topAnchor="146.0">
+            <RadioButton fx:id="radioSocio"  layoutX="218.0" layoutY="146.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="108.0" text="Socio" AnchorPane.bottomAnchor="238.79999999999998" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="361.20000000000005" AnchorPane.topAnchor="146.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font></RadioButton>
@@ -37,7 +37,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <RadioButton fx:id="radioPersoal" onAction="#accionPersoal" layoutX="379.0" layoutY="146.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="108.0" text="Persoal" AnchorPane.bottomAnchor="238.79999999999998" AnchorPane.rightAnchor="200.20000000000005" AnchorPane.topAnchor="146.0">
+            <RadioButton fx:id="radioPersoal" layoutX="379.0" layoutY="146.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="108.0" text="Persoal" AnchorPane.bottomAnchor="238.79999999999998" AnchorPane.rightAnchor="200.20000000000005" AnchorPane.topAnchor="146.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

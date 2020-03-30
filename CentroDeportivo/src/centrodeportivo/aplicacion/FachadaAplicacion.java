@@ -52,6 +52,7 @@ public class FachadaAplicacion {
     }
 
     public void insertarUsuario(Usuario usuario) throws SQLException{
+        usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         xestionUsuarios.insertarUsuario(usuario);
     }
 
