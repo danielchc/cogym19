@@ -2,24 +2,24 @@ package centrodeportivo.gui.controladores.persoal;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.Transicion;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class vPrincipalPersoalController implements Initializable {
+public class vPrincipalPersoalController extends  AbstractController implements Initializable  {
     private Usuario usuario;
     public Button btnIncidencia;
     public Button btnMaterial;
@@ -40,14 +40,23 @@ public class vPrincipalPersoalController implements Initializable {
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
     private HashMap<PantallasPersoal, String> pantallas;
-    private FachadaAplicacion fachadaAplicacion;
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    private HashMap<PantallasPersoal, AbstractController> pantallas2;
+    private FXMLLoader fxmlLoader;
+
+    public vPrincipalPersoalController(FachadaAplicacion fachadaAplicacion) {
+        super(fachadaAplicacion);
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
         this.pantallas=new HashMap<>();
-        inciarTransiciones();
+        this.pantallas2=new HashMap<>();
+        this.fxmlLoader=new FXMLLoader();
         cargarPantallas();
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        inciarTransiciones();
     }
 
     private void inciarTransiciones(){
@@ -81,6 +90,7 @@ public class vPrincipalPersoalController implements Initializable {
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
         this.pantallas.put(PantallasPersoal.NOVOUSUARIO, "../../vistas/persoal/vNovoUsuario.fxml");
+        this.pantallas2.put(PantallasPersoal.NOVOUSUARIO, new vNovoUsuarioController(super.getFachadaAplicacion()));
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {
@@ -113,8 +123,10 @@ public class vPrincipalPersoalController implements Initializable {
     private void mostrarMenu(PantallasPersoal idPantalla){
         this.mainContainer.getChildren().removeAll(this.mainContainer.getChildren());
         try {
-            this.mainContainer.getChildren().add(FXMLLoader.load(getClass().getResource(this.pantallas.get(idPantalla))));
-        } catch (IOException e) {
+            fxmlLoader.setController(this.pantallas2.get(idPantalla));
+            fxmlLoader.setLocation(getClass().getResource(this.pantallas.get(idPantalla)));
+            this.mainContainer.getChildren().add(fxmlLoader.load());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -122,14 +134,5 @@ public class vPrincipalPersoalController implements Initializable {
     public void btnSliderAction(ActionEvent actionEvent) {
         esconderTodosSliders();
         mostrarMenu(PantallasPersoal.valueOf(((Button)actionEvent.getSource()).getId()));
-    }
-
-    public FachadaAplicacion getFachadaAplicacion() {
-        return fachadaAplicacion;
-    }
-
-    public void setFachadaAplicacion(FachadaAplicacion fachadaAplicacion) {
-        this.fachadaAplicacion = fachadaAplicacion;
-        System.out.println("setted");
     }
 }

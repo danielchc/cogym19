@@ -1,10 +1,15 @@
 package centrodeportivo.gui.controladores.persoal;
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.gui.controladores.AbstractController;
 import javafx.event.ActionEvent;
 
-public class vNovoPersoalController {
+public class vNovoPersoalController  extends AbstractController {
 
 
+    public vNovoPersoalController(FachadaAplicacion fachadaAplicacion) {
+        super(fachadaAplicacion);
+    }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
     }

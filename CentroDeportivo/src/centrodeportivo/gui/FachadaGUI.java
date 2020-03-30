@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class FachadaGUI {
     private FachadaAplicacion fachadaAplicacion;
@@ -24,17 +25,18 @@ public class FachadaGUI {
     }
 
     public void mostrarVentaPersoal() throws IOException {
+
+        fxmlLoader.setController(new vPrincipalPersoalController(this.fachadaAplicacion));
         fxmlLoader.setLocation(getClass().getResource("./vistas/persoal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
-        ((vPrincipalPersoalController)fxmlLoader.getController()).setFachadaAplicacion(fachadaAplicacion);
         stage.show();
     }
     public void mostrarVentaSocios() throws IOException {
+        fxmlLoader.setController(new vPrincipalPersoalController(this.fachadaAplicacion));
         fxmlLoader.setLocation(getClass().getResource("./vistas/socios/test.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
-        ((vPrincipalPersoalController)fxmlLoader.getController()).setFachadaAplicacion(fachadaAplicacion);
         stage.show();
     }
 

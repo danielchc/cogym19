@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="482.0" prefWidth="783.0" stylesheets="@cssMenu.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController">
+<AnchorPane prefHeight="482.0" prefWidth="783.0" stylesheets="@cssMenu.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <StackPane fx:id="mainContainer" layoutX="101.0" maxHeight="1.7976931348623157E308" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

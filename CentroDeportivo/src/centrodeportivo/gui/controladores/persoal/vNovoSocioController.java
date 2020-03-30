@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.persoal;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.funcionsAux.ValidacionDatos;
+import centrodeportivo.gui.controladores.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class vNovoSocioController implements Initializable {
+public class vNovoSocioController extends AbstractController implements Initializable   {
 
     public ComboBox comboTarifa;
     public TextField campoNome;
@@ -27,19 +28,23 @@ public class vNovoSocioController implements Initializable {
     public TextArea campoDificultades;
     public Button btnGadar;
     public Label labelError;
+    private ArrayList<Tarifa> tarifas;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    public vNovoSocioController(FachadaAplicacion fachadaAplicacion) {
+        super(fachadaAplicacion);
         try {
-            FachadaAplicacion fa=new FachadaAplicacion();
-            ArrayList<Tarifa> tarifas=fa.listarTarifas();
-            this.comboTarifa.getItems().addAll(tarifas);
-            this.comboTarifa.getSelectionModel().selectFirst();
-        } catch (IOException e) {
-            e.printStackTrace();
+            tarifas=getFachadaAplicacion().listarTarifas();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.comboTarifa.getItems().addAll(tarifas);
+        this.comboTarifa.getSelectionModel().selectFirst();
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
@@ -47,7 +52,7 @@ public class vNovoSocioController implements Initializable {
             if(!comprobarFormatos()) return;
             //meter no couso
         }else{
-            this.labelError.setText("Algún campo sen cumbrir.");
+            this.labelError.setText("Algún campo sen cubrir.");
         }
     }
 

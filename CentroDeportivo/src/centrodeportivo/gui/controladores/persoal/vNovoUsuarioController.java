@@ -1,5 +1,7 @@
 package centrodeportivo.gui.controladores.persoal;
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.gui.controladores.AbstractController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,23 +12,31 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class vNovoUsuarioController implements Initializable {
+public class vNovoUsuarioController extends AbstractController implements Initializable {
     public RadioButton radioPersoal;
     public RadioButton radioSocio;
     public Button btnContinuar;
     public AnchorPane container;
 
-
     public static int OPCIONSOCIO=1;
     public static int OPCIONPERSOAL=2;
     private int opcion;
+    private FXMLLoader fxmlLoader;
+
+    public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion) {
+        super(fachadaAplicacion);
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.opcion=OPCIONSOCIO;
         radioSocio.setSelected(true);
+        this.fxmlLoader=new FXMLLoader();
+
     }
 
     public void accionSocio(ActionEvent actionEvent) {
@@ -42,16 +52,23 @@ public class vNovoUsuarioController implements Initializable {
     }
 
     public void accionContinuar(ActionEvent actionEvent) {
-        Pane panelConfig;
         try {
-            if(opcion==OPCIONSOCIO) panelConfig = FXMLLoader.load(getClass().getResource("../../vistas/persoal/vNovoSocio.fxml"));
-            else
-                panelConfig = FXMLLoader.load(getClass().getResource("../../vistas/persoal/vNovoPersoal.fxml"));
-        } catch (IOException e) {
+
+            if(opcion==OPCIONSOCIO){
+                fxmlLoader.setController(new vNovoSocioController(super.getFachadaAplicacion()));
+                fxmlLoader.setLocation(getClass().getResource("../../vistas/persoal/vNovoSocio.fxml"));
+            }
+            else{
+                fxmlLoader.setController(new vNovoPersoalController(getFachadaAplicacion()));
+                fxmlLoader.setLocation(getClass().getResource("../../vistas/persoal/vNovoPersoal.fxml"));
+            }
+
+            this.container.getChildren().removeAll(this.container.getChildren());
+            this.container.getChildren().add(fxmlLoader.load());
+        } catch (Exception e) {
             e.printStackTrace();
             return;
         }
-        this.container.getChildren().removeAll(this.container.getChildren());
-        this.container.getChildren().add(panelConfig);
+
     }
 }
