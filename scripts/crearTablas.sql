@@ -13,7 +13,7 @@ CREATE TABLE usuarios(
 	nome 				VARCHAR(200) NOT NULL,
 	numTelefono 		CHAR(9) NOT NULL,
 	DNI 				CHAR(9) NOT NULL UNIQUE,
-	correoElectronico 	VARCHAR(200) NOT NULL,
+	correoElectronico 	VARCHAR(200) NOT NULL UNIQUE,
 	IBAN 				CHAR(24) NOT NULL,
 	dataAlta			DATE NOT NULL DEFAULT NOW(),
 	dataBaixa			DATE CHECK(dataBaixa>=dataAlta),

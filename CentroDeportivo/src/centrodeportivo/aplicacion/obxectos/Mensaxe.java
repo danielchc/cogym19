@@ -1,22 +1,24 @@
 package centrodeportivo.aplicacion.obxectos;
 
 
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+
 import java.sql.Timestamp;
 
 public final class Mensaxe {
-    private String emisor;
-    private String receptor;
+    private Usuario emisor;
+    private Usuario receptor;
     private Timestamp dataEnvio;
     private String contido;
     private boolean lido;
 
-    public Mensaxe(String emisor,String receptor,Timestamp dataEnvio,String contido,boolean lido){
+    public Mensaxe(Usuario emisor,Usuario receptor,Timestamp dataEnvio,String contido,boolean lido){
         this(emisor, receptor, contido);
         this.dataEnvio=dataEnvio;
         this.lido=lido;
     }
 
-    public Mensaxe(String emisor,String receptor,String contido){
+    public Mensaxe(Usuario emisor,Usuario receptor,String contido){
         this.emisor=emisor;
         this.receptor=receptor;
         this.contido=contido;
@@ -24,19 +26,19 @@ public final class Mensaxe {
     }
 
 
-    public String getEmisor() {
+    public Usuario getEmisor() {
         return emisor;
     }
 
-    public void setEmisor(String emisor) {
+    public void setEmisor(Usuario emisor) {
         this.emisor = emisor;
     }
 
-    public String getReceptor() {
+    public Usuario getReceptor() {
         return receptor;
     }
 
-    public void setReceptor(String receptor) {
+    public void setReceptor(Usuario receptor) {
         this.receptor = receptor;
     }
 

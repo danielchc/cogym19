@@ -23,8 +23,8 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe=null;
 
         stmMensaxe=con.prepareStatement("INSERT INTO enviarMensaxes (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
-        stmMensaxe.setString(1,m.getEmisor());
-        stmMensaxe.setString(2,m.getReceptor());
+        stmMensaxe.setString(1,m.getEmisor().getLogin());
+        stmMensaxe.setString(2,m.getReceptor().getLogin());
         stmMensaxe.setString(3,m.getContido());
         stmMensaxe.setBoolean(4,m.isLido());
         stmMensaxe.executeUpdate();
@@ -49,8 +49,8 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe=null;
 
         stmMensaxe=con.prepareStatement("UPDATE enviarMensaxes SET lido=TRUE WHERE emisor=? AND receptor=? AND dataEnvio=?;");
-        stmMensaxe.setString(1,m.getEmisor());
-        stmMensaxe.setString(2,m.getReceptor());
+        stmMensaxe.setString(1,m.getEmisor().getLogin());
+        stmMensaxe.setString(2,m.getReceptor().getLogin());
         stmMensaxe.setTimestamp(3,m.getDataEnvio());
         stmMensaxe.executeUpdate();
         con.commit();
@@ -66,8 +66,8 @@ public final class DAOMensaxes extends AbstractDAO {
         resultMensaxes=stmMensaxe.executeQuery();
         while (resultMensaxes.next()){
             mensaxes.add(new Mensaxe(
-                    resultMensaxes.getString("emisor"),
-                    resultMensaxes.getString("receptor"),
+                    new Usuario(resultMensaxes.getString("emisor")),
+                    new Usuario(resultMensaxes.getString("receptor")),
                     resultMensaxes.getTimestamp("dataEnvio"),
                     resultMensaxes.getString("contido"),
                     resultMensaxes.getBoolean("lido")
