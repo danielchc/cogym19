@@ -1,18 +1,7 @@
 package test;
 
-import centrodeportivo.aplicacion.*;
-import centrodeportivo.aplicacion.funcionsAux.Criptografia;
-import centrodeportivo.aplicacion.funcionsAux.ValidacionDatos;
-import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
-import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
-import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
-import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Date;
 import java.sql.SQLException;
 
 public class Main {

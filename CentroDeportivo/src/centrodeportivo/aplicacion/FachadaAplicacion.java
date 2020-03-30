@@ -1,6 +1,6 @@
 package centrodeportivo.aplicacion;
 
-import centrodeportivo.aplicacion.funcionsAux.Criptografia;
+import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
