@@ -27,7 +27,7 @@ public class XestionInstalacions {
         fachadaBD.modificarInstalacion(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions(){
-        return fachadaBD.listarInstalacions();
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+        return fachadaBD.buscarInstalacions(instalacion);
     }
 }

@@ -168,8 +168,8 @@ public final class FachadaBD {
         daoInstalacions.modificarInstalacion(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions(){
-        return daoInstalacions.listarInstalacions();
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+        return daoInstalacions.buscarInstalacions(instalacion);
     }
 
 

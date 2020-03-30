@@ -152,7 +152,7 @@ public class FachadaAplicacion {
         xestionInstalacions.modificarInstalacion(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions(){
-        return xestionInstalacions.listarInstalacions();
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+        return xestionInstalacions.buscarInstalacions(instalacion);
     }
 }
