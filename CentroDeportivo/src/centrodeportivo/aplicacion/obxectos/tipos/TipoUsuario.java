@@ -4,5 +4,5 @@ public enum TipoUsuario {
     Socio,
     Persoal,
     Profesor,
-    Desconocido
+    Todos
 }

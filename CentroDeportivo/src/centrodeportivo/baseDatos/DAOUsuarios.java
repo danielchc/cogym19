@@ -8,7 +8,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.baseDatos.AbstractDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -143,24 +142,25 @@ public final class DAOUsuarios extends AbstractDAO {
         stmUsuario = con.prepareStatement("SELECT " +
                 "login," +
                 "(SELECT 1 FROM socios AS s WHERE s.login=u.login) AS eSocio," +
-                "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login) AS ePersoal," +
-                "(SELECT 1 FROM profesores AS pf WHERE pf.login=u.login) AS eProfesor " +
+                "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND u.login NOT IN (SELECT login FROM profesores)) AS ePersoal," +
+                "(SELECT 1 FROM profesores AS pf WHERE pf.login=u.login AND u.login IN (SELECT login FROM profesores)) AS eProfesor " +
                 "FROM usuarios as u WHERE u.login=?"
         );
         stmUsuario.setString(1,login);
+
         rsUsuarios = stmUsuario.executeQuery();
         rsUsuarios.next();
         if(rsUsuarios.getBoolean("eSocio"))return TipoUsuario.Socio;
         if(rsUsuarios.getBoolean("eProfesor"))return TipoUsuario.Profesor;
         if(rsUsuarios.getBoolean("ePersoal"))return TipoUsuario.Persoal;
-        return TipoUsuario.Desconocido;
+        return null;
     }
 
     protected ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
         PreparedStatement stmUsuario = null;
         ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
         ResultSet rsUsuarios;
-        if(filtro==TipoUsuario.Socio || filtro==TipoUsuario.Desconocido) {
+        if(filtro==TipoUsuario.Socio || filtro==TipoUsuario.Todos) {
             stmUsuario = con.prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
                     "FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa " +
                     "WHERE u.login LIKE ? OR u.nome LIKE ?;"
@@ -190,7 +190,7 @@ public final class DAOUsuarios extends AbstractDAO {
                ));
             }
         }
-        if (filtro==TipoUsuario.Profesor || filtro==TipoUsuario.Desconocido){
+        if (filtro==TipoUsuario.Profesor || filtro==TipoUsuario.Todos){
             stmUsuario = con.prepareStatement(
                     "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (u.login LIKE ? OR u.nome LIKE ?);");
             stmUsuario.setString(1, "%"+login+"%");
@@ -210,7 +210,7 @@ public final class DAOUsuarios extends AbstractDAO {
                     ));
                 }
             }
-        if (filtro==TipoUsuario.Persoal || filtro==TipoUsuario.Desconocido){
+        if (filtro==TipoUsuario.Persoal || filtro==TipoUsuario.Todos){
             stmUsuario = con.prepareStatement(
                     "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (u.login LIKE ? OR u.nome LIKE ?);");
             stmUsuario.setString(1, "%"+login+"%");

@@ -1,9 +1,6 @@
 package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
-import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
-import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
-import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
@@ -57,7 +54,7 @@ public class XestionUsuarios {
     }
 
     public ArrayList<Usuario> listarUsuarios() throws SQLException {
-        return fachadaBD.buscarUsuarios("","",TipoUsuario.Desconocido);
+        return fachadaBD.buscarUsuarios("","",TipoUsuario.Todos);
     }
 
 }

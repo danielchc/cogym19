@@ -83,9 +83,8 @@ public class Main {
             //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
             //Files.write(Paths.get("baseDatos.encrypted"),k);
             System.out.println("PROFESOR");
-            System.out.println(fb.getDaoUsuarios().buscarUsuarios("","", TipoUsuario.Profesor));
-            System.out.println("PERSOAL");
-            System.out.println(fb.getDaoUsuarios().buscarUsuarios("","", TipoUsuario.Persoal));
+            System.out.println(fb.consultarTipo("pepe"));
+
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

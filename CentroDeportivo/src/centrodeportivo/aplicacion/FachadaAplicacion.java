@@ -4,9 +4,6 @@ import centrodeportivo.aplicacion.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
-import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
-import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
-import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.aplicacion.xestion.XestionMensaxes;
 import centrodeportivo.aplicacion.xestion.XestionTarifas;
@@ -71,7 +68,7 @@ public class FachadaAplicacion {
     }
 
     public ArrayList<Usuario> listarUsuarios() throws SQLException {
-        return xestionUsuarios.buscarUsuarios("","",TipoUsuario.Desconocido);
+        return xestionUsuarios.buscarUsuarios("","",TipoUsuario.Todos);
     }
 
     /*
