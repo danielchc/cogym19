@@ -2,6 +2,7 @@ package test;
 
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.baseDatos.FachadaBD;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 
 import javax.management.InstanceAlreadyExistsException;
 import java.sql.SQLException;
@@ -76,11 +77,14 @@ public class Main {
             //Files.write(Paths.get("baseDatos.encrypted"),k);
             //System.out.println("PROFESOR");
             //System.out.println(fb.consultarTipo("pepe"));
-
+            /*
             fb.borrarInstalacion(new Instalacion(6,"Casa", "981809922", "Rua da casa de Victor"));
             for(Instalacion a: fb.buscarInstalacions(new Instalacion("", "", ""))) {
                 System.out.println(a);
-            }
+            }*/
+            System.out.println(ValidacionDatos.isCorrectoCorreo("asadadsds@asdsad.com"));
+            System.out.println(ValidacionDatos.isCorrectoCorreo("asadadsds@asdsadcom"));
+            System.out.println(ValidacionDatos.isCorrectoCorreo("asadadsdasdsad.com"));
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

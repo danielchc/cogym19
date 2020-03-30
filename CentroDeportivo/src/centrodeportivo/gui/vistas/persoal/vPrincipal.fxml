@@ -7,14 +7,14 @@
 
 <AnchorPane prefHeight="482.0" prefWidth="783.0" stylesheets="@cssMenu.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrodeportivo.gui.controladores.persoal.vPrincipalController">
    <children>
-      <StackPane fx:id="mainContainer" layoutX="101.0" prefHeight="482.0" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="0.0">
+      <StackPane fx:id="mainContainer" layoutX="101.0" maxHeight="1.7976931348623157E308" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
          </children>
       </StackPane>
       
       <VBox id="vb-sidebar" fx:id="sideBarUsuarios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE" onAction="#btnSliderAction">
+            <Button id="NOVOUSUARIO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -26,7 +26,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Usuario" textFill="WHITE" onAction="#btnSliderAction">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Usuario" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -38,7 +38,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Baixa Usuario" textFill="WHITE" onAction="#btnSliderAction">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Baixa Usuario" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -55,7 +55,7 @@
 
       <VBox id="vb-sidebar" fx:id="sideBarMensaxes" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Mensaxe" textFill="WHITE" onAction="#btnSliderAction">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Mensaxe" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -67,7 +67,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Buzón Mensaxes" textFill="WHITE" onAction="#btnSliderAction">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Buzón Mensaxes" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -84,7 +84,7 @@
 
       <VBox id="vb-sidebar" fx:id="sideBarTarifas" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Tarifa" textFill="WHITE" onAction="#btnSliderAction">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Tarifa" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -96,7 +96,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Tarifa" textFill="WHITE" onAction="#btnSliderAction">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Tarifa" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -108,7 +108,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Tarifa" textFill="WHITE" onAction="#btnSliderAction">
+            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Tarifa" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -124,7 +124,7 @@
       </VBox>
 
       <VBox id="vb-sidebar" fx:id="sideBarAreas" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -136,7 +136,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Instalación" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Instalación" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -148,7 +148,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Instalación" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Instalación" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -160,7 +160,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Área" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Área" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -172,7 +172,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Área" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Área" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -184,7 +184,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Área" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Área" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -233,7 +233,7 @@
       </VBox>
 
       <VBox id="vb-sidebar" fx:id="sideBarIncidencias" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Incidencia" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Incidencia" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -245,7 +245,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Listar Incidencias" textFill="WHITE" onAction="#btnSliderAction">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Listar Incidencias" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>

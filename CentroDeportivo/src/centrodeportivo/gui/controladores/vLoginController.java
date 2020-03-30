@@ -44,7 +44,7 @@ public class vLoginController  implements Initializable {
                     labelError.setText("Algún campo incorrecto");
                 }
             }catch (Exception ex){
-                System.out.println(ex);
+                ex.printStackTrace();
             }
         }else{
             labelError.setText("Algún campo está incompleto");

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class vPrincipalController implements Initializable {
-    private Usuario u;
+    private Usuario usuario;
     public Button btnIncidencia;
     public Button btnMaterial;
     public Button btnActividades;
@@ -38,7 +38,7 @@ public class vPrincipalController implements Initializable {
 
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
-    private HashMap<PantallasPersoal, Pane> pantallas;
+    private HashMap<PantallasPersoal, String> pantallas;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,7 +46,7 @@ public class vPrincipalController implements Initializable {
         this.botonesMenu=new ArrayList<>();
         this.pantallas=new HashMap<>();
         inciarTransiciones();
-        //cargarPantallas();
+        cargarPantallas();
     }
 
     private void inciarTransiciones(){
@@ -78,17 +78,8 @@ public class vPrincipalController implements Initializable {
     }
 
     private void cargarPantallas() {
-        try {
-            //carganse todas as pantallas necesarias
-            this.pantallas.put(PantallasPersoal.NOVOUSUARIO, FXMLLoader.load(getClass().getResource("path fxml a cargar")));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-        //ocultanse todas as pantallas
-        for(Pane p:this.pantallas.values()) p.setVisible(false);
-        //carganse no contenedor da vPrincipal
-        this.mainContainer.getChildren().addAll(this.pantallas.values());
+        //carganse todas as pantallas necesarias
+        this.pantallas.put(PantallasPersoal.NOVOUSUARIO, "../../vistas/persoal/vNovoUsuario.fxml");
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {
@@ -119,13 +110,16 @@ public class vPrincipalController implements Initializable {
     }
 
     private void mostrarMenu(PantallasPersoal idPantalla){
-        for(Pane p:this.pantallas.values()){
-            p.setVisible(false);
+        this.mainContainer.getChildren().removeAll(this.mainContainer.getChildren());
+        try {
+            this.mainContainer.getChildren().add(FXMLLoader.load(getClass().getResource(this.pantallas.get(idPantalla))));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        this.pantallas.get(idPantalla).setVisible(true);
     }
 
     public void btnSliderAction(ActionEvent actionEvent) {
+        esconderTodosSliders();
         mostrarMenu(PantallasPersoal.valueOf(((Button)actionEvent.getSource()).getId()));
     }
 

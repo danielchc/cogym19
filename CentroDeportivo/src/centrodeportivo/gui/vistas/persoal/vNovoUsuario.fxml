@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrodeportivo.gui.controladores.persoal.vNovoUsuarioController">
+   <top>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER_RIGHT" layoutX="209.0" layoutY="10.0" prefHeight="30.0" prefWidth="169.0" text="Alta de Usuarios" textFill="WHITE" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="303.79999999999995" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
+               <image>
+                  <Image url="@../../imaxes/usuario.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+   </top>
+   <center>
+      <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <RadioButton fx:id="radioSocio" onAction="#accionSocio" layoutX="218.0" layoutY="146.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="108.0" text="Socio" AnchorPane.bottomAnchor="238.79999999999998" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="361.20000000000005" AnchorPane.topAnchor="146.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></RadioButton>
+            <Button fx:id="btnContinuar" onAction="#accionContinuar" layoutX="287.0" layoutY="242.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="113.0" text="Continuar" AnchorPane.leftAnchor="287.0" AnchorPane.rightAnchor="286.6" AnchorPane.topAnchor="242.0">
+               <font>
+                  <Font size="17.0" />
+               </font></Button>
+            <Label alignment="CENTER" layoutX="188.0" layoutY="82.0" prefWidth="316.0" text="Selecciona o tipo de usuario..." AnchorPane.bottomAnchor="317.2" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="183.20000000000005" AnchorPane.topAnchor="82.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="radioPersoal" onAction="#accionPersoal" layoutX="379.0" layoutY="146.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="108.0" text="Persoal" AnchorPane.bottomAnchor="238.79999999999998" AnchorPane.rightAnchor="200.20000000000005" AnchorPane.topAnchor="146.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </RadioButton>
+         </children></AnchorPane>
+   </center>
+</BorderPane>
