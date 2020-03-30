@@ -1,24 +1,3 @@
-DROP TABLE IF EXISTS estarCapacitado;
-DROP TABLE IF EXISTS enviarMensaxes;
-DROP TABLE IF EXISTS realizarCursos;
-DROP TABLE IF EXISTS realizarActividades;
-DROP TABLE IF EXISTS incidenciasAreas;
-DROP TABLE IF EXISTS incidenciasMateriais;
-DROP TABLE IF EXISTS actividades;
-DROP TABLE IF EXISTS cursos;
-DROP TABLE IF EXISTS tipoActividades;
-DROP TABLE IF EXISTS materiais;
-DROP TABLE IF EXISTS areas;
-DROP TABLE IF EXISTS instalacions;
-DROP TABLE IF EXISTS profesores;
-DROP TABLE IF EXISTS persoal;
-DROP TABLE IF EXISTS socios;
-DROP TABLE IF EXISTS usuarios;
-DROP TABLE IF EXISTS tarifas;
-DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcursos CASCADE;
-DROP FUNCTION IF EXISTS insertarActividades();
-
-
 CREATE TABLE tarifas(
 	codTarifa 		SERIAL NOT NULL,
 	nome 			VARCHAR(50) NOT NULL UNIQUE,
@@ -55,7 +34,6 @@ CREATE TABLE socios(
 
 CREATE TABLE persoal(
 	login 				VARCHAR(25) NOT NULL,
-	dataIncorporacion 	DATE NOT NULL DEFAULT NOW(),
 	NUSS				CHAR(12) NOT NULL UNIQUE,
 	PRIMARY KEY(login),
 	FOREIGN KEY (login) REFERENCES usuarios(login) 
