@@ -130,8 +130,8 @@ public class FachadaAplicacion {
         fachadaGUI.mostrarVentaSocios();
     }
 
-    public void mostrarVentaPersoal() throws IOException {
-        fachadaGUI.mostrarVentaPersoal();
+    public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
+        fachadaGUI.mostrarVentaPersoal(loggedUser);
     }
 
     public Usuario consultarUsuario(String login) throws SQLException {

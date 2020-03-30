@@ -38,11 +38,11 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             FXMLLoader fxmlLoader=new FXMLLoader();
             if(grupoRadio.getSelectedToggle().equals(radioSocio)){
                 fxmlLoader.setController(new vNovoSocioController(super.getFachadaAplicacion()));
-                fxmlLoader.setLocation(getClass().getResource("../../../vistas/persoal/vNovoSocio.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("../../../vistas/persoal/usuarios/vNovoSocio.fxml"));
             }
             else{
                 fxmlLoader.setController(new vNovoPersoalController(getFachadaAplicacion()));
-                fxmlLoader.setLocation(getClass().getResource("../../../vistas/persoal/vNovoPersoal.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("../../../vistas/persoal/usuarios/vNovoPersoal.fxml"));
             }
             this.container.getChildren().removeAll(this.container.getChildren());
             this.container.getChildren().add(fxmlLoader.load());

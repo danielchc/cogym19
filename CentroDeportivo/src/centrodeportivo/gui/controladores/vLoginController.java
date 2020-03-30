@@ -36,7 +36,7 @@ public class vLoginController  implements Initializable {
                             break;
                         case Persoal:
                         case Profesor:
-                            fa.mostrarVentaPersoal();
+                            fa.mostrarVentaPersoal(fa.consultarUsuario(tfUsuario.getText()));
                             break;
                     }
                     ((Stage) tfUsuario.getScene().getWindow()).close();

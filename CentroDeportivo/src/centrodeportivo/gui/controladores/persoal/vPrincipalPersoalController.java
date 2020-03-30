@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Transicion;
+import centrodeportivo.gui.controladores.persoal.usuarios.vNovoSocioController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vNovoUsuarioController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -22,7 +23,6 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class vPrincipalPersoalController extends  AbstractController implements Initializable  {
-    private Usuario usuario;
     public Button btnIncidencia;
     public Button btnMaterial;
     public Button btnActividades;
@@ -30,6 +30,7 @@ public class vPrincipalPersoalController extends  AbstractController implements 
     public Button btnTarifas;
     public Button btnMensaxes;
     public Button btnUsuarios;
+    public Button btnInicio;
     public StackPane mainContainer;
     public VBox sideBarUsuarios;
     public VBox sideBarMensaxes;
@@ -43,8 +44,8 @@ public class vPrincipalPersoalController extends  AbstractController implements 
     private ArrayList<Button> botonesMenu;
     private HashMap<PantallasPersoal, DatosVista> pantallas;
 
-    public vPrincipalPersoalController(FachadaAplicacion fachadaAplicacion) {
-        super(fachadaAplicacion);
+    public vPrincipalPersoalController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
+        super(fachadaAplicacion,usuario);
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
         this.pantallas=new HashMap<>();
@@ -55,6 +56,7 @@ public class vPrincipalPersoalController extends  AbstractController implements 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inciarTransiciones();
+        mostrarMenu(PantallasPersoal.INICIO);
     }
 
     private void inciarTransiciones(){
@@ -87,7 +89,8 @@ public class vPrincipalPersoalController extends  AbstractController implements 
 
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
-        this.pantallas.put(PantallasPersoal.NOVOUSUARIO,new DatosVista("../../vistas/persoal/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion())));
+        this.pantallas.put(PantallasPersoal.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion())));
+        this.pantallas.put(PantallasPersoal.INICIO,new DatosVista("../../vistas/persoal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),super.getUsuario())));
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {

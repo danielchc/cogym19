@@ -265,6 +265,18 @@
 
       <VBox id="vb-sidebar" prefHeight="482.0" prefWidth="100.0" style="-fx-background-color: #2990ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <Button id="INICIO" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Inicio" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                     <image>
+                        <Image url="@../../imaxes/inicio.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button fx:id="btnUsuarios" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Usuarios" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
