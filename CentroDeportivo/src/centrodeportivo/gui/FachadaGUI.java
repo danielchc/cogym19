@@ -25,13 +25,13 @@ public class FachadaGUI {
     public void mostrarVentaPersoal() throws IOException {
         fxmlLoader.setLocation(getClass().getResource("./vistas/persoal/vPrincipal.fxml"));
         stage.setTitle("Xestion Centro Deportivo");
-        stage.setScene(new Scene(fxmlLoader.load(), 800, 500));
+        stage.setScene(new Scene(fxmlLoader.load()));
         stage.show();
     }
     public void mostrarVentaSocios() throws IOException {
         fxmlLoader.setLocation(getClass().getResource("./vistas/socios/test.fxml"));
         stage.setTitle("Xestion Centro Deportivo");
-        stage.setScene(new Scene(fxmlLoader.load(), 800, 500));
+        stage.setScene(new Scene(fxmlLoader.load()));
         stage.show();
     }
 }
