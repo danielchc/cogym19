@@ -1,5 +1,6 @@
 package centrodeportivo.gui.controladores.persoal;
 
+import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class vPrincipalController implements Initializable {
+public class vPrincipalPersoalController implements Initializable {
     private Usuario usuario;
     public Button btnIncidencia;
     public Button btnMaterial;
@@ -39,7 +40,7 @@ public class vPrincipalController implements Initializable {
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
     private HashMap<PantallasPersoal, String> pantallas;
-
+    private FachadaAplicacion fachadaAplicacion;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.transiciones=new HashMap<>();
@@ -123,7 +124,12 @@ public class vPrincipalController implements Initializable {
         mostrarMenu(PantallasPersoal.valueOf(((Button)actionEvent.getSource()).getId()));
     }
 
-    public void setUsuario(String login){
+    public FachadaAplicacion getFachadaAplicacion() {
+        return fachadaAplicacion;
+    }
 
+    public void setFachadaAplicacion(FachadaAplicacion fachadaAplicacion) {
+        this.fachadaAplicacion = fachadaAplicacion;
+        System.out.println("setted");
     }
 }

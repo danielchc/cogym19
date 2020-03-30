@@ -1,6 +1,7 @@
 package centrodeportivo.gui;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,14 +25,17 @@ public class FachadaGUI {
 
     public void mostrarVentaPersoal() throws IOException {
         fxmlLoader.setLocation(getClass().getResource("./vistas/persoal/vPrincipal.fxml"));
-        stage.setTitle("Xestion Centro Deportivo");
+        stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
+        ((vPrincipalPersoalController)fxmlLoader.getController()).setFachadaAplicacion(fachadaAplicacion);
         stage.show();
     }
     public void mostrarVentaSocios() throws IOException {
         fxmlLoader.setLocation(getClass().getResource("./vistas/socios/test.fxml"));
-        stage.setTitle("Xestion Centro Deportivo");
+        stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
+        ((vPrincipalPersoalController)fxmlLoader.getController()).setFachadaAplicacion(fachadaAplicacion);
         stage.show();
     }
+
 }
