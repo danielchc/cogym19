@@ -45,6 +45,11 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="203.0" prefHeight="100.0" prefWidth="212.0" text="NUSS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" layoutX="10.0" layoutY="226.0" prefHeight="100.0" prefWidth="212.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
@@ -61,7 +66,8 @@
                         <TextField fx:id="campoDNI" layoutX="10.0" layoutY="110.0" prefHeight="100.0" />
                         <TextField fx:id="campoCorreo" layoutX="10.0" layoutY="10.0" prefHeight="100.0" />
                         <TextField fx:id="campoIBAN" layoutX="10.0" layoutY="76.0" prefHeight="100.0" />
-                  <CheckBox fx:id="checkboxProfesor" mnemonicParsing="false" prefHeight="100.0" prefWidth="216.0" text="Profesor">
+                  <TextField fx:id="campoNUSS" layoutX="10.0" layoutY="202.0" prefHeight="100.0" />
+                  <CheckBox fx:id="checkboxProfesor" mnemonicParsing="false" prefHeight="100.0" prefWidth="204.0" text="Profesor">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

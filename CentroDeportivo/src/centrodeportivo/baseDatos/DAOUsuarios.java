@@ -121,14 +121,10 @@ public final class DAOUsuarios extends AbstractDAO {
             e.printStackTrace();
         }finally {
             try {
-                assert stmUsuario != null;
-                stmUsuario.close();
-                assert stmPersoal != null;
-                stmPersoal.close();
-                assert stmProfesor != null;
-                stmProfesor.close();
-                assert stmSocio != null;
-                stmSocio.close();
+                if(stmUsuario!=null)stmUsuario.close();
+                if(stmPersoal!=null)stmPersoal.close();
+                if(stmProfesor!=null)stmProfesor.close();
+                if(stmSocio!=null)stmSocio.close();
             } catch (SQLException e){
                 System.out.println("Imposible cerrar cursores");
             }

@@ -50,12 +50,12 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
-            <Button layoutX="507.0" layoutY="385.0" mnemonicParsing="false" text="Modificar">
+            <Button layoutX="466.0" layoutY="385.0" mnemonicParsing="false" text="Modificar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="609.0" layoutY="385.0" mnemonicParsing="false" onAction="#borrarUsuario" text="Borrar">
+            <Button layoutX="568.0" layoutY="385.0" mnemonicParsing="false" onAction="#borrarUsuario" text="Dar de baixa">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

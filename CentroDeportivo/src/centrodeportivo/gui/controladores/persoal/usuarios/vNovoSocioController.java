@@ -66,21 +66,25 @@ public class vNovoSocioController extends AbstractController implements Initiali
         if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
             if(!comprobarFormatos()) return;
             if(!comprobarDataMais16anos()) return;
-            String nome=campoNome.getText();
-            String login=campoLogin.getText();
-            String pass=campoPassword.getText();
-            String tlf=campoTelf.getText();
-            String dni=campoDNI.getText();
-            String correo=campoCorreo.getText();
-            String iban=campoIBAN.getText();
-            Date data=Date.valueOf(campoData.getValue());
             Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
             String dificultades=campoDificultades.getText();
+            Socio socio=new Socio(
+                    campoLogin.getText(),
+                    campoPassword.getText(),
+                    campoNome.getText(),
+                    campoTelf.getText(),
+                    campoDNI.getText(),
+                    campoCorreo.getText(),
+                    campoIBAN.getText(),
+                    Date.valueOf(campoData.getValue()),
+                    campoDificultades.getText(),
+                    tarifa
+            );
 
-
-            if(!super.getFachadaAplicacion().existeDNI(dni)){ //caso no que é un novo usuario
+            if(!super.getFachadaAplicacion().existeDNI(socio.getDNI())){ //caso no que é un novo usuario
                 //comprobar que o login non existe
-                super.getFachadaAplicacion().insertarUsuario(new Socio(login,pass,nome,tlf,dni,correo,iban,data,dificultades,tarifa));
+                super.getFachadaAplicacion().insertarUsuario(socio);
+                super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
             }else{
                 //actualizar
             }

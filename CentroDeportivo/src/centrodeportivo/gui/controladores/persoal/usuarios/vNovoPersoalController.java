@@ -2,6 +2,8 @@ package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -17,7 +19,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class vNovoPersoalController  extends AbstractController{
-    private CheckBox checkboxProfesor;
+    public CheckBox checkboxProfesor;
     public TextField campoNome;
     public TextField campoLogin;
     public PasswordField campoPassword;
@@ -25,8 +27,8 @@ public class vNovoPersoalController  extends AbstractController{
     public TextField campoDNI;
     public TextField campoCorreo;
     public TextField campoIBAN;
+    public TextField campoNUSS;
     public Label labelError;
-
     private vPrincipalPersoalController controllerPrincipal;
 
     public vNovoPersoalController(FachadaAplicacion fachadaAplicacion, vPrincipalPersoalController controllerPrincipal) {
@@ -35,17 +37,23 @@ public class vNovoPersoalController  extends AbstractController{
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
-        if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
+        if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN,campoNUSS)){
             if(!comprobarFormatos()) return;
-            String nome=campoNome.getText();
-            String login=campoLogin.getText();
-            String pass=campoPassword.getText();
-            String tlf=campoTelf.getText();
-            String dni=campoDNI.getText();
-            String correo=campoCorreo.getText();
-            String iban=campoIBAN.getText();
-            boolean isprofesor=checkboxProfesor.isSelected();
 
+            Persoal persoal=new Persoal(
+                    campoLogin.getText(),
+                    campoPassword.getText(),
+                    campoNome.getText(),
+                    campoTelf.getText(),
+                    campoDNI.getText(),
+                    campoCorreo.getText(),
+                    campoIBAN.getText(),
+                    campoNUSS.getText()
+            );
+
+            if(checkboxProfesor.isSelected())super.getFachadaAplicacion().insertarUsuario((Profesor)persoal);
+            else super.getFachadaAplicacion().insertarUsuario(persoal);
+            super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
             controllerPrincipal.mostrarMenu(PantallasPersoal.INICIO);
         }else{
             this.labelError.setText("Algún campo sen cubrir.");
