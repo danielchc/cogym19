@@ -61,7 +61,7 @@ public final class DAOMensaxes extends AbstractDAO {
         }
     }
 
-    protected void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
+    protected void marcarMensaxeComoLido(Mensaxe m){
         PreparedStatement stmMensaxe=null;
 
         try{
@@ -82,7 +82,7 @@ public final class DAOMensaxes extends AbstractDAO {
         }
     }
 
-    protected ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
+    protected ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor){
         ArrayList<Mensaxe> mensaxes=new ArrayList<>();
         PreparedStatement stmMensaxe = null;
         ResultSet resultMensaxes;

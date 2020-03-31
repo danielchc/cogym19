@@ -40,11 +40,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
 
         listaUsuarios.getColumns().addAll(loginColumn,nomeColumn,dniColumn,correoElectronicoColumn,tipoUsuarioColumn);
 
-        try {
-            listaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        listaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
+
 
         campoTipoUsuario.getItems().addAll(TipoUsuario.values());
         campoTipoUsuario.getSelectionModel().selectFirst();
@@ -54,11 +52,8 @@ public class vAdministrarUsuariosController extends AbstractController implement
     public void buscarUsuarios(){
         ArrayList<Usuario> usuarios=new ArrayList<>();
         listaUsuarios.getItems().removeAll(listaUsuarios.getItems());
-        try {
-            listaUsuarios.getItems().addAll(super.getFachadaAplicacion().buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()]));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        listaUsuarios.getItems().addAll(super.getFachadaAplicacion().buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()]));
+
     }
 
 }

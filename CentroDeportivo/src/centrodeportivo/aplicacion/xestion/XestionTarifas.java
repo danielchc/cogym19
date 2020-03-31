@@ -17,27 +17,27 @@ public class XestionTarifas {
     }
 
 
-    public void insertarTarifa(Tarifa t) throws SQLException {
+    public void insertarTarifa(Tarifa t)  {
         fachadaBD.insertarTarifa(t);
     }
 
-    public void borrarTarifa(Integer codTarifa) throws SQLException{
+    public void borrarTarifa(Integer codTarifa) {
         fachadaBD.borrarTarifa(codTarifa);
     }
 
-    public void actualizarTarifa(Tarifa t) throws SQLException{
+    public void actualizarTarifa(Tarifa t) {
         fachadaBD.actualizarTarifa(t);
     }
 
-    public boolean estaEnUsoTarifa(Integer codTarifa) throws SQLException{
+    public boolean estaEnUsoTarifa(Integer codTarifa) {
         return fachadaBD.estaEnUsoTarifa(codTarifa);
     }
 
-    public ArrayList<Tarifa> listarTarifas() throws SQLException{
+    public ArrayList<Tarifa> listarTarifas() {
         return fachadaBD.listarTarifas();
     }
 
-    public Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
+    public Tarifa consultarTarifaSocio(String loginSocio) {
         return fachadaBD.consultarTarifaSocio(loginSocio);
     }
 }

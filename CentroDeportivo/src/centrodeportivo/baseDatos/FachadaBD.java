@@ -26,7 +26,7 @@ public final class FachadaBD {
     private DAOIncidencias daoIncidencias;
     private DAOInstalacions daoInstalacions;
 
-    public FachadaBD(FachadaAplicacion fachadaAplicacion) throws SQLException {
+    public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
         Properties configuracion = new Properties();
         FileInputStream prop;
@@ -42,12 +42,18 @@ public final class FachadaBD {
             System.out.println("Non se pudo cargar o arquivo cifrado");
             System.exit(1);
         }
+
         Properties usuario = new Properties();
         usuario.setProperty("user", configuracion.getProperty("usuario"));
         usuario.setProperty("password", configuracion.getProperty("clave"));
         String con=String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"),configuracion.getProperty("servidor"),configuracion.getProperty("puerto"),configuracion.getProperty("baseDatos"));
-        this.conexion= DriverManager.getConnection(con,usuario);
-        this.conexion.setAutoCommit(false);
+        try{
+            this.conexion= DriverManager.getConnection(con,usuario);
+            this.conexion.setAutoCommit(false);
+        }catch (SQLException e){
+            System.out.println("Erro na conexion ca base de datos");
+            System.exit(1);
+        }
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
         this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
@@ -97,46 +103,46 @@ public final class FachadaBD {
     /*
         Funcions DAOTarifas
      */
-    public void insertarTarifa(Tarifa t) throws SQLException{
+    public void insertarTarifa(Tarifa t) {
         daoTarifas.insertarTarifa(t);
     }
 
-    public void borrarTarifa(Integer codTarifa) throws SQLException{
+    public void borrarTarifa(Integer codTarifa) {
         daoTarifas.borrarTarifa(codTarifa);
     }
 
-    public void actualizarTarifa(Tarifa t) throws SQLException{
+    public void actualizarTarifa(Tarifa t) {
         daoTarifas.actualizarTarifa(t);
     }
 
-    public boolean estaEnUsoTarifa(Integer codTarifa) throws SQLException{
+    public boolean estaEnUsoTarifa(Integer codTarifa) {
         return daoTarifas.estaEnUsoTarifa(codTarifa);
     }
 
-    public ArrayList<Tarifa> listarTarifas() throws SQLException{
+    public ArrayList<Tarifa> listarTarifas() {
         return daoTarifas.listarTarifas();
     }
 
-    public Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
+    public Tarifa consultarTarifaSocio(String loginSocio) {
         return daoTarifas.consultarTarifaSocio(loginSocio);
     }
 
     /*
         Funcions DAOMensaxes
      */
-    public void enviarMensaxe(Mensaxe m) throws SQLException {
+    public void enviarMensaxe(Mensaxe m)  {
         daoMensaxes.enviarMensaxe(m);
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws SQLException{
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) {
         daoMensaxes.enviarMensaxe(emisor, receptores, mensaxe);
     }
 
-    public void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
+    public void marcarMensaxeComoLido(Mensaxe m) {
         daoMensaxes.marcarMensaxeComoLido(m);
     }
 
-    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
+    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) {
         return daoMensaxes.listarMensaxesRecibidos(loginReceptor);
     }
 
@@ -144,15 +150,15 @@ public final class FachadaBD {
         Funcions DAOIncidencias
     */
 
-    public void insertarIncidencia(Incidencia incidencia) throws SQLException {
+    public void insertarIncidencia(Incidencia incidencia)  {
         daoIncidencias.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> listarIncidencia() throws SQLException  {
+    public ArrayList<Incidencia> listarIncidencia()   {
         return daoIncidencias.listarIncidencia();
     }
 
-    public void resolverIncidencia(Incidencia incidencia) throws SQLException{
+    public void resolverIncidencia(Incidencia incidencia) {
         daoIncidencias.resolverIncidencia(incidencia);
     }
 

@@ -18,19 +18,19 @@ public class XestionMensaxes {
     }
 
 
-    public void enviarMensaxe(Mensaxe m) throws SQLException {
+    public void enviarMensaxe(Mensaxe m) {
         fachadaBD.enviarMensaxe(m);
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) throws SQLException{
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) {
         fachadaBD.enviarMensaxe(emisor, receptores, mensaxe);
     }
 
-    public void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
+    public void marcarMensaxeComoLido(Mensaxe m) {
         fachadaBD.marcarMensaxeComoLido(m);
     }
 
-    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
+    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) {
         return fachadaBD.listarMensaxesRecibidos(loginReceptor);
     }
 }

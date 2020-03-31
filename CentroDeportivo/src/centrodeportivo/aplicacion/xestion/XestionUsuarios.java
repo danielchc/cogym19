@@ -17,47 +17,47 @@ public class XestionUsuarios {
         this.fachadaBD=fachadaBD;
     }
 
-    public boolean existeUsuario(String login) throws SQLException {
+    public boolean existeUsuario(String login)  {
         return fachadaBD.existeUsuario(login);
     }
 
-    public boolean existeDNI(String dni) throws SQLException {
+    public boolean existeDNI(String dni)  {
         return fachadaBD.existeDNI(dni);
     }
 
-    public boolean validarUsuario(String login,String password) throws SQLException{
+    public boolean validarUsuario(String login,String password) {
         return fachadaBD.validarUsuario(login,password);
     }
 
-    public void insertarUsuario(Usuario usuario) throws SQLException{
+    public void insertarUsuario(Usuario usuario) {
         fachadaBD.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario) throws SQLException {
+    public void actualizarUsuario(String loginVello,Usuario usuario)  {
         fachadaBD.actualizarUsuario(loginVello,usuario);
     }
 
-    public void darBaixaUsuario(String login) throws SQLException {
+    public void darBaixaUsuario(String login)  {
         fachadaBD.darBaixaUsuario(login);
     }
 
-    public TipoUsuario consultarTipo(String login) throws SQLException {
+    public TipoUsuario consultarTipo(String login)  {
         return fachadaBD.consultarTipo(login);
     }
 
-    public Usuario consultarUsuario(String login) throws SQLException {
+    public Usuario consultarUsuario(String login)  {
         return fachadaBD.consultarUsuario(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro)  {
         return fachadaBD.buscarUsuarios(login,nome,filtro);
     }
 
-    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro) throws SQLException {
+    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro)  {
         return fachadaBD.buscarUsuarios("","",filtro);
     }
 
-    public ArrayList<Usuario> listarUsuarios() throws SQLException {
+    public ArrayList<Usuario> listarUsuarios()  {
         return fachadaBD.buscarUsuarios("","",TipoUsuario.Todos);
     }
 

@@ -39,90 +39,90 @@ public class FachadaAplicacion {
     /*
         Xestion usuarios
      */
-    public boolean existeUsuario(String login) throws SQLException {
+    public boolean existeUsuario(String login)  {
         return xestionUsuarios.existeUsuario(login);
     }
 
-    public boolean existeDNI(String dni) throws SQLException {
+    public boolean existeDNI(String dni)  {
         return xestionUsuarios.existeDNI(dni);
     }
 
-    public boolean validarUsuario(String login,String password) throws SQLException{
+    public boolean validarUsuario(String login,String password) {
         return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
     }
 
-    public void insertarUsuario(Usuario usuario) throws SQLException{
+    public void insertarUsuario(Usuario usuario) {
         usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         xestionUsuarios.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario) throws SQLException {
+    public void actualizarUsuario(String loginVello,Usuario usuario)  {
         xestionUsuarios.actualizarUsuario(loginVello,usuario);
     }
 
-    public void darBaixaUsuario(String login) throws SQLException {
+    public void darBaixaUsuario(String login)  {
         xestionUsuarios.darBaixaUsuario(login);
     }
 
-    public TipoUsuario consultarTipo(String login) throws SQLException {
+    public TipoUsuario consultarTipo(String login)  {
         return xestionUsuarios.consultarTipo(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) {
         return xestionUsuarios.buscarUsuarios(login,nome,filtro);
     }
 
-    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro) throws SQLException {
+    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro)  {
         return xestionUsuarios.buscarUsuarios("","",filtro);
     }
 
-    public ArrayList<Usuario> listarUsuarios() throws SQLException {
+    public ArrayList<Usuario> listarUsuarios()  {
         return xestionUsuarios.buscarUsuarios("","",TipoUsuario.Todos);
     }
 
     /*
         Xestion tarifas
      */
-    public void insertarTarifa(Tarifa t) throws SQLException{
+    public void insertarTarifa(Tarifa t) {
         xestionTarifas.insertarTarifa(t);
     }
 
-    public void borrarTarifa(Integer codTarifa) throws SQLException{
+    public void borrarTarifa(Integer codTarifa) {
         xestionTarifas.borrarTarifa(codTarifa);
     }
 
-    public void actualizarTarifa(Tarifa t) throws SQLException{
+    public void actualizarTarifa(Tarifa t) {
         xestionTarifas.actualizarTarifa(t);
     }
 
-    public boolean estaEnUsoTarifa(Integer codTarifa) throws SQLException{
+    public boolean estaEnUsoTarifa(Integer codTarifa) {
         return xestionTarifas.estaEnUsoTarifa(codTarifa);
     }
 
-    public ArrayList<Tarifa> listarTarifas() throws SQLException{
+    public ArrayList<Tarifa> listarTarifas() {
         return xestionTarifas.listarTarifas();
     }
 
-    public Tarifa consultarTarifaSocio(String loginSocio) throws SQLException{
+    public Tarifa consultarTarifaSocio(String loginSocio) {
         return xestionTarifas.consultarTarifaSocio(loginSocio);
     }
 
     /*
         Xestion mensaxes
      */
-    public void enviarMensaxe(Mensaxe m) throws SQLException {
+    public void enviarMensaxe(Mensaxe m)  {
         xestionMensaxes.enviarMensaxe(m);
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws SQLException{
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) {
         xestionMensaxes.enviarMensaxe(emisor, receptores, mensaxe);
     }
 
-    public void marcarMensaxeComoLido(Mensaxe m) throws SQLException{
+    public void marcarMensaxeComoLido(Mensaxe m) {
         xestionMensaxes.marcarMensaxeComoLido(m);
     }
 
-    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) throws SQLException{
+    public ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) {
         return xestionMensaxes.listarMensaxesRecibidos(loginReceptor);
     }
 
@@ -134,7 +134,7 @@ public class FachadaAplicacion {
         fachadaGUI.mostrarVentaPersoal(loggedUser);
     }
 
-    public Usuario consultarUsuario(String login) throws SQLException {
+    public Usuario consultarUsuario(String login)  {
         return fachadaBD.consultarUsuario(login);
     }
 

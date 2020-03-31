@@ -53,11 +53,7 @@ public class vNovoSocioController extends AbstractController implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<Tarifa> tarifas= null;
-        try {
-            tarifas = super.getFachadaAplicacion().listarTarifas();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        tarifas = super.getFachadaAplicacion().listarTarifas();
         this.comboTarifa.getItems().addAll(tarifas);
         this.comboTarifa.getSelectionModel().selectFirst();
         this.infoIcon.setVisible(false);
@@ -81,17 +77,13 @@ public class vNovoSocioController extends AbstractController implements Initiali
             Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
             String dificultades=campoDificultades.getText();
 
-            try {
-                if(!super.getFachadaAplicacion().existeDNI(dni)){ //caso no que é un novo usuario
-                    //comprobar que o login non existe
-                    super.getFachadaAplicacion().insertarUsuario(new Socio(login,pass,nome,tlf,dni,correo,iban,data,dificultades,tarifa));
-                }else{
-                    //actualizar
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
 
+            if(!super.getFachadaAplicacion().existeDNI(dni)){ //caso no que é un novo usuario
+                //comprobar que o login non existe
+                super.getFachadaAplicacion().insertarUsuario(new Socio(login,pass,nome,tlf,dni,correo,iban,data,dificultades,tarifa));
+            }else{
+                //actualizar
+            }
             this.controllerPrincipal.mostrarMenu(PantallasPersoal.INICIO);
         }else{
             this.labelError.setText("Algún campo sen cubrir.");
