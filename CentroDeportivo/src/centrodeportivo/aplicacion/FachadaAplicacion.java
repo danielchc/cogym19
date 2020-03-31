@@ -46,6 +46,10 @@ public class FachadaAplicacion {
         return xestionUsuarios.existeDNI(dni);
     }
 
+    public boolean existeNUSS(String nuss) {
+        return xestionUsuarios.existeNUSS(nuss);
+    }
+
     public boolean validarUsuario(String login,String password) {
         return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
     }

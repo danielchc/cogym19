@@ -61,6 +61,26 @@ public final class DAOUsuarios extends AbstractDAO {
         return false;
     }
 
+    protected boolean existeNUSS(String nuss) {
+        PreparedStatement stmUsuario = null;
+        ResultSet resultValidacion;
+        try {
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE nuss=?");
+            stmUsuario.setString(1,nuss);
+            resultValidacion=stmUsuario.executeQuery();
+            return resultValidacion.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmUsuario.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return false;
+    }
+
     protected boolean validarUsuario(String login,String password) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;

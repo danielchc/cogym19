@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -64,7 +63,7 @@
                   <TextField fx:id="campoLogin" layoutX="10.0" layoutY="10.0" prefHeight="100.0" />
                   <PasswordField fx:id="campoPassword" prefHeight="100.0" />
                   <TextField fx:id="campoTelf" layoutX="10.0" layoutY="10.0" prefHeight="100.0" />
-                  <TextField fx:id="campoDNI" onKeyTyped="#dniCambiadoAction" layoutX="10.0" layoutY="110.0" prefHeight="100.0" />
+                  <TextField fx:id="campoDNI" layoutX="10.0" layoutY="110.0" prefHeight="100.0" />
                   <TextField fx:id="campoCorreo" layoutX="10.0" layoutY="10.0" prefHeight="100.0" />
                   <TextField fx:id="campoIBAN" layoutX="10.0" layoutY="76.0" prefHeight="100.0" />
                   <DatePicker fx:id="campoData" prefHeight="100.0" prefWidth="215.0" />
@@ -89,16 +88,5 @@
          </font>
       </Label>
       <TextArea fx:id="campoDificultades" layoutX="300.0" layoutY="289.0" prefHeight="43.0" prefWidth="208.0" />
-      <ImageView fx:id="infoIcon" onMouseClicked="#actionInfoPressed" fitHeight="20.0" fitWidth="26.0" layoutX="518.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../imaxes/info.png" />
-         </image>
-      </ImageView>
-      <AnchorPane fx:id="notificacion" layoutX="386.0" layoutY="127.0" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: gray;">
-         <children>
-            <Button onAction="#accionCerrar" layoutX="74.0" layoutY="44.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="51.0" text="Vale" />
-            <Label layoutY="1.0" prefHeight="43.0" prefWidth="200.0" text="Ese DNI xa existe, se continúas daráse de novo de alta" textAlignment="CENTER" wrapText="true" />
-         </children>
-      </AnchorPane>
    </children>
 </AnchorPane>

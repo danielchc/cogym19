@@ -40,8 +40,7 @@ public class vNovoSocioController extends AbstractController implements Initiali
     public TextArea campoDificultades;
     public Button btnGadar;
     public Label labelError;
-    public ImageView infoIcon;
-    public AnchorPane notificacion;
+
 
     private vPrincipalPersoalController controllerPrincipal;
 
@@ -56,18 +55,15 @@ public class vNovoSocioController extends AbstractController implements Initiali
         tarifas = super.getFachadaAplicacion().listarTarifas();
         this.comboTarifa.getItems().addAll(tarifas);
         this.comboTarifa.getSelectionModel().selectFirst();
-        this.infoIcon.setVisible(false);
-        this.notificacion.setVisible(false);
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
-        this.infoIcon.setVisible(true);
-
         if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
             if(!comprobarFormatos()) return;
             if(!comprobarDataMais16anos()) return;
+            if(!comprobarLogin()) return;
+            if(!comprobarDNI()) return;
             Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
-            String dificultades=campoDificultades.getText();
             Socio socio=new Socio(
                     campoLogin.getText(),
                     campoPassword.getText(),
@@ -81,13 +77,8 @@ public class vNovoSocioController extends AbstractController implements Initiali
                     tarifa
             );
 
-            if(!super.getFachadaAplicacion().existeDNI(socio.getDNI())){ //caso no que é un novo usuario
-                //comprobar que o login non existe
-                super.getFachadaAplicacion().insertarUsuario(socio);
-                super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
-            }else{
-                //actualizar
-            }
+            super.getFachadaAplicacion().insertarUsuario(socio);
+            super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
             this.controllerPrincipal.mostrarMenu(PantallasPersoal.INICIO);
         }else{
             this.labelError.setText("Algún campo sen cubrir.");
@@ -128,21 +119,19 @@ public class vNovoSocioController extends AbstractController implements Initiali
         return true;
     }
 
-
-    public void dniCambiadoAction(KeyEvent keyEvent) throws SQLException {
-        System.out.println("asdas");
-        if(super.getFachadaAplicacion().existeDNI(this.campoDNI.getText())){
-            this.infoIcon.setVisible(true);
-        }else{
-            this.infoIcon.setVisible(false);
+    private boolean comprobarLogin(){
+        if(!super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O login "+campoLogin.getText()+" xa está en uso.");
+            return false;
         }
+        return true;
     }
 
-    public void actionInfoPressed(MouseEvent event){
-        this.notificacion.setVisible(true);
-    }
-
-    public void accionCerrar(ActionEvent actionEvent){
-        this.notificacion.setVisible(false);
+    private boolean comprobarDNI(){
+        if(!super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O DNI "+campoDNI.getText()+" xa está rexistrado.");
+            return false;
+        }
+        return true;
     }
 }

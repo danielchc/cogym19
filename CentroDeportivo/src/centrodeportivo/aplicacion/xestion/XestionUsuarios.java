@@ -25,6 +25,10 @@ public class XestionUsuarios {
         return fachadaBD.existeDNI(dni);
     }
 
+    public boolean existeNUSS(String nuss) {
+        return fachadaBD.existeNUSS(nuss);
+    }
+
     public boolean validarUsuario(String login,String password) {
         return fachadaBD.validarUsuario(login,password);
     }

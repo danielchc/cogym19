@@ -5,6 +5,8 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Transicion;
+import centrodeportivo.gui.controladores.persoal.material.vNovoMaterialController;
+import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarUsuariosController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vNovoSocioController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vNovoUsuarioController;
@@ -95,6 +97,9 @@ public class vPrincipalPersoalController extends  AbstractController implements 
         this.pantallas.put(PantallasPersoal.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(PantallasPersoal.INICIO,new DatosVista("../../vistas/persoal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
         this.pantallas.put(PantallasPersoal.ADMINISTRARUSUARIOS,new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml",new vAdministrarUsuariosController(super.getFachadaAplicacion())));
+        this.pantallas.put(PantallasPersoal.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion())));
+        this.pantallas.put(PantallasPersoal.NOVOMATERIAL,new DatosVista("../../vistas/persoal/material/vNovoMaterial.fxml",new vNovoMaterialController(super.getFachadaAplicacion())));
+
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {

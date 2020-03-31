@@ -39,7 +39,9 @@ public class vNovoPersoalController  extends AbstractController{
     public void btnGardarAccion(ActionEvent actionEvent) {
         if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN,campoNUSS)){
             if(!comprobarFormatos()) return;
-
+            if(!comprobarLogin()) return;
+            if(!comprobarDNI()) return;
+            if(!comprobarNUSS()) return;
             Persoal persoal=new Persoal(
                     campoLogin.getText(),
                     campoPassword.getText(),
@@ -51,7 +53,18 @@ public class vNovoPersoalController  extends AbstractController{
                     campoNUSS.getText()
             );
 
-            if(checkboxProfesor.isSelected())super.getFachadaAplicacion().insertarUsuario((Profesor)persoal);
+            Profesor profesor=new Profesor(
+                    campoLogin.getText(),
+                    campoPassword.getText(),
+                    campoNome.getText(),
+                    campoTelf.getText(),
+                    campoDNI.getText(),
+                    campoCorreo.getText(),
+                    campoIBAN.getText(),
+                    campoNUSS.getText()
+            );
+
+            if(checkboxProfesor.isSelected()) super.getFachadaAplicacion().insertarUsuario(profesor);
             else super.getFachadaAplicacion().insertarUsuario(persoal);
             super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
             controllerPrincipal.mostrarMenu(PantallasPersoal.INICIO);
@@ -75,6 +88,34 @@ public class vNovoPersoalController  extends AbstractController{
         }
         if(!ValidacionDatos.isCorrectoIBAN(this.campoIBAN.getText())){
             this.labelError.setText("IBAN incorrecto.");
+            return false;
+        }
+        if(!ValidacionDatos.isCorrectoNUSS(this.campoNUSS.getText())){
+            this.labelError.setText("NUSS incorrecto.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean comprobarLogin(){
+        if(!super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O login "+campoLogin.getText()+" xa está en uso.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean comprobarDNI(){
+        if(!super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O DNI "+campoDNI.getText()+" xa está rexistrado.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean comprobarNUSS(){
+        if(!super.getFachadaAplicacion().existeNUSS(campoNUSS.getText())){
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O NUSS "+campoNUSS.getText()+" xa está rexistrado.");
             return false;
         }
         return true;

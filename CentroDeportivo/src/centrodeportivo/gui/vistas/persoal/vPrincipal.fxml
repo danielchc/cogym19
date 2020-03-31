@@ -72,7 +72,7 @@
 
       <VBox id="vb-sidebar" fx:id="sideBarTarifas" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Tarifa" textFill="WHITE">
+            <Button id="NOVATARIFA" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Tarifa" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -205,7 +205,7 @@
 
       <VBox id="vb-sidebar" fx:id="sideBarMaterial" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
+            <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Material" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

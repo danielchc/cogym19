@@ -74,6 +74,10 @@ public final class FachadaBD {
         return daoUsuarios.existeDNI(dni);
     }
 
+    public boolean existeNUSS(String nuss) {
+        return daoUsuarios.existeNUSS(nuss);
+    }
+
     public boolean validarUsuario(String login,String password) {
         return daoUsuarios.validarUsuario(login,password);
     }
