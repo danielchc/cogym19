@@ -281,7 +281,7 @@ public final class DAOUsuarios extends AbstractDAO {
             if(filtro==TipoUsuario.Socio || filtro==TipoUsuario.Todos) {
                 stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
                         "FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa " +
-                        "WHERE u.login LIKE ? AND u.nome LIKE ?;"
+                        "WHERE (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?));"
                 );
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");
@@ -310,10 +310,9 @@ public final class DAOUsuarios extends AbstractDAO {
             }
             if (filtro==TipoUsuario.Profesor || filtro==TipoUsuario.Todos){
                 stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (u.login LIKE ? AND u.nome LIKE ?);");
+                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?));");
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");
-                System.out.println(stmUsuario);
                 rsUsuarios = stmUsuario.executeQuery();
                 while (rsUsuarios.next()) {
                     usuarios.add(new Profesor(
@@ -330,7 +329,7 @@ public final class DAOUsuarios extends AbstractDAO {
             }
             if (filtro==TipoUsuario.Persoal || filtro==TipoUsuario.Todos){
                 stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (u.login LIKE ? AND u.nome LIKE ?);");
+                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?));");
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");
                 rsUsuarios = stmUsuario.executeQuery();
