@@ -89,7 +89,7 @@ public class vNovoPersoalController  extends AbstractController{
     }
 
     private boolean comprobarLogin(){
-        if(!super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
+        if(super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
             super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O login "+campoLogin.getText()+" xa está en uso.");
             return false;
         }
@@ -97,7 +97,7 @@ public class vNovoPersoalController  extends AbstractController{
     }
 
     private boolean comprobarDNI(){
-        if(!super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
+        if(super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
             super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O DNI "+campoDNI.getText()+" xa está rexistrado.");
             return false;
         }
@@ -105,7 +105,7 @@ public class vNovoPersoalController  extends AbstractController{
     }
 
     private boolean comprobarNUSS(){
-        if(!super.getFachadaAplicacion().existeNUSS(campoNUSS.getText())){
+        if(super.getFachadaAplicacion().existeNUSS(campoNUSS.getText())){
             super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O NUSS "+campoNUSS.getText()+" xa está rexistrado.");
             return false;
         }

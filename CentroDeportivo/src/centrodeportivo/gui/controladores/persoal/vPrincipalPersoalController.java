@@ -6,6 +6,7 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Transicion;
 import centrodeportivo.gui.controladores.persoal.material.vNovoMaterialController;
+import centrodeportivo.gui.controladores.persoal.mensaxes.vMensaxesController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarUsuariosController;
@@ -101,7 +102,7 @@ public class vPrincipalPersoalController extends  AbstractController implements 
         this.pantallas.put(PantallasPersoal.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion())));
         this.pantallas.put(PantallasPersoal.NOVOMATERIAL,new DatosVista("../../vistas/persoal/material/vNovoMaterial.fxml",new vNovoMaterialController(super.getFachadaAplicacion())));
         this.pantallas.put(PantallasPersoal.ADMINISTRARTARIFAS,new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml",new vAdministrarTarifasController(super.getFachadaAplicacion())));
-
+        this.pantallas.put(PantallasPersoal.MENSAXES,new DatosVista("../../vistas/persoal/mensaxes/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {

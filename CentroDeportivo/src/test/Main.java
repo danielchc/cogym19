@@ -1,6 +1,8 @@
 package test;
 
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 
@@ -82,9 +84,8 @@ public class Main {
             for(Instalacion a: fb.buscarInstalacions(new Instalacion("", "", ""))) {
                 System.out.println(a);
             }*/
-            System.out.println(ValidacionDatos.isCorrectoCorreo("asadadsds@asdsad.com"));
-            System.out.println(ValidacionDatos.isCorrectoCorreo("asadadsds@asdsadcom"));
-            System.out.println(ValidacionDatos.isCorrectoCorreo("asadadsdasdsad.com"));
+            fb.enviarMensaxe(new Mensaxe(new Usuario("pocha"),new Usuario("test0"),"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nisl dolor. Nulla facilisi. Aenean iaculis, ipsum a viverra suscipit, orci lectus placerat lacus, eu vulputate nulla dolor vitae lacus. Sed at sem diam. Duis lacinia elit enim, pretium mattis nulla efficitur quis. Donec quis orci ut risus auctor consectetur vel at urna. Integer dapibus nisi urna, vel malesuada erat euismod mattis. Donec elementum pharetra orci eu eleifend. Etiam tristique orci vel sapien mollis luctus amet."));
+
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

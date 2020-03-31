@@ -76,12 +76,7 @@ public final class Mensaxe {
 
     @Override
     public String toString() {
-        return "Mensaxe{" +
-                "emisor='" + emisor + '\'' +
-                ", receptor='" + receptor + '\'' +
-                ", dataEnvio=" + dataEnvio +
-                ", contido='" + contido + '\'' +
-                ", lido=" + lido +
-                '}';
+        return "'" + emisor + '\'' +
+                ", lido=" + lido;
     }
 }

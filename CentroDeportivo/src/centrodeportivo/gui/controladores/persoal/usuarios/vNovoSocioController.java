@@ -120,7 +120,7 @@ public class vNovoSocioController extends AbstractController implements Initiali
     }
 
     private boolean comprobarLogin(){
-        if(!super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
+        if(super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
             super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O login "+campoLogin.getText()+" xa está en uso.");
             return false;
         }
@@ -128,7 +128,7 @@ public class vNovoSocioController extends AbstractController implements Initiali
     }
 
     private boolean comprobarDNI(){
-        if(!super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
+        if(super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
             super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O DNI "+campoDNI.getText()+" xa está rexistrado.");
             return false;
         }
