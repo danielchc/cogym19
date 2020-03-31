@@ -5,6 +5,8 @@ import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.persoal.PantallasPersoal;
+import centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -25,8 +27,11 @@ public class vNovoPersoalController  extends AbstractController{
     public TextField campoIBAN;
     public Label labelError;
 
-    public vNovoPersoalController(FachadaAplicacion fachadaAplicacion) {
+    private vPrincipalPersoalController controllerPrincipal;
+
+    public vNovoPersoalController(FachadaAplicacion fachadaAplicacion, vPrincipalPersoalController controllerPrincipal) {
         super(fachadaAplicacion);
+        this.controllerPrincipal=controllerPrincipal;
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
@@ -41,6 +46,7 @@ public class vNovoPersoalController  extends AbstractController{
             String iban=campoIBAN.getText();
             boolean isprofesor=checkboxProfesor.isSelected();
 
+            controllerPrincipal.mostrarMenu(PantallasPersoal.INICIO);
         }else{
             this.labelError.setText("Algún campo sen cubrir.");
         }

@@ -5,6 +5,8 @@ import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.persoal.PantallasPersoal;
+import centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -33,9 +35,11 @@ public class vNovoSocioController extends AbstractController implements Initiali
     public Button btnGadar;
     public Label labelError;
 
+    private vPrincipalPersoalController controllerPrincipal;
 
-    public vNovoSocioController(FachadaAplicacion fachadaAplicacion) {
+    public vNovoSocioController(FachadaAplicacion fachadaAplicacion, vPrincipalPersoalController controllerPrincipal) {
         super(fachadaAplicacion);
+        this.controllerPrincipal=controllerPrincipal;
     }
 
     @Override
@@ -70,6 +74,8 @@ public class vNovoSocioController extends AbstractController implements Initiali
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            this.controllerPrincipal.mostrarMenu(PantallasPersoal.INICIO);
         }else{
             this.labelError.setText("Algún campo sen cubrir.");
         }

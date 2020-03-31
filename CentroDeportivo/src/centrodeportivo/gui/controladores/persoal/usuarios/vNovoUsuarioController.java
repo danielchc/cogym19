@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,9 +21,12 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public AnchorPane container;
 
     private ToggleGroup grupoRadio;
+    private vPrincipalPersoalController controllerPrincipal;
 
-    public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion) {
+
+    public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalPersoalController controllerPrincipal) {
         super(fachadaAplicacion);
+        this.controllerPrincipal=controllerPrincipal;
         grupoRadio=new ToggleGroup();
     }
 
@@ -37,11 +41,11 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         try {
             FXMLLoader fxmlLoader=new FXMLLoader();
             if(grupoRadio.getSelectedToggle().equals(radioSocio)){
-                fxmlLoader.setController(new vNovoSocioController(super.getFachadaAplicacion()));
+                fxmlLoader.setController(new vNovoSocioController(super.getFachadaAplicacion(),this.controllerPrincipal));
                 fxmlLoader.setLocation(getClass().getResource("../../../vistas/persoal/usuarios/vNovoSocio.fxml"));
             }
             else{
-                fxmlLoader.setController(new vNovoPersoalController(getFachadaAplicacion()));
+                fxmlLoader.setController(new vNovoPersoalController(super.getFachadaAplicacion(),this.controllerPrincipal));
                 fxmlLoader.setLocation(getClass().getResource("../../../vistas/persoal/usuarios/vNovoPersoal.fxml"));
             }
             this.container.getChildren().removeAll(this.container.getChildren());
