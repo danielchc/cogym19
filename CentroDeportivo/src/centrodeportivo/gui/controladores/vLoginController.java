@@ -13,12 +13,17 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class vLoginController  implements Initializable {
+public class vLoginController  extends AbstractController implements Initializable {
     public PasswordField tfContrasinal;
     public TextField tfUsuario;
     public Label labelError;
 
     private FachadaAplicacion fa;
+
+    public vLoginController(FachadaAplicacion fachadaAplicacion) {
+        super(fachadaAplicacion);
+        fa=super.getFachadaAplicacion();
+    }
 
 
     @Override

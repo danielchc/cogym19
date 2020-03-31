@@ -14,10 +14,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         fachadaAplicacion=new FachadaAplicacion();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("./vistas/vLogin.fxml"));
+        loader.setController(new vLoginController(this.fachadaAplicacion));
         Parent root = loader.load();
-
-        ((vLoginController)loader.getController()).setFa(fachadaAplicacion);
-
+        
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.setTitle("Centro Deportivo");
