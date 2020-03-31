@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -24,66 +25,58 @@
     <center>
         <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
             <children>
-                <HBox layoutX="94.0" layoutY="14.0" prefHeight="252.0" prefWidth="412.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="14.0">
+                <HBox layoutX="132.0" layoutY="14.0" prefHeight="252.0" prefWidth="423.0" AnchorPane.leftAnchor="132.0" AnchorPane.rightAnchor="132.0" AnchorPane.topAnchor="14.0">
                     <children>
                         <VBox prefHeight="267.0" prefWidth="211.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="100.0" prefWidth="212.0" text="Nome">
+                                <Label alignment="CENTER" prefHeight="100.0" prefWidth="212.0" text="Nome da Tarifa">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="212.0" text="Login">
+                                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="212.0" text="Máximo de Actividades">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="212.0" text="Contrasinal">
+                                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="212.0" text="Prezo Base">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="212.0" text="Número de teléfono">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="212.0" text="DNI">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="76.0" prefHeight="100.0" prefWidth="212.0" text="Correo electrónico">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="144.0" prefHeight="100.0" prefWidth="212.0" text="IBAN conta">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="226.0" prefHeight="100.0" prefWidth="212.0">
+                                <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="212.0" text="Prezo Actividades Extra">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
                             </children>
                         </VBox>
-                        <VBox prefHeight="267.0" prefWidth="207.0" spacing="5.0">
+                        <VBox prefHeight="218.0" prefWidth="207.0" spacing="5.0">
                             <children>
-                                <TextField fx:id="campoNome" prefHeight="100.0" />
-                                <TextField fx:id="campoLogin" layoutX="10.0" layoutY="10.0" prefHeight="100.0" />
-                                <PasswordField fx:id="campoPassword" prefHeight="100.0" />
-                                <TextField fx:id="campoTelf" layoutX="10.0" layoutY="10.0" prefHeight="100.0" />
-                                <TextField fx:id="campoDNI" layoutX="10.0" layoutY="110.0" prefHeight="100.0" />
-                                <TextField fx:id="campoCorreo" layoutX="10.0" layoutY="10.0" prefHeight="100.0" />
-                                <TextField fx:id="campoIBAN" layoutX="10.0" layoutY="76.0" prefHeight="100.0" />
-                                <CheckBox fx:id="checkboxProfesor" mnemonicParsing="false" prefHeight="100.0" prefWidth="216.0" text="Profesor">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </CheckBox>
+                                <TextField fx:id="campoNome" prefHeight="43.0" prefWidth="207.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding></TextField>
+                        <Slider fx:id="campoActividades" blockIncrement="1.0" majorTickUnit="1.0" min="1.0" minorTickCount="0" onMouseDragged="#listenerSlider" prefHeight="62.0" prefWidth="207.0" snapToTicks="true">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin></Slider>
+                        <Spinner fx:id="campoPrecioBase" prefHeight="44.0" prefWidth="207.0">
+                            <valueFactory>
+                                <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.5" initialValue="15.0" max="100.0" min="0.5" />
+                            </valueFactory>
+                            <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Spinner>
+                        <Spinner fx:id="campoPrecioExtras" prefHeight="42.0" prefWidth="207.0">
+                            <valueFactory>
+                                <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.5" initialValue="1.0" max="100.0" min="0.5" />
+                            </valueFactory>
+                        </Spinner>
                             </children>
                         </VBox>
                     </children>
@@ -98,6 +91,11 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
+            <Label fx:id="labelNumActividades" alignment="CENTER" layoutX="568.0" layoutY="90.0" prefHeight="26.0" prefWidth="39.0" text="X" AnchorPane.leftAnchor="568.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </center>
