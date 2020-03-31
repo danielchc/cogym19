@@ -10,7 +10,13 @@ import centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
+import java.awt.im.spi.InputMethod;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -34,6 +40,8 @@ public class vNovoSocioController extends AbstractController implements Initiali
     public TextArea campoDificultades;
     public Button btnGadar;
     public Label labelError;
+    public ImageView infoIcon;
+    public AnchorPane notificacion;
 
     private vPrincipalPersoalController controllerPrincipal;
 
@@ -52,9 +60,13 @@ public class vNovoSocioController extends AbstractController implements Initiali
         }
         this.comboTarifa.getItems().addAll(tarifas);
         this.comboTarifa.getSelectionModel().selectFirst();
+        this.infoIcon.setVisible(false);
+        this.notificacion.setVisible(false);
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
+        this.infoIcon.setVisible(true);
+
         if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
             if(!comprobarFormatos()) return;
             if(!comprobarDataMais16anos()) return;
@@ -70,7 +82,12 @@ public class vNovoSocioController extends AbstractController implements Initiali
             String dificultades=campoDificultades.getText();
 
             try {
-                super.getFachadaAplicacion().insertarUsuario(new Socio(login,pass,nome,tlf,dni,correo,iban,data,dificultades,tarifa));
+                if(!super.getFachadaAplicacion().existeDNI(dni)){ //caso no que é un novo usuario
+                    //comprobar que o login non existe
+                    super.getFachadaAplicacion().insertarUsuario(new Socio(login,pass,nome,tlf,dni,correo,iban,data,dificultades,tarifa));
+                }else{
+                    //actualizar
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -113,5 +130,23 @@ public class vNovoSocioController extends AbstractController implements Initiali
             return false;
         }
         return true;
+    }
+
+
+    public void dniCambiadoAction(KeyEvent keyEvent) throws SQLException {
+        System.out.println("asdas");
+        if(super.getFachadaAplicacion().existeDNI(this.campoDNI.getText())){
+            this.infoIcon.setVisible(true);
+        }else{
+            this.infoIcon.setVisible(false);
+        }
+    }
+
+    public void actionInfoPressed(MouseEvent event){
+        this.notificacion.setVisible(true);
+    }
+
+    public void accionCerrar(ActionEvent actionEvent){
+        this.notificacion.setVisible(false);
     }
 }

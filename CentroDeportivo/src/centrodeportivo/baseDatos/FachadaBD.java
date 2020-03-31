@@ -58,39 +58,39 @@ public final class FachadaBD {
     /*
         Funcions DAOUsuarios
      */
-    public boolean existeUsuario(String login) throws SQLException {
+    public boolean existeUsuario(String login) {
         return daoUsuarios.existeUsuario(login);
     }
 
-    public boolean existeDNI(String dni) throws SQLException {
+    public boolean existeDNI(String dni) {
         return daoUsuarios.existeDNI(dni);
     }
 
-    public boolean validarUsuario(String login,String password) throws SQLException{
+    public boolean validarUsuario(String login,String password) {
         return daoUsuarios.validarUsuario(login,password);
     }
 
-    public void insertarUsuario(Usuario usuario) throws SQLException{
+    public void insertarUsuario(Usuario usuario) {
         daoUsuarios.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario) throws SQLException {
+    public void actualizarUsuario(String loginVello,Usuario usuario) {
         daoUsuarios.actualizarUsuario(loginVello,usuario);
     }
 
-    public void darBaixaUsuario(String login) throws SQLException {
+    public void darBaixaUsuario(String login) {
         daoUsuarios.darBaixaUsuario(login);
     }
 
-    public TipoUsuario consultarTipo(String login) throws SQLException{
+    public TipoUsuario consultarTipo(String login) {
         return daoUsuarios.consultarTipo(login);
     }
 
-    public Usuario consultarUsuario(String login) throws SQLException {
+    public Usuario consultarUsuario(String login) {
         return daoUsuarios.consultarUsuario(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) throws SQLException {
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) {
         return daoUsuarios.buscarUsuarios(login,nome,filtro);
     }
 
