@@ -24,7 +24,7 @@
     <center>
         <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="listaUsuarios" layoutX="14.0" layoutY="102.0" prefHeight="293.0" prefWidth="657.0">
+            <TableView fx:id="listaUsuarios" layoutX="14.0" layoutY="102.0" prefHeight="274.0" prefWidth="657.0">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
@@ -46,7 +46,20 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="511.0" layoutY="64.0" mnemonicParsing="false" onAction="#buscarUsuarios" prefHeight="25.0" prefWidth="75.0" text="Buscar" />
+            <Button layoutX="512.0" layoutY="61.0" mnemonicParsing="false" onAction="#buscarUsuarios" prefHeight="25.0" prefWidth="75.0" text="Buscar">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Button>
+            <Button layoutX="507.0" layoutY="385.0" mnemonicParsing="false" text="Modificar">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="609.0" layoutY="385.0" mnemonicParsing="false" onAction="#borrarUsuario" text="Borrar">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
         </AnchorPane>
     </center>

@@ -49,8 +49,8 @@ public class XestionUsuarios {
         return fachadaBD.consultarUsuario(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro)  {
-        return fachadaBD.buscarUsuarios(login,nome,filtro);
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo)  {
+        return fachadaBD.buscarUsuarios(login,nome,filtroTipo);
     }
 
     public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro)  {

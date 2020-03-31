@@ -12,6 +12,7 @@ import centrodeportivo.aplicacion.xestion.XestionTarifas;
 import centrodeportivo.aplicacion.xestion.XestionUsuarios;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
+import javafx.scene.control.ButtonType;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,8 +34,6 @@ public class FachadaAplicacion {
         this.xestionTarifas=new XestionTarifas(fachadaGUI,fachadaBD);
         this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
     }
-
-
 
     /*
         Xestion usuarios
@@ -68,8 +67,12 @@ public class FachadaAplicacion {
         return xestionUsuarios.consultarTipo(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) {
-        return xestionUsuarios.buscarUsuarios(login,nome,filtro);
+    public Usuario consultarUsuario(String login) {
+        return xestionUsuarios.consultarUsuario(login);
+    }
+
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
+        return xestionUsuarios.buscarUsuarios(login,nome,filtroTipo);
     }
 
     public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro)  {
@@ -134,9 +137,22 @@ public class FachadaAplicacion {
         fachadaGUI.mostrarVentaPersoal(loggedUser);
     }
 
-    public Usuario consultarUsuario(String login)  {
-        return fachadaBD.consultarUsuario(login);
+    public void mostrarAdvertencia(String titulo,String texto) {
+        fachadaGUI.mostrarAdvertencia(titulo, texto);
     }
+
+    public void mostrarErro(String titulo,String texto) {
+        fachadaGUI.mostrarErro(titulo, texto);
+    }
+
+    public void mostrarInformacion(String titulo,String texto){
+        fachadaGUI.mostrarInformacion(titulo, texto);
+    }
+
+    public ButtonType mostrarConfirmacion(String titulo, String texto){
+        return fachadaGUI.mostrarConfirmacion(titulo, texto);
+    }
+
 
     /*
         Xestion incidencias
@@ -160,4 +176,6 @@ public class FachadaAplicacion {
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
         return xestionInstalacions.buscarInstalacions(instalacion);
     }
+
+
 }

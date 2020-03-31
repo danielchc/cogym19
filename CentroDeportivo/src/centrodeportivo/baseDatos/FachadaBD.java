@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.gui.FachadaGUI;
 
 import java.io.FileInputStream;
 import java.io.StringReader;
@@ -19,6 +20,7 @@ import java.util.Properties;
 
 public final class FachadaBD {
     private FachadaAplicacion fachadaAplicacion;
+    private FachadaGUI fachadaGUI;
     private Connection conexion;
     private DAOUsuarios daoUsuarios;
     private DAOTarifas daoTarifas;
@@ -51,7 +53,7 @@ public final class FachadaBD {
             this.conexion= DriverManager.getConnection(con,usuario);
             this.conexion.setAutoCommit(false);
         }catch (SQLException e){
-            System.out.println("Erro na conexion ca base de datos");
+            fachadaAplicacion.mostrarErro("Erro","Erro na conexión ca base de datos");
             System.exit(1);
         }
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
@@ -96,8 +98,8 @@ public final class FachadaBD {
         return daoUsuarios.consultarUsuario(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) {
-        return daoUsuarios.buscarUsuarios(login,nome,filtro);
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
+        return daoUsuarios.buscarUsuarios(login,nome,filtroTipo);
     }
 
     /*

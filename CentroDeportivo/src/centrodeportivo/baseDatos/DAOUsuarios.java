@@ -65,7 +65,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=?");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
             stmUsuario.setString(1,login);
             stmUsuario.setString(2,password);
             resultValidacion=stmUsuario.executeQuery();
@@ -272,16 +272,16 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
-    protected ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtro) {
+    protected ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
         PreparedStatement stmUsuario = null;
         ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
         ResultSet rsUsuarios;
 
         try {
-            if(filtro==TipoUsuario.Socio || filtro==TipoUsuario.Todos) {
+            if(filtroTipo==TipoUsuario.Socio || filtroTipo==TipoUsuario.Todos) {
                 stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
                         "FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa " +
-                        "WHERE (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?));"
+                        "WHERE (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL);"
                 );
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");
@@ -308,9 +308,9 @@ public final class DAOUsuarios extends AbstractDAO {
                     ));
                 }
             }
-            if (filtro==TipoUsuario.Profesor || filtro==TipoUsuario.Todos){
+            if (filtroTipo==TipoUsuario.Profesor || filtroTipo==TipoUsuario.Todos){
                 stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?));");
+                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL);");
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");
                 rsUsuarios = stmUsuario.executeQuery();
@@ -327,9 +327,9 @@ public final class DAOUsuarios extends AbstractDAO {
                     ));
                 }
             }
-            if (filtro==TipoUsuario.Persoal || filtro==TipoUsuario.Todos){
+            if (filtroTipo==TipoUsuario.Persoal || filtroTipo==TipoUsuario.Todos){
                 stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?));");
+                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL);");
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");
                 rsUsuarios = stmUsuario.executeQuery();
@@ -365,7 +365,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             if(tipoUsuario==TipoUsuario.Socio) {
-                stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? ;");
+                stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa WHERE u.login=? AND (dataBaixa IS NULL);");
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
@@ -390,7 +390,7 @@ public final class DAOUsuarios extends AbstractDAO {
                     );
                 }
             }else{
-                stmUsuario = super.getConexion().prepareStatement("SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login=?;");
+                stmUsuario = super.getConexion().prepareStatement("SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login=? AND (dataBaixa IS NULL);");
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if(tipoUsuario==TipoUsuario.Profesor){
