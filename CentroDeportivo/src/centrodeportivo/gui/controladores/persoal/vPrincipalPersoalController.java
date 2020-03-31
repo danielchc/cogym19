@@ -43,9 +43,11 @@ public class vPrincipalPersoalController extends  AbstractController implements 
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
     private HashMap<PantallasPersoal, DatosVista> pantallas;
+    private Usuario usuario;
 
     public vPrincipalPersoalController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
-        super(fachadaAplicacion,usuario);
+        super(fachadaAplicacion);
+        this.usuario=usuario;
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
         this.pantallas=new HashMap<>();
@@ -90,7 +92,7 @@ public class vPrincipalPersoalController extends  AbstractController implements 
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
         this.pantallas.put(PantallasPersoal.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion())));
-        this.pantallas.put(PantallasPersoal.INICIO,new DatosVista("../../vistas/persoal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),super.getUsuario())));
+        this.pantallas.put(PantallasPersoal.INICIO,new DatosVista("../../vistas/persoal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {

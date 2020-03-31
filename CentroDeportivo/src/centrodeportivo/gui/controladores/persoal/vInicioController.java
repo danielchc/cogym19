@@ -12,12 +12,15 @@ import java.util.ResourceBundle;
 public class vInicioController extends AbstractController implements Initializable {
     public Label label;
 
+    private Usuario usuario;
+
     public vInicioController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
-        super(fachadaAplicacion, usuario);
+        super(fachadaAplicacion);
+        this.usuario=usuario;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        label.setText("Benvido "+super.getUsuario().getNome()+"!!!");
+        label.setText("Benvido "+usuario.getNome()+"!!!");
     }
 }

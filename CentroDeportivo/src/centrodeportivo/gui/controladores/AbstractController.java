@@ -12,25 +12,11 @@ public abstract class AbstractController {
         this.fachadaAplicacion = fachadaAplicacion;
     }
 
-    public AbstractController(FachadaAplicacion fachadaAplicacion,Usuario usuario) {
-        this.fachadaAplicacion = fachadaAplicacion;
-        this.usuario=usuario;
-    }
-
-
     public FachadaAplicacion getFachadaAplicacion() {
         return fachadaAplicacion;
     }
 
     public void setFachadaAplicacion(FachadaAplicacion fachadaAplicacion) {
         this.fachadaAplicacion = fachadaAplicacion;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 }
