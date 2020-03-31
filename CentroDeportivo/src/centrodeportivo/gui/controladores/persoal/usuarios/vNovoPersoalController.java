@@ -42,16 +42,7 @@ public class vNovoPersoalController  extends AbstractController{
             if(!comprobarLogin()) return;
             if(!comprobarDNI()) return;
             if(!comprobarNUSS()) return;
-            Persoal persoal=new Persoal(
-                    campoLogin.getText(),
-                    campoPassword.getText(),
-                    campoNome.getText(),
-                    campoTelf.getText(),
-                    campoDNI.getText(),
-                    campoCorreo.getText(),
-                    campoIBAN.getText(),
-                    campoNUSS.getText()
-            );
+
 
             Profesor profesor=new Profesor(
                     campoLogin.getText(),
@@ -65,8 +56,8 @@ public class vNovoPersoalController  extends AbstractController{
             );
 
             if(checkboxProfesor.isSelected()) super.getFachadaAplicacion().insertarUsuario(profesor);
-            else super.getFachadaAplicacion().insertarUsuario(persoal);
-            super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
+            else super.getFachadaAplicacion().insertarUsuario((Persoal)profesor);
+            super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+profesor.getLogin() +" correctamente");
             controllerPrincipal.mostrarMenu(PantallasPersoal.INICIO);
         }else{
             this.labelError.setText("Algún campo sen cubrir.");
