@@ -1,4 +1,4 @@
-package centrodeportivo.gui.controladores.persoal.mensaxes;
+package centrodeportivo.gui.controladores.comun;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;

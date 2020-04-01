@@ -5,7 +5,8 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Transicion;
-import centrodeportivo.gui.controladores.persoal.mensaxes.vMensaxesController;
+import centrodeportivo.gui.controladores.comun.vMensaxesController;
+import centrodeportivo.gui.controladores.comun.vNovoMensaxeController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarUsuariosController;
@@ -94,7 +95,9 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS,new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml",new vAdministrarUsuariosController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion())));
         this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS,new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml",new vAdministrarTarifasController(super.getFachadaAplicacion(),this)));
-        this.pantallas.put(IdPantalla.MENSAXES,new DatosVista("../../vistas/persoal/mensaxes/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
+        this.pantallas.put(IdPantalla.MENSAXES,new DatosVista("../../vistas/comun/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
+        this.pantallas.put(IdPantalla.NOVOMENSAXE,new DatosVista("../../vistas/comun/vNovoMensaxe.fxml",new vNovoMensaxeController(super.getFachadaAplicacion(),this.usuario)));
+
     }
 
     private void inciarTransiciones(){
