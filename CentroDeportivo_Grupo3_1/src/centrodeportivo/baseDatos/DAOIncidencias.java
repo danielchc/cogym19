@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
@@ -83,7 +84,7 @@ public final class DAOIncidencias extends AbstractDAO {
                         new Area(rsIncidencias.getInt("area"), new Instalacion(rsIncidencias.getInt("instalacion"))),
                         rsIncidencias.getString("nome"),
                         rsIncidencias.getDate("dataCompra"),
-                        rsIncidencias.getDouble("prezoCompra")
+                        rsIncidencias.getFloat("prezoCompra")
                 );
                 incidencias.add(new Incidencia(
                         TipoIncidencia.Material,

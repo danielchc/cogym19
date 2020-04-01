@@ -10,8 +10,6 @@ public class Curso {
     private String nome;
     private String descricion;
     private float prezo;
-    private ArrayList<Socio> socios;
-    private ArrayList<Actividade> actividades;
 
     public Curso(int codCurso, String nome, String descricion, float prezo) {
         this.codCurso = codCurso;
@@ -56,21 +54,6 @@ public class Curso {
         this.prezo = prezo;
     }
 
-    public ArrayList<Socio> getSocios() {
-        return socios;
-    }
-
-    public void setSocios(ArrayList<Socio> socios) {
-        this.socios = socios;
-    }
-
-    public ArrayList<Actividade> getActividades() {
-        return actividades;
-    }
-
-    public void setActividades(ArrayList<Actividade> actividades) {
-        this.actividades = actividades;
-    }
 
     @Override
     public String toString() {
@@ -79,8 +62,6 @@ public class Curso {
                 ", nome='" + nome + '\'' +
                 ", descricion='" + descricion + '\'' +
                 ", prezo=" + prezo +
-                ", socios=" + socios +
-                ", actividades=" + actividades +
                 '}';
     }
 

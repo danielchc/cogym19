@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:controller="test.ControllerMenu" prefHeight="516.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+
+        <!-- MENU PRINCIPAL -->
+
+        <VBox id="vb-sidebar" prefHeight="482.0" prefWidth="100.0" style="-fx-background-color: #2990ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Button id="INICIO" contentDisplay="TOP" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Inicio" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnUsuarios" contentDisplay="TOP" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Usuarios" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnMensaxes" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Mensaxes" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnTarifas" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Tarifas" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnAreas" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Infraestructura" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="11.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnActividades" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnMaterial" contentDisplay="TOP" layoutX="10.0" layoutY="279.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Material" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnIncidencia" contentDisplay="TOP" layoutX="10.0" layoutY="412.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Incidencias" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -3,6 +3,7 @@ package centrodeportivo.gui;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController;
+import centrodeportivo.gui.controladores.socios.vPrincipalSociosController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -31,13 +32,13 @@ public class FachadaGUI {
         stage.setResizable(false);
         stage.show();
     }
-    public void mostrarVentaSocios() throws IOException {
-        //fxmlLoader.setController(new vPrincipalPersoalController(this.fachadaAplicacion));
-        //fxmlLoader.setLocation(getClass().getResource("./vistas/socios/test.fxml"));
-        //stage.setTitle("Xestión Centro Deportivo");
-        //stage.setScene(new Scene(fxmlLoader.load()));
-        //stage.setResizable(false);
-        //stage.show();
+    public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
+        fxmlLoader.setController(new vPrincipalSociosController(this.fachadaAplicacion,loggedUser));
+        fxmlLoader.setLocation(getClass().getResource("./vistas/socios/test.fxml"));
+        stage.setTitle("Xestión Centro Deportivo");
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void mostrarAdvertencia(String titulo,String texto){

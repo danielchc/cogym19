@@ -4,6 +4,8 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
@@ -478,13 +480,12 @@ public final class DAOUsuarios extends AbstractDAO {
             while(resultSet.next()){
                 actividadesMes.add(new Actividade(
                         resultSet.getTimestamp("dataActividade"),
-                        resultSet.getInt("area"),
-                        resultSet.getInt("instalacion"),
-                        resultSet.getInt("tipoActividade"),
-                        resultSet.getInt("curso"),
+                        new Area(resultSet.getInt("area"),new Instalacion(resultSet.getInt("instalacion"))),
+                        new TipoActividade(resultSet.getInt("tipoActividade")),
+                        new Curso(resultSet.getInt("curso")),
                         resultSet.getString("nome"),
                         resultSet.getFloat("duracion"),
-                        resultSet.getString("profesor")
+                        new Profesor(resultSet.getString("profesor"))
                         ));
             }
 
