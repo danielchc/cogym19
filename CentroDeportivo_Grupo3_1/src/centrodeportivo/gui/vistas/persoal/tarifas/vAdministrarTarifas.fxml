@@ -28,7 +28,7 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
-            <Button layoutX="512.0" layoutY="385.0" mnemonicParsing="false" text="Modificar">
+            <Button layoutX="512.0" layoutY="385.0" mnemonicParsing="false" onAction="#modificarTarifa" text="Modificar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

@@ -5,6 +5,8 @@ import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,9 +18,11 @@ public class vAdministrarTarifasController extends AbstractController implements
 
     public TableView listaTarifas;
     private FachadaAplicacion fachadaAplicacion;
-    public vAdministrarTarifasController(FachadaAplicacion fachadaAplicacion) {
+    private vPrincipalController vPrincipal;
+    public vAdministrarTarifasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipal) {
         super(fachadaAplicacion);
         this.fachadaAplicacion=super.getFachadaAplicacion();
+        this.vPrincipal=vPrincipal;
     }
 
     private void listarTarifas(){
@@ -49,7 +53,6 @@ public class vAdministrarTarifasController extends AbstractController implements
 
     public void borrarTarifa(){
         if(!listaTarifas.getSelectionModel().isEmpty()){
-            //comprobar que se hai usuarios con dita tarifa xd
             Tarifa tarifa=((Tarifa)listaTarifas.getSelectionModel().getSelectedItem());
             if(fachadaAplicacion.estaEnUsoTarifa(tarifa.getCodTarifa())){
                 fachadaAplicacion.mostrarAdvertencia("Tarifa en uso", "Esta tarifa está actualmente en uso, non se pode borrar");
@@ -60,6 +63,14 @@ public class vAdministrarTarifasController extends AbstractController implements
                 fachadaAplicacion.mostrarInformacion("Borrar tarifa","A tarifa "+tarifa.getNome()+ " borrouse correctamente.");
             }
             listarTarifas();
+        }
+    }
+
+    public void modificarTarifa(){
+        if(!listaTarifas.getSelectionModel().isEmpty()){
+            Tarifa tarifa=((Tarifa)listaTarifas.getSelectionModel().getSelectedItem());
+            ((vNovaTarifaController)this.vPrincipal.getControlador(IdPantalla.NOVATARIFA)).setTarifa(tarifa);
+            this.vPrincipal.mostrarMenu(IdPantalla.NOVATARIFA);
         }
     }
 

@@ -25,14 +25,25 @@ public class vNovaTarifaController extends AbstractController implements Initial
     public Spinner campoPrecioExtras;
     public Label labelNumActividades;
     public Label labelError;
+    private Tarifa tarifa;
 
     public vNovaTarifaController(FachadaAplicacion fachadaAplicacion) {
         super(fachadaAplicacion);
     }
 
+    private void cargarTarifa(){
+        if(tarifa==null)return;
+        campoNome.setText(tarifa.getNome());
+        campoActividades.setValue(tarifa.getMaxActividades());
+        labelNumActividades.setText(tarifa.getMaxActividades().toString());
+        //Non sei porque peta xdd
+        //campoPrecioBase.getValueFactory().setValue(tarifa.getPrezoBase());
+        //campoPrecioExtras.getValueFactory().setValue(tarifa.getPrezoExtras());
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
+        cargarTarifa();
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
@@ -57,5 +68,13 @@ public class vNovaTarifaController extends AbstractController implements Initial
 
     public void listenerSlider(MouseEvent mouseEvent) {
         this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
     }
 }
