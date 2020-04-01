@@ -100,7 +100,7 @@
       </VBox>
 
       <VBox id="vb-sidebar" fx:id="sideBarAreas" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -112,7 +112,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Instalación" textFill="WHITE">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Instalación" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -124,7 +124,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Instalación" textFill="WHITE">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Instalación" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -136,7 +136,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Área" textFill="WHITE">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Área" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -148,7 +148,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Área" textFill="WHITE">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Área" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -160,7 +160,7 @@
                </ImageView>
             </graphic>
          </Button>
-         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Área" textFill="WHITE">
+         <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Área" textFill="WHITE">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>
@@ -193,7 +193,7 @@
 
       <VBox id="vb-sidebar" fx:id="sideBarMaterial" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Material" textFill="WHITE">
+            <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Material" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
