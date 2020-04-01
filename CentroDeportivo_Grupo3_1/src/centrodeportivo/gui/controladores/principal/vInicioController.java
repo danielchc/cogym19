@@ -1,4 +1,4 @@
-package centrodeportivo.gui.controladores.persoal;
+package centrodeportivo.gui.controladores.principal;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;

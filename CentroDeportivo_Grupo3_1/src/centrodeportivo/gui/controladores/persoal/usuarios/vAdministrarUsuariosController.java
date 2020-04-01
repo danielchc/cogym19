@@ -4,6 +4,8 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,11 +20,14 @@ public class vAdministrarUsuariosController extends AbstractController implement
     public TableView listaUsuarios;
     public TextField campoNomeBuscar;
     public TextField campoLoginBuscar;
-    public ChoiceBox campoTipoUsuario;
+    public ComboBox campoTipoUsuario;
     private FachadaAplicacion fachadaAplicacion;
-    public vAdministrarUsuariosController(FachadaAplicacion fachadaAplicacion) {
+    private vPrincipalController vPrincipal;
+
+    public vAdministrarUsuariosController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipal) {
         super(fachadaAplicacion);
         this.fachadaAplicacion=super.getFachadaAplicacion();
+        this.vPrincipal=vPrincipal;
     }
 
 
@@ -51,6 +56,12 @@ public class vAdministrarUsuariosController extends AbstractController implement
         listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()]));
     }
 
+    public void modificarUsuario(){
+        if(!listaUsuarios.getSelectionModel().isEmpty()) {
+            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
+            vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
+        }
+    }
     public void borrarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()){
             String login=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem()).getLogin();

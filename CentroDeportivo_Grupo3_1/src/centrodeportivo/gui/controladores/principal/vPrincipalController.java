@@ -5,13 +5,11 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Transicion;
-import centrodeportivo.gui.controladores.persoal.PantallasPersoal;
 import centrodeportivo.gui.controladores.persoal.mensaxes.vMensaxesController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarUsuariosController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vNovoUsuarioController;
-import centrodeportivo.gui.controladores.persoal.vInicioController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -91,13 +89,12 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
-        this.pantallas.put(IdPantalla.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion(),null)));
-        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/persoal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
-        this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS,new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml",new vAdministrarUsuariosController(super.getFachadaAplicacion())));
+        this.pantallas.put(IdPantalla.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion(),this)));
+        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
+        this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS,new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml",new vAdministrarUsuariosController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion())));
         this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS,new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml",new vAdministrarTarifasController(super.getFachadaAplicacion())));
         this.pantallas.put(IdPantalla.MENSAXES,new DatosVista("../../vistas/persoal/mensaxes/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
-
     }
 
     private void inciarTransiciones(){
@@ -195,5 +192,9 @@ public class vPrincipalController extends AbstractController implements Initiali
     public void btnSliderAction(ActionEvent actionEvent) {
         esconderTodosSliders();
         mostrarMenu(IdPantalla.valueOf(((Button)actionEvent.getSource()).getId()));
+    }
+
+    public AbstractController getControlador(IdPantalla idPantalla){
+        return this.pantallas.get(idPantalla).getControlador();
     }
 }
