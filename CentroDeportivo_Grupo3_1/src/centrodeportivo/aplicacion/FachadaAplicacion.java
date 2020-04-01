@@ -165,21 +165,7 @@ public class FachadaAplicacion {
     /*
         Xestion instalacións
      */
-    public void darAltaInstalacion(Instalacion instalacion){
-        xestionInstalacions.darAltaInstalacion(instalacion);
-    }
 
-    public void borrarInstalacion(Instalacion instalacion){
-        xestionInstalacions.borrarInstalacion(instalacion);
-    }
-
-    public void modificarInstalacion(Instalacion instalacion){
-        xestionInstalacions.modificarInstalacion(instalacion);
-    }
-
-    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
-        return xestionInstalacions.buscarInstalacions(instalacion);
-    }
 
 
 }

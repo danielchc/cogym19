@@ -15,19 +15,7 @@ public class XestionInstalacions {
         this.fachadaBD = fachadaBD;
     }
 
-    public void darAltaInstalacion(Instalacion instalacion){
-        fachadaBD.darAltaInstalacion(instalacion);
-    }
 
-    public void borrarInstalacion(Instalacion instalacion){
-        fachadaBD.borrarInstalacion(instalacion);
-    }
 
-    public void modificarInstalacion(Instalacion instalacion){
-        fachadaBD.modificarInstalacion(instalacion);
-    }
 
-    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
-        return fachadaBD.buscarInstalacions(instalacion);
-    }
 }

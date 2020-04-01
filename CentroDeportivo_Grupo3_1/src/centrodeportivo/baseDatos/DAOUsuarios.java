@@ -450,7 +450,7 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
 
-    /*
+
     protected Cuota consultarCuota(String login){
         PreparedStatement stm = null;
         ResultSet resultSet;
@@ -482,10 +482,10 @@ public final class DAOUsuarios extends AbstractDAO {
                         resultSet.getInt("instalacion"),
                         resultSet.getInt("tipoActividade"),
                         resultSet.getInt("curso"),
-                        resultSet.getString("profesor"),
                         resultSet.getString("nome"),
-                        resultSet.getFloat("duracion")
-                ));
+                        resultSet.getFloat("duracion"),
+                        resultSet.getString("profesor")
+                        ));
             }
 
             stm = super.getConexion().prepareStatement(
@@ -525,7 +525,7 @@ public final class DAOUsuarios extends AbstractDAO {
             }
         }
         return null;
-    }*/
+    }
 
 
 }

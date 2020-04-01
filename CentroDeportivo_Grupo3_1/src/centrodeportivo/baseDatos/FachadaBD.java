@@ -172,21 +172,7 @@ public final class FachadaBD {
         Funcións DAOInstalacions
      */
 
-    public void darAltaInstalacion(Instalacion instalacion){
-        daoInstalacions.darAltaInstalacion(instalacion);
-    }
 
-    public void borrarInstalacion(Instalacion instalacion){
-        daoInstalacions.borrarInstalacion(instalacion);
-    }
-
-    public void modificarInstalacion(Instalacion instalacion){
-        daoInstalacions.modificarInstalacion(instalacion);
-    }
-
-    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
-        return daoInstalacions.buscarInstalacions(instalacion);
-    }
 
 
     //Funcións propias:

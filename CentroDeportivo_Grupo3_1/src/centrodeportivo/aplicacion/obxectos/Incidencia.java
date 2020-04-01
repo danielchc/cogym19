@@ -1,7 +1,6 @@
 package centrodeportivo.aplicacion.obxectos;
 
 import centrodeportivo.aplicacion.obxectos.area.Area;
-import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
