@@ -12,24 +12,35 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
-CentroDeportivo/.idea/
+CentroDeportivo_Grupo3_1/.idea/
+CentroDeportivo_Grupo3_2/.idea/
 
 # Generated files
 .idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-CentroDeportivo/.idea/**/dataSources/
-CentroDeportivo/.idea/**/dataSources.ids
-CentroDeportivo/.idea/**/dataSources.local.xml
-CentroDeportivo/.idea/**/sqlDataSources.xml
-CentroDeportivo/.idea/**/dynamic.xml
-CentroDeportivo/.idea/**/uiDesigner.xml
-CentroDeportivo/.idea/**/dbnavigator.xml
+CentroDeportivo_Grupo3_1/.idea/**/dataSources/
+CentroDeportivo_Grupo3_1/.idea/**/dataSources.ids
+CentroDeportivo_Grupo3_1/.idea/**/dataSources.local.xml
+CentroDeportivo_Grupo3_1/.idea/**/sqlDataSources.xml
+CentroDeportivo_Grupo3_1/.idea/**/dynamic.xml
+CentroDeportivo_Grupo3_1/.idea/**/uiDesigner.xml
+CentroDeportivo_Grupo3_1/.idea/**/dbnavigator.xml
+
+CentroDeportivo_Grupo3_2/.idea/**/dataSources/
+CentroDeportivo_Grupo3_2/.idea/**/dataSources.ids
+CentroDeportivo_Grupo3_2/.idea/**/dataSources.local.xml
+CentroDeportivo_Grupo3_2/.idea/**/sqlDataSources.xml
+CentroDeportivo_Grupo3_2/.idea/**/dynamic.xml
+CentroDeportivo_Grupo3_2/.idea/**/uiDesigner.xml
+CentroDeportivo_Grupo3_2/.idea/**/dbnavigator.xml
 
 # Gradle
-CentroDeportivo/.idea/**/gradle.xml
-CentroDeportivo/.idea/**/libraries
+CentroDeportivo_Grupo3_1/.idea/**/gradle.xml
+CentroDeportivo_Grupo3_1/.idea/**/libraries
 
+CentroDeportivo_Grupo3_2/.idea/**/gradle.xml
+CentroDeportivo_Grupo3_2/.idea/**/libraries
 
 # File-based project format
 *.iws
