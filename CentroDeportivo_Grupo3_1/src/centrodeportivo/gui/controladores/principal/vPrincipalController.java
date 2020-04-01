@@ -96,7 +96,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion())));
         this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS,new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml",new vAdministrarTarifasController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.MENSAXES,new DatosVista("../../vistas/comun/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
-        this.pantallas.put(IdPantalla.NOVOMENSAXE,new DatosVista("../../vistas/comun/vNovoMensaxe.fxml",new vNovoMensaxeController(super.getFachadaAplicacion(),this.usuario)));
+        this.pantallas.put(IdPantalla.NOVOMENSAXE,new DatosVista("../../vistas/comun/vNovoMensaxe.fxml",new vNovoMensaxeController(super.getFachadaAplicacion(),this,this.usuario)));
 
     }
 
