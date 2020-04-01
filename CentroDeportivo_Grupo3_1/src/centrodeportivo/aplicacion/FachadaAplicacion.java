@@ -114,6 +114,11 @@ public class FachadaAplicacion {
         return xestionTarifas.consultarTarifaSocio(loginSocio);
     }
 
+    public boolean existeTarifa(String nome) {
+        return xestionTarifas.existeTarifa(nome);
+    }
+
+
     /*
         Xestion mensaxes
      */

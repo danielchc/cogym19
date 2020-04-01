@@ -93,7 +93,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
         this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS,new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml",new vAdministrarUsuariosController(super.getFachadaAplicacion(),this)));
-        this.pantallas.put(IdPantalla.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion())));
+        this.pantallas.put(IdPantalla.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS,new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml",new vAdministrarTarifasController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.MENSAXES,new DatosVista("../../vistas/comun/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
         this.pantallas.put(IdPantalla.NOVOMENSAXE,new DatosVista("../../vistas/comun/vNovoMensaxe.fxml",new vNovoMensaxeController(super.getFachadaAplicacion(),this,this.usuario)));
@@ -187,6 +187,8 @@ public class vPrincipalController extends AbstractController implements Initiali
             fxmlLoader.setController(dv.getControlador());
             fxmlLoader.setLocation(getClass().getResource(dv.getPathFXML()));
             this.mainContainer.getChildren().add(fxmlLoader.load());
+            this.pantallas.get(idPantalla).getControlador().reiniciarForm();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

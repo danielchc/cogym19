@@ -46,14 +46,15 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         Persoal,
         Profesor
     };
-    private Usuario usuario;
+    private Usuario usuarioModificar;
 
     private vPrincipalController controllerPrincipal;
+    private FachadaAplicacion fachadaAplicacion;
 
     public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal=controllerPrincipal;
-
+        this.fachadaAplicacion=super.getFachadaAplicacion();
     }
 
     public void cambiarTipo(){
@@ -90,12 +91,16 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
-        if(ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
+            if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
+                this.labelError.setText("Algún campo sen cubrir.");
+                return;
+            }
             if(!comprobarFormatos()) return;
             if(!comprobarDataMais16anos()) return;
             if(!comprobarLogin()) return;
             if(!comprobarDNI()) return;
-            if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==0){
+
+            if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Socio.ordinal()){
                 Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
                 Socio socio=new Socio(
                         campoLogin.getText(),
@@ -109,8 +114,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                         campoDificultades.getText(),
                         tarifa
                 );
-                super.getFachadaAplicacion().insertarUsuario(socio);
-                super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
+                this.fachadaAplicacion.insertarUsuario(socio);
+                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
             }else{
                 Profesor profesor=new Profesor(
                         campoLogin.getText(),
@@ -123,15 +128,11 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                         campoNUSS.getText()
                 );
 
-                if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==1) super.getFachadaAplicacion().insertarUsuario(profesor);
-                else if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==2) super.getFachadaAplicacion().insertarUsuario((Persoal)profesor);
-                super.getFachadaAplicacion().mostrarInformacion("Usuario","Creouse o usuario "+profesor.getLogin() +" correctamente");
+                if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Persoal.ordinal()) this.fachadaAplicacion.insertarUsuario(profesor);
+                else if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Profesor.ordinal()) this.fachadaAplicacion.insertarUsuario((Persoal)profesor);
+                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+profesor.getLogin() +" correctamente");
             }
-
             this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
-        }else{
-            this.labelError.setText("Algún campo sen cubrir.");
-        }
     }
 
     private boolean comprobarFormatos(){
@@ -185,37 +186,40 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     private void cargarDatosUsuario(){
-        if(usuario==null)return;
-        this.campoLogin.setText(usuario.getLogin());
-        this.campoNome.setText(usuario.getNome());
-        this.campoCorreo.setText(usuario.getCorreoElectronico());
-        this.campoPassword.setText(usuario.getContrasinal());
-        this.campoDNI.setText(usuario.getDNI());
-        this.campoIBAN.setText(usuario.getIBANconta());
-        this.campoTelf.setText(usuario.getNumTelefono());
-        if(usuario instanceof Socio){
-            Socio socio=(Socio)usuario;
+        if(usuarioModificar==null)return;
+        this.campoLogin.setText(usuarioModificar.getLogin());
+        this.campoNome.setText(usuarioModificar.getNome());
+        this.campoCorreo.setText(usuarioModificar.getCorreoElectronico());
+        this.campoPassword.setText(usuarioModificar.getContrasinal());
+        this.campoDNI.setText(usuarioModificar.getDNI());
+        this.campoIBAN.setText(usuarioModificar.getIBANconta());
+        this.campoTelf.setText(usuarioModificar.getNumTelefono());
+        if(usuarioModificar instanceof Socio){
+            Socio socio=(Socio)usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Socio);
-            //CARGAR TARIFA
-            //this.comboTarifa.getSelectionModel().select();
+            this.comboTarifa.getSelectionModel().select(socio.getTarifa());
             this.campoData.setValue(socio.getDataNacemento().toLocalDate());
             this.campoDificultades.setText(socio.getDificultades());
-        }else if(usuario instanceof Persoal){
-            Persoal persoal=(Persoal)usuario;
+        }else if(usuarioModificar instanceof Persoal){
+            Persoal persoal=(Persoal)usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Persoal);
             this.campoNUSS.setText(persoal.getNUSS());
-            if(usuario instanceof Profesor){
+            if(usuarioModificar instanceof Profesor){
                 this.tipoUsuario.getSelectionModel().select(RexistroTipo.Profesor);
             }
         }
         cambiarTipo();
     }
     public Usuario getUsuario() {
-        return usuario;
+        return usuarioModificar;
     }
 
     public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+        this.usuarioModificar = usuario;
     }
 
+    @Override
+    public void reiniciarForm(){
+        this.usuarioModificar=null;
+    }
 }

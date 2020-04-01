@@ -133,6 +133,10 @@ public final class FachadaBD {
         return daoTarifas.consultarTarifaSocio(loginSocio);
     }
 
+    public boolean existeTarifa(String nome){
+        return daoTarifas.existeTarifa(nome);
+    }
+
     /*
         Funcions DAOMensaxes
      */
