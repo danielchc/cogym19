@@ -40,4 +40,7 @@ public class XestionTarifas {
     public Tarifa consultarTarifaSocio(String loginSocio) {
         return fachadaBD.consultarTarifaSocio(loginSocio);
     }
+    public boolean existeTarifa(String nome){
+        return fachadaBD.existeTarifa(nome);
+    }
 }

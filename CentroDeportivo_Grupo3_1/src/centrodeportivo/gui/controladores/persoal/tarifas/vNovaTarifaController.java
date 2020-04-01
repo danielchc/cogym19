@@ -6,6 +6,8 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.persoal.PantallasPersoal;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -25,20 +27,24 @@ public class vNovaTarifaController extends AbstractController implements Initial
     public Spinner campoPrecioExtras;
     public Label labelNumActividades;
     public Label labelError;
-    private Tarifa tarifa;
-
-    public vNovaTarifaController(FachadaAplicacion fachadaAplicacion) {
+    private Tarifa tarifaModificar;
+    private FachadaAplicacion fachadaAplicacion;
+    private vPrincipalController vPrincipal;
+    public vNovaTarifaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipal) {
         super(fachadaAplicacion);
+        this.fachadaAplicacion=super.getFachadaAplicacion();
+        this.vPrincipal=vPrincipal;
     }
 
     private void cargarTarifa(){
-        if(tarifa==null)return;
-        campoNome.setText(tarifa.getNome());
-        campoActividades.setValue(tarifa.getMaxActividades());
-        labelNumActividades.setText(tarifa.getMaxActividades().toString());
-        //Non sei porque peta xdd
-        //campoPrecioBase.getValueFactory().setValue(tarifa.getPrezoBase());
-        //campoPrecioExtras.getValueFactory().setValue(tarifa.getPrezoExtras());
+        campoNome.setDisable(false);
+        if(tarifaModificar==null)return;
+        campoNome.setDisable(true);
+        campoNome.setText(tarifaModificar.getNome());
+        campoActividades.setValue(tarifaModificar.getMaxActividades());
+        labelNumActividades.setText(tarifaModificar.getMaxActividades().toString());
+        campoPrecioBase.getValueFactory().setValue((double)tarifaModificar.getPrezoBase());
+        campoPrecioExtras.getValueFactory().setValue((double)tarifaModificar.getPrezoExtras());
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,23 +53,32 @@ public class vNovaTarifaController extends AbstractController implements Initial
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
-        if(ValidacionDatos.estanCubertosCampos(campoNome)){
-            /*
-                comprobar que a tarifa non existe xa
-             */
-            super.getFachadaAplicacion().insertarTarifa(new Tarifa(
-                    this.campoNome.getText(),
-                    (int)this.campoActividades.getValue(),
-                    ((Double)this.campoPrecioBase.getValue()).floatValue(),
-                    ((Double)this.campoPrecioExtras.getValue()).floatValue()
-            ));
-            super.getFachadaAplicacion().mostrarInformacion("Tarifa","Creouse a tarifa "+campoNome.getText()+" correctamente");
-            /*
-                volver ao menu
-             */
-        }else{
+        if(!ValidacionDatos.estanCubertosCampos(campoNome)){
             labelError.setText("Algún campo sen cubrir.");
+            return;
         }
+
+        Tarifa tarifa=new Tarifa(
+                this.campoNome.getText(),
+                (int)this.campoActividades.getValue(),
+                ((Double)this.campoPrecioBase.getValue()).floatValue(),
+                ((Double)this.campoPrecioExtras.getValue()).floatValue()
+        );
+
+        if(tarifaModificar!=null){
+            tarifa.setCodTarifa(tarifaModificar.getCodTarifa());
+            fachadaAplicacion.actualizarTarifa(tarifa);
+            fachadaAplicacion.mostrarInformacion("Tarifas","Gardaronse os cambios  na tarifa "+campoNome.getText()+" correctamente");
+        }else{
+            if(this.fachadaAplicacion.existeTarifa(campoNome.getText())){
+                fachadaAplicacion.mostrarErro("Error", "Xa existe unha tarifa co nome "+campoNome.getText());
+                return;
+            }
+            fachadaAplicacion.insertarTarifa(tarifa);
+            fachadaAplicacion.mostrarInformacion("Tarifas","Creouse a tarifa "+campoNome.getText()+" correctamente");
+        }
+        this.vPrincipal.mostrarMenu(IdPantalla.INICIO);
+
     }
 
     public void listenerSlider(MouseEvent mouseEvent) {
@@ -71,10 +86,15 @@ public class vNovaTarifaController extends AbstractController implements Initial
     }
 
     public Tarifa getTarifa() {
-        return tarifa;
+        return tarifaModificar;
     }
 
     public void setTarifa(Tarifa tarifa) {
-        this.tarifa = tarifa;
+        this.tarifaModificar = tarifa;
+    }
+
+    @Override
+    public void reiniciarForm(){
+        this.tarifaModificar=null;
     }
 }

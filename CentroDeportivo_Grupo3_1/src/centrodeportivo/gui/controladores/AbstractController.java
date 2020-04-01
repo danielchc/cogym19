@@ -5,7 +5,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 public abstract class AbstractController {
     private FachadaAplicacion fachadaAplicacion;
-    private Usuario usuario;
 
 
     public AbstractController(FachadaAplicacion fachadaAplicacion) {
@@ -18,5 +17,9 @@ public abstract class AbstractController {
 
     public void setFachadaAplicacion(FachadaAplicacion fachadaAplicacion) {
         this.fachadaAplicacion = fachadaAplicacion;
+    }
+
+    public void reiniciarForm(){
+
     }
 }

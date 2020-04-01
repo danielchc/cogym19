@@ -65,6 +65,7 @@ public final class DAOTarifas extends AbstractDAO {
             stmTarifa.setFloat(3,t.getPrezoExtras());
             stmTarifa.setInt(4,t.getCodTarifa());
             stmTarifa.executeUpdate();
+            System.out.println(stmTarifa);
             conexion.commit();
         }catch (SQLException e){
             e.printStackTrace();
@@ -153,5 +154,25 @@ public final class DAOTarifas extends AbstractDAO {
             }
         }
         return null;
+    }
+
+    protected boolean existeTarifa(String nome){
+        PreparedStatement stmTarifa = null;
+        ResultSet resultValidacion;
+        try {
+            stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifas WHERE LOWER(nome)=LOWER(?)");
+            stmTarifa.setString(1,nome);
+            resultValidacion=stmTarifa.executeQuery();
+            return resultValidacion.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmTarifa.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return false;
     }
 }
