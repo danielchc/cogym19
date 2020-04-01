@@ -3,6 +3,8 @@ package centrodeportivo.gui;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.persoal.vPrincipalPersoalController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import centrodeportivo.gui.controladores.socios.vPrincipalSociosController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,16 +27,16 @@ public class FachadaGUI {
 
     public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
 
-        fxmlLoader.setController(new vPrincipalPersoalController(this.fachadaAplicacion,loggedUser));
-        fxmlLoader.setLocation(getClass().getResource("./vistas/persoal/vPrincipal.fxml"));
+        fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser, IdPantalla.PANTALLAPERSOAL));
+        fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setResizable(false);
         stage.show();
     }
     public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
-        fxmlLoader.setController(new vPrincipalSociosController(this.fachadaAplicacion,loggedUser));
-        fxmlLoader.setLocation(getClass().getResource("./vistas/socios/test.fxml"));
+        fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser,IdPantalla.PANTALLASOCIO));
+        fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setResizable(false);
