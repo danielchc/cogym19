@@ -94,6 +94,9 @@ public class vNovoMensaxeController extends AbstractController implements Initia
                 }
             }
         });
+        if(super.getFachadaAplicacion().consultarTipo(this.emisor.getLogin())==TipoUsuario.Socio){
+            this.combo.setDisable(true);
+        }
     }
 
 
@@ -123,17 +126,6 @@ public class vNovoMensaxeController extends AbstractController implements Initia
 
     public void listenerReceptor(MouseEvent mouseEvent){
         abrirTabla();
-    }
-
-    public void listenerCombo(MouseEvent mouseEvent){
-        /*
-
-
-            MIRAR QUE UN SOCIO NON POIDA CAMBIAR O COMBOBOX
-
-
-         */
-        if(getFachadaAplicacion().consultarTipo(emisor.getLogin())==TipoUsuario.Socio) return;
     }
 
     private void actualizarTabla(){

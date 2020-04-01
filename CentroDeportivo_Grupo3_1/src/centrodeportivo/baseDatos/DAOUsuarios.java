@@ -299,7 +299,8 @@ public final class DAOUsuarios extends AbstractDAO {
             if(filtroTipo==TipoUsuario.Socio || filtroTipo==TipoUsuario.Todos) {
                 stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
                         "FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa " +
-                        "WHERE (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL);"
+                        "WHERE (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL) "+
+                        "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");

@@ -47,7 +47,7 @@
                            </font>
                         </Label>
                         <TextField fx:id="campoReceptor" onMouseClicked="#listenerReceptor" prefHeight="35.0" prefWidth="243.0" />
-                        <ComboBox fx:id="combo" onMouseClicked="#listenerCombo" prefHeight="41.0" prefWidth="122.0" />
+                        <ComboBox fx:id="combo" prefHeight="41.0" prefWidth="122.0" />
                      </children></HBox>
                   <TextArea fx:id="campoMensaxe" prefHeight="270.0" prefWidth="464.0" promptText="Mensaxe...">
                      <font>
