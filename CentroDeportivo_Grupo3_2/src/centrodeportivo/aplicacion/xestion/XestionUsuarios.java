@@ -17,33 +17,10 @@ public class XestionUsuarios {
         this.fachadaBD=fachadaBD;
     }
 
-    public boolean existeUsuario(String login)  {
-        return fachadaBD.existeUsuario(login);
-    }
-
-    public boolean existeDNI(String dni)  {
-        return fachadaBD.existeDNI(dni);
-    }
-
-    public boolean existeNUSS(String nuss) {
-        return fachadaBD.existeNUSS(nuss);
-    }
-
     public boolean validarUsuario(String login,String password) {
         return fachadaBD.validarUsuario(login,password);
     }
 
-    public void insertarUsuario(Usuario usuario) {
-        fachadaBD.insertarUsuario(usuario);
-    }
-
-    public void actualizarUsuario(String loginVello,Usuario usuario)  {
-        fachadaBD.actualizarUsuario(loginVello,usuario);
-    }
-
-    public void darBaixaUsuario(String login)  {
-        fachadaBD.darBaixaUsuario(login);
-    }
 
     public TipoUsuario consultarTipo(String login)  {
         return fachadaBD.consultarTipo(login);
@@ -51,18 +28,6 @@ public class XestionUsuarios {
 
     public Usuario consultarUsuario(String login)  {
         return fachadaBD.consultarUsuario(login);
-    }
-
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo)  {
-        return fachadaBD.buscarUsuarios(login,nome,filtroTipo);
-    }
-
-    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro)  {
-        return fachadaBD.buscarUsuarios("","",filtro);
-    }
-
-    public ArrayList<Usuario> listarUsuarios()  {
-        return fachadaBD.buscarUsuarios("","",TipoUsuario.Todos);
     }
 
 }
