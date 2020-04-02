@@ -2,6 +2,7 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -104,6 +105,10 @@ public final class FachadaBD {
 
     public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
         return daoUsuarios.buscarUsuarios(login,nome,filtroTipo);
+    }
+
+    public Cuota consultarCuota(String login){
+        return daoUsuarios.consultarCuota(login);
     }
 
     /*

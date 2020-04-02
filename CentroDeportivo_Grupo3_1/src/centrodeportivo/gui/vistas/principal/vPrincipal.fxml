@@ -240,19 +240,7 @@
         <!--Socios-->
         <VBox id="vb-sidebar" fx:id="sideBarUsuariosS" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/novousuario.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Administrar Usuarios" textFill="WHITE">
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Axustes de Usuario" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -260,6 +248,18 @@
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../imaxes/modificarusuario.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button id="CUOTA" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Consultar Cuota" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../imaxes/tarifa.png" />
                             </image>
                         </ImageView>
                     </graphic>

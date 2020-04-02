@@ -11,6 +11,7 @@ import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasCont
 import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarUsuariosController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vNovoUsuarioController;
+import centrodeportivo.gui.controladores.socios.vCuotaController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -97,6 +98,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS,new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml",new vAdministrarTarifasController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.MENSAXES,new DatosVista("../../vistas/comun/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
         this.pantallas.put(IdPantalla.NOVOMENSAXE,new DatosVista("../../vistas/comun/vNovoMensaxe.fxml",new vNovoMensaxeController(super.getFachadaAplicacion(),this,this.usuario)));
+        this.pantallas.put(IdPantalla.CUOTA,new DatosVista("../../vistas/socios/vCuota.fxml",new vCuotaController(super.getFachadaAplicacion(),this.usuario)));
 
     }
 

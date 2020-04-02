@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -85,6 +86,10 @@ public class FachadaAplicacion {
 
     public ArrayList<Usuario> listarUsuarios()  {
         return xestionUsuarios.buscarUsuarios("","",TipoUsuario.Todos);
+    }
+
+    public Cuota consultarCuota(String login){
+        return xestionUsuarios.consultarCuota(login);
     }
 
     /*

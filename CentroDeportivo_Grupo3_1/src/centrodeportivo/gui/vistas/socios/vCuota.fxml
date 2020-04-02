@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER_RIGHT" layoutX="209.0" layoutY="10.0" prefHeight="30.0" prefWidth="169.0" text="Consultar Cuota" textFill="WHITE" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="303.79999999999995" AnchorPane.topAnchor="10.0">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
+                    <image>
+                        <Image url="@../../imaxes/tarifa.png" />
+                    </image>
+                </ImageView>
+            </children></AnchorPane>
+    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="58.0" layoutY="10.0" prefHeight="409.0" prefWidth="572.0" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <HBox prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="120.0" text="Socio">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoSocio" editable="false" prefHeight="58.0" prefWidth="454.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="120.0" text="Tarifa">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoTarifa" editable="false" prefHeight="58.0" prefWidth="454.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="45.0" prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="120.0" text="Prezo Base">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoPrezoBase" editable="false" prefHeight="58.0" prefWidth="454.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="120.0" text="Prezo Extras">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoPrezoExtras" editable="false" prefHeight="58.0" prefWidth="454.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="45.0" prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="120.0" text="Máximo Activ.">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoMaxActividades" editable="false" prefHeight="58.0" prefWidth="454.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="80.0" prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="120.0" text="Actividades">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <MenuButton fx:id="campoActividades" mnemonicParsing="false" prefHeight="85.0" prefWidth="454.0" text="Actividades..." />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="110.0" prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="43.0" prefWidth="120.0" text="Cursos">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <MenuButton fx:id="campoCursos" mnemonicParsing="false" prefHeight="66.0" prefWidth="454.0" text="Cursos..." />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="215.0" prefHeight="203.0" prefWidth="573.0">
+                     <children>
+                        <VBox prefHeight="198.0" prefWidth="120.0">
+                           <children>
+                              <Label prefHeight="35.0" prefWidth="120.0" text="Total:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="campoPrezoTotal" alignment="CENTER" prefHeight="164.0" prefWidth="120.0" text="500€">
+                                 <font>
+                                    <Font name="System Bold" size="27.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <TreeTableView fx:id="campoPrezos" prefHeight="198.0" prefWidth="452.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin></HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

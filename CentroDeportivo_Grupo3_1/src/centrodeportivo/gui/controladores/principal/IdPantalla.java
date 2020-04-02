@@ -9,5 +9,6 @@ public enum IdPantalla {
     MENSAXES,
     NOVOMENSAXE,
     NOVATARIFA,
-    ADMINISTRARTARIFAS
+    ADMINISTRARTARIFAS,
+    CUOTA
 }
