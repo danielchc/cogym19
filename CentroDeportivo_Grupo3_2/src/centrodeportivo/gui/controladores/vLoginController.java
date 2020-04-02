@@ -37,7 +37,7 @@ public class vLoginController  extends AbstractController implements Initializab
                 if(fa.validarUsuario(tfUsuario.getText(),tfContrasinal.getText())){
                     switch (fa.consultarTipo(tfUsuario.getText())){
                         case Socio:
-                            fa.mostrarVentaSocios();
+                            fa.mostrarVentaSocios(fa.consultarUsuario(tfUsuario.getText()));
                             break;
                         case Persoal:
                         case Profesor:

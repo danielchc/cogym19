@@ -1,4 +1,4 @@
-package centrodeportivo.gui.controladores.persoal;
+package centrodeportivo.gui.controladores.principal;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -20,56 +20,70 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class vPrincipalPersoalController extends  AbstractController implements Initializable  {
-    public Button btnIncidencia;
-    public Button btnMaterial;
-    public Button btnActividades;
-    public Button btnAreas;
-    public Button btnTarifas;
-    public Button btnMensaxes;
-    public Button btnUsuarios;
-    public Button btnInicio;
+public class vPrincipalController extends AbstractController implements Initializable {
+    /*
+        Menus
+     */
+    public VBox menuPersoal;
+    public VBox menuSocio;
+    /*
+        Botones menu
+     */
+    public Button btnMaterialP;
+    public Button btnActividadesP;
+    public Button btnAreasP;
+    public Button btnActividadesS;
+    //contenedor para as pantallas
     public StackPane mainContainer;
-    public VBox sideBarUsuarios;
-    public VBox sideBarMensaxes;
-    public VBox sideBarTarifas;
-    public VBox sideBarAreas;
-    public VBox sideBarActividades;
-    public VBox sideBarMaterial;
-    public VBox sideBarIncidencias;
-
+    /*
+        Sliders
+     */
+    public VBox sideBarAreasP;
+    public VBox sideBarActividadesP;
+    public VBox sideBarMaterialP;
+    public VBox sideBarActividadesS;
+    /*
+        Atributos
+     */
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
-    private HashMap<PantallasPersoal, DatosVista> pantallas;
+    private HashMap<IdPantalla, DatosVista> pantallas;
     private Usuario usuario;
+    private IdPantalla pantallaAMostrar;
 
-    public vPrincipalPersoalController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
+    public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario loggedUser,IdPantalla pantallaAMostrar) {
         super(fachadaAplicacion);
-        this.usuario=usuario;
+        this.usuario=loggedUser;
+        this.pantallaAMostrar=pantallaAMostrar;
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
         this.pantallas=new HashMap<>();
         cargarPantallas();
     }
 
-
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         inciarTransiciones();
-        mostrarMenu(PantallasPersoal.INICIO);
+        ocultarMenusInnecesarios();
+        mostrarMenu(IdPantalla.INICIO);
+    }
+
+    private void cargarPantallas() {
+        //carganse todas as pantallas necesarias
+        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
     }
 
     private void inciarTransiciones(){
         ArrayList<VBox> sliders=new ArrayList<>();
-        sliders.add(sideBarUsuarios);       sliders.add(sideBarMensaxes);
-        sliders.add(sideBarTarifas);        sliders.add(sideBarAreas);
-        sliders.add(sideBarActividades);    sliders.add(sideBarIncidencias);
-        sliders.add(sideBarMaterial);
+        sliders.add(sideBarAreasP);
+        sliders.add(sideBarActividadesP);
+        sliders.add(sideBarMaterialP);
+        sliders.add(sideBarActividadesS);
 
-        botonesMenu.add(btnUsuarios);       botonesMenu.add(btnMensaxes);
-        botonesMenu.add(btnTarifas);        botonesMenu.add(btnAreas);
-        botonesMenu.add(btnActividades);    botonesMenu.add(btnIncidencia);
-        botonesMenu.add(btnMaterial);
+        botonesMenu.add(btnAreasP);
+        botonesMenu.add(btnActividadesP);
+        botonesMenu.add(btnMaterialP);
+        botonesMenu.add(btnActividadesS);
 
         for(int i=0;i<botonesMenu.size();i++){
             this.transiciones.put(botonesMenu.get(i),new Transicion(sliders.get(i)));
@@ -87,9 +101,17 @@ public class vPrincipalPersoalController extends  AbstractController implements 
         });
     }
 
-    private void cargarPantallas() {
-        //carganse todas as pantallas necesarias
-        this.pantallas.put(PantallasPersoal.INICIO,new DatosVista("../../vistas/persoal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
+    private void ocultarMenusInnecesarios(){
+        if(pantallaAMostrar==IdPantalla.PANTALLAPERSOAL){
+            this.menuSocio.setVisible(false);
+            sideBarActividadesS.setVisible(false);
+
+        }else if(pantallaAMostrar==IdPantalla.PANTALLASOCIO){
+            this.menuPersoal.setVisible(false);
+            sideBarAreasP.setVisible(false);
+            sideBarActividadesP.setVisible(false);
+            sideBarMaterialP.setVisible(false);
+        }
     }
 
     public void btnMenuAction(ActionEvent actionEvent) {
@@ -119,7 +141,7 @@ public class vPrincipalPersoalController extends  AbstractController implements 
         }
     }
 
-    public void mostrarMenu(PantallasPersoal idPantalla){
+    public void mostrarMenu(IdPantalla idPantalla){
         this.mainContainer.getChildren().removeAll(this.mainContainer.getChildren());
         try {
             DatosVista dv=this.pantallas.get(idPantalla);
@@ -127,6 +149,8 @@ public class vPrincipalPersoalController extends  AbstractController implements 
             fxmlLoader.setController(dv.getControlador());
             fxmlLoader.setLocation(getClass().getResource(dv.getPathFXML()));
             this.mainContainer.getChildren().add(fxmlLoader.load());
+            this.pantallas.get(idPantalla).getControlador().reiniciarForm();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,6 +158,10 @@ public class vPrincipalPersoalController extends  AbstractController implements 
 
     public void btnSliderAction(ActionEvent actionEvent) {
         esconderTodosSliders();
-        mostrarMenu(PantallasPersoal.valueOf(((Button)actionEvent.getSource()).getId()));
+        mostrarMenu(IdPantalla.valueOf(((Button)actionEvent.getSource()).getId()));
+    }
+
+    public AbstractController getControlador(IdPantalla idPantalla){
+        return this.pantallas.get(idPantalla).getControlador();
     }
 }

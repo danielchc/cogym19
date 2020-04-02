@@ -133,8 +133,8 @@ public class FachadaAplicacion {
         return xestionMensaxes.listarMensaxesRecibidos(loginReceptor);
     }
 
-    public void mostrarVentaSocios() throws IOException {
-        fachadaGUI.mostrarVentaSocios();
+    public void mostrarVentaSocios(Usuario usuario) throws IOException {
+        fachadaGUI.mostrarVentaSocios(usuario);
     }
 
     public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
