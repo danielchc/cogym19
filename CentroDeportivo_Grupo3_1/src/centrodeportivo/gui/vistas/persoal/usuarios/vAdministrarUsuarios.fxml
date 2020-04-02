@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <top>
-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="52.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
             <children>
                 <Label alignment="CENTER_RIGHT" layoutX="191.0" layoutY="10.0" prefHeight="30.0" prefWidth="192.0" text="Xestión de Usuarios" textFill="WHITE" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="304.0" AnchorPane.topAnchor="10.0">
                     <font>

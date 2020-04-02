@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.DatosVista;
+import centrodeportivo.gui.controladores.Instalacions.vNovaInstalacionController;
 import centrodeportivo.gui.controladores.Transicion;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -69,8 +70,10 @@ public class vPrincipalController extends AbstractController implements Initiali
     }
 
     private void cargarPantallas() {
-        //carganse todas as pantallas necesarias
+        //Cargamos as pantallas que sexan precisas:
         this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
+        //Pantalla de nova instalación: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.NOVAINSTALACION,new DatosVista("../../vistas/Instalacions/vNovaInstalacion.fxml",new vNovaInstalacionController(super.getFachadaAplicacion(), this)));
     }
 
     private void inciarTransiciones(){

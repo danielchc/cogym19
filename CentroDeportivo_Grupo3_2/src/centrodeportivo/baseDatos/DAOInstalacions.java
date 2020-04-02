@@ -17,6 +17,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
     public void darAltaInstalacion(Instalacion instalacion){
         PreparedStatement stmInstalacions = null;
+        ResultSet rsInstalacions = null;
         Connection con;
 
         //Recuperamos a conexión coa base de datos.
@@ -33,6 +34,23 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Realizamos a actualización:
             stmInstalacions.executeUpdate();
+
+            //Imos facer unha segunda consulta para recuperar o ID da instalación:
+            //Fago a consulta polo nome porque tamén é único:
+            stmInstalacions = con.prepareStatement("SELECT codInstalacion FROM instalacions " +
+                    " WHERE nome = ? ");
+
+            //Establecemos o valor que se necesita:
+            stmInstalacions.setString(1, instalacion.getNome());
+
+            //Facemos a consulta:
+            rsInstalacions = stmInstalacions.executeQuery();
+
+            //Feita a consulta, recuperamos o valor:
+            if(rsInstalacions.next()){ //Só debería devolverse un ID.
+                //Así metemos o ID na instalación, e podemos amosalo para rematar a operación.
+                instalacion.setCodInstalacion(rsInstalacions.getInt(1));
+            }
             con.commit();
         } catch (SQLException e){
             System.out.println(e.getMessage());
