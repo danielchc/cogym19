@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS estarCapacitado;
 DROP TABLE IF EXISTS enviarMensaxes;
 DROP TABLE IF EXISTS realizarCursos;
+DROP TABLE IF EXISTS rexistroMarcas;
 DROP TABLE IF EXISTS realizarActividades;
 DROP TABLE IF EXISTS incidenciasAreas;
 DROP TABLE IF EXISTS incidenciasMateriais;
@@ -8,6 +9,7 @@ DROP TABLE IF EXISTS actividades;
 DROP TABLE IF EXISTS cursos;
 DROP TABLE IF EXISTS tipoActividades;
 DROP TABLE IF EXISTS materiais;
+DROP TABLE IF EXISTS tipoMateriais;
 DROP TABLE IF EXISTS areas;
 DROP TABLE IF EXISTS instalacions;
 DROP TABLE IF EXISTS profesores;
