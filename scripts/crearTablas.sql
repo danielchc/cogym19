@@ -68,6 +68,10 @@ CREATE TABLE areas(
 	UNIQUE(instalacion,nome)
 );
 
+CREATE TABLE tipoMateriais(
+	 			
+);
+
 CREATE TABLE materiais(
 	codMaterial 	SERIAL NOT NULL,
 	area			INT NOT NULL,
@@ -150,6 +154,18 @@ CREATE TABLE incidenciasAreas(
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+
+CREATE TABLE rexistroMarcas(
+	data 			TIMESTAMP NOT NULL,
+	peso			DECIMAL NOT NULL CHECK (peso>=0),
+	altura			,
+	bfp				,
+	tensionAlta		,
+	tensionBaixa	,
+	ppm				,
+	comentario		,
+	
+);
 
 CREATE TABLE realizarActividades(
 	dataActividade 	TIMESTAMP NOT NULL,
