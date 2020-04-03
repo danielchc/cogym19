@@ -69,18 +69,23 @@ CREATE TABLE areas(
 );
 
 CREATE TABLE tipoMateriais(
-	 			
+	codTipoMaterial 	SERIAL NOT NULL, 			
+	nome 				VARCHAR(100) NOT NULL,
+	PRIMARY KEY(codTipoMaterial)
 );
 
 CREATE TABLE materiais(
 	codMaterial 	SERIAL NOT NULL,
+	tipoMaterial	INT	NOT NULL,
 	area			INT NOT NULL,
 	instalacion 	INT NOT NULL,
 	nome			VARCHAR(50) NOT NULL,
 	dataCompra		DATE,
 	prezoCompra 	DECIMAL	CHECK (prezoCompra>=0),
-	PRIMARY KEY (codMaterial),
+	PRIMARY KEY (codMaterial,tipoMaterial),
 	FOREIGN KEY (area,instalacion) REFERENCES areas(codArea,instalacion)
+	ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (tipoMaterial) REFERENCES tipoMateriais(codTipoMaterial)
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
@@ -123,6 +128,7 @@ CREATE TABLE actividades(
 CREATE TABLE incidenciasMateriais(
 	numero 			SERIAL NOT NULL,
 	material		INT NOT NULL,
+	tipoMaterial	INT NOT NULL,
 	usuario			VARCHAR(25) NOT NULL,
 	descricion		VARCHAR(500) NOT NULL,
 	comentarioResolucion VARCHAR(500),
@@ -132,7 +138,7 @@ CREATE TABLE incidenciasMateriais(
 	PRIMARY KEY(numero),
 	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
 	ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (material) REFERENCES materiais(codMaterial) 
+	FOREIGN KEY (material,tipoMaterial) REFERENCES materiais(codMaterial,tipoMaterial) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -156,15 +162,18 @@ CREATE TABLE incidenciasAreas(
 
 
 CREATE TABLE rexistroMarcas(
-	data 			TIMESTAMP NOT NULL,
+	usuario			VARCHAR(25) NOT NULL,
+	dataMarca 		TIMESTAMP NOT NULL,
 	peso			DECIMAL NOT NULL CHECK (peso>=0),
-	altura			,
-	bfp				,
-	tensionAlta		,
-	tensionBaixa	,
-	ppm				,
-	comentario		,
-	
+	altura			DECIMAL NOT NULL CHECK (altura>=0),
+	bfp				DECIMAL NOT NULL CHECK (bfp>=0),
+	tensionAlta		INT NOT NULL CHECK (tensionAlta>=0),
+	tensionBaixa	INT NOT NULL CHECK (tensionBaixa>=0),
+	ppm				INT NOT NULL CHECK (ppm>=0),
+	comentario		VARCHAR(200),
+	PRIMARY KEY (usuario,dataMarca),
+	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
+	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE realizarActividades(
@@ -211,6 +220,9 @@ CREATE TABLE estarCapacitado(
 	FOREIGN KEY (tipoActividade) REFERENCES tipoActividades(codTipoActividade) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+
 
 
 CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
