@@ -2067,13 +2067,13 @@ TipoMaterial
 <XPD:ATTR name="FillColor" type="string">$00FCEABA</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">1304</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">280</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">99</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">128</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">137</XPD:ATTR>
 <XPD:REF name="Model">lbJAZSwv30Kfd8KZsx2yBAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="QylBY1QOok+GN9v/9+qgkQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="5Mf7XZ/9IUyIsTrCfTZ7xgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">RexistroMarcas</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">RexistrosFisiolóxicos</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="jlXgbGmujE2MncrIBc+GDgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3164,7 +3164,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[39]" type="UMLClass" guid="lbJAZSwv30Kfd8KZsx2yBAAA">
-<XPD:ATTR name="Name" type="string">RexistroMarcas</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">RexistrosFisiolóxicos</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">LhBIfp91o02zCvx6oQtVOAAA</XPD:REF>
