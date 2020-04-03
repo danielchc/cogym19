@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.RexistroMarca;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -517,6 +518,53 @@ public final class DAOUsuarios extends AbstractDAO {
             totalPrezo=totalActividades+totalCursos;
 
             return new Cuota(socio,tarifa,prezoActividadesExtra,totalActividades,totalCursos,totalPrezo,actividadesMes,cursosMes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stm.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return null;
+    }
+
+    protected void insertarRexistro(RexistroMarca rexistroMarca){
+
+    }
+
+    protected void eliminarRexistro(RexistroMarca rexistroMarca){
+        
+    }
+
+    protected ArrayList<RexistroMarca> listarRexistros(String login){
+        PreparedStatement stm = null;
+        ResultSet resultSet;
+        ArrayList<RexistroMarca> rexistros=new ArrayList<>();
+
+        try {
+            stm = super.getConexion().prepareStatement(
+                    "SELECT * " +
+                            "FROM rexistroMarcas " +
+                            "WHERE usuario=?;"
+            );
+            stm.setString(1, login);
+            resultSet = stm.executeQuery();
+            while(resultSet.next()){
+                rexistros.add(new RexistroMarca(
+                    resultSet.getTimestamp("dataMarca"),
+                    (Socio)consultarUsuario(login),
+                    resultSet.getFloat("peso"),
+                    resultSet.getFloat("altura"),
+                    resultSet.getFloat("bfp"),
+                    resultSet.getInt("tensionAlta"),
+                    resultSet.getInt("tensionBaixa"),
+                    resultSet.getInt("ppm"),
+                    resultSet.getString("comentario")
+                ));
+            }
+            return rexistros;
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {

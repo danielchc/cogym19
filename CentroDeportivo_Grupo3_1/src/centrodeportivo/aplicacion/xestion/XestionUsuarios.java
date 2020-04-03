@@ -1,5 +1,6 @@
 package centrodeportivo.aplicacion.xestion;
 
+import centrodeportivo.aplicacion.obxectos.RexistroMarca;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -68,5 +69,9 @@ public class XestionUsuarios {
 
     public Cuota consultarCuota(String login){
         return fachadaBD.consultarCuota(login);
+    }
+
+    public ArrayList<RexistroMarca> listarRexistros(String login){
+        return fachadaBD.listarRexistros(login);
     }
 }

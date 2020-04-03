@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="test.Controller">
+   <children>
+      <LineChart fx:id="chart" layoutX="50.0" title="Evolución do Peso">
+        <xAxis>
+          <CategoryAxis fx:id="dias" label="Días medidos" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="peso" label="Peso (Kg)" side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </children>
+</AnchorPane>
