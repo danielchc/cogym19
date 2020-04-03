@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -90,15 +91,10 @@ public class Actividade {
 
     @Override
     public String toString() {
-        return "Actividade{" +
-                "data=" + data +
-                ", area=" + area +
-                ", tipoActividade=" + tipoActividade +
-                ", curso=" + curso +
-                ", nome='" + nome + '\'' +
-                ", duracion=" + duracion +
-                ", profesor=" + profesor +
-                '}';
+        Date date=new Date(this.data.getTime());
+        return "Nome: "+this.nome+
+                ", Lugar: "+this.area.getNome()+
+                ", Data: "+date;
     }
 
     @Override

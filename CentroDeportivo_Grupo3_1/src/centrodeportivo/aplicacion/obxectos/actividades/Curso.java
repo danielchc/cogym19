@@ -2,6 +2,7 @@ package centrodeportivo.aplicacion.obxectos.actividades;
 
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -57,12 +58,8 @@ public class Curso {
 
     @Override
     public String toString() {
-        return "Curso{" +
-                "codCurso=" + codCurso +
-                ", nome='" + nome + '\'' +
-                ", descricion='" + descricion + '\'' +
-                ", prezo=" + prezo +
-                '}';
+        return "Nome: "+this.nome+
+                ", Código: "+this.codCurso;
     }
 
     @Override

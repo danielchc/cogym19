@@ -7,10 +7,13 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -21,7 +24,7 @@ public class vCuotaController extends AbstractController implements Initializabl
     public TextField campoPrezoBase;
     public TextField campoPrezoExtras;
     public TextField campoMaxActividades;
-    public TreeView campoActividades;
+    public ComboBox campoActividades;
     public ComboBox campoCursos;
     public Label campoPrezoTotal;
     public TreeView campoPrezos;
@@ -44,33 +47,24 @@ public class vCuotaController extends AbstractController implements Initializabl
         this.campoPrezoTotal.setText(cuota.getTotalPrezo()+" €");
 
         //actividades
-        ArrayList<Actividade> a=new ArrayList<>();
-        Actividade ac=new Actividade(null,new Area(1,new Instalacion(1)));
-        ac.setNome("actividade pocha");
-        a.add(ac);
-        a.add(ac);
-        a.add(ac);
-        a.add(ac);
-        a.add(ac);
-        a.add(ac);
-        a.add(ac);
-        a.add(ac);
-
-        cuota.setActividadesMes(a);
-        
-        /*
-            Esto non me convence
-         */
-
-        TreeItem<String> actividadesItem=new TreeItem<>("Actividades...");
-        for(Actividade act:cuota.getActividadesMes()){
-            actividadesItem.getChildren().add(new TreeItem<>(act.getNome()));
-        }
-        this.campoActividades.setRoot(actividadesItem);
+        this.campoActividades.getItems().addAll(cuota.getActividadesMes());
+        this.campoActividades.setPlaceholder(new Label("Sen actividades..."));
+        this.campoActividades.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                return;
+            }
+        });
 
         //cursos
-
-
+        this.campoCursos.getItems().addAll(cuota.getCursosMes());
+        this.campoCursos.setPlaceholder(new Label("Sen cursos..."));
+        this.campoCursos.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                return;
+            }
+        });
 
         //tabla precios
         TreeItem<String> actItem=new TreeItem<String>("Prezos Actividades");
