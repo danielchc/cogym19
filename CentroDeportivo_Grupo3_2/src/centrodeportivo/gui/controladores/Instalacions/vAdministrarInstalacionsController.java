@@ -24,6 +24,7 @@ public class vAdministrarInstalacionsController extends AbstractController imple
     public TextField campoNome;
     public TextField campoDireccion;
     public Button btnXestionar;
+    public TextField campoTelefono;
 
     //Atributos privados: manteremos o controlador da ventá de procedencia:
     private vPrincipalController controllerPrincipal;
