@@ -22,7 +22,7 @@ public class vCuotaController extends AbstractController implements Initializabl
     public TextField campoPrezoExtras;
     public TextField campoMaxActividades;
     public TreeView campoActividades;
-    public TreeView campoCursos;
+    public ComboBox campoCursos;
     public Label campoPrezoTotal;
     public TreeView campoPrezos;
 
@@ -57,13 +57,7 @@ public class vCuotaController extends AbstractController implements Initializabl
         a.add(ac);
 
         cuota.setActividadesMes(a);
-
-        /*
-
-            REVISAR A QUERY DE CONSULTAR CUOTA
-            AS ACTIVIDADES ESTAAS DEVOLVENDO MAL
-
-         */
+        
         /*
             Esto non me convence
          */
