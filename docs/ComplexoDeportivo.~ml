@@ -175,7 +175,7 @@
 <XPD:ATTR name="Left" type="integer">960</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">444</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">106</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">69</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">56</XPD:ATTR>
 <XPD:REF name="Model">lS8NGZIzpkOvno8HxMiYZwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="eaYJl17dAkisJiyAMIqdOQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Yl736jYo006/D2aTWtZy1gAA">
@@ -316,7 +316,7 @@
 <XPD:OBJ name="OwnedViews[10]" type="UMLGeneralizationView" guid="rjEroRwFTUGB4rMoVrvu/QAA">
 <XPD:ATTR name="FillColor" type="string">$00FCEABA</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">1012,600;1012,512</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">1012,600;1012,499</XPD:ATTR>
 <XPD:REF name="Model">1GO/tDWFMkuXCre0g9bJYwAA</XPD:REF>
 <XPD:REF name="Head">Wz772X2qUUiTNL3aYWS6jwAA</XPD:REF>
 <XPD:REF name="Tail">81Z5uhxcvUS+a++ud7DtOQAA</XPD:REF>
@@ -1255,10 +1255,11 @@
 <XPD:ATTR name="Left" type="integer">808</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">812</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">461</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">83</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">98</XPD:ATTR>
 <XPD:ATTR name="Text" type="string">SNR: Un usuario somentes se pode apuntar a unha actividade que non se realice nun curso.
 Un profesor somentes pode impartir actividades para as que esté capacidado.
 Os socios non poden ter menos de 16 anos.
+En Áreas, a combinación (codInstalación, nome) debe ser única.
 /duración (Curso): suma das duracións de todas as actividades.
 /idade (Socios): DataActual - dataNacemento
 </XPD:ATTR>
@@ -2112,12 +2113,8 @@ de Areas
 <XPD:REF name="Generalizations[0]">/MIZZTGT2k6whNi5+POhVwAA</XPD:REF>
 <XPD:ATTR name="#Specializations" type="integer">1</XPD:ATTR>
 <XPD:REF name="Specializations[0]">1GO/tDWFMkuXCre0g9bJYwAA</XPD:REF>
-<XPD:ATTR name="#Attributes" type="integer">2</XPD:ATTR>
-<XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="uBSy1bs+E0iJ+80c9s5H4gAA">
-<XPD:ATTR name="Name" type="string">dataIncorporacion</XPD:ATTR>
-<XPD:REF name="Owner">lS8NGZIzpkOvno8HxMiYZwAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="TDZUZxpaREqhvGjQ0pxX+wAA">
+<XPD:ATTR name="#Attributes" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="TDZUZxpaREqhvGjQ0pxX+wAA">
 <XPD:ATTR name="Name" type="string">NUSS {CK}</XPD:ATTR>
 <XPD:REF name="Owner">lS8NGZIzpkOvno8HxMiYZwAA</XPD:REF>
 </XPD:OBJ>
