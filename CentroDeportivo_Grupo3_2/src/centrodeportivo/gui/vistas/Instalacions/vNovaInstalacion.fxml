@@ -22,24 +22,30 @@
       </AnchorPane>
       <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0">
          <children>
-            <Label alignment="TOP_CENTER" layoutX="105.0" layoutY="85.0" prefHeight="20.0" prefWidth="190.0" text="Nome instalación">
+            <Label alignment="TOP_CENTER" layoutX="109.0" layoutY="50.0" prefHeight="20.0" prefWidth="190.0" text="Nome instalación*">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="campoNome" layoutX="304.0" layoutY="82.0" prefHeight="26.0" prefWidth="190.0" promptText="Escriba nome..." />
-            <TextField fx:id="campoNumTlf" layoutX="304.0" layoutY="132.0" prefHeight="26.0" prefWidth="190.0" promptText="Escriba teléfono..." />
-            <TextField fx:id="campoDireccion" layoutX="304.0" layoutY="181.0" prefHeight="26.0" prefWidth="190.0" promptText="Escriba dirección..." />
-            <Label alignment="TOP_CENTER" layoutX="105.0" layoutY="136.0" prefHeight="18.0" prefWidth="190.0" text="Número de teléfono">
+            <TextField fx:id="campoNome" layoutX="308.0" layoutY="47.0" prefHeight="26.0" prefWidth="190.0" promptText="Escriba nome..." />
+            <TextField fx:id="campoNumTlf" layoutX="308.0" layoutY="97.0" prefHeight="26.0" prefWidth="190.0" promptText="Escriba teléfono..." />
+            <TextField fx:id="campoDireccion" layoutX="308.0" layoutY="146.0" prefHeight="26.0" prefWidth="190.0" promptText="Escriba dirección..." />
+            <Label alignment="TOP_CENTER" layoutX="109.0" layoutY="101.0" prefHeight="18.0" prefWidth="190.0" text="Número de teléfono*">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" layoutX="105.0" layoutY="185.0" prefHeight="18.0" prefWidth="190.0" text="Dirección">
+            <Label alignment="TOP_CENTER" layoutX="109.0" layoutY="150.0" prefHeight="18.0" prefWidth="190.0" text="Dirección*">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Button fx:id="btnGardar" layoutX="248.0" layoutY="238.0" mnemonicParsing="false" onAction ="#btnGardarAction" text="Gardar instalación" />
+            <Button fx:id="btnGardar" layoutX="248.0" layoutY="217.0" mnemonicParsing="false" onAction="#btnGardarAction" text="Gardar instalación" />
+            <Button fx:id="btnLimpar" layoutX="248.0" layoutY="258.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="26.0" prefWidth="112.0" text="Limpar Campos" />
+            <Label fx:id="avisoCampos" layoutX="222.0" layoutY="185.0" text="Campos Obrigatorios *!!!" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

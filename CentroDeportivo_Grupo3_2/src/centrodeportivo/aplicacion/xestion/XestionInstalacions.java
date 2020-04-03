@@ -30,4 +30,8 @@ public class XestionInstalacions {
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
         return fachadaBD.buscarInstalacions(instalacion);
     }
+
+    public ArrayList<Instalacion> listarInstalacions(){
+        return fachadaBD.listarInstalacions();
+    }
 }

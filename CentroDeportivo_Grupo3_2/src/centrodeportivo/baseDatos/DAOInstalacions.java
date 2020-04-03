@@ -3,10 +3,7 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public final class DAOInstalacions extends AbstractDAO {
@@ -168,6 +165,45 @@ public final class DAOInstalacions extends AbstractDAO {
                 stmInstalacions.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return instalacions;
+    }
+
+
+    public ArrayList<Instalacion> listarInstalacións(){
+        //Este método serviranos para amosar todas as instalacións, e evitar usar o where en buscas sen filtros:
+        ArrayList<Instalacion> instalacions = new ArrayList<>();
+
+        PreparedStatement stmInstalacions = null;
+        ResultSet rsInstalacions = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a consulta:
+        try{
+            stmInstalacions = con.prepareStatement("SELECT codInstalacion, nome, numTelefono, direccion " +
+                    "FROM Instalacions");
+
+            //Non hai nada que insertar na consulta, polo que directamente a realizamos:
+            rsInstalacions = stmInstalacions.executeQuery();
+
+            //Recibida a consulta, procesámola:
+            while(rsInstalacions.next()){
+                //Imos engadindo ao ArrayList do resultado cada Instalación consultada:
+                instalacions.add(new Instalacion(rsInstalacions.getInt(1), rsInstalacions.getString(2),
+                        rsInstalacions.getString(3), rsInstalacions.getString(4)));
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        } finally {
+            //Intentamos pechar o statement:
+            try{
+                stmInstalacions.close();
+            } catch(SQLException e){
+                System.out.println("Imposible pechar os cursores.");
             }
         }
         return instalacions;

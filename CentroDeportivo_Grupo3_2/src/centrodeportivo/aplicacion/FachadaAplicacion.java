@@ -87,5 +87,9 @@ public class FachadaAplicacion {
         return xestionInstalacions.buscarInstalacions(instalacion);
     }
 
+    public ArrayList<Instalacion> listarInstalacions(){
+        return xestionInstalacions.listarInstalacions();
+    }
+
 
 }

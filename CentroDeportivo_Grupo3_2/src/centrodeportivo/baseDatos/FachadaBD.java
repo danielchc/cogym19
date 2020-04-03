@@ -89,6 +89,10 @@ public final class FachadaBD {
         return daoInstalacions.buscarInstalacions(instalacion);
     }
 
+    public ArrayList<Instalacion> listarInstalacions(){
+        return daoInstalacions.listarInstalacións();
+    }
+
 
     //Funcións propias:
 
