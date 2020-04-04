@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS estarCapacitado;
 DROP TABLE IF EXISTS enviarMensaxes;
 DROP TABLE IF EXISTS realizarCursos;
-DROP TABLE IF EXISTS rexistroFisioloxicos;
+DROP TABLE IF EXISTS rexistrosFisioloxicos;
 DROP TABLE IF EXISTS realizarActividades;
 DROP TABLE IF EXISTS incidenciasAreas;
 DROP TABLE IF EXISTS incidenciasMateriais;

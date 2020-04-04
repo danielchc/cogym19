@@ -75,7 +75,7 @@ public class vMensaxesController extends AbstractController implements Initializ
         }
     }
 
-    private void actualizarTabla(){
+    public void actualizarTabla(){
         this.containerChats.getItems().removeAll(this.containerChats.getItems());
         this.containerChats.getItems().addAll(super.getFachadaAplicacion().listarMensaxesRecibidos(this.receptor.getLogin()));
     }
