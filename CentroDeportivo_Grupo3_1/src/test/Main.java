@@ -4,9 +4,12 @@ import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
+import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 
 import javax.management.InstanceAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,7 +17,7 @@ public class Main {
     public static void main(String [] args) {
         FachadaBD fb=null;
         try{
-            fb=new FachadaBD(null);
+            //fb=new FachadaBD(null);
             //Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
             /*Socio usu=new Socio("pocha",
                     "abc123..",
@@ -75,8 +78,8 @@ public class Main {
             System.out.println(NonTocarEsto.hashSHA256("password"));*/
             //System.out.println(fb.getDaoUsuarios().listarProfesores().size());
             //System.out.println(Criptografia.hashSHA256("adfasdda"));
-            //byte[] k=Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
-            //Files.write(Paths.get("baseDatos.encrypted"),k);
+            byte[] k= Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
+            Files.write(Paths.get("baseDatos.encrypted"),k);
             //System.out.println("PROFESOR");
             //System.out.println(fb.consultarTipo("pepe"));
             /*
@@ -84,16 +87,16 @@ public class Main {
             for(Instalacion a: fb.buscarInstalacions(new Instalacion("", "", ""))) {
                 System.out.println(a);
             }*/
-            fb.enviarMensaxe(new Mensaxe(new Usuario("pocha"),new Usuario("test0"),"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nisl dolor. Nulla facilisi. Aenean iaculis, ipsum a viverra suscipit, orci lectus placerat lacus, eu vulputate nulla dolor vitae lacus. Sed at sem diam. Duis lacinia elit enim, pretium mattis nulla efficitur quis. Donec quis orci ut risus auctor consectetur vel at urna. Integer dapibus nisi urna, vel malesuada erat euismod mattis. Donec elementum pharetra orci eu eleifend. Etiam tristique orci vel sapien mollis luctus amet."));
+            //fb.enviarMensaxe(new Mensaxe(new Usuario("pocha"),new Usuario("test0"),"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nisl dolor. Nulla facilisi. Aenean iaculis, ipsum a viverra suscipit, orci lectus placerat lacus, eu vulputate nulla dolor vitae lacus. Sed at sem diam. Duis lacinia elit enim, pretium mattis nulla efficitur quis. Donec quis orci ut risus auctor consectetur vel at urna. Integer dapibus nisi urna, vel malesuada erat euismod mattis. Donec elementum pharetra orci eu eleifend. Etiam tristique orci vel sapien mollis luctus amet."));
 
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
-            try {
+           /* try {
                 fb.getConexion().close();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 }
