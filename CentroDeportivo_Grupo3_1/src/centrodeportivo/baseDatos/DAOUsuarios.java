@@ -1,7 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
-import centrodeportivo.aplicacion.obxectos.RexistroMarca;
+import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -530,18 +530,18 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
-    protected void insertarRexistro(RexistroMarca rexistroMarca){
+    protected void insertarRexistro(RexistroFisioloxico rexistroFisioloxico){
 
     }
 
-    protected void eliminarRexistro(RexistroMarca rexistroMarca){
+    protected void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
         
     }
 
-    protected ArrayList<RexistroMarca> listarRexistros(String login){
+    protected ArrayList<RexistroFisioloxico> listarRexistros(String login){
         PreparedStatement stm = null;
         ResultSet resultSet;
-        ArrayList<RexistroMarca> rexistros=new ArrayList<>();
+        ArrayList<RexistroFisioloxico> rexistros=new ArrayList<>();
 
         try {
             stm = super.getConexion().prepareStatement(
@@ -552,7 +552,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stm.setString(1, login);
             resultSet = stm.executeQuery();
             while(resultSet.next()){
-                rexistros.add(new RexistroMarca(
+                rexistros.add(new RexistroFisioloxico(
                     resultSet.getTimestamp("dataMarca"),
                     (Socio)consultarUsuario(login),
                     resultSet.getFloat("peso"),

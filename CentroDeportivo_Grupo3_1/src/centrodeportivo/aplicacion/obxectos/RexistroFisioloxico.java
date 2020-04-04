@@ -4,7 +4,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 
 import java.sql.Timestamp;
 
-public class RexistroMarca {
+public class RexistroFisioloxico {
 
     private Timestamp data;
     private Socio socio;
@@ -16,12 +16,12 @@ public class RexistroMarca {
     private Integer ppm;
     private String comentario;
 
-    public RexistroMarca(Timestamp data, Socio socio) {
+    public RexistroFisioloxico(Timestamp data, Socio socio) {
         this.data = data;
         this.socio = socio;
     }
 
-    public RexistroMarca(Timestamp data, Socio socio, float peso, float altura, float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
+    public RexistroFisioloxico(Timestamp data, Socio socio, float peso, float altura, float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
         this.data = data;
         this.socio = socio;
         this.peso = peso;
@@ -122,8 +122,8 @@ public class RexistroMarca {
 
     @Override
     public boolean equals(Object o){
-        if(o instanceof RexistroMarca){
-            return ((RexistroMarca) o).getData().equals(this.data) && ((RexistroMarca) o).getSocio().equals(this.socio);
+        if(o instanceof RexistroFisioloxico){
+            return ((RexistroFisioloxico) o).getData().equals(this.data) && ((RexistroFisioloxico) o).getSocio().equals(this.socio);
         }
         return false;
     }

@@ -1,7 +1,6 @@
 package centrodeportivo.aplicacion;
 
-import centrodeportivo.aplicacion.obxectos.RexistroMarca;
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.funcionsAux.Criptografia;
@@ -93,7 +92,7 @@ public class FachadaAplicacion {
         return xestionUsuarios.consultarCuota(login);
     }
 
-    public ArrayList<RexistroMarca> listarRexistros(String login){
+    public ArrayList<RexistroFisioloxico> listarRexistros(String login){
         return xestionUsuarios.listarRexistros(login);
     }
 

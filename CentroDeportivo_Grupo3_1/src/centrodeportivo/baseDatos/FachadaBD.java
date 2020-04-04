@@ -1,8 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
-import centrodeportivo.aplicacion.obxectos.RexistroMarca;
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
@@ -112,7 +111,7 @@ public final class FachadaBD {
         return daoUsuarios.consultarCuota(login);
     }
 
-    public ArrayList<RexistroMarca> listarRexistros(String login){
+    public ArrayList<RexistroFisioloxico> listarRexistros(String login){
         return daoUsuarios.listarRexistros(login);
     }
 

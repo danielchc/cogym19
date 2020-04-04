@@ -1,13 +1,12 @@
 package centrodeportivo.aplicacion.xestion;
 
-import centrodeportivo.aplicacion.obxectos.RexistroMarca;
+import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class XestionUsuarios {
@@ -71,7 +70,7 @@ public class XestionUsuarios {
         return fachadaBD.consultarCuota(login);
     }
 
-    public ArrayList<RexistroMarca> listarRexistros(String login){
+    public ArrayList<RexistroFisioloxico> listarRexistros(String login){
         return fachadaBD.listarRexistros(login);
     }
 }
