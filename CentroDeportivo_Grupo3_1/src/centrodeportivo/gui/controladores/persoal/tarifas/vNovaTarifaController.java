@@ -49,7 +49,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
-        cargarTarifa();
+        this.tarifaModificar=null;
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
@@ -64,8 +64,9 @@ public class vNovaTarifaController extends AbstractController implements Initial
                 ((Double)this.campoPrecioBase.getValue()).floatValue(),
                 ((Double)this.campoPrecioExtras.getValue()).floatValue()
         );
-
+        System.out.println(tarifaModificar);
         if(tarifaModificar!=null){
+
             tarifa.setCodTarifa(tarifaModificar.getCodTarifa());
             fachadaAplicacion.actualizarTarifa(tarifa);
             fachadaAplicacion.mostrarInformacion("Tarifas","Gardaronse os cambios  na tarifa "+campoNome.getText()+" correctamente");
@@ -85,16 +86,8 @@ public class vNovaTarifaController extends AbstractController implements Initial
         this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
     }
 
-    public Tarifa getTarifa() {
-        return tarifaModificar;
-    }
-
     public void setTarifa(Tarifa tarifa) {
         this.tarifaModificar = tarifa;
-    }
-
-    @Override
-    public void reiniciarForm(){
-        this.tarifaModificar=null;
+        cargarTarifa();
     }
 }

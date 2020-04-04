@@ -19,7 +19,4 @@ public abstract class AbstractController {
         this.fachadaAplicacion = fachadaAplicacion;
     }
 
-    public void reiniciarForm(){
-
-    }
 }

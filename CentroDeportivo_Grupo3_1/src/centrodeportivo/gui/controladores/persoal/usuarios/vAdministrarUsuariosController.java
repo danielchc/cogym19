@@ -68,8 +68,8 @@ public class vAdministrarUsuariosController extends AbstractController implement
 
     public void modificarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()) {
-            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
             vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
+            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
         }
     }
     public void borrarUsuario(){

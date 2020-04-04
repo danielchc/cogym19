@@ -87,7 +87,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         this.comboTarifa.getSelectionModel().selectFirst();
         this.tipoUsuario.getSelectionModel().selectFirst();
         cambiarTipo();
-        cargarDatosUsuario();
+        this.usuarioModificar=null;
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
@@ -210,16 +210,9 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         }
         cambiarTipo();
     }
-    public Usuario getUsuario() {
-        return usuarioModificar;
-    }
 
     public void setUsuario(Usuario usuario) {
         this.usuarioModificar = usuario;
-    }
-
-    @Override
-    public void reiniciarForm(){
-        this.usuarioModificar=null;
+        cargarDatosUsuario();
     }
 }

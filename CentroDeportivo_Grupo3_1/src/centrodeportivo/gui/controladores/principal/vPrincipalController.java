@@ -191,7 +191,6 @@ public class vPrincipalController extends AbstractController implements Initiali
             fxmlLoader.setController(dv.getControlador());
             fxmlLoader.setLocation(getClass().getResource(dv.getPathFXML()));
             this.mainContainer.getChildren().add(fxmlLoader.load());
-            this.pantallas.get(idPantalla).getControlador().reiniciarForm();
 
         } catch (Exception e) {
             e.printStackTrace();
