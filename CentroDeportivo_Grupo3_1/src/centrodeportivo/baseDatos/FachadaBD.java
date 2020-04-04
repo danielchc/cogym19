@@ -27,7 +27,6 @@ public final class FachadaBD {
     private DAOTarifas daoTarifas;
     private DAOMensaxes daoMensaxes;
     private DAOIncidencias daoIncidencias;
-    private DAOInstalacions daoInstalacions;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -61,7 +60,6 @@ public final class FachadaBD {
         this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
         this.daoIncidencias=new DAOIncidencias(this.conexion,this.fachadaAplicacion);
-        this.daoInstalacions=new DAOInstalacions(this.conexion, this.fachadaAplicacion);
     }
 
     /*

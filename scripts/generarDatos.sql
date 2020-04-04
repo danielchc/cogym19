@@ -3,15 +3,8 @@ INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) values ('Pocha'
 INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) values ('Básica',25,35.0,2.0);
 INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) values ('Premium',30,45.0,1.0);
 
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('cachoMono12','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Daniel Chenel','616123123','12345671X','daniel@gmail.com','ES2100000000000000000000');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('helenanita','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Helena Castro','616123123','12345672X','helena@gmail.es','ES2100000000000000000001');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('david_pocho62','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','David Carracedo','616123123','12345673X','david@gmail.com','ES2100000000000000000002');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('manolo-el-del-bombo','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Manuel Bendaña','616123123','12345674X','manu@hotmail.com','ES2100000000000000000003');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('victor122213','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Victor Barreiro','616123123','12345675X','victor@outlook.com','ES2100000000000000000004');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('barjita69','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Javier Barja','616123123','12345676X','mail@gmail.com','ES2100000000000000000005');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('doralaexploradora','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Dora','616123123','12345677X','mail@gmail.es','ES2100000000000000000006');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('esclavoCITIUS','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Nicolas','616123123','12345678X','mail@gmail.com','ES2100000000000000000007');
-INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('arbolitos69','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Maria Jose','616123123','12345679X','mail@hotmail.com','ES2100000000000000000008');
+INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('test0','7dfd4e82b8d78c293304822f7ac7d887','Test 0','616123123','12345679X','mail@hotmail.com','ES2100000000000000000008');
+
 
 INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values ('cachoMono12','1998-01-23','Atrancado de neuronas, cóstalle',1);
 INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values ('helenanita','2000-11-07',null,1);
@@ -19,7 +12,7 @@ INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values ('david_poch
 INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values ('manolo-el-del-bombo','2000-01-21',null,3);
 INSERT INTO socios (login,dataNacemento,dificultades,tarifa) values ('victor122213','2000-01-01','Dificultades de visión',4);
 
-INSERT INTO persoal (login,dataIncorporacion,NUSS) values ('barjita69','2010-01-01','12345678912');
+INSERT INTO persoal (login,dataIncorporacion,NUSS) values ('test0','2010-01-01','12345678912');
 INSERT INTO persoal (login,dataIncorporacion,NUSS) values ('doralaexploradora','2010-01-01','12345678913');
 INSERT INTO persoal (login,dataIncorporacion,NUSS) values ('esclavoCITIUS','2010-01-01','12345678914');
 INSERT INTO persoal (login,dataIncorporacion,NUSS) values ('arbolitos69','2010-01-01','12345678915');

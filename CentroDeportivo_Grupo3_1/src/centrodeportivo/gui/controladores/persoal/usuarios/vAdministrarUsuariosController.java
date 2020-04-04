@@ -6,9 +6,12 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,16 +36,23 @@ public class vAdministrarUsuariosController extends AbstractController implement
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TableColumn<Integer, Usuario> loginColumn = new TableColumn<>("Login");
+        TableColumn<Usuario,String> loginColumn = new TableColumn<>("Login");
         loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
-        TableColumn<String, Usuario> nomeColumn = new TableColumn<>("Nome");
+        TableColumn<Usuario,String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        TableColumn<String, Usuario> dniColumn = new TableColumn<>("DNI");
+        TableColumn<Usuario,String> dniColumn = new TableColumn<>("DNI");
         dniColumn.setCellValueFactory(new PropertyValueFactory<>("DNI"));
-        TableColumn<String, Usuario> correoElectronicoColumn = new TableColumn<>("Correo Electronico");
+        TableColumn<Usuario,String> correoElectronicoColumn = new TableColumn<>("Correo Electronico");
         correoElectronicoColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
-        TableColumn<String, Usuario> tipoUsuarioColumn = new TableColumn<>("Tipo Usuario");
-        tipoUsuarioColumn.setCellValueFactory(new PropertyValueFactory<>("tipoUsuario"));
+        TableColumn<Usuario,String> tipoUsuarioColumn = new TableColumn<>("Tipo Usuario");
+
+
+        tipoUsuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Usuario, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Usuario, String> param) {
+                return new SimpleObjectProperty<String>(param.getValue().getTipoUsuario().toString());
+            }
+        });
 
         listaUsuarios.getColumns().addAll(loginColumn,nomeColumn,dniColumn,correoElectronicoColumn,tipoUsuarioColumn);
         listaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());

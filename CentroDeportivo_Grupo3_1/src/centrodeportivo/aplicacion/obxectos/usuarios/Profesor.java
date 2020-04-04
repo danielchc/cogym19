@@ -10,10 +10,14 @@ public final class Profesor extends Persoal {
         super(login);
         super.setTipoUsuario(TipoUsuario.Profesor);
     }
+
     public Profesor(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,Date dataAlta,String NUSS){
         super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta, dataAlta, NUSS);
+        super.setTipoUsuario(TipoUsuario.Profesor);
     }
+
     public Profesor(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,String NUSS){
         super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta, NUSS);
+        super.setTipoUsuario(TipoUsuario.Profesor);
     }
 }

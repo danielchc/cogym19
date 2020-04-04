@@ -15,17 +15,13 @@ public final class Socio extends Usuario {
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
-    public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta, Date dataAlta,Date dataNacemento,String dificultades){
-        super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta, dataAlta);
-        this.dataNacemento=dataNacemento;
-        this.dificultades=dificultades;
-    }
 
     public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta, Date dataAlta,Date dataNacemento,String dificultades,Tarifa tarifa){
-        super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
+        super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta,dataAlta);
         this.dataNacemento=dataNacemento;
         this.dificultades=dificultades;
         this.tarifa=tarifa;
+        super.setTipoUsuario(TipoUsuario.Socio);
     }
 
     public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta,Date dataNacemento,String dificultades,Tarifa tarifa){
@@ -33,6 +29,7 @@ public final class Socio extends Usuario {
         this.dataNacemento=dataNacemento;
         this.dificultades=dificultades;
         this.tarifa=tarifa;
+        super.setTipoUsuario(TipoUsuario.Socio);
     }
 
     public Date getDataNacemento() {
