@@ -271,7 +271,7 @@
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../imaxes/placeholder.png" />
+                                <Image url="@../../imaxes/corazon.png" />
                             </image>
                         </ImageView>
                     </graphic>

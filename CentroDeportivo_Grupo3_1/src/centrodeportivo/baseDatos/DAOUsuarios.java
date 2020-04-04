@@ -546,7 +546,7 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             stm = super.getConexion().prepareStatement(
                     "SELECT * " +
-                            "FROM rexistroMarcas " +
+                            "FROM rexistrosFisioloxicos " +
                             "WHERE usuario=?;"
             );
             stm.setString(1, login);

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedAreaChart?>
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
@@ -23,27 +26,100 @@
             </children></AnchorPane>
     </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="1077.0" prefWidth="683.0" BorderPane.alignment="CENTER">
          <content>
-            <AnchorPane prefHeight="626.0" prefWidth="670.0">
-               <children>
-                  <StackedAreaChart>
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </StackedAreaChart>
-                  <StackedBarChart layoutX="107.0" layoutY="435.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </StackedBarChart>
-               </children>
+            <AnchorPane prefHeight="200.0" prefWidth="675.0">
+                <children>
+                    <VBox layoutX="12.0" layoutY="14.0" prefHeight="963.0" prefWidth="660.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="14.0">
+                        <children>
+                            <Label fx:id="labelSocio" alignment="CENTER" prefHeight="30.0" prefWidth="660.0" style="-fx-background-color: #b2b7bf;" text="Nome do usuario">
+                                <font>
+                                    <Font name="System Bold" size="16.0" />
+                                </font>
+                            </Label>
+                            <LineChart fx:id="graficaPeso" prefHeight="376.0" prefWidth="660.0" title="Peso">
+                                <xAxis>
+                                    <CategoryAxis label="Días medidos" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Peso (Kg)" side="LEFT" />
+                                </yAxis>
+                            </LineChart>
+                            <StackedAreaChart fx:id="graficaTension" prefHeight="351.0" prefWidth="660.0">
+                                <xAxis>
+                                    <CategoryAxis label="Días medidos" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Tensión (mmHg)" side="LEFT" />
+                                </yAxis>
+                            </StackedAreaChart>
+                            <VBox prefHeight="207.0" prefWidth="660.0">
+                                <children>
+                                    <HBox prefHeight="30.0" prefWidth="660.0">
+                                        <children>
+                                            <Label prefHeight="48.0" prefWidth="100.0" text="Media Peso">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </Label>
+                                            <TextField fx:id="campoPeso" editable="false" prefHeight="40.0" prefWidth="560.0" />
+                                        </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="660.0">
+                                        <children>
+                                            <Label prefHeight="48.0" prefWidth="100.0" text="Altura">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </Label>
+                                            <TextField fx:id="campoAltura" editable="false" prefHeight="40.0" prefWidth="560.0" />
+                                        </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="41.0" prefHeight="30.0" prefWidth="660.0">
+                                        <children>
+                                            <Label prefHeight="48.0" prefWidth="100.0" text="\% Graxa">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </Label>
+                                            <TextField fx:id="campoBFP" editable="false" prefHeight="40.0" prefWidth="560.0" />
+                                        </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="660.0">
+                                        <children>
+                                            <Label prefHeight="48.0" prefWidth="100.0" text="Tensión Art.">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </Label>
+                                            <TextField fx:id="campoTension" editable="false" prefHeight="40.0" prefWidth="560.0" />
+                                        </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="72.0" prefHeight="30.0" prefWidth="660.0">
+                                        <children>
+                                            <Label prefHeight="48.0" prefWidth="100.0" text="Pulsacións Avg.">
+                                                <font>
+                                                    <Font size="14.0" />
+                                                </font>
+                                            </Label>
+                                            <TextField fx:id="campoPPM" editable="false" prefHeight="40.0" prefWidth="560.0" />
+                                        </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="103.0" prefHeight="30.0" prefWidth="660.0">
+                                        <children>
+                                            <Label prefHeight="48.0" prefWidth="100.0" text="Comentarios">
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </Label>
+                                            <TextField editable="false" prefHeight="40.0" prefWidth="560.0" />
+                                        </children>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </children>
+                    </VBox>
+                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
