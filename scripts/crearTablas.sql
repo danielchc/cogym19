@@ -161,7 +161,7 @@ CREATE TABLE incidenciasAreas(
 );
 
 
-CREATE TABLE rexistroMarcas(
+CREATE TABLE rexistroFisioloxicos(
 	usuario			VARCHAR(25) NOT NULL,
 	dataMarca 		TIMESTAMP NOT NULL,
 	peso			DECIMAL NOT NULL CHECK (peso>=0),
