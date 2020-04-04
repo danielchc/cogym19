@@ -554,7 +554,7 @@ public final class DAOUsuarios extends AbstractDAO {
             while(resultSet.next()){
                 rexistros.add(new RexistroFisioloxico(
                     resultSet.getTimestamp("dataMarca"),
-                    (Socio)consultarUsuario(login),
+                    new Socio(login),
                     resultSet.getFloat("peso"),
                     resultSet.getFloat("altura"),
                     resultSet.getFloat("bfp"),
@@ -564,7 +564,6 @@ public final class DAOUsuarios extends AbstractDAO {
                     resultSet.getString("comentario")
                 ));
             }
-            return rexistros;
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -574,7 +573,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 System.out.println("Imposible cerrar cursores");
             }
         }
-        return null;
+        return rexistros;
     }
 
 
