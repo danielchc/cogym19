@@ -63,7 +63,7 @@
                         <TextField fx:id="campoDireccion" prefHeight="0.0" prefWidth="174.0" promptText="Escriba dirección..." />
                      </children>
                   </HBox>
-                  <HBox prefHeight="41.0" prefWidth="342.0">
+                  <HBox alignment="CENTER" prefHeight="41.0" prefWidth="342.0">
                      <children>
                         <Label fx:id="avisoCampos" alignment="CENTER" prefHeight="65.0" prefWidth="342.0" text="Campos Obrigatorios *!!!" textFill="RED" visible="false">
                            <font>

@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Instalacions;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
@@ -55,14 +56,43 @@ public class vAdministrarInstalacionsController extends AbstractController imple
         taboaInstalacions.getColumns().addAll(colCodigo, colNome, colTelf, colDir);
         //Agora engadimos items:
         taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+        //Establecemos unha selección sobre a táboa (se hai resultados):
+        taboaInstalacions.getSelectionModel().selectFirst();
 
     }
 
 
     public void btnBuscarAction(ActionEvent actionEvent) {
+        //Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
+        //Vaciamos a táboa:
+        taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
+        //Se non se cubriu ningún campo, o que faremos será listar todas as instalacións.
+        //Inda que poida parecer redundante, é un xeito de actualizar a información:
+        if(!ValidacionDatos.estanCubertosCampos(campoNome) && ! ValidacionDatos.estanCubertosCampos(campoTelefono)
+            && !ValidacionDatos.estanCubertosCampos(campoDireccion)){
+            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+        } else {
+            //Noutro caso, buscaremos segundo a información dos campos.
+            //Creamos unha instalación co que se ten:
+            Instalacion instalacion = new Instalacion(campoNome.getText(), campoTelefono.getText(), campoDireccion.getText());
+            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(instalacion));
+        }
+        //Establecemos unha selección sobre a táboa (se hai resultados):
+        taboaInstalacions.getSelectionModel().selectFirst();
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
+        //Vaciaranse os campos e, depaso, listaranse todas as instalacións dispoñibeis de novo:
+        campoNome.setText("");
+        campoTelefono.setText("");
+        campoDireccion.setText("");
+        //Aproveitamos entón para actualizar a táboa:
+        //Eliminamos os items:
+        taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
+        //Engadimos todas as instalacións tras consultalas (así actualizamos):
+        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+        //Establecemos unha selección sobre a táboa (se hai resultados):
+        taboaInstalacions.getSelectionModel().selectFirst();
     }
 
     public void btnXestionarAction(ActionEvent actionEvent) {

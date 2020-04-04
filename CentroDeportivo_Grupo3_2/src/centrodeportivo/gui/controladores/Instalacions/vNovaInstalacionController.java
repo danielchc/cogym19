@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -56,8 +57,10 @@ public class vNovaInstalacionController extends AbstractController implements In
         //Accedemos á base de datos:
         this.getFachadaAplicacion().darAltaInstalacion(instalacion);
         //Imprimimos mensaxe de éxito:
-        this.getFachadaAplicacion().mostrarInformacion("Instalacións", "Creada a instalación " +
+        this.getFachadaAplicacion().mostrarConfirmacion("Instalacións", "Creada a instalación " +
                 instalacion.getNome() + ". O seu id é: " + instalacion.getCodInstalacion() + ".");
+        //Volvemos á pantalla principal:
+        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
     }
 
     //Acción efectuada ao pulsar o botón "Limpar Campos"
