@@ -96,6 +96,14 @@ public class FachadaAplicacion {
         return xestionUsuarios.listarRexistros(login);
     }
 
+    public void insertarRexistro(RexistroFisioloxico rexistroFisioloxico){
+        xestionUsuarios.insertarRexistro(rexistroFisioloxico);
+    }
+
+    public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
+        xestionUsuarios.eliminarRexistro(rexistroFisioloxico);
+    }
+
     /*
         Xestion tarifas
      */

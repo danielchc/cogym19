@@ -5,12 +5,18 @@ import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.Date;
@@ -29,6 +35,7 @@ public class vResumenRexistrosController extends AbstractController implements I
     public TextField campoBFP;
     public TextField campoTension;
     public TextField campoPPM;
+    public TreeView<String> treeComentarios;
 
     private Usuario socio;
     private ArrayList<RexistroFisioloxico> rexistros;
@@ -59,18 +66,31 @@ public class vResumenRexistrosController extends AbstractController implements I
             tensionBaixaavg+=rex.getTensionBaixa();
             ppmAvg+=rex.getPpm();
         }
-        pesoavg=pesoavg/this.rexistros.size();
-        alturaavg=alturaavg/this.rexistros.size();
-        bfpavg=bfpavg/this.rexistros.size();
-        tensionAltaavg=tensionAltaavg/this.rexistros.size();
-        tensionBaixaavg=tensionBaixaavg/this.rexistros.size();
-        ppmAvg=ppmAvg/this.rexistros.size();
+        if(this.rexistros.size()!=0){
+            pesoavg=pesoavg/this.rexistros.size();
+            alturaavg=alturaavg/this.rexistros.size();
+            bfpavg=bfpavg/this.rexistros.size();
+            tensionAltaavg=tensionAltaavg/this.rexistros.size();
+            tensionBaixaavg=tensionBaixaavg/this.rexistros.size();
+            ppmAvg=ppmAvg/this.rexistros.size();
+        }
 
         this.campoPeso.setText(pesoavg+" Kg");
         this.campoAltura.setText(alturaavg+" cm");
         this.campoBFP.setText(bfpavg+" % de graxa corporal");
         this.campoTension.setText(tensionAltaavg+" / "+tensionBaixaavg);
         this.campoPPM.setText(ppmAvg+" ppm");
+
+        generarTreeComentarios();
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(rexistros.size()==0){
+                    getFachadaAplicacion().mostrarAdvertencia("Rexistros Fisiolóxicos","Non dispón de rexistros fisiolóxicos almacenados no sistema.");
+                }
+            }
+        });
     }
 
     private void generarGraficaPeso(){
@@ -122,5 +142,17 @@ public class vResumenRexistrosController extends AbstractController implements I
             datosBaixa.getData().add(new XYChart.Data(dataFormateada, rex.getTensionBaixa()));
         }
         graficaTension.getData().add(datosBaixa);
+    }
+
+    private void generarTreeComentarios(){
+        TreeItem<String> root=new TreeItem<>("Comentarios das distintas medicións...");
+
+        for(RexistroFisioloxico rex:this.rexistros){
+            TreeItem<String> item=new TreeItem<String>(rex.getData().toLocalDateTime().toString());
+            item.getChildren().add(new TreeItem<>(rex.getComentario()));
+            root.getChildren().add(item);
+        }
+
+        this.treeComentarios.setRoot(root);
     }
 }

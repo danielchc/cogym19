@@ -531,7 +531,32 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
     protected void insertarRexistro(RexistroFisioloxico rexistroFisioloxico){
+        PreparedStatement stm=null;
 
+        try {
+            stm= super.getConexion().prepareStatement(
+                    "INSERT INTO rexistrosFisioloxicos (usuario, dataMarca, peso, altura, bfp, tensionAlta, tensionBaixa, ppm, comentario)  "+
+                        "VALUES (?,NOW(),?,?,?,?,?,?,?);"
+            );
+            stm.setString(1,rexistroFisioloxico.getSocio().getLogin());
+            stm.setFloat(2,rexistroFisioloxico.getPeso());
+            stm.setFloat(3,rexistroFisioloxico.getAltura());
+            stm.setFloat(4,rexistroFisioloxico.getBfp());
+            stm.setInt(5,rexistroFisioloxico.getTensionAlta());
+            stm.setInt(6,rexistroFisioloxico.getTensionBaixa());
+            stm.setInt(7,rexistroFisioloxico.getPpm());
+            stm.setString(8,rexistroFisioloxico.getComentario());
+            stm.executeUpdate();
+            super.getConexion().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stm.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
     }
 
     protected void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){

@@ -113,6 +113,14 @@ public final class FachadaBD {
         return daoUsuarios.listarRexistros(login);
     }
 
+    public void insertarRexistro(RexistroFisioloxico rexistroFisioloxico){
+        daoUsuarios.insertarRexistro(rexistroFisioloxico);
+    }
+
+    public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
+        daoUsuarios.eliminarRexistro(rexistroFisioloxico);
+    }
+
     /*
         Funcions DAOTarifas
      */

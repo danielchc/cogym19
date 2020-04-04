@@ -33,6 +33,17 @@ public class RexistroFisioloxico {
         this.comentario = comentario;
     }
 
+    public RexistroFisioloxico(Socio socio, float peso, float altura, float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
+        this.socio = socio;
+        this.peso = peso;
+        this.altura = altura;
+        this.bfp = bfp;
+        this.tensionAlta = tensionAlta;
+        this.tensionBaixa = tensionBaixa;
+        this.ppm = ppm;
+        this.comentario = comentario;
+    }
+
     public Timestamp getData() {
         return data;
     }

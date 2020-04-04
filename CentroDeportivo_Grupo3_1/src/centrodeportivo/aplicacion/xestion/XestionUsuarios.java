@@ -73,4 +73,12 @@ public class XestionUsuarios {
     public ArrayList<RexistroFisioloxico> listarRexistros(String login){
         return fachadaBD.listarRexistros(login);
     }
+
+    public void insertarRexistro(RexistroFisioloxico rexistroFisioloxico){
+        fachadaBD.insertarRexistro(rexistroFisioloxico);
+    }
+
+    public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
+        fachadaBD.eliminarRexistro(rexistroFisioloxico);
+    }
 }
