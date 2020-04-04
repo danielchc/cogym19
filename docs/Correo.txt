@@ -1,0 +1,12 @@
+Estivemos avanzando xa bastante na implementación do proxecto e ao mesmo tempo imos retocando o modelo entidade-relación porque aparece algún detalle que logo vemos que se pode cambiar.
+
+Queríamos comentarlle isto porque non sabemos se é realmente correcto facelo dunha forma ou doutra:
+O caso é que temos unha táboa de usuarios, e forma unha xerarquía cos socios e co persoal. Ata o de agora deixamos o DNI como CK porque non deixabamos que un usuario se rexistrase dúas veces.
+Pero xurdiunos a opción bastante posíbel que un socio sexa tamén persoal (ou mesmo un socio se dé de baixa e se rexistre agora como persoal). Entón, aparécenos a necesidade de eliminar ese CK.
+Ao mesmo tempo, se deixamos que o DNI se repita para un usuario, pode ser que haxa entón dous socios co mesmo DNI, e non queremos chegar tampouco a ese segundo caso.
+
+En resumidas contas, queremos que o DNI dun usuario se repita, pero sexa único dentro do persoal e dentro dos socios, o que nos leva á pregunta que lle queremos facer. Abríronsenos dúas opcións:
+	- Deixar o DNI en usuarios e controlar dalgún xeito á hora de introducir un novo se hai socios ou membros do persoal co mesmo DNI.
+	- Meter o DNI duplicado tanto en persoal coma en socios como CK, nese caso só habería que meter un unique, pero duplicamos datos...
+
+¿Algunha das opcións resulta especialmente inaxeitada, poderíamos considerar ambas ou deberíamos reformular esta parte doutra maneira...?
