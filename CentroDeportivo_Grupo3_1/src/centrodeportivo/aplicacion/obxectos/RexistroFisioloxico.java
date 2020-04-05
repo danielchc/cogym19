@@ -8,9 +8,9 @@ public class RexistroFisioloxico {
 
     private Timestamp data;
     private Socio socio;
-    private float peso;
-    private float altura;
-    private float bfp;
+    private Float peso;
+    private Float altura;
+    private Float bfp;
     private Integer tensionAlta;
     private Integer tensionBaixa;
     private Integer ppm;
@@ -21,7 +21,7 @@ public class RexistroFisioloxico {
         this.socio = socio;
     }
 
-    public RexistroFisioloxico(Timestamp data, Socio socio, float peso, float altura, float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
+    public RexistroFisioloxico(Timestamp data, Socio socio, Float peso, Float altura, Float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
         this.data = data;
         this.socio = socio;
         this.peso = peso;
@@ -33,7 +33,7 @@ public class RexistroFisioloxico {
         this.comentario = comentario;
     }
 
-    public RexistroFisioloxico(Socio socio, float peso, float altura, float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
+    public RexistroFisioloxico(Socio socio, Float peso, Float altura, Float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
         this.socio = socio;
         this.peso = peso;
         this.altura = altura;
@@ -60,27 +60,27 @@ public class RexistroFisioloxico {
         this.socio = socio;
     }
 
-    public float getPeso() {
+    public Float getPeso() {
         return peso;
     }
 
-    public void setPeso(float peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 
-    public float getAltura() {
+    public Float getAltura() {
         return altura;
     }
 
-    public void setAltura(float altura) {
+    public void setAltura(Float altura) {
         this.altura = altura;
     }
 
-    public float getBfp() {
+    public Float getBfp() {
         return bfp;
     }
 
-    public void setBfp(float bfp) {
+    public void setBfp(Float bfp) {
         this.bfp = bfp;
     }
 

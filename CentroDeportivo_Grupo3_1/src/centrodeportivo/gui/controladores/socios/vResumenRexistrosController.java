@@ -61,10 +61,10 @@ public class vResumenRexistrosController extends AbstractController implements I
         for(RexistroFisioloxico rex:this.rexistros){
             pesoavg+=rex.getPeso();
             alturaavg+=rex.getAltura();
-            bfpavg+=rex.getBfp();
-            tensionAltaavg+=rex.getTensionAlta();
-            tensionBaixaavg+=rex.getTensionBaixa();
-            ppmAvg+=rex.getPpm();
+            if(rex.getBfp()!=null) bfpavg+=rex.getBfp();
+            if(rex.getTensionAlta()!=null) tensionAltaavg+=rex.getTensionAlta();
+            if(rex.getTensionBaixa()!=null) tensionBaixaavg+=rex.getTensionBaixa();
+            if(rex.getPpm()!=null) ppmAvg+=rex.getPpm();
         }
         if(this.rexistros.size()!=0){
             pesoavg=pesoavg/this.rexistros.size();
@@ -115,6 +115,7 @@ public class vResumenRexistrosController extends AbstractController implements I
         XYChart.Series<String,Integer> datosAlta = new XYChart.Series<>();
         datosAlta.setName("Tensión Alta");
         for(RexistroFisioloxico rex:this.rexistros){
+            if(rex.getTensionAlta()==null) continue;
             LocalDateTime fecha=rex.getData().toLocalDateTime();
             String dataFormateada=String.format("%d-%d-%d %d:%d:%d",
                     fecha.getDayOfMonth(),
@@ -130,6 +131,7 @@ public class vResumenRexistrosController extends AbstractController implements I
         XYChart.Series<String,Integer> datosBaixa = new XYChart.Series<>();
         datosBaixa.setName("Tensión Baixa");
         for(RexistroFisioloxico rex:this.rexistros){
+            if(rex.getTensionBaixa()==null) continue;
             LocalDateTime fecha=rex.getData().toLocalDateTime();
             String dataFormateada=String.format("%d-%d-%d %d:%d:%d",
                     fecha.getDayOfMonth(),
