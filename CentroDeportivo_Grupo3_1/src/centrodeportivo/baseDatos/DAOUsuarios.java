@@ -560,7 +560,25 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
     protected void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
-        
+        PreparedStatement stm=null;
+
+        try {
+            stm= super.getConexion().prepareStatement(
+                    "DELETE FROM rexistrosFisioloxicos WHERE usuario=? AND dataMarca=?;"
+            );
+            stm.setString(1,rexistroFisioloxico.getSocio().getLogin());
+            stm.setTimestamp(2,rexistroFisioloxico.getData());
+            stm.executeUpdate();
+            super.getConexion().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stm.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
     }
 
     protected ArrayList<RexistroFisioloxico> listarRexistros(String login){
@@ -572,7 +590,8 @@ public final class DAOUsuarios extends AbstractDAO {
             stm = super.getConexion().prepareStatement(
                     "SELECT * " +
                             "FROM rexistrosFisioloxicos " +
-                            "WHERE usuario=?;"
+                            "WHERE usuario=? "+
+                            "ORDER BY dataMarca DESC;"
             );
             stm.setString(1, login);
             resultSet = stm.executeQuery();
