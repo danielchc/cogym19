@@ -541,10 +541,10 @@ public final class DAOUsuarios extends AbstractDAO {
             stm.setString(1,rexistroFisioloxico.getSocio().getLogin());
             stm.setFloat(2,rexistroFisioloxico.getPeso());
             stm.setFloat(3,rexistroFisioloxico.getAltura());
-            stm.setFloat(4,rexistroFisioloxico.getBfp());
-            stm.setInt(5,rexistroFisioloxico.getTensionAlta());
-            stm.setInt(6,rexistroFisioloxico.getTensionBaixa());
-            stm.setInt(7,rexistroFisioloxico.getPpm());
+            stm.setObject(4,rexistroFisioloxico.getBfp());
+            stm.setObject(5,rexistroFisioloxico.getTensionAlta());
+            stm.setObject(6,rexistroFisioloxico.getTensionBaixa());
+            stm.setObject(7,rexistroFisioloxico.getPpm());
             stm.setString(8,rexistroFisioloxico.getComentario());
             stm.executeUpdate();
             super.getConexion().commit();

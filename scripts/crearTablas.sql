@@ -164,12 +164,12 @@ CREATE TABLE incidenciasAreas(
 CREATE TABLE rexistrosFisioloxicos(
 	usuario			VARCHAR(25) NOT NULL,
 	dataMarca 		TIMESTAMP NOT NULL,
-	peso			DECIMAL NOT NULL CHECK (peso>=0),
-	altura			DECIMAL NOT NULL CHECK (altura>=0),
-	bfp				DECIMAL NOT NULL CHECK (bfp>=0),
-	tensionAlta		INT NOT NULL CHECK (tensionAlta>=0),
-	tensionBaixa	INT NOT NULL CHECK (tensionBaixa>=0),
-	ppm				INT NOT NULL CHECK (ppm>=0),
+	peso			DECIMAL CHECK (peso>=0),
+	altura			DECIMAL CHECK (altura>=0),
+	bfp				DECIMAL CHECK (bfp>=0),
+	tensionAlta		INT CHECK (tensionAlta>=0),
+	tensionBaixa	INT CHECK (tensionBaixa>=0),
+	ppm				INT CHECK (ppm>=0),
 	comentario		VARCHAR(200),
 	PRIMARY KEY (usuario,dataMarca),
 	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
