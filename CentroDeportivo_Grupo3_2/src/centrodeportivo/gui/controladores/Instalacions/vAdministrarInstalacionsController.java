@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -96,5 +97,16 @@ public class vAdministrarInstalacionsController extends AbstractController imple
     }
 
     public void btnXestionarAction(ActionEvent actionEvent) {
+        //Recuperamos primeiro a instalación seleccionada:
+        Instalacion instalacion = (Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem();
+        if(instalacion != null){
+            //Accedemos ao controlador da ventá de edición dunha instalación:
+            ((vEditarInstalacionController)this.controllerPrincipal.getControlador(IdPantalla.EDITARINSTALACION)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
+            //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
+            this.controllerPrincipal.mostrarMenu(IdPantalla.EDITARINSTALACION);
+        } else {
+            this.getFachadaAplicacion().mostrarErro("Administración de instalacións", "Non hai celda seleccionada!");
+        }
+
     }
 }

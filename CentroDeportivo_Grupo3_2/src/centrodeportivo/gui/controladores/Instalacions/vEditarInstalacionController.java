@@ -2,11 +2,14 @@ package centrodeportivo.gui.controladores.Instalacions;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -22,6 +25,8 @@ public class vEditarInstalacionController extends AbstractController implements 
     public Button btnBorrar;
     public Button btnEngadirArea;
     public Button btnAdministrarAreas;
+    public Button btnVolver;
+    public Label etiquetaAviso;
 
 
     //Atributos privados:
@@ -33,13 +38,19 @@ public class vEditarInstalacionController extends AbstractController implements 
         //Asignamos os atributos pasados:
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
-        this.instalacion = instalacion;
     }
 
     //Sobreescritura do método initialize, por implementar a interface initializable:
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        //Vamos a inicializar los campos:
+        //Para inicializar, comprobaremos se hai unha instalación:
+        if(instalacion != null){
+            //Se a hai, enchemos os campos coa información:
+            campoNome.setText(instalacion.getNome());
+            campoDireccion.setText(instalacion.getDireccion());
+            campoCodigo.setText(""+instalacion.getCodInstalacion());
+            campoTelefono.setText(instalacion.getNumTelefono());
+        }
     }
 
     //Definimos getter e setter para a instalación:
@@ -52,6 +63,29 @@ public class vEditarInstalacionController extends AbstractController implements 
     }
 
     public void btnModificarAction(ActionEvent actionEvent) {
+        //Cando se modifica unha instalación, hai que comprobar primeiro que os campos sexan correctos.
+        //Empezamos comprobando que os campos non estén baleiros.
+        if(!ValidacionDatos.estanCubertosCampos(campoNome, campoDireccion, campoTelefono)){
+            //Amosaremos unha mensaxe avisando de que non se cubriron todos os campos.
+            etiquetaAviso.setVisible(true);
+            return;
+        }
+        //Comprobamos agora que o número de teléfono sexa correcto:
+        if(!ValidacionDatos.isCorrectoTelefono(campoTelefono.getText())){
+            //Amosaremos unha mensaxe de erro.
+            super.getFachadaAplicacion().mostrarErro("Adiministración de Instalacións", "O número de teléfono é incorrecto!");
+            return;
+        }
+
+        //Chegados a este punto haberá que ir á fachada de aplicación:
+        //Modificamos a instalación existente:
+        Instalacion instalacion = new Instalacion(this.instalacion.getCodInstalacion(), campoNome.getText(),
+                campoTelefono.getText(), campoDireccion.getText());
+        //Accedemos á base de datos:
+        super.getFachadaAplicacion().modificarInstalacion(instalacion);
+        //Imprimimos mensaxe de éxito:
+        super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións", "Datos da instalación "
+                + this.instalacion.getCodInstalacion() + " modificados correctamente." );
     }
 
     public void btnBorrarAction(ActionEvent actionEvent) {
@@ -61,5 +95,10 @@ public class vEditarInstalacionController extends AbstractController implements 
     }
 
     public void btnAdministrarAreasAction(ActionEvent actionEvent) {
+    }
+
+    public void btnVolverAction(ActionEvent actionEvent) {
+        //Se se pulsa o botón volver, amosarase de novo a pantalla de administrar instalacións:
+        this.controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARINSTALACIONS);
     }
 }

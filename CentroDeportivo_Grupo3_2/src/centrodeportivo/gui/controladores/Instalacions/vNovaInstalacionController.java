@@ -48,7 +48,7 @@ public class vNovaInstalacionController extends AbstractController implements In
         //Agora imos validar que o teléfono introducido se corresponda con algo correcto:
         if(!ValidacionDatos.isCorrectoTelefono(campoNumTlf.getText())) {
             //O mesmo que no caso dos campos vacíos: avisamos do erro e non se fai nada máis:
-            this.getFachadaAplicacion().mostrarInformacion("Instalacións", "O número de teléfono é incorrecto!");
+            this.getFachadaAplicacion().mostrarErro("Instalacións", "O número de teléfono é incorrecto!");
             return;
         }
 
@@ -57,7 +57,7 @@ public class vNovaInstalacionController extends AbstractController implements In
         //Accedemos á base de datos:
         this.getFachadaAplicacion().darAltaInstalacion(instalacion);
         //Imprimimos mensaxe de éxito:
-        this.getFachadaAplicacion().mostrarConfirmacion("Instalacións", "Creada a instalación " +
+        this.getFachadaAplicacion().mostrarInformacion("Instalacións", "Creada a instalación " +
                 instalacion.getNome() + ". O seu id é: " + instalacion.getCodInstalacion() + ".");
         //Volvemos á pantalla principal:
         this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
