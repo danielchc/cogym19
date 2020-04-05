@@ -39,7 +39,7 @@ public class vEditarInstalacionController extends AbstractController implements 
     //Sobreescritura do método initialize, por implementar a interface initializable:
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        
+        //Vamos a inicializar los campos:
     }
 
     //Definimos getter e setter para a instalación:
