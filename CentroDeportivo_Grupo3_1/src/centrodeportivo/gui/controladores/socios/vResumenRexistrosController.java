@@ -115,7 +115,7 @@ public class vResumenRexistrosController extends AbstractController implements I
         XYChart.Series<String,Integer> datosAlta = new XYChart.Series<>();
         datosAlta.setName("Tensión Alta");
         for(RexistroFisioloxico rex:this.rexistros){
-            if(rex.getTensionAlta()==null) continue;
+            if(rex.getTensionAlta()==0) continue;
             LocalDateTime fecha=rex.getData().toLocalDateTime();
             String dataFormateada=String.format("%d-%d-%d %d:%d:%d",
                     fecha.getDayOfMonth(),
@@ -131,7 +131,7 @@ public class vResumenRexistrosController extends AbstractController implements I
         XYChart.Series<String,Integer> datosBaixa = new XYChart.Series<>();
         datosBaixa.setName("Tensión Baixa");
         for(RexistroFisioloxico rex:this.rexistros){
-            if(rex.getTensionBaixa()==null) continue;
+            if(rex.getTensionBaixa()==0) continue;
             LocalDateTime fecha=rex.getData().toLocalDateTime();
             String dataFormateada=String.format("%d-%d-%d %d:%d:%d",
                     fecha.getDayOfMonth(),

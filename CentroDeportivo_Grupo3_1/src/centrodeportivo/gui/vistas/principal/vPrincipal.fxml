@@ -276,7 +276,19 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button id="RESUMENREXISTROS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Consultar Rexistros" textFill="WHITE">
+                <Button id="RESUMENREXISTROS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Resumo de Rexistros" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../imaxes/corazon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button id="ELIMINARREXISTRO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Historial de Rexistros" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
