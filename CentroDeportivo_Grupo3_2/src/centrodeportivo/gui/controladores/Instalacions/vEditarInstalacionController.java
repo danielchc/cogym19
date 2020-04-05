@@ -9,6 +9,7 @@ import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -89,6 +90,14 @@ public class vEditarInstalacionController extends AbstractController implements 
     }
 
     public void btnBorrarAction(ActionEvent actionEvent) {
+        //Cando se pide borrar, primeiro solicitarase a confirmación por parte do usuario.
+        if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
+                "Desexa eliminar a instalación seleccionada?") == ButtonType.OK) {
+            super.getFachadaAplicacion().borrarInstalacion(instalacion);
+            super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións", "Instalalción eliminada.");
+            //Se se decidiu borrar, logo haberá que amosar de novo a pantalla de inicio (a xestión desa instalación deixa de ter sentido).
+            controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+        }
     }
     
     public void btnEngadirAreaAction(ActionEvent actionEvent) {

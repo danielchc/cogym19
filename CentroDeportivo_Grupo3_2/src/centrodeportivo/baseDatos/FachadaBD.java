@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
@@ -21,6 +22,7 @@ public final class FachadaBD {
     private Connection conexion;
     private DAOUsuarios daoUsuarios;
     private DAOInstalacions daoInstalacions;
+    private DAOActividades daoActividades;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -52,6 +54,7 @@ public final class FachadaBD {
         }
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
         this.daoInstalacions=new DAOInstalacions(this.conexion, this.fachadaAplicacion);
+        this.daoActividades=new DAOActividades(this.conexion, this.fachadaAplicacion);
     }
 
     /*
@@ -93,6 +96,30 @@ public final class FachadaBD {
         return daoInstalacions.listarInstalacións();
     }
 
+
+    /*
+        Funcións DAOActividades
+     */
+
+    public void crearTipoActividade(TipoActividade tipoActividade) {
+        this.daoActividades.crearTipoActividade(tipoActividade);
+    }
+
+    public void modificarTipoActividade(TipoActividade tipoActividade){
+        this.daoActividades.modificarTipoActividade(tipoActividade);
+    }
+
+    public void eliminarTipoActividade(TipoActividade tipoActividade){
+        this.daoActividades.eliminarTipoActividade(tipoActividade);
+    }
+
+    public ArrayList<TipoActividade> listarTiposActividades(){
+        return this.daoActividades.listarTiposActividades();
+    }
+
+    public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
+        return this.daoActividades.buscarTiposActividades(tipoActividade);
+    }
 
     //Funcións propias:
 

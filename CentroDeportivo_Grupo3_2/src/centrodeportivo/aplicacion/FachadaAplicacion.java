@@ -1,6 +1,8 @@
 package centrodeportivo.aplicacion;
 
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.xestion.XestionActividades;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -20,12 +22,14 @@ public class FachadaAplicacion {
     private FachadaBD fachadaBD;
     private XestionUsuarios xestionUsuarios;
     private XestionInstalacions xestionInstalacions;
+    private XestionActividades xestionActividades;
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
         this.fachadaBD=new FachadaBD(this);
         this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
         this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
+        this.xestionActividades = new XestionActividades(fachadaGUI, fachadaBD);
     }
     public boolean validarUsuario(String login,String password) {
         return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
@@ -63,11 +67,6 @@ public class FachadaAplicacion {
         return fachadaGUI.mostrarConfirmacion(titulo, texto);
     }
 
-
-    /*
-        Xestion incidencias
-     */
-
     /*
         Xestion instalacións
      */
@@ -91,5 +90,28 @@ public class FachadaAplicacion {
         return xestionInstalacions.listarInstalacions();
     }
 
+    /*
+        Xestión TIPOS de actividade
+     */
+
+    public void crearTipoActividade (TipoActividade tipoActividade){
+        xestionActividades.crearTipoActividade(tipoActividade);
+    }
+
+    public void modificarTipoActividade(TipoActividade tipoActividade){
+        xestionActividades.modificarTipoActividade(tipoActividade);
+    }
+
+    public void eliminarTipoActividade(TipoActividade tipoActividade){
+        xestionActividades.eliminarTipoActividade(tipoActividade);
+    }
+
+    public ArrayList<TipoActividade> listarTiposActividades(){
+        return xestionActividades.listarTiposActividades();
+    }
+
+    public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
+        return xestionActividades.buscarTiposActividades(tipoActividade);
+    }
 
 }
