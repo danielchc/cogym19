@@ -138,6 +138,10 @@ public class vNovoRexistroController extends AbstractController implements Initi
             }
             ppm=Integer.valueOf(campoPulsacions.getText());
         }
+        if(campoComentario.getText().length()>200){
+            this.labelError.setText("O comentario non pode ter máis de 200 caractéres.");
+            return;
+        }
         RexistroFisioloxico rexistro=new RexistroFisioloxico(
                 (Socio)this.usuario,
                 peso,
