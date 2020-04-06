@@ -19,6 +19,9 @@ import java.util.ResourceBundle;
 public class vNovoRexistroController extends AbstractController implements Initializable {
 
 
+    /**
+     * Atributos do fxml
+     */
     public Slider sliderPeso;
     public TextField campoPeso;
     public TextField campoAltura;
@@ -38,8 +41,9 @@ public class vNovoRexistroController extends AbstractController implements Initi
     public CheckBox chkPPM;
     public Label labelError;
     public Button btnGardar;
+
     /**
-     * Atributos
+     * Atributos do controlador
      */
     private Usuario usuario;
     private vPrincipalController vPrincipalController;

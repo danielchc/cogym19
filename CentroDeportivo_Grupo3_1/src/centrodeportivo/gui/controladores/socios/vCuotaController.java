@@ -19,6 +19,9 @@ import java.util.ResourceBundle;
 
 public class vCuotaController extends AbstractController implements Initializable {
 
+    /**
+     * Atributos do fxml
+     */
     public TextField campoSocio;
     public TextField campoTarifa;
     public TextField campoPrezoBase;
@@ -29,6 +32,9 @@ public class vCuotaController extends AbstractController implements Initializabl
     public Label campoPrezoTotal;
     public TreeView campoPrezos;
 
+    /**
+     * Atributos do controlador
+     */
     private Usuario usuario;
 
     public vCuotaController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {

@@ -29,6 +29,9 @@ import java.util.ResourceBundle;
 
 public class vNovoMensaxeController extends AbstractController implements Initializable {
 
+    /**
+     * Atributos do fxml
+     */
     public TableView tablaUsuarios;
     public TextField campoEmisor;
     public TextField campoReceptor;
@@ -36,6 +39,17 @@ public class vNovoMensaxeController extends AbstractController implements Initia
     public ComboBox combo;
     public Label labelError;
 
+
+    /**
+     * Atributos do controlador
+     */
+    private enum TipoBusqueda {
+        UnUsuario,
+        Todos,
+        Socios,
+        Persoal,
+        Profesores
+    }
     private Usuario emisor;
     private Usuario receptor;
     private TranslateTransition tAbrir;

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public final class Cuota {
+
+    /**
+     * Atributos da clase Cuota.
+     */
     private Socio usuario;
     private Tarifa tarifa;
     private ArrayList<Actividade> actividadesMes;
@@ -18,6 +22,18 @@ public final class Cuota {
     private float totalPrezo;
 
 
+    /**
+     * Constructor da clase cuota con todos os datos necesarios para empaquetalos dende a base de datos
+     * ata a aplicación.
+     * @param usuario Socio á que pertence a Cuota
+     * @param tarifa Tarifa asociada á cuota
+     * @param prezoActividadesExtra Prezo a pagar por actividades extras
+     * @param totalActividades Prezo a pagar en total polas actividades realizadas
+     * @param totalCursos Prezo total a pagar polos cursos realizados
+     * @param totalPrezo Prezo total a pagar mensual
+     * @param actividades Actividades realizadas no mes actual
+     * @param cursos Cursos realizados no mes actual
+     */
     public Cuota(Socio usuario, Tarifa tarifa, float prezoActividadesExtra, float totalActividades, float totalCursos, float totalPrezo,ArrayList<Actividade> actividades,ArrayList<Curso> cursos){
         this.usuario = usuario;
         this.tarifa = tarifa;
@@ -29,6 +45,10 @@ public final class Cuota {
         this.cursosMes=cursos;
     }
 
+
+    /**
+     * Getters e Setters
+     */
     public Socio getUsuario() {
         return usuario;
     }
@@ -93,6 +113,10 @@ public final class Cuota {
         this.totalPrezo = totalPrezo;
     }
 
+
+    /**
+     * @return String coa información da Cuota
+     */
     @Override
     public String toString() {
         return "Cuota{" +

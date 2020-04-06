@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class vResumenRexistrosController extends AbstractController implements Initializable {
-    
+
+    /**
+     * Atributos do fxml
+     */
     public Label labelSocio;
     public LineChart<String,Float> graficaPeso;
     public StackedAreaChart<String,Integer> graficaTension;
@@ -37,6 +40,9 @@ public class vResumenRexistrosController extends AbstractController implements I
     public TextField campoPPM;
     public TreeView<String> treeComentarios;
 
+    /**
+     * Atributos do controlador
+     */
     private Usuario socio;
     private ArrayList<RexistroFisioloxico> rexistros;
 
@@ -150,7 +156,8 @@ public class vResumenRexistrosController extends AbstractController implements I
         TreeItem<String> root=new TreeItem<>("Comentarios das distintas medicións...");
 
         for(RexistroFisioloxico rex:this.rexistros){
-            TreeItem<String> item=new TreeItem<String>(rex.getData().toLocalDateTime().toString());
+            if(rex.getComentario().isEmpty()) continue;
+            TreeItem<String> item=new TreeItem<String>(rex.getData().toLocalDateTime().toLocalDate().toString());
             item.getChildren().add(new TreeItem<>(rex.getComentario()));
             root.getChildren().add(item);
         }

@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 
 public class RexistroFisioloxico {
 
+    /**
+     * Atributos da clase RexistroFisioloxico
+     */
     private Timestamp data;
     private Socio socio;
     private Float peso;
@@ -16,11 +19,28 @@ public class RexistroFisioloxico {
     private Integer ppm;
     private String comentario;
 
+    /**
+     * Constructor con só as claves primarias como parámetros.
+     * @param data Data de creación do rexistro
+     * @param socio Socio que o rexistra.
+     */
     public RexistroFisioloxico(Timestamp data, Socio socio) {
         this.data = data;
         this.socio = socio;
     }
 
+    /**
+     * Constructor con todos os parámetros para devolver os datos da base á aplicación.
+     * @param data Data de creación do rexistro.
+     * @param socio Socio que o rexistra.
+     * @param peso Peso
+     * @param altura Altura
+     * @param bfp Porcentaxe de grasa
+     * @param tensionAlta Tensión alta
+     * @param tensionBaixa Tensión baixa
+     * @param ppm Pulsacións
+     * @param comentario Comentario sobre o rexistro
+     */
     public RexistroFisioloxico(Timestamp data, Socio socio, Float peso, Float altura, Float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
         this.data = data;
         this.socio = socio;
@@ -33,6 +53,18 @@ public class RexistroFisioloxico {
         this.comentario = comentario;
     }
 
+    /**
+     * Constructor con todos os parámetros menos a data para insertar os datos da base á aplicación.
+     * A data introdúcese á hora da inserción na base de datos, por eso non fai falta pasala como parametro.
+     * @param socio Socio que o rexistra.
+     * @param peso Peso
+     * @param altura Altura
+     * @param bfp Porcentaxe de grasa
+     * @param tensionAlta Tensión alta
+     * @param tensionBaixa Tensión baixa
+     * @param ppm Pulsacións
+     * @param comentario Comentario sobre o rexistro
+     */
     public RexistroFisioloxico(Socio socio, Float peso, Float altura, Float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
         this.socio = socio;
         this.peso = peso;
@@ -44,6 +76,10 @@ public class RexistroFisioloxico {
         this.comentario = comentario;
     }
 
+
+    /**
+     * Getters e Setters
+     */
     public Timestamp getData() {
         return data;
     }
@@ -116,6 +152,10 @@ public class RexistroFisioloxico {
         this.comentario = comentario;
     }
 
+
+    /**
+     * Equals e toString
+     */
     @Override
     public String toString() {
         return "RexistroMarca{" +
