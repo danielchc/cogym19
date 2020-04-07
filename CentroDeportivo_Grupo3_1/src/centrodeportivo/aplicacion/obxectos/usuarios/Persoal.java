@@ -33,9 +33,10 @@ public final class Persoal extends Usuario {
      * @param dataAlta data de ingreso
      * @param NUSS Número da Seguridade Social
      */
-    public Persoal(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta,String NUSS){
+    public Persoal(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta,String NUSS,boolean profesorActivo){
         super(login, contrasinal, numTelefono, correoElectronico, IBANconta, dataAlta);
         this.NUSS=NUSS;
+        this.profesorActivo=profesorActivo;
         super.setTipoUsuario(TipoUsuario.Persoal);
     }
 
@@ -49,9 +50,10 @@ public final class Persoal extends Usuario {
      * @param IBANconta IBAN da conta
      * @param NUSS Número da Seguridade Social
      */
-    public Persoal(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,String NUSS){
+    public Persoal(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,String NUSS, boolean profesorActivo){
         super(login, contrasinal, numTelefono, correoElectronico, IBANconta);
         this.NUSS=NUSS;
+        this.profesorActivo=profesorActivo;
         super.setTipoUsuario(TipoUsuario.Persoal);
     }
 

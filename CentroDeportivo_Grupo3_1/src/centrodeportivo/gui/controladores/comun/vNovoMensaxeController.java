@@ -180,13 +180,6 @@ public class vNovoMensaxeController extends AbstractController implements Initia
                             this.campoMensaxe.getText()
                     );
                     break;
-                case Profesores:
-                    super.getFachadaAplicacion().enviarMensaxe(
-                            this.emisor,
-                            super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Profesor),
-                            this.campoMensaxe.getText()
-                    );
-                    break;
             }
             super.getFachadaAplicacion().mostrarInformacion("Mensaxe","Mensaxe enviado correctamente");
             this.vPrincipalController.mostrarMenu(IdPantalla.INICIO);

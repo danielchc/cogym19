@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.principal;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.DatosVista;
@@ -72,12 +73,12 @@ public class vPrincipalController extends AbstractController implements Initiali
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
     private HashMap<IdPantalla, DatosVista> pantallas;
-    private Usuario usuario;
+    private PersoaFisica persoaFisica;
     private IdPantalla pantallaAMostrar;
 
-    public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario loggedUser,IdPantalla pantallaAMostrar) {
+    public vPrincipalController(FachadaAplicacion fachadaAplicacion, PersoaFisica persoaLoggeada,IdPantalla pantallaAMostrar) {
         super(fachadaAplicacion);
-        this.usuario=loggedUser;
+        this.persoaFisica=persoaLoggeada;
         this.pantallaAMostrar=pantallaAMostrar;
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
@@ -95,8 +96,8 @@ public class vPrincipalController extends AbstractController implements Initiali
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
         this.pantallas.put(IdPantalla.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion(),this)));
-        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
-        this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS,new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml",new vAdministrarUsuariosController(super.getFachadaAplicacion(),this)));
+        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.persoaFisica)));
+        /*this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS,new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml",new vAdministrarUsuariosController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.NOVATARIFA,new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml",new vNovaTarifaController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS,new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml",new vAdministrarTarifasController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.MENSAXES,new DatosVista("../../vistas/comun/vMensaxes.fxml",new vMensaxesController(super.getFachadaAplicacion(),this.usuario)));
@@ -105,7 +106,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.RESUMENREXISTROS,new DatosVista("../../vistas/socios/vResumenRexistros.fxml",new vResumenRexistrosController(super.getFachadaAplicacion(),this.usuario)));
         this.pantallas.put(IdPantalla.NOVOREXISTRO,new DatosVista("../../vistas/socios/vNovoRexistro.fxml",new vNovoRexistroController(super.getFachadaAplicacion(),this,this.usuario)));
         this.pantallas.put(IdPantalla.ELIMINARREXISTRO,new DatosVista("../../vistas/socios/vEliminarRexistro.fxml",new vEliminarRexistroController(super.getFachadaAplicacion(),this.usuario)));
-
+        */
     }
 
     private void inciarTransiciones(){

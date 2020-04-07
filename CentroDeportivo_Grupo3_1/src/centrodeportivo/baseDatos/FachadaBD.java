@@ -3,6 +3,7 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -119,6 +120,10 @@ public final class FachadaBD {
 
     public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
         daoUsuarios.eliminarRexistro(rexistroFisioloxico);
+    }
+
+    public PersoaFisica consultarPersoa(String login){
+        return daoUsuarios.consultarPersoa(login);
     }
 
     /*

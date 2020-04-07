@@ -11,7 +11,8 @@ public final class PersoaFisica {
     private String nome;
     private String dificultades;
     private Date dataNacemento;
-
+    private Socio usuarioSocio;
+    private Persoal usuarioPersoal;
 
     /**
      * Constructo con so a clave primaria como parámetro
@@ -28,11 +29,13 @@ public final class PersoaFisica {
      * @param dificultades dificultades da persoa
      * @param dataNacemento data de nacemento
      */
-    public PersoaFisica(String DNI, String nome, String dificultades, Date dataNacemento) {
+    public PersoaFisica(String DNI, String nome, String dificultades, Date dataNacemento,Socio socio,Persoal persoal) {
         this.DNI = DNI;
         this.nome = nome;
         this.dificultades = dificultades;
         this.dataNacemento = dataNacemento;
+        this.usuarioPersoal=persoal;
+        this.usuarioSocio=socio;
     }
 
 
@@ -71,6 +74,22 @@ public final class PersoaFisica {
         this.dataNacemento = dataNacemento;
     }
 
+    public Socio getUsuarioSocio() {
+        return usuarioSocio;
+    }
+
+    public void setUsuarioSocio(Socio usuarioSocio) {
+        this.usuarioSocio = usuarioSocio;
+    }
+
+    public Persoal getUsuarioPersoal() {
+        return usuarioPersoal;
+    }
+
+    public void setUsuarioPersoal(Persoal usuarioPersoal) {
+        this.usuarioPersoal = usuarioPersoal;
+    }
+
 
     /**
      * Equals e toString
@@ -82,8 +101,11 @@ public final class PersoaFisica {
                 ", nome='" + nome + '\'' +
                 ", dificultades='" + dificultades + '\'' +
                 ", dataNacemento=" + dataNacemento +
+                ", usuarioSocio=" + usuarioSocio +
+                ", usuarioPersoal=" + usuarioPersoal +
                 '}';
     }
+
 
     @Override
     public boolean equals(Object o){

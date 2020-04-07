@@ -44,7 +44,7 @@ public class vCuotaController extends AbstractController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Cuota cuota=super.getFachadaAplicacion().consultarCuota(this.usuario.getLogin());
+        /*Cuota cuota=super.getFachadaAplicacion().consultarCuota(this.usuario.getLogin());
         this.campoSocio.setText(cuota.getUsuario().getNome());
         this.campoTarifa.setText(cuota.getTarifa().getNome());
         this.campoPrezoBase.setText(cuota.getTarifa().getPrezoBase() +" €");
@@ -86,6 +86,6 @@ public class vCuotaController extends AbstractController implements Initializabl
         TreeItem<String> root=new TreeItem<>("Desglose");
         root.getChildren().add(actItem);
         root.getChildren().add(curItem);
-        this.campoPrezos.setRoot(root);
+        this.campoPrezos.setRoot(root);*/
     }
 }

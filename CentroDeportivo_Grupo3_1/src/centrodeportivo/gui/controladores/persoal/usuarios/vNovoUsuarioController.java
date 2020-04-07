@@ -4,7 +4,6 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
-import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
@@ -91,7 +90,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
-            if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
+            /*if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
                 this.labelError.setText("Algún campo sen cubrir.");
                 return;
             }
@@ -132,7 +131,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 else if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Profesor.ordinal()) this.fachadaAplicacion.insertarUsuario((Persoal)profesor);
                 this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+profesor.getLogin() +" correctamente");
             }
-            this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+            this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);*/
     }
 
     private boolean comprobarFormatos(){
@@ -186,7 +185,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     private void cargarDatosUsuario(){
-        if(usuarioModificar==null)return;
+        /*if(usuarioModificar==null)return;
         this.campoLogin.setText(usuarioModificar.getLogin());
         this.campoNome.setText(usuarioModificar.getNome());
         this.campoCorreo.setText(usuarioModificar.getCorreoElectronico());
@@ -208,7 +207,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 this.tipoUsuario.getSelectionModel().select(RexistroTipo.Profesor);
             }
         }
-        cambiarTipo();
+        cambiarTipo();*/
     }
 
     public void setUsuario(Usuario usuario) {

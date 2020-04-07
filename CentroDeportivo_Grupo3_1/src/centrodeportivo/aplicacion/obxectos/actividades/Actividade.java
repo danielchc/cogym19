@@ -2,7 +2,6 @@ package centrodeportivo.aplicacion.obxectos.actividades;
 
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
-import centrodeportivo.aplicacion.obxectos.usuarios.Profesor;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -15,7 +14,6 @@ public class Actividade {
     private Curso curso;
     private String nome;
     private float duracion;
-    private Profesor profesor;
 
 
     public Actividade(Timestamp data, Area area) {
@@ -23,14 +21,13 @@ public class Actividade {
         this.area = area;
     }
 
-    public Actividade(Timestamp data, Area area, TipoActividade tipoActividade, Curso curso, String nome, float duracion, Profesor profesor) {
+    public Actividade(Timestamp data, Area area, TipoActividade tipoActividade, Curso curso, String nome, float duracion) {
         this.data = data;
         this.area = area;
         this.tipoActividade = tipoActividade;
         this.curso = curso;
         this.nome = nome;
         this.duracion = duracion;
-        this.profesor = profesor;
     }
 
     public Timestamp getData() {
@@ -81,13 +78,7 @@ public class Actividade {
         this.duracion = duracion;
     }
 
-    public Profesor getProfesor() {
-        return profesor;
-    }
 
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
-    }
 
     @Override
     public String toString() {

@@ -53,7 +53,7 @@ public class vResumenRexistrosController extends AbstractController implements I
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.labelSocio.setText(socio.getNome());
+        this.labelSocio.setText(socio.getLogin());
         this.rexistros=super.getFachadaAplicacion().listarRexistros(socio.getLogin());
         generarGraficaPeso();
         generarGraficaTension();
