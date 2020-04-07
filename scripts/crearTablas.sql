@@ -243,3 +243,42 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcursos FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
+
+
+CREATE OR REPLACE VIEW vistapersoal AS
+SELECT 
+	us.login,
+	pf.dni,
+	pf.nome,
+	pf.dificultades,
+	pf.datanacemento,
+	us.contrasinal,
+	us.numtelefono,
+	us.correoelectronico,
+	us.iban,
+	us.dataalta,
+	us.databaixa,
+	pe.nuss,
+	pe.profesoractivo
+FROM persoasfisicas pf
+JOIN usuarios us ON pf.usuariopersoal = us.login
+JOIN persoal pe ON pe.login = us.login;
+
+
+CREATE OR REPLACE VIEW  vistasocios AS 
+	SELECT 
+	us.login,
+	contrasinal,
+	dni,
+	nome,
+	tarifa,
+	dificultades,
+	datanacemento,
+	iban,
+	dataalta,
+	databaixa,
+	numtelefono,
+	correoelectronico
+FROM socios AS so 
+JOIN persoasFisicas AS pf ON so.login=pf.usuariosocio 
+JOIN usuarios AS us ON us.login=so.login;

@@ -10,7 +10,6 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
-import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -293,12 +292,11 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
         ResultSet rsUsuarios;
-/*
+
         try {
             if(filtroTipo==TipoUsuario.Socio || filtroTipo==TipoUsuario.Todos) {
-                stmUsuario = super.getConexion().prepareStatement("SELECT *,u.nome AS nomeUsuario,t.nome AS nomeTarifa " +
-                        "FROM usuarios AS u NATURAL JOIN socios AS s JOIN tarifas AS t ON s.tarifa=t.codTarifa " +
-                        "WHERE (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL) "+
+                stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocios AS vs JOIN tarifas AS t ON vs.tarifa=t.codTarifa  " +
+                        "WHERE (LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL) "+
                         "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%"+login+"%");
@@ -308,14 +306,13 @@ public final class DAOUsuarios extends AbstractDAO {
                     usuarios.add(new Socio(
                             rsUsuarios.getString("login"),
                             rsUsuarios.getString("contrasinal"),
-                            rsUsuarios.getString("nomeUsuario"),
-                            rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("DNI"),
+                            rsUsuarios.getString("nome"),
+                            rsUsuarios.getString("dificultades"),
+                            rsUsuarios.getDate("dataNacemento"),
+                            rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("correoElectronico"),
                             rsUsuarios.getString("iban"),
-                            rsUsuarios.getDate("dataAlta"),
-                            rsUsuarios.getDate("dataNacemento"),
-                            rsUsuarios.getString("dificultades"),
                             new Tarifa(
                                     rsUsuarios.getInt("tarifa"),
                                     rsUsuarios.getString("nomeTarifa"),
@@ -326,41 +323,31 @@ public final class DAOUsuarios extends AbstractDAO {
                     ));
                 }
             }
-            if (filtroTipo==TipoUsuario.Profesor || filtroTipo==TipoUsuario.Todos){
-                stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL);");
+            if (filtroTipo==TipoUsuario.Profesor || filtroTipo== TipoUsuario.Persoal || filtroTipo==TipoUsuario.Todos){
+                String conds="";
+                if(filtroTipo==TipoUsuario.Profesor)conds="profesoractivo=TRUE ";
+                if(filtroTipo==TipoUsuario.Persoal)conds="profesoractivo=FALSE ";
+
+                stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp  " +
+                                "WHERE (LOWER(vp.login) LIKE LOWER(?) AND LOWER(vp.nome) LIKE LOWER(?)) AND (vp.dataBaixa IS NULL) "+ conds +
+                                "ORDER BY login ASC;"
+                );
                 stmUsuario.setString(1, "%"+login+"%");
                 stmUsuario.setString(2, "%"+nome+"%");
                 rsUsuarios = stmUsuario.executeQuery();
                 while (rsUsuarios.next()) {
-                    usuarios.add(new Profesor(
+                    usuarios.add(new Persoal(
                             rsUsuarios.getString("login"),
                             rsUsuarios.getString("contrasinal"),
-                            rsUsuarios.getString("nome"),
-                            rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("DNI"),
+                            rsUsuarios.getString("nome"),
+                            rsUsuarios.getString("dificultades"),
+                            rsUsuarios.getDate("dataNacemento"),
+                            rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("correoElectronico"),
                             rsUsuarios.getString("iban"),
-                            rsUsuarios.getString("NUSS")
-                    ));
-                }
-            }
-            if (filtroTipo==TipoUsuario.Persoal || filtroTipo==TipoUsuario.Todos){
-                stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT * FROM usuarios AS u JOIN persoal AS pe ON pe.login=u.login WHERE u.login NOT IN (SELECT login FROM profesores) AND (LOWER(u.login) LIKE LOWER(?) AND LOWER(u.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL);");
-                stmUsuario.setString(1, "%"+login+"%");
-                stmUsuario.setString(2, "%"+nome+"%");
-                rsUsuarios = stmUsuario.executeQuery();
-                while (rsUsuarios.next()) {
-                    usuarios.add( new Persoal(
-                            rsUsuarios.getString("login"),
-                            rsUsuarios.getString("contrasinal"),
-                            rsUsuarios.getString("nome"),
-                            rsUsuarios.getString("numTelefono"),
-                            rsUsuarios.getString("DNI"),
-                            rsUsuarios.getString("correoElectronico"),
-                            rsUsuarios.getString("iban"),
-                            rsUsuarios.getString("NUSS")
+                            rsUsuarios.getString("nuss"),
+                            rsUsuarios.getBoolean("profesoractivo")
                     ));
                 }
             }
@@ -372,11 +359,15 @@ public final class DAOUsuarios extends AbstractDAO {
             } catch (SQLException e){
                 System.out.println("Imposible cerrar cursores");
             }
-        }*/
+        }
         return usuarios;
     }
 
     protected Usuario consultarUsuario(String login) {
+        //ÑAPA SUPER PROVISIONAL
+        return buscarUsuarios(login,"" ,TipoUsuario.Todos).get(0);
+    }
+        /*
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
         TipoUsuario tipoUsuario=consultarTipo(login);
@@ -431,8 +422,7 @@ public final class DAOUsuarios extends AbstractDAO {
             }
         }
         return null;
-    }
-
+}
     protected PersoaFisica consultarPersoa(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
@@ -472,7 +462,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
         return null;
     }
-
+*/
     protected Cuota consultarCuota(String login){
         PreparedStatement stm = null;
         ResultSet resultSet;

@@ -16,8 +16,11 @@ public class Usuario {
     private String IBANconta;
     private Date dataAlta;
     private Date dataBaixa;
+    private String DNI;
+    private String nome;
+    private String dificultades;
+    private Date dataNacemento;
     private TipoUsuario tipoUsuario;
-
 
     /**
      * Constructor coa clave primaria
@@ -36,8 +39,8 @@ public class Usuario {
      * @param IBANconta IBAN do usuario
      * @param dataAlta data de alta no sistema
      */
-    public Usuario(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta){
-        this(login, contrasinal,numTelefono,correoElectronico, IBANconta);
+    public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta){
+        this(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.dataAlta=dataAlta;
     }
 
@@ -50,18 +53,23 @@ public class Usuario {
      * @param correoElectronico correo electrónico
      * @param IBANconta IBAN do usuario
      */
-    public Usuario(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta){
+    public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta){
         this.login=login;
         this.contrasinal=contrasinal;
         this.numTelefono=numTelefono;
         this.correoElectronico=correoElectronico;
         this.IBANconta=IBANconta;
+        this.DNI = DNI;
+        this.nome = nome;
+        this.dificultades = dificultades;
+        this.dataNacemento = dataNacemento;
     }
 
 
     /**
      * Getters e Setters
      */
+
     public String getLogin() {
         return login;
     }
@@ -77,7 +85,6 @@ public class Usuario {
     public void setContrasinal(String contrasinal) {
         this.contrasinal = contrasinal;
     }
-
 
     public String getNumTelefono() {
         return numTelefono;
@@ -119,6 +126,38 @@ public class Usuario {
         this.dataBaixa = dataBaixa;
     }
 
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDificultades() {
+        return dificultades;
+    }
+
+    public void setDificultades(String dificultades) {
+        this.dificultades = dificultades;
+    }
+
+    public Date getDataNacemento() {
+        return dataNacemento;
+    }
+
+    public void setDataNacemento(Date dataNacemento) {
+        this.dataNacemento = dataNacemento;
+    }
+
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
@@ -127,14 +166,13 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-
     /**
      * Equals e toString
      */
     @Override
     public boolean equals(Object o){
         if(o instanceof Usuario){
-            return ((Usuario) o).getLogin().equals(this.login);
+            return (((Usuario) o).getLogin().equals(this.login))&&(((Usuario) o).tipoUsuario==this.tipoUsuario);
         }
         return false;
     }
@@ -149,7 +187,11 @@ public class Usuario {
                 ", IBANconta='" + IBANconta + '\'' +
                 ", dataAlta=" + dataAlta +
                 ", dataBaixa=" + dataBaixa +
+                ", DNI='" + DNI + '\'' +
+                ", nome='" + nome + '\'' +
+                ", dificultades='" + dificultades + '\'' +
+                ", dataNacemento=" + dataNacemento +
                 ", tipoUsuario=" + tipoUsuario +
-                "}\n";
+                '}';
     }
 }

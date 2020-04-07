@@ -2,7 +2,6 @@ package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
-import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -105,10 +104,6 @@ public class FachadaAplicacion {
         xestionUsuarios.eliminarRexistro(rexistroFisioloxico);
     }
 
-    public PersoaFisica consultarPersoa(String login){
-        return xestionUsuarios.consultarPersoa(login);
-    }
-
     /*
         Xestion tarifas
      */
@@ -160,12 +155,12 @@ public class FachadaAplicacion {
         return xestionMensaxes.listarMensaxesRecibidos(loginReceptor);
     }
 
-    public void mostrarVentaSocios(PersoaFisica persoaFisica) throws IOException {
-        fachadaGUI.mostrarVentaSocios(persoaFisica);
+    public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
+        fachadaGUI.mostrarVentaSocios(loggedUser);
     }
 
-    public void mostrarVentaPersoal(PersoaFisica persoaFisica) throws IOException {
-        fachadaGUI.mostrarVentaPersoal(persoaFisica);
+    public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
+        fachadaGUI.mostrarVentaPersoal(loggedUser);
     }
 
     public void mostrarAdvertencia(String titulo,String texto) {

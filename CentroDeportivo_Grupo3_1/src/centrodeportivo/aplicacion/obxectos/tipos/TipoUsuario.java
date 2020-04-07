@@ -6,5 +6,6 @@ package centrodeportivo.aplicacion.obxectos.tipos;
 public enum TipoUsuario {
     Todos,
     Socio,
+    Profesor,
     Persoal
 }

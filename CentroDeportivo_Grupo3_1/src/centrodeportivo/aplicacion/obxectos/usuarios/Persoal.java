@@ -12,7 +12,6 @@ public final class Persoal extends Usuario {
      * Atributos da clase Persoal
      */
     private String NUSS;
-    private boolean profesorActivo;
 
     /**
      * Constructor coa clave primaria
@@ -24,39 +23,44 @@ public final class Persoal extends Usuario {
     }
 
     /**
-     * Contructor con todos os datos do persoal como parámetros
-     * @param login login do persoal
-     * @param contrasinal contrasinal
-     * @param numTelefono número de teléfono
+     * Constructor con todos os datos do Usuario
+     *
+     * @param login             login do Usuario
+     * @param contrasinal       contrasinal
+     * @param DNI
+     * @param nome
+     * @param dificultades
+     * @param dataNacemento
+     * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
-     * @param IBANconta IBAN da conta
-     * @param dataAlta data de ingreso
-     * @param NUSS Número da Seguridade Social
+     * @param IBANconta         IBAN do usuario
+     * @param dataAlta          data de alta no sistema
      */
-    public Persoal(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta,String NUSS,boolean profesorActivo){
-        super(login, contrasinal, numTelefono, correoElectronico, IBANconta, dataAlta);
-        this.NUSS=NUSS;
-        this.profesorActivo=profesorActivo;
-        super.setTipoUsuario(TipoUsuario.Persoal);
+    public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta, String NUSS, boolean profesorActivo) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta);
+        this.NUSS = NUSS;
+        super.setTipoUsuario((profesorActivo)?TipoUsuario.Profesor:TipoUsuario.Persoal);
     }
 
     /**
-     * Contructor con todos os datos do persoal como  menos a data de alta,
-     * que se inserta na transacción de inserción na base de datos.
-     * @param login login do persoal
-     * @param contrasinal contrasinal
-     * @param numTelefono número de teléfono
+     * Constructor sen a data de alta no sistema para enviar datos dende a aplicación á insercción na base de datos.
+     * A data de alta introdúcese na transacción, por eso non se pasa como parámetro.
+     *
+     * @param login             login do Usuario
+     * @param contrasinal       contrasinal
+     * @param DNI
+     * @param nome
+     * @param dificultades
+     * @param dataNacemento
+     * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
-     * @param IBANconta IBAN da conta
-     * @param NUSS Número da Seguridade Social
+     * @param IBANconta         IBAN do usuario
      */
-    public Persoal(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,String NUSS, boolean profesorActivo){
-        super(login, contrasinal, numTelefono, correoElectronico, IBANconta);
-        this.NUSS=NUSS;
-        this.profesorActivo=profesorActivo;
-        super.setTipoUsuario(TipoUsuario.Persoal);
+    public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, String NUSS, boolean profesorActivo) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
+        this.NUSS = NUSS;
+        super.setTipoUsuario((profesorActivo)?TipoUsuario.Profesor:TipoUsuario.Persoal);
     }
-
 
     /**
      * Getters e Setters
@@ -69,25 +73,13 @@ public final class Persoal extends Usuario {
         this.NUSS = NUSS;
     }
 
-    public boolean isProfesorActivo() {
-        return profesorActivo;
-    }
-
-    public void setProfesorActivo(boolean profesorActivo) {
-        this.profesorActivo = profesorActivo;
-    }
-
-
-
-
     /**
      * toString
      */
     @Override
     public String toString() {
-        return super.toString() +
+        return "Persoal{" +
                 "NUSS='" + NUSS + '\'' +
-                ", profesorActivo=" + profesorActivo +
-                '}';
+                "} " + super.toString();
     }
 }

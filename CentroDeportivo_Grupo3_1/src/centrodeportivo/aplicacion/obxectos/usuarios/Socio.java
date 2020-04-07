@@ -32,9 +32,9 @@ public final class Socio extends Usuario {
      * @param dataAlta data de ingreso
      * @param tarifa tarifa do socio
      */
-    public Socio(String login, String contrasinal, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta,Tarifa tarifa){
-        super(login, contrasinal, numTelefono, correoElectronico, IBANconta,dataAlta);
-        this.tarifa=tarifa;
+    public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta, Tarifa tarifa) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta);
+        this.tarifa = tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
@@ -48,12 +48,12 @@ public final class Socio extends Usuario {
      * @param IBANconta IBAN da conta
      * @param tarifa tarifa do socio
      */
-    public Socio(String login, String contrasinal, String numTelefono, String correoElectronico, String IBANconta,Tarifa tarifa){
-        super(login, contrasinal, numTelefono, correoElectronico, IBANconta);
-        this.tarifa=tarifa;
+
+    public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Tarifa tarifa) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
+        this.tarifa = tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
-
 
     /**
      * Getters e Setters

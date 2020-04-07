@@ -1,3 +1,7 @@
+DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcursos CASCADE;
+DROP FUNCTION IF EXISTS insertarActividades();
+DROP VIEW vistapersoal;
+DROP VIEW vistasocios;
 DROP TABLE IF EXISTS estarCapacitado;
 DROP TABLE IF EXISTS enviarMensaxes;
 DROP TABLE IF EXISTS realizarCursos;
@@ -17,5 +21,3 @@ DROP TABLE IF EXISTS persoal;
 DROP TABLE IF EXISTS socios;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS tarifas;
-DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcursos CASCADE;
-DROP FUNCTION IF EXISTS insertarActividades();
