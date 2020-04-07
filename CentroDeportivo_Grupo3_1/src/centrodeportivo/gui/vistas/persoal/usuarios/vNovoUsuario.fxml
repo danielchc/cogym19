@@ -4,141 +4,146 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Button fx:id="btnGadar" layoutX="253.0" layoutY="354.0" mnemonicParsing="false" onAction="#btnGardarAccion" prefHeight="31.0" prefWidth="94.0" text="Gardar" AnchorPane.bottomAnchor="14.800000000000011" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="252.60000000000002">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <Label fx:id="labelError" alignment="CENTER" layoutX="119.0" layoutY="319.0" prefHeight="20.0" prefWidth="362.0" textFill="#af0202" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="119.0">
+        <Label fx:id="labelError" alignment="CENTER" layoutX="119.0" layoutY="407.0" prefHeight="20.0" prefWidth="362.0" textFill="#af0202" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="119.0">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
           <VBox layoutX="95.0" layoutY="21.0" prefHeight="348.0" prefWidth="426.0" spacing="5.0">
               <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Tipo">
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                      <children>
+                          <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="DNI">
+                              <font>
+                                  <Font name="System Bold" size="14.0" />
+                              </font>
+                          </Label>
+                          <TextField fx:id="campoDNI" onKeyTyped="#dniCambiadoAction" prefHeight="100.0" prefWidth="250.0" promptText="Introduce un DNI..." />
+                      </children>
+                  </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Tipo">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                      <ComboBox fx:id="tipoUsuario" onAction="#cambiarTipo" prefHeight="25.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="nomeBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Nome">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="campoNome" prefHeight="25.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="loginBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Login">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="campoLogin" prefHeight="100.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="passBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Contrasinal">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <PasswordField fx:id="campoPassword" prefHeight="100.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="tlfBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Número de teléfono">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="campoTelf" prefHeight="100.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="correoBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Correo electrónico">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="campoCorreo" prefHeight="100.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="ibanBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="IBAN conta">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="campoIBAN" prefHeight="100.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="dataNacementoSocioBox" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios">
+                   <children>
+                          <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Data Nacemento">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
-                        </Label>
-                  <ComboBox fx:id="tipoUsuario" onAction="#cambiarTipo" prefHeight="25.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Nome">
-                            <font>
+                          </Label>
+                      <DatePicker fx:id="campoData" prefHeight="25.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="tarifaSocioBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                          <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Tarifa">
+                              <font>
                                 <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="campoNome" prefHeight="25.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Login">
-                            <font>
+                              </font>
+                          </Label>
+                      <ComboBox fx:id="comboTarifa" prefHeight="25.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                <HBox fx:id="dificultadesSocioBox" prefHeight="100.0" prefWidth="200.0">
+                   <children>
+                       <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Dificultades(opcional)">
+                              <font>
                                 <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="campoLogin" prefHeight="100.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Contrasinal">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <PasswordField fx:id="campoPassword" prefHeight="100.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Número de teléfono">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="campoTelf" prefHeight="100.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="DNI">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="campoDNI" prefHeight="100.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Correo electrónico">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="campoCorreo" prefHeight="100.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="IBAN conta">
-                            <font>
-                                <Font name="System Bold" size="14.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="campoIBAN" prefHeight="100.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox fx:id="dataNacementoSocioBox" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios">
-               <children>
-                      <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Data Nacemento">
-                        <font>
-                            <Font name="System Bold" size="14.0" />
-                        </font>
-                      </Label>
-                  <DatePicker fx:id="campoData" prefHeight="25.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox fx:id="tarifaSocioBox" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                      <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Tarifa">
-                          <font>
-                            <Font name="System Bold" size="14.0" />
-                          </font>
-                      </Label>
-                  <ComboBox fx:id="comboTarifa" prefHeight="25.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-            <HBox fx:id="dificultadesSocioBox" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                   <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Dificultades(opcional)">
-                          <font>
-                            <Font name="System Bold" size="14.0" />
-                          </font>
-                      </Label>
-                  <TextArea fx:id="campoDificultades" prefHeight="200.0" prefWidth="250.0" />
-               </children>
-            </HBox>
-              <HBox fx:id="nussPersoalBox" prefHeight="100.0" prefWidth="200.0">
-                  <children>
-                      <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="NUSS">
-                          <font>
-                              <Font name="System Bold" size="14.0" />
-                          </font>
-                      </Label>
-                      <TextField fx:id="campoNUSS" prefHeight="100.0" prefWidth="250.0" />
-                  </children>
-              </HBox>
+                              </font>
+                          </Label>
+                      <TextArea fx:id="campoDificultades" prefHeight="200.0" prefWidth="250.0" />
+                   </children>
+                </HBox>
+                  <HBox fx:id="nussPersoalBox" prefHeight="100.0" prefWidth="200.0">
+                      <children>
+                          <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="NUSS">
+                              <font>
+                                  <Font name="System Bold" size="14.0" />
+                              </font>
+                          </Label>
+                          <TextField fx:id="campoNUSS" prefHeight="100.0" prefWidth="250.0" />
+                      </children>
+                  </HBox>
               </children>
           </VBox>
+      <Label fx:id="labelInfo" alignment="CENTER" layoutX="126.0" layoutY="427.0" prefHeight="20.0" prefWidth="362.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

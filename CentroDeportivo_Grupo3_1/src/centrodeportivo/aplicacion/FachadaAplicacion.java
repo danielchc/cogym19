@@ -2,6 +2,7 @@ package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
+import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -49,6 +50,10 @@ public class FachadaAplicacion {
 
     public boolean existeNUSS(String nuss) {
         return xestionUsuarios.existeNUSS(nuss);
+    }
+
+    public ContasPersoa contasPersoaFisica(String dni){
+        return xestionUsuarios.contasPersoaFisica(dni);
     }
 
     public boolean validarUsuario(String login,String password) {

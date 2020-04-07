@@ -12,13 +12,16 @@ import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class vNovoUsuarioController extends AbstractController implements Initializable {
@@ -36,17 +39,24 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public DatePicker campoData;
     public TextArea campoDificultades;
     public Label labelError;
+    public Label labelInfo;
+
     public HBox dataNacementoSocioBox;
     public HBox tarifaSocioBox;
     public HBox dificultadesSocioBox;
     public HBox nussPersoalBox;
+    public HBox nomeBox;
+    public HBox loginBox;
+    public HBox passBox;
+    public HBox tlfBox;
+    public HBox correoBox;
+    public HBox ibanBox;
+
     enum  RexistroTipo {
         Socio,
-        Persoal,
-        Profesor
+        Persoal
     };
     private Usuario usuarioModificar;
-
     private vPrincipalController controllerPrincipal;
     private FachadaAplicacion fachadaAplicacion;
 
@@ -56,82 +66,133 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         this.fachadaAplicacion=super.getFachadaAplicacion();
     }
 
-    public void cambiarTipo(){
-        //Revisar esta pochada
-        if(this.tipoUsuario.getSelectionModel().getSelectedIndex()== RexistroTipo.Socio.ordinal()){
-            nussPersoalBox.setVisible(false);
-            nussPersoalBox.setManaged(false);
-            dificultadesSocioBox.setVisible(true);
-            dificultadesSocioBox.setManaged(true);
-            tarifaSocioBox.setVisible(true);
-            tarifaSocioBox.setManaged(true);
-            dataNacementoSocioBox.setVisible(true);
-            dataNacementoSocioBox.setManaged(true);
-        }else{
-            nussPersoalBox.setVisible(true);
-            nussPersoalBox.setManaged(true);
-            dificultadesSocioBox.setVisible(false);
-            dificultadesSocioBox.setManaged(false);
-            tarifaSocioBox.setVisible(false);
-            tarifaSocioBox.setManaged(false);
-            dataNacementoSocioBox.setVisible(false);
-            dataNacementoSocioBox.setManaged(false);
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.comboTarifa.getItems().addAll(super.getFachadaAplicacion().listarTarifas());
-        this.tipoUsuario.getItems().addAll(RexistroTipo.values());
         this.comboTarifa.getSelectionModel().selectFirst();
+        this.tipoUsuario.getItems().addAll(RexistroTipo.values());
         this.tipoUsuario.getSelectionModel().selectFirst();
-        cambiarTipo();
         this.usuarioModificar=null;
+        cambiarTipo();
+    }
+
+    private void esconderCampos(){
+        dataNacementoSocioBox.setVisible(false);
+        tarifaSocioBox.setVisible(false);
+        dificultadesSocioBox.setVisible(false);
+        nussPersoalBox.setVisible(false);
+        nomeBox.setVisible(false);
+        loginBox.setVisible(false);
+        passBox.setVisible(false);
+        tlfBox.setVisible(false);
+        correoBox.setVisible(false);
+        ibanBox.setVisible(false);
+    }
+
+    private void mostrarCamposPersoal(){
+        dataNacementoSocioBox.setVisible(false);
+        tarifaSocioBox.setVisible(false);
+        dificultadesSocioBox.setVisible(false);
+        nussPersoalBox.setVisible(true);
+        nomeBox.setVisible(true);
+        loginBox.setVisible(true);
+        passBox.setVisible(true);
+        tlfBox.setVisible(true);
+        correoBox.setVisible(true);
+        ibanBox.setVisible(true);
+    }
+
+    private void mostrarCamposSocio(){
+        dataNacementoSocioBox.setVisible(true);
+        tarifaSocioBox.setVisible(true);
+        dificultadesSocioBox.setVisible(true);
+        nussPersoalBox.setVisible(false);
+        nomeBox.setVisible(true);
+        loginBox.setVisible(true);
+        passBox.setVisible(true);
+        tlfBox.setVisible(true);
+        correoBox.setVisible(true);
+        ibanBox.setVisible(true);
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
-            /*if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
-                this.labelError.setText("Algún campo sen cubrir.");
-                return;
-            }
-            if(!comprobarFormatos()) return;
-            if(!comprobarDataMais16anos()) return;
-            if(!comprobarLogin()) return;
-            if(!comprobarDNI()) return;
+        /*if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
+            this.labelError.setText("Algún campo sen cubrir.");
+            return;
+        }
+        if(!comprobarFormatos()) return;
+        if(!comprobarDataMais16anos()) return;
+        if(!comprobarLogin()) return;
+        if(!comprobarDNI()) return;
 
-            if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Socio.ordinal()){
-                Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
-                Socio socio=new Socio(
-                        campoLogin.getText(),
-                        campoPassword.getText(),
-                        campoNome.getText(),
-                        campoTelf.getText(),
-                        campoDNI.getText(),
-                        campoCorreo.getText(),
-                        campoIBAN.getText(),
-                        Date.valueOf(campoData.getValue()),
-                        campoDificultades.getText(),
-                        tarifa
-                );
-                this.fachadaAplicacion.insertarUsuario(socio);
-                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
-            }else{
-                Profesor profesor=new Profesor(
-                        campoLogin.getText(),
-                        campoPassword.getText(),
-                        campoNome.getText(),
-                        campoTelf.getText(),
-                        campoDNI.getText(),
-                        campoCorreo.getText(),
-                        campoIBAN.getText(),
-                        campoNUSS.getText()
-                );
+        if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Socio.ordinal()){
+            Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
+            Socio socio=new Socio(
+                    campoLogin.getText(),
+                    campoPassword.getText(),
+                    campoNome.getText(),
+                    campoTelf.getText(),
+                    campoDNI.getText(),
+                    campoCorreo.getText(),
+                    campoIBAN.getText(),
+                    Date.valueOf(campoData.getValue()),
+                    campoDificultades.getText(),
+                    tarifa
+            );
+            this.fachadaAplicacion.insertarUsuario(socio);
+            this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
+        }else{
+            Profesor profesor=new Profesor(
+                    campoLogin.getText(),
+                    campoPassword.getText(),
+                    campoNome.getText(),
+                    campoTelf.getText(),
+                    campoDNI.getText(),
+                    campoCorreo.getText(),
+                    campoIBAN.getText(),
+                    campoNUSS.getText()
+            );
 
-                if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Persoal.ordinal()) this.fachadaAplicacion.insertarUsuario(profesor);
-                else if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Profesor.ordinal()) this.fachadaAplicacion.insertarUsuario((Persoal)profesor);
-                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+profesor.getLogin() +" correctamente");
-            }
-            this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);*/
+            if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Persoal.ordinal()) this.fachadaAplicacion.insertarUsuario(profesor);
+            else if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Profesor.ordinal()) this.fachadaAplicacion.insertarUsuario((Persoal)profesor);
+            this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+profesor.getLogin() +" correctamente");
+        }
+        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);*/
+    }
+
+    public void cambiarTipo(){
+        if(this.tipoUsuario.getSelectionModel().getSelectedIndex()== RexistroTipo.Socio.ordinal()){
+            mostrarCamposSocio();
+        }else{
+            mostrarCamposPersoal();
+        }
+    }
+
+    public void dniCambiadoAction(KeyEvent keyEvent){
+        this.labelError.setText("");
+        switch (super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText())){
+            case Ningunha:
+                this.labelInfo.setText("");
+                this.tipoUsuario.setDisable(false);
+                break;
+            case Ambas:
+                this.labelError.setText("Esa persoa xa ten contas de Socio e Persoal no sistema.");
+                this.tipoUsuario.setDisable(true);
+                esconderCampos();
+                break;
+            case SoloSocio:
+                this.labelInfo.setText("*Esa persoa xa é socio.");
+                this.tipoUsuario.getSelectionModel().selectLast();
+                this.tipoUsuario.setDisable(true);
+                mostrarCamposPersoal();
+                break;
+            case SoloPersoal:
+                this.labelInfo.setText("*Esa persoa xa é persoal.");
+                this.tipoUsuario.getSelectionModel().selectFirst();
+                this.tipoUsuario.setDisable(true);
+                mostrarCamposSocio();
+                break;
+        }
     }
 
     private boolean comprobarFormatos(){
@@ -183,6 +244,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         }
         return true;
     }
+
 
     private void cargarDatosUsuario(){
         /*if(usuarioModificar==null)return;

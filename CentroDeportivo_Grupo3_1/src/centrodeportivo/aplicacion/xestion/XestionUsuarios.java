@@ -2,6 +2,7 @@ package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
+import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
@@ -28,6 +29,10 @@ public class XestionUsuarios {
 
     public boolean existeNUSS(String nuss) {
         return fachadaBD.existeNUSS(nuss);
+    }
+
+    public ContasPersoa contasPersoaFisica(String dni){
+        return fachadaBD.contasPersoaFisica(dni);
     }
 
     public boolean validarUsuario(String login,String password) {

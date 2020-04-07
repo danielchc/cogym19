@@ -3,6 +3,7 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
+import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -75,6 +76,10 @@ public final class FachadaBD {
 
     public boolean existeNUSS(String nuss) {
         return daoUsuarios.existeNUSS(nuss);
+    }
+
+    public ContasPersoa contasPersoaFisica(String dni){
+        return daoUsuarios.contasPersoaFisica(dni);
     }
 
     public boolean validarUsuario(String login,String password) {

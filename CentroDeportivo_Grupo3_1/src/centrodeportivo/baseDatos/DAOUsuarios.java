@@ -9,6 +9,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
@@ -47,7 +48,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE dni=?");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM persoasFisicas WHERE dni=?");
             stmUsuario.setString(1,dni);
             resultValidacion=stmUsuario.executeQuery();
             return resultValidacion.next();
@@ -81,6 +82,32 @@ public final class DAOUsuarios extends AbstractDAO {
             }
         }
         return false;
+    }
+
+    protected ContasPersoa contasPersoaFisica(String dni){
+        PreparedStatement stmUsuario = null;
+        ResultSet resultValidacion;
+        try {
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM persoasFisicas WHERE dni=?");
+            stmUsuario.setString(1,dni);
+            resultValidacion=stmUsuario.executeQuery();
+            if(resultValidacion.next()){
+                if(resultValidacion.getString("usuarioSocio")!=null && resultValidacion.getString("usuarioPersoal")!=null) return ContasPersoa.Ambas;
+                else if(resultValidacion.getString("usuarioSocio")==null && resultValidacion.getString("usuarioPersoal")!=null) return ContasPersoa.SoloPersoal;
+                else if(resultValidacion.getString("usuarioSocio")!=null && resultValidacion.getString("usuarioPersoal")==null) return ContasPersoa.SoloSocio;
+            }else{
+                return ContasPersoa.Ningunha;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmUsuario.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return ContasPersoa.Ningunha;
     }
 
     protected boolean validarUsuario(String login,String password) {
