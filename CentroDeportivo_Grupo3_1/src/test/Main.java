@@ -17,7 +17,8 @@ public class Main {
     public static void main(String [] args) {
         FachadaBD fb=null;
         try{
-            //fb=new FachadaBD(null);
+            fb=new FachadaBD(null);
+            System.out.println(fb.consultarTipo("test0"));
             //Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
             /*Socio usu=new Socio("pocha",
                     "abc123..",
