@@ -5,37 +5,63 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import java.sql.Date;
 
 public class Usuario {
+
+    /**
+     * Atributos da clase Usuario
+     */
     private String login;
     private String contrasinal;
-    private String nome;
     private String numTelefono;
-    private String DNI;
     private String correoElectronico;
     private String IBANconta;
     private Date dataAlta;
     private Date dataBaixa;
     private TipoUsuario tipoUsuario;
 
+
+    /**
+     * Constructor coa clave primaria
+     * @param login login do Usuario
+     */
     public Usuario(String login){
         this.login=login;
     }
 
-    public Usuario(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,Date dataAlta){
-        this(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
+    /**
+     * Constructor con todos os datos do Usuario
+     * @param login login do Usuario
+     * @param contrasinal contrasinal
+     * @param numTelefono número de teléfono
+     * @param correoElectronico correo electrónico
+     * @param IBANconta IBAN do usuario
+     * @param dataAlta data de alta no sistema
+     */
+    public Usuario(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta){
+        this(login, contrasinal,numTelefono,correoElectronico, IBANconta);
         this.dataAlta=dataAlta;
     }
 
-    public Usuario(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta){
+    /**
+     * Constructor sen a data de alta no sistema para enviar datos dende a aplicación á insercción na base de datos.
+     * A data de alta introdúcese na transacción, por eso non se pasa como parámetro.
+     * @param login login do Usuario
+     * @param contrasinal contrasinal
+     * @param numTelefono número de teléfono
+     * @param correoElectronico correo electrónico
+     * @param IBANconta IBAN do usuario
+     */
+    public Usuario(String login,String contrasinal,String numTelefono,String correoElectronico,String IBANconta){
         this.login=login;
         this.contrasinal=contrasinal;
-        this.nome=nome;
         this.numTelefono=numTelefono;
-        this.DNI=DNI;
         this.correoElectronico=correoElectronico;
         this.IBANconta=IBANconta;
     }
 
 
+    /**
+     * Getters e Setters
+     */
     public String getLogin() {
         return login;
     }
@@ -52,13 +78,6 @@ public class Usuario {
         this.contrasinal = contrasinal;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public String getNumTelefono() {
         return numTelefono;
@@ -66,14 +85,6 @@ public class Usuario {
 
     public void setNumTelefono(String numTelefono) {
         this.numTelefono = numTelefono;
-    }
-
-    public String getDNI() {
-        return DNI;
-    }
-
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
     }
 
     public String getCorreoElectronico() {
@@ -116,6 +127,10 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+
+    /**
+     * Equals e toString
+     */
     @Override
     public boolean equals(Object o){
         if(o instanceof Usuario){
@@ -129,9 +144,7 @@ public class Usuario {
         return "Usuario{" +
                 "login='" + login + '\'' +
                 ", contrasinal='" + contrasinal + '\'' +
-                ", nome='" + nome + '\'' +
                 ", numTelefono='" + numTelefono + '\'' +
-                ", DNI='" + DNI + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
                 ", IBANconta='" + IBANconta + '\'' +
                 ", dataAlta=" + dataAlta +

@@ -6,53 +6,70 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import java.sql.Date;
 
 public final class Socio extends Usuario {
-    private Date dataNacemento;
-    private String dificultades;
+
+    /**
+     * Atributos da clase Socio
+     */
     private Tarifa tarifa;
 
+
+    /**
+     * Constructor coa clave primaria
+     * @param login login do Socio
+     */
     public Socio(String login){
         super(login);
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
-
-    public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta, Date dataAlta,Date dataNacemento,String dificultades,Tarifa tarifa){
-        super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta,dataAlta);
-        this.dataNacemento=dataNacemento;
-        this.dificultades=dificultades;
+    /**
+     * Contructor con todos os datos do socio como parámetros
+     * @param login login do persoal
+     * @param contrasinal contrasinal
+     * @param numTelefono número de teléfono
+     * @param correoElectronico correo electrónico
+     * @param IBANconta IBAN da conta
+     * @param dataAlta data de ingreso
+     * @param tarifa tarifa do socio
+     */
+    public Socio(String login, String contrasinal, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta,Tarifa tarifa){
+        super(login, contrasinal, numTelefono, correoElectronico, IBANconta,dataAlta);
         this.tarifa=tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
-    public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta,Date dataNacemento,String dificultades,Tarifa tarifa){
-        super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
-        this.dataNacemento=dataNacemento;
-        this.dificultades=dificultades;
+    /**
+     * Contructor con todos os datos do socio como parámetros menos a data de alta,
+     * que se inserta directamente na transacción de insercción
+     * @param login login do persoal
+     * @param contrasinal contrasinal
+     * @param numTelefono número de teléfono
+     * @param correoElectronico correo electrónico
+     * @param IBANconta IBAN da conta
+     * @param tarifa tarifa do socio
+     */
+    public Socio(String login, String contrasinal, String numTelefono, String correoElectronico, String IBANconta,Tarifa tarifa){
+        super(login, contrasinal, numTelefono, correoElectronico, IBANconta);
         this.tarifa=tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
-    public Date getDataNacemento() {
-        return dataNacemento;
-    }
 
-    public void setDataNacemento(Date dataNacemento) {
-        this.dataNacemento = dataNacemento;
-    }
-
-    public String getDificultades() {
-        return dificultades;
-    }
-
-    public void setDificultades(String dificultades) {
-        this.dificultades = dificultades;
-    }
-
+    /**
+     * Getters e Setters
+     */
     public Tarifa getTarifa() {
         return tarifa;
     }
 
     public void setTarifa(Tarifa tarifa) {
         this.tarifa = tarifa;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Socio{" +
+                "tarifa=" + tarifa +
+                '}';
     }
 }

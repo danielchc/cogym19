@@ -18,37 +18,37 @@ CREATE TABLE usuarios(
 	PRIMARY KEY (login)
 );
 
-CREATE TABLE persoasFisicas(
-	DNI 				CHAR(9) NOT NULL,
-	nome 				VARCHAR(200) NOT NULL,
-	dificultades 		VARCHAR(500),
-	dataNacemento 		DATE NOT NULL CHECK ((NOW()- INTERVAL'16 years')>dataNacemento),
-	PRIMARY KEY (DNI)
-);
-
 CREATE TABLE socios(
 	login 			VARCHAR(25) NOT NULL,
 	tarifa 			INT NOT NULL,
-	persoaFisica	CHAR(9) NOT NULL,
 	PRIMARY KEY(login),
 	FOREIGN KEY (login) REFERENCES usuarios(login) 
 		ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (tarifa) REFERENCES tarifas(codTarifa) 
-		ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (persoaFisica) REFERENCES persoasFisicas(DNI) 
-		ON UPDATE CASCADE ON DELETE RESTRICT		
+		ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE persoal(
 	login 				VARCHAR(25) NOT NULL,
 	NUSS				CHAR(12) NOT NULL UNIQUE,
-	profesorActivo		BOOLEAN NOT NULL,
-	persoaFisica		CHAR(9) NOT NULL,
+	profesorActivo		BOOLEAN NOT NULL DEFAULT FALSE,
 	PRIMARY KEY(login),
 	FOREIGN KEY (login) REFERENCES usuarios(login) 
 		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (persoaFisica) REFERENCES persoasFisicas(DNI) 
-		ON UPDATE CASCADE ON DELETE RESTRICT,
+);
+
+CREATE TABLE persoasFisicas(
+	DNI 				CHAR(9) NOT NULL,
+	nome 				VARCHAR(200) NOT NULL,
+	dificultades 		VARCHAR(500),
+	dataNacemento 		DATE NOT NULL CHECK ((NOW()- INTERVAL'16 years')>dataNacemento),
+	usuarioSocio		VARCHAR(25),
+	usuarioPersoal		VARCHAR(25),
+	PRIMARY KEY (DNI),
+	FOREIGN KEY (usuarioSocio) REFERENCES socios(login) 
+			ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (usuarioPersoal) REFERENCES persoal(login) 
+			ON UPDATE CASCADE ON DELETE RESTRICT		
 );
 
 CREATE TABLE instalacions(

@@ -3,6 +3,18 @@ INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) values ('Pocha'
 INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) values ('Básica',25,35.0,2.0);
 INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) values ('Premium',30,45.0,1.0);
 
+
+
+----------------------
+insert into usuarios values ('test0','7dfd4e82b8d78c293304822f7ac7d887','123456679','correo@correo.com','ES1234567890123456789012',NOW(),null);
+
+insert into persoal values ('test0','12345678901',true);
+
+insert into persoasFisicas values ('12345678A','Test 0000000',null,'2000-01-01',null,'test0');
+
+
+------------------------
+
 INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN) values ('test0','7dfd4e82b8d78c293304822f7ac7d887','Test 0','616123123','12345679X','mail@hotmail.com','ES2100000000000000000008');
 
 
