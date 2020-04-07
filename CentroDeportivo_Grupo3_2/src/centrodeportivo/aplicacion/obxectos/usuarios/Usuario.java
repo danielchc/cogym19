@@ -15,24 +15,29 @@ public class Usuario {
     private Date dataAlta;
     private Date dataBaixa;
     private TipoUsuario tipoUsuario;
+    private String dificultades;
+    private Date dataNacemento;
+
 
     public Usuario(String login){
         this.login=login;
     }
 
-    public Usuario(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta,Date dataAlta){
-        this(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta);
+    public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta){
+        this(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.dataAlta=dataAlta;
     }
 
-    public Usuario(String login,String contrasinal,String nome,String numTelefono,String DNI,String correoElectronico,String IBANconta){
+    public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta){
         this.login=login;
         this.contrasinal=contrasinal;
-        this.nome=nome;
         this.numTelefono=numTelefono;
-        this.DNI=DNI;
         this.correoElectronico=correoElectronico;
         this.IBANconta=IBANconta;
+        this.DNI = DNI;
+        this.nome = nome;
+        this.dificultades = dificultades;
+        this.dataNacemento = dataNacemento;
     }
 
 

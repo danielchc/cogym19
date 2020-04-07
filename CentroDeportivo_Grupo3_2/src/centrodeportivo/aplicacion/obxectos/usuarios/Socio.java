@@ -14,10 +14,9 @@ public final class Socio extends Usuario {
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
-    public Socio(String login, String contrasinal, String nome, String numTelefono, String DNI, String correoElectronico, String IBANconta, Date dataAlta,Date dataNacemento,String dificultades){
-        super(login, contrasinal, nome, numTelefono, DNI, correoElectronico, IBANconta, dataAlta);
-        this.dataNacemento=dataNacemento;
-        this.dificultades=dificultades;
+    public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
+        super.setTipoUsuario(TipoUsuario.Socio);
     }
 
     public Date getDataNacemento() {
