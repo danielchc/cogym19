@@ -10,9 +10,7 @@ CREATE TABLE tarifas(
 CREATE TABLE usuarios(
 	login 				VARCHAR(25) NOT NULL,
 	contrasinal 		VARCHAR(64) NOT NULL,
-	nome 				VARCHAR(200) NOT NULL,
 	numTelefono 		CHAR(9) NOT NULL,
-	DNI 				CHAR(9) NOT NULL UNIQUE,
 	correoElectronico 	VARCHAR(200) NOT NULL UNIQUE,
 	IBAN 				CHAR(24) NOT NULL,
 	dataAlta			DATE NOT NULL DEFAULT NOW(),
@@ -20,31 +18,37 @@ CREATE TABLE usuarios(
 	PRIMARY KEY (login)
 );
 
+CREATE TABLE persoasFisicas(
+	DNI 				CHAR(9) NOT NULL,
+	nome 				VARCHAR(200) NOT NULL,
+	dificultades 		VARCHAR(500),
+	dataNacemento 		DATE NOT NULL CHECK ((NOW()- INTERVAL'16 years')>dataNacemento),
+	PRIMARY KEY (DNI)
+);
+
 CREATE TABLE socios(
 	login 			VARCHAR(25) NOT NULL,
-	dataNacemento 	DATE NOT NULL CHECK ((NOW()- INTERVAL'16 years')>dataNacemento),
-	dificultades 	VARCHAR(500),
 	tarifa 			INT NOT NULL,
+	persoaFisica	CHAR(9) NOT NULL,
 	PRIMARY KEY(login),
 	FOREIGN KEY (login) REFERENCES usuarios(login) 
-	ON UPDATE CASCADE ON DELETE CASCADE,
+		ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (tarifa) REFERENCES tarifas(codTarifa) 
-	ON UPDATE CASCADE ON DELETE RESTRICT	
+		ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (persoaFisica) REFERENCES persoasFisicas(DNI) 
+		ON UPDATE CASCADE ON DELETE RESTRICT		
 );
 
 CREATE TABLE persoal(
 	login 				VARCHAR(25) NOT NULL,
 	NUSS				CHAR(12) NOT NULL UNIQUE,
+	profesorActivo		BOOLEAN NOT NULL,
+	persoaFisica		CHAR(9) NOT NULL,
 	PRIMARY KEY(login),
 	FOREIGN KEY (login) REFERENCES usuarios(login) 
-	ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE profesores(
-	login 	VARCHAR(25) NOT NULL,
-	PRIMARY KEY(login),
-	FOREIGN KEY (login) REFERENCES persoal(login)
-	ON UPDATE CASCADE ON DELETE CASCADE
+		ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (persoaFisica) REFERENCES persoasFisicas(DNI) 
+		ON UPDATE CASCADE ON DELETE RESTRICT,
 );
 
 CREATE TABLE instalacions(
@@ -121,7 +125,7 @@ CREATE TABLE actividades(
 	ON UPDATE CASCADE ON DELETE CASCADE,	
 	FOREIGN KEY (area,instalacion) REFERENCES areas(codArea,instalacion) 
 	ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (profesor) REFERENCES profesores(login) 
+	FOREIGN KEY (profesor) REFERENCES persoal(login) 
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
@@ -162,7 +166,7 @@ CREATE TABLE incidenciasAreas(
 
 
 CREATE TABLE rexistrosFisioloxicos(
-	usuario			VARCHAR(25) NOT NULL,
+	socio			VARCHAR(25) NOT NULL,
 	dataMarca 		TIMESTAMP NOT NULL,
 	peso			DECIMAL CHECK (peso>=0),
 	altura			DECIMAL CHECK (altura>=0),
@@ -171,8 +175,8 @@ CREATE TABLE rexistrosFisioloxicos(
 	tensionBaixa	INT CHECK (tensionBaixa>=0),
 	ppm				INT CHECK (ppm>=0),
 	comentario		VARCHAR(200),
-	PRIMARY KEY (usuario,dataMarca),
-	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
+	PRIMARY KEY (socio,dataMarca),
+	FOREIGN KEY (socio) REFERENCES socios(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -215,7 +219,7 @@ CREATE TABLE enviarMensaxes(
 CREATE TABLE estarCapacitado(
 	tipoActividade 	INT NOT NULL, 
 	profesor		VARCHAR(25) NOT NULL,
-	FOREIGN KEY (profesor) REFERENCES profesores(login) 
+	FOREIGN KEY (profesor) REFERENCES persoal(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE,	
 	FOREIGN KEY (tipoActividade) REFERENCES tipoActividades(codTipoActividade) 
 	ON UPDATE CASCADE ON DELETE CASCADE
