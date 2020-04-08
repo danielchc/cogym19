@@ -216,6 +216,24 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 mostrarCamposSocio();
                 break;
         }
+        /*Usuario usuario=super.getFachadaAplicacion().consultarUsuario(campoDNI.getText());
+        if(usuario!=null){
+            this.campoNome.setText(usuario.getNome());
+            this.campoData.setAccessibleText(usuario.getDataNacemento().toString());
+            this.campoDificultades.setText(usuario.getDificultades());
+
+            this.campoNome.setEditable(false);
+            this.campoData.setEditable(false);
+            this.campoDificultades.setEditable(false);
+        }else{
+            this.campoNome.setText("");
+            this.campoData.setAccessibleText("");
+            this.campoDificultades.setText("");
+
+            this.campoNome.setEditable(true);
+            this.campoData.setEditable(true);
+            this.campoDificultades.setEditable(true);
+        }*/
     }
 
     private boolean comprobarFormatos(){
