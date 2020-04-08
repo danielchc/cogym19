@@ -15,19 +15,12 @@ public class Persoal extends Usuario {
         super.setTipoUsuario(TipoUsuario.Persoal);
     }
 
-    public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta, String NUSS, boolean profesorActivo) {
-        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta);
-        this.NUSS = NUSS;
-        this.profesorActivo = profesorActivo;
-    }
-
     public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, String NUSS, boolean profesorActivo) {
         super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.NUSS = NUSS;
         this.profesorActivo= profesorActivo;
+        super.setTipoUsuario(TipoUsuario.Socio);
     }
-
-
 
     public String getNUSS() {
         return NUSS;
