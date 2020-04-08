@@ -39,7 +39,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public DatePicker campoData;
     public TextArea campoDificultades;
     public Label labelError;
-    public Label labelInfo;
 
     public HBox dataNacementoSocioBox;
     public HBox tarifaSocioBox;
@@ -90,29 +89,53 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     private void mostrarCamposPersoal(){
-        dataNacementoSocioBox.setVisible(false);
-        tarifaSocioBox.setVisible(false);
-        dificultadesSocioBox.setVisible(false);
-        nussPersoalBox.setVisible(true);
+        dataNacementoSocioBox.setVisible(true);
+        dificultadesSocioBox.setVisible(true);
         nomeBox.setVisible(true);
         loginBox.setVisible(true);
         passBox.setVisible(true);
         tlfBox.setVisible(true);
         correoBox.setVisible(true);
         ibanBox.setVisible(true);
+        dataNacementoSocioBox.setManaged(true);
+        dificultadesSocioBox.setManaged(true);
+        nomeBox.setManaged(true);
+        loginBox.setManaged(true);
+        passBox.setManaged(true);
+        tlfBox.setManaged(true);
+        correoBox.setManaged(true);
+        ibanBox.setManaged(true);
+
+        nussPersoalBox.setManaged(true);
+        nussPersoalBox.setVisible(true);
+        tarifaSocioBox.setVisible(false);
+        tarifaSocioBox.setManaged(false);
+
     }
 
     private void mostrarCamposSocio(){
         dataNacementoSocioBox.setVisible(true);
-        tarifaSocioBox.setVisible(true);
         dificultadesSocioBox.setVisible(true);
-        nussPersoalBox.setVisible(false);
         nomeBox.setVisible(true);
         loginBox.setVisible(true);
         passBox.setVisible(true);
         tlfBox.setVisible(true);
         correoBox.setVisible(true);
         ibanBox.setVisible(true);
+        dataNacementoSocioBox.setManaged(true);
+        dificultadesSocioBox.setManaged(true);
+        nomeBox.setManaged(true);
+        loginBox.setManaged(true);
+        passBox.setManaged(true);
+        tlfBox.setManaged(true);
+        correoBox.setManaged(true);
+        ibanBox.setManaged(true);
+
+
+        nussPersoalBox.setManaged(false);
+        nussPersoalBox.setVisible(false);
+        tarifaSocioBox.setVisible(true);
+        tarifaSocioBox.setManaged(true);
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
@@ -172,7 +195,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         this.labelError.setText("");
         switch (super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText())){
             case Ningunha:
-                this.labelInfo.setText("");
+                this.labelError.setText("");
                 this.tipoUsuario.setDisable(false);
                 break;
             case Ambas:
@@ -181,13 +204,13 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 esconderCampos();
                 break;
             case SoloSocio:
-                this.labelInfo.setText("*Esa persoa xa é socio.");
+                this.labelError.setText("*Esa persoa xa é socio.");
                 this.tipoUsuario.getSelectionModel().selectLast();
                 this.tipoUsuario.setDisable(true);
                 mostrarCamposPersoal();
                 break;
             case SoloPersoal:
-                this.labelInfo.setText("*Esa persoa xa é persoal.");
+                this.labelError.setText("*Esa persoa xa é persoal.");
                 this.tipoUsuario.getSelectionModel().selectFirst();
                 this.tipoUsuario.setDisable(true);
                 mostrarCamposSocio();
