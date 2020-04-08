@@ -156,7 +156,8 @@ public class vResumenRexistrosController extends AbstractController implements I
         TreeItem<String> root=new TreeItem<>("Comentarios das distintas medicións...");
 
         for(RexistroFisioloxico rex:this.rexistros){
-            if(rex.getComentario().isEmpty()) continue;
+            if(rex.getComentario()==null) continue;
+            if(rex.getComentario().equals("")) continue;
             TreeItem<String> item=new TreeItem<String>(rex.getData().toLocalDateTime().toLocalDate().toString());
             item.getChildren().add(new TreeItem<>(rex.getComentario()));
             root.getChildren().add(item);

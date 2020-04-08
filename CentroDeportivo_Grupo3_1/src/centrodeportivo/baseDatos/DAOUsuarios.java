@@ -589,7 +589,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stm = super.getConexion().prepareStatement(
                     "SELECT * " +
                             "FROM rexistrosFisioloxicos " +
-                            "WHERE usuario=? "+
+                            "WHERE socio=? "+
                             "ORDER BY dataMarca DESC;"
             );
             stm.setString(1, login);
