@@ -11,7 +11,7 @@ CREATE TABLE usuario(
 	login 				VARCHAR(25) NOT NULL,
 	contrasinal 		VARCHAR(64) NOT NULL,
 	numTelefono 		CHAR(9) NOT NULL,
-	correoElectronico 	VARCHAR(200) NOT NULL UNIQUE,
+	correoElectronico 	VARCHAR(200) NOT NULL,
 	IBAN 				CHAR(24) NOT NULL,
 	dataAlta			DATE NOT NULL DEFAULT NOW(),
 	dataBaixa			DATE CHECK(dataBaixa>=dataAlta),
