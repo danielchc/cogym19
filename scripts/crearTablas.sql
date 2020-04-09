@@ -1,4 +1,4 @@
-CREATE TABLE tarifas(
+CREATE TABLE tarifa(
 	codTarifa 		SERIAL NOT NULL,
 	nome 			VARCHAR(50) NOT NULL UNIQUE,
 	maxActividades 	SMALLINT CHECK(maxActividades>=0) NOT NULL ,
@@ -7,7 +7,7 @@ CREATE TABLE tarifas(
 	PRIMARY KEY (codTarifa)
 );
 
-CREATE TABLE usuarios(
+CREATE TABLE usuario(
 	login 				VARCHAR(25) NOT NULL,
 	contrasinal 		VARCHAR(64) NOT NULL,
 	numTelefono 		CHAR(9) NOT NULL,
@@ -18,13 +18,13 @@ CREATE TABLE usuarios(
 	PRIMARY KEY (login)
 );
 
-CREATE TABLE socios(
+CREATE TABLE socio(
 	login 			VARCHAR(25) NOT NULL,
 	tarifa 			INT NOT NULL,
 	PRIMARY KEY(login),
-	FOREIGN KEY (login) REFERENCES usuarios(login) 
+	FOREIGN KEY (login) REFERENCES usuario(login) 
 		ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (tarifa) REFERENCES tarifas(codTarifa) 
+	FOREIGN KEY (tarifa) REFERENCES tarifa(codTarifa) 
 		ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
@@ -33,11 +33,11 @@ CREATE TABLE persoal(
 	NUSS				CHAR(12) NOT NULL UNIQUE,
 	profesorActivo		BOOLEAN NOT NULL DEFAULT FALSE,
 	PRIMARY KEY(login),
-	FOREIGN KEY (login) REFERENCES usuarios(login) 
+	FOREIGN KEY (login) REFERENCES usuario(login) 
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE persoasFisicas(
+CREATE TABLE persoaFisica(
 	DNI 				CHAR(9) NOT NULL,
 	nome 				VARCHAR(200) NOT NULL,
 	dificultades 		VARCHAR(500),
@@ -45,13 +45,13 @@ CREATE TABLE persoasFisicas(
 	usuarioSocio		VARCHAR(25),
 	usuarioPersoal		VARCHAR(25),
 	PRIMARY KEY (DNI),
-	FOREIGN KEY (usuarioSocio) REFERENCES socios(login) 
+	FOREIGN KEY (usuarioSocio) REFERENCES socio(login) 
 			ON UPDATE CASCADE ON DELETE RESTRICT,
 	FOREIGN KEY (usuarioPersoal) REFERENCES persoal(login) 
 			ON UPDATE CASCADE ON DELETE RESTRICT		
 );
 
-CREATE TABLE instalacions(
+CREATE TABLE instalacion(
 	codInstalacion 	SERIAL NOT NULL,
 	nome 			VARCHAR(50) NOT NULL UNIQUE,
 	numTelefono 	CHAR(9) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE instalacions(
 	PRIMARY KEY (codInstalacion)
 );
 
-CREATE TABLE areas(
+CREATE TABLE area(
 	codArea 	SERIAL NOT NULL,
 	instalacion INT NOT NULL,
 	nome		VARCHAR(50),
@@ -67,40 +67,40 @@ CREATE TABLE areas(
 	aforoMaximo INT NOT NULL CHECK (aforoMaximo>0),
 	dataBaixa 	DATE,
 	PRIMARY KEY (codArea,instalacion),
-	FOREIGN KEY (instalacion) REFERENCES instalacions(codInstalacion) 
+	FOREIGN KEY (instalacion) REFERENCES instalacion(codInstalacion) 
 	ON UPDATE CASCADE ON DELETE RESTRICT,
 	UNIQUE(instalacion,nome)
 );
 
-CREATE TABLE tipoMateriais(
+CREATE TABLE tipoMaterial(
 	codTipoMaterial 	SERIAL NOT NULL, 			
 	nome 				VARCHAR(100) NOT NULL,
 	PRIMARY KEY(codTipoMaterial)
 );
 
-CREATE TABLE materiais(
+CREATE TABLE material(
 	codMaterial 	SERIAL NOT NULL,
 	tipoMaterial	INT	NOT NULL,
 	area			INT NOT NULL,
 	instalacion 	INT NOT NULL,
-	nome			VARCHAR(50) NOT NULL,
+	estado			VARCHAR(50) NOT NULL,
 	dataCompra		DATE,
 	prezoCompra 	DECIMAL	CHECK (prezoCompra>=0),
 	PRIMARY KEY (codMaterial,tipoMaterial),
-	FOREIGN KEY (area,instalacion) REFERENCES areas(codArea,instalacion)
+	FOREIGN KEY (area,instalacion) REFERENCES area(codArea,instalacion)
 	ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (tipoMaterial) REFERENCES tipoMateriais(codTipoMaterial)
+	FOREIGN KEY (tipoMaterial) REFERENCES tipoMaterial(codTipoMaterial)
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-CREATE TABLE tipoActividades(
+CREATE TABLE tipoActividade(
 	codTipoActividade 	SERIAL NOT NULL,
 	nome				VARCHAR(50) UNIQUE NOT NULL,
 	descricion			VARCHAR(200),
 	PRIMARY KEY (codTipoActividade)
 );
 
-CREATE TABLE cursos(
+CREATE TABLE curso(
 	codCurso	SERIAL NOT NULL,
 	nome		VARCHAR(50) UNIQUE,
 	descricion	VARCHAR(200),
@@ -108,7 +108,7 @@ CREATE TABLE cursos(
 	PRIMARY KEY (codCurso)
 );
  
-CREATE TABLE actividades(
+CREATE TABLE actividade(
 	dataActividade 	TIMESTAMP NOT NULL,
 	area 			INT NOT NULL,
 	instalacion 	INT NOT NULL,
@@ -119,17 +119,17 @@ CREATE TABLE actividades(
 	duracion 		DECIMAL NOT NULL CHECK (duracion>=0),
 	PRIMARY KEY (dataActividade,area,instalacion),
 	
-	FOREIGN KEY (tipoActividade) REFERENCES tipoActividades(codTipoActividade)
+	FOREIGN KEY (tipoActividade) REFERENCES tipoActividade(codTipoActividade)
 	ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (curso) REFERENCES cursos(codCurso) 
+	FOREIGN KEY (curso) REFERENCES curso(codCurso) 
 	ON UPDATE CASCADE ON DELETE CASCADE,	
-	FOREIGN KEY (area,instalacion) REFERENCES areas(codArea,instalacion) 
+	FOREIGN KEY (area,instalacion) REFERENCES area(codArea,instalacion) 
 	ON UPDATE CASCADE ON DELETE RESTRICT,
 	FOREIGN KEY (profesor) REFERENCES persoal(login) 
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-CREATE TABLE incidenciasMateriais(
+CREATE TABLE incidenciaMaterial(
 	numero 			SERIAL NOT NULL,
 	material		INT NOT NULL,
 	tipoMaterial	INT NOT NULL,
@@ -140,14 +140,14 @@ CREATE TABLE incidenciasMateriais(
 	dataResolucion 	DATE CHECK (dataResolucion>dataFalla),
 	custoReparacion DECIMAL CHECK (custoReparacion>=0),
 	PRIMARY KEY(numero),
-	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
+	FOREIGN KEY (usuario) REFERENCES usuario(login) 
 	ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (material,tipoMaterial) REFERENCES materiais(codMaterial,tipoMaterial) 
+	FOREIGN KEY (material,tipoMaterial) REFERENCES material(codMaterial,tipoMaterial) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
-CREATE TABLE incidenciasAreas(
+CREATE TABLE incidenciaArea(
 	numero 			SERIAL NOT NULL,
 	area			INT	NOT NULL,
 	instalacion		INT NOT NULL,
@@ -158,14 +158,14 @@ CREATE TABLE incidenciasAreas(
 	dataResolucion 	DATE,
 	custoReparacion DECIMAL CHECK (custoReparacion>=0),
 	PRIMARY KEY(numero),
-	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
+	FOREIGN KEY (usuario) REFERENCES usuario(login) 
 	ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (area,instalacion) REFERENCES areas(codArea,instalacion) 
+	FOREIGN KEY (area,instalacion) REFERENCES area(codArea,instalacion) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
-CREATE TABLE rexistrosFisioloxicos(
+CREATE TABLE rexistroFisioloxico(
 	socio			VARCHAR(25) NOT NULL,
 	dataMarca 		TIMESTAMP NOT NULL,
 	peso			DECIMAL CHECK (peso>=0),
@@ -176,43 +176,43 @@ CREATE TABLE rexistrosFisioloxicos(
 	ppm				INT CHECK (ppm>=0),
 	comentario		VARCHAR(200),
 	PRIMARY KEY (socio,dataMarca),
-	FOREIGN KEY (socio) REFERENCES socios(login) 
+	FOREIGN KEY (socio) REFERENCES socio(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE realizarActividades(
+CREATE TABLE realizarActividade(
 	dataActividade 	TIMESTAMP NOT NULL,
 	area 			INT NOT NULL,
 	instalacion 	INT NOT NULL,
 	usuario 		VARCHAR(25) NOT NULL,
 	valoracion 		SMALLINT CHECK (valoracion>=0 AND valoracion<=5),
 	PRIMARY KEY (dataActividade,area,instalacion,usuario),
-	FOREIGN KEY (dataActividade,area,instalacion) REFERENCES actividades(dataActividade,area,instalacion)
+	FOREIGN KEY (dataActividade,area,instalacion) REFERENCES actividade(dataActividade,area,instalacion)
 	ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
+	FOREIGN KEY (usuario) REFERENCES usuario(login) 
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
  
-CREATE TABLE realizarCursos(
+CREATE TABLE realizarCurso(
 	curso		INT NOT NULL,
 	usuario		VARCHAR(25) NOT NULL,
 	PRIMARY KEY (curso,usuario),
-	FOREIGN KEY (curso) REFERENCES cursos(codCurso) 
+	FOREIGN KEY (curso) REFERENCES curso(codCurso) 
 	ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (usuario) REFERENCES usuarios(login) 
+	FOREIGN KEY (usuario) REFERENCES usuario(login) 
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-CREATE TABLE enviarMensaxes(
+CREATE TABLE enviarMensaxe(
 	emisor		VARCHAR(25) NOT NULL,
 	receptor	VARCHAR(25) NOT NULL,
 	dataEnvio 	TIMESTAMP 	NOT NULL,
 	contido 	VARCHAR(500) NOT NULL,
 	lido		BOOLEAN	DEFAULT FALSE,
 	PRIMARY KEY (emisor,receptor,dataEnvio),
-	FOREIGN KEY (emisor) REFERENCES usuarios(login) 
+	FOREIGN KEY (emisor) REFERENCES usuario(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (receptor) REFERENCES usuarios(login) 
+	FOREIGN KEY (receptor) REFERENCES usuario(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -221,7 +221,7 @@ CREATE TABLE estarCapacitado(
 	profesor		VARCHAR(25) NOT NULL,
 	FOREIGN KEY (profesor) REFERENCES persoal(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE,	
-	FOREIGN KEY (tipoActividade) REFERENCES tipoActividades(codTipoActividade) 
+	FOREIGN KEY (tipoActividade) REFERENCES tipoActividade(codTipoActividade) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -234,15 +234,15 @@ CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
 		tr RECORD;
 	BEGIN
 		FOR tr IN
-			SELECT * FROM actividades WHERE curso=NEW.curso
+			SELECT * FROM actividade WHERE curso=NEW.curso
 		LOOP
-			INSERT INTO realizarActividades(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
+			INSERT INTO realizarActividade(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
 		END LOOP;
 		RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcursos FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
+CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
 
 
 CREATE OR REPLACE VIEW vistapersoal AS
@@ -261,11 +261,11 @@ SELECT
 	pe.nuss,
 	pe.profesoractivo
 FROM persoasfisicas pf
-JOIN usuarios us ON pf.usuariopersoal = us.login
+JOIN usuario us ON pf.usuariopersoal = us.login
 JOIN persoal pe ON pe.login = us.login;
 
 
-CREATE OR REPLACE VIEW  vistasocios AS 
+CREATE OR REPLACE VIEW  vistasocio AS 
 	SELECT 
 	us.login,
 	contrasinal,
@@ -279,6 +279,6 @@ CREATE OR REPLACE VIEW  vistasocios AS
 	databaixa,
 	numtelefono,
 	correoelectronico
-FROM socios AS so 
-JOIN persoasFisicas AS pf ON so.login=pf.usuariosocio 
-JOIN usuarios AS us ON us.login=so.login;
+FROM socio AS so 
+JOIN persoaFisica AS pf ON so.login=pf.usuarioocio 
+JOIN usuario AS us ON us.login=so.login;

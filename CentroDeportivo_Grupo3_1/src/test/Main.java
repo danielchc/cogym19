@@ -90,7 +90,6 @@ public class Main {
             }*/
             //fb.enviarMensaxe(new Mensaxe(new Usuario("pocha"),new Usuario("test0"),"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nisl dolor. Nulla facilisi. Aenean iaculis, ipsum a viverra suscipit, orci lectus placerat lacus, eu vulputate nulla dolor vitae lacus. Sed at sem diam. Duis lacinia elit enim, pretium mattis nulla efficitur quis. Donec quis orci ut risus auctor consectetur vel at urna. Integer dapibus nisi urna, vel malesuada erat euismod mattis. Donec elementum pharetra orci eu eleifend. Etiam tristique orci vel sapien mollis luctus amet."));
             System.out.println(Criptografia.hashSHA256("abc123.."));
-            System.out.println(Criptografia.hashSHA256("david"));
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
