@@ -67,12 +67,20 @@ public class vAdministrarUsuariosController extends AbstractController implement
         listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()],mostrarUsuariosBaixa.isSelected()));
     }
 
+    public void capacidadeUsuario(){
+        if(!listaUsuarios.getSelectionModel().isEmpty()) {
+            vPrincipal.mostrarMenu(IdPantalla.ADMINISTRARCAPACIDADES);
+            ((vAdministrarCapacidadesController) vPrincipal.getControlador(IdPantalla.ADMINISTRARCAPACIDADES)).setUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
+        }
+    }
+
     public void modificarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()) {
             vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
             ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
         }
     }
+
     public void borrarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()){
             String login=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem()).getLogin();

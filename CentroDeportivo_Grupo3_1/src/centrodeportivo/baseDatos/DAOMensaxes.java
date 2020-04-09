@@ -20,7 +20,7 @@ public final class DAOMensaxes extends AbstractDAO {
 
         PreparedStatement stmMensaxe=null;
         try {
-            stmMensaxe = super.getConexion().prepareStatement("INSERT INTO enviarMensaxes (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
+            stmMensaxe = super.getConexion().prepareStatement("INSERT INTO enviarMensaxe (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
             stmMensaxe.setString(1, m.getEmisor().getLogin());
             stmMensaxe.setString(2, m.getReceptor().getLogin());
             stmMensaxe.setString(3, m.getContido());
@@ -42,7 +42,7 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe=null;
         try{
             for(Usuario receptor:receptores){
-                stmMensaxe=super.getConexion().prepareStatement("INSERT INTO enviarMensaxes (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
+                stmMensaxe=super.getConexion().prepareStatement("INSERT INTO enviarMensaxe (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
                 stmMensaxe.setString(1,emisor.getLogin());
                 stmMensaxe.setString(2,receptor.getLogin());
                 stmMensaxe.setString(3,mensaxe);
@@ -65,7 +65,7 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe=null;
 
         try{
-            stmMensaxe=super.getConexion().prepareStatement("UPDATE enviarMensaxes SET lido=TRUE WHERE emisor=? AND receptor=? AND dataEnvio=?;");
+            stmMensaxe=super.getConexion().prepareStatement("UPDATE enviarMensaxe SET lido=TRUE WHERE emisor=? AND receptor=? AND dataEnvio=?;");
             stmMensaxe.setString(1,m.getEmisor().getLogin());
             stmMensaxe.setString(2,m.getReceptor().getLogin());
             stmMensaxe.setTimestamp(3,m.getDataEnvio());
@@ -87,7 +87,7 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe = null;
         ResultSet resultMensaxes;
         try{
-            stmMensaxe=super.getConexion().prepareStatement("SELECT * FROM enviarMensaxes WHERE receptor=? ORDER BY dataEnvio DESC;");
+            stmMensaxe=super.getConexion().prepareStatement("SELECT * FROM enviarMensaxe WHERE receptor=? ORDER BY dataEnvio DESC;");
             stmMensaxe.setString(1,loginReceptor);
             resultMensaxes=stmMensaxe.executeQuery();
             while (resultMensaxes.next()){
