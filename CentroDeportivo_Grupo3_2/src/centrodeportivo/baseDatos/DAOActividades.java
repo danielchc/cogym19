@@ -84,14 +84,12 @@ public class DAOActividades extends AbstractDAO {
         try{
             //Actualizarase a taboa de tipos de actividade onde esté a fila co código pasado:
             stmTiposActividades = con.prepareStatement("UPDATE tipoActividade " +
-                    "SET nome = ? " +
-                    "    descricion = ? " +
+                    "SET descricion = ? " +
                     "WHERE codTipoActividade = ? ");
 
             //Completamos a consulta:
-            stmTiposActividades.setString(1, tipoActividade.getNome());
-            stmTiposActividades.setString(2, tipoActividade.getDescricion());
-            stmTiposActividades.setInt(3, tipoActividade.getCodTipoActividade());
+            stmTiposActividades.setString(1, tipoActividade.getDescricion());
+            stmTiposActividades.setInt(2, tipoActividade.getCodTipoActividade());
 
             //Executamos a actualización:
             stmTiposActividades.executeUpdate();
@@ -121,7 +119,7 @@ public class DAOActividades extends AbstractDAO {
         //Intentamos realizar o borrado:
         try{
             stmTiposActividades = con.prepareStatement("DELETE FROM tipoActividade " +
-                    "WHERE codInstalacion = ?");
+                    "WHERE codTipoActividade = ?");
             //Completamos a sentenza:
             stmTiposActividades.setInt(1, tipoActividade.getCodTipoActividade());
 

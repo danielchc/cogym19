@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.Actividades.vAdministrarTiposActividadesController;
+import centrodeportivo.gui.controladores.Actividades.vInsercionTipoActividadeController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Instalacions.vAdministrarInstalacionsController;
 import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
@@ -83,6 +84,8 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.EDITARINSTALACION, new DatosVista("../../vistas/Instalacions/vEditarInstalacion.fxml", new vEditarInstalacionController(super.getFachadaAplicacion(), this)));
         //Pantalla de administración de tipos de actividades:
         this.pantallas.put(IdPantalla.ADMINISTRARTIPOSACTIVIDADES, new DatosVista("../../vistas/Actividades/vAdministrarTiposActividades.fxml", new vAdministrarTiposActividadesController(super.getFachadaAplicacion(), this)));
+        //Pantalla para inserción/modificación de tipos de actividades:
+        this.pantallas.put(IdPantalla.INSERCIONTIPOACTIVIDADE, new DatosVista("../../vistas/Actividades/vInsercionTipoActividade.fxml", new vInsercionTipoActividadeController(super.getFachadaAplicacion(), this)));
     }
 
     private void inciarTransiciones(){

@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.baseDatos.AbstractDAO;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -85,9 +86,26 @@ public class vAdministrarTiposActividadesController extends AbstractController i
     }
 
     public void btnRexistrarAction(ActionEvent actionEvent) {
+        //Se se quere rexistrar un novo tipo de actividade, ponse a null o campo do tipo da ventá correspondente:
+        vInsercionTipoActividadeController cont = (vInsercionTipoActividadeController) controllerPrincipal.getControlador(IdPantalla.INSERCIONTIPOACTIVIDADE);
+        cont.setTipoActividade(null);
+
+        //Agora, amósase esa pantalla:
+        controllerPrincipal.mostrarMenu(IdPantalla.INSERCIONTIPOACTIVIDADE);
     }
 
     public void btnXestionarAction(ActionEvent actionEvent) {
+        //Se se quere xestionar un tipo de actividade existente, hai que comprobar que haxa unha selección:
+        TipoActividade tipoActividade = (TipoActividade) taboaTiposActividades.getSelectionModel().getSelectedItem();
+        if(tipoActividade != null) {
+            vInsercionTipoActividadeController cont = (vInsercionTipoActividadeController) controllerPrincipal.getControlador(IdPantalla.INSERCIONTIPOACTIVIDADE);
+            //Introducese o tipo de actividade como atributo no controlador correspondente:
+            cont.setTipoActividade(tipoActividade);
+            //Agora, amósase esa pantalla:
+            controllerPrincipal.mostrarMenu(IdPantalla.INSERCIONTIPOACTIVIDADE);
+        } else {
+            super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Non hai ningunha selección para editar!");
+        }
     }
 
 }
