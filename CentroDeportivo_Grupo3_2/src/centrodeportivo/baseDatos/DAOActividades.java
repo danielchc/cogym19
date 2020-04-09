@@ -31,7 +31,7 @@ public class DAOActividades extends AbstractDAO {
 
         //Preparamos a inserción:
         try{
-            stmTiposActividades = con.prepareStatement("INSERT INTO tipoActividades (nome, descricion) " +
+            stmTiposActividades = con.prepareStatement("INSERT INTO tipoActividade (nome, descricion) " +
                     " VALUES (?, ?)");
             //Establecemos os campos co ?
             stmTiposActividades.setString(1, tipoActividade.getNome());
@@ -44,7 +44,7 @@ public class DAOActividades extends AbstractDAO {
             //Faremos a consulta polo nome deste tipo de actividade:
 
             stmTiposActividades = con.prepareStatement("SELECT codTipoActividade " +
-                    "FROM tipoActividades " +
+                    "FROM tipoActividade " +
                     "WHERE nome = ? ");
 
             //Completamos a consulta cos campos descoñecidos:
@@ -83,7 +83,7 @@ public class DAOActividades extends AbstractDAO {
         //Preparamos a inserción:
         try{
             //Actualizarase a taboa de tipos de actividade onde esté a fila co código pasado:
-            stmTiposActividades = con.prepareStatement("UPDATE tipoActividades " +
+            stmTiposActividades = con.prepareStatement("UPDATE tipoActividade " +
                     "SET nome = ? " +
                     "    descricion = ? " +
                     "WHERE codTipoActividade = ? ");
@@ -120,7 +120,7 @@ public class DAOActividades extends AbstractDAO {
 
         //Intentamos realizar o borrado:
         try{
-            stmTiposActividades = con.prepareStatement("DELETE FROM tiposActividades " +
+            stmTiposActividades = con.prepareStatement("DELETE FROM tipoActividade " +
                     "WHERE codInstalacion = ?");
             //Completamos a sentenza:
             stmTiposActividades.setInt(1, tipoActividade.getCodTipoActividade());
@@ -156,7 +156,7 @@ public class DAOActividades extends AbstractDAO {
         //Intentamos realizar a consulta:
         try{
             stmTiposActividades = con.prepareStatement("SELECT codTipoActividade, nome, descricion " +
-                    "FROM tipoActividades");
+                    "FROM tipoActividade");
             //Executámola:
             rsTiposActividades = stmTiposActividades.executeQuery();
 
@@ -198,7 +198,7 @@ public class DAOActividades extends AbstractDAO {
             //Recuperamos todos os tipos de actividades posíbeis a partir do nome dentro do tipo de actividade
             //pasado como argumento:
             stmTiposActividades = con.prepareStatement("SELECT codTipoActividade, nome, descricion " +
-                    "FROM tipoActividades " +
+                    "FROM tipoActividade " +
                     "WHERE nome like ? ");
             //Completamos a consulta a realizar:
             stmTiposActividades.setString(1, "%" + tipoActividade.getNome() + "%");

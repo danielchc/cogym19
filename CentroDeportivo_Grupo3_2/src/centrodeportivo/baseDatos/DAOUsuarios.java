@@ -20,7 +20,7 @@ public final class DAOUsuarios extends AbstractDAO {
         boolean resultado = false;
 
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuario WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
             stmUsuario.setString(1,login);
             stmUsuario.setString(2,password);
             resultValidacion=stmUsuario.executeQuery();
@@ -45,10 +45,10 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             stmUsuario = super.getConexion().prepareStatement("SELECT " +
                     "login," +
-                    "(SELECT 1 FROM socios AS s WHERE s.login=u.login) AS eSocio," +
+                    "(SELECT 1 FROM socio AS s WHERE s.login=u.login) AS eSocio," +
                     "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND profesorActivo=FALSE) AS ePersoal," +
                     "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND profesorActivo=TRUE) AS eProfesor " +
-                    "FROM usuarios as u WHERE u.login=?"
+                    "FROM usuario as u WHERE u.login=?"
             );
             stmUsuario.setString(1,login);
 
@@ -78,7 +78,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             if(tipoUsuario==TipoUsuario.Socio) {
-                stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario FROM vistasocios as vs WHERE u.login=? AND (dataBaixa IS NULL);");
+                stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario FROM vistasocio as vs WHERE u.login=? AND (dataBaixa IS NULL);");
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {

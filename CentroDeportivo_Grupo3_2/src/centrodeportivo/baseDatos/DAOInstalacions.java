@@ -22,7 +22,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmInstalacions = con.prepareStatement("INSERT INTO Instalacions (nome, numtelefono, direccion) " +
+            stmInstalacions = con.prepareStatement("INSERT INTO Instalacion (nome, numtelefono, direccion) " +
                     " VALUES (?, ?, ?)");
             //Establecemos os valores:
             stmInstalacions.setString(1, instalacion.getNome());
@@ -34,7 +34,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Imos facer unha segunda consulta para recuperar o ID da instalación:
             //Fago a consulta polo nome porque tamén é único:
-            stmInstalacions = con.prepareStatement("SELECT codInstalacion FROM instalacions " +
+            stmInstalacions = con.prepareStatement("SELECT codInstalacion FROM instalacion " +
                     " WHERE nome = ? ");
 
             //Establecemos o valor que se necesita:
@@ -69,7 +69,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos o borrado:
         try{
-            stmInstalacions = con.prepareStatement("DELETE FROM Instalacions " +
+            stmInstalacions = con.prepareStatement("DELETE FROM Instalacion " +
                     " WHERE codInstalacion = ?");
             stmInstalacions.setInt(1, instalacion.getCodInstalacion());
 
@@ -97,7 +97,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos a modificación:
         try{
-            stmInstalacions = con.prepareStatement("UPDATE Instalacions " +
+            stmInstalacions = con.prepareStatement("UPDATE Instalacion " +
                     " SET nome = ?, " +
                     "     numtelefono = ?, " +
                     "     direccion = ? " +
@@ -138,7 +138,7 @@ public final class DAOInstalacions extends AbstractDAO {
         //Preparamos a consulta:
         try{
             stmInstalacions = con.prepareStatement("SELECT codinstalacion, nome, numtelefono, direccion " +
-                    " FROM instalacions " +
+                    " FROM instalacion " +
                     " WHERE nome like ? " +
                     "   and numtelefono like ? " +
                     "   and direccion like ? ");
@@ -185,7 +185,7 @@ public final class DAOInstalacions extends AbstractDAO {
         //Preparamos a consulta:
         try{
             stmInstalacions = con.prepareStatement("SELECT codInstalacion, nome, numTelefono, direccion " +
-                    "FROM Instalacions");
+                    "FROM Instalacion");
 
             //Non hai nada que insertar na consulta, polo que directamente a realizamos:
             rsInstalacions = stmInstalacions.executeQuery();
