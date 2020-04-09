@@ -17,27 +17,30 @@ public final class DAOUsuarios extends AbstractDAO {
     protected boolean validarUsuario(String login,String password) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
+        boolean resultado = false;
+
         try {
             stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
             stmUsuario.setString(1,login);
             stmUsuario.setString(2,password);
             resultValidacion=stmUsuario.executeQuery();
-            return resultValidacion.next();
+            resultado = resultValidacion.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             try {
                 stmUsuario.close();
             } catch (SQLException e){
-                System.out.println("Imposible cerrar cursores");
+                System.out.println("Imposible pechar os cursores");
             }
         }
-        return false;
+        return resultado;
     }
 
     protected TipoUsuario consultarTipo(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
+        TipoUsuario resultado = null;
 
         try {
             stmUsuario = super.getConexion().prepareStatement("SELECT " +
@@ -51,26 +54,27 @@ public final class DAOUsuarios extends AbstractDAO {
 
             rsUsuarios = stmUsuario.executeQuery();
             rsUsuarios.next();
-            if(rsUsuarios.getBoolean("eSocio"))return TipoUsuario.Socio;
-            if(rsUsuarios.getBoolean("eProfesor"))return TipoUsuario.Profesor;
-            if(rsUsuarios.getBoolean("ePersoal"))return TipoUsuario.Persoal;
+            if(rsUsuarios.getBoolean("eSocio")) resultado = TipoUsuario.Socio;
+            if(rsUsuarios.getBoolean("eProfesor")) resultado = TipoUsuario.Profesor;
+            if(rsUsuarios.getBoolean("ePersoal")) resultado =  TipoUsuario.Persoal;
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             try {
                 stmUsuario.close();
             } catch (SQLException e){
-                System.out.println("Imposible cerrar cursores");
+                System.out.println("Imposible pechar os cursores");
             }
         }
 
-        return null;
+        return resultado;
     }
 
     protected Usuario consultarUsuario(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
         TipoUsuario tipoUsuario=consultarTipo(login);
+        Usuario resultado = null;
 
         try {
             if(tipoUsuario==TipoUsuario.Socio) {
@@ -78,7 +82,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
-                    return new Socio(
+                    resultado = new Socio(
                             rsUsuarios.getString("login"),
                             rsUsuarios.getString("contrasinal"),
                             rsUsuarios.getString("DNI"),
@@ -95,7 +99,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if(rsUsuarios.next()){
-                    return new Persoal(
+                    resultado = new Persoal(
                             rsUsuarios.getString("login"),
                             rsUsuarios.getString("contrasinal"),
                             rsUsuarios.getString("DNI"),
@@ -117,10 +121,10 @@ public final class DAOUsuarios extends AbstractDAO {
             try {
                 stmUsuario.close();
             } catch (SQLException e){
-                System.out.println("Imposible cerrar cursores");
+                System.out.println("Imposible pechar os cursores");
             }
         }
-        return null;
+        return resultado;
     }
 
 }

@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.principal;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.Actividades.vAdministrarTiposActividadesController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Instalacions.vAdministrarInstalacionsController;
 import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
@@ -80,6 +81,8 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARINSTALACIONS, new DatosVista("../../vistas/Instalacions/vAdministrarInstalacions.fxml", new vAdministrarInstalacionsController(super.getFachadaAplicacion(), this)));
         //Pantalla de edición dunha instalación:
         this.pantallas.put(IdPantalla.EDITARINSTALACION, new DatosVista("../../vistas/Instalacions/vEditarInstalacion.fxml", new vEditarInstalacionController(super.getFachadaAplicacion(), this)));
+        //Pantalla de administración de tipos de actividades:
+        this.pantallas.put(IdPantalla.ADMINISTRARTIPOSACTIVIDADES, new DatosVista("../../vistas/Actividades/vAdministrarTiposActividades.fxml", new vAdministrarTiposActividadesController(super.getFachadaAplicacion(), this)));
     }
 
     private void inciarTransiciones(){

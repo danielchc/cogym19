@@ -121,6 +121,22 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public String getDificultades(){
+        return dificultades;
+    }
+
+    public void setDificultades(String dificultades){
+        this.dificultades = dificultades;
+    }
+
+    public Date getDataNacemento(){
+        return dataNacemento;
+    }
+
+    public void setDataNacemento(Date dataNacemento){
+        this.dataNacemento = dataNacemento;
+    }
+
     @Override
     public boolean equals(Object o){
         if(o instanceof Usuario){
