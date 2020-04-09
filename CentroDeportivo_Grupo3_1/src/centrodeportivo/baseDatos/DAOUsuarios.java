@@ -183,7 +183,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
 
     protected void insertarUsuario(Usuario usuario) {
-        PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null;
+        PreparedStatement stmUsuario=null;
         try {
 
             if(!existePersoaFisica(usuario.getDNI())){
@@ -217,29 +217,26 @@ public final class DAOUsuarios extends AbstractDAO {
 
             if(usuario instanceof Socio) {
                 Socio socio=(Socio)usuario;
-                stmSocio=super.getConexion().prepareStatement("INSERT INTO socio (login,tarifa) values (?,?);");
-                stmSocio.setString(1,socio.getLogin());
-                stmSocio.setInt(2,socio.getTarifa().getCodTarifa());
-                stmSocio.executeUpdate();
+                stmUsuario=super.getConexion().prepareStatement("INSERT INTO socio (login,tarifa) values (?,?);");
+                stmUsuario.setString(1,socio.getLogin());
+                stmUsuario.setInt(2,socio.getTarifa().getCodTarifa());
+                stmUsuario.executeUpdate();
 
             }else if (usuario instanceof Persoal){
                 Persoal persoal=(Persoal)usuario;
-                stmPersoal=super.getConexion().prepareStatement("INSERT INTO persoal (login,NUSS,profesoractivo) VALUES (?,?,?);");
-                stmPersoal.setString(1,persoal.getLogin());
-                stmPersoal.setString(2,persoal.getNUSS());
-                stmPersoal.setBoolean(3,persoal.getTipoUsuario()==TipoUsuario.Profesor);
-                stmPersoal.executeUpdate();
+                stmUsuario=super.getConexion().prepareStatement("INSERT INTO persoal (login,NUSS,profesoractivo) VALUES (?,?,?);");
+                stmUsuario.setString(1,persoal.getLogin());
+                stmUsuario.setString(2,persoal.getNUSS());
+                stmUsuario.setBoolean(3,persoal.getTipoUsuario()==TipoUsuario.Profesor);
+                stmUsuario.executeUpdate();
             }
             super.getConexion().commit();
-
 
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             try {
                 if(stmUsuario!=null)stmUsuario.close();
-                if(stmPersoal!=null)stmPersoal.close();
-                if(stmSocio!=null)stmSocio.close();
             } catch (SQLException e){
                 System.out.println("Imposible cerrar cursores");
             }
@@ -247,50 +244,48 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
     protected void actualizarUsuario(String loginVello,Usuario usuario) {
-        /*PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null;
+        PreparedStatement stmUsuario=null;
 
         try {
-            super.getConexion().setAutoCommit(false);
-            stmUsuario= super.getConexion().prepareStatement("UPDATE usuarios SET login=?,contrasinal=?,nome=?,numTelefono=?,DNI=?,correoElectronico=?,IBAN=? WHERE login=?;");
+            stmUsuario= super.getConexion().prepareStatement("UPDATE usuario SET login=?,contrasinal=?,numTelefono=?,correoElectronico=?,IBAN=? WHERE login=?;");
             stmUsuario.setString(1,usuario.getLogin());
             stmUsuario.setString(2,usuario.getContrasinal());
-            stmUsuario.setString(3,usuario.getNome());
-            stmUsuario.setString(4,usuario.getNumTelefono());
-            stmUsuario.setString(5,usuario.getDNI());
-            stmUsuario.setString(6,usuario.getCorreoElectronico());
-            stmUsuario.setString(7,usuario.getIBANconta());
-            stmUsuario.setString(8,loginVello);
+            stmUsuario.setString(3,usuario.getNumTelefono());
+            stmUsuario.setString(4,usuario.getCorreoElectronico());
+            stmUsuario.setString(5,usuario.getIBANconta());
+            stmUsuario.setString(6,loginVello);
             stmUsuario.executeUpdate();
+
+            stmUsuario= super.getConexion().prepareStatement("UPDATE persoafisica SET nome=?,dificultades=?,datanacemento=? WHERE DNI=?;");
+            stmUsuario.setString(1,usuario.getNome());
+            stmUsuario.setString(2,usuario.getDificultades());
+            stmUsuario.setDate(3,usuario.getDataNacemento());
+            stmUsuario.setString(4,usuario.getDNI());
+            stmUsuario.executeUpdate();
+
             if(usuario instanceof Socio) {
                 Socio socio=(Socio)usuario;
-                stmSocio=super.getConexion().prepareStatement("UPDATE socios SET dataNacemento=?,dificultades=?,tarifa=? WHERE login=?;");
-                stmSocio.setDate(1, socio.getDataNacemento());
-                stmSocio.setString(2,socio.getDificultades());
-                stmSocio.setInt(3,socio.getTarifa().getCodTarifa());
-                stmSocio.setString(4,socio.getLogin());
-                stmSocio.executeUpdate();
+                stmUsuario=super.getConexion().prepareStatement("UPDATE socio SET tarifa=? WHERE login=?;");
+                stmUsuario.setInt(1,socio.getTarifa().getCodTarifa());
+                stmUsuario.setString(2,socio.getLogin());
+                stmUsuario.executeUpdate();
             }else if (usuario instanceof Persoal){
                 Persoal persoal=(Persoal)usuario;
-                stmPersoal=super.getConexion().prepareStatement("UPDATE persoal SET NUSS=? WHERE login=?;");
-                stmPersoal.setString(1,persoal.getNUSS());
-                stmPersoal.setString(2,persoal.getLogin());
-                stmPersoal.executeUpdate();
+                stmUsuario=super.getConexion().prepareStatement("UPDATE persoal SET profesoractivo=? WHERE login=?;");
+                stmUsuario.setBoolean(1,persoal.getTipoUsuario()==TipoUsuario.Profesor);
+                stmUsuario.setString(2,persoal.getLogin());
+                stmUsuario.executeUpdate();
             }
             super.getConexion().commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             try {
-                assert stmUsuario != null;
-                stmUsuario.close();
-                assert stmPersoal != null;
-                stmPersoal.close();
-                assert stmSocio != null;
-                stmSocio.close();
+                if(stmUsuario != null) stmUsuario.close();
             } catch (SQLException e){
                 System.out.println("Imposible cerrar cursores");
             }
-        }*/
+        }
     }
 
     protected void darBaixaUsuario(String login) {
