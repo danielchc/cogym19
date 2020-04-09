@@ -11,6 +11,7 @@ import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -131,6 +132,34 @@ public final class DAOUsuarios extends AbstractDAO {
         return false;
     }
 
+
+    protected PersoaFisica consultarPersoaFisica(String DNI){
+        PreparedStatement stmPersoa = null;
+        ResultSet resultPersoa;
+        try{
+            stmPersoa=super.getConexion().prepareStatement("SELECT * FROM persoafisica WHERE DNI=?");
+            stmPersoa.setString(1,DNI);
+            resultPersoa=stmPersoa.executeQuery();
+            if(resultPersoa.next()){
+                return new PersoaFisica(
+                        resultPersoa.getString("DNI"),
+                        resultPersoa.getString("dificultades"),
+                        resultPersoa.getString("dificultades"),
+                        resultPersoa.getDate("datanacemento")
+                );
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                stmPersoa.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return null;
+
+    }
     protected void insertarUsuario(Usuario usuario) {
         /*PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null,stmProfesor=null;
         try {

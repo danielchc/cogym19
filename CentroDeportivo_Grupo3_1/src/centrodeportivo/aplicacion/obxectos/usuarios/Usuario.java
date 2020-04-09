@@ -4,7 +4,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 
 import java.sql.Date;
 
-public class Usuario {
+public class Usuario extends PersoaFisica{
 
     /**
      * Atributos da clase Usuario
@@ -16,10 +16,6 @@ public class Usuario {
     private String IBANconta;
     private Date dataAlta;
     private Date dataBaixa;
-    private String DNI;
-    private String nome;
-    private String dificultades;
-    private Date dataNacemento;
     private TipoUsuario tipoUsuario;
 
     /**
@@ -27,6 +23,7 @@ public class Usuario {
      * @param login login do Usuario
      */
     public Usuario(String login){
+        super();
         this.login=login;
     }
 
@@ -54,15 +51,12 @@ public class Usuario {
      * @param IBANconta IBAN do usuario
      */
     public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta){
+        super(DNI, nome, dificultades, dataNacemento);
         this.login=login;
         this.contrasinal=contrasinal;
         this.numTelefono=numTelefono;
         this.correoElectronico=correoElectronico;
         this.IBANconta=IBANconta;
-        this.DNI = DNI;
-        this.nome = nome;
-        this.dificultades = dificultades;
-        this.dataNacemento = dataNacemento;
     }
 
     public boolean estaDeBaixa(){
@@ -129,38 +123,6 @@ public class Usuario {
         this.dataBaixa = dataBaixa;
     }
 
-    public String getDNI() {
-        return DNI;
-    }
-
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDificultades() {
-        return dificultades;
-    }
-
-    public void setDificultades(String dificultades) {
-        this.dificultades = dificultades;
-    }
-
-    public Date getDataNacemento() {
-        return dataNacemento;
-    }
-
-    public void setDataNacemento(Date dataNacemento) {
-        this.dataNacemento = dataNacemento;
-    }
-
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
@@ -190,10 +152,6 @@ public class Usuario {
                 ", IBANconta='" + IBANconta + '\'' +
                 ", dataAlta=" + dataAlta +
                 ", dataBaixa=" + dataBaixa +
-                ", DNI='" + DNI + '\'' +
-                ", nome='" + nome + '\'' +
-                ", dificultades='" + dificultades + '\'' +
-                ", dataNacemento=" + dataNacemento +
                 ", tipoUsuario=" + tipoUsuario +
                 '}';
     }
