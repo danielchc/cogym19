@@ -64,7 +64,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
 
     public void buscarUsuarios(){
         listaUsuarios.getItems().removeAll(listaUsuarios.getItems());
-        listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()]),mostrarUsuariosBaixa.isSelected());
+        listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()],mostrarUsuariosBaixa.isSelected()));
     }
 
     public void modificarUsuario(){

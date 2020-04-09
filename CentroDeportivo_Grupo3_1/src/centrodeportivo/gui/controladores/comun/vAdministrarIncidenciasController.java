@@ -32,7 +32,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        TableColumn<Incidencia,String> numeroColumn = new TableColumn<>("Numero");
+        TableColumn<Incidencia,String> numeroColumn = new TableColumn<>("Número");
         numeroColumn.setCellValueFactory(new PropertyValueFactory<>("numero"));
         TableColumn<Incidencia,String> usuarioColumn = new TableColumn<>("Usuario");
         usuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
@@ -42,7 +42,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
             }
         });
 
-        TableColumn<Incidencia,String> descricionColumn = new TableColumn<>("Descricion");
+        TableColumn<Incidencia,String> descricionColumn = new TableColumn<>("Descrición");
         descricionColumn.setCellValueFactory(new PropertyValueFactory<>("descricion"));
 
         TableColumn<Incidencia,String> tipoIncidenciaColumn = new TableColumn<>("Tipo Incidencia");
