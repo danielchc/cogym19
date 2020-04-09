@@ -238,45 +238,191 @@ insert into enviarMensaxe values ('mariaSocio', 'andreaPersoal', '2020-03-13 20:
 insert into enviarMensaxe values ('lucasPersoal', 'sergioPersoal', '2020-01-24 15:03:44', 'Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor. Vivamus mattis viverra enim  vitae vestibulum velit. In hac habitasse platea dictumst. Nulla a lobortis ante. Lorem ipsum dolor sit amet  consectetur adipiscing elit. In pretium hendrerit velit id elementum. Suspendisse potenti. Aenean fermentum cursus tincidunt. Curabitur accumsan leo ac turpis pretium fringilla. Morbi blandit vulputate dui et faucibus.', false);
 
 ------------------INSTALACIÓNS-------------------
-insert into instalacion (nome, numtelefono, direccion) values ('Polideportivo da Cañota', '982455732', 'Lugar da Cañota, 22');
-insert into instalacion (nome, numtelefono, direccion) values ('Estadio Central', '924566633', 'Rúa Baixa, Lugar de Montes');
-insert into instalacion (nome, numtelefono, direccion) values ('Multiusos Pontes do Mar', '992423465', 'Calle Lorenzo, Vilaxoan');
-insert into instalacion (nome, numtelefono, direccion) values ('Pistas de Tenis de Louro', '635234888', 'Lugar de Ventos, 35');
-insert into instalacion (nome, numtelefono, direccion) values ('Piscinas Nadamoito', '984566943', 'Rúa Alta, Lugar de Prados');
+insert into instalacion (nome, numtelefono, direccion) values ('polideportivo da cañota', '982455732', 'Lugar da Cañota, 22');
+insert into instalacion (nome, numtelefono, direccion) values ('estadio central', '924566633', 'Rúa Baixa, Lugar de Montes');
+insert into instalacion (nome, numtelefono, direccion) values ('multiusos pontes do mar', '992423465', 'Calle Lorenzo, Vilaxoan');
+insert into instalacion (nome, numtelefono, direccion) values ('pistas de tenis de louro', '635234888', 'Lugar de Ventos, 35');
+insert into instalacion (nome, numtelefono, direccion) values ('piscinas nadamoito', '984566943', 'Rúa Alta, Lugar de Prados');
 
 ------------------MENSAXES-------------------
-insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (1, 'Pista de Atletismo DC', 'Para os máis corredores', 50, '2018-12-12');
-insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Cancha do Básquet Cañota CAB', 'A cancha do mellor equipo que houbo en toda Cañota', 30);
-insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Pistas de Pádel', 'Pistas de Pádel recén construídas.', 15);
-insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Aula C1', 'Aula para clases teóricas.', 25);
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'pista de atletismo dc', 'Para os máis corredores', 50);
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'cancha do básquet cañota cab', 'A cancha do mellor equipo que houbo en toda Cañota', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'pistas de pádel', 'Pistas de Pádel recén construídas.', 15);
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (1, 'aula c1', 'Aula para clases teóricas.', 25, '2018-12-12');
 
-insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo do Montes FC', 'Campo de Fútbol do mellor equipo da 3ª rexional.', 40);
-insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo auxiliar 1', 'Campo de Fútbol para entrenamentos.', 30);
-insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo auxiliar 2', 'Outro campo de Fútbol para entrenos.', 25);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'campo do montes fc', 'Campo de Fútbol do mellor equipo da 3ª rexional.', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'campo auxiliar 1', 'Campo de Fútbol para entrenamentos.', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'campo auxiliar 2', 'Outro campo de Fútbol para entrenos.', 25);
 
-insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Cancha principal', 'Cancha na que se poden practicar todo tipo de deportes.', 70);
-insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (3, 'Cancha secundaria', 'Cancha para diferentes deportes auxiliar.', 50, '2020-01-22');
-insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Aula V1', 'Aula ampla pechada para exposicións.', 40);
-insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Aula V2', 'Pequena aula para pequenos encontros.', 10);
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'cancha principal', 'Cancha na que se poden practicar todo tipo de deportes.', 70);
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (3, 'cancha secundaria', 'Cancha para diferentes deportes auxiliar.', 50, '2020-01-22');
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'aula v1', 'Aula ampla pechada para exposicións.', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'aula v2', 'Pequena aula para pequenos encontros.', 10);
 
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista Central', 'Pista principal, nela téñense reunido as mellores raquetas.', 5);
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 1', 'Primeira pista auxiliar.', 5);
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 2', 'Segunda pista auxiliar.', 5);
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 3', 'Terceira pista auxiliar.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista central', 'Pista principal, nela téñense reunido as mellores raquetas.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista 1', 'Primeira pista auxiliar.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista 2', 'Segunda pista auxiliar.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista 3', 'Terceira pista auxiliar.', 5);
 
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina principal', 'Piscina multiusos para a práctica de diferentes deportes de natación', 40);
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina de saltos', 'Piscina óptima para realizar saltos.', 30);
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina auxiliar', 'Piscina multiusos de menor tamaño.', 15);
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Aula P1', 'Aula da instalación das piscinas, para calquera tipo de encontro entre poucas persoas', 15);
-insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (5, 'Aula P2', 'Pequena aula para reunións', 10, '2020-01-30');
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'piscina principal', 'Piscina multiusos para a práctica de diferentes deportes de natación', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'piscina de saltos', 'Piscina óptima para realizar saltos.', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'piscina auxiliar', 'Piscina multiusos de menor tamaño.', 15);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'aula p1', 'Aula da instalación das piscinas, para calquera tipo de encontro entre poucas persoas', 15);
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (5, 'aula p2', 'Pequena aula para reunións', 10, '2020-01-30');
 
-------------------------------------------------
+------------------TIPOMATERIAL-------------------
+insert into tipoMaterial (nome) values ('pértiga');
+insert into tipoMaterial (nome) values ('disco');
+insert into tipoMaterial (nome) values ('xabalina');
+insert into tipoMaterial (nome) values ('balón de baloncesto reglamentario');
+insert into tipoMaterial (nome) values ('balón de Baloncesto júnior');
+insert into tipoMaterial (nome) values ('pala de pádel');
+insert into tipoMaterial (nome) values ('pelota de pádel');
+insert into tipoMaterial (nome) values ('proxector');
+insert into tipoMaterial (nome) values ('ordenador portátil');
+insert into tipoMaterial (nome) values ('pelota de fútbol 11');
+insert into tipoMaterial (nome) values ('pelota de fútbol 7');
+insert into tipoMaterial (nome) values ('peto');
+insert into tipoMaterial (nome) values ('cono');
+insert into tipoMaterial (nome) values ('rede de porteria');
+insert into tipoMaterial (nome) values ('pelota de balonmán');
+insert into tipoMaterial (nome) values ('pelota de fútbol sala');
+insert into tipoMaterial (nome) values ('disco de hockey');
+insert into tipoMaterial (nome) values ('pau de hockey');
+insert into tipoMaterial (nome) values ('raqueta de tenis');
+insert into tipoMaterial (nome) values ('pelota de tenis');
+insert into tipoMaterial (nome) values ('rede de tenis');
+insert into tipoMaterial (nome) values ('pelota de waterpolo');
 
+------------------MATERIAL-------------------
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (1, 1, 1, 'Perfecta', '2017-02-20', 80);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (1, 1, 1, 'Algo usada, pero bo estado', '2015-04-20', 70);
 
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (2, 1, 1, 'Recén comprada, sen fallos', '2020-03-10', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (2, 1, 1, 'Algo deteriorado', '2012-03-12', null);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (2, 1, 1, 'Perfecta', '2014-09-18', 40);
 
-------------------------------------------------
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (3, 1, 1, 'Para o tempo que ten moi conservada', '2009-09-11', 150);
 
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (4, 1, 2, 'Sen usar', '2020-01-11', 50);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (4, 1, 2, 'Empeza a estar gastado', '2012-11-11', 30);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (4, 1, 2, 'Moi bo', '2019-06-10', 25);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (4, 3, 1, 'Bo estado', '2018-09-12', 40);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (4, 3, 1, 'Gastado pero funcional', '2011-02-28', 40);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (4, 3, 1, 'Gastado pero funcional', '2014-01-20', 45);
 
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (5, 1, 2, 'Novo', '2020-03-19', 80);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (5, 1, 2, 'Gastado', '2011-01-20', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (5, 3, 1, 'Ben conservado', '2012-10-23', 20);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (6, 1, 3, 'Aceptable', '2019-02-10', 80);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (6, 1, 3, 'Bo aspecto', '2012-10-24', 100);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (6, 1, 3, 'Perfecta, sen rasguños', '2020-01-23', 25);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (6, 1, 3, 'Moi coidada', '2012-12-11', 150);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (7, 1, 3, 'Sen problemas', '2019-12-11', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (7, 1, 3, 'Perfecta', '2019-12-11', 20);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (8, 3, 3, 'Funcional', '2018-01-29', 100);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (8, 3, 4, 'Con algún defectiño', '2017-12-13', 140);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (8, 5, 4, 'Sen ningún problema aparente', '2018-08-30', 120);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (8, 5, 4, 'Algo problemático', '2015-02-22', 120);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (9, 3, 3, 'Ben conservado e funcional', '2019-01-22', 300);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (9, 3, 4, 'En perfecto estado', '2018-05-12', 280);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (9, 5, 4, 'Sen problemas', '2016-02-05', 400);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 1, 'Bos resultados', '2020-02-05', 25);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 1, 'Sen usar', '2020-02-05', 40);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 1, 'Bo estado', '2016-01-09', 22);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 1, 'Algo gastado', '2016-05-05', 35);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 2, 'Perfectamente conservado', '2016-12-12', 40);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 2, 'Perfecto', '2016-12-12', 15);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 3, 'Boa conservación', '2015-11-20', 40);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (10, 2, 3, 'Sen defectos', '2019-08-16', 25);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (11, 2, 1, 'Ben', '2017-04-22', 25);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (11, 2, 1, 'Sen problemas recentes', '2019-01-23', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (11, 2, 3, 'Perfecto', '2020-01-11', 30);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 1, 'Ben conservado', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 1, 'Algún rasguño pero ben', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 1, 'Usado', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 2, 'Perfecto', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 2, 'Algo usado', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 2, 'Bastante ben', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 3, 'Algún defecto', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 3, 'Algo descosido por un lado', '2018-01-14', 5);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (12, 2, 3, 'Sen defecto aparente', '2018-01-14', 5);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 1, 'Boa conservación', '2019-10-12', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 1, 'Algo roto nunha esquina', '2019-10-12', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 1, 'Practicamente sen detalles', '2019-10-12', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 1, 'Pouco usado', '2019-10-12', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 2, 'Perfecto', '2019-10-12', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 2, 'Sen defectos', '2019-10-12', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 2, 'Ben conservado', '2019-10-13', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 2, 'Algún detalle de moito uso', '2019-10-13', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 3, 'Bo aspecto', '2019-10-13', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (13, 2, 3, 'Case roto', '2019-10-13', 20);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (14, 2, 1, 'Bo aspecto, sen rasguños', '2019-11-11', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (14, 2, 1, 'Algo rasgada, pero sen máis defectos', '2019-11-11', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (14, 2, 2, 'Sen defectos', '2018-11-21', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (14, 2, 2, 'Bo aspecto', '2018-11-21', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (14, 2, 3, 'Nova de todo', '2020-02-20', 100);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (14, 2, 3, 'Nova de todo', '2020-02-27', 100);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (15, 3, 1, 'Gran estado', '2019-02-11', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (15, 3, 1, 'Sen problemas recentes', '2019-01-08', 20);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (16, 3, 1, 'Moi bo estado', '2020-01-22', 35);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (16, 3, 1, 'Sen usar prácticamente nunca', '2020-01-22', 35);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (17, 3, 1, 'Usado', '2018-07-11', 15);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (17, 3, 1, 'Sen usar', '2020-01-22', 15);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (17, 3, 1, 'Perfecto', '2018-12-29', 15);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (18, 3, 1, 'Recén mercado', '2020-03-11', 35);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (18, 3, 1, 'Recén mercado', '2020-03-11', 35);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (18, 3, 1, 'Usado', '2018-12-29', 45);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (18, 3, 1, 'Bastante usado', '2018-12-29', 45);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 1, 'Sen defectos', '2019-12-14', 80);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 1, 'Usada', '2019-12-14', 100);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 1, 'Algo gastada', '2019-12-14', 85);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 1, 'Cordaxe desgastado', '2019-12-14', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 2, 'Bastante ben', '2019-12-14', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 2, 'Conservada', '2017-11-12', 120);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 2, 'Algo gastada', '2017-11-12', 80);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 2, 'Ben', '2017-11-12', 85);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 3, 'Algo usada', '2019-02-07', 90);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 3, 'Perfecta', '2019-02-07', 100);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 3, 'Sen problema', '2019-02-07', 200);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 3, 'Algo gastada', '2019-02-07', 120);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 4, 'Ben conservada', '2019-02-07', 150);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 4, 'Cordaxe desgastado', '2019-02-07', 100);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (19, 4, 4, 'Sen desgaste aparente', '2019-02-07', 110);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 1, 'Perfecto bote', '2019-12-30', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 1, 'Ben conservada', '2019-12-30', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 1, 'Con algún problema', '2019-12-30', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 2, 'Gastada', '2019-12-30', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 2, 'Con algún defecto', '2019-12-30', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 3, 'Sen defectos aparentes', '2020-02-01', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 3, 'Sen defectos a priori', '2020-02-01', 10);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 3, 'Perfecto', '2020-02-01', 20);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 4, 'Algun rasguño', '2020-02-01', 30);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (20, 4, 4, 'Sen rasguños', '2020-02-01', 10);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (21, 4, 1, 'Perfecta e moi resistente', '2020-01-04', 400);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (21, 4, 2, 'Sen rasguños', '2017-02-20', 250);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (21, 4, 2, 'Algún defecto', '2019-02-01', 240);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (21, 4, 3, 'Algo gastada', '2017-02-20', 100);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (21, 4, 4, 'Moi bo', '2020-01-04', 300);
+
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (22, 5, 1, 'Bo bote', '2020-01-11', 30);
+insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (22, 5, 2, 'Bote reguleiro', '2018-12-20', 30);
 
 ------------------------------------------------
 

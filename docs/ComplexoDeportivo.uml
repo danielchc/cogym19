@@ -1868,7 +1868,7 @@ de Areas
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="z15F9F0YP0ebjC8Zoo93XgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="LQuvZTgkz0mHFMjgHwmB/QAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">TipoMateriai</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">TipoMaterial</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="40Vb8OPyn0W2/PY9yMAMkwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3202,7 +3202,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[35]" type="UMLClass" guid="v6oYMBtl3U+lP6IMPzL2WAAA">
-<XPD:ATTR name="Name" type="string">TipoMateriai</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">TipoMaterial</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">xC5pgoWMRUmvq5odQWzbKgAA</XPD:REF>
