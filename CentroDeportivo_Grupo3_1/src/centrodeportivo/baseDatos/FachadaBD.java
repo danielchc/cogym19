@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -105,6 +106,10 @@ public final class FachadaBD {
 
     public Usuario consultarUsuario(String login) {
         return daoUsuarios.consultarUsuario(login);
+    }
+
+    public PersoaFisica consultarPersoaFisica(String DNI){
+        return daoUsuarios.consultarPersoaFisica(DNI);
     }
 
     public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa ) {

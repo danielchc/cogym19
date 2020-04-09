@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
@@ -89,6 +90,10 @@ public class XestionUsuarios {
 
     public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
         fachadaBD.eliminarRexistro(rexistroFisioloxico);
+    }
+
+    public PersoaFisica consultarPersoaFisica(String DNI){
+        return fachadaBD.consultarPersoaFisica(DNI);
     }
 
 }

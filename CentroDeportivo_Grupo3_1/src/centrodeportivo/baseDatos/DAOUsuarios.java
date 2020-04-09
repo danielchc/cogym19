@@ -185,29 +185,7 @@ public final class DAOUsuarios extends AbstractDAO {
     protected void insertarUsuario(Usuario usuario) {
         PreparedStatement stmUsuario=null;
         try {
-
-            if(!existePersoaFisica(usuario.getDNI())){
-                if((usuario.getTipoUsuario()==TipoUsuario.Socio))
-                    stmUsuario= super.getConexion().prepareStatement("INSERT INTO persoafisica(dni,datanacemento,dificultades,nome,usuariosocio) VALUES (?,?,?,?,?);");
-                else if((usuario.getTipoUsuario()==TipoUsuario.Persoal ||usuario.getTipoUsuario()==TipoUsuario.Profesor))
-                    stmUsuario= super.getConexion().prepareStatement("INSERT INTO persoafisica(dni,datanacemento,dificultades,nome,usuariopersoal) VALUES (?,?,?,?,?);");
-
-                stmUsuario.setString(1,usuario.getDNI());
-                stmUsuario.setDate(2,usuario.getDataAlta());
-                stmUsuario.setString(3,usuario.getDificultades());
-                stmUsuario.setString(4,usuario.getNome());
-                stmUsuario.setObject(5, usuario.getLogin());
-            }else{
-                if((usuario.getTipoUsuario()==TipoUsuario.Socio))
-                    stmUsuario= super.getConexion().prepareStatement("UPDATE persoafisica SET usuariosocio=? WHERE dni=?;");
-                else if((usuario.getTipoUsuario()==TipoUsuario.Persoal ||usuario.getTipoUsuario()==TipoUsuario.Profesor))
-                    stmUsuario= super.getConexion().prepareStatement("UPDATE persoafisica SET usuariopersoal=? WHERE dni=?;");
-                stmUsuario.setString(1,usuario.getLogin());
-                stmUsuario.setString(2,usuario.getDNI());
-            }
-            stmUsuario.executeUpdate();
-
-            stmUsuario= super.getConexion().prepareStatement("INSERT INTO usuario (login,contrasinal,numTelefono,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
+            stmUsuario= super.getConexion().prepareStatement("INSERT INTO usuario (login,contrasinal,numTelefono,correoElectronico,IBAN)  VALUES (?,?,?,?,?);");
             stmUsuario.setString(1,usuario.getLogin());
             stmUsuario.setString(2,usuario.getContrasinal());
             stmUsuario.setString(3,usuario.getNumTelefono());
@@ -230,6 +208,27 @@ public final class DAOUsuarios extends AbstractDAO {
                 stmUsuario.setBoolean(3,persoal.getTipoUsuario()==TipoUsuario.Profesor);
                 stmUsuario.executeUpdate();
             }
+
+            if(!existePersoaFisica(usuario.getDNI())){
+                if((usuario.getTipoUsuario()==TipoUsuario.Socio))
+                    stmUsuario= super.getConexion().prepareStatement("INSERT INTO persoafisica(dni,datanacemento,dificultades,nome,usuariosocio) VALUES (?,?,?,?,?);");
+                else if((usuario.getTipoUsuario()==TipoUsuario.Persoal ||usuario.getTipoUsuario()==TipoUsuario.Profesor))
+                    stmUsuario= super.getConexion().prepareStatement("INSERT INTO persoafisica(dni,datanacemento,dificultades,nome,usuariopersoal) VALUES (?,?,?,?,?);");
+
+                stmUsuario.setString(1,usuario.getDNI());
+                stmUsuario.setDate(2,usuario.getDataNacemento());
+                stmUsuario.setString(3,usuario.getDificultades());
+                stmUsuario.setString(4,usuario.getNome());
+                stmUsuario.setObject(5, usuario.getLogin());
+            }else{
+                if((usuario.getTipoUsuario()==TipoUsuario.Socio))
+                    stmUsuario= super.getConexion().prepareStatement("UPDATE persoafisica SET usuariosocio=? WHERE dni=?;");
+                else if((usuario.getTipoUsuario()==TipoUsuario.Persoal ||usuario.getTipoUsuario()==TipoUsuario.Profesor))
+                    stmUsuario= super.getConexion().prepareStatement("UPDATE persoafisica SET usuariopersoal=? WHERE dni=?;");
+                stmUsuario.setString(1,usuario.getLogin());
+                stmUsuario.setString(2,usuario.getDNI());
+            }
+            stmUsuario.executeUpdate();
             super.getConexion().commit();
 
         } catch (SQLException e) {

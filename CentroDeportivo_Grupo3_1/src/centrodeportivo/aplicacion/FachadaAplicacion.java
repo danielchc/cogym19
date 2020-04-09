@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -137,6 +138,10 @@ public class FachadaAplicacion {
 
     public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
         xestionUsuarios.eliminarRexistro(rexistroFisioloxico);
+    }
+
+    public PersoaFisica consultarPersoaFisica(String DNI){
+        return xestionUsuarios.consultarPersoaFisica(DNI);
     }
 
     /*
