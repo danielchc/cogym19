@@ -74,6 +74,14 @@ public class vAdministrarTiposActividadesController extends AbstractController i
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
+        //Simplemente vaciamos o campo do nome:
+        campoNome.setText("");
+        //Vaciamos a taboa:
+        taboaTiposActividades.getItems().removeAll(taboaTiposActividades.getItems());
+        //Listamos de novo as actividades (para refrescar):
+        taboaTiposActividades.getItems().addAll(super.getFachadaAplicacion().listarTiposActividades());
+        //Se hai resultados, establecemos unha selección sobre a táboa:
+        taboaTiposActividades.getSelectionModel().selectFirst();
     }
 
     public void btnRexistrarAction(ActionEvent actionEvent) {

@@ -30,7 +30,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Q6hCUcGJnkG/geoZ/dJBwwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="iMDU40I8bESiBuU7ViGHYgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Areas</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Area</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="TaEacixIzkOJoPyKs34PNwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -61,7 +61,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Y3d1ZfplMkGVOMzRRNt7VQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="TBGgQGBHukCE1n1EVcmQZAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Instalacións</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Instalación</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="W5xKCMiTSEytUXW/PZVXtwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -92,7 +92,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Qzh0EcNgpE+cdeMNbdpWdQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="uTCf8JEvVEqPcs9d3bO6GQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Materiais</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Material</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="2+pdQlxjlEaBnMjOvyfnUQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -123,7 +123,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="XII+JBYy1U6QTydm/uFkBAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="YGeqFc4+rka2qutglbbXxAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Incidencias</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Incidencia</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="/CPMsrYFqkiUJOd5ivupqAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -154,7 +154,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Yw8f7cKvFkOPNncyKqgytgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="l/l4FwVJm0iVwvlGUNLmfAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Usuarios</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Usuario</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="aQP+VV+8dkK1rA3NdvvRLQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -216,7 +216,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="yyL+uQKgy0aqK09QQSsNMgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="jK+OG/xMNECCa8ZBHl+qvwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Socios</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Socio</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="7OPTsT+kgUufZ+SgEP90cQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -474,7 +474,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="T8UWBEWx2EOYs4EYZnHhGgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="IE5m5I9X5kywv6/P8qpQnAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">EnviarMensaxes</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">EnviarMensaxe</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="oNJZMZFgtUGqqUQa1xoFiQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -599,7 +599,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="ELhMRiDmYkSD0yd5TbjUIwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="OSjFBh9j5EqUq6sEaTB2fQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Tarifas</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Tarifa</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="jZ7BwsNd1UCu5zqihbkvywAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -717,7 +717,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="WPrfa6yJS0yAjtGEGohXGgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="kKzf8YqyTkerCWK3ipzcpgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Actividades</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Actividade</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="DQVQ9pQ94EqxGhQGQhlyuwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -748,7 +748,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="RpmVNfSgMUCfT6d43qw1nwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="ueRNPxIvokqV2ANI3ou8oQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Cursos</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Curso</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="eG8m4CUhHUea7AgOM+OvLwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1214,7 +1214,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="8ncT8wHKhEanQtspqG6hkgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="xUyF5XtmBE2k2ja3E/BSLAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">TiposActividades</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">TipoActividade</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Ne2nowMG10WMcaxM9+AjBgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1405,7 +1405,7 @@ de Areas
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="TdoMmrvuqUSV0IO9XFaXNwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Is+HlCJwBECrx8uF7o34kwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">IncidenciasMateriais</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">IncidenciaMaterial</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="+G1hJZ7MuE2yj/PZ0kJeBQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1436,7 +1436,7 @@ de Areas
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="3wY+JLU59EKgvJBHhdjwogAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="b9yP/uWpc0WIRQ/73pelnQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">IncidenciasAreas</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">IncidenciaArea</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="kVgQKLLECUyi7/wx4XQZlwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1868,7 +1868,7 @@ de Areas
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="z15F9F0YP0ebjC8Zoo93XgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="LQuvZTgkz0mHFMjgHwmB/QAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">TiposMateriais</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">TipoMateriai</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="40Vb8OPyn0W2/PY9yMAMkwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -2001,7 +2001,7 @@ TipoMaterial
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="QylBY1QOok+GN9v/9+qgkQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="5Mf7XZ/9IUyIsTrCfTZ7xgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">RexistrosFisiolóxicos</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">RexistroFisiolóxico</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="jlXgbGmujE2MncrIBc+GDgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -2133,7 +2133,7 @@ de Socios
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="lVFXESGJmUONvffIwcqaxQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="hpA1M0UBm0G8QRzbS72OBQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">PersoasFisicas</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">PersoaFisica</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="aE3ZUJQaGkOsC9eYNlIWegAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -2326,7 +2326,7 @@ de Socios
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedElements" type="integer">42</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLClass" guid="+3T9wMHCCEC8/Jr0Vl6LPAAA">
-<XPD:ATTR name="Name" type="string">Areas</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Area</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">ueZbX7cfJUGnkhGVUu2ovwAA</XPD:REF>
@@ -2361,7 +2361,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[1]" type="UMLClass" guid="HYPfIcz7yUuE/KEN/78eXgAA">
-<XPD:ATTR name="Name" type="string">Instalacións</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Instalación</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">xu+jtfseNUSTMsD7SmxanwAA</XPD:REF>
@@ -2389,7 +2389,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[2]" type="UMLClass" guid="38a8PIqfmUm+zwsOqPcJZQAA">
-<XPD:ATTR name="Name" type="string">Materiais</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Material</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">sOlfyIiIC0252R6W5TDq+wAA</XPD:REF>
@@ -2419,7 +2419,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[3]" type="UMLClass" guid="NL3OiBItNEyUUiieYmm2RwAA">
-<XPD:ATTR name="Name" type="string">Incidencias</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Incidencia</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">zKlVXixDlU6zabWQaAc4RAAA</XPD:REF>
@@ -2458,7 +2458,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[4]" type="UMLClass" guid="AnEX/IMCX0aDa78JCRr20gAA">
-<XPD:ATTR name="Name" type="string">Usuarios</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Usuario</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">FGGtXtuZx0i9Xl0m/cYapwAA</XPD:REF>
@@ -2527,7 +2527,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[6]" type="UMLClass" guid="9qbJMCV97EeLVGbPJr0vzAAA">
-<XPD:ATTR name="Name" type="string">Socios</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Socio</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">Qanp6zG2NkKYrtC/nRfJnwAA</XPD:REF>
@@ -2625,7 +2625,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[11]" type="UMLClass" guid="EMQf5Tn1Pkmsla54i+lNHwAA">
-<XPD:ATTR name="Name" type="string">EnviarMensaxes</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">EnviarMensaxe</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:REF name="AssociationClass">dljKA9fPXUOKZ1dYoUFaBgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
@@ -2685,7 +2685,7 @@ de Socios
 <XPD:REF name="Views[0]">MEDVeRYa6kuWnrQofkaMTAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[14]" type="UMLClass" guid="x0nsYOaLDEGdZ2b9je9/oQAA">
-<XPD:ATTR name="Name" type="string">Tarifas</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Tarifa</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">P0uI5FtGykqV3OaaZzDj2gAA</XPD:REF>
@@ -2747,7 +2747,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[16]" type="UMLClass" guid="46FMVR9x2EqMRlRtAaY8GgAA">
-<XPD:ATTR name="Name" type="string">Actividades</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Actividade</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">3My1tP72ZECdGyqtHSePHgAA</XPD:REF>
@@ -2775,7 +2775,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[17]" type="UMLClass" guid="wPvTXZYx/0mawtFinPLsOwAA">
-<XPD:ATTR name="Name" type="string">Cursos</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Curso</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">nvrLAZlhgkG43e51lMeivwAA</XPD:REF>
@@ -2958,7 +2958,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[23]" type="UMLClass" guid="yhuTwpdQeE+agMp5lkKe5AAA">
-<XPD:ATTR name="Name" type="string">TiposActividades</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">TipoActividade</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">2sg84UtO6U6+nbj3fSW/hwAA</XPD:REF>
@@ -3035,7 +3035,7 @@ de Socios
 <XPD:REF name="Views[0]">yKQVKKdWFkij9nWzVNCkLAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[27]" type="UMLClass" guid="08t4TVFHIUGlpCOkIb2MJAAA">
-<XPD:ATTR name="Name" type="string">IncidenciasMateriais</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">IncidenciaMaterial</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">10K8q/Pxb0eOn8VHWHM1VAAA</XPD:REF>
@@ -3048,7 +3048,7 @@ de Socios
 <XPD:REF name="Associations[0]">/Rt2xbUJc0uheMtvGVBqLwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[28]" type="UMLClass" guid="NkyW0UYpb06Yh34sBB9mygAA">
-<XPD:ATTR name="Name" type="string">IncidenciasAreas</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">IncidenciaArea</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">CrJ2vnpMIUiUBGbpTz0LHwAA</XPD:REF>
@@ -3202,7 +3202,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[35]" type="UMLClass" guid="v6oYMBtl3U+lP6IMPzL2WAAA">
-<XPD:ATTR name="Name" type="string">TiposMateriais</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">TipoMateriai</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">xC5pgoWMRUmvq5odQWzbKgAA</XPD:REF>
@@ -3252,7 +3252,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[37]" type="UMLClass" guid="lbJAZSwv30Kfd8KZsx2yBAAA">
-<XPD:ATTR name="Name" type="string">RexistrosFisiolóxicos</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">RexistroFisiolóxico</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">LhBIfp91o02zCvx6oQtVOAAA</XPD:REF>
@@ -3326,7 +3326,7 @@ de Socios
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[39]" type="UMLClass" guid="nlKAazu5FE+QamtbEGZwIgAA">
-<XPD:ATTR name="Name" type="string">PersoasFisicas</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">PersoaFisica</XPD:ATTR>
 <XPD:REF name="Namespace">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">UhonV/WlfUOe8JpJLv4OoAAA</XPD:REF>
