@@ -260,7 +260,7 @@ SELECT
 	us.databaixa,
 	pe.nuss,
 	pe.profesoractivo
-FROM persoasfisicas pf
+FROM persoafisica pf
 JOIN usuario us ON pf.usuariopersoal = us.login
 JOIN persoal pe ON pe.login = us.login;
 
@@ -280,5 +280,5 @@ CREATE OR REPLACE VIEW  vistasocio AS
 	numtelefono,
 	correoelectronico
 FROM socio AS so 
-JOIN persoaFisica AS pf ON so.login=pf.usuarioocio 
+JOIN persoaFisica AS pf ON so.login=pf.usuariosocio 
 JOIN usuario AS us ON us.login=so.login;
