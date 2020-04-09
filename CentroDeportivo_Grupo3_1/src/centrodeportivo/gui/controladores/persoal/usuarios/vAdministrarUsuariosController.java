@@ -24,6 +24,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
     public TextField campoNomeBuscar;
     public TextField campoLoginBuscar;
     public ComboBox campoTipoUsuario;
+    public CheckBox mostrarUsuariosBaixa;
     private FachadaAplicacion fachadaAplicacion;
     private vPrincipalController vPrincipal;
 
@@ -63,7 +64,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
 
     public void buscarUsuarios(){
         listaUsuarios.getItems().removeAll(listaUsuarios.getItems());
-        listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()]));
+        listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()]),mostrarUsuariosBaixa.isSelected());
     }
 
     public void modificarUsuario(){

@@ -1,11 +1,11 @@
 package centrodeportivo.gui.controladores.comun;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
-import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
+import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
+import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.persoal.usuarios.vNovoUsuarioController;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -19,47 +19,59 @@ import java.util.ResourceBundle;
 
 public class vAdministrarIncidenciasController extends AbstractController implements Initializable {
 
-    public TableView listaUsuarios;
-    public TextField campoNomeBuscar;
-    public TextField campoLoginBuscar;
-    public ComboBox campoTipoUsuario;
-    private FachadaAplicacion fachadaAplicacion;
+    public TableView listaIncidencias;
+    public ComboBox campoTipoIncidencia;
     private vPrincipalController vPrincipal;
 
     public vAdministrarIncidenciasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
-        super(fachadaAplicacion);
-        this.fachadaAplicacion=super.getFachadaAplicacion();
-        this.vPrincipal=vPrincipal;
+        super(fachadaAplicacion,vPrincipalController);
+        this.vPrincipal=super.getvPrincipalController();
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*
-        TableColumn<Usuario,String> loginColumn = new TableColumn<>("Login");
-        loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
-        TableColumn<Usuario,String> nomeColumn = new TableColumn<>("Nome");
-        nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        TableColumn<Usuario,String> dniColumn = new TableColumn<>("DNI");
-        dniColumn.setCellValueFactory(new PropertyValueFactory<>("DNI"));
-        TableColumn<Usuario,String> correoElectronicoColumn = new TableColumn<>("Correo Electronico");
-        correoElectronicoColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
-        TableColumn<Usuario,String> tipoUsuarioColumn = new TableColumn<>("Tipo Usuario");
 
-
-        tipoUsuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Usuario, String>, ObservableValue<String>>() {
+        TableColumn<Incidencia,String> numeroColumn = new TableColumn<>("Numero");
+        numeroColumn.setCellValueFactory(new PropertyValueFactory<>("numero"));
+        TableColumn<Incidencia,String> usuarioColumn = new TableColumn<>("Usuario");
+        usuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Usuario, String> param) {
-                return new SimpleObjectProperty<String>(param.getValue().getTipoUsuario().toString());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
+                return new SimpleObjectProperty<String>(param.getValue().getUsuario().getLogin().toString());
             }
         });
 
-        listaUsuarios.getColumns().addAll(loginColumn,nomeColumn,dniColumn,correoElectronicoColumn,tipoUsuarioColumn);
-        listaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
-        campoTipoUsuario.getItems().addAll(TipoUsuario.values());
-        campoTipoUsuario.getSelectionModel().selectFirst();
-        listaUsuarios.setPlaceholder(new Label("Non se atoparon usuarios"));
-        */
+        TableColumn<Incidencia,String> descricionColumn = new TableColumn<>("Descricion");
+        descricionColumn.setCellValueFactory(new PropertyValueFactory<>("descricion"));
+
+        TableColumn<Incidencia,String> tipoIncidenciaColumn = new TableColumn<>("Tipo Incidencia");
+        tipoIncidenciaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
+                return new SimpleObjectProperty<String>(param.getValue().getTipoIncidencia().toString());
+            }
+        });
+
+        TableColumn<Incidencia,String> obxecto = new TableColumn<>("WHO");
+        obxecto.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
+                if(param.getValue().getTipoIncidencia()==TipoIncidencia.Area)return new SimpleObjectProperty<String>(((IncidenciaArea)param.getValue()).getArea().getNome());
+                else return new SimpleObjectProperty<String>(((IncidenciaMaterial)param.getValue()).getMaterial().getNome());
+            }
+        });
+
+        listaIncidencias.getColumns().addAll(tipoIncidenciaColumn,numeroColumn,usuarioColumn,descricionColumn,obxecto);
+        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias());
+        campoTipoIncidencia.getItems().addAll(TipoIncidencia.values());
+        campoTipoIncidencia.getSelectionModel().selectFirst();
+        listaIncidencias.setPlaceholder(new Label("Non se atoparon incidencias"));
+    }
+
+    public void buscarIncidencias(){
+        listaIncidencias.getItems().removeAll(listaIncidencias.getItems());
+        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias("",TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()]));
     }
 
 

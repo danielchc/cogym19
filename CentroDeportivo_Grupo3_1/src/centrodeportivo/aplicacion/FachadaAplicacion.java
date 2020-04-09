@@ -1,17 +1,16 @@
 package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
+import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
-import centrodeportivo.aplicacion.xestion.XestionInstalacions;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
+import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.aplicacion.xestion.XestionMensaxes;
-import centrodeportivo.aplicacion.xestion.XestionTarifas;
-import centrodeportivo.aplicacion.xestion.XestionUsuarios;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 import javafx.scene.control.ButtonType;
@@ -26,7 +25,7 @@ public class FachadaAplicacion {
     private XestionUsuarios xestionUsuarios;
     private XestionMensaxes xestionMensaxes;
     private XestionTarifas xestionTarifas;
-    private XestionInstalacions xestionInstalacions;
+    private XestionIncidencias xestionIncidencias;
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
@@ -34,7 +33,34 @@ public class FachadaAplicacion {
         this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
         this.xestionMensaxes=new XestionMensaxes(fachadaGUI,fachadaBD);
         this.xestionTarifas=new XestionTarifas(fachadaGUI,fachadaBD);
-        this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
+        this.xestionIncidencias=new XestionIncidencias(fachadaGUI, fachadaBD);
+    }
+    /*
+     *   Fachada GUI
+     * */
+
+    public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
+        fachadaGUI.mostrarVentaSocios(loggedUser);
+    }
+
+    public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
+        fachadaGUI.mostrarVentaPersoal(loggedUser);
+    }
+
+    public void mostrarAdvertencia(String titulo,String texto) {
+        fachadaGUI.mostrarAdvertencia(titulo, texto);
+    }
+
+    public void mostrarErro(String titulo,String texto) {
+        fachadaGUI.mostrarErro(titulo, texto);
+    }
+
+    public void mostrarInformacion(String titulo,String texto){
+        fachadaGUI.mostrarInformacion(titulo, texto);
+    }
+
+    public ButtonType mostrarConfirmacion(String titulo, String texto){
+        return fachadaGUI.mostrarConfirmacion(titulo, texto);
     }
 
     /*
@@ -79,6 +105,10 @@ public class FachadaAplicacion {
 
     public Usuario consultarUsuario(String login) {
         return xestionUsuarios.consultarUsuario(login);
+    }
+
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa){
+        return xestionUsuarios.buscarUsuarios(login,nome,filtroTipo,usuariosDeBaixa);
     }
 
     public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
@@ -160,35 +190,18 @@ public class FachadaAplicacion {
         return xestionMensaxes.listarMensaxesRecibidos(loginReceptor);
     }
 
-    public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
-        fachadaGUI.mostrarVentaSocios(loggedUser);
-    }
 
-    public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
-        fachadaGUI.mostrarVentaPersoal(loggedUser);
-    }
-
-    public void mostrarAdvertencia(String titulo,String texto) {
-        fachadaGUI.mostrarAdvertencia(titulo, texto);
-    }
-
-    public void mostrarErro(String titulo,String texto) {
-        fachadaGUI.mostrarErro(titulo, texto);
-    }
-
-    public void mostrarInformacion(String titulo,String texto){
-        fachadaGUI.mostrarInformacion(titulo, texto);
-    }
-
-    public ButtonType mostrarConfirmacion(String titulo, String texto){
-        return fachadaGUI.mostrarConfirmacion(titulo, texto);
-    }
 
 
     /*
         Xestion incidencias
      */
-
+    public ArrayList<Incidencia> listarIncidencias(){
+        return xestionIncidencias.listarIncidencias();
+    }
+    public ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
+        return xestionIncidencias.listarIncidencias(descripcion, tipoIncidencia);
+    }
     /*
         Xestion instalacións
      */

@@ -59,16 +59,20 @@ public class XestionUsuarios {
         return fachadaBD.consultarUsuario(login);
     }
 
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa)  {
+        return fachadaBD.buscarUsuarios(login,nome,filtroTipo,usuariosDeBaixa);
+    }
+
     public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo)  {
-        return fachadaBD.buscarUsuarios(login,nome,filtroTipo);
+        return fachadaBD.buscarUsuarios(login,nome,filtroTipo,false);
     }
 
     public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro)  {
-        return fachadaBD.buscarUsuarios("","",filtro);
+        return fachadaBD.buscarUsuarios("","",filtro,false);
     }
 
     public ArrayList<Usuario> listarUsuarios()  {
-        return fachadaBD.buscarUsuarios("","",TipoUsuario.Todos);
+        return fachadaBD.buscarUsuarios("","",TipoUsuario.Todos,false);
     }
 
     public Cuota consultarCuota(String login){

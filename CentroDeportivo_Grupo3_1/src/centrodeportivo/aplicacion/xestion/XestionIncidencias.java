@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion.xestion;
 
-import centrodeportivo.aplicacion.obxectos.Incidencia;
+import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
@@ -16,15 +17,19 @@ public class XestionIncidencias {
         this.fachadaBD=fachadaBD;
     }
 
-    public void insertarIncidencia(Incidencia incidencia) throws SQLException {
+    public void insertarIncidencia(Incidencia incidencia)  {
         fachadaBD.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> listarIncidencia() throws SQLException  {
-        return fachadaBD.listarIncidencia();
+    public ArrayList<Incidencia> listarIncidencias() {
+        return fachadaBD.listarIncidencias("",TipoIncidencia.Todos);
     }
 
-    public void resolverIncidencia(Incidencia incidencia) throws SQLException{
+    public ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
+        return fachadaBD.listarIncidencias(descripcion,tipoIncidencia);
+    }
+
+    public void resolverIncidencia(Incidencia incidencia){
         fachadaBD.resolverIncidencia(incidencia);
     }
     

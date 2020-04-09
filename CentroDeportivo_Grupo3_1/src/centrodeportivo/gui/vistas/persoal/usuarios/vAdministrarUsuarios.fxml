@@ -29,13 +29,13 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
             <TextField fx:id="campoNomeBuscar" layoutX="98.0" layoutY="24.0" prefHeight="25.0" prefWidth="136.0" />
-            <TextField fx:id="campoLoginBuscar" layoutX="406.0" layoutY="25.0" prefHeight="25.0" prefWidth="180.0" />
+            <TextField fx:id="campoLoginBuscar" layoutX="406.0" layoutY="24.0" prefHeight="25.0" prefWidth="180.0" />
              <Label alignment="CENTER" layoutX="14.0" layoutY="22.0" prefHeight="30.0" prefWidth="78.0" text="Nome">
                  <font>
                      <Font name="System Bold" size="14.0" />
                  </font>
              </Label>
-            <Label alignment="CENTER" layoutX="321.0" layoutY="22.0" prefHeight="30.0" prefWidth="78.0" text="Login">
+            <Label alignment="CENTER" layoutX="313.0" layoutY="22.0" prefHeight="30.0" prefWidth="78.0" text="Login">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -45,7 +45,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="512.0" layoutY="61.0" mnemonicParsing="false" onAction="#buscarUsuarios" prefHeight="25.0" prefWidth="75.0" text="Buscar">
+            <Button layoutX="513.0" layoutY="61.0" mnemonicParsing="false" onAction="#buscarUsuarios" prefHeight="25.0" prefWidth="75.0" text="Buscar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
@@ -60,6 +60,11 @@
                </font>
             </Button>
             <ComboBox fx:id="campoTipoUsuario" layoutX="98.0" layoutY="64.0" prefHeight="25.0" prefWidth="135.0" />
+            <CheckBox fx:id="mostrarUsuariosBaixa" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" text="Mostrar Usuarios de Baixa">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </CheckBox>
          </children>
         </AnchorPane>
     </center>

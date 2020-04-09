@@ -316,7 +316,9 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
-    protected ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
+    protected ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa) {
+        String usBaixa="";
+        if(usuariosDeBaixa)usBaixa=" AND (dataBaixa IS NULL) ";
         PreparedStatement stmUsuario = null;
         ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
         ResultSet rsUsuarios;
@@ -324,7 +326,7 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             if(filtroTipo==TipoUsuario.Socio || filtroTipo==TipoUsuario.Todos) {
                 stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa  " +
-                        "WHERE (LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL) "+
+                        "WHERE (LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?))  "+ usBaixa +
                         "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%"+login+"%");
@@ -357,7 +359,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 if(filtroTipo==TipoUsuario.Persoal)conds="AND profesoractivo=FALSE ";
 
                 stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp  " +
-                                "WHERE (LOWER(vp.login) LIKE LOWER(?) AND LOWER(vp.nome) LIKE LOWER(?)) AND (vp.dataBaixa IS NULL) "+ conds +
+                                "WHERE (LOWER(vp.login) LIKE LOWER(?) AND LOWER(vp.nome) LIKE LOWER(?)) AND (vp.dataBaixa IS NULL) "+ conds + usBaixa +
                                 "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%"+login+"%");

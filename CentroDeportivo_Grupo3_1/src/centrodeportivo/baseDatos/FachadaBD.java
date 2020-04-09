@@ -4,8 +4,9 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.funcionsAux.Criptografia;
-import centrodeportivo.aplicacion.obxectos.Incidencia;
+import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
@@ -106,8 +107,8 @@ public final class FachadaBD {
         return daoUsuarios.consultarUsuario(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
-        return daoUsuarios.buscarUsuarios(login,nome,filtroTipo);
+    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa ) {
+        return daoUsuarios.buscarUsuarios(login,nome,filtroTipo,usuariosDeBaixa);
     }
 
     public Cuota consultarCuota(String login){
@@ -185,8 +186,8 @@ public final class FachadaBD {
         daoIncidencias.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> listarIncidencia()   {
-        return daoIncidencias.listarIncidencia();
+    public ArrayList<Incidencia> listarIncidencias(String descripcion,TipoIncidencia tipoIncidencia)   {
+        return daoIncidencias.listarIncidencias(descripcion,tipoIncidencia);
     }
 
     public void resolverIncidencia(Incidencia incidencia) {

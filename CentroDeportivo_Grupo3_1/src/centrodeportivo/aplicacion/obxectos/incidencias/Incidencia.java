@@ -1,12 +1,13 @@
-package centrodeportivo.aplicacion.obxectos;
+package centrodeportivo.aplicacion.obxectos.incidencias;
 
+import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Date;
 
-public final class Incidencia {
+public abstract class Incidencia {
     private TipoIncidencia tipoIncidencia;
     private int numero;
     private Usuario usuario;
@@ -15,27 +16,12 @@ public final class Incidencia {
     private Date dataFalla;
     private Date dataResolucion;
     private float custoReparacion;
-    private Area area;
-    private Material material;
 
     public Incidencia(int numero) {
         this.numero = numero;
     }
 
-
-    public Incidencia(TipoIncidencia tipoIncidencia,int numero, Usuario usuario, String descripcion,Area area) {
-        this(tipoIncidencia, numero, usuario, descripcion);
-        this.area=area;
-    }
-
-    public Incidencia(TipoIncidencia tipoIncidencia,int numero, Usuario usuario, String descripcion,Material material) {
-        this(tipoIncidencia, numero, usuario, descripcion);
-        this.material=material;
-    }
-
-
-    private Incidencia(TipoIncidencia tipoIncidencia, int numero, Usuario usuario, String descripcion) {
-        this.tipoIncidencia=tipoIncidencia;
+    public Incidencia(int numero, Usuario usuario, String descripcion) {
         this.numero = numero;
         this.usuario=usuario;
         this.descricion=descripcion;
@@ -105,22 +91,6 @@ public final class Incidencia {
         this.custoReparacion = custoReparacion;
     }
 
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
     @Override
     public String toString() {
         return "Incidencia{" +
@@ -132,8 +102,6 @@ public final class Incidencia {
                 ", dataFalla=" + dataFalla +
                 ", dataResolucion=" + dataResolucion +
                 ", custoReparacion=" + custoReparacion +
-                ", area=" + area +
-                ", material=" + material +
                 '}';
     }
 }

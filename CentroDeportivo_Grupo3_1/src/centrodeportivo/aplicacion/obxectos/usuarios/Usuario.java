@@ -65,6 +65,9 @@ public class Usuario {
         this.dataNacemento = dataNacemento;
     }
 
+    public boolean estaDeBaixa(){
+        return this.dataBaixa!=null;
+    }
 
     /**
      * Getters e Setters
