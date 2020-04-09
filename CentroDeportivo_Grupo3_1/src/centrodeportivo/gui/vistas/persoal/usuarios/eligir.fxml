@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button fx:id="btnGadar" layoutX="253.0" layoutY="391.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Continuar" AnchorPane.bottomAnchor="30.80000000000001" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="252.60000000000002">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+      <TableView layoutX="185.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>

@@ -78,7 +78,6 @@ public class vPrincipalController extends AbstractController implements Initiali
     public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario loggedUser,IdPantalla pantallaAMostrar) {
         super(fachadaAplicacion);
         this.usuario=loggedUser;
-        System.out.println(loggedUser);
         this.pantallaAMostrar=pantallaAMostrar;
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();

@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
@@ -25,6 +26,10 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class vNovoUsuarioController extends AbstractController implements Initializable {
+
+    public AnchorPane panelNovoUsuario;
+    public AnchorPane panelOpcions;
+    public AnchorPane panelReactivar;
 
     public ComboBox tipoUsuario;
     public TextField campoNome;
@@ -39,6 +44,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public DatePicker campoData;
     public TextArea campoDificultades;
     public Label labelError;
+    public RadioButton radioReactivar;
+    public RadioButton radioNovo;
 
     public HBox dataNacementoSocioBox;
     public HBox tarifaSocioBox;
@@ -50,6 +57,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public HBox tlfBox;
     public HBox correoBox;
     public HBox ibanBox;
+
+    private ToggleGroup radioButtons;
 
     enum  RexistroTipo {
         Socio,
@@ -67,6 +76,15 @@ public class vNovoUsuarioController extends AbstractController implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.radioButtons=new ToggleGroup();
+        this.radioNovo.setToggleGroup(this.radioButtons);
+        this.radioReactivar.setToggleGroup(this.radioButtons);
+        this.radioButtons.selectToggle(this.radioNovo);
+
+        this.panelOpcions.setVisible(true);
+        this.panelNovoUsuario.setVisible(false);
+        this.panelReactivar.setVisible(false);
+
         this.comboTarifa.getItems().addAll(super.getFachadaAplicacion().listarTarifas());
         this.comboTarifa.getSelectionModel().selectFirst();
         this.tipoUsuario.getItems().addAll(RexistroTipo.values());
@@ -110,7 +128,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         nussPersoalBox.setVisible(true);
         tarifaSocioBox.setVisible(false);
         tarifaSocioBox.setManaged(false);
-
     }
 
     private void mostrarCamposSocio(){
@@ -130,7 +147,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         tlfBox.setManaged(true);
         correoBox.setManaged(true);
         ibanBox.setManaged(true);
-
 
         nussPersoalBox.setManaged(false);
         nussPersoalBox.setVisible(false);
@@ -234,6 +250,17 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             this.campoData.setEditable(true);
             this.campoDificultades.setEditable(true);
         }*/
+    }
+
+    public void btnContinuarAction(){
+        this.panelOpcions.setVisible(false);
+        if(this.radioButtons.getSelectedToggle().equals(this.radioNovo)){
+            this.panelNovoUsuario.setVisible(true);
+            this.panelReactivar.setVisible(false);
+        }else if(this.radioButtons.getSelectedToggle().equals(this.radioReactivar)){
+            this.panelNovoUsuario.setVisible(false);
+            this.panelReactivar.setVisible(true);
+        }
     }
 
     private boolean comprobarFormatos(){
