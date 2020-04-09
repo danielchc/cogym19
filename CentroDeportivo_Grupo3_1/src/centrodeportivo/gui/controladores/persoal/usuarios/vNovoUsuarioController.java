@@ -63,6 +63,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         Persoal
     };
     private Usuario usuarioModificar;
+    private String loginVello;
     private vPrincipalController controllerPrincipal;
     private FachadaAplicacion fachadaAplicacion;
 
@@ -164,8 +165,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         if(contasP==ContasPersoa.Ningunha){
             if(!comprobarDNI()) return;
         }
-        if(!comprobarLogin()) return;
-
+        if(!loginVello.equals(campoLogin.getText()) && !comprobarLogin()) return;
 
         if(this.tipoUsuario.getSelectionModel().getSelectedItem()==RexistroTipo.Socio){
             Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
@@ -181,8 +181,13 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     campoIBAN.getText(),
                     tarifa
             );
-            this.fachadaAplicacion.insertarUsuario(socio);
-            this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
+            if(usuarioModificar!=null){
+                super.getFachadaAplicacion().actualizarUsuario(loginVello,socio);
+                this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
+            }else{
+                this.fachadaAplicacion.insertarUsuario(socio);
+                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
+            }
         }else{
             Persoal persoal=new Persoal(
                     campoLogin.getText(),
@@ -197,8 +202,13 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     campoNUSS.getText(),
                     checkProfesor.isSelected()
             );
-            this.fachadaAplicacion.insertarUsuario(persoal);
-            this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
+            if(usuarioModificar!=null){
+                super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal);
+                this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
+            }else{
+                this.fachadaAplicacion.insertarUsuario(persoal);
+                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
+            }
         }
         this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
     }
@@ -309,29 +319,32 @@ public class vNovoUsuarioController extends AbstractController implements Initia
 
 
     private void cargarDatosUsuario(){
-        /*if(usuarioModificar==null)return;
-        this.campoLogin.setText(usuarioModificar.getLogin());
-        this.campoNome.setText(usuarioModificar.getNome());
-        this.campoCorreo.setText(usuarioModificar.getCorreoElectronico());
-        this.campoPassword.setText(usuarioModificar.getContrasinal());
-        this.campoDNI.setText(usuarioModificar.getDNI());
-        this.campoIBAN.setText(usuarioModificar.getIBANconta());
-        this.campoTelf.setText(usuarioModificar.getNumTelefono());
+        if(usuarioModificar==null)return;
+        this.loginVello=usuarioModificar.getLogin();
+        campoNome.setText(usuarioModificar.getNome());
+        campoLogin.setText(usuarioModificar.getLogin());
+        campoPassword.setText(usuarioModificar.getContrasinal());
+        campoTelf.setText(usuarioModificar.getNumTelefono());
+        campoDNI.setText(usuarioModificar.getDNI());
+        campoCorreo.setText(usuarioModificar.getCorreoElectronico());
+        campoIBAN.setText(usuarioModificar.getIBANconta());
+        campoData.setValue(usuarioModificar.getDataNacemento().toLocalDate());
+        campoDificultades.setText(usuarioModificar.getDificultades());
+
         if(usuarioModificar instanceof Socio){
             Socio socio=(Socio)usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Socio);
             this.comboTarifa.getSelectionModel().select(socio.getTarifa());
-            this.campoData.setValue(socio.getDataNacemento().toLocalDate());
-            this.campoDificultades.setText(socio.getDificultades());
         }else if(usuarioModificar instanceof Persoal){
             Persoal persoal=(Persoal)usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Persoal);
-            this.campoNUSS.setText(persoal.getNUSS());
-            if(usuarioModificar instanceof Profesor){
-                this.tipoUsuario.getSelectionModel().select(RexistroTipo.Profesor);
-            }
+            campoNUSS.setText(persoal.getNUSS());
+            checkProfesor.setSelected(persoal.getTipoUsuario()==TipoUsuario.Profesor);
         }
-        cambiarTipo();*/
+        tipoUsuario.setDisable(true);
+        campoDNI.setEditable(false);
+        campoNUSS.setEditable(false);
+        cambiarTipo();
     }
 
     public void setUsuario(Usuario usuario) {
