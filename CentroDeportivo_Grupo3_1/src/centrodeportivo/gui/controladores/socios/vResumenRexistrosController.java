@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -46,9 +47,9 @@ public class vResumenRexistrosController extends AbstractController implements I
     private Usuario socio;
     private ArrayList<RexistroFisioloxico> rexistros;
 
-    public vResumenRexistrosController(FachadaAplicacion fachadaAplicacion, Usuario socio) {
-        super(fachadaAplicacion);
-        this.socio=socio;
+    public vResumenRexistrosController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.socio=super.getvPrincipalController().obterUsuarioLogeado();
     }
 
     @Override

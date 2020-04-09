@@ -41,7 +41,7 @@ public final class DAOTarifas extends AbstractDAO {
     protected void borrarTarifa(Integer codTarifa) {
         PreparedStatement stmTarifa=null;
         try{
-            stmTarifa=super.getConexion().prepareStatement("DELETE FROM tarifas WHERE codTarifa=?");
+            stmTarifa=super.getConexion().prepareStatement("DELETE FROM tarifa WHERE codTarifa=?");
             stmTarifa.setInt(1, codTarifa);
             stmTarifa.executeUpdate();
             super.getConexion().commit();
@@ -60,7 +60,7 @@ public final class DAOTarifas extends AbstractDAO {
         Connection conexion=super.getConexion();
         PreparedStatement stmTarifa=null;
         try{
-            stmTarifa=conexion.prepareStatement("UPDATE tarifas SET maxActividades=?, precioBase=?, precioExtra=? WHERE codTarifa=?;");
+            stmTarifa=conexion.prepareStatement("UPDATE tarifa SET maxActividades=?, precioBase=?, precioExtra=? WHERE codTarifa=?;");
             stmTarifa.setInt(1,t.getMaxActividades());
             stmTarifa.setFloat(2,t.getPrezoBase());
             stmTarifa.setFloat(3,t.getPrezoExtras());
@@ -84,7 +84,7 @@ public final class DAOTarifas extends AbstractDAO {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
         try{
-            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifas WHERE codTarifa=? AND codTarifa IN (SELECT tarifa FROM socios);");
+            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifa WHERE codTarifa=? AND codTarifa IN (SELECT tarifa FROM socios);");
             stmTarifa.setInt(1,codTarifa);
             resultTarifas=stmTarifa.executeQuery();
             return resultTarifas.next();
@@ -106,7 +106,7 @@ public final class DAOTarifas extends AbstractDAO {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
         try{
-            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifas");
+            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifa");
             resultTarifas=stmTarifa.executeQuery();
             while (resultTarifas.next()){
                 tarifas.add(new Tarifa(
@@ -133,7 +133,7 @@ public final class DAOTarifas extends AbstractDAO {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
         try{
-            stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifas WHERE codTarifa IN (SELECT tarifa FROM socios WHERE login=?)");
+            stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifa WHERE codTarifa IN (SELECT tarifa FROM socios WHERE login=?)");
             stmTarifa.setString(1,loginSocio);
             resultTarifas=stmTarifa.executeQuery();
             if(resultTarifas.next()){

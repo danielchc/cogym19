@@ -50,9 +50,9 @@ public class vNovoRexistroController extends AbstractController implements Initi
     private HashMap<CheckBox,Slider> sliders;
     private HashMap<Slider,TextField> campos;
 
-    public vNovoRexistroController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController, Usuario usuario) {
-        super(fachadaAplicacion);
-        this.usuario=usuario;
+    public vNovoRexistroController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
         this.vPrincipalController=vPrincipalController;
     }
 

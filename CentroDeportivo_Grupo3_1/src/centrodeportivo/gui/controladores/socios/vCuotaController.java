@@ -7,6 +7,7 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
@@ -37,9 +38,9 @@ public class vCuotaController extends AbstractController implements Initializabl
      */
     private Usuario usuario;
 
-    public vCuotaController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
-        super(fachadaAplicacion);
-        this.usuario=usuario;
+    public vCuotaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
     }
 
     @Override

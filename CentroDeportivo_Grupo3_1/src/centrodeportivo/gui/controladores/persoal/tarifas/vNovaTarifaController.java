@@ -30,8 +30,8 @@ public class vNovaTarifaController extends AbstractController implements Initial
     private Tarifa tarifaModificar;
     private FachadaAplicacion fachadaAplicacion;
     private vPrincipalController vPrincipal;
-    public vNovaTarifaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipal) {
-        super(fachadaAplicacion);
+    public vNovaTarifaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
         this.fachadaAplicacion=super.getFachadaAplicacion();
         this.vPrincipal=vPrincipal;
     }

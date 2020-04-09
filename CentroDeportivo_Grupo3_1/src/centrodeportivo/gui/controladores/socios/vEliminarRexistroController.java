@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -31,11 +32,10 @@ public class vEliminarRexistroController extends AbstractController implements I
     /**
      * Constructor do controlador
      * @param fachadaAplicacion Fachada da aplicación
-     * @param usuario Usuario que está loggeado.
      */
-    public vEliminarRexistroController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
-        super(fachadaAplicacion);
-        this.usuario=usuario;
+    public vEliminarRexistroController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
     }
 
     /**

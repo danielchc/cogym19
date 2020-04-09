@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -33,9 +34,9 @@ public class vMensaxesController extends AbstractController implements Initializ
     private Usuario receptor;
     private FachadaAplicacion fachadaAplicacion;
 
-    public vMensaxesController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
-        super(fachadaAplicacion);
-        this.receptor=usuario;
+    public vMensaxesController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.receptor=super.getvPrincipalController().obterUsuarioLogeado();
         this.fachadaAplicacion=super.getFachadaAplicacion();
     }
 

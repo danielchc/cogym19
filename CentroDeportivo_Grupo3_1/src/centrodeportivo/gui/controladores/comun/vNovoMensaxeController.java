@@ -57,9 +57,9 @@ public class vNovoMensaxeController extends AbstractController implements Initia
     private TipoBusqueda opcionMensaxe;
     private vPrincipalController vPrincipalController;
 
-    public vNovoMensaxeController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController, Usuario usuario) {
-        super(fachadaAplicacion);
-        this.emisor=usuario;
+    public vNovoMensaxeController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.emisor=super.getvPrincipalController().obterUsuarioLogeado();
         this.receptor=null;
         this.vPrincipalController=vPrincipalController;
     }

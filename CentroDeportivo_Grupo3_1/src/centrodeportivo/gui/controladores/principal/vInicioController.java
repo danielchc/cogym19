@@ -14,9 +14,9 @@ public class vInicioController extends AbstractController implements Initializab
 
     private Usuario usuario;
 
-    public vInicioController(FachadaAplicacion fachadaAplicacion, Usuario usuario) {
-        super(fachadaAplicacion);
-        this.usuario=usuario;
+    public vInicioController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
     }
 
     @Override

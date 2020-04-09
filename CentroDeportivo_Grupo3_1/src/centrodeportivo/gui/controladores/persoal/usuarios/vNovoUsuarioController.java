@@ -68,9 +68,9 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     private vPrincipalController controllerPrincipal;
     private FachadaAplicacion fachadaAplicacion;
 
-    public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
-        super(fachadaAplicacion);
-        this.controllerPrincipal=controllerPrincipal;
+    public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
+        this.controllerPrincipal=super.getvPrincipalController();
         this.fachadaAplicacion=super.getFachadaAplicacion();
     }
 

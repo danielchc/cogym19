@@ -19,10 +19,10 @@ public class vAdministrarTarifasController extends AbstractController implements
     public TableView listaTarifas;
     private FachadaAplicacion fachadaAplicacion;
     private vPrincipalController vPrincipal;
-    public vAdministrarTarifasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipal) {
-        super(fachadaAplicacion);
+    public vAdministrarTarifasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+        super(fachadaAplicacion,vPrincipalController);
         this.fachadaAplicacion=super.getFachadaAplicacion();
-        this.vPrincipal=vPrincipal;
+        this.vPrincipal=vPrincipalController;
     }
 
     private void listarTarifas(){
