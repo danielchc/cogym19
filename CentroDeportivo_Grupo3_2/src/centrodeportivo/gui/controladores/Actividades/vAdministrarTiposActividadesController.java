@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.Actividades;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.baseDatos.AbstractDAO;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
@@ -56,6 +57,20 @@ public class vAdministrarTiposActividadesController extends AbstractController i
     }
 
     public void btnBuscarAction(ActionEvent actionEvent) {
+        //A búsqueda pódese realizar polo nome.
+        //Pero realmente, se ese campo está baleiro, resulta máis sinxelo que se faga un simple listado.
+        //O primeiro é borrar o contido da táboa:
+        taboaTiposActividades.getItems().removeAll(taboaTiposActividades.getItems());
+        //Entón, se non se cubriu filtro de busca, simplemente se fai un listado:
+        if(!ValidacionDatos.estanCubertosCampos(campoNome)){
+            taboaTiposActividades.getItems().addAll(super.getFachadaAplicacion().listarTiposActividades());
+        } else {
+            //Se hai algo no campo, buscamos por el:
+            TipoActividade tipoActividade = new TipoActividade(campoNome.getText());
+            taboaTiposActividades.getItems().addAll(super.getFachadaAplicacion().buscarTiposActividades(tipoActividade));
+        }
+        //Se hai resultados, establecemos unha selección sobre a táboa:
+        taboaTiposActividades.getSelectionModel().selectFirst();
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {

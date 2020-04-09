@@ -20,6 +20,10 @@ public class TipoActividade{
         this.descricion = descricion;
     }
 
+    public TipoActividade(String nome){
+        this.nome = nome;
+    }
+
     //Getters e setters
     public Integer getCodTipoActividade() {
         return codTipoActividade;
