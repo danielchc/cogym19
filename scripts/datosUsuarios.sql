@@ -425,9 +425,24 @@ insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezo
 insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (22, 5, 2, 'Bote reguleiro', '2018-12-20', 30);
 
 ------------------TIPO DE ACTIVIDADE-------------------
-
-
-
+insert into tipoactividade (nome, descricion) values ('Atletismo', 'Categoría para os máis corredores da casa');
+insert into tipoactividade (nome, descricion) values ('Salto de altura', 'Para aqueles que queiran tocar o ceo');
+insert into tipoactividade (nome, descricion) values ('Salto de lonxitude', 'Para os que queiran saltar dunha casa á outra');
+insert into tipoactividade (nome, descricion) values ('Lanzamento de disco', 'Para os que queiran desatar a súa forza');
+insert into tipoactividade (nome, descricion) values ('Lanzamento de xabalina', 'O clásico lanzamento de xabalina');
+insert into tipoactividade (nome, descricion) values ('Baloncesto', 'Actividades para os máis encestadores');
+insert into tipoactividade (nome, descricion) values ('Padel', 'Actividades relativas ao padel');
+insert into tipoactividade (nome, descricion) values ('Relaxación', 'Para os que están nerviosos cos exames');
+insert into tipoactividade (nome, descricion) values ('Frontón', 'Para atrevidos');
+insert into tipoactividade (nome, descricion) values ('Futbol', 'Actividades relacionadas co deporte rei');
+insert into tipoactividade (nome, descricion) values ('Futbol infantil', 'Futbol para os raparigos');
+insert into tipoactividade (nome, descricion) values ('Bailes Latinos', 'Para os que queren mover o esqueleto');
+insert into tipoactividade (nome, descricion) values ('Zumba', 'Para os que queren deixalo todo na pista');
+insert into tipoactividade (nome, descricion) values ('Balonmán', 'Actividades sobre balonmán');
+insert into tipoactividade (nome, descricion) values ('Fútbol Sala', 'Actividades relacionadas con este gran deporte');
+insert into tipoactividade (nome, descricion) values ('Tenis', 'Para os que queiran practicar este gran deporte, todas as idades.');
+insert into tipoactividade (nome, descricion) values ('Carreiras de natación', 'Para os que queiran mellorar nesta disciplina da natación.');
+insert into tipoactividade (nome, descricion) values ('Saltos de natación', 'Para os que se atreven a saltar dende alturas inimaxinábeis.');
 
 ------------------CURSO-------------------
 
