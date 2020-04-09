@@ -28,7 +28,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=?");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuario WHERE login=?");
             stmUsuario.setString(1,login);
             resultValidacion=stmUsuario.executeQuery();
             return resultValidacion.next();
@@ -48,7 +48,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM persoasFisicas WHERE dni=?");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM persoaFisica WHERE dni=?");
             stmUsuario.setString(1,dni);
             resultValidacion=stmUsuario.executeQuery();
             return resultValidacion.next();
@@ -68,7 +68,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios NATURAL JOIN persoal WHERE nuss=?");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuario NATURAL JOIN persoal WHERE nuss=?");
             stmUsuario.setString(1,nuss);
             resultValidacion=stmUsuario.executeQuery();
             return resultValidacion.next();
@@ -88,7 +88,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM persoasFisicas WHERE dni=UPPER(?)");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM persoaFisica WHERE dni=UPPER(?)");
             stmUsuario.setString(1,dni);
             resultValidacion=stmUsuario.executeQuery();
             if(resultValidacion.next()){
@@ -114,7 +114,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuarios WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuario WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
             stmUsuario.setString(1,login);
             stmUsuario.setString(2,password);
             resultValidacion=stmUsuario.executeQuery();
@@ -229,7 +229,7 @@ public final class DAOUsuarios extends AbstractDAO {
     protected void darBaixaUsuario(String login) {
         PreparedStatement stmUsuario=null;
         try {
-            stmUsuario= super.getConexion().prepareStatement("UPDATE usuarios SET dataBaixa=NOW() WHERE login=?");
+            stmUsuario= super.getConexion().prepareStatement("UPDATE usuario SET dataBaixa=NOW() WHERE login=?");
             stmUsuario.setString(1,login);
             stmUsuario.executeUpdate();
             super.getConexion().commit();
@@ -291,10 +291,10 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             stmUsuario = super.getConexion().prepareStatement("SELECT " +
                     "login," +
-                    "(SELECT 1 FROM socios AS s WHERE s.login=u.login) AS eSocio," +
+                    "(SELECT 1 FROM socio AS s WHERE s.login=u.login) AS eSocio," +
                     "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND profesoractivo=FALSE) AS ePersoal, " +
                     "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND profesoractivo=TRUE) AS eProfesor  " +
-                    "FROM usuarios as u WHERE u.login=?"
+                    "FROM usuario as u WHERE u.login=?"
             );
             stmUsuario.setString(1,login);
 
@@ -323,7 +323,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             if(filtroTipo==TipoUsuario.Socio || filtroTipo==TipoUsuario.Todos) {
-                stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocios AS vs JOIN tarifas AS t ON vs.tarifa=t.codTarifa  " +
+                stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa  " +
                         "WHERE (LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?)) AND (dataBaixa IS NULL) "+
                         "ORDER BY login ASC;"
                 );
@@ -398,7 +398,7 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             if(tipoUsuario==TipoUsuario.Socio) {
                 stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocios AS vs JOIN tarifas AS t ON vs.tarifa=t.codTarifa WHERE vs.login=? AND (vs.dataBaixa IS NULL);"
+                        "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=? AND (vs.dataBaixa IS NULL);"
                 );
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
@@ -534,7 +534,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             stm= super.getConexion().prepareStatement(
-                    "INSERT INTO rexistrosFisioloxicos (usuario, dataMarca, peso, altura, bfp, tensionAlta, tensionBaixa, ppm, comentario)  "+
+                    "INSERT INTO rexistroFisioloxico (usuario, dataMarca, peso, altura, bfp, tensionAlta, tensionBaixa, ppm, comentario)  "+
                         "VALUES (?,NOW(),?,?,?,?,?,?,?);"
             );
             stm.setString(1,rexistroFisioloxico.getSocio().getLogin());
@@ -563,7 +563,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             stm= super.getConexion().prepareStatement(
-                    "DELETE FROM rexistrosFisioloxicos WHERE usuario=? AND dataMarca=?;"
+                    "DELETE FROM rexistroFisioloxico WHERE usuario=? AND dataMarca=?;"
             );
             stm.setString(1,rexistroFisioloxico.getSocio().getLogin());
             stm.setTimestamp(2,rexistroFisioloxico.getData());
@@ -588,7 +588,7 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             stm = super.getConexion().prepareStatement(
                     "SELECT * " +
-                            "FROM rexistrosFisioloxicos " +
+                            "FROM rexistroFisioloxico " +
                             "WHERE socio=? "+
                             "ORDER BY dataMarca DESC;"
             );

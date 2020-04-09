@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public final class DAOTarifas extends AbstractDAO {
     public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
@@ -19,7 +20,7 @@ public final class DAOTarifas extends AbstractDAO {
     protected void insertarTarifa(Tarifa t){
         PreparedStatement stmTarifa=null;
         try{
-            stmTarifa=super.getConexion().prepareStatement("INSERT INTO tarifas (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
+            stmTarifa=super.getConexion().prepareStatement("INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
             stmTarifa.setString(1,t.getNome());
             stmTarifa.setInt(2,t.getMaxActividades());
             stmTarifa.setFloat(3,t.getPrezoBase());
@@ -160,7 +161,7 @@ public final class DAOTarifas extends AbstractDAO {
         PreparedStatement stmTarifa = null;
         ResultSet resultValidacion;
         try {
-            stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifas WHERE LOWER(nome)=LOWER(?)");
+            stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifa WHERE LOWER(nome)=LOWER(?)");
             stmTarifa.setString(1,nome);
             resultValidacion=stmTarifa.executeQuery();
             return resultValidacion.next();
