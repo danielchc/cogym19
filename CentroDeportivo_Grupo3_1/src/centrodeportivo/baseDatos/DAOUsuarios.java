@@ -45,6 +45,26 @@ public final class DAOUsuarios extends AbstractDAO {
         return false;
     }
 
+    protected boolean existePersoaFisica(String DNI){
+        PreparedStatement stmUsuario = null;
+        ResultSet resultValidacion;
+        try {
+            stmUsuario=super.getConexion().prepareStatement("SELECT * FROM persoafisica WHERE DNI=?");
+            stmUsuario.setString(1,DNI);
+            resultValidacion=stmUsuario.executeQuery();
+            return resultValidacion.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmUsuario.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return false;
+    }
+
     protected boolean existeDNI(String dni) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
@@ -143,7 +163,7 @@ public final class DAOUsuarios extends AbstractDAO {
             if(resultPersoa.next()){
                 return new PersoaFisica(
                         resultPersoa.getString("DNI"),
-                        resultPersoa.getString("dificultades"),
+                        resultPersoa.getString("nome"),
                         resultPersoa.getString("dificultades"),
                         resultPersoa.getDate("datanacemento")
                 );
@@ -160,9 +180,25 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
 
     }
+
+
     protected void insertarUsuario(Usuario usuario) {
-        /*PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null,stmProfesor=null;
+        PreparedStatement stmUsuario=null,stmSocio=null,stmPersoal=null;
         try {
+
+            if(!existePersoaFisica(usuario.getDNI())){
+                stmUsuario= super.getConexion().prepareStatement("INSERT INTO  (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
+                stmUsuario.setString(1,usuario.getLogin());
+                stmUsuario.setString(2,usuario.getContrasinal());
+                stmUsuario.setString(3,usuario.getNome());
+                stmUsuario.setString(4,usuario.getNumTelefono());
+                stmUsuario.setString(5,usuario.getDNI());
+                stmUsuario.setString(6,usuario.getCorreoElectronico());
+                stmUsuario.setString(7,usuario.getIBANconta());
+                stmUsuario.executeUpdate();
+
+            }
+/*
             stmUsuario= super.getConexion().prepareStatement("INSERT INTO usuarios (login,contrasinal,nome,numTelefono,DNI,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
             stmUsuario.setString(1,usuario.getLogin());
             stmUsuario.setString(2,usuario.getContrasinal());
@@ -194,18 +230,20 @@ public final class DAOUsuarios extends AbstractDAO {
                 }
             }
             super.getConexion().commit();
+            */
+
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             try {
                 if(stmUsuario!=null)stmUsuario.close();
                 if(stmPersoal!=null)stmPersoal.close();
-                if(stmProfesor!=null)stmProfesor.close();
+                //if(stmProfesor!=null)stmProfesor.close();
                 if(stmSocio!=null)stmSocio.close();
             } catch (SQLException e){
                 System.out.println("Imposible cerrar cursores");
             }
-        }*/
+        }
     }
 
     protected void actualizarUsuario(String loginVello,Usuario usuario) {
