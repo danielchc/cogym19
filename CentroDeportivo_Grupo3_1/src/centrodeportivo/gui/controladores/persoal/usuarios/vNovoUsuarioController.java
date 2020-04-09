@@ -83,72 +83,52 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         cambiarTipo();
     }
 
+    private void visibilidadeHBoxs(boolean mode,HBox...hboxs){
+        for(HBox h:hboxs){
+            h.setVisible(mode);
+        }
+    }
+
+    private void managedHBoxs(boolean mode,HBox...hboxs){
+        for(HBox h:hboxs){
+            h.setManaged(mode);
+        }
+    }
+
     private void esconderCampos(){
-        dataNacementoSocioBox.setVisible(false);
-        tarifaSocioBox.setVisible(false);
-        dificultadesSocioBox.setVisible(false);
-        nussPersoalBox.setVisible(false);
-        nomeBox.setVisible(false);
-        loginBox.setVisible(false);
-        passBox.setVisible(false);
-        tlfBox.setVisible(false);
-        correoBox.setVisible(false);
-        ibanBox.setVisible(false);
-        profesorBox.setVisible(false);
+        visibilidadeHBoxs(false,
+                dataNacementoSocioBox,tarifaSocioBox,dificultadesSocioBox,
+                nussPersoalBox,nomeBox,loginBox, passBox,
+                tlfBox,correoBox,ibanBox, profesorBox
+        );
         btnGardar.setDisable(true);
     }
 
     private void mostrarCamposPersoal(){
-        dataNacementoSocioBox.setVisible(true);
-        dificultadesSocioBox.setVisible(true);
-        nomeBox.setVisible(true);
-        loginBox.setVisible(true);
-        passBox.setVisible(true);
-        tlfBox.setVisible(true);
-        correoBox.setVisible(true);
-        ibanBox.setVisible(true);
-        dataNacementoSocioBox.setManaged(true);
-        dificultadesSocioBox.setManaged(true);
-        nomeBox.setManaged(true);
-        loginBox.setManaged(true);
-        passBox.setManaged(true);
-        tlfBox.setManaged(true);
-        correoBox.setManaged(true);
-        ibanBox.setManaged(true);
-
-        nussPersoalBox.setManaged(true);
-        nussPersoalBox.setVisible(true);
-        profesorBox.setVisible(true);
-        profesorBox.setManaged(true);
-        tarifaSocioBox.setVisible(false);
-        tarifaSocioBox.setManaged(false);
+        visibilidadeHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
+        );
+        managedHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
+        );
+        visibilidadeHBoxs(false, tarifaSocioBox);
+        managedHBoxs(false, tarifaSocioBox);
         btnGardar.setDisable(false);
     }
 
     private void mostrarCamposSocio(){
-        dataNacementoSocioBox.setVisible(true);
-        dificultadesSocioBox.setVisible(true);
-        nomeBox.setVisible(true);
-        loginBox.setVisible(true);
-        passBox.setVisible(true);
-        tlfBox.setVisible(true);
-        correoBox.setVisible(true);
-        ibanBox.setVisible(true);
-        dataNacementoSocioBox.setManaged(true);
-        dificultadesSocioBox.setManaged(true);
-        nomeBox.setManaged(true);
-        loginBox.setManaged(true);
-        passBox.setManaged(true);
-        tlfBox.setManaged(true);
-        correoBox.setManaged(true);
-        ibanBox.setManaged(true);
-
-        nussPersoalBox.setManaged(false);
-        nussPersoalBox.setVisible(false);
-        profesorBox.setVisible(false);
-        profesorBox.setManaged(false);
-        tarifaSocioBox.setVisible(true);
-        tarifaSocioBox.setManaged(true);
+        visibilidadeHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,tarifaSocioBox
+        );
+        managedHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,tarifaSocioBox
+        );
+        visibilidadeHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
+        managedHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
         btnGardar.setDisable(false);
     }
 
@@ -189,6 +169,10 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
             }
         }else{
+            if(!ValidacionDatos.isCorrectoNUSS(campoNUSS.getText())){
+                this.labelError.setText("NUSS con formato incorrecto.");
+                return;
+            }
             Persoal persoal=new Persoal(
                     campoLogin.getText(),
                     campoPassword.getText(),
