@@ -84,7 +84,7 @@ public final class DAOTarifas extends AbstractDAO {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
         try{
-            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifa WHERE codTarifa=? AND codTarifa IN (SELECT tarifa FROM socios);");
+            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifa WHERE codTarifa=? AND codTarifa IN (SELECT tarifa FROM socio);");
             stmTarifa.setInt(1,codTarifa);
             resultTarifas=stmTarifa.executeQuery();
             return resultTarifas.next();
