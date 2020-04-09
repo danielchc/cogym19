@@ -207,7 +207,7 @@ public final class DAOUsuarios extends AbstractDAO {
             }
             stmUsuario.executeUpdate();
 
-            stmUsuario= super.getConexion().prepareStatement("INSERT INTO usuarios (login,contrasinal,numTelefono,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
+            stmUsuario= super.getConexion().prepareStatement("INSERT INTO usuario (login,contrasinal,numTelefono,correoElectronico,IBAN)  VALUES (?,?,?,?,?,?,?);");
             stmUsuario.setString(1,usuario.getLogin());
             stmUsuario.setString(2,usuario.getContrasinal());
             stmUsuario.setString(3,usuario.getNumTelefono());
@@ -217,7 +217,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
             if(usuario instanceof Socio) {
                 Socio socio=(Socio)usuario;
-                stmSocio=super.getConexion().prepareStatement("INSERT INTO socios (login,tarifa) values (?,?);");
+                stmSocio=super.getConexion().prepareStatement("INSERT INTO socio (login,tarifa) values (?,?);");
                 stmSocio.setString(1,socio.getLogin());
                 stmSocio.setInt(2,socio.getTarifa().getCodTarifa());
                 stmSocio.executeUpdate();
