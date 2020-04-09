@@ -1,11 +1,11 @@
------------------------------------------------
+------------------TARIFA--------------------
 
 INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES ('Reducida',5,15.0,3.0);
 INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES ('Básica',10,20.0,3.0);
 INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES ('Premium',25,35.0,2.0);
 INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES ('VIP',30,45.0,1.0);
 
-------------------------------------------------
+------------------USUARIO-------------------
 
 insert into usuario values ('test0', '7dfd4e82b8d78c293304822f7ac7d887', '991202931', 'rgeyton0@cnn.com', 'ES1020304095447685743869', '2017-05-01', NULL);
 insert into usuario values ('manuelPersoal', 'c1d2a08300b0e2a982d5d22953fa4100', '991202931', 'rgeyton0@cnn.com', 'ES1020304095447685743869', '2017-05-01', NULL);
@@ -37,7 +37,7 @@ insert into usuario values ('lauraSocio', 'c1d2a08300b0e2a982d5d22953fa4100', '9
 insert into usuario values ('nataliaSocio', 'c1d2a08300b0e2a982d5d22953fa4100', '686858543', 'mrivalandq@wordpress.org', 'ES1020304095447685743869', '2017-07-04', NULL);
 insert into usuario values ('pedroSocio', 'c1d2a08300b0e2a982d5d22953fa4100', '981881122', 'mduerdenr@seesaa.net', 'ES1020304095447685743869', '2016-06-07', NULL);
 
-------------------------------------------------
+------------------PERSOAL-------------------
 
 insert into persoal values ('test0','0781232322', true);
 insert into persoal values ('manuelPersoal','0781232376', true);
@@ -53,7 +53,7 @@ insert into persoal values ('juliaPersoal', '9431052229', false);
 insert into persoal values ('andreaPersoal','3496054654', false);
 insert into persoal values ('martaPersoal', '5883060595', true);
 		
-------------------------------------------------
+------------------SOCIO-------------------
 
 insert into socio values ('raulSocio', 1);
 insert into socio values ('mariaSocio',2);	
@@ -72,7 +72,7 @@ insert into socio values ('lauraSocio', 2);
 insert into socio values ('nataliaSocio', 2);
 insert into socio values ('pedroSocio', 3); 	
 
-------------------------------------------------
+------------------PERSOAFISICA-------------------
 
 insert into persoaFisica values ('12345678A', 'Test000', 'Lorem ipsum dolor sit amet', '1973-09-06', NULL, 'test0');
 insert into persoaFisica values ('71648701A', 'Manuel Ruiz Ruiz', 'Lorem ipsum dolor sit amet', '1973-09-06', NULL, 'manuelPersoal');
@@ -96,7 +96,7 @@ insert into persoaFisica values ('67635435F', 'Laura Díaz Ruiz', NULL, '2002-01
 insert into persoaFisica values ('88909972D', 'Natalia Rodríguez Sanchez', NULL, '2000-06-25', 'nataliaSocio', NULL);
 insert into persoaFisica values ('46191445S', 'Pedro Fernández Ruiz', NULL, '1975-12-31', 'pedroSocio', NULL);
 
-------------------------------------------------
+------------------REXISTROFISIOLOXICO-------------------
 
 insert into rexistroFisioloxico values ('raulSocio', '2019-10-27 20:25:38', 82.01, 182, 56.49, 131, 50, 28, NULL);
 insert into rexistroFisioloxico values ('raulSocio', '2019-07-11 11:06:35', 82.58, 182, 14.56, 130, 68, 176, NULL);
@@ -204,7 +204,7 @@ insert into rexistroFisioloxico values ('andreaSocio', '2019-05-02 03:32:52', 82
 insert into rexistroFisioloxico values ('andreaSocio', '2019-05-21 03:28:12', 87.54, 182, 86.99, 123, 91, 200, NULL);
 insert into rexistroFisioloxico values ('andreaSocio', '2020-03-07 18:12:05', 82.32, 182, 84.27, 127, 65, 41, NULL);
 
-------------------------------------------------
+------------------MENSAXES-------------------
 
 insert into enviarMensaxe values ('andreaSocio', 'andreaPersoal', '2020-02-21 21:12:26', 'Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor. Vivamus mattis viverra enim  vitae vestibulum velit. In hac habitasse platea dictumst. Nulla a lobortis ante. Lorem ipsum dolor sit amet  consectetur adipiscing elit. In pretium hendrerit velit id elementum. Suspendisse potenti. Aenean fermentum cursus tincidunt. Curabitur accumsan leo ac turpis pretium fringilla. Morbi blandit vulputate dui et faucibus.', true);
 insert into enviarMensaxe values ('nataliaSocio', 'andreaPersoal', '2020-03-20 01:15:59', 'Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor. Vivamus mattis viverra enim  vitae vestibulum velit. In hac habitasse platea dictumst. Nulla a lobortis ante. Lorem ipsum dolor sit amet  consectetur adipiscing elit. In pretium hendrerit velit id elementum. Suspendisse potenti. Aenean fermentum cursus tincidunt. Curabitur accumsan leo ac turpis pretium fringilla. Morbi blandit vulputate dui et faucibus.', true);
@@ -237,13 +237,38 @@ insert into enviarMensaxe values ('mariaSocio', 'lucasPersoal', '2020-02-18 07:1
 insert into enviarMensaxe values ('mariaSocio', 'andreaPersoal', '2020-03-13 20:15:05', 'Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor. Vivamus mattis viverra enim  vitae vestibulum velit. In hac habitasse platea dictumst. Nulla a lobortis ante. Lorem ipsum dolor sit amet  consectetur adipiscing elit. In pretium hendrerit velit id elementum. Suspendisse potenti. Aenean fermentum cursus tincidunt. Curabitur accumsan leo ac turpis pretium fringilla. Morbi blandit vulputate dui et faucibus.', true);
 insert into enviarMensaxe values ('lucasPersoal', 'sergioPersoal', '2020-01-24 15:03:44', 'Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor. Vivamus mattis viverra enim  vitae vestibulum velit. In hac habitasse platea dictumst. Nulla a lobortis ante. Lorem ipsum dolor sit amet  consectetur adipiscing elit. In pretium hendrerit velit id elementum. Suspendisse potenti. Aenean fermentum cursus tincidunt. Curabitur accumsan leo ac turpis pretium fringilla. Morbi blandit vulputate dui et faucibus.', false);
 
-------------------------------------------------
+------------------INSTALACIÓNS-------------------
+insert into instalacion (nome, numtelefono, direccion) values ('Polideportivo da Cañota', '982455732', 'Lugar da Cañota, 22');
+insert into instalacion (nome, numtelefono, direccion) values ('Estadio Central', '924566633', 'Rúa Baixa, Lugar de Montes');
+insert into instalacion (nome, numtelefono, direccion) values ('Multiusos Pontes do Mar', '992423465', 'Calle Lorenzo, Vilaxoan');
+insert into instalacion (nome, numtelefono, direccion) values ('Pistas de Tenis de Louro', '635234888', 'Lugar de Ventos, 35');
+insert into instalacion (nome, numtelefono, direccion) values ('Piscinas Nadamoito', '984566943', 'Rúa Alta, Lugar de Prados');
 
+------------------MENSAXES-------------------
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (1, 'Pista de Atletismo DC', 'Para os máis corredores', 50, '2018-12-12');
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Cancha do Básquet Cañota CAB', 'A cancha do mellor equipo que houbo en toda Cañota', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Pistas de Pádel', 'Pistas de Pádel recén construídas.', 15);
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Aula C1', 'Aula para clases teóricas.', 25);
 
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo do Montes FC', 'Campo de Fútbol do mellor equipo da 3ª rexional.', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo auxiliar 1', 'Campo de Fútbol para entrenamentos.', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo auxiliar 2', 'Outro campo de Fútbol para entrenos.', 25);
 
-------------------------------------------------
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Cancha principal', 'Cancha na que se poden practicar todo tipo de deportes.', 70);
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (3, 'Cancha secundaria', 'Cancha para diferentes deportes auxiliar.', 50, '2020-01-22');
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Aula V1', 'Aula ampla pechada para exposicións.', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Aula V2', 'Pequena aula para pequenos encontros.', 10);
 
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista Central', 'Pista principal, nela téñense reunido as mellores raquetas.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 1', 'Primeira pista auxiliar.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 2', 'Segunda pista auxiliar.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 3', 'Terceira pista auxiliar.', 5);
 
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina principal', 'Piscina multiusos para a práctica de diferentes deportes de natación', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina de saltos', 'Piscina óptima para realizar saltos.', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina auxiliar', 'Piscina multiusos de menor tamaño.', 15);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Aula P1', 'Aula da instalación das piscinas, para calquera tipo de encontro entre poucas persoas', 15);
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (5, 'Aula P2', 'Pequena aula para reunións', 10, '2020-01-30');
 
 ------------------------------------------------
 
