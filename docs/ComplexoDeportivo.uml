@@ -2406,7 +2406,7 @@ de Socios
 <XPD:REF name="Owner">38a8PIqfmUm+zwsOqPcJZQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="V9Mu8gESAUWLSYKIS3vBTwAA">
-<XPD:ATTR name="Name" type="string">nome</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">estado</XPD:ATTR>
 <XPD:REF name="Owner">38a8PIqfmUm+zwsOqPcJZQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="nYnp+NSZU0e14V/Ze+IzjwAA">
