@@ -2,7 +2,9 @@ package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -27,10 +29,6 @@ import java.util.ResourceBundle;
 
 public class vNovoUsuarioController extends AbstractController implements Initializable {
 
-    public AnchorPane panelNovoUsuario;
-    public AnchorPane panelOpcions;
-    public AnchorPane panelReactivar;
-
     public ComboBox tipoUsuario;
     public TextField campoNome;
     public TextField campoLogin;
@@ -44,8 +42,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public DatePicker campoData;
     public TextArea campoDificultades;
     public Label labelError;
-    public RadioButton radioReactivar;
-    public RadioButton radioNovo;
+    public CheckBox checkProfesor;
+    public Button btnGardar;
 
     public HBox dataNacementoSocioBox;
     public HBox tarifaSocioBox;
@@ -57,8 +55,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public HBox tlfBox;
     public HBox correoBox;
     public HBox ibanBox;
+    public HBox profesorBox;
 
-    private ToggleGroup radioButtons;
 
     enum  RexistroTipo {
         Socio,
@@ -76,15 +74,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.radioButtons=new ToggleGroup();
-        this.radioNovo.setToggleGroup(this.radioButtons);
-        this.radioReactivar.setToggleGroup(this.radioButtons);
-        this.radioButtons.selectToggle(this.radioNovo);
-
-        this.panelOpcions.setVisible(true);
-        this.panelNovoUsuario.setVisible(false);
-        this.panelReactivar.setVisible(false);
-
         this.comboTarifa.getItems().addAll(super.getFachadaAplicacion().listarTarifas());
         this.comboTarifa.getSelectionModel().selectFirst();
         this.tipoUsuario.getItems().addAll(RexistroTipo.values());
@@ -104,6 +93,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         tlfBox.setVisible(false);
         correoBox.setVisible(false);
         ibanBox.setVisible(false);
+        profesorBox.setVisible(false);
+        btnGardar.setDisable(true);
     }
 
     private void mostrarCamposPersoal(){
@@ -126,8 +117,11 @@ public class vNovoUsuarioController extends AbstractController implements Initia
 
         nussPersoalBox.setManaged(true);
         nussPersoalBox.setVisible(true);
+        profesorBox.setVisible(true);
+        profesorBox.setManaged(true);
         tarifaSocioBox.setVisible(false);
         tarifaSocioBox.setManaged(false);
+        btnGardar.setDisable(false);
     }
 
     private void mostrarCamposSocio(){
@@ -150,53 +144,63 @@ public class vNovoUsuarioController extends AbstractController implements Initia
 
         nussPersoalBox.setManaged(false);
         nussPersoalBox.setVisible(false);
+        profesorBox.setVisible(false);
+        profesorBox.setManaged(false);
         tarifaSocioBox.setVisible(true);
         tarifaSocioBox.setManaged(true);
+        btnGardar.setDisable(false);
     }
 
     public void btnGardarAccion(ActionEvent actionEvent) {
-        /*if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
+        if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
             this.labelError.setText("Algún campo sen cubrir.");
             return;
         }
         if(!comprobarFormatos()) return;
         if(!comprobarDataMais16anos()) return;
-        if(!comprobarLogin()) return;
-        if(!comprobarDNI()) return;
 
-        if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Socio.ordinal()){
+        ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
+
+        if(contasP==ContasPersoa.Ningunha){
+            if(!comprobarDNI()) return;
+        }
+        if(!comprobarLogin()) return;
+
+
+        if(this.tipoUsuario.getSelectionModel().getSelectedItem()==RexistroTipo.Socio){
             Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
             Socio socio=new Socio(
                     campoLogin.getText(),
                     campoPassword.getText(),
-                    campoNome.getText(),
-                    campoTelf.getText(),
                     campoDNI.getText(),
+                    campoNome.getText(),
+                    campoDificultades.getText(),
+                    Date.valueOf(campoData.getValue()),
+                    campoTelf.getText(),
                     campoCorreo.getText(),
                     campoIBAN.getText(),
-                    Date.valueOf(campoData.getValue()),
-                    campoDificultades.getText(),
                     tarifa
             );
             this.fachadaAplicacion.insertarUsuario(socio);
             this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
         }else{
-            Profesor profesor=new Profesor(
+            Persoal persoal=new Persoal(
                     campoLogin.getText(),
                     campoPassword.getText(),
-                    campoNome.getText(),
-                    campoTelf.getText(),
                     campoDNI.getText(),
+                    campoNome.getText(),
+                    campoDificultades.getText(),
+                    Date.valueOf(campoData.getValue()),
+                    campoTelf.getText(),
                     campoCorreo.getText(),
                     campoIBAN.getText(),
-                    campoNUSS.getText()
+                    campoNUSS.getText(),
+                    checkProfesor.isSelected()
             );
-
-            if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Persoal.ordinal()) this.fachadaAplicacion.insertarUsuario(profesor);
-            else if(this.tipoUsuario.getSelectionModel().getSelectedIndex()==RexistroTipo.Profesor.ordinal()) this.fachadaAplicacion.insertarUsuario((Persoal)profesor);
-            this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+profesor.getLogin() +" correctamente");
+            this.fachadaAplicacion.insertarUsuario(persoal);
+            this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
         }
-        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);*/
+        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
     }
 
     public void cambiarTipo(){
@@ -209,10 +213,12 @@ public class vNovoUsuarioController extends AbstractController implements Initia
 
     public void dniCambiadoAction(KeyEvent keyEvent){
         this.labelError.setText("");
-        switch (super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText())){
+        ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
+        switch (contasP){
             case Ningunha:
                 this.labelError.setText("");
                 this.tipoUsuario.setDisable(false);
+                cambiarTipo();
                 break;
             case Ambas:
                 this.labelError.setText("Esa persoa xa ten contas de Socio e Persoal no sistema.");
@@ -232,36 +238,24 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 mostrarCamposSocio();
                 break;
         }
-        /*Usuario usuario=super.getFachadaAplicacion().consultarUsuario(campoDNI.getText());
-        if(usuario!=null){
-            this.campoNome.setText(usuario.getNome());
-            this.campoData.setAccessibleText(usuario.getDataNacemento().toString());
-            this.campoDificultades.setText(usuario.getDificultades());
+        if(contasP!=ContasPersoa.Ningunha){
+            PersoaFisica persoaFisica=super.getFachadaAplicacion().consultarPersoaFisica(campoDNI.getText());
 
+            this.campoNome.setText(persoaFisica.getNome());
+            this.campoData.setValue(persoaFisica.getDataNacemento().toLocalDate());
+            this.campoDificultades.setText(persoaFisica.getDificultades());
             this.campoNome.setEditable(false);
             this.campoData.setEditable(false);
             this.campoDificultades.setEditable(false);
         }else{
             this.campoNome.setText("");
-            this.campoData.setAccessibleText("");
             this.campoDificultades.setText("");
-
             this.campoNome.setEditable(true);
             this.campoData.setEditable(true);
             this.campoDificultades.setEditable(true);
-        }*/
-    }
-
-    public void btnContinuarAction(){
-        this.panelOpcions.setVisible(false);
-        if(this.radioButtons.getSelectedToggle().equals(this.radioNovo)){
-            this.panelNovoUsuario.setVisible(true);
-            this.panelReactivar.setVisible(false);
-        }else if(this.radioButtons.getSelectedToggle().equals(this.radioReactivar)){
-            this.panelNovoUsuario.setVisible(false);
-            this.panelReactivar.setVisible(true);
         }
     }
+
 
     private boolean comprobarFormatos(){
         if(!ValidacionDatos.isCorrectoTelefono(this.campoTelf.getText())){

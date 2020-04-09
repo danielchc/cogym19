@@ -170,44 +170,9 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-             <AnchorPane fx:id="panelOpcions" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-                 <children>
-                     <Button fx:id="btnContinuar" onAction="#btnContinuarAction" layoutX="253.0" layoutY="391.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Continuar" AnchorPane.bottomAnchor="30.80000000000001" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="252.60000000000002">
-                         <font>
-                             <Font size="15.0" />
-                         </font>
-                     </Button>
-                     <VBox layoutX="100.0" layoutY="101.0" prefHeight="200.0" prefWidth="487.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="99.80000000000001" AnchorPane.topAnchor="101.0">
-                         <children>
-                             <Label alignment="CENTER" prefHeight="78.0" prefWidth="521.0" text="Escolle unha opción...">
-                                 <font>
-                                     <Font name="System Bold" size="22.0" />
-                                 </font>
-                             </Label>
-                             <HBox alignment="CENTER" prefHeight="122.0" prefWidth="487.0">
-                                 <children>
-                                     <RadioButton fx:id="radioReactivar" mnemonicParsing="false" prefHeight="54.0" prefWidth="237.0" text="Reactivar un usuario de baixa">
-                                         <font>
-                                             <Font name="System Bold" size="15.0" />
-                                         </font>
-                                     </RadioButton>
-                                     <RadioButton fx:id="radioNovo" layoutX="140.0" layoutY="44.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="190.0" text="Crear un novo usuario">
-                                         <font>
-                                             <Font name="System Bold" size="15.0" />
-                                         </font>
-                                         <HBox.margin>
-                                             <Insets left="20.0" />
-                                         </HBox.margin>
-                                     </RadioButton>
-                                 </children>
-                             </HBox>
-                         </children>
-                     </VBox>
-                 </children>
-             </AnchorPane>
              <AnchorPane fx:id="panelNovoUsuario" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
                  <children>
-                     <Button fx:id="btnGadar" layoutX="253.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnGardarAccion" prefHeight="31.0" prefWidth="94.0" text="Gardar" AnchorPane.bottomAnchor="11.400000000000034" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="252.60000000000002">
+                     <Button fx:id="btnGardar" layoutX="253.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnGardarAccion" prefHeight="31.0" prefWidth="94.0" text="Gardar" AnchorPane.bottomAnchor="11.400000000000034" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="252.60000000000002">
                          <font>
                              <Font size="15.0" />
                          </font>
@@ -339,23 +304,22 @@
                                      <TextField fx:id="campoNUSS" prefHeight="100.0" prefWidth="250.0" />
                                  </children>
                              </HBox>
+                             <HBox fx:id="profesorBox" layoutX="10.0" layoutY="357.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                     <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                         <font>
+                                             <Font name="System Bold" size="14.0" />
+                                         </font>
+                                     </Label>
+                                     <CheckBox fx:id="checkProfesor" mnemonicParsing="false" prefHeight="22.0" prefWidth="245.0" text="Profesor">
+                                         <font>
+                                             <Font name="System Bold" size="12.0" />
+                                         </font>
+                                     </CheckBox>
+                                 </children>
+                             </HBox>
                          </children>
                      </VBox>
-                 </children>
-             </AnchorPane>
-             <AnchorPane fx:id="panelReactivar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-                 <children>
-                     <Button layoutX="253.0" layoutY="391.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Continuar" AnchorPane.bottomAnchor="30.80000000000001" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="252.60000000000002">
-                         <font>
-                             <Font size="15.0" />
-                         </font>
-                     </Button>
-                     <TableView layoutX="185.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0">
-                         <columns>
-                             <TableColumn prefWidth="75.0" text="C1" />
-                             <TableColumn prefWidth="75.0" text="C2" />
-                         </columns>
-                     </TableView>
                  </children>
              </AnchorPane>
          </children>
