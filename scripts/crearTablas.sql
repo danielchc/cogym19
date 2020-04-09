@@ -34,7 +34,7 @@ CREATE TABLE persoal(
 	profesorActivo		BOOLEAN NOT NULL DEFAULT FALSE,
 	PRIMARY KEY(login),
 	FOREIGN KEY (login) REFERENCES usuarios(login) 
-		ON UPDATE CASCADE ON DELETE CASCADE,
+		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE persoasFisicas(
@@ -94,8 +94,8 @@ CREATE TABLE materiais(
 );
 
 CREATE TABLE tipoActividades(
-	codTipoActividade 	SERIAL,
-	nome				VARCHAR(50) UNIQUE,
+	codTipoActividade 	SERIAL NOT NULL,
+	nome				VARCHAR(50) UNIQUE NOT NULL,
 	descricion			VARCHAR(200),
 	PRIMARY KEY (codTipoActividade)
 );
