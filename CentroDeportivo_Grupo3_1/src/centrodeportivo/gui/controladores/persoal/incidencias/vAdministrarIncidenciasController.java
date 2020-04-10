@@ -17,6 +17,10 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vAdministrarIncidenciasController extends AbstractController implements Initializable {
 
     public TableView listaIncidencias;

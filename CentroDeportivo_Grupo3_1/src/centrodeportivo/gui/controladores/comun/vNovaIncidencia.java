@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vNovaIncidencia extends AbstractController implements Initializable {
 
     public RadioButton radioArea;

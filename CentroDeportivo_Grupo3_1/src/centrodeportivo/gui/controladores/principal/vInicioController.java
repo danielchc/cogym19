@@ -9,6 +9,10 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vInicioController extends AbstractController implements Initializable {
     public Label label;
 

@@ -1,5 +1,9 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class Instalacion {
 
     private int codInstalacion;

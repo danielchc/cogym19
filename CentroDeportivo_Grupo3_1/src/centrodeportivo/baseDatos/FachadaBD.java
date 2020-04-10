@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class FachadaBD {
     private FachadaAplicacion fachadaAplicacion;
     private FachadaGUI fachadaGUI;

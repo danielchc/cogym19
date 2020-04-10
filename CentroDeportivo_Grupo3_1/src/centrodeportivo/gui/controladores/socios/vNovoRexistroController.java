@@ -16,6 +16,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vNovoRexistroController extends AbstractController implements Initializable {
 
 

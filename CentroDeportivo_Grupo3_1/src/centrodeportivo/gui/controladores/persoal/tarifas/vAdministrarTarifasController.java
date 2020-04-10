@@ -14,6 +14,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vAdministrarTarifasController extends AbstractController implements Initializable {
 
     public TableView listaTarifas;

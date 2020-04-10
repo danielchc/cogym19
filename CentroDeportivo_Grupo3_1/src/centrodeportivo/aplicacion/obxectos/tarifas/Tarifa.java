@@ -1,7 +1,8 @@
 package centrodeportivo.aplicacion.obxectos.tarifas;
 
 /**
- *
+ * @author David Carracedo
+ * @author Daniel Chenel
  */
 public final class Tarifa {
 

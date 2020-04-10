@@ -5,6 +5,10 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
 import java.sql.Date;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class Material {
     private Integer codMaterial;
     private Area area;

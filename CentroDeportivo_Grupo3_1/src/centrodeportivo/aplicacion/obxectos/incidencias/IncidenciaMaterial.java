@@ -4,6 +4,10 @@ import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class IncidenciaMaterial extends Incidencia{
     private Material material;
     public IncidenciaMaterial(int numero) {

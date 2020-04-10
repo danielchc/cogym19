@@ -27,6 +27,10 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vNovoUsuarioController extends AbstractController implements Initializable {
 
     public ComboBox tipoUsuario;

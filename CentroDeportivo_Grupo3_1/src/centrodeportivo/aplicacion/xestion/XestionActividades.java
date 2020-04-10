@@ -6,6 +6,10 @@ import centrodeportivo.gui.FachadaGUI;
 
 import java.util.ArrayList;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class XestionActividades {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;

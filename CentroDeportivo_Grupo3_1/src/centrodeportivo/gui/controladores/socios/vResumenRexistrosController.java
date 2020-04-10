@@ -26,6 +26,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vResumenRexistrosController extends AbstractController implements Initializable {
 
     /**

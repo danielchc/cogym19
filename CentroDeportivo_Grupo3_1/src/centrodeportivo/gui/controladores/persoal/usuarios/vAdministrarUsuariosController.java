@@ -18,6 +18,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vAdministrarUsuariosController extends AbstractController implements Initializable {
 
     public TableView listaUsuarios;

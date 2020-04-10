@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vLoginController  extends AbstractController implements Initializable {
 
     /**

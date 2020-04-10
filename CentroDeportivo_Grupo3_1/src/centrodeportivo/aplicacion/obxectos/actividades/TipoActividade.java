@@ -2,6 +2,10 @@ package centrodeportivo.aplicacion.obxectos.actividades;
 
 import java.util.Objects;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class TipoActividade{
 
     private Integer codTipoActividade;

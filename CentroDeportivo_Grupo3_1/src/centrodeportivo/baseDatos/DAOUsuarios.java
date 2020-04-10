@@ -19,6 +19,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class DAOUsuarios extends AbstractDAO {
 
     protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {

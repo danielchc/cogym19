@@ -24,6 +24,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class FachadaAplicacion {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;

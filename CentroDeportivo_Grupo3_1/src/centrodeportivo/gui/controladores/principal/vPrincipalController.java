@@ -33,6 +33,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vPrincipalController extends AbstractController implements Initializable {
     /*
         Menus
@@ -79,6 +83,13 @@ public class vPrincipalController extends AbstractController implements Initiali
     private IdPantalla pantallaAMostrar;
     private IdPantalla ultimaPantalla;
 
+
+    /**
+     * Constructor para o controlador da pantalla principal que contén o menú e o contenedor das distintas pantallas.
+     * @param fachadaAplicacion fachada da aplicación
+     * @param usuarioLogeado Usuario que está activo
+     * @param pantallaAMostrar pantalla a mostrar en primeiro lugar
+     */
     public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario usuarioLogeado,IdPantalla pantallaAMostrar) {
         super(fachadaAplicacion);
         this.usuarioLogeado =usuarioLogeado;
@@ -90,6 +101,11 @@ public class vPrincipalController extends AbstractController implements Initiali
         cargarPantallas();
     }
 
+    /**
+     * Método para inicializar a vista.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inciarTransiciones();
@@ -97,6 +113,10 @@ public class vPrincipalController extends AbstractController implements Initiali
         mostrarMenu(IdPantalla.INICIO);
     }
 
+    /**
+     * Este método cargar todas as pantalals necesarias, asociándolles un
+     * identificador e os seus controladores correspondentes.
+     */
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
         this.pantallas.put(IdPantalla.NOVOUSUARIO,new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml",new vNovoUsuarioController(super.getFachadaAplicacion(),this)));
@@ -115,6 +135,10 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.NOVAINCIDENCIA,new DatosVista("../../vistas/comun/vNovaIncidencia.fxml",new vNovaIncidencia(super.getFachadaAplicacion(),this)));
     }
 
+    /**
+     * Este método inicializa as transicións dos sliders desplegables.
+     * Ademáis esconde todos os desplegables ao iniciarse a aplicación.
+     */
     private void inciarTransiciones(){
         ArrayList<VBox> sliders=new ArrayList<>();
         sliders.add(sideBarUsuariosP);       sliders.add(sideBarMensaxesP);
@@ -147,6 +171,9 @@ public class vPrincipalController extends AbstractController implements Initiali
         });
     }
 
+    /**
+     * Este método mostra os menús correspondentes segundo o tipo de usuario que se loggea.
+     */
     private void ocultarMenusInnecesarios(){
         if(pantallaAMostrar==IdPantalla.PANTALLAPERSOAL){
             this.menuSocio.setVisible(false);
@@ -167,6 +194,31 @@ public class vPrincipalController extends AbstractController implements Initiali
         }
     }
 
+    /**
+     * Este método esconde o desplegable correspondente ao botón pulsado.
+     * @param boton Botón do desplegable pulsado.
+     */
+    private void esconderSliderBotonMenu(Button boton){
+        boton.getStyleClass().remove("sidebar-button-active");
+        boton.getStyleClass().add("sidebar-button");
+        Transicion t=this.transiciones.get(boton);
+        t.getTransicionCerrar().setToX(-(t.getSlider().getWidth()));
+        t.getTransicionCerrar().play();
+    }
+
+    /**
+     * Este método esconde todos os desplegables.
+     */
+    private void esconderTodosSliders(){
+        for(Button b:this.botonesMenu){
+            esconderSliderBotonMenu(b);
+        }
+    }
+
+    /**
+     * Este método abre/cerra o desplegable asociado ao botón do menú pulsado.
+     * @param actionEvent evento
+     */
     public void btnMenuAction(ActionEvent actionEvent) {
         Button boton=(Button)actionEvent.getSource();
         Transicion t=this.transiciones.get(boton);
@@ -180,20 +232,20 @@ public class vPrincipalController extends AbstractController implements Initiali
         }
     }
 
-    private void esconderSliderBotonMenu(Button boton){
-        boton.getStyleClass().remove("sidebar-button-active");
-        boton.getStyleClass().add("sidebar-button");
-        Transicion t=this.transiciones.get(boton);
-        t.getTransicionCerrar().setToX(-(t.getSlider().getWidth()));
-        t.getTransicionCerrar().play();
+    /**
+     * Este método esconde os desplegables e abre a pantalla seleccionada.
+     * @param actionEvent evento
+     */
+    public void btnSliderAction(ActionEvent actionEvent) {
+        esconderTodosSliders();
+        mostrarMenu(IdPantalla.valueOf(((Button)actionEvent.getSource()).getId()));
     }
 
-    private void esconderTodosSliders(){
-        for(Button b:this.botonesMenu){
-            esconderSliderBotonMenu(b);
-        }
-    }
-
+    /**
+     * Este método mostra a pantalla correspondente ao id que se lle pasa como parámetro.
+     * Cárgase o fxml e asóciaselle o seu controlador correspondente.
+     * @param idPantalla Pantalla a mostrar.
+     */
     public void mostrarMenu(IdPantalla idPantalla){
         this.ultimaPantalla=this.pantallaAMostrar;
         this.mainContainer.getChildren().removeAll(this.mainContainer.getChildren());
@@ -209,26 +261,38 @@ public class vPrincipalController extends AbstractController implements Initiali
         }
     }
 
-    public void btnSliderAction(ActionEvent actionEvent) {
-        esconderTodosSliders();
-        mostrarMenu(IdPantalla.valueOf(((Button)actionEvent.getSource()).getId()));
+    /**
+     * Este método permite volver á última pantalla amosada.
+     */
+    public void volverAtras(){
+        mostrarMenu(ultimaPantalla);
     }
 
+    /**
+     * Este método abre o perfil dun socio para poder editalo.
+     */
     public void perfilUsuarioAction(){
         esconderTodosSliders();
         mostrarMenu(IdPantalla.NOVOUSUARIO);
         ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(this.usuarioLogeado);
     }
 
+    /**
+     * Este método devolve o controlador dunha pantalla.
+     * @param idPantalla Identificador da pantalla.
+     * @return Controladr asociado á pantalla.
+     */
     public AbstractController getControlador(IdPantalla idPantalla){
         return this.pantallas.get(idPantalla).getControlador();
     }
+
+    /**
+     * @return Usuario loggeado no sistema.
+     */
     public Usuario obterUsuarioLogeado(){
         return usuarioLogeado;
     }
 
-    public void volverAtras(){
-        mostrarMenu(ultimaPantalla);
-    }
+
 
 }

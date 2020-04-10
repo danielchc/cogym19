@@ -27,6 +27,11 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vNovoMensaxeController extends AbstractController implements Initializable {
 
     /**

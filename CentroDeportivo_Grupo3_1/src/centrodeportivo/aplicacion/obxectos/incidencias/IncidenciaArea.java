@@ -5,6 +5,10 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class IncidenciaArea extends Incidencia {
     private Area area;
     public IncidenciaArea(int numero) {

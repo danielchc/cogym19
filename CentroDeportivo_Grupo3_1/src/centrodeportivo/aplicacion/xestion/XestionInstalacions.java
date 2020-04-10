@@ -8,6 +8,10 @@ import centrodeportivo.gui.FachadaGUI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class XestionInstalacions {
 
     private FachadaGUI fachadaGUI;

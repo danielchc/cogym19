@@ -7,6 +7,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Date;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public abstract class Incidencia {
     private TipoIncidencia tipoIncidencia;
     private int numero;

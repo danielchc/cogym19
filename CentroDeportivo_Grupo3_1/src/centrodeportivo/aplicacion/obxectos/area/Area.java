@@ -3,6 +3,10 @@ package centrodeportivo.aplicacion.obxectos.area;
 import java.sql.Date;
 import java.util.Objects;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class Area {
     private int codArea;
     private Instalacion instalacion;

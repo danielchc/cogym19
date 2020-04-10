@@ -10,6 +10,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class DAOInstalacions extends AbstractDAO {
 
     protected DAOInstalacions(Connection conexion, FachadaAplicacion fachadaAplicacion) {
