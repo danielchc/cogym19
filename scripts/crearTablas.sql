@@ -218,8 +218,8 @@ CREATE TABLE enviarMensaxe(
 
 CREATE TABLE estarCapacitado(
 	tipoActividade 	INT NOT NULL, 
-	profesor		VARCHAR(25) NOT NULL,
-	FOREIGN KEY (profesor) REFERENCES persoal(login) 
+	persoal		VARCHAR(25) NOT NULL,
+	FOREIGN KEY (persoal) REFERENCES persoal(login) 
 	ON UPDATE CASCADE ON DELETE CASCADE,	
 	FOREIGN KEY (tipoActividade) REFERENCES tipoActividade(codTipoActividade) 
 	ON UPDATE CASCADE ON DELETE CASCADE

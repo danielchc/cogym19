@@ -52,7 +52,7 @@ insert into persoal values ('luciaPersoal','8139184829', true);
 insert into persoal values ('juliaPersoal', '9431052229', false);
 insert into persoal values ('andreaPersoal','3496054654', false);
 insert into persoal values ('martaPersoal', '5883060595', true);
-		
+
 ------------------SOCIO-------------------
 
 insert into socio values ('raulSocio', 1);
@@ -425,32 +425,70 @@ insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezo
 insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (22, 5, 2, 'Bote reguleiro', '2018-12-20', 30);
 
 ------------------TIPO DE ACTIVIDADE-------------------
-insert into tipoactividade (nome, descricion) values ('Atletismo', 'Categoría para os máis corredores da casa');
-insert into tipoactividade (nome, descricion) values ('Salto de altura', 'Para aqueles que queiran tocar o ceo');
-insert into tipoactividade (nome, descricion) values ('Salto de lonxitude', 'Para os que queiran saltar dunha casa á outra');
-insert into tipoactividade (nome, descricion) values ('Lanzamento de disco', 'Para os que queiran desatar a súa forza');
-insert into tipoactividade (nome, descricion) values ('Lanzamento de xabalina', 'O clásico lanzamento de xabalina');
-insert into tipoactividade (nome, descricion) values ('Baloncesto', 'Actividades para os máis encestadores');
-insert into tipoactividade (nome, descricion) values ('Padel', 'Actividades relativas ao padel');
-insert into tipoactividade (nome, descricion) values ('Relaxación', 'Para os que están nerviosos cos exames');
-insert into tipoactividade (nome, descricion) values ('Frontón', 'Para atrevidos');
-insert into tipoactividade (nome, descricion) values ('Futbol', 'Actividades relacionadas co deporte rei');
-insert into tipoactividade (nome, descricion) values ('Futbol infantil', 'Futbol para os raparigos');
-insert into tipoactividade (nome, descricion) values ('Bailes Latinos', 'Para os que queren mover o esqueleto');
-insert into tipoactividade (nome, descricion) values ('Zumba', 'Para os que queren deixalo todo na pista');
-insert into tipoactividade (nome, descricion) values ('Balonmán', 'Actividades sobre balonmán');
-insert into tipoactividade (nome, descricion) values ('Fútbol Sala', 'Actividades relacionadas con este gran deporte');
-insert into tipoactividade (nome, descricion) values ('Tenis', 'Para os que queiran practicar este gran deporte, todas as idades.');
-insert into tipoactividade (nome, descricion) values ('Carreiras de natación', 'Para os que queiran mellorar nesta disciplina da natación.');
-insert into tipoactividade (nome, descricion) values ('Saltos de natación', 'Para os que se atreven a saltar dende alturas inimaxinábeis.');
+insert into tipoactividade (nome, descricion) values ('carreiras', 'Categoría para os máis corredores da casa');
+insert into tipoactividade (nome, descricion) values ('salto de altura', 'Para aqueles que queiran tocar o ceo');
+insert into tipoactividade (nome, descricion) values ('salto de lonxitude', 'Para os que queiran saltar dunha casa á outra');
+insert into tipoactividade (nome, descricion) values ('lanzamento de disco', 'Para os que queiran desatar a súa forza');
+insert into tipoactividade (nome, descricion) values ('lanzamento de xabalina', 'O clásico lanzamento de xabalina');
+insert into tipoactividade (nome, descricion) values ('baloncesto', 'Actividades para os máis encestadores');
+insert into tipoactividade (nome, descricion) values ('padel', 'Actividades relativas ao padel');
+insert into tipoactividade (nome, descricion) values ('relaxación', 'Para os que están nerviosos cos exames');
+insert into tipoactividade (nome, descricion) values ('frontón', 'Para atrevidos');
+insert into tipoactividade (nome, descricion) values ('futbol', 'Actividades relacionadas co deporte rei');
+insert into tipoactividade (nome, descricion) values ('futbol infantil', 'Futbol para os raparigos');
+insert into tipoactividade (nome, descricion) values ('bailes latinos', 'Para os que queren mover o esqueleto');
+insert into tipoactividade (nome, descricion) values ('zumba', 'Para os que queren deixalo todo na pista');
+insert into tipoactividade (nome, descricion) values ('balonmán', 'Actividades sobre balonmán');
+insert into tipoactividade (nome, descricion) values ('fútbol sala', 'Actividades relacionadas con este gran deporte');
+insert into tipoactividade (nome, descricion) values ('tenis', 'Para os que queiran practicar este gran deporte, todas as idades.');
+insert into tipoactividade (nome, descricion) values ('carreiras de natación', 'Para os que queiran mellorar nesta disciplina da natación.');
+insert into tipoactividade (nome, descricion) values ('saltos de natación', 'Para os que se atreven a saltar dende alturas inimaxinábeis.');
+
+
+------------------CAPACIDADE PERSOAL-------------------
+insert into estarcapacitado (tipoactividade, persoal) values (1, 'manuelPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (1, 'soniaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (1, 'luciaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (2, 'luciaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (2, 'martaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (2, 'soniaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (3, 'luciaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (4, 'manuelPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (4, 'martaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (5, 'manuelPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (5, 'soniaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (6, 'soniaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (6, 'luciaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (6, 'martaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (7, 'manuelPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (8, 'luciaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (8, 'soniaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (9, 'manuelPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (10, 'sofiaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (10, 'soniaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (11, 'sofiaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (12, 'test0');
+insert into estarcapacitado (tipoactividade, persoal) values (12, 'sofiaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (13, 'test0');
+insert into estarcapacitado (tipoactividade, persoal) values (14, 'manuelPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (14, 'luciaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (14, 'sofiaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (15, 'martaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (16, 'manuelPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (16, 'luciaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (17, 'martaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (17, 'sofiaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (18, 'soniaPersoal');
+insert into estarcapacitado (tipoactividade, persoal) values (19, 'soniaPersoal');
 
 ------------------CURSO-------------------
+insert into curso (nome, descricion, prezo) values ('curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25);
+insert into curso (nome, descricion, prezo) values ('futbol avanzado', 'Curso adicado aos máis especialistas neste deporte.', 40);
+insert into curso (nome, descricion, prezo) values ('baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25);
+insert into curso (nome, descricion, prezo) values ('movemento', 'Actividades variadas para exercitarse', 30);
+insert into curso (nome, descricion, prezo) values ('curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30);
 
-
-
-
-------------------ACTIVIDADE-------------------
-
+------------------ACTIVIDADE (PARA OS CURSOS ANTERIORES)-------------------
 
 
 
@@ -463,8 +501,4 @@ insert into tipoactividade (nome, descricion) values ('Saltos de natación', 'Pa
 
 
 
-
-
-
-------------------PROFESOR->ACTIVIDADE-------------------
 
