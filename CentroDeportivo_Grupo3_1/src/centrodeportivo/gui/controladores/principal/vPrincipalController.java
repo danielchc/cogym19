@@ -7,6 +7,7 @@ import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Transicion;
 import centrodeportivo.gui.controladores.comun.vAdministrarIncidenciasController;
 import centrodeportivo.gui.controladores.comun.vMensaxesController;
+import centrodeportivo.gui.controladores.comun.vNovaIncidencia;
 import centrodeportivo.gui.controladores.comun.vNovoMensaxeController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
@@ -111,7 +112,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ELIMINARREXISTRO,new DatosVista("../../vistas/socios/vEliminarRexistro.fxml",new vEliminarRexistroController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS,new DatosVista("../../vistas/comun/vAdministrarIncidencias.fxml",new vAdministrarIncidenciasController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES,new DatosVista("../../vistas/persoal/usuarios/vAdministrarCapacidades.fxml",new vAdministrarCapacidadesController(super.getFachadaAplicacion(),this)));
-
+        this.pantallas.put(IdPantalla.NOVAINCIDENCIA,new DatosVista("../../vistas/comun/vNovaIncidencia.fxml",new vNovaIncidencia(super.getFachadaAplicacion(),this)));
     }
 
     private void inciarTransiciones(){

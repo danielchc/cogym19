@@ -14,12 +14,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class vLoginController  extends AbstractController implements Initializable {
+
+    /**
+     * Atributos do fxml
+     */
     public PasswordField tfContrasinal;
     public TextField tfUsuario;
     public Label labelError;
 
+    /**
+     * Atributos privados do controlador
+     */
     private FachadaAplicacion fa;
 
+    /**
+     * Constructor do controlador da pantalla de login
+     * @param fachadaAplicacion fachada da aplicación
+     */
     public vLoginController(FachadaAplicacion fachadaAplicacion) {
         super(fachadaAplicacion);
         fa=super.getFachadaAplicacion();
@@ -31,6 +42,12 @@ public class vLoginController  extends AbstractController implements Initializab
 
     }
 
+
+    /**
+     * Listener para o boton de iniciar sesión.
+     * Compróbase se os campos están cubertos e faise a validación dos datos introducidos.
+     * Encaso correcto, consultase o tipo de usuario e iniciase a ventá correspondente.
+     */
     public void btnIniciarAction() {
         if(ValidacionDatos.estanCubertosCampos(tfUsuario,tfContrasinal)){
             try{
@@ -56,10 +73,18 @@ public class vLoginController  extends AbstractController implements Initializab
         }
     }
 
+    /**
+     * Listener para iniciar sesión ao pulsar enter.
+     * @param keyEvent evento
+     */
     public void keyPressedIniciar(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
     }
 
+
+    /**
+     * Getters e Setters
+     */
     public FachadaAplicacion getFa() {
         return fa;
     }
