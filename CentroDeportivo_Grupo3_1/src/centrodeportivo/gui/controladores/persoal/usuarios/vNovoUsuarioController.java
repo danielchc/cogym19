@@ -145,7 +145,11 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         if(contasP==ContasPersoa.Ningunha){
             if(!comprobarDNI()) return;
         }
-        if(!loginVello.equals(campoLogin.getText()) && !comprobarLogin()) return;
+        if(usuarioModificar!=null){
+            if(!loginVello.equals(campoLogin.getText()) && !comprobarLogin()) return;
+        }else{
+            if(!comprobarDNI()) return;
+        }
 
         if(this.tipoUsuario.getSelectionModel().getSelectedItem()==RexistroTipo.Socio){
             Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
