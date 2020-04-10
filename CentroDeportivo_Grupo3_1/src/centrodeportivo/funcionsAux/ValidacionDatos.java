@@ -14,8 +14,9 @@ public abstract class ValidacionDatos {
     }
 
     public static boolean isCorrectoIBAN(String iban){
+        String ibanUpper=iban.toUpperCase();
         if(iban.length()!=24) return false;
-        return iban.matches("([A-Z]{2})([0-9]{22})");
+        return ibanUpper.matches("([A-Z]{2})([0-9]{22})");
     }
 
     public static boolean isCorrectoNUSS(String nuss){
