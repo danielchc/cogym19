@@ -214,6 +214,12 @@ public class vPrincipalController extends AbstractController implements Initiali
         mostrarMenu(IdPantalla.valueOf(((Button)actionEvent.getSource()).getId()));
     }
 
+    public void perfilUsuarioAction(){
+        esconderTodosSliders();
+        mostrarMenu(IdPantalla.NOVOUSUARIO);
+        ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(this.usuarioLogeado);
+    }
+
     public AbstractController getControlador(IdPantalla idPantalla){
         return this.pantallas.get(idPantalla).getControlador();
     }

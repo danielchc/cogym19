@@ -210,6 +210,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     public void dniCambiadoAction(KeyEvent keyEvent){
+        if(usuarioModificar!=null) return;
         this.labelError.setText("");
         ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
         switch (contasP){
