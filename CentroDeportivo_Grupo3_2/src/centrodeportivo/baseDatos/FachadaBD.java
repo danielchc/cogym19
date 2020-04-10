@@ -96,6 +96,13 @@ public final class FachadaBD {
         return daoInstalacions.listarInstalacións();
     }
 
+    public boolean comprobarExistencia(Instalacion instalacion){
+        return daoInstalacions.comprobarExistencia(instalacion);
+    }
+
+    public boolean tenAreas(Instalacion instalacion){
+        return daoInstalacions.tenAreas(instalacion);
+    }
 
     /*
         Funcións DAOActividades

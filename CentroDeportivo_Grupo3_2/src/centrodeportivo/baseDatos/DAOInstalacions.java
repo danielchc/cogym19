@@ -12,6 +12,10 @@ public final class DAOInstalacions extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+    /**
+     * Método para dar de alta unha nova instalación:
+     * @param instalacion a instalación a insertar
+     */
     public void darAltaInstalacion(Instalacion instalacion){
         PreparedStatement stmInstalacions = null;
         ResultSet rsInstalacions = null;
@@ -170,7 +174,6 @@ public final class DAOInstalacions extends AbstractDAO {
         return instalacions;
     }
 
-
     public ArrayList<Instalacion> listarInstalacións(){
         //Este método serviranos para amosar todas as instalacións, e evitar usar o where en buscas sen filtros:
         ArrayList<Instalacion> instalacions = new ArrayList<>();
@@ -208,4 +211,77 @@ public final class DAOInstalacions extends AbstractDAO {
         }
         return instalacions;
     }
+
+    public boolean comprobarExistencia(Instalacion instalacion){
+        boolean resultado = false;
+
+        PreparedStatement stmInstalacions = null;
+        ResultSet rsInstalacions = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a consulta: buscamos se hai unha instalación co id pasado:
+        try{
+            //Ademais, de cara a comprobar se se cambia o nome dunha instalación, buscaremos
+            //que o código da instalación sexa distinto (se se pasa unha instalación nova, o código será 0).
+            stmInstalacions = con.prepareStatement("SELECT * " +
+                    "FROM instalacion " +
+                    "WHERE lower(nome) = lower(?) " +
+                    "  and codInstalacion != ? ");
+            //Introducimos o nome como filtro:
+            stmInstalacions.setString(1, instalacion.getNome());
+            stmInstalacions.setInt(2, instalacion.getCodInstalacion());
+            //Executamos a consulta:
+            rsInstalacions = stmInstalacions.executeQuery();
+            //Comprobamos: se hai resultado, o nome non é valido, xa existe unha instalación así.
+            if(rsInstalacions.next()){
+                resultado = true;
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        } finally {
+            try{
+                stmInstalacions.close();
+            } catch(SQLException e){
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
+    }
+
+    public boolean tenAreas(Instalacion instalacion){
+        boolean resultado = false;
+
+        PreparedStatement stmAreas = null;
+        ResultSet rsAreas = null;
+        Connection con;
+
+        //Recuperamos a conexión
+        con = super.getConexion();
+
+        //Preparamos a consulta: hai que comprobar se hai áreas que estén asociadas á instalación pasada:
+        try{
+            stmAreas = con.prepareStatement("SELECT * FROM area WHERE instalacion = ? ");
+            //Completamos a consulta:
+            stmAreas.setInt(1, instalacion.getCodInstalacion());
+            //Realizamos a consulta:
+            rsAreas = stmAreas.executeQuery();
+            //Comprobamos se hai resultado: se o hai, a instalación ten áreas:
+            if(rsAreas.next()){
+                resultado = true;
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        } finally {
+            try{
+                stmAreas.close();
+            } catch (SQLException e){
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
+    }
+
 }

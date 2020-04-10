@@ -84,9 +84,6 @@ public class vEditarInstalacionController extends AbstractController implements 
                 campoTelefono.getText(), campoDireccion.getText());
         //Accedemos á base de datos:
         super.getFachadaAplicacion().modificarInstalacion(instalacion);
-        //Imprimimos mensaxe de éxito:
-        super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións", "Datos da instalación "
-                + this.instalacion.getCodInstalacion() + " modificados correctamente." );
     }
 
     public void btnBorrarAction(ActionEvent actionEvent) {
@@ -94,9 +91,8 @@ public class vEditarInstalacionController extends AbstractController implements 
         if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
                 "Desexa eliminar a instalación seleccionada?") == ButtonType.OK) {
             super.getFachadaAplicacion().borrarInstalacion(instalacion);
-            super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións", "Instalalción eliminada.");
-            //Se se decidiu borrar, logo haberá que amosar de novo a pantalla de inicio (a xestión desa instalación deixa de ter sentido).
-            controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+            //Se se decidiu borrar, logo haberá que amosar de novo a pantalla anterior (a xestión desa instalación deixa de ter sentido).
+            controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARINSTALACIONS);
         }
     }
     

@@ -554,7 +554,6 @@ insert into actividade (dataactividade, area, instalacion, tipoactividade, profe
 insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-23 17:00:00.00', 16, 5, 17, 'sofiaPersoal', 'Fundamentos da natación, clase práctica', 3);
 insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-30 18:00:00.00', 17, 5, 17, 'soniaPersoal', 'Demostración e iniciación a saltos', 3);
 
-
 ------------------SOCIO->CURSO-------------------
 insert into realizarcurso (curso, usuario) values (1, 'raulSocio');
 insert into realizarcurso (curso, usuario) values (1, 'mariaSocio');
