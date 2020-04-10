@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.persoal.usuarios;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
@@ -15,11 +16,20 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vAdministrarCapacidadesController extends AbstractController implements Initializable  {
     public ListView listaDisponibles;
     public ListView listaCapacidades;
     public Label usuarioLabel;
+    private ArrayList<TipoActividade> capacidadesDisponibles;
+    private ArrayList<TipoActividade> capacidadesActuales;
+    private Persoal persoal;
 
     public vAdministrarCapacidadesController(FachadaAplicacion fachadaAplicacion, centrodeportivo.gui.controladores.principal.vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
@@ -27,10 +37,6 @@ public class vAdministrarCapacidadesController extends AbstractController implem
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        listaDisponibles.getItems().add(new TipoActividade(3,"Pocho","AAAAAAAAA"));
-        listaDisponibles.getItems().add(new TipoActividade(1,"Poche","AAAAAAAAA"));
-        listaDisponibles.getItems().add(new TipoActividade(2,"Pochi","AAAAAAAAA"));
-        listaDisponibles.getItems().add(new TipoActividade(4,"Pocha","AAAAAAAAA"));
         listaDisponibles.setCellFactory(new Callback<ListView<TipoActividade>, ListCell<TipoActividade>>() {
             @Override
             public ListCell<TipoActividade> call(ListView<TipoActividade> lv) {
@@ -68,6 +74,13 @@ public class vAdministrarCapacidadesController extends AbstractController implem
 
     public void setUsuario(Usuario selectedItem) {
         usuarioLabel.setText(String.format("Editando capacidades de %s",selectedItem.getLogin()));
+        persoal=(Persoal)selectedItem;
+        capacidadesActuales=super.getFachadaAplicacion().listarCapacidades(persoal.getLogin());
+        capacidadesDisponibles=super.getFachadaAplicacion().listarTipoActividades();
+        capacidadesDisponibles.removeAll(capacidadesActuales);
+
+        listaCapacidades.getItems().addAll(capacidadesActuales);
+        listaDisponibles.getItems().addAll(capacidadesDisponibles);
     }
 
     public void engadirCapacidade(){
@@ -76,6 +89,7 @@ public class vAdministrarCapacidadesController extends AbstractController implem
             actividadeSeleccionada= (TipoActividade) listaDisponibles.getSelectionModel().getSelectedItems().get(0);
             listaDisponibles.getItems().remove(actividadeSeleccionada);
             listaCapacidades.getItems().add(actividadeSeleccionada);
+            super.getFachadaAplicacion().engadirCapadidade(persoal.getLogin(),actividadeSeleccionada);
         }
     }
 
@@ -85,6 +99,12 @@ public class vAdministrarCapacidadesController extends AbstractController implem
             actividadeSeleccionada= (TipoActividade) listaCapacidades.getSelectionModel().getSelectedItems().get(0);
             listaCapacidades.getItems().remove(actividadeSeleccionada);
             listaDisponibles.getItems().add(actividadeSeleccionada);
+            super.getFachadaAplicacion().eliminarCapacidade(persoal.getLogin(),actividadeSeleccionada);
         }
     }
+
+    public void volverMenu(){
+        super.getvPrincipalController().volverAtras();
+    }
+
 }

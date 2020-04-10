@@ -2,6 +2,10 @@ package centrodeportivo.aplicacion.obxectos.usuarios;
 
 import java.sql.Date;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class PersoaFisica  {
     private String DNI;
     private String nome;

@@ -9,6 +9,7 @@ import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -75,11 +76,15 @@ public class vInsercionTipoActividadeController extends AbstractController imple
         } else {
             //Se fose nulo, é unha inserción:
             //Antes de nada, hai que verificar que o nome esté cuberto:
-            if(!ValidacionDatos.estanCubertosCampos(campoNome)){
+            if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
                 super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Hai que insertar un nome!");
                 return;
             }
-            this.getFachadaAplicacion().crearTipoActividade(new TipoActividade(campoNome.getText(), campoDescricion.getText()));
+            TipoActividade tipoActividade = new TipoActividade(campoNome.getText(), campoDescricion.getText());
+            this.getFachadaAplicacion().crearTipoActividade(tipoActividade);
+            if (tipoActividade.getCodTipoActividade() != 0) {
+                this.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades", "Insertado o tipo de actividade. O seu id é " + tipoActividade.getCodTipoActividade() + ".");
+            }
         }
         //En calquera dos dous casos, sáese unha vez rematado:
         controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
@@ -87,9 +92,12 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     public void btnBorrarAction(ActionEvent actionEvent) {
         //Se se puido presionar, é porque se quere borrar o tipo de actividade presentado.
-        this.getFachadaAplicacion().eliminarTipoActividade(tipoActividade);
-        //Volvese á ventá anterior:
-        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+        if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
+                "Desexa eliminar o tipo de actividade seleccionado?") == ButtonType.OK) {
+            this.getFachadaAplicacion().eliminarTipoActividade(tipoActividade);
+            //Volvese á ventá anterior:
+            controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+        }
     }
 
     //Getter e setter para o tipo de actividade:

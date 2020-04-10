@@ -1,7 +1,10 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
@@ -20,8 +23,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class FachadaBD {
     private FachadaAplicacion fachadaAplicacion;
     private FachadaGUI fachadaGUI;
@@ -30,6 +38,8 @@ public final class FachadaBD {
     private DAOTarifas daoTarifas;
     private DAOMensaxes daoMensaxes;
     private DAOIncidencias daoIncidencias;
+    private DAOInstalacions daoInstalacions;
+    private DAOActividades daoActividades;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -63,6 +73,8 @@ public final class FachadaBD {
         this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
         this.daoIncidencias=new DAOIncidencias(this.conexion,this.fachadaAplicacion);
+        this.daoInstalacions=new DAOInstalacions(this.conexion,this.fachadaAplicacion);
+        this.daoActividades=new DAOActividades(this.conexion,this.fachadaAplicacion);
     }
 
     /*
@@ -132,6 +144,17 @@ public final class FachadaBD {
         daoUsuarios.eliminarRexistro(rexistroFisioloxico);
     }
 
+    public ArrayList<TipoActividade> listarCapacidades(String login){
+        return daoUsuarios.listarCapacidades(login);
+    }
+
+    public void engadirCapadidade(String login, TipoActividade tipoActividade){
+        daoUsuarios.engadirCapadidade(login, tipoActividade);
+    }
+
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade){
+        daoUsuarios.eliminarCapacidade(login, tipoActividade);
+    }
 
     /*
         Funcions DAOTarifas
@@ -247,4 +270,14 @@ public final class FachadaBD {
     public void setDaoIncidencias(DAOIncidencias daoIncidencias) {
         this.daoIncidencias = daoIncidencias;
     }
+
+    public HashMap<Area,ArrayList<Material>> listarAreas(){
+        return daoInstalacions.listarAreas();
+    }
+
+    public ArrayList<TipoActividade> listarTipoActividades(){
+        return daoActividades.listarTipoActividades();
+    }
+
+
 }

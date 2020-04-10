@@ -5,6 +5,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Timestamp;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class Mensaxe {
 
     /**

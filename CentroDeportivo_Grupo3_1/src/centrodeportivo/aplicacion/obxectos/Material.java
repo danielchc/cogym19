@@ -5,10 +5,14 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
 import java.sql.Date;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class Material {
     private Integer codMaterial;
     private Area area;
-    private String nome;
+    private String estado;
     private Date dataCompra;
     private float prezoCompra;
 
@@ -16,10 +20,10 @@ public class Material {
         this.codMaterial = codMaterial;
     }
 
-    public Material(Integer codMaterial, Area area, String nome, Date dataCompra, float prezoCompra) {
+    public Material(Integer codMaterial, Area area, String estado, Date dataCompra, float prezoCompra) {
         this.codMaterial = codMaterial;
         this.area = area;
-        this.nome = nome;
+        this.estado = estado;
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
     }
@@ -41,13 +45,12 @@ public class Material {
     }
 
 
-
-    public String getNome() {
-        return nome;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Date getDataCompra() {
@@ -71,7 +74,7 @@ public class Material {
         return "Material{" +
                 "codMaterial=" + codMaterial +
                 ", area=" + area +
-                ", nome='" + nome + '\'' +
+                ", estado='" + estado + '\'' +
                 ", dataCompra=" + dataCompra +
                 ", prezoCompra=" + prezoCompra +
                 '}';

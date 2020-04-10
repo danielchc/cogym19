@@ -23,6 +23,10 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vMensaxesController extends AbstractController implements Initializable {
     public TableView containerChats;
     public AnchorPane containerMensaxe;

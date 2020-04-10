@@ -13,6 +13,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class DAOIncidencias extends AbstractDAO {
     public DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);

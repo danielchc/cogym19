@@ -1,6 +1,9 @@
 package centrodeportivo.aplicacion;
 
+import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
@@ -19,7 +22,12 @@ import javafx.scene.control.ButtonType;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class FachadaAplicacion {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
@@ -27,6 +35,8 @@ public class FachadaAplicacion {
     private XestionMensaxes xestionMensaxes;
     private XestionTarifas xestionTarifas;
     private XestionIncidencias xestionIncidencias;
+    private XestionInstalacions xestionInstalacions;
+    private XestionActividades xestionActividades;
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
@@ -35,6 +45,8 @@ public class FachadaAplicacion {
         this.xestionMensaxes=new XestionMensaxes(fachadaGUI,fachadaBD);
         this.xestionTarifas=new XestionTarifas(fachadaGUI,fachadaBD);
         this.xestionIncidencias=new XestionIncidencias(fachadaGUI, fachadaBD);
+        this.xestionInstalacions=new XestionInstalacions(fachadaGUI, fachadaBD);
+        this.xestionActividades=new XestionActividades(fachadaGUI, fachadaBD);
     }
     /*
      *   Fachada GUI
@@ -144,6 +156,18 @@ public class FachadaAplicacion {
         return xestionUsuarios.consultarPersoaFisica(DNI);
     }
 
+    public ArrayList<TipoActividade> listarCapacidades(String login) {
+        return xestionUsuarios.listarCapacidades(login);
+    }
+
+    public void engadirCapadidade(String login, TipoActividade tipoActividade){
+        xestionUsuarios.engadirCapadidade(login, tipoActividade);
+    }
+
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade){
+        xestionUsuarios.eliminarCapacidade(login, tipoActividade);
+    }
+
     /*
         Xestion tarifas
      */
@@ -211,6 +235,13 @@ public class FachadaAplicacion {
         Xestion instalacións
      */
 
+    public HashMap<Area, ArrayList<Material>> listarAreas(){
+        return xestionInstalacions.listarAreas();
+    }
+
+    public ArrayList<TipoActividade> listarTipoActividades(){
+        return xestionActividades.listarTipoActividades();
+    }
 
 
 }

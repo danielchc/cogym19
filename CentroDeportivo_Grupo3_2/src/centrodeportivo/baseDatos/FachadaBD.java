@@ -96,6 +96,13 @@ public final class FachadaBD {
         return daoInstalacions.listarInstalacións();
     }
 
+    public boolean comprobarExistencia(Instalacion instalacion){
+        return daoInstalacions.comprobarExistencia(instalacion);
+    }
+
+    public boolean tenAreas(Instalacion instalacion){
+        return daoInstalacions.tenAreas(instalacion);
+    }
 
     /*
         Funcións DAOActividades
@@ -119,6 +126,14 @@ public final class FachadaBD {
 
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
         return this.daoActividades.buscarTiposActividades(tipoActividade);
+    }
+
+    public boolean comprobarExistencia(TipoActividade tipoActividade){
+        return this.daoActividades.comprobarExistencia(tipoActividade);
+    }
+
+    public boolean tenActividades(TipoActividade tipoActividade){
+        return this.daoActividades.tenActividades(tipoActividade);
     }
 
     //Funcións propias:

@@ -4,6 +4,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 
 import java.sql.Timestamp;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class RexistroFisioloxico {
 
     /**

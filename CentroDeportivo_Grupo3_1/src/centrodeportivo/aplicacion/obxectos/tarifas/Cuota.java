@@ -7,6 +7,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class Cuota {
 
     /**

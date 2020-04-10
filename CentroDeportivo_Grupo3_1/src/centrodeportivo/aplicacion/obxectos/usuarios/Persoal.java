@@ -5,6 +5,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Date;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */s
 public final class Persoal extends Usuario {
 
 

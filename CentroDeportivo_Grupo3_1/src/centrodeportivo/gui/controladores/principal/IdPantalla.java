@@ -1,5 +1,10 @@
 package centrodeportivo.gui.controladores.principal;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
+
 public enum IdPantalla {
     PANTALLAPERSOAL,
     PANTALLASOCIO,

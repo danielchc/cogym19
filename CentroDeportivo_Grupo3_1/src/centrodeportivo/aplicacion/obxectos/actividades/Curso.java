@@ -6,6 +6,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class Curso {
     private int codCurso;
     private String nome;

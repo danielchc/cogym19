@@ -1,4 +1,4 @@
-package centrodeportivo.gui.controladores.comun;
+package centrodeportivo.gui.controladores.persoal.incidencias;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
@@ -62,7 +62,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
                 if(param.getValue().getTipoIncidencia()==TipoIncidencia.Area)return new SimpleObjectProperty<String>(((IncidenciaArea)param.getValue()).getArea().getNome());
-                else return new SimpleObjectProperty<String>(((IncidenciaMaterial)param.getValue()).getMaterial().getEstado()); //CAMBIAAAAAAAAAAAAAAAR
+                else return new SimpleObjectProperty<String>(((IncidenciaMaterial)param.getValue()).getMaterial().getEstado());
             }
         });
 
@@ -77,5 +77,8 @@ public class vAdministrarIncidenciasController extends AbstractController implem
         listaIncidencias.getItems().removeAll(listaIncidencias.getItems());
         listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias("",TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()]));
     }
+
+
+
 }
 

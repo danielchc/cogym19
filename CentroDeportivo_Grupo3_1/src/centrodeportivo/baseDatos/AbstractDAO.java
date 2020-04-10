@@ -4,6 +4,10 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 
 import java.sql.Connection;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public abstract class AbstractDAO {
     private FachadaAplicacion fachadaAplicacion;
     private Connection conexion;

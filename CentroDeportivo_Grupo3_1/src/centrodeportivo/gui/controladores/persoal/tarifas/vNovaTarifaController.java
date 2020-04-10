@@ -5,7 +5,6 @@ import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.persoal.PantallasPersoal;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
@@ -20,6 +19,10 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vNovaTarifaController extends AbstractController implements Initializable {
     public TextField campoNome;
     public Slider campoActividades;
@@ -78,7 +81,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
             fachadaAplicacion.insertarTarifa(tarifa);
             fachadaAplicacion.mostrarInformacion("Tarifas","Creouse a tarifa "+campoNome.getText()+" correctamente");
         }
-        this.vPrincipal.mostrarMenu(IdPantalla.INICIO);
+        this.vPrincipal.volverAtras();
 
     }
 

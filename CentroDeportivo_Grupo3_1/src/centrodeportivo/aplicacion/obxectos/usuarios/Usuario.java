@@ -4,6 +4,10 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 
 import java.sql.Date;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class Usuario extends PersoaFisica{
 
     /**

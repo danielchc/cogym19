@@ -15,6 +15,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vEliminarRexistroController extends AbstractController implements Initializable {
 
     /**

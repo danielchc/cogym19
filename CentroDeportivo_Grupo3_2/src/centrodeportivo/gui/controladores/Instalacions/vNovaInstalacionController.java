@@ -57,10 +57,13 @@ public class vNovaInstalacionController extends AbstractController implements In
         //Accedemos á base de datos:
         this.getFachadaAplicacion().darAltaInstalacion(instalacion);
         //Imprimimos mensaxe de éxito:
-        this.getFachadaAplicacion().mostrarInformacion("Instalacións", "Creada a instalación " +
-                instalacion.getNome() + ". O seu id é: " + instalacion.getCodInstalacion() + ".");
-        //Volvemos á pantalla principal:
-        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+        if(instalacion.getCodInstalacion() != 0) {
+            this.getFachadaAplicacion().mostrarInformacion("Instalacións", "Creada a instalación " +
+                    instalacion.getNome() + ". O seu id é: " + instalacion.getCodInstalacion() + ".");
+            //Volvemos á pantalla principal:
+            this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+        }
+        //Se non, seguimos na pantalla.
     }
 
     //Acción efectuada ao pulsar o botón "Limpar Campos"

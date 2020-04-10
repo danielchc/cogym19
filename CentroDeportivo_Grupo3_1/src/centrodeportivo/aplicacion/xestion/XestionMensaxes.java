@@ -8,6 +8,10 @@ import centrodeportivo.gui.FachadaGUI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class XestionMensaxes {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;

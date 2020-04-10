@@ -27,6 +27,10 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class vNovoUsuarioController extends AbstractController implements Initializable {
 
     public ComboBox tipoUsuario;
@@ -187,7 +191,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     campoTelf.getText(),
                     campoCorreo.getText(),
                     campoIBAN.getText(),
-                    campoNUSS.getText(),
+                    campoNUSS.getText().trim(),
                     checkProfesor.isSelected()
             );
             if(usuarioModificar!=null){
@@ -198,7 +202,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
             }
         }
-        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+        this.controllerPrincipal.volverAtras();
     }
 
     public void cambiarTipo(){
@@ -210,6 +214,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     public void dniCambiadoAction(KeyEvent keyEvent){
+        if(usuarioModificar!=null) return;
         this.labelError.setText("");
         ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
         switch (contasP){
@@ -326,7 +331,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         }else if(usuarioModificar instanceof Persoal){
             Persoal persoal=(Persoal)usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Persoal);
-            campoNUSS.setText(persoal.getNUSS());
+            campoNUSS.setText(persoal.getNUSS().trim());
             checkProfesor.setSelected(persoal.getTipoUsuario()==TipoUsuario.Profesor);
         }
         tipoUsuario.setDisable(true);

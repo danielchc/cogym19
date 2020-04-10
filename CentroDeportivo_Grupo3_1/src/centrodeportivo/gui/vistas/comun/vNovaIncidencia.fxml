@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER_RIGHT" layoutX="209.0" layoutY="10.0" prefHeight="30.0" prefWidth="169.0" text="Nova Incidencia" textFill="WHITE" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="303.79999999999995" AnchorPane.topAnchor="10.0">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
+                    <image>
+                        <Image url="@../../imaxes/novo.png" />
+                    </image>
+                </ImageView>
+            </children></AnchorPane>
+    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="18.0" layoutY="30.0" prefHeight="406.0" prefWidth="650.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.800000000000068" AnchorPane.topAnchor="30.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="281.0">
+                     <children>
+                        <ComboBox fx:id="comboBox" onAction="#listenerCombo" prefHeight="26.0" prefWidth="153.0" />
+                        <TableView fx:id="tablaDatos" prefHeight="406.0" prefWidth="226.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="366.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="438.0" text="Escolle o tipo de indidencia...">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <RadioButton fx:id="radioArea" mnemonicParsing="false" onAction="#listenerRadio" prefHeight="35.0" prefWidth="148.0" text="Área">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </RadioButton>
+                         <RadioButton fx:id="radioMaterial" mnemonicParsing="false" onAction="#listenerRadio" prefHeight="35.0" prefWidth="148.0" text="Material dunha área">
+                             <font>
+                                 <Font name="System Bold" size="13.0" />
+                             </font>
+                         </RadioButton>
+                        <TextArea fx:id="campoDescricion" prefHeight="274.0" prefWidth="355.0">
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </TextArea>
+                        <Button mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="32.0" prefWidth="115.0" text="Enviar indicencia">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

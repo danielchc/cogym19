@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class DAOTarifas extends AbstractDAO {
     public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);

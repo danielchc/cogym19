@@ -7,6 +7,10 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class Actividade {
     private Timestamp data;
     private Area area;
