@@ -78,7 +78,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
             fachadaAplicacion.insertarTarifa(tarifa);
             fachadaAplicacion.mostrarInformacion("Tarifas","Creouse a tarifa "+campoNome.getText()+" correctamente");
         }
-        this.vPrincipal.mostrarMenu(IdPantalla.INICIO);
+        this.vPrincipal.volverAtras();
 
     }
 

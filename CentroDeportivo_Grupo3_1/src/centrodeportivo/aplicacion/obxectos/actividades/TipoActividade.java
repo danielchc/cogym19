@@ -1,5 +1,7 @@
 package centrodeportivo.aplicacion.obxectos.actividades;
 
+import java.util.Objects;
+
 public class TipoActividade{
 
     private Integer codTipoActividade;
@@ -38,5 +40,18 @@ public class TipoActividade{
 
     public void setDescricion(String descricion) {
         this.descricion = descricion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TipoActividade that = (TipoActividade) o;
+        return Objects.equals(codTipoActividade, that.codTipoActividade);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codTipoActividade);
     }
 }

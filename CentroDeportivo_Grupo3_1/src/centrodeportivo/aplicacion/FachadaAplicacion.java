@@ -32,6 +32,7 @@ public class FachadaAplicacion {
     private XestionTarifas xestionTarifas;
     private XestionIncidencias xestionIncidencias;
     private XestionInstalacions xestionInstalacions;
+    private XestionActividades xestionActividades;
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
@@ -41,6 +42,7 @@ public class FachadaAplicacion {
         this.xestionTarifas=new XestionTarifas(fachadaGUI,fachadaBD);
         this.xestionIncidencias=new XestionIncidencias(fachadaGUI, fachadaBD);
         this.xestionInstalacions=new XestionInstalacions(fachadaGUI, fachadaBD);
+        this.xestionActividades=new XestionActividades(fachadaGUI, fachadaBD);
     }
     /*
      *   Fachada GUI
@@ -154,6 +156,14 @@ public class FachadaAplicacion {
         return xestionUsuarios.listarCapacidades(login);
     }
 
+    public void engadirCapadidade(String login, TipoActividade tipoActividade){
+        xestionUsuarios.engadirCapadidade(login, tipoActividade);
+    }
+
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade){
+        xestionUsuarios.eliminarCapacidade(login, tipoActividade);
+    }
+
     /*
         Xestion tarifas
      */
@@ -223,6 +233,10 @@ public class FachadaAplicacion {
 
     public HashMap<Area, ArrayList<Material>> listarAreas(){
         return xestionInstalacions.listarAreas();
+    }
+
+    public ArrayList<TipoActividade> listarTipoActividades(){
+        return xestionActividades.listarTipoActividades();
     }
 
 

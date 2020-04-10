@@ -73,8 +73,5 @@ public class vAdministrarIncidenciasController extends AbstractController implem
         listaIncidencias.getItems().removeAll(listaIncidencias.getItems());
         listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias("",TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()]));
     }
-
-
-
 }
 

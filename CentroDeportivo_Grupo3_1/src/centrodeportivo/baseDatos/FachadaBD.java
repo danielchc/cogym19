@@ -35,6 +35,7 @@ public final class FachadaBD {
     private DAOMensaxes daoMensaxes;
     private DAOIncidencias daoIncidencias;
     private DAOInstalacions daoInstalacions;
+    private DAOActividades daoActividades;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -69,6 +70,7 @@ public final class FachadaBD {
         this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
         this.daoIncidencias=new DAOIncidencias(this.conexion,this.fachadaAplicacion);
         this.daoInstalacions=new DAOInstalacions(this.conexion,this.fachadaAplicacion);
+        this.daoActividades=new DAOActividades(this.conexion,this.fachadaAplicacion);
     }
 
     /*
@@ -142,6 +144,13 @@ public final class FachadaBD {
         return daoUsuarios.listarCapacidades(login);
     }
 
+    public void engadirCapadidade(String login, TipoActividade tipoActividade){
+        daoUsuarios.engadirCapadidade(login, tipoActividade);
+    }
+
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade){
+        daoUsuarios.eliminarCapacidade(login, tipoActividade);
+    }
 
     /*
         Funcions DAOTarifas
@@ -261,4 +270,10 @@ public final class FachadaBD {
     public HashMap<Area,ArrayList<Material>> listarAreas(){
         return daoInstalacions.listarAreas();
     }
+
+    public ArrayList<TipoActividade> listarTipoActividades(){
+        return daoActividades.listarTipoActividades();
+    }
+
+
 }

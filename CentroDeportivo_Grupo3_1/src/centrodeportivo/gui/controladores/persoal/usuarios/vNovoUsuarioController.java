@@ -187,7 +187,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     campoTelf.getText(),
                     campoCorreo.getText(),
                     campoIBAN.getText(),
-                    campoNUSS.getText(),
+                    campoNUSS.getText().trim(),
                     checkProfesor.isSelected()
             );
             if(usuarioModificar!=null){
@@ -198,7 +198,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
             }
         }
-        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+        this.controllerPrincipal.volverAtras();
     }
 
     public void cambiarTipo(){
@@ -326,7 +326,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         }else if(usuarioModificar instanceof Persoal){
             Persoal persoal=(Persoal)usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Persoal);
-            campoNUSS.setText(persoal.getNUSS());
+            campoNUSS.setText(persoal.getNUSS().trim());
             checkProfesor.setSelected(persoal.getTipoUsuario()==TipoUsuario.Profesor);
         }
         tipoUsuario.setDisable(true);

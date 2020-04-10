@@ -100,5 +100,12 @@ public class XestionUsuarios {
         return fachadaBD.listarCapacidades(login);
     }
 
-
+    public void engadirCapadidade(String login, TipoActividade tipoActividade){
+        fachadaBD.engadirCapadidade(login, tipoActividade);
     }
+
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade){
+        fachadaBD.eliminarCapacidade(login, tipoActividade);
+    }
+
+}

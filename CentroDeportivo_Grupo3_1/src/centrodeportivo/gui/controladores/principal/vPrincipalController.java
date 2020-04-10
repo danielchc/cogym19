@@ -76,6 +76,7 @@ public class vPrincipalController extends AbstractController implements Initiali
     private HashMap<IdPantalla, DatosVista> pantallas;
     private Usuario usuarioLogeado;
     private IdPantalla pantallaAMostrar;
+    private IdPantalla ultimaPantalla;
 
     public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario usuarioLogeado,IdPantalla pantallaAMostrar) {
         super(fachadaAplicacion);
@@ -84,6 +85,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
         this.pantallas=new HashMap<>();
+        this.ultimaPantalla= IdPantalla.INICIO;
         cargarPantallas();
     }
 
@@ -192,6 +194,7 @@ public class vPrincipalController extends AbstractController implements Initiali
     }
 
     public void mostrarMenu(IdPantalla idPantalla){
+        this.ultimaPantalla=this.pantallaAMostrar;
         this.mainContainer.getChildren().removeAll(this.mainContainer.getChildren());
         try {
             DatosVista dv=this.pantallas.get(idPantalla);
@@ -199,7 +202,7 @@ public class vPrincipalController extends AbstractController implements Initiali
             fxmlLoader.setController(dv.getControlador());
             fxmlLoader.setLocation(getClass().getResource(dv.getPathFXML()));
             this.mainContainer.getChildren().add(fxmlLoader.load());
-
+            this.pantallaAMostrar=idPantalla;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,6 +218,10 @@ public class vPrincipalController extends AbstractController implements Initiali
     }
     public Usuario obterUsuarioLogeado(){
         return usuarioLogeado;
+    }
+
+    public void volverAtras(){
+        mostrarMenu(ultimaPantalla);
     }
 
 }
