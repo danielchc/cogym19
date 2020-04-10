@@ -9,6 +9,7 @@ import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Instalacions.vAdministrarInstalacionsController;
 import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
 import centrodeportivo.gui.controladores.Instalacions.vNovaInstalacionController;
+import centrodeportivo.gui.controladores.Materiales.vNovoMaterialController;
 import centrodeportivo.gui.controladores.Transicion;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -86,6 +87,8 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARTIPOSACTIVIDADES, new DatosVista("../../vistas/Actividades/vAdministrarTiposActividades.fxml", new vAdministrarTiposActividadesController(super.getFachadaAplicacion(), this)));
         //Pantalla para inserción/modificación de tipos de actividades:
         this.pantallas.put(IdPantalla.INSERCIONTIPOACTIVIDADE, new DatosVista("../../vistas/Actividades/vInsercionTipoActividade.fxml", new vInsercionTipoActividadeController(super.getFachadaAplicacion(), this)));
+        // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.NOVOMATERIAL,new DatosVista("../../vistas/Materiales/vNovoMaterial.fxml",new vNovoMaterialController(super.getFachadaAplicacion(), this)));
     }
 
     private void inciarTransiciones(){

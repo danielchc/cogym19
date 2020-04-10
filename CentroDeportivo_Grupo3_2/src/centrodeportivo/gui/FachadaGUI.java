@@ -24,7 +24,6 @@ public class FachadaGUI {
     }
 
     public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
-
         fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser, IdPantalla.PANTALLAPERSOAL));
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");

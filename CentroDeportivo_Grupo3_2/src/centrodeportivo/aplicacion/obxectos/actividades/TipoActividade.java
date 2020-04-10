@@ -1,45 +1,47 @@
 package centrodeportivo.aplicacion.obxectos.actividades;
 
 //Clase que almacenará información sobre tipos de actividades:
-public class TipoActividade{
+public class TipoActividade {
 
     //Atributos:
-    private Integer codTipoActividade;
+    private int codTipoActividade;
     private String nome;
     private String descricion;
 
     //Faremos dous construtores: un que involucre o código e outro que non.
-    public TipoActividade(Integer codTipoActividade, String nome, String descricion){
-        this.codTipoActividade=codTipoActividade;
+    public TipoActividade(int codTipoActividade, String nome, String descricion) {
+        this.codTipoActividade = codTipoActividade;
         this.nome = nome;
         this.descricion = descricion;
     }
 
-    public TipoActividade(String nome, String descricion){
+    public TipoActividade(String nome, String descricion) {
         this.nome = nome;
         this.descricion = descricion;
     }
 
-    public TipoActividade(String nome){
+    public TipoActividade(String nome) {
         this.nome = nome;
     }
 
     //Getters e setters
-    public Integer getCodTipoActividade() {
+    public int getCodTipoActividade() {
         return codTipoActividade;
     }
 
-    public void setCodTipoActividade(Integer codTipoActividade) {
+    public void setCodTipoActividade(int codTipoActividade) {
         this.codTipoActividade = codTipoActividade;
     }
 
-    public String getNome(){
+    public String getNome() {
         return this.nome;
     }
 
-    public void setNome(String nome) {this.nome = nome;}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public String getDescricion(){
+    public String getDescricion() {
         return this.descricion;
     }
 

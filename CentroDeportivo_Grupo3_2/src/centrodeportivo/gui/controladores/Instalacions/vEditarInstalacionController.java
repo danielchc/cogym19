@@ -35,7 +35,7 @@ public class vEditarInstalacionController extends AbstractController implements 
     private Instalacion instalacion; //Instalacion de referencia que se vai a querer modificar.
 
     //Constructor:
-    public vEditarInstalacionController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal){
+    public vEditarInstalacionController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         //Asignamos os atributos pasados:
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
@@ -43,36 +43,36 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     //Sobreescritura do método initialize, por implementar a interface initializable:
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         //Para inicializar, comprobaremos se hai unha instalación:
-        if(instalacion != null){
+        if (instalacion != null) {
             //Se a hai, enchemos os campos coa información:
             campoNome.setText(instalacion.getNome());
             campoDireccion.setText(instalacion.getDireccion());
-            campoCodigo.setText(""+instalacion.getCodInstalacion());
+            campoCodigo.setText("" + instalacion.getCodInstalacion());
             campoTelefono.setText(instalacion.getNumTelefono());
         }
     }
 
     //Definimos getter e setter para a instalación:
-    public void setInstalacion(Instalacion instalacion){
+    public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
     }
-    
-    public Instalacion getInstalacion(Instalacion instalacion){
+
+    public Instalacion getInstalacion(Instalacion instalacion) {
         return this.instalacion;
     }
 
     public void btnModificarAction(ActionEvent actionEvent) {
         //Cando se modifica unha instalación, hai que comprobar primeiro que os campos sexan correctos.
         //Empezamos comprobando que os campos non estén baleiros.
-        if(!ValidacionDatos.estanCubertosCampos(campoNome, campoDireccion, campoTelefono)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoDireccion, campoTelefono)) {
             //Amosaremos unha mensaxe avisando de que non se cubriron todos os campos.
             etiquetaAviso.setVisible(true);
             return;
         }
         //Comprobamos agora que o número de teléfono sexa correcto:
-        if(!ValidacionDatos.isCorrectoTelefono(campoTelefono.getText())){
+        if (!ValidacionDatos.isCorrectoTelefono(campoTelefono.getText())) {
             //Amosaremos unha mensaxe de erro.
             super.getFachadaAplicacion().mostrarErro("Adiministración de Instalacións", "O número de teléfono é incorrecto!");
             return;
@@ -86,12 +86,12 @@ public class vEditarInstalacionController extends AbstractController implements 
         super.getFachadaAplicacion().modificarInstalacion(instalacion);
         //Imprimimos mensaxe de éxito:
         super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións", "Datos da instalación "
-                + this.instalacion.getCodInstalacion() + " modificados correctamente." );
+                + this.instalacion.getCodInstalacion() + " modificados correctamente.");
     }
 
     public void btnBorrarAction(ActionEvent actionEvent) {
         //Cando se pide borrar, primeiro solicitarase a confirmación por parte do usuario.
-        if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
+        if (super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
                 "Desexa eliminar a instalación seleccionada?") == ButtonType.OK) {
             super.getFachadaAplicacion().borrarInstalacion(instalacion);
             super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións", "Instalalción eliminada.");
@@ -99,7 +99,7 @@ public class vEditarInstalacionController extends AbstractController implements 
             controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
         }
     }
-    
+
     public void btnEngadirAreaAction(ActionEvent actionEvent) {
     }
 

@@ -1,71 +1,93 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
+import javafx.fxml.Initializable;
+
 import java.sql.Date;
 
 public class Material {
+
+
+    // Atributos
     private int codMaterial;
+    private TipoMaterial tipoMaterial;
     private Area area;
-    private String nome;
+    private String estado;
     private Date dataCompra;
     private double prezoCompra;
 
-    public Material(int codMaterial) {
-        this.codMaterial=codMaterial;
-    }
 
-    public Material(String nome, Date dataCompra, double prezoCompra) {
-        this.nome = nome;
+    // Constructores
+    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado, Date dataCompra, double prezoCompra) {
+        this.codMaterial = codMaterial;
+        this.tipoMaterial = tipoMaterial;
+        this.area = area;
+        this.estado = estado;
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
     }
 
-    public Material(int codMaterial,Area area,String nome, Date dataCompra, double prezoCompra) {
-        this(nome, dataCompra, prezoCompra);
-        this.codMaterial=codMaterial;
-        this.area=area;
-    }
 
-    public int getCodMaterial() {
-        return codMaterial;
-    }
+    // Getters e setters
 
     public void setCodMaterial(int codMaterial) {
         this.codMaterial = codMaterial;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Date getDataCompra() {
-        return dataCompra;
-    }
-
-    public void setDataCompra(Date dataCompra) {
-        this.dataCompra = dataCompra;
-    }
-
-    public double getPrezoCompra() {
-        return prezoCompra;
-    }
-
-    public void setPrezoCompra(double prezoCompra) {
-        this.prezoCompra = prezoCompra;
-    }
-
-    public Area getArea() {
-        return area;
+    public void setTipoMaterial(TipoMaterial tipoMaterial) {
+        this.tipoMaterial = tipoMaterial;
     }
 
     public void setArea(Area area) {
         this.area = area;
     }
 
-    @Override
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setDataCompra(Date dataCompra) {
+        this.dataCompra = dataCompra;
+    }
+
+    public void setPrezoCompra(double prezoCompra) {
+        this.prezoCompra = prezoCompra;
+    }
+
+    public int getCodMaterial() {
+        return codMaterial;
+    }
+
+    public TipoMaterial getTipoMaterial() {
+        return tipoMaterial;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public Date getDataCompra() {
+        return dataCompra;
+    }
+
+    public double getPrezoCompra() {
+        return prezoCompra;
+    }
+
+
+    // Outros métodos
+    public void setInstalacion(Instalacion instalacion) {
+        area.setInstalacion(instalacion);
+    }
+
+    public Instalacion getInstalacion() {
+        return area.getInstalacion();
+    }
+
+    /*@Override
     public String toString() {
         return "Material{" +
                 "codMaterial=" + codMaterial +
@@ -74,5 +96,6 @@ public class Material {
                 ", dataCompra=" + dataCompra +
                 ", prezoCompra=" + prezoCompra +
                 '}';
-    }
+    }*/
+
 }
