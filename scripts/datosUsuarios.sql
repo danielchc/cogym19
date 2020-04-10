@@ -525,12 +525,52 @@ insert into actividade (dataactividade, area, instalacion, tipoactividade, curso
 insert into actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) values ('2020-07-20 16:00:00.00', 1, 5, 18, 5, 'sofiaPersoal', 'Realización de carreiras diversas', 1.5);
 
 ------------------ACTIVIDADE (OUTRAS)-------------------
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-10-01 16:00:00.00', 1, 1, 1, 'manuelPersoal', 'Entrenamento adaptado para correr', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-10-06 18:00:00.00', 1, 1, 1, 'manuelPersoal', 'Obradoiro de carreiras', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-11-14 19:00:00.00', 2, 1, 6, 'luciaPersoal', 'Básicos de Baloncesto', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-11-18 19:00:00.00', 2, 1, 6, 'soniaPersoal', 'Básicos de Baloncesto', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-11-18 19:00:00.00', 3, 1, 7, 'manuelPersoal', 'Iniciación a pádel', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-11-21 17:00:00.00', 3, 1, 7, 'manuelPersoal', 'Iniciación a pádel', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-11-22 11:00:00.00', 3, 3, 7, 'manuelPersoal', 'Charla sobre aspectos técnicos', 1);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-11-28 11:00:00.00', 3, 3, 8, 'soniaPersoal', 'Charla sobre meditación', 1);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-12-11 17:00:00.00', 1, 3, 9, 'manuelPersoal', 'Iniciación no frontón', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-12-15 18:00:00.00', 1, 3, 9, 'manuelPersoal', 'Iniciación no frontón', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-12-29 9:00:00.00', 2, 2, 10, 'sofiaPersoal', 'Entrenamento de fútbol semiprofesional', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-12-30 9:00:00.00', 2, 2, 10, 'sofiaPersoal', 'Entrenamento de fútbol semiprofesional', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2019-12-31 9:00:00.00', 2, 2, 10, 'sofiaPersoal', 'Entrenamento de fútbol semiprofesional', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-01-12 9:00:00.00', 2, 2, 11, 'sofiaPersoal', 'Entrenamento de fútbol 7', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-01-19 18:00:00.00', 1, 3, 13, 'test0', 'Cursiño de Zumba', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-01-24 14:00:00.00', 1, 3, 13, 'test0', 'Cursiño de Zumba', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-01-27 16:00:00.00', 1, 3, 14, 'sofiaPersoal', 'Introdución ao Balonmán', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-01-28 16:00:00.00', 1, 3, 14, 'sofiaPersoal', 'Introdución ao Balonmán', 2.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-02-11 18:00:00.00', 1, 3, 15, 'martaPersoal', 'Aspectos técnicos de Futbol Sala', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-02-11 19:00:00.00', 1, 4, 16, 'manuelPersoal', 'Introdución ao tenis', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-02-15 20:00:00.00', 2, 4, 16, 'manuelPersoal', 'Introdución ao tenis', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-02-21 15:00:00.00', 1, 4, 16, 'manuelPersoal', 'Obradoiro de saque', 2);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-04-21 18:00:00.00', 1, 4, 16, 'manuelPersoal', 'Obradoiro de golpes defensivos', 1);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-04-28 20:00:00.00', 3, 4, 16, 'luciaPersoal', 'Obradoiro de golpes ofensivos', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-20 16:00:00.00', 4, 5, 17, 'martaPersoal', 'Fundamentos da natación, charla', 1.5);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-22 17:00:00.00', 1, 5, 17, 'sofiaPersoal', 'Fundamentos da natación, clase práctica', 3);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-23 17:00:00.00', 1, 5, 17, 'sofiaPersoal', 'Fundamentos da natación, clase práctica', 3);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-30 18:00:00.00', 2, 5, 17, 'soniaPersoal', 'Demostración e iniciación a saltos', 3);
 
 
 ------------------SOCIO->CURSO-------------------
-
-
-
+insert into realizarcurso (curso, usuario) values (1, 'raulSocio');
+insert into realizarcurso (curso, usuario) values (1, 'mariaSocio');
+insert into realizarcurso (curso, usuario) values (1, 'miguelSocio');
+insert into realizarcurso (curso, usuario) values (2, 'mariaSocio');
+insert into realizarcurso (curso, usuario) values (2, 'nuriaSocio');
+insert into realizarcurso (curso, usuario) values (2, 'pedroSocio');
+insert into realizarcurso (curso, usuario) values (2, 'nataliaSocio');
+insert into realizarcurso (curso, usuario) values (3, 'nataliaSocio');
+insert into realizarcurso (curso, usuario) values (3, 'sergioSocio');
+insert into realizarcurso (curso, usuario) values (3, 'andreaSocio');
+insert into realizarcurso (curso, usuario) values (4, 'nuriaSocio');
+insert into realizarcurso (curso, usuario) values (4, 'nataliaSocio');
+insert into realizarcurso (curso, usuario) values (4, 'teresaSocio');
+insert into realizarcurso (curso, usuario) values (5, 'pedroSocio');
+insert into realizarcurso (curso, usuario) values (5, 'teresaSocio');
 
 ------------------SOCIO->ACTIVIDADE-------------------
 
