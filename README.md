@@ -36,7 +36,7 @@ Esto vai que da gusto, que probas lle vas facer?
 
 ## Construido con 🛠️
 
-* Apache Netbeans
+* ~~Apache Netbeans~~ IntelliJ
 * Java
 * Postgresql
 

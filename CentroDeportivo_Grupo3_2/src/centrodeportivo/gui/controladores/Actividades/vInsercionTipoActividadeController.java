@@ -17,6 +17,11 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Victor Barreiro
+ */
 public class vInsercionTipoActividadeController extends AbstractController implements Initializable {
     //Atributos públicos (compoñentes da ventá):
     public HBox caixaCodigo;
