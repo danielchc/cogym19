@@ -19,7 +19,11 @@ public class XestionActividades {
     }
 
     public void crearTipoActividade (TipoActividade tipoActividade){
-        this.fachadaBD.crearTipoActividade(tipoActividade);
+        if(!this.fachadaBD.comprobarExistencia(tipoActividade)){
+            this.fachadaBD.crearTipoActividade(tipoActividade);
+        } else {
+            this.fachadaGUI.mostrarErro("Administración de Tipos de Actividades", "Xa existe un tipo de actividade de nome '" + tipoActividade.getNome().toLowerCase() + "'.");
+        }
     }
 
     public void modificarTipoActividade(TipoActividade tipoActividade){
@@ -27,7 +31,13 @@ public class XestionActividades {
     }
 
     public void eliminarTipoActividade(TipoActividade tipoActividade){
-        this.fachadaBD.eliminarTipoActividade(tipoActividade);
+        if(!this.fachadaBD.tenActividades(tipoActividade)){
+            this.fachadaBD.eliminarTipoActividade(tipoActividade);
+            this.fachadaGUI.mostrarConfirmacion("Administración de Tipos de Actividades", "Eliminación correcta.");
+        } else {
+            this.fachadaGUI.mostrarErro("Administración de Tipos de Actividades", "O tipo '" + tipoActividade.getNome() + "' ten actividades asociadas! Non se pode borrar.");
+        }
+
     }
 
     public ArrayList<TipoActividade> listarTiposActividades(){

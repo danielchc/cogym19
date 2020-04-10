@@ -48,15 +48,15 @@ public final class DAOInstalacions extends AbstractDAO {
             rsInstalacions = stmInstalacions.executeQuery();
 
             //Feita a consulta, recuperamos o valor:
-            if(rsInstalacions.next()){ //Só debería devolverse un ID.
+            if(rsInstalacions.next()) { //Só debería devolverse un ID.
                 //Así metemos o ID na instalación, e podemos amosalo para rematar a operación.
                 instalacion.setCodInstalacion(rsInstalacions.getInt(1));
             }
-            con.commit();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         } finally {
             try {
+                con.commit();
                 stmInstalacions.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
@@ -79,12 +79,12 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Realizamos a actualización:
             stmInstalacions.executeUpdate();
-            con.commit();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         } finally {
             //Pechamos o statement:
             try{
+                con.commit();
                 stmInstalacions.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
@@ -115,11 +115,12 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Executamos a actualización:
             stmInstalacions.executeUpdate();
-            con.commit();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
+                con.commit();
                 //Tentamos pechar o statement usado nesta actualización:
                 stmInstalacions.close();
             } catch (SQLException e){

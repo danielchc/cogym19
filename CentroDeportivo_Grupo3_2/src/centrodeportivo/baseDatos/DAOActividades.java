@@ -58,13 +58,13 @@ public class DAOActividades extends AbstractDAO {
                 tipoActividade.setCodTipoActividade(rsTiposActividades.getInt(1));
             }
 
-            //Facemos o commit:
-            con.commit();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         } finally {
             //Intentamos pechar o statement:
             try{
+                //Facemos o commit:
+                con.commit();
                 stmTiposActividades.close();
             } catch(SQLException e ){
                 System.out.println("Imposible cerrar os cursores");
@@ -101,6 +101,7 @@ public class DAOActividades extends AbstractDAO {
         } finally {
             //Tratamos de pechar o statement
             try{
+                con.commit();
                 stmTiposActividades.close();
             } catch (SQLException e){
                 System.out.printf("Imposible pechar os cursores");
@@ -126,14 +127,12 @@ public class DAOActividades extends AbstractDAO {
             //Executamos a actualización:
             stmTiposActividades.executeUpdate();
 
-            //Facemos o commit:
-            con.commit();
-
         } catch(SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             //Tratamos de pechar o statement:
             try{
+                con.commit();
                 stmTiposActividades.close();
             } catch (SQLException e){
                 System.out.println("Imposible pechar os cursores");
@@ -226,5 +225,72 @@ public class DAOActividades extends AbstractDAO {
 
         //Ofrecemos como resultado os tipos de actividades obtidos da consulta (no peor caso, un arraylist vacío).
         return tiposActividades;
+    }
+
+    public boolean comprobarExistencia(TipoActividade tipoActividade){
+        boolean resultado = false;
+
+        PreparedStatement stmTiposActividades = null;
+        ResultSet rsTiposActividades = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a consulta: miraremos se hai tipos de actividades co mesmo nome que o pasado:
+        try{
+            stmTiposActividades = con.prepareStatement("SELECT * FROM tipoActividade " +
+                    "WHERE lower(nome) = lower(?) ");
+            //Completamos os campos:
+            stmTiposActividades.setString(1, tipoActividade.getNome());
+            //Realizamos a consulta:
+            rsTiposActividades = stmTiposActividades.executeQuery();
+            //Comprobamos se hai resultados, pois se é así existirá xa un tipo de actividade con ese nome:
+            if(rsTiposActividades.next()){
+                resultado = true;
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        } finally {
+            try{
+                stmTiposActividades.close();
+            } catch(SQLException e){
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
+    }
+
+    public boolean tenActividades(TipoActividade tipoActividade){
+        boolean resultado = false;
+
+        PreparedStatement stmActividades = null;
+        ResultSet rsActividades = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a consulta - comprobamos se hai actividades con ese tipo:
+        try{
+            stmActividades = con.prepareStatement("SELECT * FROM actividade WHERE tipoActividade = ? ");
+            //Completamos a consulta:
+            stmActividades.setInt(1, tipoActividade.getCodTipoActividade());
+            //Realizamos a consulta:
+            rsActividades = stmActividades.executeQuery();
+            //Comprobamos se hai resultado, se é así, entón hai actividades do tipo pasado:
+            if(rsActividades.next()){
+                resultado = true;
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        } finally {
+            try{
+                stmActividades.close();
+            } catch(SQLException e){
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return resultado;
     }
 }

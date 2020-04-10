@@ -4,7 +4,7 @@ package centrodeportivo.aplicacion.obxectos.actividades;
 public class TipoActividade{
 
     //Atributos:
-    private Integer codTipoActividade;
+    private int codTipoActividade;
     private String nome;
     private String descricion;
 

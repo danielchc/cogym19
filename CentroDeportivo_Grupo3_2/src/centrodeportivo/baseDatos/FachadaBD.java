@@ -128,6 +128,14 @@ public final class FachadaBD {
         return this.daoActividades.buscarTiposActividades(tipoActividade);
     }
 
+    public boolean comprobarExistencia(TipoActividade tipoActividade){
+        return this.daoActividades.comprobarExistencia(tipoActividade);
+    }
+
+    public boolean tenActividades(TipoActividade tipoActividade){
+        return this.daoActividades.tenActividades(tipoActividade);
+    }
+
     //Funcións propias:
 
     public Connection getConexion() {
