@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.persoal.usuarios;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
@@ -20,6 +21,7 @@ public class vAdministrarCapacidadesController extends AbstractController implem
     public ListView listaDisponibles;
     public ListView listaCapacidades;
     public Label usuarioLabel;
+    private Persoal persoal;
 
     public vAdministrarCapacidadesController(FachadaAplicacion fachadaAplicacion, centrodeportivo.gui.controladores.principal.vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
@@ -31,6 +33,7 @@ public class vAdministrarCapacidadesController extends AbstractController implem
         listaDisponibles.getItems().add(new TipoActividade(1,"Poche","AAAAAAAAA"));
         listaDisponibles.getItems().add(new TipoActividade(2,"Pochi","AAAAAAAAA"));
         listaDisponibles.getItems().add(new TipoActividade(4,"Pocha","AAAAAAAAA"));
+
         listaDisponibles.setCellFactory(new Callback<ListView<TipoActividade>, ListCell<TipoActividade>>() {
             @Override
             public ListCell<TipoActividade> call(ListView<TipoActividade> lv) {
@@ -68,6 +71,7 @@ public class vAdministrarCapacidadesController extends AbstractController implem
 
     public void setUsuario(Usuario selectedItem) {
         usuarioLabel.setText(String.format("Editando capacidades de %s",selectedItem.getLogin()));
+        listaCapacidades.getItems().addAll(super.getFachadaAplicacion().listarCapacidades(selectedItem.getLogin()));
     }
 
     public void engadirCapacidade(){

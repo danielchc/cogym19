@@ -309,7 +309,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmAct=null;
 
         try {
-            stmAct= super.getConexion().prepareStatement("INSERT INTO estarCapacitado (tipoActividade,profesor)  VALUES (?,?);");
+            stmAct= super.getConexion().prepareStatement("INSERT INTO estarCapacitado (tipoActividade,persoal)  VALUES (?,?);");
             stmAct.setInt(1,tipoActividade.getCodTipoActividade());
             stmAct.setString(2,login);
             stmAct.executeUpdate();
@@ -329,7 +329,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmAct=null;
 
         try {
-            stmAct= super.getConexion().prepareStatement("DELETE FROM estarCapacitado WHERE tipoActividade=? AND profesor=?;");
+            stmAct= super.getConexion().prepareStatement("DELETE FROM estarCapacitado WHERE tipoActividade=? AND persoal=?;");
             stmAct.setInt(1,tipoActividade.getCodTipoActividade());
             stmAct.setString(2,login);
             stmAct.executeUpdate();
@@ -343,6 +343,34 @@ public final class DAOUsuarios extends AbstractDAO {
                 System.out.println("Imposible cerrar cursores");
             }
         }
+    }
+
+
+    protected  ArrayList<TipoActividade> listarCapacidades(String login){
+        PreparedStatement stmCapacidades = null;
+        ArrayList<TipoActividade> tipoActividades=new ArrayList<TipoActividade>();
+        ResultSet rsCapacidades;
+        try {
+                stmCapacidades = super.getConexion().prepareStatement("SELECT * FROM estarcapacitado AS ec JOIN tipoactividade AS ta  ON ec.tipoactividade=ta.codtipoactividade WHERE ec.persoal=?;");
+                stmCapacidades.setString(1,login);
+                rsCapacidades = stmCapacidades.executeQuery();
+                while (rsCapacidades.next()) {
+                    tipoActividades.add(new TipoActividade(
+                            rsCapacidades.getInt("codtipoactividade"),
+                            rsCapacidades.getString("nome"),
+                            rsCapacidades.getString("descricion")
+                    ));
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmCapacidades.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return tipoActividades;
     }
 
     protected TipoUsuario consultarTipo(String login) {

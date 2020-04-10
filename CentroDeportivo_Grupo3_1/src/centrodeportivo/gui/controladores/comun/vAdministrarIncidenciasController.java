@@ -58,7 +58,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
                 if(param.getValue().getTipoIncidencia()==TipoIncidencia.Area)return new SimpleObjectProperty<String>(((IncidenciaArea)param.getValue()).getArea().getNome());
-                else return new SimpleObjectProperty<String>(((IncidenciaMaterial)param.getValue()).getMaterial().getNome());
+                else return new SimpleObjectProperty<String>(((IncidenciaMaterial)param.getValue()).getMaterial().getEstado()); //CAMBIAAAAAAAAAAAAAAAR
             }
         });
 

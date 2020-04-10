@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Area {
     private int codArea;
@@ -88,5 +89,20 @@ public class Area {
                 ", aforoMaximo=" + aforoMaximo +
                 ", dataBaixa=" + dataBaixa +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Area area = (Area) o;
+        return codArea == area.codArea &&
+                Objects.equals(instalacion, area.instalacion) &&
+                Objects.equals(nome, area.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codArea, instalacion, nome);
     }
 }

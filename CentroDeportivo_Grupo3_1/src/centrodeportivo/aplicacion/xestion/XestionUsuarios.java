@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
@@ -95,5 +96,9 @@ public class XestionUsuarios {
     public PersoaFisica consultarPersoaFisica(String DNI){
         return fachadaBD.consultarPersoaFisica(DNI);
     }
+    public ArrayList<TipoActividade> listarCapacidades(String login){
+        return fachadaBD.listarCapacidades(login);
+    }
 
-}
+
+    }

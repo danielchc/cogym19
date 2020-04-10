@@ -1,7 +1,10 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
@@ -20,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 public final class FachadaBD {
@@ -30,6 +34,7 @@ public final class FachadaBD {
     private DAOTarifas daoTarifas;
     private DAOMensaxes daoMensaxes;
     private DAOIncidencias daoIncidencias;
+    private DAOInstalacions daoInstalacions;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -63,6 +68,7 @@ public final class FachadaBD {
         this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
         this.daoIncidencias=new DAOIncidencias(this.conexion,this.fachadaAplicacion);
+        this.daoInstalacions=new DAOInstalacions(this.conexion,this.fachadaAplicacion);
     }
 
     /*
@@ -130,6 +136,10 @@ public final class FachadaBD {
 
     public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
         daoUsuarios.eliminarRexistro(rexistroFisioloxico);
+    }
+
+    public ArrayList<TipoActividade> listarCapacidades(String login){
+        return daoUsuarios.listarCapacidades(login);
     }
 
 
@@ -246,5 +256,9 @@ public final class FachadaBD {
 
     public void setDaoIncidencias(DAOIncidencias daoIncidencias) {
         this.daoIncidencias = daoIncidencias;
+    }
+
+    public HashMap<Area,ArrayList<Material>> listarAreas(){
+        return daoInstalacions.listarAreas();
     }
 }
