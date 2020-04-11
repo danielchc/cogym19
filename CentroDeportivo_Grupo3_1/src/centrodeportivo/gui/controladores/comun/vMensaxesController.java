@@ -28,6 +28,10 @@ import java.util.TimerTask;
  * @author Daniel Chenel
  */
 public class vMensaxesController extends AbstractController implements Initializable {
+
+    /**
+     * Atributos do fxml.
+     */
     public TableView containerChats;
     public AnchorPane containerMensaxe;
     public Label labelEmisor;
@@ -35,15 +39,28 @@ public class vMensaxesController extends AbstractController implements Initializ
     public Label labelData;
     public Label labelMensaxe;
 
+    /**
+     * Atributos privados do controlador.
+     */
     private Usuario receptor;
     private FachadaAplicacion fachadaAplicacion;
 
+    /**
+     * Constructor do controlador do buzón de mensaxes.
+     * @param fachadaAplicacion Fachada da aplicación.
+     * @param vPrincipalController Controlador da vista principal.
+     */
     public vMensaxesController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.receptor=super.getvPrincipalController().obterUsuarioLogeado();
         this.fachadaAplicacion=super.getFachadaAplicacion();
     }
 
+    /**
+     * Método para inicializar a vista dos mensaxes.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.containerMensaxe.setVisible(false);
@@ -65,6 +82,10 @@ public class vMensaxesController extends AbstractController implements Initializ
     }
 
 
+    /**
+     * Método para amosar a mensaxe seleccionada da lista de mensaxes recibidas.
+     * @param mouseEvent evento
+     */
     public void listenerTabla(MouseEvent mouseEvent) {
         if(!this.containerChats.getSelectionModel().isEmpty()){
             Mensaxe mensaxe=(Mensaxe)this.containerChats.getSelectionModel().getSelectedItem();
@@ -80,6 +101,9 @@ public class vMensaxesController extends AbstractController implements Initializ
         }
     }
 
+    /**
+     * Método para actualizar o buzón de mensaxes recibidas.
+     */
     public void actualizarTabla(){
         this.containerChats.getItems().removeAll(this.containerChats.getItems());
         this.containerChats.getItems().addAll(super.getFachadaAplicacion().listarMensaxesRecibidos(this.receptor.getLogin()));

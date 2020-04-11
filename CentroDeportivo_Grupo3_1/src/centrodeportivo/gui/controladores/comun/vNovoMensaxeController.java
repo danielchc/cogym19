@@ -62,6 +62,10 @@ public class vNovoMensaxeController extends AbstractController implements Initia
     private TipoBusqueda opcionMensaxe;
     private vPrincipalController vPrincipalController;
 
+    /**
+     * @param fachadaAplicacion Fachada da aplicación
+     * @param vPrincipalController Controlador da vista principal
+     */
     public vNovoMensaxeController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.emisor=super.getvPrincipalController().obterUsuarioLogeado();
@@ -69,6 +73,11 @@ public class vNovoMensaxeController extends AbstractController implements Initia
         this.vPrincipalController=vPrincipalController;
     }
 
+    /**
+     * Método para inicializar a vista.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.tAbrir = new TranslateTransition(Duration.millis(100),tablaUsuarios);
@@ -100,17 +109,16 @@ public class vNovoMensaxeController extends AbstractController implements Initia
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 opcionMensaxe=(TipoBusqueda)observableValue.getValue();
                 if(opcionMensaxe==TipoBusqueda.UnUsuario){
-                    campoReceptor.setEditable(true);
                     if(tablaUsuarios.getItems().size()>0){
                         campoReceptor.setText(((Usuario)tablaUsuarios.getSelectionModel().getSelectedItem()).getLogin());
                     }
                 }else if(opcionMensaxe==TipoBusqueda.Todos){
-                    campoReceptor.setEditable(false);
                     campoReceptor.setText("Enviar a todos os usuarios");
                 }else{
-                    campoReceptor.setEditable(false);
                     campoReceptor.setText("Enviar a todos os "+opcionMensaxe);
                 }
+
+                if(opcionMensaxe!=TipoBusqueda.UnUsuario) esconderTabla();
             }
         });
         if(super.getFachadaAplicacion().consultarTipo(this.emisor.getLogin())==TipoUsuario.Socio){
@@ -119,6 +127,9 @@ public class vNovoMensaxeController extends AbstractController implements Initia
     }
 
 
+    /**
+     * Método para abrir a lista dos usuarios.
+     */
     private void abrirTabla() {
         if(opcionMensaxe!=TipoBusqueda.UnUsuario) return;
         if ((tablaUsuarios.getTranslateX()) == -(tablaUsuarios.getWidth()) ) {
@@ -128,12 +139,30 @@ public class vNovoMensaxeController extends AbstractController implements Initia
         }
     }
 
+    /**
+     * Método para cerrar a lista dos usuarios.
+     */
     private void esconderTabla(){
         tCerrar.setToX(-(tablaUsuarios.getWidth()));
         tCerrar.play();
     }
 
+    /**
+     * Método para actualizar a lista dos usuarios.
+     */
+    private void actualizarTabla(){
+        this.tablaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
+        if(this.tablaUsuarios.getItems().size()>0){
+            this.tablaUsuarios.getSelectionModel().selectFirst();
+            this.tablaUsuarios.getItems().remove(this.emisor);
+        }
+    }
 
+
+    /**
+     * Este método actualiza o campo do receptor cando se selecciona un usuario da lista.
+     * @param mouseEvent evento.
+     */
     public void listenerTabla(MouseEvent mouseEvent) {
         if(this.tablaUsuarios.getItems().size()>0){
             Usuario u=(Usuario)tablaUsuarios.getSelectionModel().getSelectedItem();
@@ -143,17 +172,19 @@ public class vNovoMensaxeController extends AbstractController implements Initia
         esconderTabla();
     }
 
+    /**
+     * Este método abre a lista de usuarios cando se pulsa o campo do receptor.
+     * @param mouseEvent evento.
+     */
     public void listenerReceptor(MouseEvent mouseEvent){
         abrirTabla();
     }
 
-    private void actualizarTabla(){
-        this.tablaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
-        if(this.tablaUsuarios.getItems().size()>0){
-            this.tablaUsuarios.getSelectionModel().select(0);
-        }
-    }
 
+    /**
+     * Este método envía a mensaxe cando se pulsa o botón de enviar.
+     * @param actionEvent evento
+     */
     public void accionEnviar(ActionEvent actionEvent){
         if(ValidacionDatos.estanCubertosCampos(campoReceptor,campoMensaxe)){
             if(campoMensaxe.getText().length()>500){
