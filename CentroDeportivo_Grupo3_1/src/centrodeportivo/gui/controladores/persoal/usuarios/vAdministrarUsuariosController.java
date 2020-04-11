@@ -89,6 +89,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
         listaUsuarios.setPlaceholder(new Label("Non se atoparon usuarios"));
     }
 
+    /**
+     * Método para buscar os usuarios e engadilos á tabla.
+     */
     public void buscarUsuarios(){
         listaUsuarios.getItems().removeAll(listaUsuarios.getItems());
         listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()],mostrarUsuariosBaixa.isSelected()));
@@ -98,6 +101,11 @@ public class vAdministrarUsuariosController extends AbstractController implement
         }
     }
 
+    /**
+     * Método listener do clickear a tabla de datos.
+     * Segundo o tipo e situación do usuario seleccionado amosaránse unhos botóns para
+     * a xestión ou outros.
+     */
     public void listenerTabla(){
         Usuario usuario=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem());
         if(usuario.getTipoUsuario()==TipoUsuario.Socio){
@@ -113,6 +121,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
     }
 
 
+    /**
+     * Método para ir á xestión de capacidades dun persoal.
+     */
     public void capacidadeUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()) {
             vPrincipal.mostrarMenu(IdPantalla.ADMINISTRARCAPACIDADES);
@@ -120,6 +131,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
         }
     }
 
+    /**
+     * Método para ir á ventá de modificación de datos do usuario seleccionado.
+     */
     public void modificarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()) {
             vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
@@ -127,6 +141,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
         }
     }
 
+    /**
+     * Método para borrar/reactivar o usuario seleccionado segundo este dado de baixa ou non.
+     */
     public void borrarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()){
             Usuario usuario=fachadaAplicacion.consultarUsuario(((Usuario)listaUsuarios.getSelectionModel().getSelectedItem()).getLogin(),true);
@@ -138,6 +155,12 @@ public class vAdministrarUsuariosController extends AbstractController implement
                     fachadaAplicacion.mostrarInformacion("Reactivar usuario","O usuario "+login+ " reactivouse correctamente.");
                 }
             }else{
+                /*
+
+                    COMPROBAR SE É PROFESOR E TEN ALGUNHA ACTIVIDADE PENDENTE
+                    NESE CASO MOSTRAR UNHA MENSAXE DE QUE NON SE PODE BORRAR
+
+                 */
                 if(fachadaAplicacion.mostrarConfirmacion("Borrar usuario","Desexa dar de baixa a o usuario "+login+ "?")==ButtonType.OK){
                     fachadaAplicacion.darBaixaUsuario(login);
                     fachadaAplicacion.mostrarInformacion("Borrar usuario","O usuario "+login+ " deuse de baixa correctamente.");
