@@ -112,12 +112,16 @@ public class FachadaAplicacion {
         xestionUsuarios.darBaixaUsuario(login);
     }
 
+    public void darAltaUsuario(String login) {
+        xestionUsuarios.darAltaUsuario(login);
+    }
+
     public TipoUsuario consultarTipo(String login)  {
         return xestionUsuarios.consultarTipo(login);
     }
 
-    public Usuario consultarUsuario(String login) {
-        return xestionUsuarios.consultarUsuario(login);
+    public Usuario consultarUsuario(String login, boolean estaBaixa) {
+        return xestionUsuarios.consultarUsuario(login,estaBaixa);
     }
 
     public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa){

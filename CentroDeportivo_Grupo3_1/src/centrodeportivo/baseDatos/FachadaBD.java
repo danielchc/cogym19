@@ -112,12 +112,16 @@ public final class FachadaBD {
         daoUsuarios.darBaixaUsuario(login);
     }
 
+    public void darAltaUsuario(String login) {
+        daoUsuarios.darAltaUsuario(login);
+    }
+
     public TipoUsuario consultarTipo(String login) {
         return daoUsuarios.consultarTipo(login);
     }
 
-    public Usuario consultarUsuario(String login) {
-        return daoUsuarios.consultarUsuario(login);
+    public Usuario consultarUsuario(String login, boolean estaBaixa) {
+        return daoUsuarios.consultarUsuario(login,estaBaixa);
     }
 
     public PersoaFisica consultarPersoaFisica(String DNI){

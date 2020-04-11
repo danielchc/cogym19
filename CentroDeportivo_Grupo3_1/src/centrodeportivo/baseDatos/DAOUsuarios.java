@@ -309,6 +309,24 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    protected void darAltaUsuario(String login) {
+        PreparedStatement stmUsuario=null;
+        try {
+            stmUsuario= super.getConexion().prepareStatement("UPDATE usuario SET dataBaixa=NULL WHERE login=?");
+            stmUsuario.setString(1,login);
+            stmUsuario.executeUpdate();
+            super.getConexion().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmUsuario.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
+
     protected void engadirCapadidade(String login, TipoActividade tipoActividade) {
         PreparedStatement stmAct=null;
 
@@ -348,7 +366,6 @@ public final class DAOUsuarios extends AbstractDAO {
             }
         }
     }
-
 
     protected  ArrayList<TipoActividade> listarCapacidades(String login){
         PreparedStatement stmCapacidades = null;
@@ -486,15 +503,21 @@ public final class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
-    protected Usuario consultarUsuario(String login) {
+    protected Usuario consultarUsuario(String login,boolean estaBaixa) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
         TipoUsuario tipoUsuario=consultarTipo(login);
         try {
             if(tipoUsuario==TipoUsuario.Socio) {
-                stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=? AND (vs.dataBaixa IS NULL);"
-                );
+                if(estaBaixa){
+                    stmUsuario = super.getConexion().prepareStatement(
+                            "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=? AND (vs.dataBaixa IS NOT NULL);"
+                    );
+                }else{
+                    stmUsuario = super.getConexion().prepareStatement(
+                            "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=? AND (vs.dataBaixa IS NULL);"
+                    );
+                }
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
@@ -518,7 +541,11 @@ public final class DAOUsuarios extends AbstractDAO {
                     );
                 }
             }else{
-                stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE vp.login=? AND (dataBaixa IS NULL);");
+                if(estaBaixa){
+                    stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE vp.login=? AND (dataBaixa IS NOT NULL);");
+                }else{
+                    stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE vp.login=? AND (dataBaixa IS NULL);");
+                }
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
@@ -547,7 +574,7 @@ public final class DAOUsuarios extends AbstractDAO {
             }
         }
         return null;
-}
+    }
 
     protected Cuota consultarCuota(String login){
         PreparedStatement stm = null;

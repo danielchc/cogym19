@@ -57,12 +57,16 @@ public class XestionUsuarios {
         fachadaBD.darBaixaUsuario(login);
     }
 
+    public void darAltaUsuario(String login) {
+        fachadaBD.darAltaUsuario(login);
+    }
+
     public TipoUsuario consultarTipo(String login)  {
         return fachadaBD.consultarTipo(login);
     }
 
-    public Usuario consultarUsuario(String login)  {
-        return fachadaBD.consultarUsuario(login);
+    public Usuario consultarUsuario(String login, boolean estaBaixa) {
+        return fachadaBD.consultarUsuario(login,estaBaixa);
     }
 
     public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa)  {

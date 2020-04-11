@@ -33,6 +33,9 @@ import java.util.ResourceBundle;
  */
 public class vNovoUsuarioController extends AbstractController implements Initializable {
 
+    /**
+     * Atributos do fxml
+     */
     public ComboBox tipoUsuario;
     public TextField campoNome;
     public TextField campoLogin;
@@ -49,6 +52,9 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public CheckBox checkProfesor;
     public Button btnGardar;
 
+    /**
+     * Caixas para os distintos campos.
+     */
     public HBox dataNacementoSocioBox;
     public HBox tarifaSocioBox;
     public HBox dificultadesSocioBox;
@@ -62,6 +68,9 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     public HBox profesorBox;
 
 
+    /**
+     * Atributos privados do controlador.
+     */
     enum  RexistroTipo {
         Socio,
         Persoal
@@ -71,12 +80,22 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     private vPrincipalController controllerPrincipal;
     private FachadaAplicacion fachadaAplicacion;
 
+    /**
+     * Constructor do controlador de alta dun novo usuario.
+     * @param fachadaAplicacion Fachada da aplicación.
+     * @param vPrincipalController Controlador da vista principal.
+     */
     public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.controllerPrincipal=super.getvPrincipalController();
         this.fachadaAplicacion=super.getFachadaAplicacion();
     }
 
+    /**
+     * Método para inicicializar a vista.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.comboTarifa.getItems().addAll(super.getFachadaAplicacion().listarTarifas());
@@ -87,55 +106,11 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         cambiarTipo();
     }
 
-    private void visibilidadeHBoxs(boolean mode,HBox...hboxs){
-        for(HBox h:hboxs){
-            h.setVisible(mode);
-        }
-    }
 
-    private void managedHBoxs(boolean mode,HBox...hboxs){
-        for(HBox h:hboxs){
-            h.setManaged(mode);
-        }
-    }
-
-    private void esconderCampos(){
-        visibilidadeHBoxs(false,
-                dataNacementoSocioBox,tarifaSocioBox,dificultadesSocioBox,
-                nussPersoalBox,nomeBox,loginBox, passBox,
-                tlfBox,correoBox,ibanBox, profesorBox
-        );
-        btnGardar.setDisable(true);
-    }
-
-    private void mostrarCamposPersoal(){
-        visibilidadeHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
-        );
-        managedHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
-        );
-        visibilidadeHBoxs(false, tarifaSocioBox);
-        managedHBoxs(false, tarifaSocioBox);
-        btnGardar.setDisable(false);
-    }
-
-    private void mostrarCamposSocio(){
-        visibilidadeHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,tarifaSocioBox
-        );
-        managedHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,tarifaSocioBox
-        );
-        visibilidadeHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
-        managedHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
-        btnGardar.setDisable(false);
-    }
-
+    /**
+     * Método para realizar a acción de gardar cando se pulsa o botón de gardar.
+     * @param actionEvent evento
+     */
     public void btnGardarAccion(ActionEvent actionEvent) {
         if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
             this.labelError.setText("Algún campo sen cubrir.");
@@ -205,6 +180,9 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         this.controllerPrincipal.volverAtras();
     }
 
+    /**
+     * Método que se executa cando se cambia de tipo de usuario no combobox.
+     */
     public void cambiarTipo(){
         if(this.tipoUsuario.getSelectionModel().getSelectedIndex()== RexistroTipo.Socio.ordinal()){
             mostrarCamposSocio();
@@ -213,6 +191,12 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         }
     }
 
+    /**
+     * Método executado cando se escribe algo no campo do dni.
+     * Comproba se existe xa a persoa asociada ao dni escrito e en caso correcto mostra os campos adecuados
+     * á situción de dita persoa.
+     * @param keyEvent evento
+     */
     public void dniCambiadoAction(KeyEvent keyEvent){
         if(usuarioModificar!=null) return;
         this.labelError.setText("");
@@ -259,7 +243,79 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         }
     }
 
+    /**
+     * Método para amosar/esconder os campos do formulario.
+     * @param mode true para mostrar as caixas, false para non.
+     * @param hboxs Caixas a ser tratadas.
+     */
+    private void visibilidadeHBoxs(boolean mode,HBox...hboxs){
+        for(HBox h:hboxs){
+            h.setVisible(mode);
+        }
+    }
 
+    /**
+     * Método para activar/desactivar os campos do formulario.
+     * @param mode true para mostrar as caixas, false para non.
+     * @param hboxs Caixas a ser tratadas.
+     */
+    private void managedHBoxs(boolean mode,HBox...hboxs){
+        for(HBox h:hboxs){
+            h.setManaged(mode);
+        }
+    }
+
+    /**
+     * Método para esconder todos os campos do formulario.
+     */
+    private void esconderCampos(){
+        visibilidadeHBoxs(false,
+                dataNacementoSocioBox,tarifaSocioBox,dificultadesSocioBox,
+                nussPersoalBox,nomeBox,loginBox, passBox,
+                tlfBox,correoBox,ibanBox, profesorBox
+        );
+        btnGardar.setDisable(true);
+    }
+
+    /**
+     * Método para mostrar so os campos asociados a un novo persoal.
+     */
+    private void mostrarCamposPersoal(){
+        visibilidadeHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
+        );
+        managedHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
+        );
+        visibilidadeHBoxs(false, tarifaSocioBox);
+        managedHBoxs(false, tarifaSocioBox);
+        btnGardar.setDisable(false);
+    }
+
+    /**
+     * Método para mostrar so os campos asociados a un novo socio.
+     */
+    private void mostrarCamposSocio(){
+        visibilidadeHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,tarifaSocioBox
+        );
+        managedHBoxs(true,
+                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
+                tlfBox,correoBox,ibanBox,tarifaSocioBox
+        );
+        visibilidadeHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
+        managedHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
+        btnGardar.setDisable(false);
+    }
+
+
+    /**
+     * Método para comprobar os formatos dos datos introducidos.
+     * @return true se todos os datos están correctos, false noutro caso.
+     */
     private boolean comprobarFormatos(){
         if(!ValidacionDatos.isCorrectoTelefono(this.campoTelf.getText())){
             this.labelError.setText("Teléfono incorrecto.");
@@ -284,6 +340,10 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         return true;
     }
 
+    /**
+     * Método para comprobar se a data de nacemento introducida é válida.
+     * @return true se ten polo menos 16 anos, false noutro caso.
+     */
     private boolean comprobarDataMais16anos(){
         LocalDate data=this.campoData.getValue();
         LocalDate fechaLimite=LocalDate.now().minus(Period.ofYears(16));
@@ -294,6 +354,10 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         return true;
     }
 
+    /**
+     * Método para comprobar a dispoñibilidade dun login.
+     * @return true se é válido, false noutro caso.
+     */
     private boolean comprobarLogin(){
         if(super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
             super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O login "+campoLogin.getText()+" xa está en uso.");
@@ -302,6 +366,9 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         return true;
     }
 
+    /**
+     * @return método para comprobar se un dni xa existe.
+     */
     private boolean comprobarDNI(){
         if(super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
             super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O DNI "+campoDNI.getText()+" xa está rexistrado.");
@@ -311,6 +378,9 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
 
+    /**
+     * Método para autocompletar os datos dun usuario para modificar.
+     */
     private void cargarDatosUsuario(){
         if(usuarioModificar==null)return;
         this.loginVello=usuarioModificar.getLogin();
@@ -340,6 +410,10 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         cambiarTipo();
     }
 
+    /**
+     * Método para cargar un usuario e podelo modificar.
+     * @param usuario usuario a ser modificado
+     */
     public void setUsuario(Usuario usuario) {
         this.usuarioModificar = usuario;
         cargarDatosUsuario();

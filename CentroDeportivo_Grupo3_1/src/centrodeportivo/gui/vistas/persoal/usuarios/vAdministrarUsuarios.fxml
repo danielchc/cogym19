@@ -24,7 +24,7 @@
     <center>
         <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="listaUsuarios" layoutX="14.0" layoutY="102.0" prefHeight="274.0" prefWidth="657.0">
+            <TableView fx:id="listaUsuarios" onMouseClicked="#listenerTabla" layoutX="14.0" layoutY="102.0" prefHeight="274.0" prefWidth="657.0">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
@@ -54,7 +54,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="568.0" layoutY="385.0" mnemonicParsing="false" onAction="#borrarUsuario" text="Dar de baixa">
+            <Button fx:id="btnBorrar" layoutX="568.0" layoutY="385.0" mnemonicParsing="false" onAction="#borrarUsuario" text="Dar de baixa">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -65,7 +65,7 @@
                   <Font size="14.0" />
                </font>
             </CheckBox>
-            <Button layoutX="263.0" layoutY="385.0" mnemonicParsing="false" onAction="#capacidadeUsuario" text="CAPACIDADE POCHO">
+            <Button fx:id="btnCapacidades" layoutX="337.0" layoutY="385.0" mnemonicParsing="false" onAction="#capacidadeUsuario" prefHeight="30.0" prefWidth="108.0" text="Capacidades">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
