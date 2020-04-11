@@ -130,7 +130,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.RESUMENREXISTROS,new DatosVista("../../vistas/socios/vResumenRexistros.fxml",new vResumenRexistrosController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.NOVOREXISTRO,new DatosVista("../../vistas/socios/vNovoRexistro.fxml",new vNovoRexistroController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.ELIMINARREXISTRO,new DatosVista("../../vistas/socios/vEliminarRexistro.fxml",new vEliminarRexistroController(super.getFachadaAplicacion(),this)));
-        this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS,new DatosVista("../../vistas/comun/vAdministrarIncidencias.fxml",new vAdministrarIncidenciasController(super.getFachadaAplicacion(),this)));
+        this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS,new DatosVista("../../vistas/persoal/incidencias/vAdministrarIncidencias.fxml",new vAdministrarIncidenciasController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES,new DatosVista("../../vistas/persoal/usuarios/vAdministrarCapacidades.fxml",new vAdministrarCapacidadesController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.NOVAINCIDENCIA,new DatosVista("../../vistas/comun/vNovaIncidencia.fxml",new vNovaIncidencia(super.getFachadaAplicacion(),this)));
     }
