@@ -14,9 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * @author David Carracedo
@@ -26,12 +24,11 @@ public class vNovaIncidencia extends AbstractController implements Initializable
 
     public RadioButton radioArea;
     public RadioButton radioMaterial;
-    public TextArea campoDescricion;
-    public TableView tablaDatos;
     public ComboBox comboBox;
-
+    public TreeView selectorIncidencia;
     private Usuario usuario;
     private ToggleGroup grupoRadios;
+    private HashMap<Area,ArrayList<Material>> areasMaterial;
 
     public vNovaIncidencia(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
@@ -44,19 +41,26 @@ public class vNovaIncidencia extends AbstractController implements Initializable
         this.radioArea.setToggleGroup(grupoRadios);
         this.radioMaterial.setToggleGroup(grupoRadios);
         this.grupoRadios.selectToggle(radioArea);
-        this.tablaDatos.setPlaceholder(new Label("Non hai datos dispoñibles"));
-        generarTablaAreas();
+        this.areasMaterial=super.getFachadaAplicacion().listarAreas();
+        TreeItem rootItem = new TreeItem();
+        TreeItem areaActual;
+        this.selectorIncidencia.setRoot(rootItem);
+        this.selectorIncidencia.setShowRoot(false);
+        for(Map.Entry<Area,ArrayList<Material>> k:this.areasMaterial.entrySet()){
+            areaActual= new TreeItem(String.format("%s (%s)",k.getKey().getNome(),k.getKey().getInstalacion().getNome()));
+            for (Material m:k.getValue()) {
+                areaActual.getChildren().add(new TreeItem(m));
+            }
+            rootItem.getChildren().add(areaActual);
+        }
+
+
     }
 
     public void btnGardarAction(ActionEvent actionEvent) {
     }
 
     public void listenerRadio(ActionEvent actionEvent){
-        if(radioArea.isSelected()){
-            generarTablaAreas();
-        }else{
-            generarTablaMaterial();
-        }
     }
 
     public void listenerCombo(){
@@ -64,7 +68,7 @@ public class vNovaIncidencia extends AbstractController implements Initializable
     }
 
     private void generarTablaAreas(){
-        this.comboBox.setVisible(false);
+       /* this.comboBox.setVisible(false);
         this.tablaDatos.getColumns().removeAll(tablaDatos.getColumns());
         this.tablaDatos.getItems().removeAll(tablaDatos.getItems());
         TableColumn<Area, String> columnaArea = new TableColumn<>("Áreas");
@@ -74,11 +78,12 @@ public class vNovaIncidencia extends AbstractController implements Initializable
 
         HashMap<Area,ArrayList<Material>> areas=super.getFachadaAplicacion().listarAreas();
         this.tablaDatos.getItems().addAll(areas.keySet());
-        if(areas.size()>0) tablaDatos.getSelectionModel().selectFirst();
+        if(areas.size()>0) tablaDatos.getSelectionModel().selectFirst();*/
     }
 
     private void generarTablaMaterial(){
-        this.comboBox.setVisible(true);
+
+        /*this.comboBox.setVisible(true);
         this.comboBox.getItems().removeAll(comboBox.getItems());
 
         this.tablaDatos.getColumns().removeAll(tablaDatos.getColumns());
@@ -99,5 +104,7 @@ public class vNovaIncidencia extends AbstractController implements Initializable
             }
         }
         if(areas.size()>0) tablaDatos.getSelectionModel().selectFirst();
+
+         */
     }
 }

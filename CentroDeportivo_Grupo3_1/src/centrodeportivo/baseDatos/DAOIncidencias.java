@@ -85,13 +85,14 @@ public final class DAOIncidencias extends AbstractDAO {
                 }
             }
             if(tipoIncidencia==TipoIncidencia.Material || tipoIncidencia==TipoIncidencia.Todos) {
-                stmIncidencia = super.getConexion().prepareStatement("SELECT *,im.descricion AS descricionIncidencia FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial;");
+                stmIncidencia = super.getConexion().prepareStatement(";SELECT *,im.descricion AS descricionIncidencia FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Material material;
                 while (rsIncidencias.next()) {
                     material = new Material(
                             rsIncidencias.getInt("numero"),
-                            rsIncidencias.getInt("codTipoMaterial"),
+                            rsIncidencias.getInt("tipomaterial"),
+                            "VOU BOTAR FORNITES",
                             new Area(
                                     rsIncidencias.getInt("area"),
                                     new Instalacion(rsIncidencias.getInt("instalacion"))

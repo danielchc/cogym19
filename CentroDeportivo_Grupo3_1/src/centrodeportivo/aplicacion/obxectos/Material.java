@@ -15,6 +15,7 @@ public class Material {
      * Atributos da clase material.
      */
     private Integer codTipoMaterial;
+    private String tipoNombre;
     private Integer codMaterial;
     private Area area;
     private String estado;
@@ -40,13 +41,14 @@ public class Material {
      * @param dataCompra Data de compra
      * @param prezoCompra Prezo de compra
      */
-    public Material(Integer codMaterial, Integer codTipoMaterial, Area area, String estado, Date dataCompra, float prezoCompra) {
+    public Material(Integer codMaterial, Integer codTipoMaterial, String tipoNombre, Area area, String estado, Date dataCompra, float prezoCompra) {
         this.codMaterial = codMaterial;
         this.codTipoMaterial=codTipoMaterial;
         this.area = area;
         this.estado = estado;
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
+        this.tipoNombre=tipoNombre;
     }
 
 
