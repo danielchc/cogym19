@@ -12,6 +12,10 @@ import java.sql.Date;
  * @author Daniel Chenel
  */
 public abstract class Incidencia {
+
+    /**
+     * Atributos da clase Incidencia
+     */
     private TipoIncidencia tipoIncidencia;
     private int numero;
     private Usuario usuario;
@@ -21,16 +25,29 @@ public abstract class Incidencia {
     private Date dataResolucion;
     private float custoReparacion;
 
+    /**
+     * Constructor coa clave primaria
+     * @param numero número da incidencia
+     */
     public Incidencia(int numero) {
         this.numero = numero;
     }
 
+    /**
+     * Contructor con todos os datos dunha incidencia
+     * @param numero número
+     * @param usuario usuario que a presenta
+     * @param descripcion descripción da incidencia
+     */
     public Incidencia(int numero, Usuario usuario, String descripcion) {
         this.numero = numero;
         this.usuario=usuario;
         this.descricion=descripcion;
     }
 
+    /**
+     *  Getters e Setters.
+     */
     public TipoIncidencia getTipoIncidencia() {
         return tipoIncidencia;
     }
@@ -95,6 +112,9 @@ public abstract class Incidencia {
         this.custoReparacion = custoReparacion;
     }
 
+    /**
+     * Equals e toString
+     */
     @Override
     public String toString() {
         return "Incidencia{" +

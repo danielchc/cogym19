@@ -30,10 +30,15 @@ public final class Socio extends Usuario {
      * Contructor con todos os datos do socio como parámetros
      * @param login login do persoal
      * @param contrasinal contrasinal
+     * @param DNI dni da persoa.
+     * @param nome nome da persoa
+     * @param dificultades dificultades físicas
+     * @param dataNacemento data de nacemento
      * @param numTelefono número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta IBAN da conta
      * @param dataAlta data de ingreso
+     * @param dataBaixa
      * @param tarifa tarifa do socio
      */
     public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta,Date dataBaixa, Tarifa tarifa) {
@@ -47,6 +52,10 @@ public final class Socio extends Usuario {
      * que se inserta directamente na transacción de insercción
      * @param login login do persoal
      * @param contrasinal contrasinal
+     * @param DNI dni da persoa.
+     * @param nome nome da persoa
+     * @param dificultades dificultades físicas
+     * @param dataNacemento data de nacemento
      * @param numTelefono número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta IBAN da conta

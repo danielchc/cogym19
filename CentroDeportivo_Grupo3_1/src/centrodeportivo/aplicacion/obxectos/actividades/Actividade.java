@@ -13,6 +13,9 @@ import java.util.Objects;
  * @author Daniel Chenel
  */
 public class Actividade {
+    /**
+     * Atributos da clase Actividade.
+     */
     private Timestamp data;
     private Area area;
     private TipoActividade tipoActividade;
@@ -21,11 +24,26 @@ public class Actividade {
     private float duracion;
     private Persoal profesor;
 
+    /**
+     * Constructor coas claves primarias.
+     * @param data Data da actividade
+     * @param area Area onde se realiza
+     */
     public Actividade(Timestamp data, Area area) {
         this.data = data;
         this.area = area;
     }
 
+    /**
+     * Constructor con todos os datos dunha actividade.
+     * @param data Data da actividade
+     * @param area Área onde se realiza
+     * @param tipoActividade Tipo de Actividade
+     * @param curso Curso asociado á actividade
+     * @param nome Nome da actividade.
+     * @param duracion Duración da actividade
+     * @param profesor Profesor que imparte a actividade.
+     */
     public Actividade(Timestamp data, Area area, TipoActividade tipoActividade, Curso curso, String nome, float duracion,Persoal profesor) {
         this.data = data;
         this.area = area;
@@ -36,6 +54,9 @@ public class Actividade {
         this.profesor=profesor;
     }
 
+    /**
+     * Getters e Setteres
+     */
     public Timestamp getData() {
         return data;
     }
@@ -92,6 +113,9 @@ public class Actividade {
         this.profesor = profesor;
     }
 
+    /**
+     * Equals e toString
+     */
     @Override
     public String toString() {
         Date date=new Date(this.data.getTime());

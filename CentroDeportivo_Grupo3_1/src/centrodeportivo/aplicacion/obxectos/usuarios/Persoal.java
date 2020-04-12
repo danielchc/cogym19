@@ -31,10 +31,10 @@ public final class Persoal extends Usuario {
      *
      * @param login             login do Usuario
      * @param contrasinal       contrasinal
-     * @param DNI
-     * @param nome
-     * @param dificultades
-     * @param dataNacemento
+     * @param DNI dni da persoa.
+     * @param nome nome da persoa
+     * @param dificultades dificultades físicas
+     * @param dataNacemento data de nacemento
      * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta         IBAN do usuario
@@ -52,10 +52,10 @@ public final class Persoal extends Usuario {
      *
      * @param login             login do Usuario
      * @param contrasinal       contrasinal
-     * @param DNI
-     * @param nome
-     * @param dificultades
-     * @param dataNacemento
+     * @param DNI dni da persoa.
+     * @param nome nome da persoa
+     * @param dificultades dificultades físicas
+     * @param dataNacemento data de nacemento
      * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta         IBAN do usuario

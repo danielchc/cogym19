@@ -35,10 +35,15 @@ public class Usuario extends PersoaFisica{
      * Constructor con todos os datos do Usuario
      * @param login login do Usuario
      * @param contrasinal contrasinal
+     * @param DNI dni da persoa.
+     * @param nome nome da persoa
+     * @param dificultades dificultades físicas
+     * @param dataNacemento data de nacemento
      * @param numTelefono número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta IBAN do usuario
      * @param dataAlta data de alta no sistema
+     * @param dataBaixa
      */
     public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta,Date dataBaixa){
         this(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
@@ -51,6 +56,10 @@ public class Usuario extends PersoaFisica{
      * A data de alta introdúcese na transacción, por eso non se pasa como parámetro.
      * @param login login do Usuario
      * @param contrasinal contrasinal
+     * @param DNI dni da persoa.
+     * @param nome nome da persoa
+     * @param dificultades dificultades físicas
+     * @param dataNacemento data de nacemento
      * @param numTelefono número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta IBAN do usuario

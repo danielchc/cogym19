@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.AuxiliaresGUI;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -249,32 +250,10 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     /**
-     * Método para amosar/esconder os campos do formulario.
-     * @param mode true para mostrar as caixas, false para non.
-     * @param hboxs Caixas a ser tratadas.
-     */
-    private void visibilidadeHBoxs(boolean mode,HBox...hboxs){
-        for(HBox h:hboxs){
-            h.setVisible(mode);
-        }
-    }
-
-    /**
-     * Método para activar/desactivar os campos do formulario.
-     * @param mode true para mostrar as caixas, false para non.
-     * @param hboxs Caixas a ser tratadas.
-     */
-    private void managedHBoxs(boolean mode,HBox...hboxs){
-        for(HBox h:hboxs){
-            h.setManaged(mode);
-        }
-    }
-
-    /**
      * Método para esconder todos os campos do formulario.
      */
     private void esconderCampos(){
-        visibilidadeHBoxs(false,
+        AuxiliaresGUI.visibilidadeHBoxs(false,
                 dataNacementoSocioBox,tarifaSocioBox,dificultadesSocioBox,
                 nussPersoalBox,nomeBox,loginBox, passBox,
                 tlfBox,correoBox,ibanBox, profesorBox
@@ -286,16 +265,16 @@ public class vNovoUsuarioController extends AbstractController implements Initia
      * Método para mostrar so os campos asociados a un novo persoal.
      */
     private void mostrarCamposPersoal(){
-        visibilidadeHBoxs(true,
+        AuxiliaresGUI.visibilidadeHBoxs(true,
                 dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
                 tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
         );
-        managedHBoxs(true,
+        AuxiliaresGUI.managedHBoxs(true,
                 dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
                 tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
         );
-        visibilidadeHBoxs(false, tarifaSocioBox);
-        managedHBoxs(false, tarifaSocioBox);
+        AuxiliaresGUI.visibilidadeHBoxs(false, tarifaSocioBox);
+        AuxiliaresGUI.managedHBoxs(false, tarifaSocioBox);
         btnGardar.setDisable(false);
     }
 
@@ -303,16 +282,16 @@ public class vNovoUsuarioController extends AbstractController implements Initia
      * Método para mostrar so os campos asociados a un novo socio.
      */
     private void mostrarCamposSocio(){
-        visibilidadeHBoxs(true,
+        AuxiliaresGUI.visibilidadeHBoxs(true,
                 dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
                 tlfBox,correoBox,ibanBox,tarifaSocioBox
         );
-        managedHBoxs(true,
+        AuxiliaresGUI.managedHBoxs(true,
                 dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
                 tlfBox,correoBox,ibanBox,tarifaSocioBox
         );
-        visibilidadeHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
-        managedHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
+        AuxiliaresGUI.visibilidadeHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
+        AuxiliaresGUI.managedHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
         btnGardar.setDisable(false);
     }
 

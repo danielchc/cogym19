@@ -8,20 +8,36 @@ import java.util.Objects;
  */
 public class TipoActividade{
 
+    /**
+     * Atributos da clase Tipo de Actividade
+     */
     private Integer codTipoActividade;
     private String nome;
     private String descricion;
 
+    /**
+     * @param codTipoActividade código
+     * @param nome nome do tipo
+     * @param descricion descrición
+     */
     public TipoActividade(Integer codTipoActividade, String nome, String descricion) {
         this.codTipoActividade = codTipoActividade;
         this.nome = nome;
         this.descricion = descricion;
     }
 
+    /**
+     * Constructor coa clave primaria.
+     * @param codTipoActividade código do tipo
+     */
     public TipoActividade(Integer codTipoActividade){
         this.codTipoActividade=codTipoActividade;
     }
 
+
+    /**
+     * Getters e Setters
+     */
     public Integer getCodTipoActividade() {
         return codTipoActividade;
     }
@@ -46,6 +62,9 @@ public class TipoActividade{
         this.descricion = descricion;
     }
 
+    /**
+     * Equals e toString
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -8,6 +8,10 @@ import java.util.Objects;
  * @author Daniel Chenel
  */
 public class Area {
+
+    /**
+     * Atributos da clase Área
+     */
     private int codArea;
     private Instalacion instalacion;
     private String nome;
@@ -15,11 +19,23 @@ public class Area {
     private int aforoMaximo;
     private Date dataBaixa;
 
+    /**
+     * Constructor coas claves primarias.
+     * @param codArea código da área.
+     * @param instalacion instalación na que está.
+     */
     public Area(int codArea,Instalacion instalacion) {
         this.codArea = codArea;
         this.instalacion = instalacion;
     }
 
+    /**
+     * Constructor da clase área.
+     * @param instalacion instalación na que está
+     * @param nome nome da área
+     * @param descricion descrición
+     * @param aforoMaximo afóro máximo da área
+     */
     public Area(Instalacion instalacion, String nome, String descricion, int aforoMaximo) {
         this.instalacion = instalacion;
         this.nome = nome;
@@ -27,14 +43,25 @@ public class Area {
         this.aforoMaximo = aforoMaximo;
     }
 
+    /**
+     * Constructor con todos os datos dunha área
+     * @param codArea código da área.
+     * @param instalacion instalación na que está
+     * @param nome nome da área
+     * @param descricion descrición
+     * @param aforoMaximo afóro máximo da área
+     * @param dataBaixa data de baixa da área.
+     */
     public Area(int codArea,Instalacion instalacion, String nome, String descricion, int aforoMaximo,Date dataBaixa) {
         this(instalacion, nome, descricion, aforoMaximo);
         this.codArea = codArea;
         this.dataBaixa = dataBaixa;
     }
 
-    /*clase de xoguete sei que non a tiña que facer eu pero faciame falta*/
 
+    /**
+     * Getters e Setters.
+     */
     public int getCodArea() {
         return codArea;
     }
@@ -83,6 +110,9 @@ public class Area {
         this.dataBaixa = dataBaixa;
     }
 
+    /**
+     * Equals e toString
+     */
     @Override
     public String toString() {
         return nome;

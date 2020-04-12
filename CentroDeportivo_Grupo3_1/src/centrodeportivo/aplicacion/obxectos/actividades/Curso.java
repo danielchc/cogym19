@@ -11,11 +11,22 @@ import java.util.Objects;
  * @author Daniel Chenel
  */
 public class Curso {
+
+    /**
+     * Atributos da clase Curso
+     */
     private int codCurso;
     private String nome;
     private String descricion;
     private float prezo;
 
+    /**
+     * Contructor cos datos dun curso.
+     * @param codCurso Código do curso
+     * @param nome Nome do curso
+     * @param descricion Descrición do curso.
+     * @param prezo Prezo mensual do curso.
+     */
     public Curso(int codCurso, String nome, String descricion, float prezo) {
         this.codCurso = codCurso;
         this.nome = nome;
@@ -23,10 +34,18 @@ public class Curso {
         this.prezo = prezo;
     }
 
+    /**
+     * Constructor coa clave primaria.
+     * @param codCurso Código do curso.
+     */
     public Curso(int codCurso) {
         this.codCurso = codCurso;
     }
 
+
+    /**
+     * Getters e Setters
+     */
     public int getCodCurso() {
         return codCurso;
     }
@@ -60,6 +79,9 @@ public class Curso {
     }
 
 
+    /**
+     * Equals e toString
+     */
     @Override
     public String toString() {
         return "Nome: "+this.nome+
