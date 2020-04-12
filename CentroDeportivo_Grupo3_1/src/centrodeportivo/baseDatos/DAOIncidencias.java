@@ -91,7 +91,11 @@ public final class DAOIncidencias extends AbstractDAO {
                 while (rsIncidencias.next()) {
                     material = new Material(
                             rsIncidencias.getInt("numero"),
-                            new Area(rsIncidencias.getInt("area"), new Instalacion(rsIncidencias.getInt("instalacion"))),
+                            rsIncidencias.getInt("codTipoMaterial"),
+                            new Area(
+                                    rsIncidencias.getInt("area"),
+                                    new Instalacion(rsIncidencias.getInt("instalacion"))
+                            ),
                             rsIncidencias.getString("nome"),
                             rsIncidencias.getDate("dataCompra"),
                             rsIncidencias.getFloat("prezoCompra")

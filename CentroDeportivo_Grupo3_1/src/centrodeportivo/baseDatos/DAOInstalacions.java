@@ -50,6 +50,7 @@ public class DAOInstalacions extends AbstractDAO {
                 while (rsMaterial.next()) {
                     listaMaterial.add(new Material(
                             rsMaterial.getInt("codmaterial"),
+                            rsMaterial.getInt("codtipomaterial"),
                             area,
                             rsMaterial.getString("estado"),
                             rsMaterial.getDate("datacompra"),
