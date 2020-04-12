@@ -104,7 +104,8 @@ public class FachadaAplicacion {
         xestionUsuarios.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario)  {
+    public void actualizarUsuario(String loginVello,Usuario usuario, boolean contrasinalCambiado) {
+        if(contrasinalCambiado) usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         xestionUsuarios.actualizarUsuario(loginVello,usuario);
     }
 

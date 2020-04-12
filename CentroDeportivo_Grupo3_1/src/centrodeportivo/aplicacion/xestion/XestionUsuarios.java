@@ -49,7 +49,7 @@ public class XestionUsuarios {
         fachadaBD.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario)  {
+    public void actualizarUsuario(String loginVello,Usuario usuario) {
         fachadaBD.actualizarUsuario(loginVello,usuario);
     }
 

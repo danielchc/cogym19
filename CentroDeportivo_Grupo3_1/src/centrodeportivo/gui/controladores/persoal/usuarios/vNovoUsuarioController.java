@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -145,7 +146,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     tarifa
             );
             if(usuarioModificar!=null){
-                super.getFachadaAplicacion().actualizarUsuario(loginVello,socio);
+                super.getFachadaAplicacion().actualizarUsuario(loginVello,socio,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
                 this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
             }else{
                 this.fachadaAplicacion.insertarUsuario(socio);
@@ -170,7 +171,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     checkProfesor.isSelected()
             );
             if(usuarioModificar!=null){
-                super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal);
+                super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
                 this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
             }else{
                 this.fachadaAplicacion.insertarUsuario(persoal);
