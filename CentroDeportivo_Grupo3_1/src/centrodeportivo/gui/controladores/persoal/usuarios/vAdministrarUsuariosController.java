@@ -48,9 +48,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
      * @param vPrincipal Controlador da vista principal.
      */
     public vAdministrarUsuariosController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipal) {
-        super(fachadaAplicacion);
+        super(fachadaAplicacion,vPrincipal);
         this.fachadaAplicacion=super.getFachadaAplicacion();
-        this.vPrincipal=vPrincipal;
+        this.vPrincipal=super.getvPrincipalController();
     }
 
 
@@ -84,6 +84,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
             public void updateItem(Usuario item, boolean empty) {
                 super.updateItem(item, empty) ;
                 if ((item != null)&&(item.estaDeBaixa()))setStyle("-fx-background-color:grey;");
+                else styleProperty().setValue("");
             }
         });
 
@@ -165,14 +166,16 @@ public class vAdministrarUsuariosController extends AbstractController implement
                     NESE CASO MOSTRAR UNHA MENSAXE DE QUE NON SE PODE BORRAR
 
                  */
-                /*if(usuario.equals(super.getvPrincipalController().obterUsuarioLogeado())){
-                    if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación.Queres continuar?")!=ButtonType.OK){
-                        return;
+                if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
+                    if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
+                        fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
+                        System.exit(0);
                     }
-                }*/
-                if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
-                    fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
-                    fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+usuario.getLogin()+ " deuse de baixa correctamente.");
+                }else{
+                    if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                        fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
+                        fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+usuario.getLogin()+ " deuse de baixa correctamente.");
+                    }
                 }
             }
             buscarUsuarios();
