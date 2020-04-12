@@ -4,9 +4,16 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
+import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -21,13 +28,10 @@ import java.util.*;
  * @author Daniel Chenel
  */
 public class vNovaIncidencia extends AbstractController implements Initializable {
-
-    public RadioButton radioArea;
-    public RadioButton radioMaterial;
-    public ComboBox comboBox;
     public TreeView selectorIncidencia;
+    public TextArea infoObxecto;
+    public TextArea campoDescricion;
     private Usuario usuario;
-    private ToggleGroup grupoRadios;
     private HashMap<Area,ArrayList<Material>> areasMaterial;
 
     public vNovaIncidencia(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
@@ -37,74 +41,84 @@ public class vNovaIncidencia extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.grupoRadios=new ToggleGroup();
-        this.radioArea.setToggleGroup(grupoRadios);
-        this.radioMaterial.setToggleGroup(grupoRadios);
-        this.grupoRadios.selectToggle(radioArea);
         this.areasMaterial=super.getFachadaAplicacion().listarAreas();
         TreeItem rootItem = new TreeItem();
         TreeItem areaActual;
         this.selectorIncidencia.setRoot(rootItem);
         this.selectorIncidencia.setShowRoot(false);
         for(Map.Entry<Area,ArrayList<Material>> k:this.areasMaterial.entrySet()){
-            areaActual= new TreeItem(String.format("%s (%s)",k.getKey().getNome(),k.getKey().getInstalacion().getNome()));
-            for (Material m:k.getValue()) {
-                areaActual.getChildren().add(new TreeItem(m));
-            }
+            areaActual= new TreeItem(k.getKey());
+            for (Material m:k.getValue())areaActual.getChildren().add(new TreeItem(m));
             rootItem.getChildren().add(areaActual);
         }
 
+        this.selectorIncidencia.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem>() {
+            @Override
+            public void changed(ObservableValue<? extends TreeItem> observable, TreeItem oldValue, TreeItem newValue) {
+
+                if(newValue.getValue() instanceof Material){
+                    Material material= (Material) newValue.getValue();
+                    infoObxecto.setText(String.format("Tipo de material: %s\nNúmero: %d\nEstado: %s\nÁrea: %s(%s)",
+                            material.getTipoNombre(),
+                            material.getCodMaterial(),
+                            material.getEstado(),
+                            material.getArea().getNome(),
+                            material.getArea().getInstalacion().getNome()
+                    ));
+                }else if (newValue.getValue() instanceof Area){
+                    Area area= (Area) newValue.getValue();
+                    infoObxecto.setText(String.format("Código: %d\nÁrea: %s\nInstalación: %s\nDirección: %s",
+                            area.getCodArea(),
+                            area.getNome(),
+                            area.getInstalacion().getNome(),
+                            area.getInstalacion().getDireccion()
+                    ));
+                }
+            }
+        });
+
+        this.selectorIncidencia.setCellFactory(param -> new TreeCell<Object>() {
+            @Override
+            public void updateItem(Object item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty)setText("");
+                else {
+                    if(item instanceof Material){
+                        setText(String.format("%s %d",((Material) item).getTipoNombre(),((Material) item).getCodMaterial()));
+                    }else if (item instanceof Area){
+                        setText(String.format("%s (%s)",((Area)item).getNome(),((Area)item).getInstalacion().getNome()));
+                    }
+                }
+                setGraphic(null);
+            }
+
+        });
+    }
+
+    private void listenerTabla(){
 
     }
 
     public void btnGardarAction(ActionEvent actionEvent) {
-    }
-
-    public void listenerRadio(ActionEvent actionEvent){
-    }
-
-    public void listenerCombo(){
-        generarTablaMaterial();
-    }
-
-    private void generarTablaAreas(){
-       /* this.comboBox.setVisible(false);
-        this.tablaDatos.getColumns().removeAll(tablaDatos.getColumns());
-        this.tablaDatos.getItems().removeAll(tablaDatos.getItems());
-        TableColumn<Area, String> columnaArea = new TableColumn<>("Áreas");
-        columnaArea.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        this.tablaDatos.getColumns().add(columnaArea);
-
-
-        HashMap<Area,ArrayList<Material>> areas=super.getFachadaAplicacion().listarAreas();
-        this.tablaDatos.getItems().addAll(areas.keySet());
-        if(areas.size()>0) tablaDatos.getSelectionModel().selectFirst();*/
-    }
-
-    private void generarTablaMaterial(){
-
-        /*this.comboBox.setVisible(true);
-        this.comboBox.getItems().removeAll(comboBox.getItems());
-
-        this.tablaDatos.getColumns().removeAll(tablaDatos.getColumns());
-        this.tablaDatos.getItems().removeAll(tablaDatos.getItems());
-        TableColumn<Area, String> columnaArea = new TableColumn<>("Materiais");
-        columnaArea.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        this.tablaDatos.getColumns().add(columnaArea);
-
-        HashMap<Area,ArrayList<Material>> areas=super.getFachadaAplicacion().listarAreas();
-        this.comboBox.getItems().addAll(areas.keySet());
-
-        if(comboBox.getSelectionModel().getSelectedItem()!=null){
-            ArrayList<Material> materiales=areas.get((Area)comboBox.getSelectionModel().getSelectedItem());
-            if(materiales.size()>0){
-                for(Material m:materiales){
-                    this.tablaDatos.getItems().add(m);
-                }
+        if(!this.selectorIncidencia.getSelectionModel().isEmpty() && ValidacionDatos.estanCubertosCampos(campoDescricion)){
+            TreeItem selectedItem=(TreeItem)this.selectorIncidencia.getSelectionModel().getSelectedItem();
+            if(selectedItem.getValue() instanceof Material){
+                Material material= (Material) selectedItem.getValue();
+                getFachadaAplicacion().insertarIncidencia(new IncidenciaMaterial(
+                        super.getvPrincipalController().obterUsuarioLogeado(),
+                        this.campoDescricion.getText(),
+                        material
+                ));
+            }else if (selectedItem.getValue() instanceof Area){
+                Area area= (Area) selectedItem.getValue();
+                getFachadaAplicacion().insertarIncidencia(new IncidenciaArea(
+                        super.getvPrincipalController().obterUsuarioLogeado(),
+                        this.campoDescricion.getText(),
+                        area
+                ));
             }
+            getFachadaAplicacion().mostrarInformacion("Incidencia creada", "Creouse a incidencia correctamente.");
+            getvPrincipalController().mostrarMenu(IdPantalla.INICIO);
         }
-        if(areas.size()>0) tablaDatos.getSelectionModel().selectFirst();
-
-         */
     }
 }

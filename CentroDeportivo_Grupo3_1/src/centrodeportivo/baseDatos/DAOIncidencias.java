@@ -25,19 +25,19 @@ public final class DAOIncidencias extends AbstractDAO {
     protected void insertarIncidencia(Incidencia incidencia) {
         PreparedStatement stmIncidencia=null;
         try {
-            if (incidencia.getTipoIncidencia() == TipoIncidencia.Area) {
+            if (incidencia instanceof IncidenciaArea) {
                 IncidenciaArea incidenciaArea=(IncidenciaArea) incidencia;
                 stmIncidencia = super.getConexion().prepareStatement("INSERT INTO incidenciaArea(usuario,descricion,area,instalacion)  VALUES (?,?,?,?);");
                 stmIncidencia.setInt(3, incidenciaArea.getArea().getCodArea());
                 stmIncidencia.setInt(4, incidenciaArea.getArea().getInstalacion().getCodInstalacion());
-            } else {
+            } else if (incidencia instanceof IncidenciaMaterial) {
                 IncidenciaMaterial incidenciaMaterial=(IncidenciaMaterial) incidencia;
-                stmIncidencia = super.getConexion().prepareStatement("INSERT INTO incidenciaMaterial(usuario,descricion,material)  VALUES (?,?,?);");
+                stmIncidencia = super.getConexion().prepareStatement("INSERT INTO incidenciaMaterial(usuario,descricion,material,tipomaterial)  VALUES (?,?,?,?);");
                 stmIncidencia.setInt(3, incidenciaMaterial.getMaterial().getCodMaterial());
+                stmIncidencia.setInt(4, incidenciaMaterial.getMaterial().getCodTipoMaterial());
             }
             stmIncidencia.setString(1, incidencia.getUsuario().getLogin());
             stmIncidencia.setString(2, incidencia.getDescricion());
-            System.out.println(stmIncidencia);
             stmIncidencia.executeUpdate();
             super.getConexion().commit();
         }catch (SQLException e){
@@ -97,7 +97,7 @@ public final class DAOIncidencias extends AbstractDAO {
                                     rsIncidencias.getInt("area"),
                                     new Instalacion(rsIncidencias.getInt("instalacion"))
                             ),
-                            rsIncidencias.getString("nome"),
+                            rsIncidencias.getString("estado"),
                             rsIncidencias.getDate("dataCompra"),
                             rsIncidencias.getFloat("prezoCompra")
                     );

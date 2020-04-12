@@ -25,7 +25,7 @@ public class DAOInstalacions extends AbstractDAO {
         HashMap<Area,ArrayList<Material>> listaAreaMaterial=new HashMap<>();
         ResultSet rsAreas,rsMaterial;
         try {
-            stmAreas = super.getConexion().prepareStatement("SELECT *,ar.nome AS nomeArea,ins.nome AS nomeInstalacion FROM area AS ar JOIN instalacion AS ins ON ar.instalacion=ins.codinstalacion WHERE (databaixa IS NULL);");
+            stmAreas = super.getConexion().prepareStatement("SELECT *,ar.nome AS nomeArea,ins.nome AS nomeInstalacion FROM area AS ar JOIN instalacion AS ins ON ar.instalacion=ins.codinstalacion WHERE (databaixa IS NULL) ORDER BY nomeArea;");
             rsAreas = stmAreas.executeQuery();
             Area area;
             while (rsAreas.next()) {
@@ -43,7 +43,7 @@ public class DAOInstalacions extends AbstractDAO {
                         rsAreas.getInt("aforoMaximo"),
                         rsAreas.getDate("databaixa")
                 );
-                stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material AS ma JOIN tipomaterial AS tp ON ma.tipomaterial=tp.codtipomaterial WHERE area=? AND instalacion=?;");
+                stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material AS ma JOIN tipomaterial AS tp ON ma.tipomaterial=tp.codtipomaterial WHERE area=? AND instalacion=? ORDER BY tp.nome;");
                 stmMateriais.setInt(1, area.getCodArea());
                 stmMateriais.setInt(2, area.getInstalacion().getCodInstalacion());
                 rsMaterial = stmMateriais.executeQuery();

@@ -34,15 +34,24 @@ public abstract class Incidencia {
     }
 
     /**
+     * Contructor para engadir unha os datos dunha incidencia
+     * @param usuario usuario que a presenta
+     * @param descripcion descripción da incidencia
+     */
+    public Incidencia(Usuario usuario, String descripcion) {
+        this.usuario=usuario;
+        this.descricion=descripcion;
+    }
+
+    /**
      * Contructor con todos os datos dunha incidencia
      * @param numero número
      * @param usuario usuario que a presenta
      * @param descripcion descripción da incidencia
      */
     public Incidencia(int numero, Usuario usuario, String descripcion) {
+        this(usuario, descripcion);
         this.numero = numero;
-        this.usuario=usuario;
-        this.descricion=descripcion;
     }
 
     /**

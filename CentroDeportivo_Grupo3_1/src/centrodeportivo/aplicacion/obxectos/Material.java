@@ -96,6 +96,22 @@ public class Material {
         this.prezoCompra = prezoCompra;
     }
 
+    public Integer getCodTipoMaterial() {
+        return codTipoMaterial;
+    }
+
+    public void setCodTipoMaterial(Integer codTipoMaterial) {
+        this.codTipoMaterial = codTipoMaterial;
+    }
+
+    public String getTipoNombre() {
+        return tipoNombre;
+    }
+
+    public void setTipoNombre(String tipoNombre) {
+        this.tipoNombre = tipoNombre;
+    }
+
     /**
      * Equals e toString
      */

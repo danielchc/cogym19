@@ -37,6 +37,16 @@ public class IncidenciaArea extends Incidencia {
         this.area=area;
     }
 
+    /**
+     * Contructor para engadir unha os datos dunha incidencia
+     *
+     * @param usuario     usuario que a presenta
+     * @param descripcion descripción da incidencia
+     */
+    public IncidenciaArea(Usuario usuario, String descripcion, Area area) {
+        super(usuario, descripcion);
+        this.area = area;
+    }
 
     /**
      * Getters e Setters

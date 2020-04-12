@@ -245,6 +245,10 @@ public class FachadaAplicacion {
     public ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
         return xestionIncidencias.listarIncidencias(descripcion, tipoIncidencia);
     }
+
+    public void insertarIncidencia(Incidencia incidencia)  {
+        xestionIncidencias.insertarIncidencia(incidencia);
+    }
     /*
         Xestion instalacións
      */

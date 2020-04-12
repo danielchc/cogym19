@@ -34,27 +34,29 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="366.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="438.0" text="Escolle o tipo de indidencia...">
+                        <Label prefHeight="18.0" prefWidth="438.0" text="Información">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="5.0" />
+                              <Insets left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <RadioButton fx:id="radioArea" mnemonicParsing="false" onAction="#listenerRadio" prefHeight="35.0" prefWidth="148.0" text="Área">
+                        <TextArea fx:id="infoObxecto" layoutX="15.0" layoutY="30.0" prefHeight="150.0" prefWidth="366.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                           </VBox.margin></TextArea>
+                        <Label layoutX="15.0" layoutY="10.0" prefHeight="18.0" prefWidth="438.0" text="Descrición">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
-                        </RadioButton>
-                         <RadioButton fx:id="radioMaterial" mnemonicParsing="false" onAction="#listenerRadio" prefHeight="35.0" prefWidth="148.0" text="Material dunha área">
-                             <font>
-                                 <Font name="System Bold" size="13.0" />
-                             </font>
-                         </RadioButton>
-                        <TextArea fx:id="campoDescricion" prefHeight="274.0" prefWidth="355.0">
                            <VBox.margin>
                               <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextArea fx:id="campoDescricion" prefHeight="274.0" prefWidth="355.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                            </VBox.margin>
                         </TextArea>
                         <Button mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="32.0" prefWidth="115.0" text="Enviar indicencia">

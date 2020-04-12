@@ -37,6 +37,17 @@ public class IncidenciaMaterial extends Incidencia{
     }
 
     /**
+     * Contructor para engadir unha os datos dunha incidencia
+     *
+     * @param usuario     usuario que a presenta
+     * @param descripcion descripción da incidencia
+     */
+    public IncidenciaMaterial(Usuario usuario, String descripcion, Material material) {
+        super(usuario, descripcion);
+        this.material = material;
+    }
+
+    /**
      * Getters e Setters
      */
     public Material getMaterial() {
