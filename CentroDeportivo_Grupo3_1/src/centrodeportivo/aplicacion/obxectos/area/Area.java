@@ -1,6 +1,9 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
+import centrodeportivo.aplicacion.obxectos.Material;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -18,6 +21,7 @@ public class Area {
     private String descricion;
     private int aforoMaximo;
     private Date dataBaixa;
+    private ArrayList<Material> materiais;
 
     /**
      * Constructor coas claves primarias.
@@ -108,6 +112,14 @@ public class Area {
 
     public void setDataBaixa(Date dataBaixa) {
         this.dataBaixa = dataBaixa;
+    }
+
+    public ArrayList<Material> getMateriais() {
+        return materiais;
+    }
+
+    public void setMateriais(ArrayList<Material> materiais) {
+        this.materiais = materiais;
     }
 
     /**

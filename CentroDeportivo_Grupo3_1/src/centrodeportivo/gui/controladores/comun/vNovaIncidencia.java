@@ -3,7 +3,6 @@ package centrodeportivo.gui.controladores.comun;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.area.Area;
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -11,14 +10,11 @@ import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
 import java.net.URL;
 import java.util.*;
@@ -32,7 +28,7 @@ public class vNovaIncidencia extends AbstractController implements Initializable
     public TextArea infoObxecto;
     public TextArea campoDescricion;
     private Usuario usuario;
-    private HashMap<Area,ArrayList<Material>> areasMaterial;
+    private ArrayList<Area> listaAreas;
 
     public vNovaIncidencia(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
@@ -41,14 +37,14 @@ public class vNovaIncidencia extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.areasMaterial=super.getFachadaAplicacion().listarAreas();
+        this.listaAreas=super.getFachadaAplicacion().listarAreas();
         TreeItem rootItem = new TreeItem();
         TreeItem areaActual;
         this.selectorIncidencia.setRoot(rootItem);
         this.selectorIncidencia.setShowRoot(false);
-        for(Map.Entry<Area,ArrayList<Material>> k:this.areasMaterial.entrySet()){
-            areaActual= new TreeItem(k.getKey());
-            for (Material m:k.getValue())areaActual.getChildren().add(new TreeItem(m));
+        for(Area area:this.listaAreas){
+            areaActual= new TreeItem(area);
+            for (Material m:area.getMateriais())areaActual.getChildren().add(new TreeItem(m));
             rootItem.getChildren().add(areaActual);
         }
 

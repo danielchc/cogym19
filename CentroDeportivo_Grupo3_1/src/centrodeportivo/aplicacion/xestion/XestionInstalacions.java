@@ -22,7 +22,7 @@ public class XestionInstalacions {
         this.fachadaBD=fachadaBD;
     }
 
-    public HashMap<Area, ArrayList<Material>> listarAreas(){
+    public ArrayList<Area> listarAreas(){
         return fachadaBD.listarAreas();
     }
 }

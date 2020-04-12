@@ -280,7 +280,7 @@ public final class FachadaBD {
         this.daoIncidencias = daoIncidencias;
     }
 
-    public HashMap<Area,ArrayList<Material>> listarAreas(){
+    public ArrayList<Area> listarAreas(){
         return daoInstalacions.listarAreas();
     }
 

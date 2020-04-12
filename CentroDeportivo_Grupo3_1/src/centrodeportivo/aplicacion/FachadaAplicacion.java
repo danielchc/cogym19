@@ -253,7 +253,7 @@ public class FachadaAplicacion {
         Xestion instalacións
      */
 
-    public HashMap<Area, ArrayList<Material>> listarAreas(){
+    public ArrayList<Area> listarAreas(){
         return xestionInstalacions.listarAreas();
     }
 
