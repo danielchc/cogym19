@@ -44,11 +44,23 @@ public class vCuotaController extends AbstractController implements Initializabl
      */
     private Usuario usuario;
 
+    /**
+     * Constructor do controlador.
+     * @param fachadaAplicacion Fachada da aplicación.
+     * @param vPrincipalController Controlador da vista principal
+     */
     public vCuotaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
     }
 
+    /**
+     * Método para inicializar a vista.
+     * Consultanse os datos da cuota do mes actual do usuario loggeado.
+     * Despois cárgase un resumo dos datos para mostralos.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Cuota cuota=super.getFachadaAplicacion().consultarCuota(this.usuario.getLogin());

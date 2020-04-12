@@ -54,6 +54,11 @@ public class vNovoRexistroController extends AbstractController implements Initi
     private HashMap<CheckBox,Slider> sliders;
     private HashMap<Slider,TextField> campos;
 
+    /**
+     * Constructor do controlador.
+     * @param fachadaAplicacion Fachada da aplicación.
+     * @param vPrincipalController Controlador da vista principal
+     */
     public vNovoRexistroController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
@@ -65,6 +70,9 @@ public class vNovoRexistroController extends AbstractController implements Initi
         inicializarHashMaps();
     }
 
+    /**
+     * Método para inicilizar os hashmaps para os checkboxs e campos varios.
+     */
     private void inicializarHashMaps(){
         this.sliders=new HashMap<>();
         this.campos=new HashMap<>();
@@ -78,6 +86,10 @@ public class vNovoRexistroController extends AbstractController implements Initi
         this.campos.put(sliderAltura,campoAltura);
     }
 
+    /**
+     * Método para activar/desactivar os campos asociados a un checkbox.
+     * @param mouseEvent evento.
+     */
     public void listenerCheckBox(MouseEvent mouseEvent) {
         CheckBox src=(CheckBox)mouseEvent.getSource();
         Slider slider=this.sliders.get(src);
@@ -91,6 +103,10 @@ public class vNovoRexistroController extends AbstractController implements Initi
         }
     }
 
+    /**
+     * Método para actualizar o valor dun slider no campo asociado a dito slider.
+     * @param mouseEvent evento.
+     */
     public void listenerSlider(MouseEvent mouseEvent) {
         Slider src=(Slider)mouseEvent.getSource();
 
@@ -103,6 +119,11 @@ public class vNovoRexistroController extends AbstractController implements Initi
         }
     }
 
+    /**
+     * Método para gardar o rexistro fisiolóxico creado.
+     * Compróbase se os campos son correctos e nese caso insértase.
+     * @param actionEvent evento.
+     */
     public void btnGardarAction(ActionEvent actionEvent){
 
         Float peso, altura, grasa=null;
