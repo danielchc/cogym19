@@ -83,7 +83,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
             @Override
             public void updateItem(Usuario item, boolean empty) {
                 super.updateItem(item, empty) ;
-                if ((item != null)&&(!item.estaDeBaixa()))setStyle("-fx-background-color:grey;");
+                if ((item != null)&&(item.estaDeBaixa()))setStyle("-fx-background-color:grey;");
             }
         });
 
@@ -104,7 +104,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
     public void buscarUsuarios(){
         listaUsuarios.getItems().removeAll(listaUsuarios.getItems());
         listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()],mostrarUsuariosBaixa.isSelected()));
-        if(listaUsuarios.getItems().size()>0){
+        if(!listaUsuarios.getItems().isEmpty()){
             listaUsuarios.getSelectionModel().selectFirst();
             listenerTabla();
         }
@@ -117,12 +117,8 @@ public class vAdministrarUsuariosController extends AbstractController implement
      */
     public void listenerTabla(){
         Usuario usuario=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem());
-        if(usuario.getTipoUsuario()==TipoUsuario.Socio){
-            this.btnCapacidades.setVisible(false);
-        }else{
-            this.btnCapacidades.setVisible(true);
-        }
-        if(super.getFachadaAplicacion().consultarUsuario(usuario.getLogin(),true)!=null){
+        this.btnCapacidades.setVisible(usuario.getTipoUsuario()!=TipoUsuario.Socio);
+        if(usuario.estaDeBaixa()){
             btnBorrar.setText("Reactivar");
         }else{
             btnBorrar.setText("Dar de baixa");
@@ -155,13 +151,12 @@ public class vAdministrarUsuariosController extends AbstractController implement
      */
     public void activarDesactivarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()){
-            Usuario usuario=fachadaAplicacion.consultarUsuario(((Usuario)listaUsuarios.getSelectionModel().getSelectedItem()).getLogin(),true);
-            String login=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem()).getLogin();
-            if(usuario!=null){
+            Usuario usuario=(Usuario) listaUsuarios.getSelectionModel().getSelectedItem();
+            if(usuario.estaDeBaixa()){
                 //se non é nulo entón estaba de baixa e hai que dalo de alta.
-                if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+login+ "?")==ButtonType.OK){
-                    fachadaAplicacion.darAltaUsuario(login);
-                    fachadaAplicacion.mostrarInformacion("Reactivar usuario","O usuario "+login+ " reactivouse correctamente.");
+                if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                    fachadaAplicacion.darAltaUsuario(usuario.getLogin());
+                    fachadaAplicacion.mostrarInformacion("Reactivar usuario","O usuario "+usuario.getLogin()+ " reactivouse correctamente.");
                 }
             }else{
                 /*
@@ -170,14 +165,14 @@ public class vAdministrarUsuariosController extends AbstractController implement
                     NESE CASO MOSTRAR UNHA MENSAXE DE QUE NON SE PODE BORRAR
 
                  */
-                if(usuario.equals(super.getvPrincipalController().obterUsuarioLogeado())){
+                /*if(usuario.equals(super.getvPrincipalController().obterUsuarioLogeado())){
                     if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación.Queres continuar?")!=ButtonType.OK){
                         return;
                     }
-                }
-                if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+login+ "?")==ButtonType.OK){
-                    fachadaAplicacion.darBaixaUsuario(login);
-                    fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+login+ " deuse de baixa correctamente.");
+                }*/
+                if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                    fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
+                    fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+usuario.getLogin()+ " deuse de baixa correctamente.");
                 }
             }
             buscarUsuarios();

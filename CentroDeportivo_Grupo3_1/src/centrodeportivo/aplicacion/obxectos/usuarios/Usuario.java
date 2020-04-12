@@ -65,7 +65,7 @@ public class Usuario extends PersoaFisica{
     }
 
     public boolean estaDeBaixa(){
-        return this.dataBaixa==null;
+        return this.dataBaixa!=null;
     }
 
     /**
