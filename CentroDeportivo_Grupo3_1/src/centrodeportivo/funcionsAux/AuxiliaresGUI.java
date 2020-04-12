@@ -2,6 +2,10 @@ package centrodeportivo.funcionsAux;
 
 import javafx.scene.layout.HBox;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class AuxiliaresGUI {
 
     /**
