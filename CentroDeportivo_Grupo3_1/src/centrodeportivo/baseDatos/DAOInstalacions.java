@@ -43,14 +43,15 @@ public class DAOInstalacions extends AbstractDAO {
                         rsAreas.getInt("aforoMaximo"),
                         rsAreas.getDate("databaixa")
                 );
-                stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material WHERE area=? AND instalacion=?;");
+                stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material AS ma JOIN tipomaterial AS tp ON ma.tipomaterial=tp.codtipomaterial WHERE area=? AND instalacion=?;");
                 stmMateriais.setInt(1, area.getCodArea());
                 stmMateriais.setInt(2, area.getInstalacion().getCodInstalacion());
                 rsMaterial = stmMateriais.executeQuery();
                 while (rsMaterial.next()) {
                     listaMaterial.add(new Material(
                             rsMaterial.getInt("codmaterial"),
-                            rsMaterial.getInt("codtipomaterial"),
+                            rsMaterial.getInt("tipomaterial"),
+                            rsMaterial.getString("nome"),
                             area,
                             rsMaterial.getString("estado"),
                             rsMaterial.getDate("datacompra"),
