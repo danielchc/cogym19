@@ -40,9 +40,10 @@ public class Usuario extends PersoaFisica{
      * @param IBANconta IBAN do usuario
      * @param dataAlta data de alta no sistema
      */
-    public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta){
+    public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta,Date dataBaixa){
         this(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.dataAlta=dataAlta;
+        this.dataBaixa=dataBaixa;
     }
 
     /**
@@ -64,7 +65,7 @@ public class Usuario extends PersoaFisica{
     }
 
     public boolean estaDeBaixa(){
-        return this.dataBaixa!=null;
+        return this.dataBaixa==null;
     }
 
     /**

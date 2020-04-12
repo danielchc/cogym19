@@ -40,8 +40,8 @@ public final class Persoal extends Usuario {
      * @param IBANconta         IBAN do usuario
      * @param dataAlta          data de alta no sistema
      */
-    public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta, String NUSS, boolean profesorActivo) {
-        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta);
+    public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta,Date dataBaixa, String NUSS, boolean profesorActivo) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta,dataBaixa);
         this.NUSS = NUSS;
         super.setTipoUsuario((profesorActivo)?TipoUsuario.Profesor:TipoUsuario.Persoal);
     }

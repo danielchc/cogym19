@@ -36,8 +36,8 @@ public final class Socio extends Usuario {
      * @param dataAlta data de ingreso
      * @param tarifa tarifa do socio
      */
-    public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta, Tarifa tarifa) {
-        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta);
+    public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta,Date dataBaixa, Tarifa tarifa) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta,dataBaixa);
         this.tarifa = tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
@@ -58,6 +58,8 @@ public final class Socio extends Usuario {
         this.tarifa = tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
+
+
 
     /**
      * Getters e Setters

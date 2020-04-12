@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -78,6 +79,14 @@ public class vAdministrarUsuariosController extends AbstractController implement
             }
         });
 
+        listaUsuarios.setRowFactory(tv -> new TableRow<Usuario>() {
+            @Override
+            public void updateItem(Usuario item, boolean empty) {
+                super.updateItem(item, empty) ;
+                if ((item != null)&&(!item.estaDeBaixa()))setStyle("-fx-background-color:grey;");
+            }
+        });
+
         listaUsuarios.getColumns().addAll(loginColumn,nomeColumn,dniColumn,correoElectronicoColumn,tipoUsuarioColumn);
         listaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
         if(listaUsuarios.getItems().size()>0){
@@ -116,7 +125,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
         if(super.getFachadaAplicacion().consultarUsuario(usuario.getLogin(),true)!=null){
             btnBorrar.setText("Reactivar");
         }else{
-            btnBorrar.setText("Borrar");
+            btnBorrar.setText("Dar de baixa");
         }
     }
 
@@ -142,9 +151,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
     }
 
     /**
-     * Método para borrar/reactivar o usuario seleccionado segundo este dado de baixa ou non.
+     * Método para Desactivar/reactivar o usuario seleccionado segundo este dado de baixa ou non.
      */
-    public void borrarUsuario(){
+    public void activarDesactivarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()){
             Usuario usuario=fachadaAplicacion.consultarUsuario(((Usuario)listaUsuarios.getSelectionModel().getSelectedItem()).getLogin(),true);
             String login=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem()).getLogin();
@@ -161,9 +170,14 @@ public class vAdministrarUsuariosController extends AbstractController implement
                     NESE CASO MOSTRAR UNHA MENSAXE DE QUE NON SE PODE BORRAR
 
                  */
-                if(fachadaAplicacion.mostrarConfirmacion("Borrar usuario","Desexa dar de baixa a o usuario "+login+ "?")==ButtonType.OK){
+                if(usuario.equals(super.getvPrincipalController().obterUsuarioLogeado())){
+                    if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación.Queres continuar?")!=ButtonType.OK){
+                        return;
+                    }
+                }
+                if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+login+ "?")==ButtonType.OK){
                     fachadaAplicacion.darBaixaUsuario(login);
-                    fachadaAplicacion.mostrarInformacion("Borrar usuario","O usuario "+login+ " deuse de baixa correctamente.");
+                    fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+login+ " deuse de baixa correctamente.");
                 }
             }
             buscarUsuarios();

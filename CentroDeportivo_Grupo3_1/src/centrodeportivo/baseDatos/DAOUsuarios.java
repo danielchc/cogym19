@@ -453,6 +453,8 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("correoElectronico"),
                             rsUsuarios.getString("iban"),
+                            rsUsuarios.getDate("dataAlta"),
+                            rsUsuarios.getDate("dataBaixa"),
                             new Tarifa(
                                     rsUsuarios.getInt("tarifa"),
                                     rsUsuarios.getString("nomeTarifa"),
@@ -486,6 +488,8 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("correoElectronico"),
                             rsUsuarios.getString("iban"),
+                            rsUsuarios.getDate("dataAlta"),
+                            rsUsuarios.getDate("dataBaixa"),
                             rsUsuarios.getString("nuss"),
                             rsUsuarios.getBoolean("profesoractivo")
                     ));
@@ -503,21 +507,15 @@ public final class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
-    protected Usuario consultarUsuario(String login,boolean estaBaixa) {
+    protected Usuario consultarUsuario(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
         TipoUsuario tipoUsuario=consultarTipo(login);
         try {
             if(tipoUsuario==TipoUsuario.Socio) {
-                if(estaBaixa){
-                    stmUsuario = super.getConexion().prepareStatement(
-                            "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=? AND (vs.dataBaixa IS NOT NULL);"
-                    );
-                }else{
-                    stmUsuario = super.getConexion().prepareStatement(
-                            "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=? AND (vs.dataBaixa IS NULL);"
-                    );
-                }
+                super.getConexion().prepareStatement(
+                        "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=?;"
+                );
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
@@ -531,6 +529,8 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("correoElectronico"),
                             rsUsuarios.getString("iban"),
+                            rsUsuarios.getDate("dataAlta"),
+                            rsUsuarios.getDate("dataBaixa"),
                             new Tarifa(
                                     rsUsuarios.getInt("tarifa"),
                                     rsUsuarios.getString("nomeTarifa"),
@@ -541,11 +541,7 @@ public final class DAOUsuarios extends AbstractDAO {
                     );
                 }
             }else{
-                if(estaBaixa){
-                    stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE vp.login=? AND (dataBaixa IS NOT NULL);");
-                }else{
-                    stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE vp.login=? AND (dataBaixa IS NULL);");
-                }
+                stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE vp.login=?;");
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
@@ -559,6 +555,8 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getString("numTelefono"),
                             rsUsuarios.getString("correoElectronico"),
                             rsUsuarios.getString("iban"),
+                            rsUsuarios.getDate("dataAlta"),
+                            rsUsuarios.getDate("dataBaixa"),
                             rsUsuarios.getString("nuss"),
                             rsUsuarios.getBoolean("profesoractivo")
                     );
