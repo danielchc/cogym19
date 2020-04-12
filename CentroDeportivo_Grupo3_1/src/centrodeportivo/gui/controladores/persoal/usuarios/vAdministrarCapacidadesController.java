@@ -24,17 +24,35 @@ import java.util.ResourceBundle;
  * @author Daniel Chenel
  */
 public class vAdministrarCapacidadesController extends AbstractController implements Initializable  {
+
+    /**
+     * Atributos do fxml.
+     */
     public ListView listaDisponibles;
     public ListView listaCapacidades;
     public Label usuarioLabel;
+
+    /**
+     * Atributos privados do controlador
+     */
     private ArrayList<TipoActividade> capacidadesDisponibles;
     private ArrayList<TipoActividade> capacidadesActuales;
     private Persoal persoal;
 
+    /**
+     * Constructor do controlador
+     * @param fachadaAplicacion fachada da apliación
+     * @param vPrincipalController controlador da vista principal
+     */
     public vAdministrarCapacidadesController(FachadaAplicacion fachadaAplicacion, centrodeportivo.gui.controladores.principal.vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
     }
 
+    /**
+     * Método para inicializar a vista.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listaDisponibles.setCellFactory(new Callback<ListView<TipoActividade>, ListCell<TipoActividade>>() {
@@ -72,6 +90,10 @@ public class vAdministrarCapacidadesController extends AbstractController implem
 
     }
 
+    /**
+     * Método para settera un persoal e editar as súas capacidades
+     * @param selectedItem usuario a ser editado.
+     */
     public void setUsuario(Usuario selectedItem) {
         usuarioLabel.setText(String.format("Editando capacidades de %s",selectedItem.getLogin()));
         persoal=(Persoal)selectedItem;
@@ -83,6 +105,9 @@ public class vAdministrarCapacidadesController extends AbstractController implem
         listaDisponibles.getItems().addAll(capacidadesDisponibles);
     }
 
+    /**
+     * Método para engadir a capacidade seleccionada
+     */
     public void engadirCapacidade(){
         TipoActividade actividadeSeleccionada;
         if(!listaDisponibles.getSelectionModel().isEmpty()){
@@ -93,6 +118,9 @@ public class vAdministrarCapacidadesController extends AbstractController implem
         }
     }
 
+    /**
+     * Método para engadir a capacidade seleccionada
+     */
     public void eliminarCapacidade(){
         TipoActividade actividadeSeleccionada;
         if(!listaCapacidades.getSelectionModel().isEmpty()){
@@ -107,6 +135,9 @@ public class vAdministrarCapacidadesController extends AbstractController implem
         }
     }
 
+    /**
+     * Método para volver ao menú
+     */
     public void volverMenu(){
         super.getvPrincipalController().volverAtras();
     }

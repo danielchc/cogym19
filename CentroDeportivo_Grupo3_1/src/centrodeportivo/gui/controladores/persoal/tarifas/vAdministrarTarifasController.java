@@ -20,19 +20,33 @@ import java.util.ResourceBundle;
  */
 public class vAdministrarTarifasController extends AbstractController implements Initializable {
 
+    /**
+     * Atributos do fxml.
+     */
     public TableView listaTarifas;
+
+    /**
+     * Atributos privados do controlador
+     */
     private FachadaAplicacion fachadaAplicacion;
     private vPrincipalController vPrincipal;
+
+    /**
+     * @param fachadaAplicacion fachada da aplicación
+     * @param vPrincipalController controlador da vista principals
+     */
     public vAdministrarTarifasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.fachadaAplicacion=super.getFachadaAplicacion();
         this.vPrincipal=vPrincipalController;
     }
 
-    private void listarTarifas(){
-        listaTarifas.getItems().removeAll(listaTarifas.getItems());
-        listaTarifas.getItems().addAll(super.getFachadaAplicacion().listarTarifas());
-    }
+
+    /**
+     * Método para inicializar a vista.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TableColumn<Integer, Tarifa> codTarifaColumn = new TableColumn<>("Codigo");
@@ -55,6 +69,17 @@ public class vAdministrarTarifasController extends AbstractController implements
         listaTarifas.setPlaceholder(new Label("Non se atoparon tarifas"));
     }
 
+    /**
+     * Método para cargar as tarifas.
+     */
+    private void listarTarifas(){
+        listaTarifas.getItems().removeAll(listaTarifas.getItems());
+        listaTarifas.getItems().addAll(super.getFachadaAplicacion().listarTarifas());
+    }
+
+    /**
+     * Método para borrar unha tarifa seleccionada
+     */
     public void borrarTarifa(){
         if(!listaTarifas.getSelectionModel().isEmpty()){
             Tarifa tarifa=((Tarifa)listaTarifas.getSelectionModel().getSelectedItem());
@@ -70,6 +95,9 @@ public class vAdministrarTarifasController extends AbstractController implements
         }
     }
 
+    /**
+     * Método para modificar unha tarifa seleccionada
+     */
     public void modificarTarifa(){
         if(!listaTarifas.getSelectionModel().isEmpty()){
             Tarifa tarifa=((Tarifa)listaTarifas.getSelectionModel().getSelectedItem());

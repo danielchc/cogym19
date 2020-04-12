@@ -13,16 +13,29 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class FachadaGUI {
-    private FachadaAplicacion fachadaAplicacion;
-    FXMLLoader fxmlLoader;
-    Stage stage;
 
+    /**
+     * Atributos da Fachada GUI.
+     */
+    private FachadaAplicacion fachadaAplicacion;
+    private FXMLLoader fxmlLoader;
+    private Stage stage;
+
+    /**
+     * Constructor da fachada da GUI.
+     * @param fachadaAplicacion fachada da aplicación.
+     */
     public FachadaGUI(FachadaAplicacion fachadaAplicacion) {
         this.fachadaAplicacion = fachadaAplicacion;
         stage = new Stage();
         fxmlLoader= new FXMLLoader();
     }
 
+    /**
+     * Método para iniciar a vista principal do persoal
+     * @param loggedUser usuario loggeado
+     * @throws IOException
+     */
     public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
 
         fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser, IdPantalla.PANTALLAPERSOAL));
@@ -32,6 +45,12 @@ public class FachadaGUI {
         stage.setResizable(false);
         stage.show();
     }
+
+    /**
+     * Método para iniciar a vista principal dos socios
+     * @param loggedUser usuario loggeado
+     * @throws IOException
+     */
     public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
         fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser,IdPantalla.PANTALLASOCIO));
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
@@ -41,6 +60,11 @@ public class FachadaGUI {
         stage.show();
     }
 
+    /**
+     * Método para mostrar unha advertencia.
+     * @param titulo título
+     * @param texto texto a mostrar
+     */
     public void mostrarAdvertencia(String titulo,String texto){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titulo);
@@ -49,6 +73,11 @@ public class FachadaGUI {
         alert.showAndWait();
     }
 
+    /**
+     * Método para mostrar un erro.
+     * @param titulo título
+     * @param texto texto a mostrar
+     */
     public void mostrarErro(String titulo,String texto){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);
@@ -57,6 +86,11 @@ public class FachadaGUI {
         alert.showAndWait();
     }
 
+    /**
+     * Método para mostrar unha información.
+     * @param titulo título
+     * @param texto texto a mostrar
+     */
     public void mostrarInformacion(String titulo,String texto){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -65,6 +99,11 @@ public class FachadaGUI {
         alert.showAndWait();
     }
 
+    /**
+     * Método para mostrar unha confirmación.
+     * @param titulo título
+     * @param texto texto a mostrar
+     */
     public ButtonType mostrarConfirmacion(String titulo, String texto){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(titulo);
