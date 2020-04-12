@@ -739,5 +739,30 @@ public final class DAOUsuarios extends AbstractDAO {
         return rexistros;
     }
 
+    protected boolean tenClasesPendentes(Persoal persoal,TipoActividade tipoActividade){
+        PreparedStatement stmUsuario = null;
+        ResultSet resultValidacion;
+        try {
+            if(tipoActividade==null){
+                stmUsuario=super.getConexion().prepareStatement("SELECT (COUNT(*)>0) FROM actividade WHERE profesor=? AND dataactividade>NOW();");
+            }else{
+                stmUsuario=super.getConexion().prepareStatement("SELECT (COUNT(*)>0) FROM actividade WHERE profesor=? AND dataactividade>NOW() AND tipoActividade=?;");
+                stmUsuario.setInt(2,tipoActividade.getCodTipoActividade());
+            }
+            stmUsuario.setString(1,persoal.getLogin());
+            resultValidacion=stmUsuario.executeQuery();
+            resultValidacion.next();
+            return resultValidacion.getBoolean(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmUsuario.close();
+            } catch (SQLException e){
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+        return false;
+    }
 
 }

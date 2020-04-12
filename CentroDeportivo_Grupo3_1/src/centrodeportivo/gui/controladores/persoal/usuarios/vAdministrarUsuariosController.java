@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.persoal.usuarios;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -160,12 +161,10 @@ public class vAdministrarUsuariosController extends AbstractController implement
                     fachadaAplicacion.mostrarInformacion("Reactivar usuario","O usuario "+usuario.getLogin()+ " reactivouse correctamente.");
                 }
             }else{
-                /*
-
-                    COMPROBAR SE É PROFESOR E TEN ALGUNHA ACTIVIDADE PENDENTE
-                    NESE CASO MOSTRAR UNHA MENSAXE DE QUE NON SE PODE BORRAR
-
-                 */
+                if((usuario instanceof Persoal) && fachadaAplicacion.tenClasesPendentes((Persoal)usuario)){
+                    fachadaAplicacion.mostrarErro("Clases pendentes","Non podes dar de baixa o usuario "+usuario.getLogin()+ " porque ten clases pendentes.");
+                    return;
+                }
                 if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
                     if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
                         fachadaAplicacion.darBaixaUsuario(usuario.getLogin());

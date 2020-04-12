@@ -9,6 +9,7 @@ import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -158,6 +159,10 @@ public final class FachadaBD {
 
     public void eliminarCapacidade(String login, TipoActividade tipoActividade){
         daoUsuarios.eliminarCapacidade(login, tipoActividade);
+    }
+
+    public boolean tenClasesPendentes(Persoal persoal, TipoActividade tipoActividade){
+        return daoUsuarios.tenClasesPendentes(persoal,tipoActividade);
     }
 
     /*

@@ -171,6 +171,10 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     checkProfesor.isSelected()
             );
             if(usuarioModificar!=null){
+                if(fachadaAplicacion.tenClasesPendentes(persoal) && (!checkProfesor.isSelected())){
+                    fachadaAplicacion.mostrarErro("Clases pendentes","O persoal "+persoal.getLogin()+ " non pode deixar de ser profesor porque ten clases pendentes.");
+                    return;
+                }
                 super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
                 this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
             }else{

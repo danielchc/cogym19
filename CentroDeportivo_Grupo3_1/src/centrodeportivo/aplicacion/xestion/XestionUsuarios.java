@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
@@ -115,5 +116,14 @@ public class XestionUsuarios {
     public void eliminarCapacidade(String login, TipoActividade tipoActividade){
         fachadaBD.eliminarCapacidade(login, tipoActividade);
     }
+
+    public boolean tenClasesPendentes(Persoal persoal, TipoActividade tipoActividade){
+        return fachadaBD.tenClasesPendentes(persoal, tipoActividade);
+    }
+
+    public boolean tenClasesPendentes(Persoal persoal){
+        return fachadaBD.tenClasesPendentes(persoal, null);
+    }
+
 
 }

@@ -97,6 +97,10 @@ public class vAdministrarCapacidadesController extends AbstractController implem
         TipoActividade actividadeSeleccionada;
         if(!listaCapacidades.getSelectionModel().isEmpty()){
             actividadeSeleccionada= (TipoActividade) listaCapacidades.getSelectionModel().getSelectedItems().get(0);
+            if(super.getFachadaAplicacion().tenClasesPendentes(persoal,actividadeSeleccionada)){
+                getFachadaAplicacion().mostrarErro("Non se pode eliminar a capacidade", "Este usuario ainda ten unha clase pendente de esta actividade");
+                return;
+            }
             listaCapacidades.getItems().remove(actividadeSeleccionada);
             listaDisponibles.getItems().add(actividadeSeleccionada);
             super.getFachadaAplicacion().eliminarCapacidade(persoal.getLogin(),actividadeSeleccionada);

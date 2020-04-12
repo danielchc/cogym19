@@ -1,7 +1,9 @@
 package test;
 
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.funcionsAux.Criptografia;
@@ -18,8 +20,9 @@ public class Main {
         FachadaBD fb=null;
         try{
             fb=new FachadaBD(null);
-            System.out.println(fb.listarAreas());
-            System.out.println(fb.consultarTipo("test0"));
+            //System.out.println(fb.listarAreas());
+            //System.out.println(fb.consultarTipo("test0"));
+
             //Tarifa t=new Tarifa(1,"",9,39.0f,39.0f);
             /*Socio usu=new Socio("pocha",
                     "abc123..",
