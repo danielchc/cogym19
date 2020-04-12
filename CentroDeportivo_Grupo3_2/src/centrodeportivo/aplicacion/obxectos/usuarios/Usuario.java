@@ -4,24 +4,31 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 
 import java.sql.Date;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Victor Barreiro
+ * Clase que nos permite representar aos usuarios da base de datos.
+ */
 public class Usuario {
-    private String login;
-    private String contrasinal;
-    private String nome;
-    private String numTelefono;
-    private String DNI;
-    private String correoElectronico;
-    private String IBANconta;
-    private Date dataAlta;
-    private Date dataBaixa;
-    private TipoUsuario tipoUsuario;
-    private String dificultades;
-    private Date dataNacemento;
 
-
-    public Usuario(String login){
-        this.login=login;
-    }
+    /**
+     * Atributos da clase: é importante sinalar que no noso caso non precisamos considerar ás persoas físicas. Nós
+     * simplemente nos encargaremos de que os usuarios se apunten en actividades e cursos, non nos interesa ter a súa
+     * información separada dende o que é esta aplicación.
+     */
+    private String login; //Login do usuario
+    private String contrasinal; //Contrasinal do usuario.
+    private String nome; //Nome real da persoa que ten este usuario.
+    private String numTelefono; //Número de teléfono asociado ao usuario.
+    private String DNI; //DNI da persoa que ten este usuario.
+    private String correoElectronico; //Dirección de correo electrónico.
+    private String IBANconta; //IBAN da conta bancaria.
+    private Date dataAlta; //Data de alta na aplicación
+    private Date dataBaixa; //Data de baixa.
+    private TipoUsuario tipoUsuario; //Tipo de usuario
+    private String dificultades; //Dificultades que poida ter este usuario.
+    private Date dataNacemento; //Data de nacemento do usuario.
 
     public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta){
         this(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);

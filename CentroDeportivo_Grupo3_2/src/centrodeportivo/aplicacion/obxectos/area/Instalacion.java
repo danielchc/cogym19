@@ -121,10 +121,10 @@ public class Instalacion {
     @Override
     public String toString() {
         return "Instalacion{" +
-                "codInstalacion=" + codInstalacion +
-                ", nome='" + nome + '\'' +
-                ", numTelefono='" + numTelefono + '\'' +
-                ", direccion='" + direccion + '\'' +
+                "codInstalacion= " + codInstalacion +
+                ", nome= '" + nome + '\'' +
+                ", numTelefono= '" + numTelefono + '\'' +
+                ", direccion= '" + direccion + '\'' +
                 '}';
     }
 

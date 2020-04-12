@@ -5,15 +5,19 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.Date;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Victor Barreiro
+ * Clase que permite recoller os datos específicos do persoal do centro deportivo.
+ */
 public class Persoal extends Usuario {
 
+    /**
+     * Atributos da clase.
+     */
     private String NUSS;
     private boolean profesorActivo;
-
-    public Persoal(String login){
-        super(login);
-        super.setTipoUsuario(TipoUsuario.Persoal);
-    }
 
     public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, String NUSS, boolean profesorActivo) {
         super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
