@@ -513,7 +513,7 @@ public final class DAOUsuarios extends AbstractDAO {
         TipoUsuario tipoUsuario=consultarTipo(login);
         try {
             if(tipoUsuario==TipoUsuario.Socio) {
-                super.getConexion().prepareStatement(
+                stmUsuario=super.getConexion().prepareStatement(
                         "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=?;"
                 );
                 stmUsuario.setString(1, login);
@@ -585,14 +585,14 @@ public final class DAOUsuarios extends AbstractDAO {
         float totalActividades=0.0f;
         float totalCursos=0.0f;
         float totalPrezo=0.0f;
-/*
+
         socio=(Socio)this.consultarUsuario(login);
         tarifa=socio.getTarifa();
 
         try {
             stm = super.getConexion().prepareStatement(
                     "SELECT * " +
-                            "FROM realizarActividades NATURAL JOIN actividades " +
+                            "FROM realizarActividade NATURAL JOIN actividade " +
                             "WHERE dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
                             "AND usuario=? AND curso IS NULL;"
             );
@@ -606,15 +606,15 @@ public final class DAOUsuarios extends AbstractDAO {
                         new Curso(resultSet.getInt("curso")),
                         resultSet.getString("nome"),
                         resultSet.getFloat("duracion"),
-                        new Profesor(resultSet.getString("profesor"))
-                        ));
+                        new Persoal(resultSet.getString("profesor"))
+                ));
             }
 
             stm = super.getConexion().prepareStatement(
                     "SELECT * " +
-                            "FROM cursos " +
-                            "WHERE codCurso IN (SELECT curso FROM realizarCursos WHERE usuario=?) " +
-                            "AND codCurso IN (SELECT curso FROM actividades GROUP BY curso HAVING MAX(dataActividade)>=NOW());"
+                            "FROM curso " +
+                            "WHERE codCurso IN (SELECT curso FROM realizarCurso WHERE usuario=?) " +
+                            "AND codCurso IN (SELECT curso FROM actividade GROUP BY curso HAVING MAX(dataActividade)>=NOW());"
             );
             stm.setString(1, login);
             resultSet = stm.executeQuery();
@@ -645,7 +645,7 @@ public final class DAOUsuarios extends AbstractDAO {
             } catch (SQLException e){
                 System.out.println("Imposible cerrar cursores");
             }
-        }*/
+        }
         return null;
     }
 
@@ -654,7 +654,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             stm= super.getConexion().prepareStatement(
-                    "INSERT INTO rexistroFisioloxico (usuario, dataMarca, peso, altura, bfp, tensionAlta, tensionBaixa, ppm, comentario)  "+
+                    "INSERT INTO rexistroFisioloxico (socio, dataMarca, peso, altura, bfp, tensionAlta, tensionBaixa, ppm, comentario)  "+
                         "VALUES (?,NOW(),?,?,?,?,?,?,?);"
             );
             stm.setString(1,rexistroFisioloxico.getSocio().getLogin());
@@ -683,7 +683,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             stm= super.getConexion().prepareStatement(
-                    "DELETE FROM rexistroFisioloxico WHERE usuario=? AND dataMarca=?;"
+                    "DELETE FROM rexistroFisioloxico WHERE socio=? AND dataMarca=?;"
             );
             stm.setString(1,rexistroFisioloxico.getSocio().getLogin());
             stm.setTimestamp(2,rexistroFisioloxico.getData());
