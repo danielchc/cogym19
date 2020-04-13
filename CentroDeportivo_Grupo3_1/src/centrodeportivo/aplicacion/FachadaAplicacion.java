@@ -18,7 +18,13 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
+import centrodeportivo.gui.controladores.vLoginController;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,7 +35,7 @@ import java.util.HashMap;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class FachadaAplicacion {
+public class FachadaAplicacion extends Application {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
     private XestionUsuarios xestionUsuarios;
@@ -49,6 +55,27 @@ public class FachadaAplicacion {
         this.xestionInstalacions=new XestionInstalacions(fachadaGUI, fachadaBD);
         this.xestionActividades=new XestionActividades(fachadaGUI, fachadaBD);
     }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/centrodeportivo/gui/vistas/vLogin.fxml"));
+        loader.setController(new vLoginController(new FachadaAplicacion()));
+        Parent root = loader.load();
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("Centro Deportivo");
+        primaryStage.show();
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+
+
+
     /*
      *   Fachada GUI
      * */
