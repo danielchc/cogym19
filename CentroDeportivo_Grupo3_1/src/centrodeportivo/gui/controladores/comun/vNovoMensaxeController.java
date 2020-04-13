@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.comun;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -191,34 +192,38 @@ public class vNovoMensaxeController extends AbstractController implements Initia
                 labelError.setText("Os mensaxes deben ter como máx 500 caractéres.");
                 return;
             }
-            switch (opcionMensaxe){
-                case UnUsuario:
-                    super.getFachadaAplicacion().enviarMensaxe(new Mensaxe(this.emisor,this.receptor,this.campoMensaxe.getText()));
-                    break;
-                case Todos:
-                    super.getFachadaAplicacion().enviarMensaxe(
-                            this.emisor,
-                            super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Todos),
-                            this.campoMensaxe.getText()
-                    );
-                    break;
-                case Persoal:
-                    super.getFachadaAplicacion().enviarMensaxe(
-                            this.emisor,
-                            super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Persoal),
-                            this.campoMensaxe.getText()
-                    );
-                    break;
-                case Socios:
-                    super.getFachadaAplicacion().enviarMensaxe(
-                            this.emisor,
-                            super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Socio),
-                            this.campoMensaxe.getText()
-                    );
-                    break;
+            try{
+                switch (opcionMensaxe){
+                    case UnUsuario:
+                        super.getFachadaAplicacion().enviarMensaxe(new Mensaxe(this.emisor,this.receptor,this.campoMensaxe.getText()));
+                        break;
+                    case Todos:
+                        super.getFachadaAplicacion().enviarMensaxe(
+                                this.emisor,
+                                super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Todos),
+                                this.campoMensaxe.getText()
+                        );
+                        break;
+                    case Persoal:
+                        super.getFachadaAplicacion().enviarMensaxe(
+                                this.emisor,
+                                super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Persoal),
+                                this.campoMensaxe.getText()
+                        );
+                        break;
+                    case Socios:
+                        super.getFachadaAplicacion().enviarMensaxe(
+                                this.emisor,
+                                super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Socio),
+                                this.campoMensaxe.getText()
+                        );
+                        break;
+                }
+                super.getFachadaAplicacion().mostrarInformacion("Mensaxe","Mensaxe enviado correctamente");
+                this.vPrincipalController.mostrarMenu(IdPantalla.INICIO);
+            }catch (ExcepcionBD excepcionBD){
+                super.getFachadaAplicacion().mostrarErro("Mensaxes",excepcionBD.getMessage());
             }
-            super.getFachadaAplicacion().mostrarInformacion("Mensaxe","Mensaxe enviado correctamente");
-            this.vPrincipalController.mostrarMenu(IdPantalla.INICIO);
         }else{
             labelError.setText("Algún campo sen cubrir.");
         }

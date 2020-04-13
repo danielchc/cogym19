@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
@@ -114,7 +115,11 @@ public class vAdministrarCapacidadesController extends AbstractController implem
             actividadeSeleccionada= (TipoActividade) listaDisponibles.getSelectionModel().getSelectedItems().get(0);
             listaDisponibles.getItems().remove(actividadeSeleccionada);
             listaCapacidades.getItems().add(actividadeSeleccionada);
-            super.getFachadaAplicacion().engadirCapadidade(persoal.getLogin(),actividadeSeleccionada);
+            try {
+                super.getFachadaAplicacion().engadirCapadidade(persoal.getLogin(),actividadeSeleccionada);
+            } catch (ExcepcionBD excepcionBD) {
+                super.getFachadaAplicacion().mostrarErro("Capacudades",excepcionBD.getMessage());
+            }
         }
     }
 
@@ -131,7 +136,11 @@ public class vAdministrarCapacidadesController extends AbstractController implem
             }
             listaCapacidades.getItems().remove(actividadeSeleccionada);
             listaDisponibles.getItems().add(actividadeSeleccionada);
-            super.getFachadaAplicacion().eliminarCapacidade(persoal.getLogin(),actividadeSeleccionada);
+            try {
+                super.getFachadaAplicacion().eliminarCapacidade(persoal.getLogin(),actividadeSeleccionada);
+            } catch (ExcepcionBD excepcionBD) {
+                super.getFachadaAplicacion().mostrarErro("Capacudades",excepcionBD.getMessage());
+            }
         }
     }
 

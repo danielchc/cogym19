@@ -133,21 +133,21 @@ public class FachadaAplicacion extends Application {
         return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
     }
 
-    public void insertarUsuario(Usuario usuario) {
+    public void insertarUsuario(Usuario usuario) throws ExcepcionBD {
         usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         xestionUsuarios.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario, boolean contrasinalCambiado) {
+    public void actualizarUsuario(String loginVello,Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
         if(contrasinalCambiado) usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         xestionUsuarios.actualizarUsuario(loginVello,usuario);
     }
 
-    public void darBaixaUsuario(String login)  {
+    public void darBaixaUsuario(String login) throws ExcepcionBD {
         xestionUsuarios.darBaixaUsuario(login);
     }
 
-    public void darAltaUsuario(String login) {
+    public void darAltaUsuario(String login) throws ExcepcionBD {
         xestionUsuarios.darAltaUsuario(login);
     }
 
@@ -183,11 +183,11 @@ public class FachadaAplicacion extends Application {
         return xestionUsuarios.listarRexistros(login);
     }
 
-    public void insertarRexistro(RexistroFisioloxico rexistroFisioloxico){
+    public void insertarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         xestionUsuarios.insertarRexistro(rexistroFisioloxico);
     }
 
-    public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
+    public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         xestionUsuarios.eliminarRexistro(rexistroFisioloxico);
     }
 
@@ -199,11 +199,11 @@ public class FachadaAplicacion extends Application {
         return xestionUsuarios.listarCapacidades(login);
     }
 
-    public void engadirCapadidade(String login, TipoActividade tipoActividade){
+    public void engadirCapadidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         xestionUsuarios.engadirCapadidade(login, tipoActividade);
     }
 
-    public void eliminarCapacidade(String login, TipoActividade tipoActividade){
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         xestionUsuarios.eliminarCapacidade(login, tipoActividade);
     }
 
@@ -222,11 +222,11 @@ public class FachadaAplicacion extends Application {
         xestionTarifas.insertarTarifa(t);
     }
 
-    public void borrarTarifa(Integer codTarifa) {
+    public void borrarTarifa(Integer codTarifa) throws ExcepcionBD {
         xestionTarifas.borrarTarifa(codTarifa);
     }
 
-    public void actualizarTarifa(Tarifa t) {
+    public void actualizarTarifa(Tarifa t) throws ExcepcionBD {
         xestionTarifas.actualizarTarifa(t);
     }
 
@@ -250,15 +250,15 @@ public class FachadaAplicacion extends Application {
     /*
         Xestion mensaxes
      */
-    public void enviarMensaxe(Mensaxe m)  {
+    public void enviarMensaxe(Mensaxe m) throws ExcepcionBD {
         xestionMensaxes.enviarMensaxe(m);
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) {
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws ExcepcionBD {
         xestionMensaxes.enviarMensaxe(emisor, receptores, mensaxe);
     }
 
-    public void marcarMensaxeComoLido(Mensaxe m) {
+    public void marcarMensaxeComoLido(Mensaxe m) throws ExcepcionBD {
         xestionMensaxes.marcarMensaxeComoLido(m);
     }
 
@@ -279,7 +279,7 @@ public class FachadaAplicacion extends Application {
         return xestionIncidencias.listarIncidencias(descripcion, tipoIncidencia);
     }
 
-    public void insertarIncidencia(Incidencia incidencia)  {
+    public void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {
         xestionIncidencias.insertarIncidencia(incidencia);
     }
     /*

@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.socios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -89,7 +90,11 @@ public class vEliminarRexistroController extends AbstractController implements I
      */
     public void btnEliminarAction(ActionEvent actionEvent) {
         if(super.getFachadaAplicacion().mostrarConfirmacion("Rexistro","Estás seguro de que queres eliminar este rexistro?")== ButtonType.CANCEL) return;
-        super.getFachadaAplicacion().eliminarRexistro((RexistroFisioloxico) this.tablaRexistros.getSelectionModel().getSelectedItem());
-        cargarRexistrosTabla();
+        try {
+            super.getFachadaAplicacion().eliminarRexistro((RexistroFisioloxico) this.tablaRexistros.getSelectionModel().getSelectedItem());
+            cargarRexistrosTabla();
+        } catch (ExcepcionBD excepcionBD) {
+            super.getFachadaAplicacion().mostrarErro("Rexistros",excepcionBD.getMessage());
+        }
     }
 }

@@ -12,6 +12,12 @@ public class ExcepcionBD extends Exception {
     private int codigoError;
     private SQLException exceptionSQL;
 
+    /**
+     * Constructor da excepción para as transaccións sql.
+     * Garda os datos da excepción e realiza o rollback da transacción que fallou.
+     * @param conexion conexion coa base.
+     * @param excepcion excepcion SQL producida.
+     */
     public ExcepcionBD(Connection conexion, SQLException excepcion){
         super();
         this.conexion=conexion;
@@ -24,6 +30,10 @@ public class ExcepcionBD extends Exception {
         }
     }
 
+    /**
+     * Método para obter a causa da excepción.
+     * @return mensaxe co erro
+     */
     @Override
     public String getMessage(){
         String msg="Erro na base de datos: ";
@@ -38,7 +48,7 @@ public class ExcepcionBD extends Exception {
                 break;
             //claves foráneas
             case 23503:
-                msg+="";
+                msg+="Problema coas dependencias dos datos.";
                 break;
             //conexion coa base
             case 8004:
@@ -74,5 +84,14 @@ public class ExcepcionBD extends Exception {
 
     public void setExceptionSQL(SQLException exceptionSQL) {
         this.exceptionSQL = exceptionSQL;
+    }
+
+    @Override
+    public String toString() {
+        return "ExcepcionBD{" +
+                "conexion=" + conexion +
+                ", codigoError=" + codigoError +
+                ", exceptionSQL=" + exceptionSQL +
+                '}';
     }
 }

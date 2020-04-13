@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.comun;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
@@ -98,20 +99,24 @@ public class vNovaIncidencia extends AbstractController implements Initializable
     public void btnGardarAction(ActionEvent actionEvent) {
         if(!this.selectorIncidencia.getSelectionModel().isEmpty() && ValidacionDatos.estanCubertosCampos(campoDescricion)){
             TreeItem selectedItem=(TreeItem)this.selectorIncidencia.getSelectionModel().getSelectedItem();
-            if(selectedItem.getValue() instanceof Material){
-                Material material= (Material) selectedItem.getValue();
-                getFachadaAplicacion().insertarIncidencia(new IncidenciaMaterial(
-                        super.getvPrincipalController().obterUsuarioLogeado(),
-                        this.campoDescricion.getText(),
-                        material
-                ));
-            }else if (selectedItem.getValue() instanceof Area){
-                Area area= (Area) selectedItem.getValue();
-                getFachadaAplicacion().insertarIncidencia(new IncidenciaArea(
-                        super.getvPrincipalController().obterUsuarioLogeado(),
-                        this.campoDescricion.getText(),
-                        area
-                ));
+            try{
+                if(selectedItem.getValue() instanceof Material){
+                    Material material= (Material) selectedItem.getValue();
+                    getFachadaAplicacion().insertarIncidencia(new IncidenciaMaterial(
+                            super.getvPrincipalController().obterUsuarioLogeado(),
+                            this.campoDescricion.getText(),
+                            material
+                    ));
+                }else if (selectedItem.getValue() instanceof Area){
+                    Area area= (Area) selectedItem.getValue();
+                    getFachadaAplicacion().insertarIncidencia(new IncidenciaArea(
+                            super.getvPrincipalController().obterUsuarioLogeado(),
+                            this.campoDescricion.getText(),
+                            area
+                    ));
+                }
+            }catch (ExcepcionBD excepcionBD){
+                super.getFachadaAplicacion().mostrarErro("Incidencia",excepcionBD.getMessage());
             }
             getFachadaAplicacion().mostrarInformacion("Incidencia creada", "Creouse a incidencia correctamente.");
             getvPrincipalController().mostrarMenu(IdPantalla.INICIO);

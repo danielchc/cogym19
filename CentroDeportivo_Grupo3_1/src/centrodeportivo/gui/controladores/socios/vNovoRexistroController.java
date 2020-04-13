@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.socios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -177,8 +178,12 @@ public class vNovoRexistroController extends AbstractController implements Initi
                 ppm,
                 this.campoComentario.getText()
         );
-        super.getFachadaAplicacion().insertarRexistro(rexistro);
-        super.getFachadaAplicacion().mostrarInformacion("Rexistro","Rexistro fisolóxico gardado correctamente.");
-        this.vPrincipalController.mostrarMenu(IdPantalla.INICIO);
+        try {
+            super.getFachadaAplicacion().insertarRexistro(rexistro);
+            super.getFachadaAplicacion().mostrarInformacion("Rexistro","Rexistro fisolóxico gardado correctamente.");
+            this.vPrincipalController.mostrarMenu(IdPantalla.INICIO);
+        } catch (ExcepcionBD excepcionBD) {
+            super.getFachadaAplicacion().mostrarErro("Rexistros",excepcionBD.getMessage());
+        }
     }
 }

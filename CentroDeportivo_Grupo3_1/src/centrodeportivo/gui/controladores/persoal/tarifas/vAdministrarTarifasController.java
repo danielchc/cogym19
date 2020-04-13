@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.persoal.tarifas;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -88,8 +89,12 @@ public class vAdministrarTarifasController extends AbstractController implements
                 return;
             }
             if(fachadaAplicacion.mostrarConfirmacion("Borrar tarifa","Desexa borrar a tarifa "+tarifa.getNome() + "?")==ButtonType.OK){
-                fachadaAplicacion.borrarTarifa(tarifa.getCodTarifa());
-                fachadaAplicacion.mostrarInformacion("Borrar tarifa","A tarifa "+tarifa.getNome()+ " borrouse correctamente.");
+                try {
+                    fachadaAplicacion.borrarTarifa(tarifa.getCodTarifa());
+                    fachadaAplicacion.mostrarInformacion("Borrar tarifa","A tarifa "+tarifa.getNome()+ " borrouse correctamente.");
+                } catch (ExcepcionBD excepcionBD) {
+                    super.getFachadaAplicacion().mostrarErro("Tarifas",excepcionBD.getMessage());
+                }
             }
             listarTarifas();
         }

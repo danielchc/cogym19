@@ -81,8 +81,12 @@ public class vNovaTarifaController extends AbstractController implements Initial
         if(tarifaModificar!=null){
 
             tarifa.setCodTarifa(tarifaModificar.getCodTarifa());
-            fachadaAplicacion.actualizarTarifa(tarifa);
-            fachadaAplicacion.mostrarInformacion("Tarifas","Gardaronse os cambios  na tarifa "+campoNome.getText()+" correctamente");
+            try {
+                fachadaAplicacion.actualizarTarifa(tarifa);
+                fachadaAplicacion.mostrarInformacion("Tarifas","Gardaronse os cambios  na tarifa "+campoNome.getText()+" correctamente");
+            } catch (ExcepcionBD excepcionBD) {
+                super.getFachadaAplicacion().mostrarErro("Tarifas",excepcionBD.getMessage());
+            }
         }else{
             if(this.fachadaAplicacion.existeTarifa(campoNome.getText())){
                 fachadaAplicacion.mostrarErro("Error", "Xa existe unha tarifa co nome "+campoNome.getText());

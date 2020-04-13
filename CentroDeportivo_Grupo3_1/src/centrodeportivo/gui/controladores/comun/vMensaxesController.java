@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.comun;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -88,16 +89,20 @@ public class vMensaxesController extends AbstractController implements Initializ
      */
     public void listenerTabla(MouseEvent mouseEvent) {
         if(!this.containerChats.getSelectionModel().isEmpty()){
-            Mensaxe mensaxe=(Mensaxe)this.containerChats.getSelectionModel().getSelectedItem();
-            this.labelEmisor.setText("Emisor: "+mensaxe.getEmisor().getLogin());
-            this.labelReceptor.setText("Receptor: "+mensaxe.getReceptor().getLogin());
-            Date data=new Date(mensaxe.getDataEnvio().getTime());
-            this.labelData.setText("Data: "+ data);
-            this.labelMensaxe.setText(mensaxe.getContido());
-            this.containerMensaxe.setVisible(true);
-            this.fachadaAplicacion.marcarMensaxeComoLido(mensaxe);
-            mensaxe.setLido(true);
-            this.containerChats.refresh();
+            try {
+                Mensaxe mensaxe=(Mensaxe)this.containerChats.getSelectionModel().getSelectedItem();
+                this.labelEmisor.setText("Emisor: "+mensaxe.getEmisor().getLogin());
+                this.labelReceptor.setText("Receptor: "+mensaxe.getReceptor().getLogin());
+                Date data=new Date(mensaxe.getDataEnvio().getTime());
+                this.labelData.setText("Data: "+ data);
+                this.labelMensaxe.setText(mensaxe.getContido());
+                this.containerMensaxe.setVisible(true);
+                this.fachadaAplicacion.marcarMensaxeComoLido(mensaxe);
+                mensaxe.setLido(true);
+                this.containerChats.refresh();
+            } catch (ExcepcionBD excepcionBD) {
+                super.getFachadaAplicacion().mostrarErro("Mensaxe",excepcionBD.getMessage());
+            }
         }
     }
 

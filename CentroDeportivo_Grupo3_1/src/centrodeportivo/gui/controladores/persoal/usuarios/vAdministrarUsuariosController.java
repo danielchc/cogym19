@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
@@ -156,25 +157,34 @@ public class vAdministrarUsuariosController extends AbstractController implement
             Usuario usuario=(Usuario) listaUsuarios.getSelectionModel().getSelectedItem();
             if(usuario.estaDeBaixa()){
                 //se non é nulo entón estaba de baixa e hai que dalo de alta.
-                if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
-                    fachadaAplicacion.darAltaUsuario(usuario.getLogin());
-                    fachadaAplicacion.mostrarInformacion("Reactivar usuario","O usuario "+usuario.getLogin()+ " reactivouse correctamente.");
+                try{
+                    if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                        fachadaAplicacion.darAltaUsuario(usuario.getLogin());
+                        fachadaAplicacion.mostrarInformacion("Reactivar usuario","O usuario "+usuario.getLogin()+ " reactivouse correctamente.");
+                    }
+                }catch (ExcepcionBD excepcionBD){
+                    super.getFachadaAplicacion().mostrarErro("Usuarios",excepcionBD.getMessage());
                 }
+
             }else{
                 if((usuario instanceof Persoal) && fachadaAplicacion.tenClasesPendentes((Persoal)usuario)){
                     fachadaAplicacion.mostrarErro("Clases pendentes","Non podes dar de baixa o usuario "+usuario.getLogin()+ " porque ten clases pendentes.");
                     return;
                 }
-                if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
-                    if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
-                        fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
-                        System.exit(0);
+                try{
+                    if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
+                        if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
+                            fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
+                            System.exit(0);
+                        }
+                    }else{
+                        if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                            fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
+                            fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+usuario.getLogin()+ " deuse de baixa correctamente.");
+                        }
                     }
-                }else{
-                    if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
-                        fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
-                        fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+usuario.getLogin()+ " deuse de baixa correctamente.");
-                    }
+                }catch (ExcepcionBD excepcionBD){
+                    super.getFachadaAplicacion().mostrarErro("Usuarios",excepcionBD.getMessage());
                 }
             }
             buscarUsuarios();

@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
@@ -146,13 +147,18 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     campoIBAN.getText(),
                     tarifa
             );
-            if(usuarioModificar!=null){
-                super.getFachadaAplicacion().actualizarUsuario(loginVello,socio,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
-                this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
-            }else{
-                this.fachadaAplicacion.insertarUsuario(socio);
-                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
+            try{
+                if(usuarioModificar!=null){
+                    super.getFachadaAplicacion().actualizarUsuario(loginVello,socio,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
+                    this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
+                }else{
+                    this.fachadaAplicacion.insertarUsuario(socio);
+                    this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
+                }
+            }catch (ExcepcionBD excepcionBD){
+                super.getFachadaAplicacion().mostrarErro("Usuario",excepcionBD.getMessage());
             }
+
         }else{
             if(!ValidacionDatos.isCorrectoNUSS(campoNUSS.getText())){
                 this.labelError.setText("NUSS con formato incorrecto.");
@@ -171,16 +177,20 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                     campoNUSS.getText().trim(),
                     checkProfesor.isSelected()
             );
-            if(usuarioModificar!=null){
-                if(fachadaAplicacion.tenClasesPendentes(persoal) && (!checkProfesor.isSelected())){
-                    fachadaAplicacion.mostrarErro("Clases pendentes","O persoal "+persoal.getLogin()+ " non pode deixar de ser profesor porque ten clases pendentes.");
-                    return;
+            try{
+                if(usuarioModificar!=null){
+                    if(fachadaAplicacion.tenClasesPendentes(persoal) && (!checkProfesor.isSelected())){
+                        fachadaAplicacion.mostrarErro("Clases pendentes","O persoal "+persoal.getLogin()+ " non pode deixar de ser profesor porque ten clases pendentes.");
+                        return;
+                    }
+                    super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
+                    this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
+                }else{
+                    this.fachadaAplicacion.insertarUsuario(persoal);
+                    this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
                 }
-                super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
-                this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
-            }else{
-                this.fachadaAplicacion.insertarUsuario(persoal);
-                this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
+            }catch (ExcepcionBD excepcionBD){
+                super.getFachadaAplicacion().mostrarErro("Usuario",excepcionBD.getMessage());
             }
         }
         this.controllerPrincipal.volverAtras();
