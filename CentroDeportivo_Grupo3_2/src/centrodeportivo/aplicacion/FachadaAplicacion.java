@@ -1,7 +1,9 @@
 package centrodeportivo.aplicacion;
 
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.xestion.XestionActividades;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.funcionsAux.Criptografia;
@@ -90,12 +92,12 @@ public class FachadaAplicacion extends Application {
     /*
         Xestion instalacións
      */
-    public void darAltaInstalacion(Instalacion instalacion){
-        xestionInstalacions.darAltaInstalacion(instalacion);
+    public TipoResultados darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        return xestionInstalacions.darAltaInstalacion(instalacion);
     }
 
-    public void borrarInstalacion(Instalacion instalacion){
-        xestionInstalacions.borrarInstalacion(instalacion);
+    public TipoResultados borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        return xestionInstalacions.borrarInstalacion(instalacion);
     }
 
     public void modificarInstalacion(Instalacion instalacion){

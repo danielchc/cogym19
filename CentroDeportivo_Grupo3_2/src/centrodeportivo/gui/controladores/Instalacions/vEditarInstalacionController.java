@@ -1,7 +1,9 @@
 package centrodeportivo.gui.controladores.Instalacions;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -90,9 +92,26 @@ public class vEditarInstalacionController extends AbstractController implements 
         //Cando se pide borrar, primeiro solicitarase a confirmación por parte do usuario.
         if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
                 "Desexa eliminar a instalación seleccionada?") == ButtonType.OK) {
-            super.getFachadaAplicacion().borrarInstalacion(instalacion);
-            //Se se decidiu borrar, logo haberá que amosar de novo a pantalla anterior (a xestión desa instalación deixa de ter sentido).
-            controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARINSTALACIONS);
+            //Intentamos levar a cabo o borrado da instalación:
+            try{
+                TipoResultados res = super.getFachadaAplicacion().borrarInstalacion(instalacion);
+                switch(res){
+                    case referenciaRestrict:
+                        super.getFachadaAplicacion().mostrarErro("Administración de Instalacións",
+                                "A instalación non se pode borrar, dado que ten áreas asociadas!");
+                        break;
+                    case correcto:
+                        super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións",
+                                "Instalación borrada correctamente.");
+                        //Se se logrou borrar, logo haberá que amosar de novo a pantalla anterior (a xestión desa instalación deixa de ter sentido).
+                        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARINSTALACIONS);
+                        break;
+                }
+            } catch(ExcepcionBD e){
+                //No caso de termos outra excepción da base de datos, haberá que amosala.
+                //A mensaxe xestiónase a través do método getMessage:
+                super.getFachadaAplicacion().mostrarErro("Administración de Instalacións", e.getMessage());
+            }
         }
     }
     

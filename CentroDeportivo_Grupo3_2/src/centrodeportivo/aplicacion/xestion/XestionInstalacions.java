@@ -1,5 +1,7 @@
 package centrodeportivo.aplicacion.xestion;
 
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
@@ -15,22 +17,26 @@ public class XestionInstalacions {
         this.fachadaBD = fachadaBD;
     }
 
-    public void darAltaInstalacion(Instalacion instalacion){
+    public TipoResultados darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
         //Se a instalación non existe, dase de alta:
         if(!fachadaBD.comprobarExistencia(instalacion)) {
             fachadaBD.darAltaInstalacion(instalacion);
+            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+            return TipoResultados.correcto;
         } else {
-            fachadaGUI.mostrarErro("Administración de Instalacións", "Xa hai unha instalación co nome '" + instalacion.getNome().toLowerCase() + "'.");
+            return TipoResultados.datoExiste;
         }
 
     }
 
-    public void borrarInstalacion(Instalacion instalacion){
+    public TipoResultados borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         if(!fachadaBD.tenAreas(instalacion)){
             fachadaBD.borrarInstalacion(instalacion);
-            fachadaGUI.mostrarInformacion("Administración de Instalacións", "Instalalción eliminada.");
+            //Se se completou o método correctamente, devolvemos o enum que indica corrección:
+            return TipoResultados.correcto;
         } else {
-            fachadaGUI.mostrarErro("Administración de Instalacións", "A instalación non se pode borrar!");
+            //Se houbese áreas asociadas a instalacións, devolvemos o enum de erro por referencias co restrict.
+            return TipoResultados.referenciaRestrict;
         }
 
     }

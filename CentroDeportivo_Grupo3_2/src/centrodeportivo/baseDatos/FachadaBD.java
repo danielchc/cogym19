@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.Criptografia;
@@ -72,11 +73,11 @@ public final class FachadaBD {
         Funcións DAOInstalacions
      */
 
-    public void darAltaInstalacion(Instalacion instalacion){
+    public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
         daoInstalacions.darAltaInstalacion(instalacion);
     }
 
-    public void borrarInstalacion(Instalacion instalacion){
+    public void borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         daoInstalacions.borrarInstalacion(instalacion);
     }
 

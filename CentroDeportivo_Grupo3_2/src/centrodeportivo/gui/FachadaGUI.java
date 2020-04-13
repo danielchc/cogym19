@@ -53,6 +53,7 @@ public class FachadaGUI {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(texto);
+        alert.setResizable(true);
         alert.showAndWait();
     }
 
@@ -61,6 +62,7 @@ public class FachadaGUI {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(texto);
+        alert.setResizable(true);
         alert.showAndWait();
     }
 
@@ -70,6 +72,7 @@ public class FachadaGUI {
         alert.setHeaderText(null);
         alert.setContentText(texto);
         alert.showAndWait();
+        alert.setResizable(true);
         return alert.getResult();
     }
 

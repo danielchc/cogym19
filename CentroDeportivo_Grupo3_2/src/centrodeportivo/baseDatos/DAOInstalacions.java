@@ -17,11 +17,10 @@ public final class DAOInstalacions extends AbstractDAO {
      * Método para dar de alta unha nova instalación:
      * @param instalacion a instalación a insertar
      */
-    public void darAltaInstalacion(Instalacion instalacion) /*throws ExcepcionBD*/ {
+    public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
         PreparedStatement stmInstalacions = null;
         ResultSet rsInstalacions;
         Connection con;
-
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
 
@@ -58,7 +57,7 @@ public final class DAOInstalacions extends AbstractDAO {
             con.commit();
         } catch (SQLException e){
             //Lanzamos neste caso unha excepción cara a aplicación:
-            //throw new ExcepcionBD(con, e);
+            throw new ExcepcionBD(con, e);
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
@@ -69,7 +68,7 @@ public final class DAOInstalacions extends AbstractDAO {
         }
     }
 
-    public void borrarInstalacion(Instalacion instalacion){
+    public void borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         PreparedStatement stmInstalacions = null;
         Connection con;
 
@@ -84,12 +83,14 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Realizamos a actualización:
             stmInstalacions.executeUpdate();
+            //Facemos o commit:
+            con.commit();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            //Lanzamos unha das nosas excepcións propias:
+            throw new ExcepcionBD(con, e);
         } finally {
-            //Pechamos o statement:
+            //Pechamos o statement para rematar.
             try{
-                con.commit();
                 stmInstalacions.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
