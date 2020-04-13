@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class DAOInstalacions extends AbstractDAO {
+public final class DAOInstalacions extends AbstractDAO {
 
     protected DAOInstalacions(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);

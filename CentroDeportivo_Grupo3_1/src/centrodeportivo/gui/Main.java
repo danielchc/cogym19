@@ -19,6 +19,8 @@ public class Main extends Application {
         
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
+        primaryStage.setMinHeight(500);
+        primaryStage.setMinWidth(300);
         primaryStage.setTitle("Centro Deportivo");
         primaryStage.show();
     }
