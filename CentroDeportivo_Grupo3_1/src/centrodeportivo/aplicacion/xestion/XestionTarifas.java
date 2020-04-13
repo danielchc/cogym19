@@ -1,5 +1,6 @@
 package centrodeportivo.aplicacion.xestion;
 
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
@@ -21,7 +22,7 @@ public class XestionTarifas {
     }
 
 
-    public void insertarTarifa(Tarifa t)  {
+    public void insertarTarifa(Tarifa t) throws ExcepcionBD {
         fachadaBD.insertarTarifa(t);
     }
 

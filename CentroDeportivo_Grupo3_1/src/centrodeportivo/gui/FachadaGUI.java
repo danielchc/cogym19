@@ -42,7 +42,7 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 
@@ -56,7 +56,7 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 

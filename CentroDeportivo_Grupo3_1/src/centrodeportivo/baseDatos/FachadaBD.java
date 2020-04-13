@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -42,7 +43,7 @@ public final class FachadaBD {
     private DAOInstalacions daoInstalacions;
     private DAOActividades daoActividades;
 
-    public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
+    public FachadaBD(FachadaAplicacion fachadaAplicacion) throws ExcepcionBD {
         this.fachadaAplicacion=fachadaAplicacion;
         Properties configuracion = new Properties();
         FileInputStream prop;
@@ -67,8 +68,9 @@ public final class FachadaBD {
             this.conexion= DriverManager.getConnection(con,usuario);
             this.conexion.setAutoCommit(false);
         }catch (SQLException e){
-            fachadaAplicacion.mostrarErro("Erro","Erro na conexión ca base de datos");
-            System.exit(1);
+            //fachadaAplicacion.mostrarErro("Erro","Erro na conexión ca base de datos");
+            throw new ExcepcionBD(this.conexion,e);
+            //System.exit(1);
         }
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
         this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
@@ -168,7 +170,7 @@ public final class FachadaBD {
     /*
         Funcions DAOTarifas
      */
-    public void insertarTarifa(Tarifa t) {
+    public void insertarTarifa(Tarifa t) throws ExcepcionBD {
         daoTarifas.insertarTarifa(t);
     }
 

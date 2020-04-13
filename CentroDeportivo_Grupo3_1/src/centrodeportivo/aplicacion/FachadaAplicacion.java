@@ -1,5 +1,6 @@
 package centrodeportivo.aplicacion;
 
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -47,7 +48,12 @@ public class FachadaAplicacion extends Application {
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
-        this.fachadaBD=new FachadaBD(this);
+        try {
+            this.fachadaBD=new FachadaBD(this);
+        } catch (ExcepcionBD excepcionBD) {
+            System.out.println(excepcionBD.getMessage());
+            System.exit(1);
+        }
         this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
         this.xestionMensaxes=new XestionMensaxes(fachadaGUI,fachadaBD);
         this.xestionTarifas=new XestionTarifas(fachadaGUI,fachadaBD);
@@ -63,7 +69,7 @@ public class FachadaAplicacion extends Application {
         Parent root = loader.load();
 
         primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setTitle("Centro Deportivo");
         primaryStage.show();
     }
@@ -212,7 +218,7 @@ public class FachadaAplicacion extends Application {
     /*
         Xestion tarifas
      */
-    public void insertarTarifa(Tarifa t) {
+    public void insertarTarifa(Tarifa t) throws ExcepcionBD {
         xestionTarifas.insertarTarifa(t);
     }
 

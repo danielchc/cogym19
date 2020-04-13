@@ -2,6 +2,7 @@ package centrodeportivo.baseDatos;
 
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.baseDatos.AbstractDAO;
 
@@ -21,7 +22,7 @@ public final class DAOTarifas extends AbstractDAO {
         super(conexion,fachadaAplicacion);
     }
 
-    protected void insertarTarifa(Tarifa t){
+    protected void insertarTarifa(Tarifa t) throws ExcepcionBD {
         PreparedStatement stmTarifa=null;
         try{
             stmTarifa=super.getConexion().prepareStatement("INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
@@ -32,7 +33,7 @@ public final class DAOTarifas extends AbstractDAO {
             stmTarifa.executeUpdate();
             super.getConexion().commit();
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(),e);
         }finally {
             try {
                 stmTarifa.close();

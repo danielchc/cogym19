@@ -9,7 +9,7 @@
    <center>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('centrodeportivo/gui/imaxes/fondologin.png');" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="tfUsuario" alignment="CENTER" layoutX="50.0" layoutY="168.0" maxWidth="1.7976931348623157E308" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="Login Usuario" text="test0" AnchorPane.topAnchor="168.0">
+            <TextField fx:id="tfUsuario" alignment="CENTER" layoutX="50.0" layoutY="168.0" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="Login Usuario" text="test0" AnchorPane.leftAnchor="49.99999999999997" AnchorPane.rightAnchor="49.99999999999997" AnchorPane.topAnchor="168.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></TextField>

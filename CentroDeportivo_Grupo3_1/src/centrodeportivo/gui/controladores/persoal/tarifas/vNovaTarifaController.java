@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.persoal.tarifas;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.ValidacionDatos;
@@ -77,7 +78,6 @@ public class vNovaTarifaController extends AbstractController implements Initial
                 ((Double)this.campoPrecioBase.getValue()).floatValue(),
                 ((Double)this.campoPrecioExtras.getValue()).floatValue()
         );
-        System.out.println(tarifaModificar);
         if(tarifaModificar!=null){
 
             tarifa.setCodTarifa(tarifaModificar.getCodTarifa());
@@ -88,8 +88,12 @@ public class vNovaTarifaController extends AbstractController implements Initial
                 fachadaAplicacion.mostrarErro("Error", "Xa existe unha tarifa co nome "+campoNome.getText());
                 return;
             }
-            fachadaAplicacion.insertarTarifa(tarifa);
-            fachadaAplicacion.mostrarInformacion("Tarifas","Creouse a tarifa "+campoNome.getText()+" correctamente");
+            try {
+                fachadaAplicacion.insertarTarifa(tarifa);
+                fachadaAplicacion.mostrarInformacion("Tarifas","Creouse a tarifa "+campoNome.getText()+" correctamente");
+            } catch (ExcepcionBD excepcionBD) {
+                fachadaAplicacion.mostrarErro("Tarifas",excepcionBD.getMessage());
+            }
         }
         this.vPrincipal.volverAtras();
 
