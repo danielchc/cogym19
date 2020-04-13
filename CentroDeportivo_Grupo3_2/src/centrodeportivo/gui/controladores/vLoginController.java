@@ -1,6 +1,9 @@
 package centrodeportivo.gui.controladores;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -28,21 +31,17 @@ public class vLoginController  extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void btnIniciarAction() {
         if(ValidacionDatos.estanCubertosCampos(tfUsuario,tfContrasinal)){
             try{
-                if(fa.validarUsuario(tfUsuario.getText(),tfContrasinal.getText())){
-                    switch (fa.consultarTipo(tfUsuario.getText())){
-                        case Socio:
-                            fa.mostrarVentaSocios(fa.consultarUsuario(tfUsuario.getText()));
-                            break;
-                        case Persoal:
-                        case Profesor:
-                            fa.mostrarVentaPersoal(fa.consultarUsuario(tfUsuario.getText()));
-                            break;
+                if(fa.validarUsuario(tfUsuario.getText(), tfContrasinal.getText())){
+                    Usuario usuario = fa.consultarUsuario(tfUsuario.getText());
+                    if(usuario.getTipoUsuario() == TipoUsuario.Socio){
+                        fa.mostrarVentaSocios(usuario);
+                    } else {
+                        fa.mostrarVentaPersoal(usuario);
                     }
                     ((Stage) tfUsuario.getScene().getWindow()).close();
                 }else{

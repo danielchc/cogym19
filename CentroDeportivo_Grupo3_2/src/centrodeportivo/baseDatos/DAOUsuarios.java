@@ -14,15 +14,15 @@ public final class DAOUsuarios extends AbstractDAO {
         super(conexion,fachadaAplicacion);
     }
 
-    protected boolean validarUsuario(String login,String password) {
+    protected boolean validarUsuario(String login, String contrasinal) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         boolean resultado = false;
 
         try {
             stmUsuario=super.getConexion().prepareStatement("SELECT * FROM usuario WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
-            stmUsuario.setString(1,login);
-            stmUsuario.setString(2,password);
+            stmUsuario.setString(1, login);
+            stmUsuario.setString(2, contrasinal);
             resultValidacion=stmUsuario.executeQuery();
             resultado = resultValidacion.next();
         } catch (SQLException e) {
@@ -37,10 +37,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
 
-    protected TipoUsuario consultarTipo(String login) {
+    protected Usuario consultarUsuario(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
-        TipoUsuario resultado = null;
+        TipoUsuario tipoUsuario = null;
+        Usuario resultado = null;
 
         try {
             stmUsuario = super.getConexion().prepareStatement("SELECT " +
@@ -50,37 +51,17 @@ public final class DAOUsuarios extends AbstractDAO {
                     "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND profesorActivo=TRUE) AS eProfesor " +
                     "FROM usuario as u WHERE u.login=?"
             );
-            stmUsuario.setString(1,login);
+            stmUsuario.setString(1, login);
 
             rsUsuarios = stmUsuario.executeQuery();
             rsUsuarios.next();
-            if(rsUsuarios.getBoolean("eSocio")) resultado = TipoUsuario.Socio;
-            if(rsUsuarios.getBoolean("eProfesor")) resultado = TipoUsuario.Profesor;
-            if(rsUsuarios.getBoolean("ePersoal")) resultado =  TipoUsuario.Persoal;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                stmUsuario.close();
-            } catch (SQLException e){
-                System.out.println("Imposible pechar os cursores");
-            }
-        }
+            if(rsUsuarios.getBoolean("eSocio")) tipoUsuario = TipoUsuario.Socio;
+            if(rsUsuarios.getBoolean("eProfesor")) tipoUsuario = TipoUsuario.ProfesorActivo;
+            if(rsUsuarios.getBoolean("ePersoal")) tipoUsuario =  TipoUsuario.Persoal;
 
-        return resultado;
-    }
-
-    protected Usuario consultarUsuario(String login) {
-        PreparedStatement stmUsuario = null;
-        ResultSet rsUsuarios;
-        TipoUsuario tipoUsuario=consultarTipo(login);
-        Usuario resultado = null;
-
-        try {
             if(tipoUsuario==TipoUsuario.Socio) {
                 stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario FROM vistasocio as vs WHERE u.login=? AND (dataBaixa IS NULL);");
                 stmUsuario.setString(1, login);
-                rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
                     resultado = new Socio(
                             rsUsuarios.getString("login"),
@@ -112,7 +93,6 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getString("nuss"),
                             rsUsuarios.getBoolean("profesoractivo")
                     );
-
                 }
             }
         } catch (SQLException e) {

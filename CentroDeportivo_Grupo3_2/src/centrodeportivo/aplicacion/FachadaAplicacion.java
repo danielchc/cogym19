@@ -55,12 +55,8 @@ public class FachadaAplicacion extends Application {
         launch(args);
     }
 
-    public boolean validarUsuario(String login,String password) {
-        return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
-    }
-
-    public TipoUsuario consultarTipo(String login)  {
-        return xestionUsuarios.consultarTipo(login);
+    public boolean validarUsuario(String login, String contrasinal) {
+        return xestionUsuarios.validarUsuario(login, contrasinal);
     }
 
     public Usuario consultarUsuario(String login) {

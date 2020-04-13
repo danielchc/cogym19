@@ -23,7 +23,11 @@ public class Persoal extends Usuario {
         super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.NUSS = NUSS;
         this.profesorActivo= profesorActivo;
-        super.setTipoUsuario(TipoUsuario.Socio);
+        if(this.profesorActivo) {
+            super.setTipoUsuario(TipoUsuario.ProfesorActivo);
+        } else {
+            super.setTipoUsuario(TipoUsuario.Persoal);
+        }
     }
 
     public String getNUSS() {

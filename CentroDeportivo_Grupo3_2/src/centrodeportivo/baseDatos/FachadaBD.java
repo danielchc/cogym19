@@ -60,12 +60,8 @@ public final class FachadaBD {
     /*
         Funcions DAOUsuarios
      */
-    public boolean validarUsuario(String login,String password) {
-        return daoUsuarios.validarUsuario(login,password);
-    }
-
-    public TipoUsuario consultarTipo(String login) {
-        return daoUsuarios.consultarTipo(login);
+    public boolean validarUsuario(String login, String contrasinal) {
+        return daoUsuarios.validarUsuario(login, contrasinal);
     }
 
     public Usuario consultarUsuario(String login) {

@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
 import java.sql.*;
@@ -16,9 +17,9 @@ public final class DAOInstalacions extends AbstractDAO {
      * Método para dar de alta unha nova instalación:
      * @param instalacion a instalación a insertar
      */
-    public void darAltaInstalacion(Instalacion instalacion){
+    public void darAltaInstalacion(Instalacion instalacion) /*throws ExcepcionBD*/ {
         PreparedStatement stmInstalacions = null;
-        ResultSet rsInstalacions = null;
+        ResultSet rsInstalacions;
         Connection con;
 
         //Recuperamos a conexión coa base de datos.
@@ -52,11 +53,15 @@ public final class DAOInstalacions extends AbstractDAO {
                 //Así metemos o ID na instalación, e podemos amosalo para rematar a operación.
                 instalacion.setCodInstalacion(rsInstalacions.getInt(1));
             }
+
+            //Facemos commit:
+            con.commit();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            //Lanzamos neste caso unha excepción cara a aplicación:
+            //throw new ExcepcionBD(con, e);
         } finally {
+            //En calquera caso, téntase pechar os cursores.
             try {
-                con.commit();
                 stmInstalacions.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
@@ -115,7 +120,6 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Executamos a actualización:
             stmInstalacions.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

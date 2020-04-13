@@ -15,7 +15,7 @@ public class Usuario {
     /**
      * Atributos da clase: é importante sinalar que no noso caso non precisamos considerar ás persoas físicas. Nós
      * simplemente nos encargaremos de que os usuarios se apunten en actividades e cursos, non nos interesa ter a súa
-     * información separada dende o que é esta aplicación.
+     * información separada dende o que é esta aplicación. Non imos a controlar iso.
      */
     private String login; //Login do usuario
     private String contrasinal; //Contrasinal do usuario.
