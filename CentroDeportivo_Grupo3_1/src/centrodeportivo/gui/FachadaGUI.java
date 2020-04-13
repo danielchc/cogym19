@@ -43,8 +43,6 @@ public class FachadaGUI {
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setResizable(false);
-        stage.setMinWidth(550);
-        stage.setMaxHeight(800);
         stage.show();
     }
 

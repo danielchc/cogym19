@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public final class DAOActividades extends AbstractDAO {
+public class DAOActividades extends AbstractDAO {
 
     public DAOActividades(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
