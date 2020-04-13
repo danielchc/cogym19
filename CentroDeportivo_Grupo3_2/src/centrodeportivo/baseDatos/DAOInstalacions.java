@@ -98,7 +98,7 @@ public final class DAOInstalacions extends AbstractDAO {
         }
     }
 
-    public void modificarInstalacion(Instalacion instalacion){
+    public void modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         PreparedStatement stmInstalacions = null;
         Connection con;
 
@@ -121,11 +121,13 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Executamos a actualización:
             stmInstalacions.executeUpdate();
+            //Facemos un commit, dado que se rematou a actualización:
+            con.commit();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //Lanzamos a nosa excepción de base de datos.
+            throw new ExcepcionBD(con, e);
         } finally {
             try {
-                con.commit();
                 //Tentamos pechar o statement usado nesta actualización:
                 stmInstalacions.close();
             } catch (SQLException e){

@@ -41,14 +41,14 @@ public class XestionInstalacions {
 
     }
 
-    public void modificarInstalacion(Instalacion instalacion){
+    public TipoResultados modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         if(!fachadaBD.comprobarExistencia(instalacion)) {
             fachadaBD.modificarInstalacion(instalacion);
-            //Imprimimos mensaxe de éxito:
-            fachadaGUI.mostrarInformacion("Administración de Instalacións", "Datos da instalación "
-                    + instalacion.getCodInstalacion() + " modificados correctamente." );
+            //Devolvemos co enum que se fixo a modificación sen problemas chegados a este punto:
+            return TipoResultados.correcto;
         } else {
-            fachadaGUI.mostrarErro("Administración de Instalacións", "Xa hai outra instalación co nome '" + instalacion.getNome() + "'.");
+            //Se xa existe outra instalación co mesmo nome, entón devolvemos un enum que indique o propio:
+            return TipoResultados.datoExiste;
         }
     }
 

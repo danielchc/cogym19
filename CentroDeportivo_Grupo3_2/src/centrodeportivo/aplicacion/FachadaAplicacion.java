@@ -100,7 +100,7 @@ public class FachadaAplicacion extends Application {
         return xestionInstalacions.borrarInstalacion(instalacion);
     }
 
-    public void modificarInstalacion(Instalacion instalacion){
+    public TipoResultados modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         xestionInstalacions.modificarInstalacion(instalacion);
     }
 

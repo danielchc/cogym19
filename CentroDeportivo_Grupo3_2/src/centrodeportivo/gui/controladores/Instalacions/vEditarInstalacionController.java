@@ -85,7 +85,25 @@ public class vEditarInstalacionController extends AbstractController implements 
         Instalacion instalacion = new Instalacion(this.instalacion.getCodInstalacion(), campoNome.getText(),
                 campoTelefono.getText(), campoDireccion.getText());
         //Accedemos á base de datos:
-        super.getFachadaAplicacion().modificarInstalacion(instalacion);
+        //Tentaremos realizar o acceso correctamente, xestionando as excepcións:
+        try {
+            TipoResultados res = super.getFachadaAplicacion().modificarInstalacion(instalacion);
+            switch(res){
+                case datoExiste:
+                    super.getFachadaAplicacion().mostrarErro("Administración de Instalacións",
+                            "Xa hai outra instalación co nome '" + instalacion.getNome() + "'!");
+                    break;
+                case correcto:
+                    //Mostramos unha mensaxe de confirmación:
+                    super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións", "Datos da instalación "
+                            + instalacion.getCodInstalacion() + " modificados correctamente." );
+                    break;
+            }
+        } catch (ExcepcionBD e){
+            //Se hai un erro na base de datos, amósase a mensaxe,
+            //que é creada na nosa excepción con getMessage():
+            super.getFachadaAplicacion().mostrarErro("Administración de Instalacións", e.getMessage());
+        }
     }
 
     public void btnBorrarAction(ActionEvent actionEvent) {

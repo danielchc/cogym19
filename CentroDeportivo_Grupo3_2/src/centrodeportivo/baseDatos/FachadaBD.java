@@ -81,7 +81,7 @@ public final class FachadaBD {
         daoInstalacions.borrarInstalacion(instalacion);
     }
 
-    public void modificarInstalacion(Instalacion instalacion){
+    public void modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         daoInstalacions.modificarInstalacion(instalacion);
     }
 
