@@ -101,7 +101,7 @@ public class FachadaAplicacion extends Application {
     }
 
     public TipoResultados modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
-        xestionInstalacions.modificarInstalacion(instalacion);
+        return xestionInstalacions.modificarInstalacion(instalacion);
     }
 
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
