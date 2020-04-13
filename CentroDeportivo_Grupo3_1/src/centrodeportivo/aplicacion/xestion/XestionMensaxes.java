@@ -1,5 +1,6 @@
 package centrodeportivo.aplicacion.xestion;
 
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
@@ -16,21 +17,21 @@ public class XestionMensaxes {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
-    public XestionMensaxes(FachadaGUI fachadaGUI,FachadaBD fachadaBD) {
-        this.fachadaGUI=fachadaGUI;
-        this.fachadaBD=fachadaBD;
+    public XestionMensaxes(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
+        this.fachadaGUI = fachadaGUI;
+        this.fachadaBD = fachadaBD;
     }
 
 
-    public void enviarMensaxe(Mensaxe m) {
+    public void enviarMensaxe(Mensaxe m) throws ExcepcionBD {
         fachadaBD.enviarMensaxe(m);
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) {
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) throws ExcepcionBD {
         fachadaBD.enviarMensaxe(emisor, receptores, mensaxe);
     }
 
-    public void marcarMensaxeComoLido(Mensaxe m) {
+    public void marcarMensaxeComoLido(Mensaxe m) throws ExcepcionBD {
         fachadaBD.marcarMensaxeComoLido(m);
     }
 

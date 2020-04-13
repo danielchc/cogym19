@@ -12,9 +12,9 @@ public abstract class AbstractDAO {
     private FachadaAplicacion fachadaAplicacion;
     private Connection conexion;
 
-    public AbstractDAO(Connection conexion,FachadaAplicacion fachadaAplicacion){
-        this.conexion=conexion;
-        this.fachadaAplicacion=fachadaAplicacion;
+    public AbstractDAO(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        this.conexion = conexion;
+        this.fachadaAplicacion = fachadaAplicacion;
     }
 
     public Connection getConexion() {

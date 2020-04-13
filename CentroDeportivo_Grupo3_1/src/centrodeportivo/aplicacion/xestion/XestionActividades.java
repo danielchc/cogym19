@@ -14,12 +14,12 @@ public class XestionActividades {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
-    public XestionActividades(FachadaGUI fachadaGUI,FachadaBD fachadaBD) {
-        this.fachadaGUI=fachadaGUI;
-        this.fachadaBD=fachadaBD;
+    public XestionActividades(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
+        this.fachadaGUI = fachadaGUI;
+        this.fachadaBD = fachadaBD;
     }
 
-    public ArrayList<TipoActividade> listarTipoActividades(){
+    public ArrayList<TipoActividade> listarTipoActividades() {
         return fachadaBD.listarTipoActividades();
     }
 

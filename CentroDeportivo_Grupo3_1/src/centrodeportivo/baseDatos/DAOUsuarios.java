@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
@@ -189,7 +190,7 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
 
-    protected void insertarUsuario(Usuario usuario) {
+    protected void insertarUsuario(Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
         try {
             stmUsuario = super.getConexion().prepareStatement("INSERT INTO usuario (login,contrasinal,numTelefono,correoElectronico,IBAN)  VALUES (?,?,?,?,?);");
@@ -239,7 +240,7 @@ public final class DAOUsuarios extends AbstractDAO {
             super.getConexion().commit();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 if (stmUsuario != null) stmUsuario.close();
@@ -249,7 +250,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void actualizarUsuario(String loginVello, Usuario usuario) {
+    protected void actualizarUsuario(String loginVello, Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
 
         try {
@@ -284,7 +285,7 @@ public final class DAOUsuarios extends AbstractDAO {
             }
             super.getConexion().commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 if (stmUsuario != null) stmUsuario.close();
@@ -294,7 +295,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void darBaixaUsuario(String login) {
+    protected void darBaixaUsuario(String login) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
         try {
             stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET dataBaixa=NOW() WHERE login=?");
@@ -302,7 +303,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stmUsuario.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 stmUsuario.close();
@@ -312,7 +313,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void darAltaUsuario(String login) {
+    protected void darAltaUsuario(String login) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
         try {
             stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET dataBaixa=NULL WHERE login=?");
@@ -320,7 +321,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stmUsuario.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 stmUsuario.close();
@@ -330,7 +331,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void engadirCapadidade(String login, TipoActividade tipoActividade) {
+    protected void engadirCapadidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         PreparedStatement stmAct = null;
 
         try {
@@ -340,7 +341,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stmAct.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 stmAct.close();
@@ -350,7 +351,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void eliminarCapacidade(String login, TipoActividade tipoActividade) {
+    protected void eliminarCapacidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         PreparedStatement stmAct = null;
 
         try {
@@ -360,7 +361,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stmAct.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 stmAct.close();
@@ -652,7 +653,7 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
-    protected void insertarRexistro(RexistroFisioloxico rexistroFisioloxico) {
+    protected void insertarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         PreparedStatement stm = null;
 
         try {
@@ -671,7 +672,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stm.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 stm.close();
@@ -681,7 +682,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico) {
+    protected void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         PreparedStatement stm = null;
 
         try {
@@ -693,7 +694,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stm.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
                 stm.close();

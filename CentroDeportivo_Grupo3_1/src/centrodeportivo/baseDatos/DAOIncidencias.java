@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
@@ -19,19 +20,19 @@ import java.util.ArrayList;
  */
 public final class DAOIncidencias extends AbstractDAO {
     public DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
-        super(conexion,fachadaAplicacion);
+        super(conexion, fachadaAplicacion);
     }
 
-    protected void insertarIncidencia(Incidencia incidencia) {
-        PreparedStatement stmIncidencia=null;
+    protected void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {
+        PreparedStatement stmIncidencia = null;
         try {
             if (incidencia instanceof IncidenciaArea) {
-                IncidenciaArea incidenciaArea=(IncidenciaArea) incidencia;
+                IncidenciaArea incidenciaArea = (IncidenciaArea) incidencia;
                 stmIncidencia = super.getConexion().prepareStatement("INSERT INTO incidenciaArea(usuario,descricion,area,instalacion)  VALUES (?,?,?,?);");
                 stmIncidencia.setInt(3, incidenciaArea.getArea().getCodArea());
                 stmIncidencia.setInt(4, incidenciaArea.getArea().getInstalacion().getCodInstalacion());
             } else if (incidencia instanceof IncidenciaMaterial) {
-                IncidenciaMaterial incidenciaMaterial=(IncidenciaMaterial) incidencia;
+                IncidenciaMaterial incidenciaMaterial = (IncidenciaMaterial) incidencia;
                 stmIncidencia = super.getConexion().prepareStatement("INSERT INTO incidenciaMaterial(usuario,descricion,material,tipomaterial)  VALUES (?,?,?,?);");
                 stmIncidencia.setInt(3, incidenciaMaterial.getMaterial().getCodMaterial());
                 stmIncidencia.setInt(4, incidenciaMaterial.getMaterial().getCodTipoMaterial());
@@ -40,9 +41,9 @@ public final class DAOIncidencias extends AbstractDAO {
             stmIncidencia.setString(2, incidencia.getDescricion());
             stmIncidencia.executeUpdate();
             super.getConexion().commit();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
+        } catch (SQLException e) {
+            throw new ExcepcionBD(super.getConexion(), e);
+        } finally {
             try {
                 stmIncidencia.close();
             } catch (SQLException e) {
@@ -51,12 +52,12 @@ public final class DAOIncidencias extends AbstractDAO {
         }
     }
 
-    protected ArrayList<Incidencia> listarIncidencias(String descripcion,TipoIncidencia tipoIncidencia) {
+    protected ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
         PreparedStatement stmIncidencia = null;
-        ArrayList<Incidencia> incidencias=new ArrayList<Incidencia>();
+        ArrayList<Incidencia> incidencias = new ArrayList<Incidencia>();
         ResultSet rsIncidencias;
         try {
-            if(tipoIncidencia==TipoIncidencia.Area || tipoIncidencia==TipoIncidencia.Todos) {
+            if (tipoIncidencia == TipoIncidencia.Area || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement("SELECT *,ar.nome AS nombreArea,it.nome AS nombreInstalacion,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea JOIN instalacion AS it  ON ar.instalacion=it.codInstalacion");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Area area;
@@ -84,7 +85,7 @@ public final class DAOIncidencias extends AbstractDAO {
                     ));
                 }
             }
-            if(tipoIncidencia==TipoIncidencia.Material || tipoIncidencia==TipoIncidencia.Todos) {
+            if (tipoIncidencia == TipoIncidencia.Material || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement(";SELECT *,im.descricion AS descricionIncidencia FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Material material;
@@ -109,9 +110,9 @@ public final class DAOIncidencias extends AbstractDAO {
                     ));
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 stmIncidencia.close();
             } catch (SQLException e) {
@@ -121,8 +122,8 @@ public final class DAOIncidencias extends AbstractDAO {
         return incidencias;
     }
 
-    protected void resolverIncidencia(Incidencia incidencia) {
-        PreparedStatement stmIncidencia=null;
+    protected void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {
+        PreparedStatement stmIncidencia = null;
         try {
             if (incidencia.getTipoIncidencia() == TipoIncidencia.Area) {
                 stmIncidencia = super.getConexion().prepareStatement("UPDATE incidenciaArea SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
@@ -139,9 +140,9 @@ public final class DAOIncidencias extends AbstractDAO {
                 stmIncidencia.executeUpdate();
             }
             super.getConexion().commit();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
+        } catch (SQLException e) {
+            throw new ExcepcionBD(super.getConexion(), e);
+        } finally {
             try {
                 stmIncidencia.close();
             } catch (SQLException e) {

@@ -19,22 +19,22 @@ import java.util.Scanner;
  */
 public final class DAOTarifas extends AbstractDAO {
     public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
-        super(conexion,fachadaAplicacion);
+        super(conexion, fachadaAplicacion);
     }
 
     protected void insertarTarifa(Tarifa t) throws ExcepcionBD {
-        PreparedStatement stmTarifa=null;
-        try{
-            stmTarifa=super.getConexion().prepareStatement("INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
-            stmTarifa.setString(1,t.getNome());
-            stmTarifa.setInt(2,t.getMaxActividades());
-            stmTarifa.setFloat(3,t.getPrezoBase());
-            stmTarifa.setFloat(4,t.getPrezoExtras());
+        PreparedStatement stmTarifa = null;
+        try {
+            stmTarifa = super.getConexion().prepareStatement("INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES (?,?,?,?);");
+            stmTarifa.setString(1, t.getNome());
+            stmTarifa.setInt(2, t.getMaxActividades());
+            stmTarifa.setFloat(3, t.getPrezoBase());
+            stmTarifa.setFloat(4, t.getPrezoExtras());
             stmTarifa.executeUpdate();
             super.getConexion().commit();
-        }catch (SQLException e){
-            throw new ExcepcionBD(super.getConexion(),e);
-        }finally {
+        } catch (SQLException e) {
+            throw new ExcepcionBD(super.getConexion(), e);
+        } finally {
             try {
                 stmTarifa.close();
             } catch (SQLException e) {
@@ -43,16 +43,16 @@ public final class DAOTarifas extends AbstractDAO {
         }
     }
 
-    protected void borrarTarifa(Integer codTarifa) {
-        PreparedStatement stmTarifa=null;
-        try{
-            stmTarifa=super.getConexion().prepareStatement("DELETE FROM tarifa WHERE codTarifa=?");
+    protected void borrarTarifa(Integer codTarifa) throws ExcepcionBD {
+        PreparedStatement stmTarifa = null;
+        try {
+            stmTarifa = super.getConexion().prepareStatement("DELETE FROM tarifa WHERE codTarifa=?");
             stmTarifa.setInt(1, codTarifa);
             stmTarifa.executeUpdate();
             super.getConexion().commit();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
+        } catch (SQLException e) {
+            throw new ExcepcionBD(super.getConexion(), e);
+        } finally {
             try {
                 stmTarifa.close();
             } catch (SQLException e) {
@@ -61,21 +61,21 @@ public final class DAOTarifas extends AbstractDAO {
         }
     }
 
-    protected void actualizarTarifa(Tarifa t){
-        Connection conexion=super.getConexion();
-        PreparedStatement stmTarifa=null;
-        try{
-            stmTarifa=conexion.prepareStatement("UPDATE tarifa SET maxActividades=?, precioBase=?, precioExtra=? WHERE codTarifa=?;");
-            stmTarifa.setInt(1,t.getMaxActividades());
-            stmTarifa.setFloat(2,t.getPrezoBase());
-            stmTarifa.setFloat(3,t.getPrezoExtras());
-            stmTarifa.setInt(4,t.getCodTarifa());
+    protected void actualizarTarifa(Tarifa t) throws ExcepcionBD {
+        Connection conexion = super.getConexion();
+        PreparedStatement stmTarifa = null;
+        try {
+            stmTarifa = conexion.prepareStatement("UPDATE tarifa SET maxActividades=?, precioBase=?, precioExtra=? WHERE codTarifa=?;");
+            stmTarifa.setInt(1, t.getMaxActividades());
+            stmTarifa.setFloat(2, t.getPrezoBase());
+            stmTarifa.setFloat(3, t.getPrezoExtras());
+            stmTarifa.setInt(4, t.getCodTarifa());
             stmTarifa.executeUpdate();
             System.out.println(stmTarifa);
             conexion.commit();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
+        } catch (SQLException e) {
+            throw new ExcepcionBD(super.getConexion(), e);
+        } finally {
             try {
                 stmTarifa.close();
             } catch (SQLException e) {
@@ -84,18 +84,18 @@ public final class DAOTarifas extends AbstractDAO {
         }
     }
 
-    protected boolean estaEnUsoTarifa(Integer codTarifa){
-        Connection conexion=super.getConexion();
+    protected boolean estaEnUsoTarifa(Integer codTarifa) {
+        Connection conexion = super.getConexion();
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
-        try{
-            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifa WHERE codTarifa=? AND codTarifa IN (SELECT tarifa FROM socio);");
-            stmTarifa.setInt(1,codTarifa);
-            resultTarifas=stmTarifa.executeQuery();
+        try {
+            stmTarifa = conexion.prepareStatement("SELECT * FROM tarifa WHERE codTarifa=? AND codTarifa IN (SELECT tarifa FROM socio);");
+            stmTarifa.setInt(1, codTarifa);
+            resultTarifas = stmTarifa.executeQuery();
             return resultTarifas.next();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 stmTarifa.close();
             } catch (SQLException e) {
@@ -105,15 +105,15 @@ public final class DAOTarifas extends AbstractDAO {
         return false;
     }
 
-    protected ArrayList<Tarifa> listarTarifas(){
-        ArrayList<Tarifa> tarifas=new ArrayList<>();
-        Connection conexion=super.getConexion();
+    protected ArrayList<Tarifa> listarTarifas() {
+        ArrayList<Tarifa> tarifas = new ArrayList<>();
+        Connection conexion = super.getConexion();
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
-        try{
-            stmTarifa=conexion.prepareStatement("SELECT * FROM tarifa");
-            resultTarifas=stmTarifa.executeQuery();
-            while (resultTarifas.next()){
+        try {
+            stmTarifa = conexion.prepareStatement("SELECT * FROM tarifa");
+            resultTarifas = stmTarifa.executeQuery();
+            while (resultTarifas.next()) {
                 tarifas.add(new Tarifa(
                         resultTarifas.getInt("codTarifa"),
                         resultTarifas.getString("nome"),
@@ -122,9 +122,9 @@ public final class DAOTarifas extends AbstractDAO {
                         resultTarifas.getFloat("precioExtra")
                 ));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 stmTarifa.close();
             } catch (SQLException e) {
@@ -134,14 +134,14 @@ public final class DAOTarifas extends AbstractDAO {
         return tarifas;
     }
 
-    protected Tarifa consultarTarifaSocio(String loginSocio){
+    protected Tarifa consultarTarifaSocio(String loginSocio) {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
-        try{
-            stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifa WHERE codTarifa IN (SELECT tarifa FROM socio WHERE login=?)");
-            stmTarifa.setString(1,loginSocio);
-            resultTarifas=stmTarifa.executeQuery();
-            if(resultTarifas.next()){
+        try {
+            stmTarifa = super.getConexion().prepareStatement("SELECT * FROM tarifa WHERE codTarifa IN (SELECT tarifa FROM socio WHERE login=?)");
+            stmTarifa.setString(1, loginSocio);
+            resultTarifas = stmTarifa.executeQuery();
+            if (resultTarifas.next()) {
                 return new Tarifa(
                         resultTarifas.getInt("codTarifa"),
                         resultTarifas.getString("nome"),
@@ -150,9 +150,9 @@ public final class DAOTarifas extends AbstractDAO {
                         resultTarifas.getFloat("precioExtra")
                 );
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 stmTarifa.close();
             } catch (SQLException e) {
@@ -162,20 +162,20 @@ public final class DAOTarifas extends AbstractDAO {
         return null;
     }
 
-    protected boolean existeTarifa(String nome){
+    protected boolean existeTarifa(String nome) {
         PreparedStatement stmTarifa = null;
         ResultSet resultValidacion;
         try {
-            stmTarifa=super.getConexion().prepareStatement("SELECT * FROM tarifa WHERE LOWER(nome)=LOWER(?)");
-            stmTarifa.setString(1,nome);
-            resultValidacion=stmTarifa.executeQuery();
+            stmTarifa = super.getConexion().prepareStatement("SELECT * FROM tarifa WHERE LOWER(nome)=LOWER(?)");
+            stmTarifa.setString(1, nome);
+            resultValidacion = stmTarifa.executeQuery();
             return resultValidacion.next();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 stmTarifa.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
         }

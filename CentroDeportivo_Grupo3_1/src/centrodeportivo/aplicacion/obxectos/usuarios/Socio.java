@@ -19,30 +19,32 @@ public final class Socio extends Usuario {
 
     /**
      * Constructor coa clave primaria
+     *
      * @param login login do Socio
      */
-    public Socio(String login){
+    public Socio(String login) {
         super(login);
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
     /**
      * Contructor con todos os datos do socio como parámetros
-     * @param login login do persoal
-     * @param contrasinal contrasinal
-     * @param DNI dni da persoa.
-     * @param nome nome da persoa
-     * @param dificultades dificultades físicas
-     * @param dataNacemento data de nacemento
-     * @param numTelefono número de teléfono
+     *
+     * @param login             login do persoal
+     * @param contrasinal       contrasinal
+     * @param DNI               dni da persoa.
+     * @param nome              nome da persoa
+     * @param dificultades      dificultades físicas
+     * @param dataNacemento     data de nacemento
+     * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
-     * @param IBANconta IBAN da conta
-     * @param dataAlta data de ingreso
+     * @param IBANconta         IBAN da conta
+     * @param dataAlta          data de ingreso
      * @param dataBaixa
-     * @param tarifa tarifa do socio
+     * @param tarifa            tarifa do socio
      */
-    public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta,Date dataBaixa, Tarifa tarifa) {
-        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta,dataBaixa);
+    public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta, Date dataBaixa, Tarifa tarifa) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta, dataBaixa);
         this.tarifa = tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
@@ -50,16 +52,17 @@ public final class Socio extends Usuario {
     /**
      * Contructor con todos os datos do socio como parámetros menos a data de alta,
      * que se inserta directamente na transacción de insercción
-     * @param login login do persoal
-     * @param contrasinal contrasinal
-     * @param DNI dni da persoa.
-     * @param nome nome da persoa
-     * @param dificultades dificultades físicas
-     * @param dataNacemento data de nacemento
-     * @param numTelefono número de teléfono
+     *
+     * @param login             login do persoal
+     * @param contrasinal       contrasinal
+     * @param DNI               dni da persoa.
+     * @param nome              nome da persoa
+     * @param dificultades      dificultades físicas
+     * @param dataNacemento     data de nacemento
+     * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
-     * @param IBANconta IBAN da conta
-     * @param tarifa tarifa do socio
+     * @param IBANconta         IBAN da conta
+     * @param tarifa            tarifa do socio
      */
 
     public Socio(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Tarifa tarifa) {
@@ -67,7 +70,6 @@ public final class Socio extends Usuario {
         this.tarifa = tarifa;
         super.setTipoUsuario(TipoUsuario.Socio);
     }
-
 
 
     /**
@@ -83,7 +85,7 @@ public final class Socio extends Usuario {
 
     @Override
     public String toString() {
-        return super.toString()+"Socio{" +
+        return super.toString() + "Socio{" +
                 "tarifa=" + tarifa +
                 '}';
     }

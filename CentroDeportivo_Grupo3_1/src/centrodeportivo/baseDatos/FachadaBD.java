@@ -44,18 +44,18 @@ public final class FachadaBD {
     private DAOActividades daoActividades;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion) throws ExcepcionBD {
-        this.fachadaAplicacion=fachadaAplicacion;
+        this.fachadaAplicacion = fachadaAplicacion;
         Properties configuracion = new Properties();
         FileInputStream prop;
 
         //prop = new FileInputStream("baseDatos.properties");
         //configuracion.load(prop);
         //prop.close();
-        try{
-            String conf=new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
+        try {
+            String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
             //System.out.println(conf);
             configuracion.load(new StringReader(conf));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Non se pudo cargar o arquivo cifrado");
             System.exit(1);
         }
@@ -63,21 +63,21 @@ public final class FachadaBD {
         Properties usuario = new Properties();
         usuario.setProperty("user", configuracion.getProperty("usuario"));
         usuario.setProperty("password", configuracion.getProperty("clave"));
-        String con=String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"),configuracion.getProperty("servidor"),configuracion.getProperty("puerto"),configuracion.getProperty("baseDatos"));
-        try{
-            this.conexion= DriverManager.getConnection(con,usuario);
+        String con = String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"), configuracion.getProperty("servidor"), configuracion.getProperty("puerto"), configuracion.getProperty("baseDatos"));
+        try {
+            this.conexion = DriverManager.getConnection(con, usuario);
             this.conexion.setAutoCommit(false);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             //fachadaAplicacion.mostrarErro("Erro","Erro na conexión ca base de datos");
-            throw new ExcepcionBD(this.conexion,e);
+            throw new ExcepcionBD(this.conexion, e);
             //System.exit(1);
         }
-        this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
-        this.daoTarifas=new DAOTarifas(this.conexion,this.fachadaAplicacion);
-        this.daoMensaxes=new DAOMensaxes(this.conexion,this.fachadaAplicacion);
-        this.daoIncidencias=new DAOIncidencias(this.conexion,this.fachadaAplicacion);
-        this.daoInstalacions=new DAOInstalacions(this.conexion,this.fachadaAplicacion);
-        this.daoActividades=new DAOActividades(this.conexion,this.fachadaAplicacion);
+        this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
+        this.daoTarifas = new DAOTarifas(this.conexion, this.fachadaAplicacion);
+        this.daoMensaxes = new DAOMensaxes(this.conexion, this.fachadaAplicacion);
+        this.daoIncidencias = new DAOIncidencias(this.conexion, this.fachadaAplicacion);
+        this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
+        this.daoActividades = new DAOActividades(this.conexion, this.fachadaAplicacion);
     }
 
     /*
@@ -95,27 +95,27 @@ public final class FachadaBD {
         return daoUsuarios.existeNUSS(nuss);
     }
 
-    public ContasPersoa contasPersoaFisica(String dni){
+    public ContasPersoa contasPersoaFisica(String dni) {
         return daoUsuarios.contasPersoaFisica(dni);
     }
 
-    public boolean validarUsuario(String login,String password) {
-        return daoUsuarios.validarUsuario(login,password);
+    public boolean validarUsuario(String login, String password) {
+        return daoUsuarios.validarUsuario(login, password);
     }
 
-    public void insertarUsuario(Usuario usuario) {
+    public void insertarUsuario(Usuario usuario) throws ExcepcionBD {
         daoUsuarios.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario) {
-        daoUsuarios.actualizarUsuario(loginVello,usuario);
+    public void actualizarUsuario(String loginVello, Usuario usuario) throws ExcepcionBD {
+        daoUsuarios.actualizarUsuario(loginVello, usuario);
     }
 
-    public void darBaixaUsuario(String login) {
+    public void darBaixaUsuario(String login) throws ExcepcionBD {
         daoUsuarios.darBaixaUsuario(login);
     }
 
-    public void darAltaUsuario(String login) {
+    public void darAltaUsuario(String login) throws ExcepcionBD {
         daoUsuarios.darAltaUsuario(login);
     }
 
@@ -127,44 +127,44 @@ public final class FachadaBD {
         return daoUsuarios.consultarUsuario(login);
     }
 
-    public PersoaFisica consultarPersoaFisica(String DNI){
+    public PersoaFisica consultarPersoaFisica(String DNI) {
         return daoUsuarios.consultarPersoaFisica(DNI);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa ) {
-        return daoUsuarios.buscarUsuarios(login,nome,filtroTipo,usuariosDeBaixa);
+    public ArrayList<Usuario> buscarUsuarios(String login, String nome, TipoUsuario filtroTipo, boolean usuariosDeBaixa) {
+        return daoUsuarios.buscarUsuarios(login, nome, filtroTipo, usuariosDeBaixa);
     }
 
-    public Cuota consultarCuota(String login){
+    public Cuota consultarCuota(String login) {
         return daoUsuarios.consultarCuota(login);
     }
 
-    public ArrayList<RexistroFisioloxico> listarRexistros(String login){
+    public ArrayList<RexistroFisioloxico> listarRexistros(String login) {
         return daoUsuarios.listarRexistros(login);
     }
 
-    public void insertarRexistro(RexistroFisioloxico rexistroFisioloxico){
+    public void insertarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         daoUsuarios.insertarRexistro(rexistroFisioloxico);
     }
 
-    public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico){
+    public void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         daoUsuarios.eliminarRexistro(rexistroFisioloxico);
     }
 
-    public ArrayList<TipoActividade> listarCapacidades(String login){
+    public ArrayList<TipoActividade> listarCapacidades(String login) {
         return daoUsuarios.listarCapacidades(login);
     }
 
-    public void engadirCapadidade(String login, TipoActividade tipoActividade){
+    public void engadirCapadidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         daoUsuarios.engadirCapadidade(login, tipoActividade);
     }
 
-    public void eliminarCapacidade(String login, TipoActividade tipoActividade){
+    public void eliminarCapacidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         daoUsuarios.eliminarCapacidade(login, tipoActividade);
     }
 
-    public boolean tenClasesPendentes(Persoal persoal, TipoActividade tipoActividade){
-        return daoUsuarios.tenClasesPendentes(persoal,tipoActividade);
+    public boolean tenClasesPendentes(Persoal persoal, TipoActividade tipoActividade) {
+        return daoUsuarios.tenClasesPendentes(persoal, tipoActividade);
     }
 
     /*
@@ -174,11 +174,11 @@ public final class FachadaBD {
         daoTarifas.insertarTarifa(t);
     }
 
-    public void borrarTarifa(Integer codTarifa) {
+    public void borrarTarifa(Integer codTarifa) throws ExcepcionBD {
         daoTarifas.borrarTarifa(codTarifa);
     }
 
-    public void actualizarTarifa(Tarifa t) {
+    public void actualizarTarifa(Tarifa t) throws ExcepcionBD {
         daoTarifas.actualizarTarifa(t);
     }
 
@@ -194,22 +194,22 @@ public final class FachadaBD {
         return daoTarifas.consultarTarifaSocio(loginSocio);
     }
 
-    public boolean existeTarifa(String nome){
+    public boolean existeTarifa(String nome) {
         return daoTarifas.existeTarifa(nome);
     }
 
     /*
         Funcions DAOMensaxes
      */
-    public void enviarMensaxe(Mensaxe m)  {
+    public void enviarMensaxe(Mensaxe m) throws ExcepcionBD {
         daoMensaxes.enviarMensaxe(m);
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) {
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) throws ExcepcionBD {
         daoMensaxes.enviarMensaxe(emisor, receptores, mensaxe);
     }
 
-    public void marcarMensaxeComoLido(Mensaxe m) {
+    public void marcarMensaxeComoLido(Mensaxe m) throws ExcepcionBD {
         daoMensaxes.marcarMensaxeComoLido(m);
     }
 
@@ -221,23 +221,21 @@ public final class FachadaBD {
         Funcions DAOIncidencias
     */
 
-    public void insertarIncidencia(Incidencia incidencia)  {
+    public void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {
         daoIncidencias.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> listarIncidencias(String descripcion,TipoIncidencia tipoIncidencia)   {
-        return daoIncidencias.listarIncidencias(descripcion,tipoIncidencia);
+    public ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
+        return daoIncidencias.listarIncidencias(descripcion, tipoIncidencia);
     }
 
-    public void resolverIncidencia(Incidencia incidencia) {
+    public void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {
         daoIncidencias.resolverIncidencia(incidencia);
     }
 
     /*
         Funcións DAOInstalacions
      */
-
-
 
 
     //Funcións propias:
@@ -282,11 +280,11 @@ public final class FachadaBD {
         this.daoIncidencias = daoIncidencias;
     }
 
-    public ArrayList<Area> listarAreas(){
+    public ArrayList<Area> listarAreas() {
         return daoInstalacions.listarAreas();
     }
 
-    public ArrayList<TipoActividade> listarTipoActividades(){
+    public ArrayList<TipoActividade> listarTipoActividades() {
         return daoActividades.listarTipoActividades();
     }
 

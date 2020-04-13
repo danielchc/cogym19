@@ -16,9 +16,9 @@ public class XestionTarifas {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
-    public XestionTarifas(FachadaGUI fachadaGUI,FachadaBD fachadaBD) {
-        this.fachadaGUI=fachadaGUI;
-        this.fachadaBD=fachadaBD;
+    public XestionTarifas(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
+        this.fachadaGUI = fachadaGUI;
+        this.fachadaBD = fachadaBD;
     }
 
 
@@ -26,11 +26,11 @@ public class XestionTarifas {
         fachadaBD.insertarTarifa(t);
     }
 
-    public void borrarTarifa(Integer codTarifa) {
+    public void borrarTarifa(Integer codTarifa) throws ExcepcionBD {
         fachadaBD.borrarTarifa(codTarifa);
     }
 
-    public void actualizarTarifa(Tarifa t) {
+    public void actualizarTarifa(Tarifa t) throws ExcepcionBD {
         fachadaBD.actualizarTarifa(t);
     }
 
@@ -45,7 +45,8 @@ public class XestionTarifas {
     public Tarifa consultarTarifaSocio(String loginSocio) {
         return fachadaBD.consultarTarifaSocio(loginSocio);
     }
-    public boolean existeTarifa(String nome){
+
+    public boolean existeTarifa(String nome) {
         return fachadaBD.existeTarifa(nome);
     }
 }

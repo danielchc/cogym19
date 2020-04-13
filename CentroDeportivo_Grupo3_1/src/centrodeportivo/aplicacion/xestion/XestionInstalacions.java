@@ -17,12 +17,12 @@ public class XestionInstalacions {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
-    public XestionInstalacions(FachadaGUI fachadaGUI,FachadaBD fachadaBD) {
-        this.fachadaGUI=fachadaGUI;
-        this.fachadaBD=fachadaBD;
+    public XestionInstalacions(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
+        this.fachadaGUI = fachadaGUI;
+        this.fachadaBD = fachadaBD;
     }
 
-    public ArrayList<Area> listarAreas(){
+    public ArrayList<Area> listarAreas() {
         return fachadaBD.listarAreas();
     }
 }
