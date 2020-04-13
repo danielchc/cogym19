@@ -18,6 +18,7 @@ public class Instalacion {
 
     /**
      * Constructor cun só argumento: o código da instalación (que é a clave primaria).
+     *
      * @param codInstalacion
      */
     public Instalacion(int codInstalacion) {
@@ -27,6 +28,7 @@ public class Instalacion {
     /**
      * Constructor con tres argumentos: usarase cando un usuario queira introducir unha nova instalación, dado que
      * inicialmente non se coñecerá o seu código (ata que se inserte).
+     *
      * @param nome
      * @param numTelefono
      * @param direccion
@@ -40,6 +42,7 @@ public class Instalacion {
 
     /**
      * Constructor con todos os argumentos, para os casos nos que se teña toda a información (ao recuperala).
+     *
      * @param codInstalacion
      * @param nome
      * @param numTelefono
@@ -52,6 +55,7 @@ public class Instalacion {
 
     /**
      * Getter do código da instalación.
+     *
      * @return codInstalación -> O código da instalación
      */
     public int getCodInstalacion() {
@@ -60,6 +64,7 @@ public class Instalacion {
 
     /**
      * Setter do código da instalación
+     *
      * @param codInstalacion
      */
     public void setCodInstalacion(int codInstalacion) {
@@ -68,6 +73,7 @@ public class Instalacion {
 
     /**
      * Getter do nome da instalación
+     *
      * @return nome -> Nome da instalación
      */
     public String getNome() {
@@ -76,6 +82,7 @@ public class Instalacion {
 
     /**
      * Setter do nome da instalación
+     *
      * @param nome
      */
     public void setNome(String nome) {
@@ -84,6 +91,7 @@ public class Instalacion {
 
     /**
      * Getter do número de teléfono da instalación
+     *
      * @return numTelefono -> O número de teléfono da instalación.
      */
     public String getNumTelefono() {
@@ -92,6 +100,7 @@ public class Instalacion {
 
     /**
      * Setter do número de teléfono da instalación
+     *
      * @param numTelefono
      */
     public void setNumTelefono(String numTelefono) {
@@ -100,6 +109,7 @@ public class Instalacion {
 
     /**
      * Getter da dirección da instalación:
+     *
      * @return direccion -> A dirección da instalación
      */
     public String getDireccion() {
@@ -108,6 +118,7 @@ public class Instalacion {
 
     /**
      * Setter da dirección da instalación
+     *
      * @param direccion
      */
     public void setDireccion(String direccion) {
@@ -116,6 +127,7 @@ public class Instalacion {
 
     /**
      * Método que permite convertir unha instalación a cadea de caracteres.
+     *
      * @return instalacion representada en forma de caracteres polos seus campos.
      */
     @Override
@@ -130,13 +142,14 @@ public class Instalacion {
 
     /**
      * Método que comproba se dúas instalacións son iguais.
+     *
      * @param obj
      * @return booleano que indica se a instalación coincide coa pasada como argumento.
      */
     @Override
-    public boolean equals(Object obj){
-        if(obj instanceof Instalacion){
-            if(((Instalacion)obj).getCodInstalacion() == this.codInstalacion){
+    public boolean equals(Object obj) {
+        if (obj instanceof Instalacion) {
+            if (((Instalacion) obj).getCodInstalacion() == this.codInstalacion) {
                 return true;
             }
         }
