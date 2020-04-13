@@ -24,7 +24,7 @@
     <center>
         <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="listaUsuarios" layoutX="14.0" layoutY="102.0" onMouseClicked="#listenerTabla" prefHeight="274.0" prefWidth="657.0">
+            <TableView fx:id="listaUsuarios" layoutX="23.0" layoutY="102.0" onMouseClicked="#listenerTabla" prefHeight="274.0" prefWidth="657.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="6.600000000000023">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
@@ -49,23 +49,23 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
-            <Button layoutX="466.0" layoutY="385.0" mnemonicParsing="false" onAction="#modificarUsuario" text="Modificar">
+            <Button layoutX="466.0" layoutY="385.0" mnemonicParsing="false" onAction="#modificarUsuario" text="Modificar" AnchorPane.bottomAnchor="10.999999999999979" AnchorPane.rightAnchor="135.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnBorrar" layoutX="568.0" layoutY="385.0" mnemonicParsing="false" onAction="#activarDesactivarUsuario" text="Dar de baixa">
+            <Button fx:id="btnBorrar" layoutX="568.0" layoutY="385.0" mnemonicParsing="false" onAction="#activarDesactivarUsuario" text="Dar de baixa" AnchorPane.bottomAnchor="10.999999999999979" AnchorPane.rightAnchor="20.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
             <ComboBox fx:id="campoTipoUsuario" layoutX="98.0" layoutY="64.0" prefHeight="25.0" prefWidth="135.0" />
-            <CheckBox fx:id="mostrarUsuariosBaixa" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" text="Mostrar Usuarios de Baixa">
+            <CheckBox fx:id="mostrarUsuariosBaixa" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" text="Mostrar Usuarios de Baixa" AnchorPane.bottomAnchor="21.399999999999977" AnchorPane.leftAnchor="14.0">
                <font>
                   <Font size="14.0" />
                </font>
             </CheckBox>
-            <Button fx:id="btnCapacidades" layoutX="337.0" layoutY="385.0" mnemonicParsing="false" onAction="#capacidadeUsuario" prefHeight="30.0" prefWidth="108.0" text="Capacidades">
+            <Button fx:id="btnCapacidades" layoutX="337.0" layoutY="385.0" mnemonicParsing="false" onAction="#capacidadeUsuario" prefHeight="30.0" prefWidth="108.0" text="Capacidades" AnchorPane.bottomAnchor="10.999999999999979" AnchorPane.rightAnchor="230.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
