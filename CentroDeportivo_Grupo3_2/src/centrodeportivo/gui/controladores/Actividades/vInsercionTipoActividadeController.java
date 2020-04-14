@@ -117,9 +117,6 @@ public class vInsercionTipoActividadeController extends AbstractController imple
             } catch (ExcepcionBD excepcionBD) {
                 excepcionBD.printStackTrace();
             }
-            if (tipoActividade.getCodTipoActividade() != 0) {
-                this.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades", "Insertado o tipo de actividade. O seu id é " + tipoActividade.getCodTipoActividade() + ".");
-            }
         }
 
     }
