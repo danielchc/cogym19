@@ -38,6 +38,8 @@ public class vAdministrarIncidenciasController extends AbstractController implem
 
         TableColumn<Incidencia,String> numeroColumn = new TableColumn<>("Número");
         numeroColumn.setCellValueFactory(new PropertyValueFactory<>("numero"));
+
+
         TableColumn<Incidencia,String> usuarioColumn = new TableColumn<>("Usuario");
         usuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
             @Override
@@ -57,12 +59,12 @@ public class vAdministrarIncidenciasController extends AbstractController implem
             }
         });
 
-        TableColumn<Incidencia,String> obxecto = new TableColumn<>("WHO");
+        TableColumn<Incidencia,String> obxecto = new TableColumn<>("Material/Area");
         obxecto.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
                 if(param.getValue().getTipoIncidencia()==TipoIncidencia.Area)return new SimpleObjectProperty<String>(((IncidenciaArea)param.getValue()).getArea().getNome());
-                else return new SimpleObjectProperty<String>(((IncidenciaMaterial)param.getValue()).getMaterial().getTipoNombre());
+                else return new SimpleObjectProperty<String>(String.format("%s %s", ((IncidenciaMaterial)param.getValue()).getMaterial().getTipoNombre(),((IncidenciaMaterial)param.getValue()).getMaterial().getCodMaterial()));
             }
         });
 
