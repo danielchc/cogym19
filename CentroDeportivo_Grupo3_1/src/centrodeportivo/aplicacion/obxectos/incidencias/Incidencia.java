@@ -16,7 +16,6 @@ public abstract class Incidencia {
     /**
      * Atributos da clase Incidencia
      */
-    private TipoIncidencia tipoIncidencia;
     private int numero;
     private Usuario usuario;
     private String descricion;
@@ -47,23 +46,28 @@ public abstract class Incidencia {
      * Contructor con todos os datos dunha incidencia
      * @param numero número
      * @param usuario usuario que a presenta
-     * @param descripcion descripción da incidencia
+     * @param descricion descripción da incidencia
      */
-    public Incidencia(int numero, Usuario usuario, String descripcion) {
-        this(usuario, descripcion);
+    public Incidencia(int numero, Usuario usuario, String descricion, String comentarioResolucion, Date dataFalla, Date dataResolucion, float custoReparacion) {
         this.numero = numero;
+        this.usuario = usuario;
+        this.descricion = descricion;
+        this.comentarioResolucion = comentarioResolucion;
+        this.dataFalla = dataFalla;
+        this.dataResolucion = dataResolucion;
+        this.custoReparacion = custoReparacion;
+    }
+
+    public Incidencia(int numero, Usuario usuario, String descricion) {
+        this.numero = numero;
+        this.usuario = usuario;
+        this.descricion = descricion;
     }
 
     /**
      *  Getters e Setters.
      */
-    public TipoIncidencia getTipoIncidencia() {
-        return tipoIncidencia;
-    }
-
-    public void setTipoIncidencia(TipoIncidencia tipoIncidencia) {
-        this.tipoIncidencia = tipoIncidencia;
-    }
+    public abstract TipoIncidencia getTipoIncidencia();
 
     public int getNumero() {
         return numero;
@@ -127,7 +131,6 @@ public abstract class Incidencia {
     @Override
     public String toString() {
         return "Incidencia{" +
-                "tipoIncidencia=" + tipoIncidencia +
                 ", numero=" + numero +
                 ", usuario=" + usuario +
                 ", descricion='" + descricion + '\'' +

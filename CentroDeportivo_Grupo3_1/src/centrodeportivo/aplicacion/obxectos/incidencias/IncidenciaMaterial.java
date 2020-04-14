@@ -4,6 +4,8 @@ import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
+import java.sql.Date;
+
 /**
  * @author David Carracedo
  * @author Daniel Chenel
@@ -21,19 +23,35 @@ public class IncidenciaMaterial extends Incidencia{
      */
     public IncidenciaMaterial(int numero) {
         super(numero);
-        super.setTipoIncidencia(TipoIncidencia.Material);
+    }
+
+    public IncidenciaMaterial(int numero, Usuario usuario, String descricionIncidencia, Material material) {
+        super(numero,usuario,descricionIncidencia);
+        this.material=material;
+    }
+
+    /**
+     * Getters e Setters.
+     */
+    @Override
+    public TipoIncidencia getTipoIncidencia() {
+        return TipoIncidencia.Material;
     }
 
     /**
      * Contructor con todos os datos dunha incidencia
-     * @param numero número
-     * @param usuario usuario que a presenta
-     * @param descripcion descripción da incidencia
+     *
+     * @param numero               número
+     * @param usuario              usuario que a presenta
+     * @param descricion           descripción da incidencia
+     * @param comentarioResolucion
+     * @param dataFalla
+     * @param dataResolucion
+     * @param custoReparacion
      */
-    public IncidenciaMaterial(int numero, Usuario usuario, String descripcion, Material material) {
-        super(numero, usuario, descripcion);
-        this.material=material;
-        super.setTipoIncidencia(TipoIncidencia.Material);
+    public IncidenciaMaterial(int numero, Usuario usuario, String descricion, String comentarioResolucion, Date dataFalla, Date dataResolucion, float custoReparacion, Material material) {
+        super(numero, usuario, descricion, comentarioResolucion, dataFalla, dataResolucion, custoReparacion);
+        this.material = material;
     }
 
     /**

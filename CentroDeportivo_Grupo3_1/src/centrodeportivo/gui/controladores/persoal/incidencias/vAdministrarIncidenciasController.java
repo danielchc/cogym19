@@ -25,6 +25,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
 
     public TableView listaIncidencias;
     public ComboBox campoTipoIncidencia;
+    public TextField campoBuscar;
     private vPrincipalController vPrincipal;
 
     public vAdministrarIncidenciasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
@@ -51,16 +52,18 @@ public class vAdministrarIncidenciasController extends AbstractController implem
             }
         });
 
-        TableColumn<Incidencia,String> obxecto = new TableColumn<>("Material/Area");
-        obxecto.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
+        TableColumn<Incidencia,String> obxetoColumn = new TableColumn<>("Material/Area");
+        obxetoColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
-                if(param.getValue().getTipoIncidencia()==TipoIncidencia.Area)return new SimpleObjectProperty<String>(((IncidenciaArea)param.getValue()).getArea().getNome());
-                else return new SimpleObjectProperty<String>(String.format("%s %s", ((IncidenciaMaterial)param.getValue()).getMaterial().getTipoNombre(),((IncidenciaMaterial)param.getValue()).getMaterial().getCodMaterial()));
+                if(param.getValue() instanceof IncidenciaArea)
+                    return new SimpleObjectProperty<String>(((IncidenciaArea)param.getValue()).getArea().getNome());
+                else
+                    return new SimpleObjectProperty<String>(String.format("%s %s", ((IncidenciaMaterial)param.getValue()).getMaterial().getTipoNombre(),((IncidenciaMaterial)param.getValue()).getMaterial().getCodMaterial()));
             }
         });
 
-        listaIncidencias.getColumns().addAll(tipoIncidenciaColumn,numeroColumn,obxecto,descricionColumn);
+        listaIncidencias.getColumns().addAll(tipoIncidenciaColumn,numeroColumn,obxetoColumn,descricionColumn);
         listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias());
         campoTipoIncidencia.getItems().addAll(TipoIncidencia.values());
         campoTipoIncidencia.getSelectionModel().selectFirst();
@@ -69,7 +72,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
 
     public void buscarIncidencias(){
         listaIncidencias.getItems().removeAll(listaIncidencias.getItems());
-        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias("",TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()]));
+        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias(campoBuscar.getText(),TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()]));
     }
 
 

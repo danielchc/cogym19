@@ -1,9 +1,10 @@
 package centrodeportivo.aplicacion.obxectos.incidencias;
 
-import centrodeportivo.aplicacion.obxectos.Material;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+
+import java.sql.Date;
 
 /**
  * @author David Carracedo
@@ -22,19 +23,35 @@ public class IncidenciaArea extends Incidencia {
      */
     public IncidenciaArea(int numero) {
         super(numero);
-        super.setTipoIncidencia(TipoIncidencia.Area);
+    }
+
+    public IncidenciaArea(int numero, Usuario usuario, String descricionIncidencia, Area area) {
+        super(numero,usuario,descricionIncidencia);
+        this.area=area;
+    }
+
+    /**
+     * Getters e Setters.
+     */
+    @Override
+    public TipoIncidencia getTipoIncidencia() {
+        return TipoIncidencia.Area;
     }
 
     /**
      * Contructor con todos os datos dunha incidencia
-     * @param numero número
-     * @param usuario usuario que a presenta
-     * @param descripcion descripción da incidencia
+     *
+     * @param numero               número
+     * @param usuario              usuario que a presenta
+     * @param descricion           descripción da incidencia
+     * @param comentarioResolucion
+     * @param dataFalla
+     * @param dataResolucion
+     * @param custoReparacion
      */
-    public IncidenciaArea(int numero, Usuario usuario, String descripcion, Area area) {
-        super(numero, usuario, descripcion);
-        super.setTipoIncidencia(TipoIncidencia.Area);
-        this.area=area;
+    public IncidenciaArea(int numero, Usuario usuario, String descricion, String comentarioResolucion, Date dataFalla, Date dataResolucion, float custoReparacion, Area area) {
+        super(numero, usuario, descricion, comentarioResolucion, dataFalla, dataResolucion, custoReparacion);
+        this.area = area;
     }
 
     /**

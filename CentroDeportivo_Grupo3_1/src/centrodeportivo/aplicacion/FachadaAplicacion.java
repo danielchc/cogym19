@@ -275,8 +275,8 @@ public class FachadaAplicacion extends Application {
     public ArrayList<Incidencia> listarIncidencias(){
         return xestionIncidencias.listarIncidencias();
     }
-    public ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
-        return xestionIncidencias.listarIncidencias(descripcion, tipoIncidencia);
+    public ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
+        return xestionIncidencias.listarIncidencias(textoBuscar, tipoIncidencia);
     }
 
     public void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {

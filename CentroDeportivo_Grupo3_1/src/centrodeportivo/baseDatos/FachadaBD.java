@@ -224,8 +224,8 @@ public final class FachadaBD {
         daoIncidencias.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
-        return daoIncidencias.listarIncidencias(descripcion, tipoIncidencia);
+    public ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
+        return daoIncidencias.listarIncidencias(textoBuscar, tipoIncidencia);
     }
 
     public void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {

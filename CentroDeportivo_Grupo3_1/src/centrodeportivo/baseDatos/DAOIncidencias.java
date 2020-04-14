@@ -52,27 +52,31 @@ public final class DAOIncidencias extends AbstractDAO {
         }
     }
 
-    protected ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
+    protected ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
         PreparedStatement stmIncidencia = null;
         ArrayList<Incidencia> incidencias = new ArrayList<Incidencia>();
         ResultSet rsIncidencias;
         try {
             if (tipoIncidencia == TipoIncidencia.Area || tipoIncidencia == TipoIncidencia.Todos) {
-                stmIncidencia = super.getConexion().prepareStatement("SELECT *,ar.nome AS nombreArea,it.nome AS nombreInstalacion,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea JOIN instalacion AS it  ON ar.instalacion=it.codInstalacion");
+                stmIncidencia = super.getConexion().prepareStatement(
+                        "SELECT *,ar.nome AS nomeArea,it.nome AS nomeInstalacion,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea JOIN instalacion AS it  ON ar.instalacion=it.codInstalacion " +
+                                " WHERE ((LOWER(ar.nome) LIKE LOWER(?) ) OR (LOWER(it.nome) LIKE LOWER(?) ))");
+                stmIncidencia.setString(1, "%"+textoBuscar+"%");
+                stmIncidencia.setString(2, "%"+textoBuscar+"%");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Area area;
                 Instalacion instalacion;
                 while (rsIncidencias.next()) {
                     instalacion = new Instalacion(
                             rsIncidencias.getInt("codInstalacion"),
-                            rsIncidencias.getString("nombreInstalacion"),
+                            rsIncidencias.getString("nomeInstalacion"),
                             rsIncidencias.getString("numTelefono"),
                             rsIncidencias.getString("direccion")
                     );
                     area = new Area(
                             rsIncidencias.getInt("codArea"),
                             instalacion,
-                            rsIncidencias.getString("nombreArea"),
+                            rsIncidencias.getString("nomeArea"),
                             rsIncidencias.getString("descricionArea"),
                             rsIncidencias.getInt("aforoMaximo"),
                             rsIncidencias.getDate("dataBaixa")
@@ -81,14 +85,20 @@ public final class DAOIncidencias extends AbstractDAO {
                             rsIncidencias.getInt("numero"),
                             new Usuario(rsIncidencias.getString("usuario")),
                             rsIncidencias.getString("descricionIncidencia"),
+                            rsIncidencias.getString("comentarioResolucion"),
+                            rsIncidencias.getDate("dataFalla"),
+                            rsIncidencias.getDate("dataResolucion"),
+                            rsIncidencias.getFloat("custoReparacion"),
                             area
                     ));
                 }
             }
             if (tipoIncidencia == TipoIncidencia.Material || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement("SELECT " +
-                        "im.numero,im.material, im.tipomaterial,tm.nome AS tipoMaterialNome,im.usuario,im.comentarioresolucion,im.descricion AS descricionIncidencia,ma.area,ma.instalacion,ma.estado,ma.prezocompra,ma.dataCompra " +
-                        "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial");
+                        "*,tm.nome AS tipoMaterialNome,im.descricion AS descricionIncidencia " +
+                        "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial " +
+                        "WHERE ((LOWER(tm.nome) LIKE LOWER(?) ))");
+                stmIncidencia.setString(1, "%"+textoBuscar+"%");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Material material;
                 while (rsIncidencias.next()) {
@@ -108,6 +118,10 @@ public final class DAOIncidencias extends AbstractDAO {
                             rsIncidencias.getInt("numero"),
                             new Usuario(rsIncidencias.getString("usuario")),
                             rsIncidencias.getString("descricionIncidencia"),
+                            rsIncidencias.getString("comentarioResolucion"),
+                            rsIncidencias.getDate("dataFalla"),
+                            rsIncidencias.getDate("dataResolucion"),
+                            rsIncidencias.getFloat("custoReparacion"),
                             material
                     ));
                 }
@@ -127,14 +141,14 @@ public final class DAOIncidencias extends AbstractDAO {
     protected void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {
         PreparedStatement stmIncidencia = null;
         try {
-            if (incidencia.getTipoIncidencia() == TipoIncidencia.Area) {
+            if (incidencia instanceof IncidenciaArea) {
                 stmIncidencia = super.getConexion().prepareStatement("UPDATE incidenciaArea SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
                 stmIncidencia.setString(1, incidencia.getComentarioResolucion());
                 stmIncidencia.setDouble(2, incidencia.getCustoReparacion());
                 stmIncidencia.setInt(3, incidencia.getNumero());
                 System.out.println(stmIncidencia);
                 stmIncidencia.executeUpdate();
-            } else {
+            } else if (incidencia instanceof IncidenciaMaterial){
                 stmIncidencia = super.getConexion().prepareStatement("UPDATE incidenciaMaterial SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
                 stmIncidencia.setString(1, incidencia.getComentarioResolucion());
                 stmIncidencia.setDouble(2, incidencia.getCustoReparacion());

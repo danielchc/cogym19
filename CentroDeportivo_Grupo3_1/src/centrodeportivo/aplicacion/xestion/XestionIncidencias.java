@@ -30,8 +30,8 @@ public class XestionIncidencias {
         return fachadaBD.listarIncidencias("", TipoIncidencia.Todos);
     }
 
-    public ArrayList<Incidencia> listarIncidencias(String descripcion, TipoIncidencia tipoIncidencia) {
-        return fachadaBD.listarIncidencias(descripcion, tipoIncidencia);
+    public ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
+        return fachadaBD.listarIncidencias(textoBuscar, tipoIncidencia);
     }
 
     public void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {
