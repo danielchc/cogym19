@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -53,16 +54,18 @@ public class vLoginController  extends AbstractController implements Initializab
      * Encaso correcto, consultase o tipo de usuario e iniciase a ventá correspondente.
      */
     public void btnIniciarAction() {
+        Usuario usuarioLogeado;
         if(ValidacionDatos.estanCubertosCampos(tfUsuario,tfContrasinal)){
             try{
                 if(fa.validarUsuario(tfUsuario.getText(),tfContrasinal.getText())){
-                    switch (fa.consultarTipo(tfUsuario.getText())){
+                    usuarioLogeado=fa.consultarUsuario(tfUsuario.getText());
+                    switch (usuarioLogeado.getTipoUsuario()){
                         case Socio:
-                            fa.mostrarVentaSocios(fa.consultarUsuario(tfUsuario.getText()));
+                            fa.mostrarVentaSocios(usuarioLogeado);
                             break;
                         case Persoal:
                         case Profesor:
-                            fa.mostrarVentaPersoal(fa.consultarUsuario(tfUsuario.getText()));
+                            fa.mostrarVentaPersoal(usuarioLogeado);
                             break;
                     }
                     ((Stage) tfUsuario.getScene().getWindow()).close();
