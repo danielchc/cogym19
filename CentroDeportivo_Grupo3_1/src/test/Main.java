@@ -7,7 +7,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.funcionsAux.Criptografia;
-import centrodeportivo.funcionsAux.ListenerEnterPulsado;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 
 import javax.management.InstanceAlreadyExistsException;

@@ -10,9 +10,12 @@ import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -96,6 +99,21 @@ public class vAdministrarUsuariosController extends AbstractController implement
         campoTipoUsuario.getItems().addAll(TipoUsuario.values());
         campoTipoUsuario.getSelectionModel().selectFirst();
         listaUsuarios.setPlaceholder(new Label("Non se atoparon usuarios"));
+        iniciarListeners();
+    }
+
+    /**
+     * Método para añadir o pulsado de Enter aos campos e gardar automáticamente.
+     */
+    private void iniciarListeners(){
+        EventHandler<KeyEvent> handler=new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if(keyEvent.getCode() == KeyCode.ENTER) buscarUsuarios();
+            }
+        };
+        campoNomeBuscar.setOnKeyPressed(handler);
+        campoLoginBuscar.setOnKeyPressed(handler);
     }
 
     /**

@@ -16,9 +16,11 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -107,14 +109,15 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         this.tipoUsuario.getSelectionModel().selectFirst();
         this.usuarioModificar=null;
         cambiarTipo();
+        iniciarListeners();
     }
 
 
     /**
      * Método para realizar a acción de gardar cando se pulsa o botón de gardar.
-     * @param actionEvent evento
+     *
      */
-    public void btnGardarAccion(ActionEvent actionEvent) {
+    public void btnGardarAccion() {
         if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
             this.labelError.setText("Algún campo sen cubrir.");
             return;
@@ -371,11 +374,32 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         return true;
     }
 
+    /**
+     * Método para añadir o pulsado de Enter aos campos e gardar automáticamente.
+     */
+    private void iniciarListeners(){
+        EventHandler<KeyEvent> handler=new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if(keyEvent.getCode() == KeyCode.ENTER) btnGardarAccion();
+            }
+        };
+        campoNome.setOnKeyPressed(handler);
+        campoLogin.setOnKeyPressed(handler);
+        campoPassword.setOnKeyPressed(handler);
+        campoTelf.setOnKeyPressed(handler);
+        campoCorreo.setOnKeyPressed(handler);
+        campoIBAN.setOnKeyPressed(handler);
+        campoDificultades.setOnKeyPressed(handler);
+        campoNUSS.setOnKeyPressed(handler);
+    }
+
 
     /**
      * Método para autocompletar os datos dun usuario para modificar.
      */
     private void cargarDatosUsuario(){
+        System.out.println(usuarioModificar);
         if(usuarioModificar==null)return;
         this.loginVello=usuarioModificar.getLogin();
         campoNome.setText(usuarioModificar.getNome());

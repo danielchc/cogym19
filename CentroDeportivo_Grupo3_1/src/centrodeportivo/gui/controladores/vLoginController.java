@@ -2,8 +2,9 @@ package centrodeportivo.gui.controladores;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.funcionsAux.ListenerEnterPulsado;
 import centrodeportivo.funcionsAux.ValidacionDatos;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -46,13 +47,14 @@ public class vLoginController  extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tfUsuario.setOnKeyPressed(new ListenerEnterPulsado(new Callable() {
+        EventHandler<KeyEvent> handler=new EventHandler<KeyEvent>() {
             @Override
-            public Object call() throws Exception {
-                btnIniciarAction();
-                return null;
+            public void handle(KeyEvent keyEvent) {
+                if(keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
             }
-        }));
+        };
+        tfUsuario.setOnKeyPressed(handler);
+        tfContrasinal.setOnKeyPressed(handler);
     }
 
 
@@ -86,14 +88,6 @@ public class vLoginController  extends AbstractController implements Initializab
         }else{
             labelError.setText("Algún campo está incompleto");
         }
-    }
-
-    /**
-     * Listener para iniciar sesión ao pulsar enter.
-     * @param keyEvent evento
-     */
-    public void keyPressedIniciar(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
     }
 
 
