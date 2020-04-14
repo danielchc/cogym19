@@ -69,7 +69,6 @@ public class vNovoMensaxeController extends AbstractController implements Initia
      */
     public vNovoMensaxeController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
-        this.emisor=super.getvPrincipalController().obterUsuarioLogeado();
         this.receptor=null;
         this.vPrincipalController=vPrincipalController;
     }
@@ -81,6 +80,8 @@ public class vNovoMensaxeController extends AbstractController implements Initia
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.emisor=super.getvPrincipalController().obterUsuarioLogeado();
+
         this.tAbrir = new TranslateTransition(Duration.millis(100),tablaUsuarios);
         this.tAbrir.setToX(tablaUsuarios.getTranslateX()-tablaUsuarios.getWidth());
         this.tCerrar = new TranslateTransition(Duration.millis(100), tablaUsuarios);

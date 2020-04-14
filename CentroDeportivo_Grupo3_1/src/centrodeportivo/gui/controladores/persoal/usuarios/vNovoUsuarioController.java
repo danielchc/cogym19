@@ -152,7 +152,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             );
             try{
                 if(usuarioModificar!=null){
-                    super.getFachadaAplicacion().actualizarUsuario(loginVello,socio,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
+                    super.getFachadaAplicacion().actualizarUsuario(loginVello,socio,!usuarioModificar.getContrasinal().equals(campoPassword.getText()));
+                    super.getvPrincipalController().setUsuarioLogeado(socio);
                     this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
                 }else{
                     this.fachadaAplicacion.insertarUsuario(socio);
@@ -186,7 +187,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                         fachadaAplicacion.mostrarErro("Clases pendentes","O persoal "+persoal.getLogin()+ " non pode deixar de ser profesor porque ten clases pendentes.");
                         return;
                     }
-                    super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal,!usuarioModificar.getContrasinal().equals(Criptografia.hashSHA256(campoPassword.getText())));
+                    super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal,!usuarioModificar.getContrasinal().equals(campoPassword.getText()));
+                    super.getvPrincipalController().setUsuarioLogeado(persoal);
                     this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
                 }else{
                     this.fachadaAplicacion.insertarUsuario(persoal);

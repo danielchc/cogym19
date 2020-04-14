@@ -268,7 +268,7 @@ public class vPrincipalController extends AbstractController implements Initiali
     public void perfilUsuarioAction(){
         esconderTodosSliders();
         mostrarMenu(IdPantalla.NOVOUSUARIO);
-        ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(this.usuarioLogeado);
+        ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(super.getFachadaAplicacion().consultarUsuario(this.usuarioLogeado.getLogin()));
     }
 
     /**
@@ -288,5 +288,12 @@ public class vPrincipalController extends AbstractController implements Initiali
     }
 
 
+    public Usuario getUsuarioLogeado() {
+        return usuarioLogeado;
+    }
 
+    public void setUsuarioLogeado(Usuario usuarioLogeado) {
+        System.out.println(usuarioLogeado);
+        this.usuarioLogeado = usuarioLogeado;
+    }
 }

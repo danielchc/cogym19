@@ -53,7 +53,6 @@ public class vMensaxesController extends AbstractController implements Initializ
      */
     public vMensaxesController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
-        this.receptor=super.getvPrincipalController().obterUsuarioLogeado();
         this.fachadaAplicacion=super.getFachadaAplicacion();
     }
 
@@ -64,6 +63,8 @@ public class vMensaxesController extends AbstractController implements Initializ
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.receptor=super.getvPrincipalController().obterUsuarioLogeado();
+
         this.containerMensaxe.setVisible(false);
         this.containerChats.setPlaceholder(new Label("Buzón vacío"));
         TableColumn<Mensaxe, String> column = new TableColumn<>("Chats");
