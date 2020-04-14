@@ -25,7 +25,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -282,6 +281,10 @@ public final class FachadaBD {
 
     public ArrayList<Area> listarAreas() {
         return daoInstalacions.listarAreas();
+    }
+
+    public ArrayList<Material> listarMateriais() {
+        return daoInstalacions.listarMateriais();
     }
 
     public ArrayList<TipoActividade> listarTipoActividades() {

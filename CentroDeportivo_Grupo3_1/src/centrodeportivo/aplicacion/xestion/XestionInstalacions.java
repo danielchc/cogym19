@@ -6,7 +6,6 @@ import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * @author David Carracedo
@@ -24,5 +23,8 @@ public class XestionInstalacions {
 
     public ArrayList<Area> listarAreas() {
         return fachadaBD.listarAreas();
+    }
+    public ArrayList<Material> listarMateriais() {
+        return fachadaBD.listarMateriais();
     }
 }

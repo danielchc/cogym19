@@ -42,7 +42,6 @@ public class DAOInstalacions extends AbstractDAO {
                         rsAreas.getInt("aforoMaximo"),
                         rsAreas.getDate("databaixa")
                 );
-                area.setMateriais(listarMaterialArea(area));
                 listaAreas.add(area);
             }
         } catch (SQLException e) {
@@ -57,21 +56,19 @@ public class DAOInstalacions extends AbstractDAO {
         return listaAreas;
     }
 
-    protected ArrayList<Material> listarMaterialArea(Area area){
+    protected ArrayList<Material> listarMateriais(){
         PreparedStatement stmMateriais = null;
         ArrayList<Material> listaMaterial=new ArrayList<>();
         ResultSet rsMaterial;
         try {
-            stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material AS ma JOIN tipomaterial AS tp ON ma.tipomaterial=tp.codtipomaterial WHERE area=? AND instalacion=? ORDER BY tp.nome;");
-            stmMateriais.setInt(1, area.getCodArea());
-            stmMateriais.setInt(2, area.getInstalacion().getCodInstalacion());
+            stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material AS ma JOIN tipomaterial AS tp ON ma.tipomaterial=tp.codtipomaterial ORDER BY tp.nome;");
             rsMaterial = stmMateriais.executeQuery();
             while (rsMaterial.next()) {
                 listaMaterial.add(new Material(
                                 rsMaterial.getInt("codmaterial"),
                                 rsMaterial.getInt("tipomaterial"),
                                 rsMaterial.getString("nome"),
-                                area,
+                                new Area(rsMaterial.getInt("area"),new Instalacion(rsMaterial.getInt("instalacion"))),
                                 rsMaterial.getString("estado"),
                                 rsMaterial.getDate("datacompra"),
                                 rsMaterial.getFloat("prezocompra")

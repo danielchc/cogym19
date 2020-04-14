@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author David Carracedo
@@ -30,6 +31,7 @@ public class vNovaIncidencia extends AbstractController implements Initializable
     public TextArea campoDescricion;
     private Usuario usuario;
     private ArrayList<Area> listaAreas;
+    private ArrayList<Material> listaMaterial;
 
     public vNovaIncidencia(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
@@ -39,13 +41,19 @@ public class vNovaIncidencia extends AbstractController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.listaAreas=super.getFachadaAplicacion().listarAreas();
+        this.listaMaterial=super.getFachadaAplicacion().listarMateriais();
+
         TreeItem rootItem = new TreeItem();
         TreeItem areaActual;
         this.selectorIncidencia.setRoot(rootItem);
         this.selectorIncidencia.setShowRoot(false);
         for(Area area:this.listaAreas){
+            area.setMateriais(new ArrayList<>(this.listaMaterial.stream().filter(f->f.getArea().equals(area)).collect(Collectors.toList())));
             areaActual= new TreeItem(area);
-            for (Material m:area.getMateriais())areaActual.getChildren().add(new TreeItem(m));
+            for (Material m:area.getMateriais()){
+                m.setArea(area);
+                areaActual.getChildren().add(new TreeItem(m));
+            }
             rootItem.getChildren().add(areaActual);
         }
 

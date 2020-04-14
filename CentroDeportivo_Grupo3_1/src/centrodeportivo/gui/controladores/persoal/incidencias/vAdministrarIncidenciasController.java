@@ -40,14 +40,6 @@ public class vAdministrarIncidenciasController extends AbstractController implem
         numeroColumn.setCellValueFactory(new PropertyValueFactory<>("numero"));
 
 
-        TableColumn<Incidencia,String> usuarioColumn = new TableColumn<>("Usuario");
-        usuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Incidencia, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Incidencia, String> param) {
-                return new SimpleObjectProperty<String>(param.getValue().getUsuario().getLogin().toString());
-            }
-        });
-
         TableColumn<Incidencia,String> descricionColumn = new TableColumn<>("Descrición");
         descricionColumn.setCellValueFactory(new PropertyValueFactory<>("descricion"));
 
@@ -68,7 +60,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
             }
         });
 
-        listaIncidencias.getColumns().addAll(tipoIncidenciaColumn,numeroColumn,usuarioColumn,descricionColumn,obxecto);
+        listaIncidencias.getColumns().addAll(tipoIncidenciaColumn,numeroColumn,obxecto,descricionColumn);
         listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias());
         campoTipoIncidencia.getItems().addAll(TipoIncidencia.values());
         campoTipoIncidencia.getSelectionModel().selectFirst();

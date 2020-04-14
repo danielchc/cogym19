@@ -135,9 +135,7 @@ public class Area {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Area area = (Area) o;
-        return codArea == area.codArea &&
-                Objects.equals(instalacion, area.instalacion) &&
-                Objects.equals(nome, area.nome);
+        return ((this.codArea==((Area) o).codArea) && (this.instalacion.getCodInstalacion()==((Area) o).getInstalacion().getCodInstalacion()));
     }
 
     @Override

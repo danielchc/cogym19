@@ -290,6 +290,13 @@ public class FachadaAplicacion extends Application {
         return xestionInstalacions.listarAreas();
     }
 
+    public ArrayList<Material> listarMateriais() {
+        return fachadaBD.listarMateriais();
+    }
+
+    /*
+        Xestión Actividades
+     */
     public ArrayList<TipoActividade> listarTipoActividades(){
         return xestionActividades.listarTipoActividades();
     }
