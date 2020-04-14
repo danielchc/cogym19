@@ -73,6 +73,7 @@ public class vNovaInstalacionController extends AbstractController implements In
                 case datoExiste:
                     //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
                     this.getFachadaAplicacion().mostrarErro("Administración de Instalacións", "Xa hai unha instalación co nome '" + instalacion.getNome().toLowerCase() + "'.");
+                    break;
             }
         } catch (ExcepcionBD e) {
             //Se se recibe unha excepción da base de datos, entón imprímese unha mensaxe informando.
