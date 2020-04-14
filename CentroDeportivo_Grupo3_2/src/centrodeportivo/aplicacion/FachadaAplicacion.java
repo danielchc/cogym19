@@ -116,16 +116,16 @@ public class FachadaAplicacion extends Application {
         Xestión TIPOS de actividade
      */
 
-    public void crearTipoActividade (TipoActividade tipoActividade){
-        xestionActividades.crearTipoActividade(tipoActividade);
+    public TipoResultados crearTipoActividade (TipoActividade tipoActividade) throws ExcepcionBD {
+        return xestionActividades.crearTipoActividade(tipoActividade);
     }
 
-    public void modificarTipoActividade(TipoActividade tipoActividade){
+    public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         xestionActividades.modificarTipoActividade(tipoActividade);
     }
 
-    public void eliminarTipoActividade(TipoActividade tipoActividade){
-        xestionActividades.eliminarTipoActividade(tipoActividade);
+    public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        return xestionActividades.eliminarTipoActividade(tipoActividade);
     }
 
     public ArrayList<TipoActividade> listarTiposActividades(){

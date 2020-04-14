@@ -1,6 +1,8 @@
 package centrodeportivo.aplicacion.xestion;
 
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
@@ -18,24 +20,29 @@ public class XestionActividades {
         this.fachadaGUI = fachadaGUI;
     }
 
-    public void crearTipoActividade (TipoActividade tipoActividade){
+    public TipoResultados crearTipoActividade (TipoActividade tipoActividade) throws ExcepcionBD {
         if(!this.fachadaBD.comprobarExistencia(tipoActividade)){
             this.fachadaBD.crearTipoActividade(tipoActividade);
+            //En caso de que se cree o tipo de actividade, enton devolvemos un indicador do remate correcto:
+            return TipoResultados.correcto;
         } else {
-            this.fachadaGUI.mostrarErro("Administración de Tipos de Actividades", "Xa existe un tipo de actividade de nome '" + tipoActividade.getNome().toLowerCase() + "'.");
+            //Se xa existe un tipo de actividade igual almacenado, entón devolvemos que houbo problemas nese sentido:
+            return TipoResultados.datoExiste;
         }
     }
 
-    public void modificarTipoActividade(TipoActividade tipoActividade){
+    public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         this.fachadaBD.modificarTipoActividade(tipoActividade);
     }
 
-    public void eliminarTipoActividade(TipoActividade tipoActividade){
+    public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         if(!this.fachadaBD.tenActividades(tipoActividade)){
             this.fachadaBD.eliminarTipoActividade(tipoActividade);
-            this.fachadaGUI.mostrarConfirmacion("Administración de Tipos de Actividades", "Eliminación correcta.");
+            //Se se chegou a este punto, entón devólvese unha confirmación do remate correcto:
+            return TipoResultados.correcto;
         } else {
-            this.fachadaGUI.mostrarErro("Administración de Tipos de Actividades", "O tipo '" + tipoActividade.getNome() + "' ten actividades asociadas! Non se pode borrar.");
+            //Se o tipo ten actividades asociadas, entón devolvemos que hai un problema cos restrict para o borrado:
+            return TipoResultados.referenciaRestrict;
         }
 
     }

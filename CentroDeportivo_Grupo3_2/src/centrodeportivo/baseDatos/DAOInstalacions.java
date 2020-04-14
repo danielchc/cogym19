@@ -169,8 +169,14 @@ public final class DAOInstalacions extends AbstractDAO {
                 instalacions.add(new Instalacion(rsInstalacions.getInt(1), rsInstalacions.getString(2),
                         rsInstalacions.getString(3), rsInstalacions.getString(4)));
             }
+            con.commit();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
         } finally {
             //Peche do statement:
             try {
@@ -207,8 +213,14 @@ public final class DAOInstalacions extends AbstractDAO {
                 instalacions.add(new Instalacion(rsInstalacions.getInt(1), rsInstalacions.getString(2),
                         rsInstalacions.getString(3), rsInstalacions.getString(4)));
             }
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
         } finally {
             //Intentamos pechar o statement:
             try{
@@ -247,8 +259,14 @@ public final class DAOInstalacions extends AbstractDAO {
             if(rsInstalacions.next()){
                 resultado = true;
             }
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
         } finally {
             try{
                 stmInstalacions.close();
@@ -280,8 +298,14 @@ public final class DAOInstalacions extends AbstractDAO {
             if(rsAreas.next()){
                 resultado = true;
             }
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
         } finally {
             try{
                 stmAreas.close();

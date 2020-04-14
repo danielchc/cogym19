@@ -4,13 +4,16 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/*
- * Autor: Víctor Barreiro
+
+
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
  * Clase que xeral para almacenar información de Area.
  * Incorporanse distintos construtres coa finalidade de que poida atender as distintas
  * finalidades de xestión, incluso cando a informaicón recuperada da area non sexa completa.
- * */
-
+ */
 public class Area {
     private int aforoMaximo;
     private int codArea;

@@ -1,6 +1,7 @@
 package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
@@ -20,7 +21,7 @@ public class DAOActividades extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
-    public void crearTipoActividade(TipoActividade tipoActividade){
+    public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         //Faremos unha actualización na Base de Datos, usaremos PreparedStatement:
         PreparedStatement stmTiposActividades = null;
         ResultSet rsTiposActividades = null;
@@ -58,13 +59,14 @@ public class DAOActividades extends AbstractDAO {
                 tipoActividade.setCodTipoActividade(rsTiposActividades.getInt(1));
             }
 
+            //Facemos o commit:
+            con.commit();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            //En caso de excepción do SQL, lanzaremos a nosa propia excepción:
+            throw new ExcepcionBD(con, e);
         } finally {
             //Intentamos pechar o statement:
             try{
-                //Facemos o commit:
-                con.commit();
                 stmTiposActividades.close();
             } catch(SQLException e ){
                 System.out.println("Imposible cerrar os cursores");
@@ -72,7 +74,7 @@ public class DAOActividades extends AbstractDAO {
         }
     }
 
-    public void modificarTipoActividade(TipoActividade tipoActividade){
+    public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         //Faremos unha actualización sobre a base de datos, usaremos PreparedStatement:
         PreparedStatement stmTiposActividades = null;
         Connection con;
@@ -97,11 +99,11 @@ public class DAOActividades extends AbstractDAO {
             //Por último, facemos o commit:
             con.commit();
         } catch(SQLException e){
-            System.out.println(e.getMessage());
+            //Lanzamos a nosa excepción:
+            throw new ExcepcionBD(con, e);
         } finally {
             //Tratamos de pechar o statement
             try{
-                con.commit();
                 stmTiposActividades.close();
             } catch (SQLException e){
                 System.out.printf("Imposible pechar os cursores");
@@ -109,7 +111,7 @@ public class DAOActividades extends AbstractDAO {
         }
     }
 
-    public void eliminarTipoActividade(TipoActividade tipoActividade){
+    public void eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         //Tamén faremos unha actualización sobre a base de datos.
         PreparedStatement stmTiposActividades = null;
         Connection con;
@@ -127,12 +129,14 @@ public class DAOActividades extends AbstractDAO {
             //Executamos a actualización:
             stmTiposActividades.executeUpdate();
 
+            //Facemos o commit:
+            con.commit();
         } catch(SQLException e) {
-            System.out.println(e.getMessage());
+            //Lanzamos a nosa excepción de BD para indicar que se produciu un problema no borrado.
+            throw new ExcepcionBD(con,e);
         } finally {
             //Tratamos de pechar o statement:
             try{
-                con.commit();
                 stmTiposActividades.close();
             } catch (SQLException e){
                 System.out.println("Imposible pechar os cursores");

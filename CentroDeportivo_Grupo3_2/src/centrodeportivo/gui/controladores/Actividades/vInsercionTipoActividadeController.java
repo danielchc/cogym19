@@ -1,7 +1,9 @@
 package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -77,7 +79,15 @@ public class vInsercionTipoActividadeController extends AbstractController imple
         if(tipoActividade != null) {
             //Se o tipo de actividade non é nulo, é unha modificación. Como a descrición pode ser nula, faise a actualización directamente.
             tipoActividade.setDescricion(campoDescricion.getText());
-            this.getFachadaAplicacion().modificarTipoActividade(tipoActividade);
+            //Intentaremos entón modificar o tipo de actividade:
+            try {
+                this.getFachadaAplicacion().modificarTipoActividade(tipoActividade);
+                //Se rematou o método sen problema, entón amósase confirmación:
+                this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
+                        "Tipo de actividade con id = " + tipoActividade.getCodTipoActividade() + " modificado correctamente.");
+            } catch (ExcepcionBD excepcionBD) {
+                excepcionBD.printStackTrace();
+            }
         } else {
             //Se fose nulo, é unha inserción:
             //Antes de nada, hai que verificar que o nome esté cuberto:
@@ -86,22 +96,59 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                 return;
             }
             TipoActividade tipoActividade = new TipoActividade(campoNome.getText(), campoDescricion.getText());
-            this.getFachadaAplicacion().crearTipoActividade(tipoActividade);
+            //Vaise intentar a actualización da base de datos:
+            try {
+                TipoResultados res = this.getFachadaAplicacion().crearTipoActividade(tipoActividade);
+                //En función do resultado, avaliamos:
+                switch(res){
+                    case datoExiste:
+                        //Mostramos un erro:
+                        this.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
+                                "Xa existe un tipo de actividade de nome '" + tipoActividade.getNome().toLowerCase() + "'.");
+                        break;
+                    case correcto:
+                        //Amosamos unha confirmación:
+                        this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
+                                "Introducido o tipo de actividade, o seu ID é " + tipoActividade.getCodTipoActividade() + ".");
+                        //Finalmente, sáese unha vez rematado:
+                        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+                        break;
+                }
+            } catch (ExcepcionBD excepcionBD) {
+                excepcionBD.printStackTrace();
+            }
             if (tipoActividade.getCodTipoActividade() != 0) {
                 this.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades", "Insertado o tipo de actividade. O seu id é " + tipoActividade.getCodTipoActividade() + ".");
             }
         }
-        //En calquera dos dous casos, sáese unha vez rematado:
-        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+
     }
 
     public void btnBorrarAction(ActionEvent actionEvent) {
         //Se se puido presionar, é porque se quere borrar o tipo de actividade presentado.
         if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
                 "Desexa eliminar o tipo de actividade seleccionado?") == ButtonType.OK) {
-            this.getFachadaAplicacion().eliminarTipoActividade(tipoActividade);
-            //Volvese á ventá anterior:
-            controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+            //Se así o quere facer o usuario, tentaremos o borrado do tipo:
+            try {
+                TipoResultados res = this.getFachadaAplicacion().eliminarTipoActividade(tipoActividade);
+                //En función do resultado, diferentes opcións:
+                switch(res){
+                    case correcto:
+                        //Amosamos unha mensaxe de confirmación:
+                        this.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
+                                "Eliminación correcta.");
+                        //Volvese á ventá anterior:
+                        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+                        break;
+                    case referenciaRestrict:
+                        //Amosamos mensaxe de erro:
+                        this.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
+                                "O tipo '" + tipoActividade.getNome() + "' ten actividades asociadas! Non se pode borrar.");
+                        break;
+                }
+            } catch (ExcepcionBD excepcionBD) {
+                excepcionBD.printStackTrace();
+            }
         }
     }
 

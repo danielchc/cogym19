@@ -105,15 +105,15 @@ public final class FachadaBD {
         Funcións DAOActividades
      */
 
-    public void crearTipoActividade(TipoActividade tipoActividade) {
+    public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         this.daoActividades.crearTipoActividade(tipoActividade);
     }
 
-    public void modificarTipoActividade(TipoActividade tipoActividade){
+    public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         this.daoActividades.modificarTipoActividade(tipoActividade);
     }
 
-    public void eliminarTipoActividade(TipoActividade tipoActividade){
+    public void eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         this.daoActividades.eliminarTipoActividade(tipoActividade);
     }
 
