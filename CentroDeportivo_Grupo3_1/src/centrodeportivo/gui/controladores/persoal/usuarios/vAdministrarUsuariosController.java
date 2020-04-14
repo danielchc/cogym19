@@ -2,7 +2,6 @@ package centrodeportivo.gui.controladores.persoal.usuarios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
-import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -17,8 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -145,7 +142,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
     public void modificarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()) {
             vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
-            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
+            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
         }
     }
 

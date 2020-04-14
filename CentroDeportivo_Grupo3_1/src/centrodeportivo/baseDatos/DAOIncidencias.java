@@ -59,8 +59,8 @@ public final class DAOIncidencias extends AbstractDAO {
         try {
             if (tipoIncidencia == TipoIncidencia.Area || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement(
-                        "SELECT *,ar.nome AS nomeArea,it.nome AS nomeInstalacion,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea JOIN instalacion AS it  ON ar.instalacion=it.codInstalacion " +
-                                " WHERE ((LOWER(ar.nome) LIKE LOWER(?) ) OR (LOWER(it.nome) LIKE LOWER(?) ))");
+                        "SELECT *,ar.nome AS nomeArea,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea " +
+                                " WHERE ((LOWER(ar.nome) LIKE LOWER(?)) OR (LOWER(ia.descricion) LIKE LOWER(?)))");
                 stmIncidencia.setString(1, "%"+textoBuscar+"%");
                 stmIncidencia.setString(2, "%"+textoBuscar+"%");
                 rsIncidencias = stmIncidencia.executeQuery();
@@ -68,10 +68,7 @@ public final class DAOIncidencias extends AbstractDAO {
                 Instalacion instalacion;
                 while (rsIncidencias.next()) {
                     instalacion = new Instalacion(
-                            rsIncidencias.getInt("codInstalacion"),
-                            rsIncidencias.getString("nomeInstalacion"),
-                            rsIncidencias.getString("numTelefono"),
-                            rsIncidencias.getString("direccion")
+                            rsIncidencias.getInt("instalacion")
                     );
                     area = new Area(
                             rsIncidencias.getInt("codArea"),
@@ -97,8 +94,9 @@ public final class DAOIncidencias extends AbstractDAO {
                 stmIncidencia = super.getConexion().prepareStatement("SELECT " +
                         "*,tm.nome AS tipoMaterialNome,im.descricion AS descricionIncidencia " +
                         "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial " +
-                        "WHERE ((LOWER(tm.nome) LIKE LOWER(?) ))");
+                        "WHERE ((LOWER(CONCAT_WS(' ',tm.nome,CAST( ma.codMaterial AS VARCHAR(5)))) LIKE LOWER(?) ) OR (LOWER(im.descricion) LIKE LOWER(?)))");
                 stmIncidencia.setString(1, "%"+textoBuscar+"%");
+                stmIncidencia.setString(2, "%"+textoBuscar+"%");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Material material;
                 while (rsIncidencias.next()) {

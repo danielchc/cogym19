@@ -408,7 +408,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
      * Método para cargar un usuario e podelo modificar.
      * @param usuario usuario a ser modificado
      */
-    public void setUsuario(Usuario usuario) {
+    public void cargarDatosUsuario(Usuario usuario) {
         this.usuarioModificar = usuario;
         cargarDatosUsuario();
     }

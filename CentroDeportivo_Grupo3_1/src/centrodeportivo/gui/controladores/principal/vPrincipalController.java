@@ -9,6 +9,7 @@ import centrodeportivo.gui.controladores.comun.vMensaxesController;
 import centrodeportivo.gui.controladores.comun.vNovaIncidencia;
 import centrodeportivo.gui.controladores.comun.vNovoMensaxeController;
 import centrodeportivo.gui.controladores.persoal.incidencias.vAdministrarIncidenciasController;
+import centrodeportivo.gui.controladores.persoal.incidencias.vXestionIncidenciaController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarCapacidadesController;
@@ -129,6 +130,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS,new DatosVista("../../vistas/persoal/incidencias/vAdministrarIncidencias.fxml",new vAdministrarIncidenciasController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES,new DatosVista("../../vistas/persoal/usuarios/vAdministrarCapacidades.fxml",new vAdministrarCapacidadesController(super.getFachadaAplicacion(),this)));
         this.pantallas.put(IdPantalla.NOVAINCIDENCIA,new DatosVista("../../vistas/comun/vNovaIncidencia.fxml",new vNovaIncidencia(super.getFachadaAplicacion(),this)));
+        this.pantallas.put(IdPantalla.XESTIONINCIDENCIA,new DatosVista("../../vistas/persoal/incidencias/vXestionIncidencia.fxml",new vXestionIncidenciaController(super.getFachadaAplicacion(),this)));
     }
 
     /**
@@ -266,7 +268,7 @@ public class vPrincipalController extends AbstractController implements Initiali
     public void perfilUsuarioAction(){
         esconderTodosSliders();
         mostrarMenu(IdPantalla.NOVOUSUARIO);
-        ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).setUsuario(this.usuarioLogeado);
+        ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(this.usuarioLogeado);
     }
 
     /**

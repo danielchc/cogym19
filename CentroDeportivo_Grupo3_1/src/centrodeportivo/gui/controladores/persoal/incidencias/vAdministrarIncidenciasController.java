@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -75,6 +76,13 @@ public class vAdministrarIncidenciasController extends AbstractController implem
         listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias(campoBuscar.getText(),TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()]));
     }
 
+    public void xestionarIncidencia(){
+        if(!this.listaIncidencias.getSelectionModel().isEmpty()){
+            Incidencia incidencia= (Incidencia) this.listaIncidencias.getSelectionModel().getSelectedItem();
+            ((vXestionIncidenciaController)super.getvPrincipalController().getControlador(IdPantalla.XESTIONINCIDENCIA)).cargarDatosIncidencia(incidencia);
+            super.getvPrincipalController().mostrarMenu(IdPantalla.XESTIONINCIDENCIA);
+        }
+    }
 
 
 }
