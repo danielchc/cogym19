@@ -100,115 +100,6 @@
             </children>
         </VBox>
 
-        <VBox id="vb-sidebar" fx:id="sideBarAreasP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/novo.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Instalación" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/editar.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Instalación" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/borrar.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Área" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/novo.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Área" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/editar.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Área" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/borrar.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-        </VBox>
-
-        <VBox id="vb-sidebar" fx:id="sideBarActividadesP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/placeholder.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-        </VBox>
-
-        <VBox id="vb-sidebar" fx:id="sideBarMaterialP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Material" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/placeholder.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-        </VBox>
-
         <VBox id="vb-sidebar" fx:id="sideBarIncidenciasP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <Button id="NOVAINCIDENCIA" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Incidencia" textFill="WHITE">
                 <font>
@@ -332,23 +223,6 @@
             </children>
         </VBox>
 
-        <VBox id="vb-sidebar" fx:id="sideBarActividadesS" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/placeholder.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-        </VBox>
-
         <VBox id="vb-sidebar" fx:id="sideBarIncidenciasS" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Incidencia" textFill="WHITE">
                 <font>
@@ -358,18 +232,6 @@
                     <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@../../imaxes/novo.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Listar Incidencias" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/lista.png" />
                         </image>
                     </ImageView>
                 </graphic>
@@ -432,7 +294,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnAreasP" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Infraestructura" textFill="WHITE">
+                <Button fx:id="btnAreasP" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Infraestructura" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="11.0" />
                     </font>
@@ -444,7 +306,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnActividadesP" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
+                <Button fx:id="btnActividadesP" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -456,7 +318,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnMaterialP" contentDisplay="TOP" layoutX="10.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Material" textFill="WHITE">
+                <Button fx:id="btnMaterialP" contentDisplay="TOP" layoutX="10.0" layoutY="279.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Material" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -522,7 +384,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnActividadesS" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
+                <Button fx:id="btnActividadesS" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>

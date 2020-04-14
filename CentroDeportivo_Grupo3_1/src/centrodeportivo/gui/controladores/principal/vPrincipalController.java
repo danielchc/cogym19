@@ -65,13 +65,9 @@ public class vPrincipalController extends AbstractController implements Initiali
     public VBox sideBarUsuariosP;
     public VBox sideBarMensaxesP;
     public VBox sideBarTarifasP;
-    public VBox sideBarAreasP;
-    public VBox sideBarActividadesP;
-    public VBox sideBarMaterialP;
     public VBox sideBarIncidenciasP;
     public VBox sideBarUsuariosS;
     public VBox sideBarMensaxesS;
-    public VBox sideBarActividadesS;
     public VBox sideBarIncidenciasS;
     /*
         Atributos
@@ -142,18 +138,18 @@ public class vPrincipalController extends AbstractController implements Initiali
     private void inciarTransiciones(){
         ArrayList<VBox> sliders=new ArrayList<>();
         sliders.add(sideBarUsuariosP);       sliders.add(sideBarMensaxesP);
-        sliders.add(sideBarTarifasP);        sliders.add(sideBarAreasP);
-        sliders.add(sideBarActividadesP);    sliders.add(sideBarIncidenciasP);
-        sliders.add(sideBarMaterialP);
+        sliders.add(sideBarTarifasP);
+            sliders.add(sideBarIncidenciasP);
+
         sliders.add(sideBarUsuariosS);       sliders.add(sideBarMensaxesS);
-        sliders.add(sideBarActividadesS);    sliders.add(sideBarIncidenciasS);
+            sliders.add(sideBarIncidenciasS);
 
         botonesMenu.add(btnUsuariosP);       botonesMenu.add(btnMensaxesP);
-        botonesMenu.add(btnTarifasP);        botonesMenu.add(btnAreasP);
-        botonesMenu.add(btnActividadesP);    botonesMenu.add(btnIncidenciaP);
-        botonesMenu.add(btnMaterialP);
+        botonesMenu.add(btnTarifasP);
+            botonesMenu.add(btnIncidenciaP);
+
         botonesMenu.add(btnUsuariosS);       botonesMenu.add(btnMensaxesS);
-        botonesMenu.add(btnActividadesS);    botonesMenu.add(btnIncidenciaS);
+            botonesMenu.add(btnIncidenciaS);
 
         for(int i=0;i<botonesMenu.size();i++){
             this.transiciones.put(botonesMenu.get(i),new Transicion(sliders.get(i)));
@@ -179,7 +175,6 @@ public class vPrincipalController extends AbstractController implements Initiali
             this.menuSocio.setVisible(false);
             sideBarUsuariosS.setVisible(false);
             sideBarMensaxesS.setVisible(false);
-            sideBarActividadesS.setVisible(false);
             sideBarIncidenciasS.setVisible(false);
 
         }else if(pantallaAMostrar==IdPantalla.PANTALLASOCIO){
@@ -187,9 +182,6 @@ public class vPrincipalController extends AbstractController implements Initiali
             sideBarUsuariosP.setVisible(false);
             sideBarMensaxesP.setVisible(false);
             sideBarTarifasP.setVisible(false);
-            sideBarAreasP.setVisible(false);
-            sideBarActividadesP.setVisible(false);
-            sideBarMaterialP.setVisible(false);
             sideBarIncidenciasP.setVisible(false);
         }
     }
