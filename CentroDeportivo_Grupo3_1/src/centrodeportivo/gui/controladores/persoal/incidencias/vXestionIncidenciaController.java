@@ -34,9 +34,10 @@ public class vXestionIncidenciaController /*extends AbstractController*/ impleme
 
     public void listenerCampoCusto(KeyEvent keyEvent) {
         String texto=campoCusto.getText();
-        String teclaPulsada=String.valueOf(texto.charAt(texto.length()-1));
 
-        if(!teclaPulsada.matches("[0-9]+(\\.[0-9])*")){
+        if(texto.length()==0) return;
+
+        if(!texto.matches("[0-9]+(\\.)?[0-9]{0,4}")){
             campoCusto.setText(texto.substring(0,texto.length()-1));
         }
         campoCusto.end();
