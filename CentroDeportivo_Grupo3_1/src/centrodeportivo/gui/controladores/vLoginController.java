@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.ListenerEnterPulsado;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -44,14 +45,14 @@ public class vLoginController  extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //tfUsuario.setOnKeyPressed(new ListenerEnterPulsado(vLoginController.class::btnIniciarAction));
     }
 
 
     /**
      * Listener para o boton de iniciar sesión.
      * Compróbase se os campos están cubertos e faise a validación dos datos introducidos.
-     * Encaso correcto, consultase o tipo de usuario e iniciase a ventá correspondente.
+     * En caso correcto, consultase o tipo de usuario e iniciase a ventá correspondente.
      */
     public void btnIniciarAction() {
         Usuario usuarioLogeado;
