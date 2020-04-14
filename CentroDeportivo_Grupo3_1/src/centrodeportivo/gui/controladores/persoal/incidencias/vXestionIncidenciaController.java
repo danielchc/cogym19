@@ -20,10 +20,6 @@ import java.util.ResourceBundle;
 public class vXestionIncidenciaController extends AbstractController implements Initializable {
 
 
-    public TextField campoNumero;
-    public TextField campoUsuario;
-    public TextArea campoDescricion;
-    public DatePicker campoDataIncidencia;
     public TextField campoCusto;
     public DatePicker campoDataResolucion;
     public TextArea campoComentario;
@@ -41,7 +37,6 @@ public class vXestionIncidenciaController extends AbstractController implements 
     }
 
     public void cargarIncidencia(){
-        System.out.println(incidenciaXestionar);
         String datos="";
         if(incidenciaXestionar instanceof IncidenciaArea){
             datos=String.format(
@@ -73,6 +68,8 @@ public class vXestionIncidenciaController extends AbstractController implements 
             );
         }
         this.datosIncidencia.setText(datos);
+        this.campoCusto.setText(String.valueOf(incidenciaXestionar.getCustoReparacion()));
+        this.campoComentario.setText(incidenciaXestionar.getComentarioResolucion());
     }
 
     public void cargarDatosIncidencia(Incidencia incidencia){
