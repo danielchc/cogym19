@@ -14,13 +14,11 @@ public final class ListenerTextFieldNumeros implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
-        String texto=textField.getText();
+        if(
+                (!textField.getText().isEmpty()&&
+                !textField.getText().matches("[0-9]+(\\.)?[0-9]{0,2}")) ||
+                keyEvent.getCharacter().toLowerCase().matches("[a-z]")
 
-        if(texto.length()==0) return;
-
-        if(!texto.matches("[0-9]+(\\.)?[0-9]{0,4}")){
-            textField.setText(texto.substring(0,texto.length()-1));
-        }
-        textField.end();
+        ) keyEvent.consume();
     }
 }
