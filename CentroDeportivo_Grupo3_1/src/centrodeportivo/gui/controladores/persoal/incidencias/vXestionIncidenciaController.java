@@ -1,8 +1,10 @@
 package centrodeportivo.gui.controladores.persoal.incidencias;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -29,17 +31,7 @@ public class vXestionIncidenciaController /*extends AbstractController*/ impleme
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        campoCusto.setOnKeyTyped(new ListenerTextFieldNumeros(campoCusto));
     }
 
-    public void listenerCampoCusto(KeyEvent keyEvent) {
-        String texto=campoCusto.getText();
-
-        if(texto.length()==0) return;
-
-        if(!texto.matches("[0-9]+(\\.)?[0-9]{0,4}")){
-            campoCusto.setText(texto.substring(0,texto.length()-1));
-        }
-        campoCusto.end();
-    }
 }
