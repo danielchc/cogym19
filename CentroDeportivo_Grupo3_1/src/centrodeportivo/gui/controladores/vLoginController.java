@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 
 /**
  * @author David Carracedo
@@ -45,7 +46,13 @@ public class vLoginController  extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //tfUsuario.setOnKeyPressed(new ListenerEnterPulsado(vLoginController.class::btnIniciarAction));
+        tfUsuario.setOnKeyPressed(new ListenerEnterPulsado(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                btnIniciarAction();
+                return null;
+            }
+        }));
     }
 
 
