@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:controller="centrodeportivo.gui.controladores.persoal.incidencias.vXestionIncidenciaController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER_RIGHT" layoutX="187.0" layoutY="10.0" prefHeight="30.0" prefWidth="196.0" text="Xestionar Incidencia" textFill="WHITE" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="187.0" AnchorPane.rightAnchor="304.0" AnchorPane.topAnchor="10.0">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
+                    <image>
+                        <Image url="@../../../imaxes/lista.png" />
+                    </image>
+                </ImageView>
+            </children></AnchorPane>
+    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+             <VBox layoutX="130.0" layoutY="14.0" prefHeight="348.0" prefWidth="426.0" spacing="5.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.80000000000007" AnchorPane.topAnchor="14.0">
+                 <children>
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                         <children>
+                             <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Número de incidencia">
+                                 <font>
+                                     <Font name="System Bold" size="14.0" />
+                                 </font>
+                             </Label>
+                             <TextField fx:id="campoNumero" prefHeight="30.0" prefWidth="249.0" />
+                         </children>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                         <children>
+                             <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Presentada por">
+                                 <font>
+                                     <Font name="System Bold" size="14.0" />
+                                 </font>
+                             </Label>
+                             <TextField fx:id="campoUsuario" prefHeight="30.0" prefWidth="251.0" />
+                         </children>
+                     </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="284.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Descrición">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="campoDescricion" prefHeight="200.0" prefWidth="250.0" />
+                     </children>
+                  </HBox>
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios">
+                         <children>
+                             <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Data da incidencia">
+                                 <font>
+                                     <Font name="System Bold" size="14.0" />
+                                 </font>
+                             </Label>
+                             <DatePicker fx:id="campoDataIncidencia" prefHeight="30.0" prefWidth="249.0" />
+                         </children>
+                     </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Custo de resolución">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoCusto" onKeyTyped="#listenerCampoCusto" prefHeight="30.0" prefWidth="251.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="221.0" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Data de resolución">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="campoDataResolucion" prefHeight="30.0" prefWidth="249.0" />
+                     </children>
+                  </HBox>
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                         <children>
+                             <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Comentario resolución">
+                                 <font>
+                                     <Font name="System Bold" size="14.0" />
+                                 </font>
+                             </Label>
+                             <TextArea fx:id="campoComentario" prefHeight="200.0" prefWidth="250.0" />
+                         </children>
+                     </HBox>
+                 </children>
+             </VBox>
+            <Button layoutX="279.0" layoutY="376.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="127.0" text="Resolver Incidencia" AnchorPane.bottomAnchor="15.199999999999989" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="280.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

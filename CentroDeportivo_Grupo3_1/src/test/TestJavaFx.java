@@ -48,7 +48,7 @@ public class TestJavaFx extends Application {
         b.setPrefSize(45,40);
         HBox hb=new HBox(l,b);
         p.getChildren().add(hb);*/
-        Pane p=FXMLLoader.load(getClass().getResource("test.fxml"));
+        Pane p=FXMLLoader.load(getClass().getResource("../centrodeportivo/gui/vistas/persoal/incidencias/vXestionIncidencia.fxml"));
         primaryStage.setScene(new Scene(p));
 
         primaryStage.show();
