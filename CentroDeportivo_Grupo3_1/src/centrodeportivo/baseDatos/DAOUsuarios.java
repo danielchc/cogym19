@@ -295,12 +295,45 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void darBaixaUsuario(String login) throws ExcepcionBD {
+    protected void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
+
         try {
-            stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET dataBaixa=NOW() WHERE login=?");
-            stmUsuario.setString(1, login);
+            stmUsuario = super.getConexion().prepareStatement(
+                    "UPDATE usuario "+
+                        "SET dataBaixa=NOW(), "+
+                        "correoElectronico=NULL, "+
+                        "numTelefono=NULL, "+
+                        "contrasinal=NULL, "+
+                        "iban=NULL "+
+                        "WHERE login=?;"
+            );
+            stmUsuario.setString(1, usuario.getLogin());
             stmUsuario.executeUpdate();
+
+            if(usuario instanceof Socio){
+                stmUsuario = super.getConexion().prepareStatement(
+                        "UPDATE persoaFisica "+"" +
+                                "SET nome=NULL, "+
+                                "dificultades=NULL, "+
+                                "dataNacemento=NULL, "+
+                                "WHERE usuarioSocio=? AND "+
+                                "(SELECT true FROM usuario WHERE login=usuarioPersoal AND dataBaixa IS NOT NULL);"
+                );
+                stmUsuario.setString(1, usuario.getLogin());
+                stmUsuario.executeUpdate();
+            }else if(usuario instanceof Persoal){
+                stmUsuario = super.getConexion().prepareStatement(
+                        "UPDATE persoaFisica "+"" +
+                                "SET nome=NULL, "+
+                                "dificultades=NULL, "+
+                                "dataNacemento=NULL, "+
+                                "WHERE usuarioPersoal=? AND "+
+                                "(SELECT true FROM usuario WHERE login=usuarioSocio AND dataBaixa IS NOT NULL);"
+                );
+                stmUsuario.setString(1, usuario.getLogin());
+                stmUsuario.executeUpdate();
+            }
             super.getConexion().commit();
         } catch (SQLException e) {
             throw new ExcepcionBD(super.getConexion(), e);

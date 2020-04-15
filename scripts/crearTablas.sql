@@ -9,10 +9,10 @@ CREATE TABLE tarifa(
 
 CREATE TABLE usuario(
 	login 				VARCHAR(25) NOT NULL,
-	contrasinal 		VARCHAR(64) NOT NULL,
-	numTelefono 		CHAR(9) NOT NULL,
-	correoElectronico 	VARCHAR(200) NOT NULL,
-	IBAN 				CHAR(24) NOT NULL,
+	contrasinal 		VARCHAR(64),
+	numTelefono 		CHAR(9),
+	correoElectronico 	VARCHAR(200),
+	IBAN 				CHAR(24),
 	dataAlta			DATE NOT NULL DEFAULT NOW(),
 	dataBaixa			DATE CHECK(dataBaixa>=dataAlta),
 	PRIMARY KEY (login)
@@ -39,9 +39,9 @@ CREATE TABLE persoal(
 
 CREATE TABLE persoaFisica(
 	DNI 				CHAR(9) NOT NULL,
-	nome 				VARCHAR(200) NOT NULL,
+	nome 				VARCHAR(200),
 	dificultades 		VARCHAR(500),
-	dataNacemento 		DATE NOT NULL CHECK ((NOW()- INTERVAL'16 years')>dataNacemento),
+	dataNacemento 		DATE CHECK ((NOW()- INTERVAL'16 years')>dataNacemento),
 	usuarioSocio		VARCHAR(25),
 	usuarioPersoal		VARCHAR(25),
 	PRIMARY KEY (DNI),

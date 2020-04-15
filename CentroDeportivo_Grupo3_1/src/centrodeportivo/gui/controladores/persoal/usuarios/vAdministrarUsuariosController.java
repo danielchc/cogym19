@@ -189,12 +189,12 @@ public class vAdministrarUsuariosController extends AbstractController implement
                 try{
                     if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
                         if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
-                            fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
+                            fachadaAplicacion.darBaixaUsuario(super.getFachadaAplicacion().consultarUsuario(usuario.getLogin()));
                             System.exit(0);
                         }
                     }else{
                         if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
-                            fachadaAplicacion.darBaixaUsuario(usuario.getLogin());
+                            fachadaAplicacion.darBaixaUsuario(super.getFachadaAplicacion().consultarUsuario(usuario.getLogin()));
                             fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+usuario.getLogin()+ " deuse de baixa correctamente.");
                         }
                     }

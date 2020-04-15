@@ -55,8 +55,8 @@ public class XestionUsuarios {
         fachadaBD.actualizarUsuario(loginVello, usuario);
     }
 
-    public void darBaixaUsuario(String login) throws ExcepcionBD {
-        fachadaBD.darBaixaUsuario(login);
+    public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
+        fachadaBD.darBaixaUsuario(usuario);
     }
 
     public void darAltaUsuario(String login) throws ExcepcionBD {

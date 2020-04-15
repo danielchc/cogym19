@@ -143,8 +143,8 @@ public class FachadaAplicacion extends Application {
         xestionUsuarios.actualizarUsuario(loginVello,usuario);
     }
 
-    public void darBaixaUsuario(String login) throws ExcepcionBD {
-        xestionUsuarios.darBaixaUsuario(login);
+    public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
+        xestionUsuarios.darBaixaUsuario(usuario);
     }
 
     public void darAltaUsuario(String login) throws ExcepcionBD {
