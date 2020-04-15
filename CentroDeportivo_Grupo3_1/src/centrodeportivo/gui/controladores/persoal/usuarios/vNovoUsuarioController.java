@@ -168,6 +168,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 this.labelError.setText("NUSS con formato incorrecto.");
                 return;
             }
+            if(usuarioModificar==null && !comprobarNUSS()) return;
+
             Persoal persoal=new Persoal(
                     campoLogin.getText(),
                     campoPassword.getText(),
@@ -377,6 +379,17 @@ public class vNovoUsuarioController extends AbstractController implements Initia
     }
 
     /**
+     * @return método para comprobar se un nuss xa existe.
+     */
+    private boolean comprobarNUSS(){
+        if(super.getFachadaAplicacion().existeNUSS(campoNUSS.getText())){
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O NUSS "+campoNUSS.getText()+" xa está rexistrado.");
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Método para añadir o pulsado de Enter aos campos e gardar automáticamente.
      */
     private void iniciarListeners(){
@@ -401,7 +414,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
      * Método para autocompletar os datos dun usuario para modificar.
      */
     private void cargarDatosUsuario(){
-        System.out.println(usuarioModificar);
         if(usuarioModificar==null) return;
         if(usuarioModificar.getNome()!=null){
             campoNome.setText(usuarioModificar.getNome());
@@ -413,7 +425,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             campoDificultades.setText(usuarioModificar.getDificultades());
             campoNUSS.setEditable(false);
         }
-        System.out.println(usuarioModificar.getLogin());
         this.loginVello=usuarioModificar.getLogin();
         campoLogin.setText(usuarioModificar.getLogin());
         campoDNI.setText(usuarioModificar.getDNI());
