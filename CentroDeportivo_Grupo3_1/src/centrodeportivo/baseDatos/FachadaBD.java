@@ -228,6 +228,10 @@ public final class FachadaBD {
         daoIncidencias.resolverIncidencia(incidencia);
     }
 
+    public Incidencia consultarIncidencia(Incidencia incidencia) throws ExcepcionBD {
+       return daoIncidencias.consultarIncidencia(incidencia);
+    }
+
     /*
         Funcións DAOInstalacions
      */

@@ -28,11 +28,11 @@
                  <children>
                      <HBox alignment="CENTER" prefHeight="140.0" prefWidth="436.0">
                      <children>
-                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="400.0" prefWidth="483.0" />
+                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="128.0" prefWidth="427.0" />
                      </children></HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="40.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Custo de resolución">
+                        <Label alignment="CENTER" prefHeight="69.0" prefWidth="193.0" text="Custo de resolución">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -40,17 +40,7 @@
                         <TextField fx:id="campoCusto" prefHeight="30.0" prefWidth="251.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="221.0" prefHeight="40.0" prefWidth="200.0" styleClass="datosUsuarios">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Data de resolución">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <DatePicker fx:id="campoDataResolucion" prefHeight="30.0" prefWidth="249.0" />
-                     </children>
-                  </HBox>
-                     <HBox alignment="CENTER" prefHeight="109.0" prefWidth="418.0">
+                     <HBox alignment="CENTER" prefHeight="157.0" prefWidth="431.0">
                          <children>
                              <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Comentario resolución">
                                  <font>
@@ -62,7 +52,7 @@
                      </HBox>
                  </children>
              </VBox>
-            <Button layoutX="279.0" layoutY="376.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="127.0" text="Resolver Incidencia" AnchorPane.bottomAnchor="15.199999999999989" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="280.0">
+            <Button layoutX="279.0" layoutY="376.0" mnemonicParsing="false" onAction="#resolverIncidencia" prefHeight="35.0" prefWidth="127.0" text="Resolver Incidencia" AnchorPane.bottomAnchor="15.199999999999989" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="280.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

@@ -144,15 +144,14 @@ public final class DAOIncidencias extends AbstractDAO {
                 stmIncidencia.setString(1, incidencia.getComentarioResolucion());
                 stmIncidencia.setDouble(2, incidencia.getCustoReparacion());
                 stmIncidencia.setInt(3, incidencia.getNumero());
-                System.out.println(stmIncidencia);
-                stmIncidencia.executeUpdate();
             } else if (incidencia instanceof IncidenciaMaterial){
                 stmIncidencia = super.getConexion().prepareStatement("UPDATE incidenciaMaterial SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
                 stmIncidencia.setString(1, incidencia.getComentarioResolucion());
                 stmIncidencia.setDouble(2, incidencia.getCustoReparacion());
                 stmIncidencia.setInt(3, incidencia.getNumero());
-                stmIncidencia.executeUpdate();
             }
+            System.out.println(stmIncidencia);
+            stmIncidencia.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
             throw new ExcepcionBD(super.getConexion(), e);
@@ -163,6 +162,96 @@ public final class DAOIncidencias extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+    }
+
+    protected Incidencia consultarIncidencia(Incidencia incidencia){
+        PreparedStatement stmIncidencia = null;
+        ArrayList<Incidencia> incidencias = new ArrayList<Incidencia>();
+        ResultSet rsIncidencias;
+        try {
+            if (incidencia.getTipoIncidencia() == TipoIncidencia.Area) {
+                stmIncidencia = super.getConexion().prepareStatement(
+                        "SELECT *,ar.nome AS nomeArea, ar.descricion AS descricionArea,ins.nome AS nomeInstalacion,ia.descricion AS descricionIncidencia " +
+                                "FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea JOIN instalacion AS ins ON ins.codinstalacion=ar.instalacion "+
+                                " WHERE ia.numero=?");
+                stmIncidencia.setInt(1, incidencia.getNumero());
+                rsIncidencias = stmIncidencia.executeQuery();
+                Area area;
+                Instalacion instalacion;
+                if (rsIncidencias.next()) {
+                    instalacion = new Instalacion(
+                            rsIncidencias.getInt("instalacion"),
+                            rsIncidencias.getString("nome"),
+                            rsIncidencias.getString("numTelefono"),
+                            rsIncidencias.getString("direccion")
+                    );
+                    area = new Area(
+                            rsIncidencias.getInt("codArea"),
+                            instalacion,
+                            rsIncidencias.getString("nomeArea"),
+                            rsIncidencias.getString("descricionArea"),
+                            rsIncidencias.getInt("aforoMaximo"),
+                            rsIncidencias.getDate("dataBaixa")
+                    );
+                    return new IncidenciaArea(
+                            rsIncidencias.getInt("numero"),
+                            new Usuario(rsIncidencias.getString("usuario")),
+                            rsIncidencias.getString("descricionIncidencia"),
+                            rsIncidencias.getString("comentarioResolucion"),
+                            rsIncidencias.getDate("dataFalla"),
+                            rsIncidencias.getDate("dataResolucion"),
+                            rsIncidencias.getFloat("custoReparacion"),
+                            area
+                    );
+                }
+            }
+            if (incidencia.getTipoIncidencia() == TipoIncidencia.Material) {
+                stmIncidencia = super.getConexion().prepareStatement(
+                        "SELECT *,tm.nome AS tipoMaterialNome,im.descricion AS descricionIncidencia,ar.nome AS nomeArea,ar.descricion AS descricionArea " +
+                                "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial JOIN area AS ar ON ar.codarea=ma.area " +
+                                " WHERE im.numero=?");
+                stmIncidencia.setInt(1, incidencia.getNumero());
+                rsIncidencias = stmIncidencia.executeQuery();
+                Material material;
+                if (rsIncidencias.next()) {
+                    material = new Material(
+                            rsIncidencias.getInt("material"),
+                            rsIncidencias.getInt("tipomaterial"),
+                            rsIncidencias.getString("tipoMaterialNome"),
+                            new Area(
+                                    rsIncidencias.getInt("area"),
+                                    new Instalacion(rsIncidencias.getInt("instalacion")),
+                                    rsIncidencias.getString("nomeArea"),
+                                    rsIncidencias.getString("descricionArea"),
+                                    0,
+                                    null
+                            ),
+                            rsIncidencias.getString("estado"),
+                            rsIncidencias.getDate("dataCompra"),
+                            rsIncidencias.getFloat("prezoCompra")
+                    );
+                    return new IncidenciaMaterial(
+                            rsIncidencias.getInt("numero"),
+                            new Usuario(rsIncidencias.getString("usuario")),
+                            rsIncidencias.getString("descricionIncidencia"),
+                            rsIncidencias.getString("comentarioResolucion"),
+                            rsIncidencias.getDate("dataFalla"),
+                            rsIncidencias.getDate("dataResolucion"),
+                            rsIncidencias.getFloat("custoReparacion"),
+                            material
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmIncidencia.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return null;
     }
 
 }

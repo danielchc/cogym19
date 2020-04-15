@@ -38,4 +38,8 @@ public class XestionIncidencias {
         fachadaBD.resolverIncidencia(incidencia);
     }
 
+    public Incidencia consultarIncidencia(Incidencia incidencia) throws ExcepcionBD {
+        return fachadaBD.consultarIncidencia(incidencia);
+    }
+
 }

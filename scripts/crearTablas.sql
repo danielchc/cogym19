@@ -137,7 +137,7 @@ CREATE TABLE incidenciaMaterial(
 	descricion		VARCHAR(500) NOT NULL,
 	comentarioResolucion VARCHAR(500),
 	dataFalla		DATE NOT NULL DEFAULT NOW(),
-	dataResolucion 	DATE CHECK (dataResolucion>dataFalla),
+	dataResolucion 	DATE CHECK (dataResolucion>=dataFalla),
 	custoReparacion DECIMAL CHECK (custoReparacion>=0),
 	PRIMARY KEY(numero),
 	FOREIGN KEY (usuario) REFERENCES usuario(login) 
@@ -155,7 +155,7 @@ CREATE TABLE incidenciaArea(
 	descricion		VARCHAR(500) NOT NULL,
 	comentarioResolucion VARCHAR(500),
 	dataFalla		DATE DEFAULT NOW(),
-	dataResolucion 	DATE,
+	dataResolucion 	DATE CHECK (dataResolucion>=dataFalla),
 	custoReparacion DECIMAL CHECK (custoReparacion>=0),
 	PRIMARY KEY(numero),
 	FOREIGN KEY (usuario) REFERENCES usuario(login) 

@@ -276,6 +276,15 @@ public class FachadaAplicacion extends Application {
     public void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {
         xestionIncidencias.insertarIncidencia(incidencia);
     }
+
+    public Incidencia consultarIncidencia(Incidencia incidencia) throws ExcepcionBD {
+        return xestionIncidencias.consultarIncidencia(incidencia);
+    }
+
+    public void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {
+        xestionIncidencias.resolverIncidencia(incidencia);
+    }
+
     /*
         Xestion instalacións
      */

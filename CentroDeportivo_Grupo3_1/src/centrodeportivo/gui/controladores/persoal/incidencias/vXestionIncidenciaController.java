@@ -1,10 +1,12 @@
 package centrodeportivo.gui.controladores.persoal.incidencias;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
 import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.EventHandler;
@@ -21,7 +23,6 @@ public class vXestionIncidenciaController extends AbstractController implements 
 
 
     public TextField campoCusto;
-    public DatePicker campoDataResolucion;
     public TextArea campoComentario;
     public TextArea datosIncidencia;
     private Incidencia incidenciaXestionar;
@@ -38,17 +39,23 @@ public class vXestionIncidenciaController extends AbstractController implements 
 
     public void cargarIncidencia(){
         String datos="";
+        try {
+            incidenciaXestionar=getFachadaAplicacion().consultarIncidencia(incidenciaXestionar);
+        } catch (ExcepcionBD excepcionBD) {
+            getFachadaAplicacion().mostrarErro("Carga", excepcionBD.getMessage());
+        }
         if(incidenciaXestionar instanceof IncidenciaArea){
             datos=String.format(
                     "Data Falla: %s"+
                             "\nTipo Incidencia: Área"+
                             "\nNúmero: %d"+
                             "\nÁrea: %s"+
-                            "\nInstalación: TODO"+
+                            "\nInstalación: %s"+
                             "\nUsuario incidencia: %s",
                     incidenciaXestionar.getDataFalla(),
                     incidenciaXestionar.getNumero(),
                     ((IncidenciaArea) incidenciaXestionar).getArea(),
+                    ((IncidenciaArea) incidenciaXestionar).getArea().getNome(),
                     incidenciaXestionar.getUsuario().getLogin()
             );
         }else if (incidenciaXestionar instanceof IncidenciaMaterial){
@@ -63,7 +70,7 @@ public class vXestionIncidenciaController extends AbstractController implements 
                     incidenciaXestionar.getNumero(),
                     ((IncidenciaMaterial) incidenciaXestionar).getMaterial().getTipoNombre(),
                     ((IncidenciaMaterial) incidenciaXestionar).getMaterial().getCodMaterial(),
-                    ((IncidenciaMaterial) incidenciaXestionar).getMaterial().getArea().getCodArea(),
+                    ((IncidenciaMaterial) incidenciaXestionar).getMaterial().getArea().getNome(),
                     incidenciaXestionar.getUsuario().getLogin()
             );
         }
@@ -74,6 +81,19 @@ public class vXestionIncidenciaController extends AbstractController implements 
 
     public void cargarDatosIncidencia(Incidencia incidencia){
         this.incidenciaXestionar=incidencia;
+    }
+
+    public void resolverIncidencia(){
+        if(!ValidacionDatos.estanCubertosCampos(campoComentario,campoCusto)){
+           return;
+        }
+        incidenciaXestionar.setComentarioResolucion(campoComentario.getText());
+        incidenciaXestionar.setCustoReparacion(Float.valueOf(campoCusto.getText()));
+        try {
+            getFachadaAplicacion().resolverIncidencia(incidenciaXestionar);
+        } catch (ExcepcionBD excepcionBD) {
+            getFachadaAplicacion().mostrarErro("INCIDENCIA", excepcionBD.getMessage());
+        }
     }
 
 }
