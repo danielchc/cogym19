@@ -424,6 +424,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             campoNUSS.setText(persoal.getNUSS().trim());
             checkProfesor.setSelected(persoal.getTipoUsuario()==TipoUsuario.Profesor);
         }
+        campoLogin.setEditable(false);
         tipoUsuario.setDisable(true);
         campoDNI.setEditable(false);
         campoNUSS.setEditable(false);
