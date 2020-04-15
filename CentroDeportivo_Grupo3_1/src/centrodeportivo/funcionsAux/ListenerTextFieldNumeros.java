@@ -16,7 +16,7 @@ public final class ListenerTextFieldNumeros implements EventHandler<KeyEvent> {
     public void handle(KeyEvent keyEvent) {
         if(
                 (!textField.getText().isEmpty()&&
-                !textField.getText().matches("[0-9]+(\\.)?[0-9]{0,2}")) ||
+                !textField.getText().matches("[0-9]+(\\.)?[0-9]{0,1}")) ||
                 keyEvent.getCharacter().toLowerCase().matches("[a-z]")
 
         ) keyEvent.consume();

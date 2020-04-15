@@ -238,61 +238,61 @@ insert into enviarMensaxe values ('mariaSocio', 'andreaPersoal', '2020-03-13 20:
 insert into enviarMensaxe values ('lucasPersoal', 'sergioPersoal', '2020-01-24 15:03:44', 'Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor. Vivamus mattis viverra enim  vitae vestibulum velit. In hac habitasse platea dictumst. Nulla a lobortis ante. Lorem ipsum dolor sit amet  consectetur adipiscing elit. In pretium hendrerit velit id elementum. Suspendisse potenti. Aenean fermentum cursus tincidunt. Curabitur accumsan leo ac turpis pretium fringilla. Morbi blandit vulputate dui et faucibus.', false);
 
 ------------------INSTALACIÓNS-------------------
-insert into instalacion (nome, numtelefono, direccion) values ('polideportivo da cañota', '982455732', 'Lugar da Cañota, 22');
-insert into instalacion (nome, numtelefono, direccion) values ('estadio central', '924566633', 'Rúa Baixa, Lugar de Montes');
-insert into instalacion (nome, numtelefono, direccion) values ('multiusos pontes do mar', '992423465', 'Calle Lorenzo, Vilaxoan');
-insert into instalacion (nome, numtelefono, direccion) values ('pistas de tenis de louro', '635234888', 'Lugar de Ventos, 35');
-insert into instalacion (nome, numtelefono, direccion) values ('piscinas nadamoito', '984566943', 'Rúa Alta, Lugar de Prados');
+insert into instalacion (nome, numtelefono, direccion) values ('Polideportivo da Cañota', '982455732', 'Lugar da Cañota, 22');
+insert into instalacion (nome, numtelefono, direccion) values ('Estadio Central', '924566633', 'Rúa Baixa, Lugar de Montes');
+insert into instalacion (nome, numtelefono, direccion) values ('Multiusos Pontes do mar', '992423465', 'Calle Lorenzo, Vilaxoan');
+insert into instalacion (nome, numtelefono, direccion) values ('Pistas de Tenis de louro', '635234888', 'Lugar de Ventos, 35');
+insert into instalacion (nome, numtelefono, direccion) values ('Piscinas nadamoito', '984566943', 'Rúa Alta, Lugar de Prados');
 
 ------------------MENSAXES-------------------
-insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'pista de atletismo dc', 'Para os máis corredores', 50);
-insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'cancha do básquet cañota cab', 'A cancha do mellor equipo que houbo en toda Cañota', 30);
-insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'pistas de pádel', 'Pistas de Pádel recén construídas.', 15);
-insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (1, 'aula c1', 'Aula para clases teóricas.', 25, '2018-12-12');
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Pista de atletismo dc', 'Para os máis corredores', 50);
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Cancha do Básquet Cañota CAB', 'A cancha do mellor equipo que houbo en toda Cañota', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Pistas de pádel', 'Pistas de Pádel recén construídas.', 15);
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (1, 'Aula c1', 'Aula para clases teóricas.', 25, '2018-12-12');
 
-insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'campo do montes fc', 'Campo de Fútbol do mellor equipo da 3ª rexional.', 40);
-insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'campo auxiliar 1', 'Campo de Fútbol para entrenamentos.', 30);
-insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'campo auxiliar 2', 'Outro campo de Fútbol para entrenos.', 25);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo do montes fc', 'Campo de Fútbol do mellor equipo da 3ª rexional.', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo auxiliar 1', 'Campo de Fútbol para entrenamentos.', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (2, 'Campo auxiliar 2', 'Outro campo de Fútbol para entrenos.', 25);
+																		  
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Cancha principal', 'Cancha na que se poden practicar todo tipo de deportes.', 70);
+insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (3, 'Cancha secundaria', 'Cancha para diferentes deportes auxiliar.', 50, '2020-01-22');
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Aula v1', 'Aula ampla pechada para exposicións.', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'Aula v2', 'Pequena aula para pequenos encontros.', 10);
 
-insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'cancha principal', 'Cancha na que se poden practicar todo tipo de deportes.', 70);
-insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (3, 'cancha secundaria', 'Cancha para diferentes deportes auxiliar.', 50, '2020-01-22');
-insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'aula v1', 'Aula ampla pechada para exposicións.', 40);
-insert into area (instalacion, nome, descricion, aforomaximo) values (3, 'aula v2', 'Pequena aula para pequenos encontros.', 10);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista central', 'Pista principal, nela téñense reunido as mellores raquetas.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 1', 'Primeira pista auxiliar.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 2', 'Segunda pista auxiliar.', 5);
+insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'Pista 3', 'Terceira pista auxiliar.', 5);
 
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista central', 'Pista principal, nela téñense reunido as mellores raquetas.', 5);
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista 1', 'Primeira pista auxiliar.', 5);
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista 2', 'Segunda pista auxiliar.', 5);
-insert into area (instalacion, nome, descricion, aforomaximo) values (4, 'pista 3', 'Terceira pista auxiliar.', 5);
-
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'piscina principal', 'Piscina multiusos para a práctica de diferentes deportes de natación', 40);
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'piscina de saltos', 'Piscina óptima para realizar saltos.', 30);
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'piscina auxiliar', 'Piscina multiusos de menor tamaño.', 15);
-insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'aula p1', 'Aula da instalación das piscinas, para calquera tipo de encontro entre poucas persoas', 15);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina principal', 'Piscina multiusos para a práctica de diferentes deportes de natación', 40);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina de saltos', 'Piscina óptima para realizar saltos.', 30);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Piscina auxiliar', 'Piscina multiusos de menor tamaño.', 15);
+insert into area (instalacion, nome, descricion, aforomaximo) values (5, 'Aula p1', 'Aula da instalación das piscinas, para calquera tipo de encontro entre poucas persoas', 15);
 insert into area (instalacion, nome, descricion, aforomaximo, databaixa) values (5, 'aula p2', 'Pequena aula para reunións', 10, '2020-01-30');
 
 ------------------TIPOMATERIAL-------------------
-insert into tipoMaterial (nome) values ('pértiga');
-insert into tipoMaterial (nome) values ('disco');
-insert into tipoMaterial (nome) values ('xabalina');
-insert into tipoMaterial (nome) values ('balón de baloncesto reglamentario');
-insert into tipoMaterial (nome) values ('balón de Baloncesto júnior');
-insert into tipoMaterial (nome) values ('pala de pádel');
-insert into tipoMaterial (nome) values ('pelota de pádel');
-insert into tipoMaterial (nome) values ('proxector');
-insert into tipoMaterial (nome) values ('ordenador portátil');
-insert into tipoMaterial (nome) values ('pelota de fútbol 11');
-insert into tipoMaterial (nome) values ('pelota de fútbol 7');
-insert into tipoMaterial (nome) values ('peto');
-insert into tipoMaterial (nome) values ('cono');
-insert into tipoMaterial (nome) values ('rede de porteria');
-insert into tipoMaterial (nome) values ('pelota de balonmán');
-insert into tipoMaterial (nome) values ('pelota de fútbol sala');
-insert into tipoMaterial (nome) values ('disco de hockey');
-insert into tipoMaterial (nome) values ('pau de hockey');
-insert into tipoMaterial (nome) values ('raqueta de tenis');
-insert into tipoMaterial (nome) values ('pelota de tenis');
-insert into tipoMaterial (nome) values ('rede de tenis');
-insert into tipoMaterial (nome) values ('pelota de waterpolo');
+insert into tipoMaterial (nome) values ('Pértiga');
+insert into tipoMaterial (nome) values ('Disco');
+insert into tipoMaterial (nome) values ('Xabalina');
+insert into tipoMaterial (nome) values ('Balón de baloncesto reglamentario');
+insert into tipoMaterial (nome) values ('Balón de Baloncesto júnior');
+insert into tipoMaterial (nome) values ('Pala de pádel');
+insert into tipoMaterial (nome) values ('Pelota de pádel');
+insert into tipoMaterial (nome) values ('Proxector');
+insert into tipoMaterial (nome) values ('Ordenador portátil');
+insert into tipoMaterial (nome) values ('Pelota de fútbol 11');
+insert into tipoMaterial (nome) values ('Pelota de fútbol 7');
+insert into tipoMaterial (nome) values ('Peto');
+insert into tipoMaterial (nome) values ('Cono');
+insert into tipoMaterial (nome) values ('Rede de porteria');
+insert into tipoMaterial (nome) values ('Pelota de balonmán');
+insert into tipoMaterial (nome) values ('Pelota de fútbol sala');
+insert into tipoMaterial (nome) values ('Disco de hockey');
+insert into tipoMaterial (nome) values ('Pau de hockey');
+insert into tipoMaterial (nome) values ('Raqueta de tenis');
+insert into tipoMaterial (nome) values ('Pelota de tenis');
+insert into tipoMaterial (nome) values ('Rede de tenis');
+insert into tipoMaterial (nome) values ('Pelota de waterpolo');
 
 ------------------MATERIAL-------------------
 insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (1, 1, 1, 'Perfecta', '2017-02-20', 80);
@@ -425,24 +425,24 @@ insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezo
 insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (22, 17, 5, 'Bote reguleiro', '2018-12-20', 30);
 
 ------------------TIPO DE ACTIVIDADE-------------------
-insert into tipoactividade (nome, descricion) values ('carreiras', 'Categoría para os máis corredores da casa');
-insert into tipoactividade (nome, descricion) values ('salto de altura', 'Para aqueles que queiran tocar o ceo');
-insert into tipoactividade (nome, descricion) values ('salto de lonxitude', 'Para os que queiran saltar dunha casa á outra');
-insert into tipoactividade (nome, descricion) values ('lanzamento de disco', 'Para os que queiran desatar a súa forza');
-insert into tipoactividade (nome, descricion) values ('lanzamento de xabalina', 'O clásico lanzamento de xabalina');
-insert into tipoactividade (nome, descricion) values ('baloncesto', 'Actividades para os máis encestadores');
-insert into tipoactividade (nome, descricion) values ('padel', 'Actividades relativas ao padel');
-insert into tipoactividade (nome, descricion) values ('relaxación', 'Para os que están nerviosos cos exames');
-insert into tipoactividade (nome, descricion) values ('frontón', 'Para atrevidos');
-insert into tipoactividade (nome, descricion) values ('futbol', 'Actividades relacionadas co deporte rei');
-insert into tipoactividade (nome, descricion) values ('futbol infantil', 'Futbol para os raparigos');
-insert into tipoactividade (nome, descricion) values ('bailes latinos', 'Para os que queren mover o esqueleto');
-insert into tipoactividade (nome, descricion) values ('zumba', 'Para os que queren deixalo todo na pista');
-insert into tipoactividade (nome, descricion) values ('balonmán', 'Actividades sobre balonmán');
-insert into tipoactividade (nome, descricion) values ('fútbol sala', 'Actividades relacionadas con este gran deporte');
-insert into tipoactividade (nome, descricion) values ('tenis', 'Para os que queiran practicar este gran deporte, todas as idades.');
-insert into tipoactividade (nome, descricion) values ('carreiras de natación', 'Para os que queiran mellorar nesta disciplina da natación.');
-insert into tipoactividade (nome, descricion) values ('saltos de natación', 'Para os que se atreven a saltar dende alturas inimaxinábeis.');
+insert into tipoactividade (nome, descricion) values ('Carreiras', 'Categoría para os máis corredores da casa');
+insert into tipoactividade (nome, descricion) values ('Salto de altura', 'Para aqueles que queiran tocar o ceo');
+insert into tipoactividade (nome, descricion) values ('Salto de lonxitude', 'Para os que queiran saltar dunha casa á outra');
+insert into tipoactividade (nome, descricion) values ('Lanzamento de disco', 'Para os que queiran desatar a súa forza');
+insert into tipoactividade (nome, descricion) values ('Lanzamento de xabalina', 'O clásico lanzamento de xabalina');
+insert into tipoactividade (nome, descricion) values ('Baloncesto', 'Actividades para os máis encestadores');
+insert into tipoactividade (nome, descricion) values ('Padel', 'Actividades relativas ao padel');
+insert into tipoactividade (nome, descricion) values ('Relaxación', 'Para os que están nerviosos cos exames');
+insert into tipoactividade (nome, descricion) values ('Frontón', 'Para atrevidos');
+insert into tipoactividade (nome, descricion) values ('Futbol', 'Actividades relacionadas co deporte rei');
+insert into tipoactividade (nome, descricion) values ('Futbol infantil', 'Futbol para os raparigos');
+insert into tipoactividade (nome, descricion) values ('Bailes latinos', 'Para os que queren mover o esqueleto');
+insert into tipoactividade (nome, descricion) values ('Zumba', 'Para os que queren deixalo todo na pista');
+insert into tipoactividade (nome, descricion) values ('Balonmán', 'Actividades sobre balonmán');
+insert into tipoactividade (nome, descricion) values ('Fútbol sala', 'Actividades relacionadas con este gran deporte');
+insert into tipoactividade (nome, descricion) values ('Tenis', 'Para os que queiran practicar este gran deporte, todas as idades.');
+insert into tipoactividade (nome, descricion) values ('Carreiras de natación', 'Para os que queiran mellorar nesta disciplina da natación.');
+insert into tipoactividade (nome, descricion) values ('Saltos de natación', 'Para os que se atreven a saltar dende alturas inimaxinábeis.');
 
 
 ------------------CAPACIDADE PERSOAL-------------------
@@ -481,11 +481,11 @@ insert into estarcapacitado (tipoactividade, persoal) values (17, 'sofiaPersoal'
 insert into estarcapacitado (tipoactividade, persoal) values (18, 'soniaPersoal');
 
 ------------------CURSO-------------------
-insert into curso (nome, descricion, prezo) values ('curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25);
-insert into curso (nome, descricion, prezo) values ('futbol avanzado', 'Curso adicado aos máis especialistas neste deporte.', 40);
-insert into curso (nome, descricion, prezo) values ('baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25);
-insert into curso (nome, descricion, prezo) values ('movemento', 'Actividades variadas para exercitarse', 30);
-insert into curso (nome, descricion, prezo) values ('curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30);
+insert into curso (nome, descricion, prezo) values ('Curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25);
+insert into curso (nome, descricion, prezo) values ('Futbol avanzado', 'Curso adicado aos máis especialistas neste deporte.', 40);
+insert into curso (nome, descricion, prezo) values ('Baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25);
+insert into curso (nome, descricion, prezo) values ('Movemento', 'Actividades variadas para exercitarse', 30);
+insert into curso (nome, descricion, prezo) values ('Curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30);
 
 ------------------ACTIVIDADE (PARA OS CURSOS ANTERIORES)-------------------
 insert into actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) values ('2019-10-02 10:00:00.00', 1, 1, 1, 1, 'manuelPersoal', 'Introdución ás carreiras', 2);

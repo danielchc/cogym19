@@ -116,7 +116,7 @@ public class vNovaIncidencia extends AbstractController implements Initializable
                             material
                     ));
                 }else if (selectedItem.getValue() instanceof Area){
-                    Area area= (Area) selectedItem.getValue();
+                    Area area=(Area)selectedItem.getValue();
                     getFachadaAplicacion().insertarIncidencia(new IncidenciaArea(
                             super.getvPrincipalController().obterUsuarioLogeado(),
                             this.campoDescricion.getText(),
