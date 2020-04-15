@@ -254,7 +254,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
 
         try {
-            stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET login=?,contrasinal=?,numTelefono=?,correoElectronico=?,IBAN=? WHERE login=?;");
+            stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET login=?,contrasinal=?,numTelefono=?,correoElectronico=?,IBAN=?,dataBaixa=NULL WHERE login=?;");
             stmUsuario.setString(1, usuario.getLogin());
             stmUsuario.setString(2, usuario.getContrasinal());
             stmUsuario.setString(3, usuario.getNumTelefono());
@@ -316,9 +316,9 @@ public final class DAOUsuarios extends AbstractDAO {
                         "UPDATE persoaFisica "+"" +
                                 "SET nome=NULL, "+
                                 "dificultades=NULL, "+
-                                "dataNacemento=NULL, "+
+                                "dataNacemento=NULL "+
                                 "WHERE usuarioSocio=? AND "+
-                                "(SELECT true FROM usuario WHERE login=usuarioPersoal AND dataBaixa IS NOT NULL);"
+                                "(SELECT TRUE FROM usuario WHERE login=usuarioPersoal AND dataBaixa IS NOT NULL);"
                 );
                 stmUsuario.setString(1, usuario.getLogin());
                 stmUsuario.executeUpdate();
@@ -327,31 +327,13 @@ public final class DAOUsuarios extends AbstractDAO {
                         "UPDATE persoaFisica "+"" +
                                 "SET nome=NULL, "+
                                 "dificultades=NULL, "+
-                                "dataNacemento=NULL, "+
+                                "dataNacemento=NULL "+
                                 "WHERE usuarioPersoal=? AND "+
-                                "(SELECT true FROM usuario WHERE login=usuarioSocio AND dataBaixa IS NOT NULL);"
+                                "(SELECT TRUE FROM usuario WHERE login=usuarioSocio AND dataBaixa IS NOT NULL);"
                 );
                 stmUsuario.setString(1, usuario.getLogin());
                 stmUsuario.executeUpdate();
             }
-            super.getConexion().commit();
-        } catch (SQLException e) {
-            throw new ExcepcionBD(super.getConexion(), e);
-        } finally {
-            try {
-                stmUsuario.close();
-            } catch (SQLException e) {
-                System.out.println("Imposible cerrar cursores");
-            }
-        }
-    }
-
-    protected void darAltaUsuario(String login) throws ExcepcionBD {
-        PreparedStatement stmUsuario = null;
-        try {
-            stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET dataBaixa=NULL WHERE login=?");
-            stmUsuario.setString(1, login);
-            stmUsuario.executeUpdate();
             super.getConexion().commit();
         } catch (SQLException e) {
             throw new ExcepcionBD(super.getConexion(), e);
@@ -473,7 +455,7 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             if (filtroTipo == TipoUsuario.Socio || filtroTipo == TipoUsuario.Todos) {
                 stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa  " +
-                        "WHERE (LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?))  " + usBaixa +
+                        "WHERE (LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?)) OR (vs.nome IS NULL)  " + usBaixa +
                         "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%" + login + "%");

@@ -134,21 +134,15 @@ public class FachadaAplicacion extends Application {
     }
 
     public void insertarUsuario(Usuario usuario) throws ExcepcionBD {
-        usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         xestionUsuarios.insertarUsuario(usuario);
     }
 
     public void actualizarUsuario(String loginVello,Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
-        if(contrasinalCambiado) usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
-        xestionUsuarios.actualizarUsuario(loginVello,usuario);
+        xestionUsuarios.actualizarUsuario(loginVello,usuario,contrasinalCambiado);
     }
 
     public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
         xestionUsuarios.darBaixaUsuario(usuario);
-    }
-
-    public void darAltaUsuario(String login) throws ExcepcionBD {
-        xestionUsuarios.darAltaUsuario(login);
     }
 
     public TipoUsuario consultarTipo(String login)  {

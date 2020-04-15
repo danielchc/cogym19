@@ -114,10 +114,6 @@ public final class FachadaBD {
         daoUsuarios.darBaixaUsuario(usuario);
     }
 
-    public void darAltaUsuario(String login) throws ExcepcionBD {
-        daoUsuarios.darAltaUsuario(login);
-    }
-
     public TipoUsuario consultarTipo(String login) {
         return daoUsuarios.consultarTipo(login);
     }

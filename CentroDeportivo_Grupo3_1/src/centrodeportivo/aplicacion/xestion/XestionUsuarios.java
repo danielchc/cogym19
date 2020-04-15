@@ -10,6 +10,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
+import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.gui.FachadaGUI;
 
 import java.util.ArrayList;
@@ -48,19 +49,17 @@ public class XestionUsuarios {
     }
 
     public void insertarUsuario(Usuario usuario) throws ExcepcionBD {
+        usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         fachadaBD.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello, Usuario usuario) throws ExcepcionBD {
-        fachadaBD.actualizarUsuario(loginVello, usuario);
+    public void actualizarUsuario(String loginVello,Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
+        if(contrasinalCambiado) usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
+        fachadaBD.actualizarUsuario(loginVello,usuario);
     }
 
     public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
         fachadaBD.darBaixaUsuario(usuario);
-    }
-
-    public void darAltaUsuario(String login) throws ExcepcionBD {
-        fachadaBD.darAltaUsuario(login);
     }
 
     public TipoUsuario consultarTipo(String login) {

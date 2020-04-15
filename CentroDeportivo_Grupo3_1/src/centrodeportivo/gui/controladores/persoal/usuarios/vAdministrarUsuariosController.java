@@ -159,8 +159,10 @@ public class vAdministrarUsuariosController extends AbstractController implement
      */
     public void modificarUsuario(){
         if(!listaUsuarios.getSelectionModel().isEmpty()) {
+            Usuario usuario=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem());
+            if(usuario.estaDeBaixa()) return;
             vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
-            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
+            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(usuario);
         }
     }
 
@@ -172,15 +174,10 @@ public class vAdministrarUsuariosController extends AbstractController implement
             Usuario usuario=(Usuario) listaUsuarios.getSelectionModel().getSelectedItem();
             if(usuario.estaDeBaixa()){
                 //se non é nulo entón estaba de baixa e hai que dalo de alta.
-                try{
-                    if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
-                        fachadaAplicacion.darAltaUsuario(usuario.getLogin());
-                        fachadaAplicacion.mostrarInformacion("Reactivar usuario","O usuario "+usuario.getLogin()+ " reactivouse correctamente.");
-                    }
-                }catch (ExcepcionBD excepcionBD){
-                    super.getFachadaAplicacion().mostrarErro("Usuarios",excepcionBD.getMessage());
+                if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                    vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
+                    ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
                 }
-
             }else{
                 if((usuario instanceof Persoal) && fachadaAplicacion.tenClasesPendentes((Persoal)usuario)){
                     fachadaAplicacion.mostrarErro("Clases pendentes","Non podes dar de baixa o usuario "+usuario.getLogin()+ " porque ten clases pendentes.");

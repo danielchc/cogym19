@@ -402,17 +402,21 @@ public class vNovoUsuarioController extends AbstractController implements Initia
      */
     private void cargarDatosUsuario(){
         System.out.println(usuarioModificar);
-        if(usuarioModificar==null)return;
+        if(usuarioModificar==null) return;
+        if(usuarioModificar.getNome()!=null){
+            campoNome.setText(usuarioModificar.getNome());
+            campoPassword.setText(usuarioModificar.getContrasinal());
+            campoTelf.setText(usuarioModificar.getNumTelefono());
+            campoCorreo.setText(usuarioModificar.getCorreoElectronico());
+            campoIBAN.setText(usuarioModificar.getIBANconta());
+            campoData.setValue(usuarioModificar.getDataNacemento().toLocalDate());
+            campoDificultades.setText(usuarioModificar.getDificultades());
+            campoNUSS.setEditable(false);
+        }
+        System.out.println(usuarioModificar.getLogin());
         this.loginVello=usuarioModificar.getLogin();
-        campoNome.setText(usuarioModificar.getNome());
         campoLogin.setText(usuarioModificar.getLogin());
-        campoPassword.setText(usuarioModificar.getContrasinal());
-        campoTelf.setText(usuarioModificar.getNumTelefono());
         campoDNI.setText(usuarioModificar.getDNI());
-        campoCorreo.setText(usuarioModificar.getCorreoElectronico());
-        campoIBAN.setText(usuarioModificar.getIBANconta());
-        campoData.setValue(usuarioModificar.getDataNacemento().toLocalDate());
-        campoDificultades.setText(usuarioModificar.getDificultades());
 
         if(usuarioModificar instanceof Socio){
             Socio socio=(Socio)usuarioModificar;
@@ -427,7 +431,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         campoLogin.setEditable(false);
         tipoUsuario.setDisable(true);
         campoDNI.setEditable(false);
-        campoNUSS.setEditable(false);
         cambiarTipo();
     }
 
