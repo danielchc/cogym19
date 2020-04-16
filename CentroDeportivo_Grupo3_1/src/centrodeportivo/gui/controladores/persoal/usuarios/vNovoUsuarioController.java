@@ -148,7 +148,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             try{
                 if(usuarioModificar!=null){
                     super.getFachadaAplicacion().actualizarUsuario(socio,usuarioModificar.getContrasinal()!=null && !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
-                    super.getvPrincipalController().setUsuarioLogeado(socio);
                     this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
                 }else{
                     this.fachadaAplicacion.insertarUsuario(socio);
@@ -185,7 +184,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                         return;
                     }
                     super.getFachadaAplicacion().actualizarUsuario(persoal,usuarioModificar.getContrasinal()!=null && !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
-                    super.getvPrincipalController().setUsuarioLogeado(persoal);
                     this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
                 }else{
                     this.fachadaAplicacion.insertarUsuario(persoal);

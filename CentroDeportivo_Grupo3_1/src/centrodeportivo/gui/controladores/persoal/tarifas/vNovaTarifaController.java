@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -31,8 +32,8 @@ public class vNovaTarifaController extends AbstractController implements Initial
      */
     public TextField campoNome;
     public Slider campoActividades;
-    public Spinner campoPrecioBase;
-    public Spinner campoPrecioExtras;
+    public TextField campoPrecioBase;
+    public TextField campoPrecioExtras;
     public Label labelNumActividades;
     public Label labelError;
 
@@ -60,6 +61,8 @@ public class vNovaTarifaController extends AbstractController implements Initial
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
         this.tarifaModificar=null;
+        //this.campoPrecioBase.setOnKeyTyped(new ListenerTextFieldNumeros(campoPrecioBase));
+        //this.campoPrecioExtras.setOnKeyTyped(new ListenerTextFieldNumeros(campoPrecioExtras));
     }
 
     /**
@@ -67,7 +70,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
      * @param actionEvent evento.
      */
     public void btnGardarAccion(ActionEvent actionEvent) {
-        if(!ValidacionDatos.estanCubertosCampos(campoNome)){
+        if(!ValidacionDatos.estanCubertosCampos(campoNome,campoPrecioBase,campoPrecioExtras)){
             labelError.setText("Algún campo sen cubrir.");
             return;
         }
@@ -75,8 +78,8 @@ public class vNovaTarifaController extends AbstractController implements Initial
         Tarifa tarifa=new Tarifa(
                 this.campoNome.getText(),
                 (int)this.campoActividades.getValue(),
-                ((Double)this.campoPrecioBase.getValue()).floatValue(),
-                ((Double)this.campoPrecioExtras.getValue()).floatValue()
+                Float.parseFloat(campoPrecioBase.getText()),
+                Float.parseFloat(campoPrecioExtras.getText())
         );
         if(tarifaModificar!=null){
 
@@ -130,7 +133,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
         campoNome.setText(tarifaModificar.getNome());
         campoActividades.setValue(tarifaModificar.getMaxActividades());
         labelNumActividades.setText(tarifaModificar.getMaxActividades().toString());
-        campoPrecioBase.getValueFactory().setValue((double)tarifaModificar.getPrezoBase());
-        campoPrecioExtras.getValueFactory().setValue((double)tarifaModificar.getPrezoExtras());
+        campoPrecioBase.setText(String.valueOf(tarifaModificar.getPrezoBase()));
+        campoPrecioExtras.setText(String.valueOf(tarifaModificar.getPrezoExtras()));
     }
 }

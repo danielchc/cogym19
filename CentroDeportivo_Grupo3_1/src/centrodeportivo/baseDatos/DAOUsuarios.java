@@ -490,7 +490,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 if (filtroTipo == TipoUsuario.Persoal) conds = "AND profesoractivo=FALSE ";
 
                 stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp  " +
-                        "WHERE (LOWER(vp.login) LIKE LOWER(?) AND LOWER(vp.nome) LIKE LOWER(?)) " + conds + usBaixa +
+                        "WHERE (LOWER(vp.login) LIKE LOWER(?) AND LOWER(vp.nome) LIKE LOWER(?))  OR (vp.nome IS NULL) " + conds + usBaixa +
                         "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%" + login + "%");

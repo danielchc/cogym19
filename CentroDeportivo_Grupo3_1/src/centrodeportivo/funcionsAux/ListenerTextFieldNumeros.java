@@ -14,8 +14,9 @@ public final class ListenerTextFieldNumeros implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
+        System.out.println(textField.getText());
         if(
-                (!textField.getText().isEmpty()&&
+                (!textField.getText().isEmpty() &&
                 !textField.getText().matches("[0-9]+(\\.)?[0-9]{0,1}")) ||
                 keyEvent.getCharacter().toLowerCase().matches("[a-z]")
 

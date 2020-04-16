@@ -64,19 +64,12 @@
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin></Slider>
-                        <Spinner fx:id="campoPrecioBase" prefHeight="44.0" prefWidth="207.0">
-                            <valueFactory>
-                                <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.5" initialValue="15.0" max="100.0" min="0.5" />
-                            </valueFactory>
-                            <VBox.margin>
-                              <Insets bottom="10.0" />
+                        <TextField fx:id="campoPrecioBase" prefHeight="40.0" prefWidth="207.0" />
+                        <TextField fx:id="campoPrecioExtras" prefHeight="40.0" prefWidth="231.0">
+                           <VBox.margin>
+                              <Insets top="20.0" />
                            </VBox.margin>
-                        </Spinner>
-                        <Spinner fx:id="campoPrecioExtras" prefHeight="42.0" prefWidth="207.0">
-                            <valueFactory>
-                                <SpinnerValueFactory.DoubleSpinnerValueFactory amountToStepBy="0.5" initialValue="1.0" max="100.0" min="0.5" />
-                            </valueFactory>
-                        </Spinner>
+                        </TextField>
                             </children>
                         </VBox>
                     </children>

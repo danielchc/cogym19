@@ -48,14 +48,10 @@ public class vPrincipalController extends AbstractController implements Initiali
         Botones menu
      */
     public Button btnIncidenciaP;
-    public Button btnMaterialP;
-    public Button btnActividadesP;
-    public Button btnAreasP;
     public Button btnTarifasP;
     public Button btnMensaxesP;
     public Button btnUsuariosP;
     public Button btnIncidenciaS;
-    public Button btnActividadesS;
     public Button btnMensaxesS;
     public Button btnUsuariosS;
     //contenedor para as pantallas
@@ -76,7 +72,7 @@ public class vPrincipalController extends AbstractController implements Initiali
     private HashMap<Button, Transicion> transiciones;
     private ArrayList<Button> botonesMenu;
     private HashMap<IdPantalla, DatosVista> pantallas;
-    private Usuario usuarioLogeado;
+    private String loginUsuarioLoggeado;
     private IdPantalla pantallaAMostrar;
     private IdPantalla ultimaPantalla;
 
@@ -89,7 +85,7 @@ public class vPrincipalController extends AbstractController implements Initiali
      */
     public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario usuarioLogeado,IdPantalla pantallaAMostrar) {
         super(fachadaAplicacion);
-        this.usuarioLogeado =usuarioLogeado;
+        this.loginUsuarioLoggeado = usuarioLogeado.getLogin();
         this.pantallaAMostrar=pantallaAMostrar;
         this.transiciones=new HashMap<>();
         this.botonesMenu=new ArrayList<>();
@@ -268,7 +264,7 @@ public class vPrincipalController extends AbstractController implements Initiali
     public void perfilUsuarioAction(){
         esconderTodosSliders();
         mostrarMenu(IdPantalla.NOVOUSUARIO);
-        ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(super.getFachadaAplicacion().consultarUsuario(this.usuarioLogeado.getLogin()));
+        ((vNovoUsuarioController)getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(super.getFachadaAplicacion().consultarUsuario(this.loginUsuarioLoggeado));
     }
 
     /**
@@ -284,16 +280,6 @@ public class vPrincipalController extends AbstractController implements Initiali
      * @return Usuario loggeado no sistema.
      */
     public Usuario obterUsuarioLogeado(){
-        return usuarioLogeado;
-    }
-
-
-    public Usuario getUsuarioLogeado() {
-        return usuarioLogeado;
-    }
-
-    public void setUsuarioLogeado(Usuario usuarioLogeado) {
-        System.out.println(usuarioLogeado);
-        this.usuarioLogeado = usuarioLogeado;
+        return super.getFachadaAplicacion().consultarUsuario(loginUsuarioLoggeado);
     }
 }
