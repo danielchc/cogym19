@@ -53,9 +53,9 @@ public class XestionUsuarios {
         fachadaBD.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
+    public void actualizarUsuario(Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
         if(contrasinalCambiado) usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
-        fachadaBD.actualizarUsuario(loginVello,usuario);
+        fachadaBD.actualizarUsuario(usuario);
     }
 
     public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {

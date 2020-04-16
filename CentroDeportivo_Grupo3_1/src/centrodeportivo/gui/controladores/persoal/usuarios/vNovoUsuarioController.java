@@ -81,7 +81,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         Persoal
     };
     private Usuario usuarioModificar;
-    private String loginVello;
     private vPrincipalController controllerPrincipal;
     private FachadaAplicacion fachadaAplicacion;
 
@@ -124,17 +123,13 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         }
         if(!comprobarFormatos()) return;
         if(!comprobarDataMais16anos()) return;
+        if(usuarioModificar==null && !comprobarLogin()) return;
 
         ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
-
         if(contasP==ContasPersoa.Ningunha){
             if(!comprobarDNI()) return;
         }
-        if(usuarioModificar!=null){
-            if(!loginVello.equals(campoLogin.getText()) && !comprobarLogin()) return;
-        }else{
-            if(!comprobarDNI()) return;
-        }
+
 
         if(this.tipoUsuario.getSelectionModel().getSelectedItem()==RexistroTipo.Socio){
             Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
@@ -152,7 +147,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             );
             try{
                 if(usuarioModificar!=null){
-                    super.getFachadaAplicacion().actualizarUsuario(loginVello,socio,!usuarioModificar.getContrasinal().equals(campoPassword.getText()));
+                    super.getFachadaAplicacion().actualizarUsuario(socio,usuarioModificar.getContrasinal()!=null && !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
                     super.getvPrincipalController().setUsuarioLogeado(socio);
                     this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
                 }else{
@@ -189,7 +184,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                         fachadaAplicacion.mostrarErro("Clases pendentes","O persoal "+persoal.getLogin()+ " non pode deixar de ser profesor porque ten clases pendentes.");
                         return;
                     }
-                    super.getFachadaAplicacion().actualizarUsuario(loginVello,persoal,!usuarioModificar.getContrasinal().equals(campoPassword.getText()));
+                    super.getFachadaAplicacion().actualizarUsuario(persoal,usuarioModificar.getContrasinal()!=null && !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
                     super.getvPrincipalController().setUsuarioLogeado(persoal);
                     this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
                 }else{
@@ -247,22 +242,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 this.tipoUsuario.setDisable(true);
                 mostrarCamposSocio();
                 break;
-        }
-        if(contasP!=ContasPersoa.Ningunha){
-            PersoaFisica persoaFisica=super.getFachadaAplicacion().consultarPersoaFisica(campoDNI.getText());
-
-            this.campoNome.setText(persoaFisica.getNome());
-            this.campoData.setValue(persoaFisica.getDataNacemento().toLocalDate());
-            this.campoDificultades.setText(persoaFisica.getDificultades());
-            this.campoNome.setEditable(false);
-            this.campoData.setEditable(false);
-            this.campoDificultades.setEditable(false);
-        }else{
-            this.campoNome.setText("");
-            this.campoDificultades.setText("");
-            this.campoNome.setEditable(true);
-            this.campoData.setEditable(true);
-            this.campoDificultades.setEditable(true);
         }
     }
 
@@ -425,7 +404,6 @@ public class vNovoUsuarioController extends AbstractController implements Initia
             campoDificultades.setText(usuarioModificar.getDificultades());
             campoNUSS.setEditable(false);
         }
-        this.loginVello=usuarioModificar.getLogin();
         campoLogin.setText(usuarioModificar.getLogin());
         campoDNI.setText(usuarioModificar.getDNI());
 

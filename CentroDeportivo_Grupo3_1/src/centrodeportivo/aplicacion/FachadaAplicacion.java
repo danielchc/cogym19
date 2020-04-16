@@ -137,8 +137,8 @@ public class FachadaAplicacion extends Application {
         xestionUsuarios.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello,Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
-        xestionUsuarios.actualizarUsuario(loginVello,usuario,contrasinalCambiado);
+    public void actualizarUsuario(Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
+        xestionUsuarios.actualizarUsuario(usuario,contrasinalCambiado);
     }
 
     public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {

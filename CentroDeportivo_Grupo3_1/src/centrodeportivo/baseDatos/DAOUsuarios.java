@@ -250,7 +250,7 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
-    protected void actualizarUsuario(String loginVello, Usuario usuario) throws ExcepcionBD {
+    protected void actualizarUsuario(Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
 
         try {
@@ -260,7 +260,7 @@ public final class DAOUsuarios extends AbstractDAO {
             stmUsuario.setString(3, usuario.getNumTelefono());
             stmUsuario.setString(4, usuario.getCorreoElectronico());
             stmUsuario.setString(5, usuario.getIBANconta());
-            stmUsuario.setString(6, loginVello);
+            stmUsuario.setString(6, usuario.getLogin());
             stmUsuario.executeUpdate();
 
             stmUsuario = super.getConexion().prepareStatement("UPDATE persoafisica SET nome=?,dificultades=?,datanacemento=? WHERE DNI=?;");

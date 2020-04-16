@@ -106,8 +106,8 @@ public final class FachadaBD {
         daoUsuarios.insertarUsuario(usuario);
     }
 
-    public void actualizarUsuario(String loginVello, Usuario usuario) throws ExcepcionBD {
-        daoUsuarios.actualizarUsuario(loginVello, usuario);
+    public void actualizarUsuario(Usuario usuario) throws ExcepcionBD {
+        daoUsuarios.actualizarUsuario(usuario);
     }
 
     public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
