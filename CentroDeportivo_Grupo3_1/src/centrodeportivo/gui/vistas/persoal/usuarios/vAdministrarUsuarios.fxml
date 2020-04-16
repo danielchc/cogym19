@@ -49,7 +49,7 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
-            <Button layoutX="466.0" layoutY="385.0" mnemonicParsing="false" onAction="#modificarUsuario" text="Modificar" AnchorPane.bottomAnchor="10.999999999999979" AnchorPane.rightAnchor="135.0">
+            <Button fx:id="btnModificar" layoutX="466.0" layoutY="385.0" mnemonicParsing="false" onAction="#modificarUsuario" text="Modificar" AnchorPane.bottomAnchor="10.999999999999979" AnchorPane.rightAnchor="135.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -60,7 +60,7 @@
                </font>
             </Button>
             <ComboBox fx:id="campoTipoUsuario" layoutX="98.0" layoutY="64.0" prefHeight="25.0" prefWidth="135.0" />
-            <CheckBox fx:id="mostrarUsuariosBaixa" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" text="Mostrar Usuarios de Baixa" AnchorPane.bottomAnchor="21.399999999999977" AnchorPane.leftAnchor="14.0">
+            <CheckBox fx:id="mostrarUsuariosBaixa" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" onAction="#buscarUsuarios" text="Mostrar Usuarios de Baixa" AnchorPane.bottomAnchor="21.399999999999977" AnchorPane.leftAnchor="14.0">
                <font>
                   <Font size="14.0" />
                </font>

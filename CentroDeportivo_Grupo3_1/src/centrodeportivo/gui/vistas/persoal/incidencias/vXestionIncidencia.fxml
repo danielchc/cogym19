@@ -24,15 +24,15 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-             <VBox layoutX="130.0" layoutY="14.0" prefHeight="348.0" prefWidth="426.0" spacing="5.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.80000000000007" AnchorPane.topAnchor="14.0">
+             <VBox layoutX="130.0" layoutY="14.0" prefHeight="345.0" prefWidth="459.0" spacing="5.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="14.0">
                  <children>
                      <HBox alignment="CENTER" prefHeight="140.0" prefWidth="436.0">
                      <children>
-                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="128.0" prefWidth="427.0" />
+                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="104.0" prefWidth="427.0" />
                      </children></HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="40.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="69.0" prefWidth="193.0" text="Custo de resolución">
+                        <Label alignment="CENTER" prefHeight="69.0" prefWidth="200.0" text="Custo de resolución">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -40,19 +40,24 @@
                         <TextField fx:id="campoCusto" prefHeight="30.0" prefWidth="251.0" />
                      </children>
                   </HBox>
-                     <HBox alignment="CENTER" prefHeight="157.0" prefWidth="431.0">
+                     <HBox alignment="CENTER" prefHeight="116.0" prefWidth="417.0">
                          <children>
                              <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Comentario resolución">
                                  <font>
                                      <Font name="System Bold" size="14.0" />
                                  </font>
                              </Label>
-                             <TextArea fx:id="campoComentario" prefHeight="200.0" prefWidth="250.0" />
+                             <TextArea fx:id="campoComentario" prefHeight="116.0" prefWidth="251.0" />
                          </children>
                      </HBox>
                  </children>
              </VBox>
-            <Button layoutX="279.0" layoutY="376.0" mnemonicParsing="false" onAction="#resolverIncidencia" prefHeight="35.0" prefWidth="127.0" text="Resolver Incidencia" AnchorPane.bottomAnchor="15.199999999999989" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="280.0">
+            <Button layoutX="462.0" layoutY="368.0" mnemonicParsing="false" onAction="#resolverIncidencia" prefHeight="35.0" prefWidth="127.0" text="Resolver" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="98.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="314.0" layoutY="368.0" mnemonicParsing="false" onAction="#volverAdministracion" prefHeight="35.0" prefWidth="127.0" text="Volver">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

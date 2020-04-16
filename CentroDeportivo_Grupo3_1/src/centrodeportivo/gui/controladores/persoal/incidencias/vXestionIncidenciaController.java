@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
 import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -91,9 +92,14 @@ public class vXestionIncidenciaController extends AbstractController implements 
         incidenciaXestionar.setCustoReparacion(Float.valueOf(campoCusto.getText()));
         try {
             getFachadaAplicacion().resolverIncidencia(incidenciaXestionar);
+            getFachadaAplicacion().mostrarInformacion("Incidencia", "Gardouse a resolución da indicencia, podela editar durante 5 días");
+            getvPrincipalController().volverAtras();
         } catch (ExcepcionBD excepcionBD) {
             getFachadaAplicacion().mostrarErro("INCIDENCIA", excepcionBD.getMessage());
         }
     }
 
+    public void volverAdministracion(){
+        getvPrincipalController().getControlador(IdPantalla.ADMINISTRARINCIDENCIAS);
+    }
 }

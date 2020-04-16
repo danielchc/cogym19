@@ -37,6 +37,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
     public CheckBox mostrarUsuariosBaixa;
     public Button btnBorrar;
     public Button btnCapacidades;
+    public Button btnModificar;
 
     /**
      * Atributos privados do controlador.
@@ -135,12 +136,9 @@ public class vAdministrarUsuariosController extends AbstractController implement
      */
     public void listenerTabla(){
         Usuario usuario=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem());
-        this.btnCapacidades.setVisible(usuario.getTipoUsuario()!=TipoUsuario.Socio);
-        if(usuario.estaDeBaixa()){
-            btnBorrar.setText("Reactivar");
-        }else{
-            btnBorrar.setText("Dar de baixa");
-        }
+        this.btnCapacidades.setVisible(!usuario.estaDeBaixa() && usuario.getTipoUsuario()!=TipoUsuario.Socio);
+        this.btnModificar.setVisible(!usuario.estaDeBaixa());
+        this.btnBorrar.setText(usuario.estaDeBaixa()?"Reactivar":"Dar de baixa");
     }
 
 
@@ -184,6 +182,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
                     return;
                 }
                 try{
+                    System.out.println("Antes entrar " + vPrincipal.obterUsuarioLogeado().getLogin());
                     if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
                         if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
                             fachadaAplicacion.darBaixaUsuario(super.getFachadaAplicacion().consultarUsuario(usuario.getLogin()));
