@@ -151,6 +151,7 @@ public final class DAOIncidencias extends AbstractDAO {
                 stmIncidencia.setInt(3, incidencia.getNumero());
             }
             stmIncidencia.executeUpdate();
+            System.out.println(stmIncidencia);
             super.getConexion().commit();
         } catch (SQLException e) {
             throw new ExcepcionBD(super.getConexion(), e);

@@ -17,7 +17,7 @@ public final class ListenerTextFieldNumeros implements ChangeListener<String> {
 
     @Override
     public void changed(ObservableValue<? extends String> observableValue, String valorAnterior, String valorNovo) {
-        if (!valorNovo.matches("\\d{0,10}([\\.]\\d{0,2})?")) {
+        if (!valorNovo.matches("\\d{0,5}([\\.]\\d{0,2})?")) {
             textField.setText(valorAnterior);
         }
     }
