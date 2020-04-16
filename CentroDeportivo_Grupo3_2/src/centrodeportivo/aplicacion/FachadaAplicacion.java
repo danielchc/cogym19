@@ -120,8 +120,8 @@ public class FachadaAplicacion extends Application {
         return xestionActividades.crearTipoActividade(tipoActividade);
     }
 
-    public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
-        xestionActividades.modificarTipoActividade(tipoActividade);
+    public TipoResultados modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        return xestionActividades.modificarTipoActividade(tipoActividade);
     }
 
     public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {

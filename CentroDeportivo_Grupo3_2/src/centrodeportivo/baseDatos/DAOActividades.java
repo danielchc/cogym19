@@ -86,12 +86,14 @@ public class DAOActividades extends AbstractDAO {
         try{
             //Actualizarase a taboa de tipos de actividade onde esté a fila co código pasado:
             stmTiposActividades = con.prepareStatement("UPDATE tipoActividade " +
-                    "SET descricion = ? " +
+                    "SET descricion = ?, " +
+                    "    nome = ? " +
                     "WHERE codTipoActividade = ? ");
 
             //Completamos a consulta:
             stmTiposActividades.setString(1, tipoActividade.getDescricion());
-            stmTiposActividades.setInt(2, tipoActividade.getCodTipoActividade());
+            stmTiposActividades.setString(2, tipoActividade.getNome());
+            stmTiposActividades.setInt(3, tipoActividade.getCodTipoActividade());
 
             //Executamos a actualización:
             stmTiposActividades.executeUpdate();
@@ -241,12 +243,15 @@ public class DAOActividades extends AbstractDAO {
         //Recuperamos a conexión:
         con = super.getConexion();
 
-        //Preparamos a consulta: miraremos se hai tipos de actividades co mesmo nome que o pasado:
+        //Preparamos a consulta: miraremos se hai tipos de actividades co mesmo nome que o pasado.
+        //Sempre temos en conta o código pasado (porque o nome pasado pode ser o que xa ten ese tipo de actividade):
         try{
             stmTiposActividades = con.prepareStatement("SELECT * FROM tipoActividade " +
-                    "WHERE lower(nome) = lower(?) ");
+                    "WHERE lower(nome) = lower(?) " +
+                    "  and codTipoActividade != ? ");
             //Completamos os campos:
             stmTiposActividades.setString(1, tipoActividade.getNome());
+            stmTiposActividades.setInt(2, tipoActividade.getCodTipoActividade());
             //Realizamos a consulta:
             rsTiposActividades = stmTiposActividades.executeQuery();
             //Comprobamos se hai resultados, pois se é así existirá xa un tipo de actividade con ese nome:

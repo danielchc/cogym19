@@ -51,7 +51,6 @@ public class vInsercionTipoActividadeController extends AbstractController imple
             //No primeiro caso: todos os campos baleiros - inserción dun novo tipo.
             caixaCodigo.setVisible(false); //Ocultamos a parte que amosa o código.
             //Facemos editable o nome:
-            campoNome.setEditable(true);
             //Vaciamos os campos:
             campoNome.setText("");
             campoCodigo.setText("");
@@ -61,7 +60,6 @@ public class vInsercionTipoActividadeController extends AbstractController imple
             //Se hai un tipo de actividade, entón amosarase a súa información.
             caixaCodigo.setVisible(true); //Facemos visible a parte que amosa o código.
             campoCodigo.setText(""+tipoActividade.getCodTipoActividade());
-            campoNome.setEditable(false); //Ao editar, non se pode cambiar o nome.
             campoNome.setText(tipoActividade.getNome());
             campoDescricion.setText(tipoActividade.getDescricion());
             //Habilítanse borrados:
@@ -75,26 +73,41 @@ public class vInsercionTipoActividadeController extends AbstractController imple
     }
 
     public void btnGardarAction(ActionEvent actionEvent) {
+        //Antes de nada, hai que verificar que o nome esté cuberto:
+        if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
+            super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Hai que insertar un nome!");
+            return;
+        }
         //Poden ocorrer dúas cousas: que haxa que insertar un novo tipo ou modificalo.
         if(tipoActividade != null) {
             //Se o tipo de actividade non é nulo, é unha modificación. Como a descrición pode ser nula, faise a actualización directamente.
             tipoActividade.setDescricion(campoDescricion.getText());
+            //Engadimos tamén o nome actualizado:
+            tipoActividade.setNome(campoNome.getText());
             //Intentaremos entón modificar o tipo de actividade:
             try {
-                this.getFachadaAplicacion().modificarTipoActividade(tipoActividade);
-                //Se rematou o método sen problema, entón amósase confirmación:
-                this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
-                        "Tipo de actividade con id = " + tipoActividade.getCodTipoActividade() + " modificado correctamente.");
+                TipoResultados res = this.getFachadaAplicacion().modificarTipoActividade(tipoActividade);
+                switch(res){
+                    case correcto:
+                        //Se rematou o método sen problema, entón amósase confirmación:
+                        this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
+                                "Tipo de actividade con id = " + tipoActividade.getCodTipoActividade() + " modificado correctamente.");
+                        //Non saímos por se se queren facer outras tarefas:
+                        break;
+                    case datoExiste:
+                        //Se xa existía outro tipo de actividade co nome que se quería poñer, avísase do erro:
+                        //Mostramos un erro:
+                        this.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
+                                "Non se puido modificar a base de datos: xa existe un tipo de actividade de nome '" +
+                                        tipoActividade.getNome().toLowerCase() + "'.");
+                        break;
+
+                }
             } catch (ExcepcionBD excepcionBD) {
                 excepcionBD.printStackTrace();
             }
         } else {
             //Se fose nulo, é unha inserción:
-            //Antes de nada, hai que verificar que o nome esté cuberto:
-            if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
-                super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Hai que insertar un nome!");
-                return;
-            }
             TipoActividade tipoActividade = new TipoActividade(campoNome.getText(), campoDescricion.getText());
             //Vaise intentar a actualización da base de datos:
             try {

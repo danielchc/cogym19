@@ -31,8 +31,19 @@ public class XestionActividades {
         }
     }
 
-    public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
-        this.fachadaBD.modificarTipoActividade(tipoActividade);
+    public TipoResultados modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        //Hai que verificar primeiro que non exista outro tipo de actividade existente co nome pasado
+        //(que non sexa este, claro):
+        if(!this.fachadaBD.comprobarExistencia(tipoActividade)) {
+            //Se non existe, modificamos o tipo:
+            this.fachadaBD.modificarTipoActividade(tipoActividade);
+            //Se se rematou correctamente, devólvese o enumerado indicador de remate correcto:
+            return TipoResultados.correcto;
+        } else {
+            //Se hai un tipo de actividade DISTINTO DESTE co mesmo nome que se quere modificar, devólvese
+            //que xa existe:
+            return TipoResultados.datoExiste;
+        }
     }
 
     public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
