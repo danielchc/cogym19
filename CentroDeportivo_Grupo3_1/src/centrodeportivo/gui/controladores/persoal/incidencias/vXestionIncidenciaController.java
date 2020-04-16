@@ -100,6 +100,6 @@ public class vXestionIncidenciaController extends AbstractController implements 
     }
 
     public void volverAdministracion(){
-        getvPrincipalController().getControlador(IdPantalla.ADMINISTRARINCIDENCIAS);
+        getvPrincipalController().mostrarMenu(IdPantalla.ADMINISTRARINCIDENCIAS);
     }
 }
