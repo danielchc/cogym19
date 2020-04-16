@@ -52,12 +52,14 @@ public class vXestionIncidenciaController extends AbstractController implements 
                             "\nNúmero: %d"+
                             "\nÁrea: %s"+
                             "\nInstalación: %s"+
-                            "\nUsuario incidencia: %s",
+                            "\nUsuario incidencia: %s"+
+                            "\nDescrición: %s",
                     incidenciaXestionar.getDataFalla(),
                     incidenciaXestionar.getNumero(),
                     ((IncidenciaArea) incidenciaXestionar).getArea(),
                     ((IncidenciaArea) incidenciaXestionar).getArea().getNome(),
-                    incidenciaXestionar.getUsuario().getLogin()
+                    incidenciaXestionar.getUsuario().getLogin(),
+                    incidenciaXestionar.getDescricion()
             );
         }else if (incidenciaXestionar instanceof IncidenciaMaterial){
             datos=String.format(
@@ -66,13 +68,15 @@ public class vXestionIncidenciaController extends AbstractController implements 
                             "\nNúmero: %d"+
                             "\nMaterial: %s %d"+
                             "\nÁrea: %s"+
-                            "\nUsuario incidencia: %s",
+                            "\nUsuario incidencia: %s"+
+                            "\nDescrición: %s",
                     incidenciaXestionar.getDataFalla(),
                     incidenciaXestionar.getNumero(),
                     ((IncidenciaMaterial) incidenciaXestionar).getMaterial().getTipoNombre(),
                     ((IncidenciaMaterial) incidenciaXestionar).getMaterial().getCodMaterial(),
                     ((IncidenciaMaterial) incidenciaXestionar).getMaterial().getArea().getNome(),
-                    incidenciaXestionar.getUsuario().getLogin()
+                    incidenciaXestionar.getUsuario().getLogin(),
+                    incidenciaXestionar.getDescricion()
             );
         }
         this.datosIncidencia.setText(datos);

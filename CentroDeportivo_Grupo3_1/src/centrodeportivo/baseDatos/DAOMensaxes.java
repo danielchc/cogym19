@@ -47,6 +47,7 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe = null;
         try {
             for (Usuario receptor : receptores) {
+                if(receptor.equals(emisor)) continue;
                 stmMensaxe = super.getConexion().prepareStatement("INSERT INTO enviarMensaxe (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
                 stmMensaxe.setString(1, emisor.getLogin());
                 stmMensaxe.setString(2, receptor.getLogin());
