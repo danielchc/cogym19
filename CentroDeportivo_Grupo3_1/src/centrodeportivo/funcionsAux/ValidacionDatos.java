@@ -68,7 +68,7 @@ public abstract class ValidacionDatos {
      */
     public static boolean estanCubertosCampos(Node...nodes){
         for(Node n:nodes){
-            if(!(n instanceof TextInputControl) || ((TextInputControl) n).getText().trim().equals("")) return false;
+            if(!(n instanceof TextInputControl) || ((TextInputControl) n).getText()==null || ((TextInputControl) n).getText().trim().equals("")) return false;
         }
         return true;
     }
