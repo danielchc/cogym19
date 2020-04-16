@@ -212,6 +212,13 @@ public class vNovoMensaxeController extends AbstractController implements Initia
                                 this.campoMensaxe.getText()
                         );
                         break;
+                    case Profesores:
+                        super.getFachadaAplicacion().enviarMensaxe(
+                                this.emisor,
+                                super.getFachadaAplicacion().listarUsuarios(TipoUsuario.Profesor),
+                                this.campoMensaxe.getText()
+                        );
+                        break;
                     case Socios:
                         super.getFachadaAplicacion().enviarMensaxe(
                                 this.emisor,
