@@ -34,7 +34,7 @@ public class vXestionIncidenciaController extends AbstractController implements 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        campoCusto.setOnKeyTyped(new ListenerTextFieldNumeros(campoCusto));
+        campoCusto.textProperty().addListener(new ListenerTextFieldNumeros(campoCusto));
         cargarIncidencia();
     }
 

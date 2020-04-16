@@ -1,10 +1,12 @@
 package centrodeportivo.funcionsAux;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-public final class ListenerTextFieldNumeros implements EventHandler<KeyEvent> {
+public final class ListenerTextFieldNumeros implements ChangeListener<String> {
 
     private TextField textField;
 
@@ -12,14 +14,11 @@ public final class ListenerTextFieldNumeros implements EventHandler<KeyEvent> {
         this.textField=textField;
     }
 
-    @Override
-    public void handle(KeyEvent keyEvent) {
-        System.out.println(textField.getText());
-        if(
-                (!textField.getText().isEmpty() &&
-                !textField.getText().matches("[0-9]+(\\.)?[0-9]{0,1}")) ||
-                keyEvent.getCharacter().toLowerCase().matches("[a-z]")
 
-        ) keyEvent.consume();
+    @Override
+    public void changed(ObservableValue<? extends String> observableValue, String valorAnterior, String valorNovo) {
+        if (!valorNovo.matches("\\d{0,10}([\\.]\\d{0,2})?")) {
+            textField.setText(valorAnterior);
+        }
     }
 }

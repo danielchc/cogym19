@@ -61,8 +61,8 @@ public class vNovaTarifaController extends AbstractController implements Initial
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
         this.tarifaModificar=null;
-        //this.campoPrecioBase.setOnKeyTyped(new ListenerTextFieldNumeros(campoPrecioBase));
-        //this.campoPrecioExtras.setOnKeyTyped(new ListenerTextFieldNumeros(campoPrecioExtras));
+        this.campoPrecioBase.textProperty().addListener(new ListenerTextFieldNumeros(campoPrecioBase));
+        this.campoPrecioExtras.textProperty().addListener(new ListenerTextFieldNumeros(campoPrecioExtras));
     }
 
     /**
