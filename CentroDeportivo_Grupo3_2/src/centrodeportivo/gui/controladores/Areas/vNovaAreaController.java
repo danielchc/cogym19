@@ -111,6 +111,7 @@ public class vNovaAreaController  extends AbstractController implements Initiali
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             //this.controllerPrincipal.mostrarMenu(IdPantalla.NOVAAREA1);
         } else {
+
             this.getFachadaAplicacion().mostrarErro("Administración de instalacións", "Non hai celda seleccionada!");
         }
 
