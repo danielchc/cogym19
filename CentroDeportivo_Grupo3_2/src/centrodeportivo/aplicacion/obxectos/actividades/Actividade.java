@@ -3,7 +3,7 @@ package centrodeportivo.aplicacion.obxectos.actividades;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * @author Manuel Bendaña
@@ -16,7 +16,7 @@ public class Actividade {
     /**
      * Atributos dunha actividade
      */
-    private Date data;
+    private Timestamp data;
     private String nome;
     private float duracion;
     private Area area;
@@ -24,7 +24,7 @@ public class Actividade {
     private Persoal profesor;
 
     //Constructor
-    public Actividade(Date data, String nome, float duracion, Area area, TipoActividade tipoActividade, Persoal profesor){
+    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade, Persoal profesor){
         this.data = data;
         this.nome = nome;
         this.duracion = duracion;
@@ -34,11 +34,11 @@ public class Actividade {
     }
 
     //Getters e setters:
-    public Date getData() {
+    public Timestamp getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Timestamp data) {
         this.data = data;
     }
 
