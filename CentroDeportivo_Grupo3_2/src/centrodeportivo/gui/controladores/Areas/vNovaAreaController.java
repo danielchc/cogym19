@@ -1,12 +1,17 @@
 package centrodeportivo.gui.controladores.Areas;
 
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -17,6 +22,16 @@ import java.util.ResourceBundle;
 public class vNovaAreaController  extends AbstractController implements Initializable {
     //Atributos públicos: correspóndense con cuestións da ventá correspondente
     public TableView taboaInstalacions;
+    public Button btnBuscar;
+    public Button btnLimpar;
+    public TextField campoNomeInstalacion;
+    public TextField campoDireccion;
+    public Button btnXestionar;
+    public TextField campoTelefono;
+    //Xestion creacion
+    public TextField campoNomeArea;
+    public TextField campoDescricion;
+
 
 
     //Atributos privados: manteremos o controlador da ventá de procedencia:
@@ -50,6 +65,61 @@ public class vNovaAreaController  extends AbstractController implements Initiali
         taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaInstalacions.getSelectionModel().selectFirst();
+    }
+
+
+
+    public void btnBuscarAction(ActionEvent actionEvent) {
+        //Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
+        //Vaciamos a táboa:
+        taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
+        //Se non se cubriu ningún campo, o que faremos será listar todas as instalacións.
+        //Inda que poida parecer redundante, é un xeito de actualizar a información:
+        if(!ValidacionDatos.estanCubertosCampos(campoNomeInstalacion) && ! ValidacionDatos.estanCubertosCampos(campoTelefono)
+                && !ValidacionDatos.estanCubertosCampos(campoDireccion)){
+            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+        } else {
+            //Noutro caso, buscaremos segundo a información dos campos.
+            //Creamos unha instalación co que se ten:
+            Instalacion instalacion = new Instalacion(campoNomeInstalacion.getText(), campoTelefono.getText(), campoDireccion.getText());
+            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(instalacion));
+        }
+        //Establecemos unha selección sobre a táboa (se hai resultados):
+        taboaInstalacions.getSelectionModel().selectFirst();
+    }
+
+    public void btnLimparAction(ActionEvent actionEvent) {
+        //Vaciaranse os campos e, depaso, listaranse todas as instalacións dispoñibeis de novo:
+        campoNomeInstalacion.setText("");
+        campoTelefono.setText("");
+        campoDireccion.setText("");
+        //Aproveitamos entón para actualizar a táboa:
+        //Eliminamos os items:
+        taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
+        //Engadimos todas as instalacións tras consultalas (así actualizamos):
+        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+        //Establecemos unha selección sobre a táboa (se hai resultados):
+        taboaInstalacions.getSelectionModel().selectFirst();
+    }
+
+    public void btnNovaArea(ActionEvent actionEvent) {
+        //Recuperamos primeiro a instalación seleccionada:
+        Instalacion instalacion = (Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem();
+        if(instalacion != null){
+            //Accedemos ao controlador da ventá de edición dunha Area:
+            ((vEditarAreaController)this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA1)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
+            //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
+            //this.controllerPrincipal.mostrarMenu(IdPantalla.NOVAAREA1);
+        } else {
+            this.getFachadaAplicacion().mostrarErro("Administración de instalacións", "Non hai celda seleccionada!");
+        }
+
+    }
+
+
+    public void metodoDeProba()
+    {
+        System.out.println("HOLA");
     }
 
 }
