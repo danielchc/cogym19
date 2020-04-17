@@ -1,6 +1,6 @@
 package centrodeportivo.aplicacion.obxectos.actividades;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 
 /**
@@ -19,7 +19,7 @@ public class Curso {
     private String descricion;
     private float duracion;
     private float prezo;
-    private HashMap<String, Actividade> actividades;
+    private ArrayList<Actividade> actividades;
 
     //Constructores
     public Curso(String nome, String descricion, float duracion){
@@ -74,11 +74,11 @@ public class Curso {
         return prezo;
     }
 
-    public void setActividades(HashMap<String, Actividade> actividades){
+    public void setActividades(ArrayList<Actividade> actividades){
         this.actividades = actividades;
     }
 
-    public HashMap<String, Actividade> getActividades(){
+    public ArrayList<Actividade> getActividades(){
         return this.actividades;
     }
 }
