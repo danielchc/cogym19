@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DAOCursos extends AbstractDAO{
     public DAOCursos (Connection conexion, FachadaAplicacion fachadaAplicacion){
@@ -134,10 +135,9 @@ public class DAOCursos extends AbstractDAO{
         }
     }
 
-    public void engadirActividade(Curso curso, Actividade actividade){
+    public void engadirActividade(Curso curso, Actividade actividade) throws ExcepcionBD {
         //Accederemos á táboa de actividades e inseriremos unha nova asociándoa ao curso correspondente.
         PreparedStatement stmActividades = null;
-        ResultSet rsActividades;
         Connection con;
 
         //Recuperamos a conexión:
@@ -151,7 +151,66 @@ public class DAOCursos extends AbstractDAO{
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             //Completamos todos os campos:
             stmActividades.setTimestamp(1, actividade.getData());
+            stmActividades.setInt(2, actividade.getArea().getCodArea());
+            stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividades.setInt(4, actividade.getTipoActividade().getCodTipoActividade());
+            stmActividades.setInt(5, curso.getCodCurso());
+            stmActividades.setString(6, actividade.getProfesor().getLogin());
+            stmActividades.setString(7, actividade.getNome());
+            stmActividades.setFloat(8, actividade.getDuracion());
+
+            //Realizamos a actualización sobre a base de datos:
+            stmActividades.executeUpdate();
+
+            //Unha vez feita, teremos rematado: facemos o commit.
+            con.commit();
+        } catch (SQLException e){
+            //En caso de excepción SQL ao insertar, lanzaremos a nosa propia excepción cara arriba:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //Pechamos os statement:
+            try {
+                stmActividades.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
         }
     }
 
+    public void cancelarCurso(Curso curso) throws ExcepcionBD {
+        //Haberá que realizar neste caso varias tarefas á vez, pero xa se realizarán por ter cascade:
+        //Hai que borrar o curso e con el borraranse actividades e participantes.
+
+        PreparedStatement stmCursos = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Intentamos levar a cabo o borrado:
+        try{
+            stmCursos = con.prepareStatement("DELETE FROM curso WHERE codCurso = ?");
+            stmCursos.setInt(1, curso.getCodCurso());
+
+            //Executamos a actualización: borraranse curso, actividades e participacións.
+            stmCursos.executeUpdate();
+        } catch (SQLException e){
+            //Lanzaremos unha excepción propia:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //Pecharemos os statement:
+            try {
+                stmCursos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+    }
+
+    public ArrayList<Curso> consultarCursos(Curso curso){
+        //Esta é a consulta que se usará dende a parte de persoal:
+        PreparedStatement stmCursos = null;
+        ArrayList<Curso> resultado = null;
+        return resultado;
+    }
 }
