@@ -86,15 +86,14 @@ public class vAdministrarUsuariosController extends AbstractController implement
             @Override
             public void updateItem(Usuario item, boolean empty) {
                 super.updateItem(item, empty) ;
-                if ((item != null)&&(item.estaDeBaixa()))setStyle("-fx-background-color:grey;");
-                else styleProperty().setValue("");
+                if ((item != null)&&(item.estaDeBaixa()))getStyleClass().add("resolta");
+                else getStyleClass().remove("resolta");
             }
         });
 
         listaUsuarios.getColumns().addAll(loginColumn,nomeColumn,dniColumn,correoElectronicoColumn,tipoUsuarioColumn);
         listaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
         if(listaUsuarios.getItems().size()>0){
-            listaUsuarios.getSelectionModel().selectFirst();
             listenerTabla();
         }
         campoTipoUsuario.getItems().addAll(TipoUsuario.values());
@@ -135,10 +134,12 @@ public class vAdministrarUsuariosController extends AbstractController implement
      * a xestión ou outros.
      */
     public void listenerTabla(){
-        Usuario usuario=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem());
-        this.btnCapacidades.setVisible(!usuario.estaDeBaixa() && usuario.getTipoUsuario()!=TipoUsuario.Socio);
-        this.btnModificar.setVisible(!usuario.estaDeBaixa());
-        this.btnBorrar.setText(usuario.estaDeBaixa()?"Reactivar":"Dar de baixa");
+        if(!this.listaUsuarios.getSelectionModel().isEmpty()) {
+            Usuario usuario = ((Usuario) listaUsuarios.getSelectionModel().getSelectedItem());
+            this.btnCapacidades.setVisible(!usuario.estaDeBaixa() && usuario.getTipoUsuario() != TipoUsuario.Socio);
+            this.btnModificar.setVisible(!usuario.estaDeBaixa());
+            this.btnBorrar.setText(usuario.estaDeBaixa() ? "Reactivar" : "Dar de baixa");
+        }
     }
 
 
