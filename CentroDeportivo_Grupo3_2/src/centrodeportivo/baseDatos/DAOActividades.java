@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DAOActividades extends AbstractDAO {
+public final class DAOActividades extends AbstractDAO {
     //DAO para o relativo á xestión de actividades e tipos de actividades:
 
     //Constructor:

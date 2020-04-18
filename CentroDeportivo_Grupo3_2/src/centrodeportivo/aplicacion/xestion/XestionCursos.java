@@ -52,9 +52,15 @@ public class XestionCursos {
 
     public TipoResultados cancelarCurso(Curso curso) throws ExcepcionBD {
         //Para cancelar un curso, hai que comprobar se o curso está xa comezado ou se ten participantes:
-        if(curso.getDataInicio().compareTo(new Date(System.currentTimeMillis())) < 0 || fachadaBD.tenParticipantes(curso)){
-
+        //Non comezado -> Data de inicio maior á data actual
+        if(curso.getDataInicio().compareTo(new Date(System.currentTimeMillis())) > 0 || !fachadaBD.tenParticipantes(curso)){
+            //Nestes dous casos, poderase proceder ao borrado:
+            fachadaBD.cancelarCurso(curso);
+            //Se chegamos a este punto, indicamos que se remata correctamente:
+            return TipoResultados.correcto;
+        } else {
+            //Se non, haberá un erro no borrado:
+            return TipoResultados.referenciaRestrict;
         }
-        return TipoResultados.correcto;
     }
 }

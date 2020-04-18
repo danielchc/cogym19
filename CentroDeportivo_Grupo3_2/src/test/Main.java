@@ -86,13 +86,13 @@ public class Main {
             for(Instalacion a: fb.buscarInstalacions(new Instalacion("", "", ""))) {
                 System.out.println(a);
             }*/
-            Timestamp t = new Timestamp(2020,4,18,10,0,0,0);
-            if(t.compareTo(new Date(System.currentTimeMillis())) > 0){
+            Timestamp t = new Timestamp(System.currentTimeMillis()-1);
+            if(t.compareTo(new Date(System.currentTimeMillis())) < 0){
                 System.out.println("Antes");
             } else {
                 System.out.println("Despois");
             }
-
+            System.out.println(t);
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

@@ -9,13 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DAOAreas extends AbstractDAO {
+public final class DAOAreas extends AbstractDAO {
 
     public DAOAreas(Connection conexion, FachadaAplicacion fachadaAplicacion){
         super(conexion, fachadaAplicacion);
     }
 
-    public void darAltsaArea(Instalacion instalacion) throws ExcepcionBD {
+    public void darAltaArea(Instalacion instalacion) throws ExcepcionBD {
         PreparedStatement stmInstalacions = null;
         ResultSet rsInstalacions;
         Connection con;

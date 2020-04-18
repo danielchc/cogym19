@@ -152,6 +152,10 @@ public final class FachadaBD {
         daoCursos.engadirActividade(curso, actividade);
     }
 
+    public void abrirCurso(Curso curso) throws ExcepcionBD {
+        daoCursos.abrirCurso(curso);
+    }
+
     public void cancelarCurso(Curso curso) throws ExcepcionBD {
         daoCursos.cancelarCurso(curso);
     }

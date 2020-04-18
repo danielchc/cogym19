@@ -2,13 +2,14 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DAOCursos extends AbstractDAO{
+public final class DAOCursos extends AbstractDAO{
     public DAOCursos (Connection conexion, FachadaAplicacion fachadaAplicacion){
         super(conexion, fachadaAplicacion);
     }
@@ -145,6 +146,42 @@ public class DAOCursos extends AbstractDAO{
             //Pechamos os statement:
             try {
                 stmActividades.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+    }
+
+    public void abrirCurso(Curso curso) throws ExcepcionBD {
+        //Introduciremos que o curso está aberto para que a xente poida comezar a rexistrarse nel:
+        PreparedStatement stmCursos = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Intentamos levar a cabo a apertura do curso:
+        try {
+            stmCursos = con.prepareStatement("UPDATE curso" +
+                    " SET aberto = ?" +
+                    " WHERE codcurso = ?");
+            //Establecemos os valores dos campos con ?
+            stmCursos.setBoolean(1,true);
+            stmCursos.setInt(2, curso.getCodCurso());
+
+            //Intentase realizar a actualización:
+            stmCursos.executeUpdate();
+
+            //Rematado isto, faise o commit:
+            con.commit();
+
+        } catch(SQLException e){
+            //Lanzamos a nosa propia excepción:
+            throw new ExcepcionBD(con,e);
+        } finally {
+            //Intentamos pechar o statement:
+            try {
+                stmCursos.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
