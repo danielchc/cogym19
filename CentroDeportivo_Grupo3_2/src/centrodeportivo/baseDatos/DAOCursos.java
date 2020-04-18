@@ -5,10 +5,7 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DAOCursos extends AbstractDAO{
@@ -224,7 +221,7 @@ public class DAOCursos extends AbstractDAO{
                     "                                    count(*) as numactividades, min(a.dataactividade) as datainicio, sum(a.duracion) as duracion" +
                     " FROM curso as c, actividade as a" +
                     " WHERE c.codcurso = a.curso" +
-                    "       c.nome like ?" +
+                    "   and c.nome like ?" +
                     " GROUP BY c.codcurso");
 
             //Completamos a consulta:

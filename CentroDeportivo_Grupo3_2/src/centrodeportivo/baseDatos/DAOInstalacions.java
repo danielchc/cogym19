@@ -137,7 +137,7 @@ public final class DAOInstalacions extends AbstractDAO {
     }
 
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
-        //Usaremos un ArrayList para almacenar un usuario:
+        //Usaremos un ArrayList para almacenar unha nova instalación:
         ArrayList<Instalacion> instalacions = new ArrayList<>();
 
         PreparedStatement stmInstalacions = null;
