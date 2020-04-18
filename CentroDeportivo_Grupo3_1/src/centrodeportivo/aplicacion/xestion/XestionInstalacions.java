@@ -13,17 +13,29 @@ import java.util.ArrayList;
  */
 public class XestionInstalacions {
 
+    /**
+     * Atributos
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
+    /**
+     * @param fachadaGUI Fachada da gui.
+     * @param fachadaBD Fachada da base de datos.
+     */
     public XestionInstalacions(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
+
+    /**
+     * Métodos
+     */
     public ArrayList<Area> listarAreas() {
         return fachadaBD.listarAreas();
     }
+
     public ArrayList<Material> listarMateriais() {
         return fachadaBD.listarMateriais();
     }

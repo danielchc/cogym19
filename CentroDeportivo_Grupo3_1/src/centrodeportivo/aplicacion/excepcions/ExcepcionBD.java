@@ -3,6 +3,10 @@ package centrodeportivo.aplicacion.excepcions;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public class ExcepcionBD extends Exception {
 
     /**

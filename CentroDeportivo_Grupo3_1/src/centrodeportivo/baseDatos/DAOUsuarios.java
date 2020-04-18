@@ -26,6 +26,10 @@ import java.util.ArrayList;
  */
 public final class DAOUsuarios extends AbstractDAO {
 
+    /**
+     * @param conexion Conexión coa base de datos
+     * @param fachadaAplicacion fachada da aplicación
+     */
     protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion, fachadaAplicacion);
     }
@@ -729,7 +733,7 @@ public final class DAOUsuarios extends AbstractDAO {
                     "SELECT * " +
                             "FROM rexistroFisioloxico " +
                             "WHERE socio=? " +
-                            "ORDER BY dataMarca DESC;"
+                            "ORDER BY dataMarca ASC;"
             );
             stm.setString(1, login);
             resultSet = stm.executeQuery();

@@ -32,6 +32,10 @@ import java.util.Properties;
  * @author Daniel Chenel
  */
 public final class FachadaBD {
+
+    /**
+     * Atributos
+     */
     private FachadaAplicacion fachadaAplicacion;
     private FachadaGUI fachadaGUI;
     private Connection conexion;
@@ -42,6 +46,13 @@ public final class FachadaBD {
     private DAOInstalacions daoInstalacions;
     private DAOActividades daoActividades;
 
+    /**
+     * Este é o constructor da fachada de base de datos.
+     * Establecese a conexión coa base de datos mediante o arquivo properties.
+     * (Hai dúas versións do arquivo, unha cifrada e outra que non, ambas son compatibles).
+     * @param fachadaAplicacion fachada da aplicación
+     * @throws ExcepcionBD
+     */
     public FachadaBD(FachadaAplicacion fachadaAplicacion) throws ExcepcionBD {
         this.fachadaAplicacion = fachadaAplicacion;
         Properties configuracion = new Properties();
@@ -236,8 +247,19 @@ public final class FachadaBD {
         Funcións DAOInstalacions
      */
 
+    public ArrayList<Area> listarAreas() {
+        return daoInstalacions.listarAreas();
+    }
 
-    //Funcións propias:
+    public ArrayList<Material> listarMateriais() {
+        return daoInstalacions.listarMateriais();
+    }
+
+    public ArrayList<TipoActividade> listarTipoActividades() {
+        return daoActividades.listarTipoActividades();
+    }
+
+
 
     public Connection getConexion() {
         return conexion;
@@ -278,18 +300,4 @@ public final class FachadaBD {
     public void setDaoIncidencias(DAOIncidencias daoIncidencias) {
         this.daoIncidencias = daoIncidencias;
     }
-
-    public ArrayList<Area> listarAreas() {
-        return daoInstalacions.listarAreas();
-    }
-
-    public ArrayList<Material> listarMateriais() {
-        return daoInstalacions.listarMateriais();
-    }
-
-    public ArrayList<TipoActividade> listarTipoActividades() {
-        return daoActividades.listarTipoActividades();
-    }
-
-
 }

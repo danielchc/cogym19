@@ -9,9 +9,18 @@ import java.sql.Connection;
  * @author Daniel Chenel
  */
 public abstract class AbstractDAO {
+
+    /**
+     * Atributos
+     */
     private FachadaAplicacion fachadaAplicacion;
     private Connection conexion;
 
+
+    /**
+     * @param conexion Conexión coa base de datos
+     * @param fachadaAplicacion fachada da aplicación
+     */
     public AbstractDAO(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         this.conexion = conexion;
         this.fachadaAplicacion = fachadaAplicacion;

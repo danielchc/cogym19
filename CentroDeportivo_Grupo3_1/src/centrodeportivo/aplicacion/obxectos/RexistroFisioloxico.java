@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class RexistroFisioloxico {
+public final class RexistroFisioloxico {
 
     /**
      * Atributos da clase RexistroFisioloxico

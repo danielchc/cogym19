@@ -15,7 +15,11 @@ import java.util.ArrayList;
  */
 public class DAOActividades extends AbstractDAO {
 
-    public DAOActividades(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+    /**
+     * @param conexion Conexión coa base de datos
+     * @param fachadaAplicacion fachada da aplicación
+     */
+    protected DAOActividades(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
     }
 

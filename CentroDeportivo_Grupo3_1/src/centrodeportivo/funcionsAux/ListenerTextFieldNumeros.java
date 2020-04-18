@@ -6,6 +6,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class ListenerTextFieldNumeros implements ChangeListener<String> {
 
     private TextField textField;

@@ -37,6 +37,10 @@ import java.util.HashMap;
  * @author Daniel Chenel
  */
 public class FachadaAplicacion extends Application {
+
+    /**
+     * Atributos
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
     private XestionUsuarios xestionUsuarios;
@@ -46,6 +50,11 @@ public class FachadaAplicacion extends Application {
     private XestionInstalacions xestionInstalacions;
     private XestionActividades xestionActividades;
 
+    /**
+     * Constructor da fachada de aplicación.
+     * @throws IOException
+     * @throws SQLException
+     */
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
         try {
@@ -62,6 +71,11 @@ public class FachadaAplicacion extends Application {
         this.xestionActividades=new XestionActividades(fachadaGUI, fachadaBD);
     }
 
+    /**
+     * Método para iniciar a ventá de login.
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/centrodeportivo/gui/vistas/vLogin.fxml"));
@@ -75,6 +89,10 @@ public class FachadaAplicacion extends Application {
     }
 
 
+    /**
+     * Main da aplicación
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

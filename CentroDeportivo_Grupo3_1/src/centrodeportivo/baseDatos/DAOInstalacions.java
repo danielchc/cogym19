@@ -16,6 +16,10 @@ import java.util.HashMap;
  */
 public class DAOInstalacions extends AbstractDAO {
 
+    /**
+     * @param conexion Conexión coa base de datos
+     * @param fachadaAplicacion fachada da aplicación
+     */
     protected DAOInstalacions(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
     }

@@ -9,7 +9,7 @@ import java.sql.Date;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class Material {
+public final class Material {
 
     /**
      * Atributos da clase material.

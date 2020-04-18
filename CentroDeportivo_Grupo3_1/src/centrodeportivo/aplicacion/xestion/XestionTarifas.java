@@ -13,15 +13,25 @@ import java.util.ArrayList;
  * @author Daniel Chenel
  */
 public class XestionTarifas {
+
+    /**
+     * Atributos
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
+    /**
+     * @param fachadaGUI Fachada da gui.
+     * @param fachadaBD Fachada da base de datos.
+     */
     public XestionTarifas(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
-
+    /**
+     * Métodos
+     */
     public void insertarTarifa(Tarifa t) throws ExcepcionBD {
         fachadaBD.insertarTarifa(t);
     }

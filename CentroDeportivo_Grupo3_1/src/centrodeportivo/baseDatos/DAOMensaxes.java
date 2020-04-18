@@ -17,6 +17,11 @@ import java.util.ArrayList;
  * @author Daniel Chenel
  */
 public final class DAOMensaxes extends AbstractDAO {
+
+    /**
+     * @param conexion Conexión coa base de datos
+     * @param fachadaAplicacion fachada da aplicación
+     */
     protected DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion, fachadaAplicacion);
     }

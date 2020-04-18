@@ -19,7 +19,12 @@ import java.util.ArrayList;
  * @author Daniel Chenel
  */
 public final class DAOIncidencias extends AbstractDAO {
-    public DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+
+    /**
+     * @param conexion Conexión coa base de datos
+     * @param fachadaAplicacion fachada da aplicación
+     */
+    protected DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion, fachadaAplicacion);
     }
 

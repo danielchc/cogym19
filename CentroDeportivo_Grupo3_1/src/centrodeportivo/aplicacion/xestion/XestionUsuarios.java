@@ -20,14 +20,25 @@ import java.util.ArrayList;
  * @author Daniel Chenel
  */
 public class XestionUsuarios {
+
+    /**
+     * Atributos
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
+    /**
+     * @param fachadaGUI Fachada da gui.
+     * @param fachadaBD Fachada da base de datos.
+     */
     public XestionUsuarios(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
+    /**
+     * Métodos
+     */
     public boolean existeUsuario(String login) {
         return fachadaBD.existeUsuario(login);
     }

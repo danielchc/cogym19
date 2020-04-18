@@ -4,6 +4,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
+
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 public final class ListenerMaxLogitud implements ChangeListener<String> {
 
     private TextField textField;

@@ -14,14 +14,25 @@ import java.util.ArrayList;
  * @author Daniel Chenel
  */
 public class XestionIncidencias {
+
+    /**
+     * Atributos
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
+    /**
+     * @param fachadaGUI Fachada da gui.
+     * @param fachadaBD Fachada da base de datos.
+     */
     public XestionIncidencias(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
+    /**
+     * Métodos
+     */
     public void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {
         fachadaBD.insertarIncidencia(incidencia);
     }

@@ -18,7 +18,12 @@ import java.util.Scanner;
  * @author Daniel Chenel
  */
 public final class DAOTarifas extends AbstractDAO {
-    public DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+
+    /**
+     * @param conexion Conexión coa base de datos
+     * @param fachadaAplicacion fachada da aplicación
+     */
+    protected DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion, fachadaAplicacion);
     }
 
