@@ -27,6 +27,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
     public TableView listaIncidencias;
     public ComboBox campoTipoIncidencia;
     public TextField campoBuscar;
+    public CheckBox mostrarResoltas;
     private vPrincipalController vPrincipal;
 
     public vAdministrarIncidenciasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
@@ -40,7 +41,6 @@ public class vAdministrarIncidenciasController extends AbstractController implem
 
         TableColumn<Incidencia,String> numeroColumn = new TableColumn<>("Número");
         numeroColumn.setCellValueFactory(new PropertyValueFactory<>("numero"));
-
 
         TableColumn<Incidencia,String> descricionColumn = new TableColumn<>("Descrición");
         descricionColumn.setCellValueFactory(new PropertyValueFactory<>("descricion"));
@@ -64,8 +64,18 @@ public class vAdministrarIncidenciasController extends AbstractController implem
             }
         });
 
+        listaIncidencias.setRowFactory(tv -> new TableRow<Incidencia>() {
+            @Override
+            public void updateItem(Incidencia item, boolean empty) {
+                super.updateItem(item, empty) ;
+                if ((item != null)&&(item.estaResolta()))getStyleClass().add("resolta");
+                else getStyleClass().remove("resolta");
+
+            }
+        });
+
         listaIncidencias.getColumns().addAll(tipoIncidenciaColumn,numeroColumn,obxetoColumn,descricionColumn);
-        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias());
+        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().buscarIncidencias("", TipoIncidencia.Todos,false));
         campoTipoIncidencia.getItems().addAll(TipoIncidencia.values());
         campoTipoIncidencia.getSelectionModel().selectFirst();
         listaIncidencias.setPlaceholder(new Label("Non se atoparon incidencias"));
@@ -73,7 +83,7 @@ public class vAdministrarIncidenciasController extends AbstractController implem
 
     public void buscarIncidencias(){
         listaIncidencias.getItems().removeAll(listaIncidencias.getItems());
-        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().listarIncidencias(campoBuscar.getText(),TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()]));
+        listaIncidencias.getItems().addAll(super.getFachadaAplicacion().buscarIncidencias(campoBuscar.getText(),TipoIncidencia.values()[campoTipoIncidencia.getSelectionModel().getSelectedIndex()],mostrarResoltas.isSelected()));
     }
 
     public void xestionarIncidencia(){

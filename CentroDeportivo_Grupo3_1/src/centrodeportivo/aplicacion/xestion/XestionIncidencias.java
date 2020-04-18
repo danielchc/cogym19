@@ -6,7 +6,6 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -37,12 +36,8 @@ public class XestionIncidencias {
         fachadaBD.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> listarIncidencias() {
-        return fachadaBD.listarIncidencias("", TipoIncidencia.Todos);
-    }
-
-    public ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
-        return fachadaBD.listarIncidencias(textoBuscar, tipoIncidencia);
+    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia,boolean mostrarResoltas) {
+        return fachadaBD.buscarIncidencias(textoBuscar, tipoIncidencia,mostrarResoltas);
     }
 
     public void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {

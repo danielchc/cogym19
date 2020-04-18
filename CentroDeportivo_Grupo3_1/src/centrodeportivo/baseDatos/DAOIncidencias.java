@@ -68,15 +68,17 @@ public final class DAOIncidencias extends AbstractDAO {
      * @param tipoIncidencia tipo de incidencia a buscar
      * @return lista coas incidencias encontradas
      */
-    protected ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
+    protected ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia,boolean mostrarResoltas) {
+        String uMos="";
+        if(!mostrarResoltas)uMos=" AND dataresolucion IS NULL";
         PreparedStatement stmIncidencia = null;
-        ArrayList<Incidencia> incidencias = new ArrayList<Incidencia>();
+        ArrayList<Incidencia> incidencias = new ArrayList<>();
         ResultSet rsIncidencias;
         try {
             if (tipoIncidencia == TipoIncidencia.Area || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement(
                         "SELECT *,ar.nome AS nomeArea,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea " +
-                                " WHERE ((LOWER(ar.nome) LIKE LOWER(?)) OR (LOWER(ia.descricion) LIKE LOWER(?)))");
+                                " WHERE ((LOWER(ar.nome) LIKE LOWER(?)) OR (LOWER(ia.descricion) LIKE LOWER(?))) "+uMos);
                 stmIncidencia.setString(1, "%"+textoBuscar+"%");
                 stmIncidencia.setString(2, "%"+textoBuscar+"%");
                 rsIncidencias = stmIncidencia.executeQuery();
@@ -110,7 +112,7 @@ public final class DAOIncidencias extends AbstractDAO {
                 stmIncidencia = super.getConexion().prepareStatement("SELECT " +
                         "*,tm.nome AS tipoMaterialNome,im.descricion AS descricionIncidencia " +
                         "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial " +
-                        "WHERE ((LOWER(CONCAT_WS(' ',tm.nome,CAST( ma.codMaterial AS VARCHAR(5)))) LIKE LOWER(?) ) OR (LOWER(im.descricion) LIKE LOWER(?)))");
+                        "WHERE ((LOWER(CONCAT_WS(' ',tm.nome,CAST( ma.codMaterial AS VARCHAR(5)))) LIKE LOWER(?) ) OR (LOWER(im.descricion) LIKE LOWER(?))) "+uMos);
                 stmIncidencia.setString(1, "%"+textoBuscar+"%");
                 stmIncidencia.setString(2, "%"+textoBuscar+"%");
                 rsIncidencias = stmIncidencia.executeQuery();

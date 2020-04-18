@@ -30,7 +30,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * @author David Carracedo
@@ -284,11 +283,9 @@ public class FachadaAplicacion extends Application {
     /*
         Xestion incidencias
      */
-    public ArrayList<Incidencia> listarIncidencias(){
-        return xestionIncidencias.listarIncidencias();
-    }
-    public ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
-        return xestionIncidencias.listarIncidencias(textoBuscar, tipoIncidencia);
+
+    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia,boolean mostrarResoltas) {
+        return xestionIncidencias.buscarIncidencias(textoBuscar, tipoIncidencia,mostrarResoltas);
     }
 
     public void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {

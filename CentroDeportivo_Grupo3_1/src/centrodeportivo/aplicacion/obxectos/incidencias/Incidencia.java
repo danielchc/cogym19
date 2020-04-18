@@ -67,6 +67,10 @@ public abstract class Incidencia {
     /**
      *  Getters e Setters.
      */
+
+    public boolean estaResolta(){
+        return (this.dataResolucion!=null);
+    }
     public abstract TipoIncidencia getTipoIncidencia();
 
     public int getNumero() {
