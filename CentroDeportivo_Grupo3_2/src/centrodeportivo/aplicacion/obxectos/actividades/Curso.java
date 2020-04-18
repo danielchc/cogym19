@@ -1,5 +1,6 @@
 package centrodeportivo.aplicacion.obxectos.actividades;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 
@@ -17,9 +18,18 @@ public class Curso {
     private int codCurso;
     private String nome;
     private String descricion;
-    private float duracion;
     private float prezo;
     private ArrayList<Actividade> actividades;
+
+    /**
+     * Estes atrributos non están almacenados como tal na base de datos, pero son cuestións que poderemos recuperar
+     * mediante as consultas que fagamos.
+     * No MER só metimos algún calculado para non enchelo deles, por exemplo puxemos o de duración, pero o resto son
+     * cuestións que tamén fomos sacando a posteriori e que cremos que inundarían o modelo sen ter por que facelo.
+     */
+    private float duracion;
+    private int numActividades;
+    private Timestamp dataInicio;
 
     //Constructores
     public Curso(String nome, String descricion, float duracion){
@@ -28,9 +38,12 @@ public class Curso {
         this.duracion = duracion;
     }
 
-    public Curso(int codCurso, String nome, String descricion, float prezo){
+    public Curso(int codCurso, String nome, String descricion, float prezo, float duracion, int numActividades, Timestamp dataInicio){
         this(nome, descricion, prezo);
         this.codCurso = codCurso;
+        this.duracion = duracion;
+        this.numActividades = numActividades;
+        this.dataInicio = dataInicio;
     }
 
     //Getters e setters:
@@ -80,5 +93,21 @@ public class Curso {
 
     public ArrayList<Actividade> getActividades(){
         return this.actividades;
+    }
+
+    public int getNumActividades() {
+        return numActividades;
+    }
+
+    public void setNumActividades(int numActividades) {
+        this.numActividades = numActividades;
+    }
+
+    public Timestamp getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Timestamp dataInicio) {
+        this.dataInicio = dataInicio;
     }
 }

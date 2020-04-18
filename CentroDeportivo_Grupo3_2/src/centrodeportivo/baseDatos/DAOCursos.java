@@ -207,10 +207,59 @@ public class DAOCursos extends AbstractDAO{
         }
     }
 
-    //public ArrayList<Curso> consultarCursos(Curso curso){
+    public ArrayList<Curso> consultarCursos(Curso curso){
         //Esta é a consulta que se usará dende a parte de persoal:
-     //   PreparedStatement stmCursos = null;
-     //   ArrayList<Curso> resultado = null;
-       // return resultado;
-    //}
+        PreparedStatement stmCursos = null;
+        ResultSet rsCursos;
+        ArrayList<Curso> resultado = new ArrayList<>();
+
+        //Recuperamos a conexión:
+        Connection con = super.getConexion();
+
+        //Intentamos levar a cabo a consulta dos cursos. O resultado que se vai a ofrecer combina diferentes cuestións.
+        try{
+            //A búsqueda que poderá facer o persoal non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
+            //No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
+            stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo," +
+                    "                                    count(*) as numactividades, min(a.dataactividade) as datainicio, sum(a.duracion) as duracion" +
+                    " FROM curso as c, actividade as a" +
+                    " WHERE c.codcurso = a.curso" +
+                    "       c.nome like ?" +
+                    " GROUP BY c.codcurso");
+
+            //Completamos a consulta:
+            stmCursos.setString(1, "%" + curso.getNome() + "%");
+
+            //Intentamos levala a cabo:
+            rsCursos = stmCursos.executeQuery();
+
+            //Unha vez feita a consulta, tentamos recuperar os resultados:
+            while(rsCursos.next()){
+                //Imos creando instancias de cursos cos datos recuperados:
+                resultado.add(new Curso(rsCursos.getInt("codcurso"), rsCursos.getString("nome"),
+                        rsCursos.getString("descricion"), rsCursos.getFloat("prezo"),
+                        rsCursos.getFloat("duracion"), rsCursos.getInt("numactividades"),
+                        rsCursos.getTimestamp("datainicio")));
+            }
+            //Rematado isto, facemos o commit:
+            con.commit();
+        } catch (SQLException e){
+            //Tentamos facer rollback:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        } finally {
+            //Pechamos o statement:
+            try {
+                stmCursos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+
+        return resultado;
+    }
 }
