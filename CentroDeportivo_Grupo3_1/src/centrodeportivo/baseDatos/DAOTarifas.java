@@ -27,6 +27,11 @@ public final class DAOTarifas extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+    /**
+     * Método para gardar unha tarifa na base de datos.
+     * @param t Tarifa a ser insertada
+     * @throws ExcepcionBD
+     */
     protected void insertarTarifa(Tarifa t) throws ExcepcionBD {
         PreparedStatement stmTarifa = null;
         try {
@@ -48,6 +53,11 @@ public final class DAOTarifas extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para borrar unha tarifa da base de datos.
+     * @param codTarifa Código da tarifa a borrar
+     * @throws ExcepcionBD
+     */
     protected void borrarTarifa(Integer codTarifa) throws ExcepcionBD {
         PreparedStatement stmTarifa = null;
         try {
@@ -66,6 +76,11 @@ public final class DAOTarifas extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para actualizar os datos dunha tarifa.
+     * @param t tarifa a ser actualizada
+     * @throws ExcepcionBD
+     */
     protected void actualizarTarifa(Tarifa t) throws ExcepcionBD {
         Connection conexion = super.getConexion();
         PreparedStatement stmTarifa = null;
@@ -89,6 +104,11 @@ public final class DAOTarifas extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para comprobar se unha tarifa está sendo usada por algún socio.
+     * @param codTarifa código da tarifa
+     * @return
+     */
     protected boolean estaEnUsoTarifa(Integer codTarifa) {
         Connection conexion = super.getConexion();
         PreparedStatement stmTarifa = null;
@@ -110,6 +130,10 @@ public final class DAOTarifas extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método para listar todas as tarifas dispoñibles.
+     * @return lista de tarifas.
+     */
     protected ArrayList<Tarifa> listarTarifas() {
         ArrayList<Tarifa> tarifas = new ArrayList<>();
         Connection conexion = super.getConexion();
@@ -139,6 +163,11 @@ public final class DAOTarifas extends AbstractDAO {
         return tarifas;
     }
 
+    /**
+     * Método para comprobar qué tarifa ten un socio.
+     * @param loginSocio login do socio
+     * @return tarifa que ten o socio
+     */
     protected Tarifa consultarTarifaSocio(String loginSocio) {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
@@ -167,6 +196,11 @@ public final class DAOTarifas extends AbstractDAO {
         return null;
     }
 
+    /**
+     * Método para comprobar se unha tarifa con nome dado existe.
+     * @param nome nome da tarifa
+     * @return true se existe, false se non
+     */
     protected boolean existeTarifa(String nome) {
         PreparedStatement stmTarifa = null;
         ResultSet resultValidacion;

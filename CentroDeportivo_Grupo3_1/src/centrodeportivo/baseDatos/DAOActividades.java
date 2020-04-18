@@ -23,6 +23,10 @@ public class DAOActividades extends AbstractDAO {
         super(conexion,fachadaAplicacion);
     }
 
+    /**
+     * Método para listar os tipos de actividades.
+     * @return lista con todos os tipos de actividades
+     */
     protected ArrayList<TipoActividade> listarTipoActividades(){
         PreparedStatement stmActividade = null;
         ArrayList<TipoActividade> tipoActividades=new ArrayList<TipoActividade>();

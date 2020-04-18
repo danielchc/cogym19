@@ -26,6 +26,11 @@ public final class DAOMensaxes extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+    /**
+     * Método para enviar unha mensaxe que se pasa como parámetro.
+     * @param m mensaxe a ser enviado.
+     * @throws ExcepcionBD
+     */
     protected void enviarMensaxe(Mensaxe m) throws ExcepcionBD {
 
         PreparedStatement stmMensaxe = null;
@@ -48,6 +53,13 @@ public final class DAOMensaxes extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para enviar unha mensaxe a varias receptores.
+     * @param emisor emisor da mensaxe
+     * @param receptores lista de receptores
+     * @param mensaxe mensaxe a ser enviado
+     * @throws ExcepcionBD
+     */
     protected void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) throws ExcepcionBD {
         PreparedStatement stmMensaxe = null;
         try {
@@ -72,6 +84,11 @@ public final class DAOMensaxes extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para marcar unha mensaxe como lida.
+     * @param m mensaxe
+     * @throws ExcepcionBD
+     */
     protected void marcarMensaxeComoLido(Mensaxe m) throws ExcepcionBD {
         PreparedStatement stmMensaxe = null;
 
@@ -93,6 +110,11 @@ public final class DAOMensaxes extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para listar todas as mensaxes que lle chegaron a un usuario
+     * @param loginReceptor login do usuario receptor
+     * @return
+     */
     protected ArrayList<Mensaxe> listarMensaxesRecibidos(String loginReceptor) {
         ArrayList<Mensaxe> mensaxes = new ArrayList<>();
         PreparedStatement stmMensaxe = null;

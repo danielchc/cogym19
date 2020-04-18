@@ -59,6 +59,9 @@ public class XestionUsuarios {
         return fachadaBD.validarUsuario(login, password);
     }
 
+    /**
+     * O contrasinal hashease.
+     */
     public void insertarUsuario(Usuario usuario) throws ExcepcionBD {
         usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         fachadaBD.insertarUsuario(usuario);

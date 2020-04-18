@@ -28,6 +28,11 @@ public final class DAOIncidencias extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+    /**
+     * Método para insertar unha incidencia na base de datos.
+     * @param incidencia Incidencia a ser insertada
+     * @throws ExcepcionBD
+     */
     protected void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {
         PreparedStatement stmIncidencia = null;
         try {
@@ -57,6 +62,12 @@ public final class DAOIncidencias extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para buscar as incidencias que satisfagan os parámetros.
+     * @param textoBuscar  texto descriptivo
+     * @param tipoIncidencia tipo de incidencia a buscar
+     * @return lista coas incidencias encontradas
+     */
     protected ArrayList<Incidencia> listarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia) {
         PreparedStatement stmIncidencia = null;
         ArrayList<Incidencia> incidencias = new ArrayList<Incidencia>();
@@ -141,6 +152,11 @@ public final class DAOIncidencias extends AbstractDAO {
         return incidencias;
     }
 
+    /**
+     * Método para resolver unha incidencia.
+     * @param incidencia incidencia a ser resolta
+     * @throws ExcepcionBD
+     */
     protected void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {
         PreparedStatement stmIncidencia = null;
         try {
@@ -169,6 +185,11 @@ public final class DAOIncidencias extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para consultar toda a información dunha incidencia.
+     * @param incidencia Incidencia a ser consultada
+     * @return Incidencia con toda a información.
+     */
     protected Incidencia consultarIncidencia(Incidencia incidencia){
         PreparedStatement stmIncidencia = null;
         ArrayList<Incidencia> incidencias = new ArrayList<Incidencia>();

@@ -24,6 +24,10 @@ public class DAOInstalacions extends AbstractDAO {
         super(conexion,fachadaAplicacion);
     }
 
+    /**
+     * Método para buscar todas as áreas dispoñibles.
+     * @return lista con todas as áreas.
+     */
     protected ArrayList<Area> listarAreas(){
         PreparedStatement stmAreas = null;
         ArrayList<Area> listaAreas=new ArrayList<>();
@@ -60,6 +64,10 @@ public class DAOInstalacions extends AbstractDAO {
         return listaAreas;
     }
 
+    /**
+     * Método para listar todos os materiais dispoñibles.
+     * @return lista cos materiais.
+     */
     protected ArrayList<Material> listarMateriais(){
         PreparedStatement stmMateriais = null;
         ArrayList<Material> listaMaterial=new ArrayList<>();

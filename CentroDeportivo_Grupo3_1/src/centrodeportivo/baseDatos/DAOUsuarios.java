@@ -34,6 +34,11 @@ public final class DAOUsuarios extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+    /**
+     * Método para comprobar se un login xa existe na base de datos.
+     * @param login login buscado
+     * @return true se existe ese login, false se non.
+     */
     protected boolean existeUsuario(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
@@ -54,6 +59,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método para comprobar se existe unha persoa concreta na base de datos.
+     * @param DNI DNI buscado.
+     * @return true se existe esa persoa, false se non.
+     */
     protected boolean existePersoaFisica(String DNI) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
@@ -74,6 +84,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método para comprobar se xa existe un dni na base de datos.
+     * @param dni DNI buscado.
+     * @return true se existe ese DNI, false se non.
+     */
     protected boolean existeDNI(String dni) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
@@ -94,6 +109,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método para comprobar se xa existe un número da seguridade social na base de datos.
+     * @param nuss nuss buscado.
+     * @return true se existe ese nuss, false se non.
+     */
     protected boolean existeNUSS(String nuss) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
@@ -114,6 +134,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método para comprobar se unha persoa ten conta, e en caso afirmativo, que tipos de contas ten.
+     * @param dni dni da persoa bucada
+     * @return enum indicando as contas que ten esa persoa
+     */
     protected ContasPersoa contasPersoaFisica(String dni) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
@@ -143,6 +168,12 @@ public final class DAOUsuarios extends AbstractDAO {
         return ContasPersoa.Ningunha;
     }
 
+    /**
+     * Método para comprobar se os datos introducidos corresponden cun usuario válido.
+     * @param login login introducido
+     * @param password contrasinal introducido
+     * @return true se se valida, false se non
+     */
     protected boolean validarUsuario(String login, String password) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
@@ -165,6 +196,11 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
 
+    /**
+     * Método para consultar os datos dunha persoa física.
+     * @param DNI dni da persoa.
+     * @return PersoaFisica cos datos da persoa.
+     */
     protected PersoaFisica consultarPersoaFisica(String DNI) {
         PreparedStatement stmPersoa = null;
         ResultSet resultPersoa;
@@ -193,7 +229,11 @@ public final class DAOUsuarios extends AbstractDAO {
 
     }
 
-
+    /**
+     * Método para insertar un usuario na base de datos.
+     * @param usuario usuario a ser insertado
+     * @throws ExcepcionBD
+     */
     protected void insertarUsuario(Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
         try {
@@ -254,6 +294,11 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para actualizar a información dun usuario
+     * @param usuario usuario a ser actualizado
+     * @throws ExcepcionBD
+     */
     protected void actualizarUsuario(Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
 
@@ -299,6 +344,11 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para dar de baixa un usuario da base de datos.
+     * @param usuario usuario a ser dado de baixa
+     * @throws ExcepcionBD
+     */
     protected void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmUsuario = null;
 
@@ -350,6 +400,12 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para engadir unha capacidade a un persoal
+     * @param login login do persoal
+     * @param tipoActividade tipo de actividade para engadirlle
+     * @throws ExcepcionBD
+     */
     protected void engadirCapadidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         PreparedStatement stmAct = null;
 
@@ -370,6 +426,12 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para eliminar unha capacidade dun persoal
+     * @param login login do persoal
+     * @param tipoActividade tipo de actividade para eliminar
+     * @throws ExcepcionBD
+     */
     protected void eliminarCapacidade(String login, TipoActividade tipoActividade) throws ExcepcionBD {
         PreparedStatement stmAct = null;
 
@@ -390,6 +452,11 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para listar os tipos de actividades que pode impartir un profesor.
+     * @param login login do persoal
+     * @return lista de capacidades dun persoal
+     */
     protected ArrayList<TipoActividade> listarCapacidades(String login) {
         PreparedStatement stmCapacidades = null;
         ArrayList<TipoActividade> tipoActividades = new ArrayList<TipoActividade>();
@@ -417,6 +484,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return tipoActividades;
     }
 
+    /**
+     * Método para consultar o tipo de usuario dun usuario.
+     * @param login login do usuario
+     * @return tipo de usuario
+     */
     protected TipoUsuario consultarTipo(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
@@ -449,6 +521,14 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
+    /**
+     * Método para encontrar unha lista de usuarios que satisfagan as condicións pasadas como parámetros.
+     * @param login login buscado
+     * @param nome nome buscado
+     * @param filtroTipo tipos de usuario buscados
+     * @param usuariosDeBaixa incluir usuarios de baixa no resultado
+     * @return lista de usuarios encontrados
+     */
     protected ArrayList<Usuario> buscarUsuarios(String login, String nome, TipoUsuario filtroTipo, boolean usuariosDeBaixa) {
         String usBaixa = "";
         if (!usuariosDeBaixa) usBaixa = " AND (dataBaixa IS NULL) ";
@@ -530,6 +610,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
+    /**
+     * Método para obter os datos dun usuario
+     * @param login login do usuario
+     * @return Usuario coa información
+     */
     protected Usuario consultarUsuario(String login) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuarios;
@@ -597,6 +682,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
+    /**
+     * Método para consultar qué cuota ten que pagar no mes actual un socio, así como información desranada sobre a mesma.
+     * @param login login do socio
+     * @return Cuota que ten o socio
+     */
     protected Cuota consultarCuota(String login) {
         PreparedStatement stm = null;
         ResultSet resultSet;
@@ -672,6 +762,11 @@ public final class DAOUsuarios extends AbstractDAO {
         return null;
     }
 
+    /**
+     * Método para insertar un novo rexistro fisiolóxico dun socio.
+     * @param rexistroFisioloxico rexistro cos datos
+     * @throws ExcepcionBD
+     */
     protected void insertarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         PreparedStatement stm = null;
 
@@ -701,6 +796,11 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para eliminar un rexistro fisiolóxico dun socio.
+     * @param rexistroFisioloxico rexistro cos datos
+     * @throws ExcepcionBD
+     */
     protected void eliminarRexistro(RexistroFisioloxico rexistroFisioloxico) throws ExcepcionBD {
         PreparedStatement stm = null;
 
@@ -723,6 +823,11 @@ public final class DAOUsuarios extends AbstractDAO {
         }
     }
 
+    /**
+     * Método para consultar todos os rexistros fisiolóxicos dun socio concreto.
+     * @param login login do socio
+     * @return lista dos seus rexistros almacenados
+     */
     protected ArrayList<RexistroFisioloxico> listarRexistros(String login) {
         PreparedStatement stm = null;
         ResultSet resultSet;
@@ -762,6 +867,12 @@ public final class DAOUsuarios extends AbstractDAO {
         return rexistros;
     }
 
+    /**
+     * Método para comprobar se un profesor ten clases pendentes dun tipo de actividade concreto.
+     * @param persoal persoal
+     * @param tipoActividade tipo de actividade
+     * @return true se ten clases pendentes dese tipo, false se non.
+     */
     protected boolean tenClasesPendentes(Persoal persoal, TipoActividade tipoActividade) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;

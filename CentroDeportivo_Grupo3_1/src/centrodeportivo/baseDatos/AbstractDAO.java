@@ -26,6 +26,9 @@ public abstract class AbstractDAO {
         this.fachadaAplicacion = fachadaAplicacion;
     }
 
+    /**
+     * Getters e Setters
+     */
     public Connection getConexion() {
         return conexion;
     }
