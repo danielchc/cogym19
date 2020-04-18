@@ -1,5 +1,7 @@
 package centrodeportivo.aplicacion.obxectos.actividades;
 
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -19,7 +21,9 @@ public class Curso {
     private String nome;
     private String descricion;
     private float prezo;
+    private boolean aberto;
     private ArrayList<Actividade> actividades;
+    private ArrayList<Usuario> participantes;
 
     /**
      * Estes atrributos non están almacenados como tal na base de datos, pero son cuestións que poderemos recuperar
@@ -38,7 +42,7 @@ public class Curso {
         this.duracion = duracion;
     }
 
-    public Curso(int codCurso, String nome, String descricion, float prezo, float duracion, int numActividades, Timestamp dataInicio){
+    public Curso(int codCurso, String nome, String descricion, float prezo, boolean aberto, float duracion, int numActividades, Timestamp dataInicio){
         this(nome, descricion, prezo);
         this.codCurso = codCurso;
         this.duracion = duracion;
@@ -109,5 +113,13 @@ public class Curso {
 
     public void setDataInicio(Timestamp dataInicio) {
         this.dataInicio = dataInicio;
+    }
+
+    public ArrayList<Usuario> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(ArrayList<Usuario> participantes) {
+        this.participantes = participantes;
     }
 }

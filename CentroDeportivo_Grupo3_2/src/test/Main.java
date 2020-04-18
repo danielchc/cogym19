@@ -7,7 +7,9 @@ import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 
 import javax.management.InstanceAlreadyExistsException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Main {
@@ -84,6 +86,13 @@ public class Main {
             for(Instalacion a: fb.buscarInstalacions(new Instalacion("", "", ""))) {
                 System.out.println(a);
             }*/
+            Timestamp t = new Timestamp(2020,4,18,10,0,0,0);
+            if(t.compareTo(new Date(System.currentTimeMillis())) > 0){
+                System.out.println("Antes");
+            } else {
+                System.out.println("Despois");
+            }
+
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {

@@ -14,10 +14,7 @@ public class DAOCursos extends AbstractDAO{
     }
 
     public void rexistrarCurso(Curso curso) throws ExcepcionBD {
-        //Esta é quizais unha das consultas máis complexas, dado que temos que levar a cabo diferentes tarefas:
-        //Temos que rexistrar o curso.
-        //Temos que rexistrar todas as súas actividades.
-        //Temos que unir as actividades ao curso.
+        //Rexistraremos unicamente datos propios do curso (da súa táboa).
         PreparedStatement stmCursos = null;
         PreparedStatement stmActividades = null;
         ResultSet rsCursos;
@@ -29,12 +26,13 @@ public class DAOCursos extends AbstractDAO{
         //Comezamos coa parte de SQL.
         try{
             //Intentaremos, en primeira instancia, rexistrar o curso:
-            stmCursos = con.prepareStatement("INSERT INTO curso (nome, descricion, prezo) " +
-                    "VALUES (?, ?, ?) ");
+            stmCursos = con.prepareStatement("INSERT INTO curso (nome, descricion, prezo, aberto) " +
+                    "VALUES (?, ?, ?, ?) ");
             //Completamos a consulta:
             stmCursos.setString(1, curso.getNome());
             stmCursos.setString(2, curso.getDescricion());
             stmCursos.setFloat(3, curso.getPrezo());
+            stmCursos.setBoolean(3, false);
 
             //Realizamos entón a actualización sobre a base de datos:
             stmCursos.executeUpdate();
@@ -52,28 +50,7 @@ public class DAOCursos extends AbstractDAO{
                 curso.setCodCurso(rsCursos.getInt("codCurso"));
             }
 
-            //O seguinte paso é insertar todas as actividades creadas:
-            //Como a operación é a misma, para só cambiar os parámetros variables dentro do bucle preparamos o statement fóra:
-            stmActividades = con.prepareStatement("INSERT INTO actividade" +
-                    " (data, area, instalacion, tipoactividade, curso, profesor, nome, duracion)" +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            for(Actividade actividade: curso.getActividades()){
-                //O que temos que facer é, para cada unha das actividades, ila insertando na base de datos e enlazalas ao curso.
-                //Cambiamos os campos:
-                stmActividades.setTimestamp(1, actividade.getData());
-                stmActividades.setInt(2, actividade.getArea().getCodArea());
-                stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-                stmActividades.setInt(4, actividade.getTipoActividade().getCodTipoActividade());
-                stmActividades.setInt(5, curso.getCodCurso());
-                stmActividades.setString(6, actividade.getProfesor().getLogin());
-                stmActividades.setString(7, actividade.getNome());
-                stmActividades.setFloat(8, actividade.getDuracion());
-
-                //Executamos a actualización:
-                stmActividades.executeUpdate();
-            }
-
-            //Se logramos acadar este punto, teremos toda a actualización feita: facemos o commit:
+            //Se logramos acadar este punto, teremos toda a actualización feita: facemos o commit.
             con.commit();
 
         } catch (SQLException e){
@@ -217,7 +194,7 @@ public class DAOCursos extends AbstractDAO{
         try{
             //A búsqueda que poderá facer o persoal non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
             //No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
-            stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo," +
+            stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto, " +
                     "                                    count(*) as numactividades, min(a.dataactividade) as datainicio, sum(a.duracion) as duracion" +
                     " FROM curso as c, actividade as a" +
                     " WHERE c.codcurso = a.curso" +
@@ -235,8 +212,8 @@ public class DAOCursos extends AbstractDAO{
                 //Imos creando instancias de cursos cos datos recuperados:
                 resultado.add(new Curso(rsCursos.getInt("codcurso"), rsCursos.getString("nome"),
                         rsCursos.getString("descricion"), rsCursos.getFloat("prezo"),
-                        rsCursos.getFloat("duracion"), rsCursos.getInt("numactividades"),
-                        rsCursos.getTimestamp("datainicio")));
+                        rsCursos.getBoolean("aberto"), rsCursos.getFloat("duracion"),
+                        rsCursos.getInt("numactividades"), rsCursos.getTimestamp("datainicio")));
             }
             //Rematado isto, facemos o commit:
             con.commit();
@@ -301,6 +278,53 @@ public class DAOCursos extends AbstractDAO{
                 System.out.println("Imposible pechar os cursores");
             }
         }
+        return resultado;
+    }
+
+    public boolean tenParticipantes(Curso curso){
+        PreparedStatement stmCursos = null;
+        ResultSet rsCursos;
+        Connection con;
+        boolean resultado = false;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Intentamos facer a consulta:
+        try {
+            //Buscamos se hai algún usuario realizando este curso:
+            stmCursos = con.prepareStatement("SELECT * FROM realizarCurso WHERE codCurso = ? ");
+
+            //Completamos a consulta co código do curso:
+            stmCursos.setInt(1, curso.getCodCurso());
+
+            //Realizamos a consulta:
+            rsCursos = stmCursos.executeQuery();
+
+            //Se hai resultados, o curso terá participantes:
+            if(rsCursos.next()){
+                resultado = true;
+            }
+
+            //Completada a consulta, faise commit:
+            con.commit();
+        } catch (SQLException e){
+            //Tentamos facer rollback en caso de excepción:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        } finally {
+            //Pechamos o statement:
+            try {
+                stmCursos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        //Devolvemos o booleano:
         return resultado;
     }
 }

@@ -164,6 +164,10 @@ public final class FachadaBD {
         return daoCursos.comprobarExistencia(curso);
     }
 
+    public boolean tenParticipantes(Curso curso){
+        return daoCursos.tenParticipantes(curso);
+    }
+
     //Funcións propias:
 
     public Connection getConexion() {
