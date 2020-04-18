@@ -59,7 +59,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <ComboBox fx:id="campoTipoUsuario" layoutX="98.0" layoutY="64.0" prefHeight="25.0" prefWidth="135.0" />
+            <ComboBox fx:id="campoTipoUsuario" onAction="#buscarUsuarios" layoutX="98.0" layoutY="64.0" prefHeight="25.0" prefWidth="135.0" />
             <CheckBox fx:id="mostrarUsuariosBaixa" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" onAction="#buscarUsuarios" text="Mostrar Usuarios de Baixa" AnchorPane.bottomAnchor="21.399999999999977" AnchorPane.leftAnchor="14.0">
                <font>
                   <Font size="14.0" />

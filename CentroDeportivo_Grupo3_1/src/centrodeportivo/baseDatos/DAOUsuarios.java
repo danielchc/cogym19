@@ -455,7 +455,7 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             if (filtroTipo == TipoUsuario.Socio || filtroTipo == TipoUsuario.Todos) {
                 stmUsuario = super.getConexion().prepareStatement("SELECT *,vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa  " +
-                        "WHERE (LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?)) OR (vs.nome IS NULL)  " + usBaixa +
+                        "WHERE ((LOWER(vs.login) LIKE LOWER(?) AND LOWER(vs.nome) LIKE LOWER(?)) OR (vs.nome IS NULL))  " + usBaixa +
                         "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%" + login + "%");
@@ -490,7 +490,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 if (filtroTipo == TipoUsuario.Persoal) conds = "AND profesoractivo=FALSE ";
 
                 stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp  " +
-                        "WHERE (LOWER(vp.login) LIKE LOWER(?) AND LOWER(vp.nome) LIKE LOWER(?))  OR (vp.nome IS NULL) " + conds + usBaixa +
+                        "WHERE ((LOWER(vp.login) LIKE LOWER(?) AND LOWER(vp.nome) LIKE LOWER(?))  OR (vp.nome IS NULL)) " + conds + usBaixa +
                         "ORDER BY login ASC;"
                 );
                 stmUsuario.setString(1, "%" + login + "%");
