@@ -259,4 +259,48 @@ public class DAOCursos extends AbstractDAO{
 
         return resultado;
     }
+
+    public boolean comprobarExistencia(Curso curso){
+        PreparedStatement stmCursos = null;
+        ResultSet rsCursos;
+        Connection con;
+        boolean resultado = false;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Intentamos facer a consulta:
+        try{
+            stmCursos = con.prepareStatement("SELECT * FROM curso" +
+                    " WHERE lower(nome) = lower(?) " + //Comprobamos que non coincida o nome estrictamente.
+                    "   and codCurso != ? ");
+            //Completamos a consulta co campo do código do curso:
+            stmCursos.setInt(1, curso.getCodCurso());
+            //Realizamos a consulta.
+            rsCursos = stmCursos.executeQuery();
+            //Comprobamos se houbo resultados: se é así, existe un curso na base de datos (que non é o pasado) co mesmo nome.
+            if(rsCursos.next()){
+                resultado = true;
+            }
+
+            //Feita a consulta, facemos o commit:
+            con.commit();
+        } catch (SQLException e){
+            //Tentamos facer rollback en caso de excepción:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        } finally {
+            //Pechamos o statement:
+            try {
+                stmCursos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
+    }
 }

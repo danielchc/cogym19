@@ -2,6 +2,8 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.Criptografia;
@@ -24,6 +26,7 @@ public final class FachadaBD {
     private DAOUsuarios daoUsuarios;
     private DAOInstalacions daoInstalacions;
     private DAOActividades daoActividades;
+    private DAOCursos daoCursos;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -131,6 +134,34 @@ public final class FachadaBD {
 
     public boolean tenActividades(TipoActividade tipoActividade){
         return this.daoActividades.tenActividades(tipoActividade);
+    }
+
+    /*
+        Funcións DAOCursos
+     */
+
+    public void rexistrarCurso(Curso curso) throws ExcepcionBD {
+        daoCursos.rexistrarCurso(curso);
+    }
+
+    public void modificarCurso(Curso curso) throws ExcepcionBD {
+        daoCursos.modificarCurso(curso);
+    }
+
+    public void engadirActividade(Curso curso, Actividade actividade) throws ExcepcionBD {
+        daoCursos.engadirActividade(curso, actividade);
+    }
+
+    public void cancelarCurso(Curso curso) throws ExcepcionBD {
+        daoCursos.cancelarCurso(curso);
+    }
+
+    public ArrayList<Curso> consultarCursos(Curso curso) {
+        return daoCursos.consultarCursos(curso);
+    }
+
+    public boolean comprobarExistencia(Curso curso){
+        return daoCursos.comprobarExistencia(curso);
     }
 
     //Funcións propias:

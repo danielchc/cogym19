@@ -105,6 +105,7 @@ CREATE TABLE curso(
 	nome		VARCHAR(50) UNIQUE,
 	descricion	VARCHAR(200),
 	prezo		DECIMAL	NOT NULL CHECK (prezo>=0),
+	aberto		BOOLEAN NOT NULL DEFAULT false,
 	PRIMARY KEY (codCurso)
 );
  
