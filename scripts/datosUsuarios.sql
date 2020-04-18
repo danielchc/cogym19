@@ -572,6 +572,32 @@ insert into actividade (dataactividade, area, instalacion, tipoactividade, profe
 insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-23 17:00:00.00', 16, 5, 17, 'sofiaPersoal', 'Fundamentos da natación, clase práctica', 3);
 insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-30 18:00:00.00', 17, 5, 17, 'soniaPersoal', 'Demostración e iniciación a saltos', 3);
 
+--Actividades para que aparezan na cuota
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos1', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:01.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos2', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:02.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos3', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:03.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos4', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:04.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos5', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:05.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos6', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:06.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos7', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:07.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos8', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:08.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos9', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:09.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos10', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:10.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos11', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:20.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos12', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:30.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos13', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:40.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos14', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:00:50.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos15', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:01:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos16', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:02:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos17', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:03:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos18', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:04:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos19', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:05:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos20', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:06:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos21', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:07:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos22', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:08:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos23', 0.0001);
+insert into actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) values ('2020-05-01 18:09:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos24', 0.0001);
+
 ------------------SOCIO->CURSO-------------------
 insert into realizarcurso (curso, usuario) values (1, 'raulSocio');
 insert into realizarcurso (curso, usuario) values (1, 'mariaSocio');
@@ -590,6 +616,31 @@ insert into realizarcurso (curso, usuario) values (5, 'pedroSocio');
 insert into realizarcurso (curso, usuario) values (5, 'teresaSocio');
 
 ------------------SOCIO->ACTIVIDADE-------------------
+
+insert into realizaractividade values ('2020-05-01 18:00:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:01.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:02.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:03.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:04.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:05.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:06.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:07.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:08.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:09.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:10.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:20.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:30.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:40.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:00:50.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:01:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:02:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:03:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:04:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:05:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:06:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:07:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:08:00.00',1,1,'sergioSocio',NULL);
+insert into realizaractividade values ('2020-05-01 18:09:00.00',1,1,'sergioSocio',NULL);
 
 
 

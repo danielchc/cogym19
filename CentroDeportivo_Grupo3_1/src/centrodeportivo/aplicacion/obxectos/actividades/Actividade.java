@@ -120,7 +120,6 @@ public class Actividade {
     public String toString() {
         Date date=new Date(this.data.getTime());
         return "Nome: "+this.nome+
-                ", Lugar: "+this.area.getNome()+
                 ", Data: "+date;
     }
 
