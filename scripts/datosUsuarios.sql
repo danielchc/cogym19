@@ -244,7 +244,7 @@ insert into instalacion (nome, numtelefono, direccion) values ('Multiusos Pontes
 insert into instalacion (nome, numtelefono, direccion) values ('Pistas de Tenis de louro', '635234888', 'Lugar de Ventos, 35');
 insert into instalacion (nome, numtelefono, direccion) values ('Piscinas nadamoito', '984566943', 'Rúa Alta, Lugar de Prados');
 
-------------------MENSAXES-------------------
+------------------AREAS-------------------
 insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Pista de atletismo dc', 'Para os máis corredores', 50);
 insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Cancha do Básquet Cañota CAB', 'A cancha do mellor equipo que houbo en toda Cañota', 30);
 insert into area (instalacion, nome, descricion, aforomaximo) values (1, 'Pistas de pádel', 'Pistas de Pádel recén construídas.', 15);
@@ -423,6 +423,24 @@ insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezo
 
 insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (22, 16, 5, 'Bo bote', '2020-01-11', 30);
 insert into material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) values (22, 17, 5, 'Bote reguleiro', '2018-12-20', 30);
+
+-----------------INCIDENCIAS AREAS--------------------
+
+insert into incidenciaArea (area,instalacion,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (area,instalacion,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (2,1,'estherSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (area,instalacion,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (3,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (area,instalacion,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (4,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (area,instalacion,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (5,2,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (area,instalacion,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (6,2,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+
+-----------------INCIDENCIAS MATERIAL--------------------
+
+insert into incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (2,1,'estherSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (2,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (2,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+insert into incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) values (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
 
 ------------------TIPO DE ACTIVIDADE-------------------
 insert into tipoactividade (nome, descricion) values ('Carreiras', 'Categoría para os máis corredores da casa');
