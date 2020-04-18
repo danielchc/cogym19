@@ -207,10 +207,10 @@ public class DAOCursos extends AbstractDAO{
         }
     }
 
-    public ArrayList<Curso> consultarCursos(Curso curso){
+    //public ArrayList<Curso> consultarCursos(Curso curso){
         //Esta é a consulta que se usará dende a parte de persoal:
-        PreparedStatement stmCursos = null;
-        ArrayList<Curso> resultado = null;
-        return resultado;
-    }
+     //   PreparedStatement stmCursos = null;
+     //   ArrayList<Curso> resultado = null;
+       // return resultado;
+    //}
 }
