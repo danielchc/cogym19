@@ -60,7 +60,7 @@ public class XestionCursos {
             return TipoResultados.correcto;
         } else {
             //Se non, haberá un erro no borrado:
-            return TipoResultados.referenciaRestrict;
+            return TipoResultados.incoherenciaBorrado;
         }
     }
 }

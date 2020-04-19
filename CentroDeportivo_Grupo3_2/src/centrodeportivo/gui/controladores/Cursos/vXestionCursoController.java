@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -101,7 +102,15 @@ public class vXestionCursoController extends AbstractController implements Initi
             btnCancelar.setVisible(false);
 
         } else {
-
+            //Entón teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
+            campoCodigo.setText(curso.getCodCurso()+"");
+            campoNome.setText(curso.getNome());
+            campoDescricion.setText(curso.getDescricion());
+            campoPrezo.setText(curso.getPrezo()+"");
+            //Enchemos a táboa de actividades:
+            taboaActividades.getItems().addAll(curso.getActividades());
+            //Enchemos a táboa de participantes:
+            taboaUsuarios.getItems().addAll(curso.getParticipantes());
         }
     }
 
@@ -142,8 +151,8 @@ public class vXestionCursoController extends AbstractController implements Initi
                         btnEngadirActividade.setVisible(true);
                         btnBorrarActividade.setVisible(true);
                 }
-            } catch (ExcepcionBD e) {
-                this.getFachadaAplicacion().mostrarErro("Administración de Cursos", e.getMessage());
+            } catch (ExcepcionBD excepcionBD) {
+                this.getFachadaAplicacion().mostrarErro("Administración de Cursos", excepcionBD.getMessage());
             }
         } else {
             //Se xa existe o curso, entón o que queremos será modificar os seus datos na base de datos:
@@ -192,7 +201,44 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     public void btnCancelarAction(ActionEvent actionEvent) {
-        
+        //Tamén poderemos cancelar un curso, sempre e cando fora rexistrado:
+        //(En teoría non debería darse o caso, pero facemos igualmente a comprobación):
+        if(curso != null){
+            //Se chegamos aquí, entón o que faremos será:
+            //1->Pedir confirmación
+            //2->Intentar levar a cabo o borrado.
+
+            if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
+                    "Desexa cancelar o curso?") == ButtonType.OK){
+                try{
+                    TipoResultados res = super.getFachadaAplicacion().cancelarCurso(curso);
+                    //En función do resultado, operamos:
+                    switch(res){
+                        case incoherenciaBorrado:
+                            super.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                                    "Non se puido cancelar o curso, dado que xa comezou e ten participantes inscritos.");
+                            //Só neste caso nos mantemos nesta pantalla. Non temos porque saír.
+                            break;
+                        case correcto:
+                            super.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
+                                    "O curso foi borrado. Avisouse automáticamente a todos os usuarios.");
+                            //Directamente neste caso o que se fai é saír desta ventá:
+                            this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+                            break;
+                    }
+                } catch(ExcepcionBD excepcionBD){
+                    //En caso de excepción temos un problema:
+                    //Podería ter sucedido que o curso fose borrado polo medio, así que o que cremos que é máis lóxico
+                    //é que se volva directamente á ventá de inicio se hai calquera erro na base de datos.
+                    super.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                            excepcionBD.getMessage());
+                    this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+                }
+            }
+        } else {
+            this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                    "Este curso non foi rexistrado de momento!");
+        }
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {

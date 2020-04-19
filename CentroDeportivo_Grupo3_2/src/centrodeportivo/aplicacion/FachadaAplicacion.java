@@ -149,6 +149,10 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.modificarCurso(curso);
     }
 
+    public TipoResultados cancelarCurso(Curso curso) throws ExcepcionBD {
+        return xestionCursos.cancelarCurso(curso);
+    }
+
 
 
 }
