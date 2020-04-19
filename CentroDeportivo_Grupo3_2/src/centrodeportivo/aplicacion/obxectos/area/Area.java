@@ -119,14 +119,8 @@ public class Area {
 
     @Override
     public String toString() {
-        return "Area{" +
-                "codArea=" + codArea +
-                ", instalacion=" + instalacion +
-                ", nome='" + nome + '\'' +
-                ", descricion='" + descricion + '\'' +
-                ", aforoMaximo=" + aforoMaximo +
-                ", dataBaixa=" + dataBaixa +
-                '}';
+        //Utilidade á hora de mostrar unha área concreta nas táboas.
+        return nome;
     }
 
     @Override

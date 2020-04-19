@@ -153,18 +153,8 @@ public class Usuario {
     }
 
     @Override
-    public String toString() {
-        return "Usuario{" +
-                "login='" + login + '\'' +
-                ", contrasinal='" + contrasinal + '\'' +
-                ", nome='" + nome + '\'' +
-                ", numTelefono='" + numTelefono + '\'' +
-                ", DNI='" + DNI + '\'' +
-                ", correoElectronico='" + correoElectronico + '\'' +
-                ", IBANconta='" + IBANconta + '\'' +
-                ", dataAlta=" + dataAlta +
-                ", dataBaixa=" + dataBaixa +
-                ", tipoUsuario=" + tipoUsuario +
-                "}\n";
+    public String toString(){
+        //Utilidade ao amosar usuarios nas táboas.
+        return getLogin();
     }
 }

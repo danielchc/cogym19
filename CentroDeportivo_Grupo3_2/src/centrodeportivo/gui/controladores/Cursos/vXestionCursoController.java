@@ -1,14 +1,17 @@
 package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 public class vXestionCursoController extends AbstractController implements Initializable {
@@ -46,12 +49,23 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Situación 2 - Hai curso asociado á clase.
 
         //Igualmente, en ambos casos hai que inicializar as táboas:
+        TableColumn<Date, Actividade> dataActividadeColumn = new TableColumn<>("Data");
+        dataActividadeColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
 
+        TableColumn<Date, Actividade> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
 
+        TableColumn<Date, Actividade> duracionColumn = new TableColumn<>("Duración");
+        duracionColumn.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+
+        TableColumn<Date, Actividade> profesorColumn = new TableColumn<>("Profesor");
+        profesorColumn.setCellValueFactory(new PropertyValueFactory<>("profesor"));
+
+        taboaActividades.getColumns().addAll(dataActividadeColumn, areaColumn, duracionColumn, profesorColumn);
 
         //Situación 1:
         if(curso == null){
-            //Neste primeiro caso
+
         }
 
     }
