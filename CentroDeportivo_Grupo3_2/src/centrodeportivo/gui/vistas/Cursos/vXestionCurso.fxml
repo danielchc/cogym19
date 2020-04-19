@@ -114,7 +114,7 @@
                                                          <children>
                                                             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                <children>
-                                                                  <TextArea fx:id="campoDescricion" prefHeight="65.0" prefWidth="286.0" promptText="Introduza descrición..." HBox.hgrow="ALWAYS" />
+                                                                  <TextArea fx:id="campoDescricion" prefHeight="65.0" prefWidth="286.0" promptText="Introduza descrición..." wrapText="true" HBox.hgrow="ALWAYS" />
                                                                </children>
                                                             </HBox>
                                                          </children>

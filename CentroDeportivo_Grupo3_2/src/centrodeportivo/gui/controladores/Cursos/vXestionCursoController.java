@@ -63,7 +63,7 @@ public class vXestionCursoController extends AbstractController implements Initi
 
         taboaActividades.getColumns().addAll(dataActividadeColumn, areaColumn, duracionColumn, profesorColumn);
         taboaActividades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        
+
         //Situación 1:
         if(curso == null){
 

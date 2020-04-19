@@ -95,7 +95,7 @@
                            </children></VBox>
                                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextArea fx:id="campoDescricion" prefHeight="106.0" prefWidth="275.0" promptText="Introduce descrición..." />
+                              <TextArea fx:id="campoDescricion" prefHeight="106.0" prefWidth="275.0" promptText="Introduce descrición..." wrapText="true" />
                            </children></VBox>
                             </children>
                         </HBox>
