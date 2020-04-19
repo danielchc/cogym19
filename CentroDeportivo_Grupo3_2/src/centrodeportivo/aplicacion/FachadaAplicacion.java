@@ -1,9 +1,11 @@
 package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.aplicacion.xestion.XestionCursos;
 import centrodeportivo.aplicacion.xestion.XestionTiposActividades;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -28,6 +30,7 @@ public class FachadaAplicacion extends Application {
     private XestionUsuarios xestionUsuarios;
     private XestionInstalacions xestionInstalacions;
     private XestionTiposActividades xestionActividades;
+    private XestionCursos xestionCursos;
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
@@ -35,6 +38,7 @@ public class FachadaAplicacion extends Application {
         this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
         this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
         this.xestionActividades = new XestionTiposActividades(fachadaGUI, fachadaBD);
+        this.xestionCursos = new XestionCursos(fachadaGUI, fachadaBD);
     }
 
     @Override
@@ -132,5 +136,15 @@ public class FachadaAplicacion extends Application {
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
         return xestionActividades.buscarTiposActividades(tipoActividade);
     }
+
+    /*
+        Xestión cursos
+     */
+
+    public TipoResultados rexistrarCurso(Curso curso) throws ExcepcionBD {
+        return xestionCursos.rexistrarCurso(curso);
+    }
+
+
 
 }

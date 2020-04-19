@@ -36,10 +36,10 @@ public class Curso {
     private Timestamp dataInicio;
 
     //Constructores
-    public Curso(String nome, String descricion, float duracion){
+    public Curso(String nome, String descricion, float prezo){
         this.nome = nome;
         this.descricion = descricion;
-        this.duracion = duracion;
+        this.prezo = prezo;
     }
 
     public Curso(int codCurso, String nome, String descricion, float prezo, boolean aberto, float duracion, int numActividades, Timestamp dataInicio){

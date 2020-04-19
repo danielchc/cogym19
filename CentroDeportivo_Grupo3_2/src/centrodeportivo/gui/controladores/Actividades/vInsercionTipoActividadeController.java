@@ -104,7 +104,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
                 }
             } catch (ExcepcionBD excepcionBD) {
-                excepcionBD.printStackTrace();
+                getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", excepcionBD.getMessage());
             }
         } else {
             //Se fose nulo, é unha inserción:
@@ -128,7 +128,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                         break;
                 }
             } catch (ExcepcionBD excepcionBD) {
-                excepcionBD.printStackTrace();
+                getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", excepcionBD.getMessage());
             }
         }
 
@@ -157,7 +157,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                         break;
                 }
             } catch (ExcepcionBD excepcionBD) {
-                excepcionBD.printStackTrace();
+                getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", excepcionBD.getMessage());
             }
         }
     }

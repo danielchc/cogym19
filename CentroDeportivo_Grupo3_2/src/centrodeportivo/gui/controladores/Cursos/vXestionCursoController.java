@@ -1,8 +1,12 @@
 package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
@@ -12,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class vXestionCursoController extends AbstractController implements Initializable {
@@ -29,6 +34,8 @@ public class vXestionCursoController extends AbstractController implements Initi
     public Button btnBorrarActividade;
     public Button btnModificarSeleccion;
     public TableView taboaUsuarios;
+    public Button btnCancelar;
+    public Button btnLimpar;
 
 
     //Privados
@@ -49,26 +56,53 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Situación 2 - Hai curso asociado á clase.
 
         //Igualmente, en ambos casos hai que inicializar as táboas:
+        //Táboa de actividades:
         TableColumn<Date, Actividade> dataActividadeColumn = new TableColumn<>("Data");
         dataActividadeColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
 
-        TableColumn<Date, Actividade> areaColumn = new TableColumn<>("Area");
+        TableColumn<String, Actividade> areaColumn = new TableColumn<>("Area");
         areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
 
-        TableColumn<Date, Actividade> duracionColumn = new TableColumn<>("Duración");
+        TableColumn<Float, Actividade> duracionColumn = new TableColumn<>("Duración");
         duracionColumn.setCellValueFactory(new PropertyValueFactory<>("duracion"));
 
-        TableColumn<Date, Actividade> profesorColumn = new TableColumn<>("Profesor");
+        TableColumn<String, Actividade> profesorColumn = new TableColumn<>("Profesor");
         profesorColumn.setCellValueFactory(new PropertyValueFactory<>("profesor"));
 
         taboaActividades.getColumns().addAll(dataActividadeColumn, areaColumn, duracionColumn, profesorColumn);
+        //Facemos isto para controlar o tamaño das columnas.
         taboaActividades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        //Táboa de socios:
+        TableColumn<String, Usuario> loginColumn = new TableColumn<>("Login");
+        loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
+
+        TableColumn<Date, Usuario> dataNacementoColumn = new TableColumn<>("Data de Nacemento");
+        dataNacementoColumn.setCellValueFactory(new PropertyValueFactory<>("dataNacemento"));
+
+        TableColumn<String, Usuario> dificultadesColumn = new TableColumn<>("Dificultades");
+        dificultadesColumn.setCellValueFactory(new PropertyValueFactory<>("dificultades"));
+
+        TableColumn<String, Usuario> numTelefonoColumn = new TableColumn<>("Número de Teléfono");
+        numTelefonoColumn.setCellValueFactory(new PropertyValueFactory<>("numTelefono"));
+
+        taboaUsuarios.getColumns().addAll(loginColumn,dataNacementoColumn,dificultadesColumn,numTelefonoColumn);
+        //Facemos isto para controlar o tamaño das columnas.
+        taboaUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //Situación 1:
         if(curso == null){
+            //Neste caso teremos que axustarnos para reflexar o rexistro dun curso:
+            //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
+            btnActivar.setVisible(false);
+            btnBorrarActividade.setVisible(false);
+            btnEngadirActividade.setVisible(false);
+            btnModificarSeleccion.setVisible(false);
+            btnCancelar.setVisible(false);
+
+        } else {
 
         }
-
     }
 
 
@@ -76,6 +110,42 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     public void btnGardarAction(ActionEvent actionEvent) {
+        //No caso de gardar, hai que verificar que o nome e o ID estén cubertos.
+        if(!ValidacionDatos.estanCubertosCampos(campoNome, campoPrezo)){
+            tagObrigatorios.setVisible(true);
+            return; //Non seguimos adiante.
+        }
+
+        //Chegados aquí, intentamos facer a actualización. Podería ser inserción de datos ou modificación, dependendo
+        //da situación.
+        if(curso == null) {
+            try {
+                curso = new Curso(campoNome.getText(), campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
+                TipoResultados res = getFachadaAplicacion().rexistrarCurso(curso);
+                //En función do resultado, amosaremos un erro ou continuaremos:
+                switch(res){
+                    case datoExiste:
+                        this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                                "Xa existe un curso co nome " + curso.getNome().toLowerCase());
+                        break;
+                    case correcto:
+                        //En caso de que se teña resultado correcto, habilitaranse outras modificacións da pantalla e avisarase
+                        //da correcta inserción:
+                        this.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
+                                "Curso " + curso.getNome() + "insertado correctamente." +
+                                "O seu ID é " + curso.getCodCurso() + ".");
+                        //Primeiro, gardamos no campo do código do curso o código:
+                        campoCodigo.setText(curso.getCodCurso() +"");
+                        //Activamos o resto de botóns para que o usuario poida seguir coa xestión do curso:
+                        btnActivar.setVisible(true);
+                        btnModificarSeleccion.setVisible(true);
+                        btnEngadirActividade.setVisible(true);
+                        btnBorrarActividade.setVisible(true);
+                }
+            } catch (ExcepcionBD e) {
+                this.getFachadaAplicacion().mostrarErro("Administración de Cursos", e.getMessage());
+            }
+        }
     }
 
     public void btnEngadirActividadeAction(ActionEvent actionEvent) {
@@ -85,5 +155,11 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     public void btnModificarSeleccionAction(ActionEvent actionEvent) {
+    }
+
+    public void btnCancelarAction(ActionEvent actionEvent) {
+    }
+
+    public void btnLimparAction(ActionEvent actionEvent) {
     }
 }
