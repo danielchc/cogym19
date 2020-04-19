@@ -435,12 +435,12 @@ INSERT INTO incidenciaArea (area,instalacion,usuario,descricion,comentarioresolu
 
 -----------------INCIDENCIAS MATERIAL--------------------
 
-INSERT INTO incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
-INSERT INTO incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (2,1,'estherSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
-INSERT INTO incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (2,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
-INSERT INTO incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (2,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
-INSERT INTO incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
-INSERT INTO incidenciaArea (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+INSERT INTO incidenciaMaterial (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+INSERT INTO incidenciaMaterial (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (2,1,'estherSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+INSERT INTO incidenciaMaterial (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (2,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+INSERT INTO incidenciaMaterial (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (2,1,'mariaSocio','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+INSERT INTO incidenciaMaterial (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
+INSERT INTO incidenciaMaterial (material,tipomaterial,usuario,descricion,comentarioresolucion,datafalla,dataresolucion,custoreparacion) VALUES (1,1,'lucasPersoal','Lorem ipsum dolor sit amet  consectetur adipiscing elit. Vestibulum imperdiet scelerisque dolor.',NULL,'2020-01-25 02:32:50',NULL, NULL);
 
 ------------------TIPO DE ACTIVIDADE-------------------
 INSERT INTO tipoactividade (nome, descricion) VALUES ('Carreiras', 'Categoría para os máis corredores da casa');
@@ -499,11 +499,11 @@ INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (17, 'sofiaPersoal'
 INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (18, 'soniaPersoal');
 
 ------------------CURSO-------------------
-INSERT INTO curso (nome, descricion, prezo) VALUES ('Curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25);
-INSERT INTO curso (nome, descricion, prezo) VALUES ('Futbol avanzado', 'Curso adicado aos máis especialistas neste deporte.', 40);
-INSERT INTO curso (nome, descricion, prezo) VALUES ('Baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25);
-INSERT INTO curso (nome, descricion, prezo) VALUES ('Movemento', 'Actividades variadas para exercitarse', 30);
-INSERT INTO curso (nome, descricion, prezo) VALUES ('Curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25, true);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Futbol avanzado', 'Curso adicado aos máis especialistas neste deporte.', 40, true);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25, true);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Movemento', 'Actividades variadas para exercitarse', 30, true);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30, true);
 
 ------------------ACTIVIDADE (PARA OS CURSOS ANTERIORES)-------------------
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) VALUES ('2019-10-02 10:00:00.00', 1, 1, 1, 1, 'manuelPersoal', 'Introdución ás carreiras', 2);

@@ -4,11 +4,8 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
-import centrodeportivo.aplicacion.xestion.XestionActividades;
+import centrodeportivo.aplicacion.xestion.XestionTiposActividades;
 import centrodeportivo.aplicacion.xestion.XestionInstalacions;
-import centrodeportivo.funcionsAux.Criptografia;
-import centrodeportivo.aplicacion.obxectos.Mensaxe;
-import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.aplicacion.xestion.XestionUsuarios;
 import centrodeportivo.baseDatos.FachadaBD;
@@ -30,14 +27,14 @@ public class FachadaAplicacion extends Application {
     private FachadaBD fachadaBD;
     private XestionUsuarios xestionUsuarios;
     private XestionInstalacions xestionInstalacions;
-    private XestionActividades xestionActividades;
+    private XestionTiposActividades xestionActividades;
 
     public FachadaAplicacion() throws IOException, SQLException {
         this.fachadaGUI=new FachadaGUI(this);
         this.fachadaBD=new FachadaBD(this);
         this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
         this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
-        this.xestionActividades = new XestionActividades(fachadaGUI, fachadaBD);
+        this.xestionActividades = new XestionTiposActividades(fachadaGUI, fachadaBD);
     }
 
     @Override

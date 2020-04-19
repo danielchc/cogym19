@@ -12,11 +12,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public final class DAOActividades extends AbstractDAO {
+public final class DAOTiposActividades extends AbstractDAO {
     //DAO para o relativo á xestión de actividades e tipos de actividades:
 
     //Constructor:
-    public DAOActividades(Connection conexion, FachadaAplicacion fachadaAplicacion){
+    public DAOTiposActividades(Connection conexion, FachadaAplicacion fachadaAplicacion){
         //Chamamos ao constructor da clase pai:
         super(conexion, fachadaAplicacion);
     }

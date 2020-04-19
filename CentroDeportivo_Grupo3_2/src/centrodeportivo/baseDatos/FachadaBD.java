@@ -2,12 +2,12 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.Criptografia;
-import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.FachadaGUI;
 
@@ -21,12 +21,12 @@ import java.util.Properties;
 
 public final class FachadaBD {
     private FachadaAplicacion fachadaAplicacion;
-    private FachadaGUI fachadaGUI;
     private Connection conexion;
     private DAOUsuarios daoUsuarios;
     private DAOInstalacions daoInstalacions;
-    private DAOActividades daoActividades;
+    private DAOTiposActividades daoActividades;
     private DAOCursos daoCursos;
+    private DAOMensaxes daoMensaxes;
 
     public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
         this.fachadaAplicacion=fachadaAplicacion;
@@ -58,7 +58,9 @@ public final class FachadaBD {
         }
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
         this.daoInstalacions=new DAOInstalacions(this.conexion, this.fachadaAplicacion);
-        this.daoActividades=new DAOActividades(this.conexion, this.fachadaAplicacion);
+        this.daoActividades=new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
+        this.daoCursos= new DAOCursos(this.conexion, this.fachadaAplicacion);
+        this.daoMensaxes=new DAOMensaxes(this.conexion, this.fachadaAplicacion);
     }
 
     /*
@@ -70,6 +72,14 @@ public final class FachadaBD {
 
     public Usuario consultarUsuario(String login) {
         return daoUsuarios.consultarUsuario(login);
+    }
+
+    /*
+        Funcions DAOMensaxes
+     */
+
+    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD {
+        daoMensaxes.enviarAvisoSocios(mensaxe);
     }
 
     /*
@@ -105,7 +115,7 @@ public final class FachadaBD {
     }
 
     /*
-        Funcións DAOActividades
+        Funcións DAOTiposActividades
      */
 
     public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
@@ -135,6 +145,7 @@ public final class FachadaBD {
     public boolean tenActividades(TipoActividade tipoActividade){
         return this.daoActividades.tenActividades(tipoActividade);
     }
+
 
     /*
         Funcións DAOCursos
@@ -171,6 +182,7 @@ public final class FachadaBD {
     public boolean tenParticipantes(Curso curso){
         return daoCursos.tenParticipantes(curso);
     }
+
 
     //Funcións propias:
 

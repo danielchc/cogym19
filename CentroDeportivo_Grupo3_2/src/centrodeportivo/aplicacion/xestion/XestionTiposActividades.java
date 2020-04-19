@@ -9,13 +9,13 @@ import centrodeportivo.gui.FachadaGUI;
 import java.util.ArrayList;
 
 //Clase para todos os métodos relacionados coa xestión das actividades (tipos de actividades e actividades).
-public class XestionActividades {
+public class XestionTiposActividades {
     //Atributos: coma sempre nas clases de xestión as fachadas:
     private FachadaBD fachadaBD;
     private FachadaGUI fachadaGUI;
 
     //Constructor:
-    public XestionActividades (FachadaGUI fachadaGUI, FachadaBD fachadaBD){
+    public XestionTiposActividades(FachadaGUI fachadaGUI, FachadaBD fachadaBD){
         this.fachadaBD = fachadaBD;
         this.fachadaGUI = fachadaGUI;
     }
