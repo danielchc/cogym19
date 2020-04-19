@@ -573,30 +573,30 @@ INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profe
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-30 18:00:00.00', 17, 5, 17, 'soniaPersoal', 'Demostración e iniciación a saltos', 3);
 
 --Actividades para que aparezan na cuota
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos1', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:01.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos2', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:02.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos3', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:03.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos4', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:04.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos5', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:05.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos6', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:06.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos7', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:07.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos8', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:08.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos9', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:09.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos10', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:10.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos11', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:20.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos12', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:30.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos13', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:40.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos14', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:50.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos15', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:01:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos16', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:02:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos17', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:03:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos18', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:04:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos19', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:05:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos20', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:06:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos21', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:07:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos22', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:08:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos23', 0.0001);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:09:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos24', 0.0001);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos1', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:10:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos2', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:20:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos3', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:30:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos4', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:40:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos5', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:50:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos6', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 19:00:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos7', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 19:10:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos8', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 19:20:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos9', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 19:30:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos10', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 19:40:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos11', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 19:50:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos12', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 20:00:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos13', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 20:10:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos14', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 20:20:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos15', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 20:30:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos16', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 20:40:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos17', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 20:50:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos18', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 17:00:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos19', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 17:10:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos20', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 17:20:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos21', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 17:30:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos22', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 17:40:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos23', 0.1);
+INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 17:50:00.00', 1, 1, 1, 'manuelPersoal', 'Estiramentos24', 0.1);
 
 ------------------SOCIO->CURSO-------------------
 INSERT INTO realizarcurso (curso, usuario) VALUES (1, 'raulSocio');
@@ -618,29 +618,29 @@ INSERT INTO realizarcurso (curso, usuario) VALUES (5, 'teresaSocio');
 ------------------SOCIO->ACTIVIDADE-------------------
 
 INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:01.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:02.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:03.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:04.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:05.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:06.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:07.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:08.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:09.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:10.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:20.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:30.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:40.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:50.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:01:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:02:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:03:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:04:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:05:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:06:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:07:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:08:00.00',1,1,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-01 18:09:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 18:10:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 18:20:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 18:30:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 18:40:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 18:50:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 19:00:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 19:10:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 19:20:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 19:30:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 19:40:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 19:50:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 20:00:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 20:10:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 20:20:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 20:30:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 20:40:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 20:50:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 17:00:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 17:10:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 17:20:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 17:30:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 17:40:00.00',1,1,'sergioSocio',NULL);
+INSERT INTO realizaractividade VALUES ('2020-05-01 17:50:00.00',1,1,'sergioSocio',NULL);
 
 
 
