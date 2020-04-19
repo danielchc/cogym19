@@ -183,7 +183,6 @@ public class vAdministrarUsuariosController extends AbstractController implement
                     return;
                 }
                 try{
-                    System.out.println("Antes entrar " + vPrincipal.obterUsuarioLogeado().getLogin());
                     if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
                         if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
                             fachadaAplicacion.darBaixaUsuario(super.getFachadaAplicacion().consultarUsuario(usuario.getLogin()));

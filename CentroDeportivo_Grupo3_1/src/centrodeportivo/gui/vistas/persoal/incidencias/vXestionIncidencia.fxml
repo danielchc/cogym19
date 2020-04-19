@@ -29,16 +29,16 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="462.0" layoutY="368.0" mnemonicParsing="false" onAction="#resolverIncidencia" prefHeight="35.0" prefWidth="127.0" text="Resolver" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="98.0">
+            <Button fx:id="btnResolverIncidencia" layoutX="462.0" layoutY="368.0" mnemonicParsing="false" onAction="#resolverIncidencia" prefHeight="35.0" prefWidth="127.0" text="Resolver" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="98.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-             <VBox layoutX="130.0" layoutY="14.0" prefHeight="345.0" prefWidth="459.0" spacing="5.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="14.0">
+             <VBox layoutX="130.0" layoutY="14.0" prefHeight="328.0" prefWidth="459.0" spacing="5.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="14.0">
                  <children>
-                     <HBox alignment="CENTER" prefHeight="140.0" prefWidth="436.0">
+                     <HBox alignment="CENTER" prefHeight="152.0" prefWidth="456.0">
                      <children>
-                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="104.0" prefWidth="427.0" />
+                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="166.0" prefWidth="430.0" />
                      </children></HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="40.0" prefWidth="200.0">
                      <children>
@@ -62,6 +62,11 @@
                      </HBox>
                  </children>
              </VBox>
+            <Label fx:id="mensaxeAdvertencia" layoutX="560.0" layoutY="341.0" text="Non se pode modificar unha indicencia resolta fai máis de 5 días" AnchorPane.bottomAnchor="68.0" AnchorPane.rightAnchor="99.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </center>

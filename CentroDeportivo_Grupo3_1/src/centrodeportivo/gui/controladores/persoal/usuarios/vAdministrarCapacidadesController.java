@@ -118,7 +118,7 @@ public class vAdministrarCapacidadesController extends AbstractController implem
             try {
                 super.getFachadaAplicacion().engadirCapadidade(persoal.getLogin(),actividadeSeleccionada);
             } catch (ExcepcionBD excepcionBD) {
-                super.getFachadaAplicacion().mostrarErro("Capacudades",excepcionBD.getMessage());
+                super.getFachadaAplicacion().mostrarErro("Capacidades",excepcionBD.getMessage());
             }
         }
     }

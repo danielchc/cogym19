@@ -12,12 +12,13 @@ import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.chrono.MinguoDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class vXestionIncidenciaController extends AbstractController implements Initializable {
@@ -27,7 +28,8 @@ public class vXestionIncidenciaController extends AbstractController implements 
     public TextArea campoComentario;
     public TextArea datosIncidencia;
     private Incidencia incidenciaXestionar;
-
+    public Label mensaxeAdvertencia;
+    public Button btnResolverIncidencia;
     public vXestionIncidenciaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
     }
@@ -78,6 +80,20 @@ public class vXestionIncidenciaController extends AbstractController implements 
                     incidenciaXestionar.getUsuario().getLogin(),
                     incidenciaXestionar.getDescricion()
             );
+        }
+        if(incidenciaXestionar.estaResolta()){
+            datos+=String.format("\nResolta: %s",incidenciaXestionar.getDataResolucion().toString());
+            long diff=new Date().getTime()-incidenciaXestionar.getDataResolucion().getTime();
+            if(diff>432000000){
+                System.out.println("Non se pode editar");
+                this.campoCusto.setDisable(true);
+                this.campoComentario.setDisable(true);
+                this.btnResolverIncidencia.setDisable(true);
+            }else{
+                this.mensaxeAdvertencia.setText("Unha vez resolta a incidencia, so a poderás editar ata 5 días despois");
+            }
+        }else{
+            this.mensaxeAdvertencia.setVisible(false);
         }
         this.datosIncidencia.setText(datos);
         this.campoCusto.setText(String.valueOf(incidenciaXestionar.getCustoReparacion()));
