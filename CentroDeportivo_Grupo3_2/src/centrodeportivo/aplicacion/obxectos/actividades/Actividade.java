@@ -17,6 +17,7 @@ public class Actividade {
      * Atributos dunha actividade
      */
     private Timestamp data;
+    private Curso curso;
     private String nome;
     private float duracion;
     private Area area;
@@ -24,13 +25,19 @@ public class Actividade {
     private Persoal profesor;
 
     //Constructor
-    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade, Persoal profesor){
+    public Actividade(Timestamp data, Area area){
+        this.data = data;
+        this.area = area;
+    }
+
+    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade, Curso curso, Persoal profesor){
         this.data = data;
         this.nome = nome;
         this.duracion = duracion;
         this.area = area;
         this.tipoActividade = tipoActividade;
         this.profesor = profesor;
+        this.curso = curso;
     }
 
     //Getters e setters:
@@ -80,5 +87,13 @@ public class Actividade {
 
     public void setProfesor(Persoal profesor) {
         this.profesor = profesor;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 }

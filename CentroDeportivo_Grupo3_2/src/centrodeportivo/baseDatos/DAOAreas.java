@@ -17,7 +17,7 @@ public final class DAOAreas extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
-    public int darAltaArea(Area area) throws ExcepcionBD {
+    public int EngadirArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         ResultSet rsAreas;
         Connection con;
@@ -217,6 +217,8 @@ public final class DAOAreas extends AbstractDAO {
 
             stmAreas.setInt(1, area.getCodArea());
             stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+            //Facemos a consulta:
+            rsAux = stmAreas.executeQuery();
 
             if(!rsAux.next()) {
                 stmAreas = con.prepareStatement("SELECT area " +
@@ -259,6 +261,63 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
+    public int darDeAltaArea (Area area) throws ExcepcionBD {
+        PreparedStatement stmAreas = null;
+        Connection con;
+        ResultSet rsAux = null;
+
+        int result;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a modificación:
+        try{
+            stmAreas = con.prepareStatement("SELECT codarea " +
+                    " FROM area " +
+                    " WHERE codarea = ? and codinstalacion = ?");
+
+            stmAreas.setInt(1, area.getCodArea());
+            stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+
+            //Facemos a consulta:
+            rsAux = stmAreas.executeQuery();
+
+            if (rsAux.next()) {
+                if (rsAux.getInt(1) == area.getInstalacion().getCodInstalacion()) {
+                    stmAreas = con.prepareStatement("UPDATE area " +
+                            " SET databaixa = ? " +
+                            " WHERE codarea = ? and instalacion = ? ");
+
+                    //Asignamos os valores que corresponden:
+                    stmAreas.setDate(1, area.getDataBaixa());
+                    stmAreas.setInt(2, area.getCodArea());
+                    stmAreas.setInt(3, area.getInstalacion().getCodInstalacion());
+
+                    //Executamos a actualización:
+                    stmAreas.executeUpdate();
+                    //Facemos un commit, dado que se rematou a actualización:
+                    con.commit();
+                    return 0;
+                }
+            }
+            return 1; //Non existe a instalacion na base de datos
+
+        } catch (SQLException e) {
+            //Lanzamos a nosa excepción de base de datos.
+            throw new ExcepcionBD(con, e);
+        } finally {
+            try {
+                //Tentamos pechar o statement usado nesta actualización:
+                stmAreas.close();
+            } catch (SQLException e){
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+    }
+
+
+
     public ArrayList<Area> listarAreas(){
         //Este método serviranos para amosar todas as instalacións, e evitar usar o where en buscas sen filtros:
         ArrayList<Area> areas = new ArrayList<>();
@@ -283,7 +342,6 @@ public final class DAOAreas extends AbstractDAO {
                 //Imos engadindo ao ArrayList do resultado cada Instalación consultada:
                 areas.add(new Area(rsAreas.getInt(2),new Instalacion(rsAreas.getInt(1)),
                         rsAreas.getString(3), rsAreas.getString(4), rsAreas.getInt(5), rsAreas.getDate(6)));
-
             }
             con.commit();
         } catch (SQLException e) {
