@@ -2,6 +2,7 @@ package centrodeportivo.aplicacion.obxectos.actividades;
 
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
+import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -40,11 +41,17 @@ public class Curso {
         this.nome = nome;
         this.descricion = descricion;
         this.prezo = prezo;
+        this.actividades = new ArrayList<>();
+        this.participantes = new ArrayList<>();
+    }
+
+    public Curso(int codCurso, String nome, String descricion, float prezo){
+        this(nome, descricion, prezo);
+        this.codCurso = codCurso;
     }
 
     public Curso(int codCurso, String nome, String descricion, float prezo, boolean aberto, float duracion, int numActividades, Timestamp dataInicio){
-        this(nome, descricion, prezo);
-        this.codCurso = codCurso;
+        this(codCurso, nome, descricion, prezo);
         this.duracion = duracion;
         this.numActividades = numActividades;
         this.dataInicio = dataInicio;

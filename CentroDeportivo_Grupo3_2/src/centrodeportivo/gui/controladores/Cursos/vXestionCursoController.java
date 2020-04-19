@@ -132,7 +132,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                         //En caso de que se teña resultado correcto, habilitaranse outras modificacións da pantalla e avisarase
                         //da correcta inserción:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
-                                "Curso " + curso.getNome() + "insertado correctamente." +
+                                "Curso " + curso.getNome() + " insertado correctamente." +
                                 "O seu ID é " + curso.getCodCurso() + ".");
                         //Primeiro, gardamos no campo do código do curso o código:
                         campoCodigo.setText(curso.getCodCurso() +"");
@@ -144,6 +144,40 @@ public class vXestionCursoController extends AbstractController implements Initi
                 }
             } catch (ExcepcionBD e) {
                 this.getFachadaAplicacion().mostrarErro("Administración de Cursos", e.getMessage());
+            }
+        } else {
+            //Se xa existe o curso, entón o que queremos será modificar os seus datos na base de datos:
+            try{
+                //Creamos un novo curso para poder modificar: inda non sabemos se os cambios se poden efectuar e polo
+                //tanto actualizar o curso.
+                Curso cursoModif = new Curso(curso.getCodCurso(), campoNome.getText(),
+                        campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
+                TipoResultados res = getFachadaAplicacion().modificarCurso(curso);
+                //En función do resultado, diferentes alternativas:
+                switch(res){
+                    case datoExiste:
+                        //Se xa existía un curso co nome que se intentou cambiar, avísase e déixanse os campos orixinais.
+                        this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                                "Xa existe un curso co nome " + curso.getNome().toLowerCase());
+                        campoNome.setText(curso.getNome());
+                        campoDescricion.setText(curso.getDescricion());
+                        campoPrezo.setText(curso.getPrezo()+"");
+                        break;
+                    case correcto:
+                        //Se se puideron facer os cambios, entón os campos mantéñense e actualizamos o curso:
+                        this.getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
+                                "Datos do curso " + curso.getCodCurso() + " modificados correctamente");
+                        curso.setNome(cursoModif.getNome());
+                        curso.setDescricion(cursoModif.getDescricion());
+                        curso.setPrezo(cursoModif.getPrezo());
+                        break;
+                }
+            } catch(ExcepcionBD excepcionBD){
+                //Mostramos o erro asociado e restauramos os campos da inserción:
+                this.getFachadaAplicacion().mostrarErro("Administración de Cursos", excepcionBD.getMessage());
+                campoNome.setText(curso.getNome());
+                campoDescricion.setText(curso.getDescricion());
+                campoPrezo.setText(curso.getPrezo()+"");
             }
         }
     }
@@ -158,8 +192,23 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     public void btnCancelarAction(ActionEvent actionEvent) {
+        
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
+        //O que faremos será vaciar automáticamente todos os campos:
+        //Se temos un curso rexistrado xa, o que faremos será poñer os campos que lle corresponde:
+        if(curso != null && curso.getCodCurso() != 0){
+            campoNome.setText(curso.getNome());
+            campoPrezo.setText(curso.getPrezo()+"");
+            campoDescricion.setText(curso.getDescricion());
+        } else {
+            //Se non, pasamos a vacialos:
+            campoNome.setText("");
+            campoPrezo.setText("");
+            campoDescricion.setText("");
+        }
+        //En ambos casos, ocultamos a etiqueta de campos obrigatorios:
+        tagObrigatorios.setVisible(false);
     }
 }
