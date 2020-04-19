@@ -31,200 +31,222 @@
         </AnchorPane>
         <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
-            <TabPane prefHeight="344.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Datos do Curso">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox layoutX="14.0" layoutY="14.0" prefHeight="289.0" prefWidth="576.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="344.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TabPane prefHeight="344.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+                          <tabs>
+                            <Tab text="Datos do Curso">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <Label text="Código do Curso" HBox.hgrow="ALWAYS">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font></Label>
-                                                   </children>
-                                                </HBox>
-                                             </children></VBox>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <TextField disable="true" editable="false" prefHeight="26.0" prefWidth="110.0" />
-                                                   </children></HBox>
-                                             </children>
-                                          </VBox>
-                                       </children></HBox>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <Label text="Nome do Curso">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <TextField HBox.hgrow="ALWAYS" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children></HBox>
-                                    <HBox prefHeight="162.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <Label text="Descrición do Curso">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font></Label>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                          <VBox layoutX="14.0" layoutY="14.0" prefHeight="289.0" prefWidth="576.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                              <children>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <TextArea prefHeight="65.0" prefWidth="286.0" HBox.hgrow="ALWAYS" />
-                                                   </children></HBox>
-                                             </children>
-                                          </VBox>
-                                       </children></HBox>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <Label text="Código do Curso" HBox.hgrow="ALWAYS">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <TextField fx:id="campoCodigo" disable="true" editable="false" prefHeight="26.0" prefWidth="110.0" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <Label text="Prezo">
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <Label text="*Nome do Curso">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <TextField fx:id="campoNome" promptText="Introduza un nome..." HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="162.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <Label text="Descrición do Curso">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <TextArea fx:id="campoDescricion" prefHeight="65.0" prefWidth="286.0" promptText="Introduza descrición..." HBox.hgrow="ALWAYS" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <Label text="*Prezo" HBox.hgrow="ALWAYS">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <TextField fx:id="campoPrezo" alignment="CENTER" prefHeight="26.0" prefWidth="75.0" promptText="00.00€" />
+                                                               </children></HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="59.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Label fx:id="tagObrigatorios" text="*Campos obrigatorios!!" textFill="RED" visible="false">
                                                          <font>
                                                             <Font name="System Bold" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
                                                 </HBox>
-                                             </children>
-                                          </VBox>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <Spinner prefHeight="28.0" prefWidth="150.0" />
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <Button fx:id="btnActivar" mnemonicParsing="false" onAction="#btnActivarAction" text="Activar Curso" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <Button fx:id="btnGardar" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="78.0" text="Gardar" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
                                                    </children>
                                                 </HBox>
                                              </children>
                                           </VBox>
-                                       </children></HBox>
-                                    <HBox alignment="CENTER" prefHeight="59.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Actividades">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <Label text="*Campos obrigatorios!!" textFill="RED" visible="false">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                       </children></HBox>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                          <VBox layoutX="14.0" layoutY="14.0" prefHeight="291.0" prefWidth="575.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                              <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <HBox prefHeight="283.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <Button mnemonicParsing="false" text="Activar Curso" />
+                                                      <TableView fx:id="taboaActividades" prefHeight="234.0" prefWidth="583.0" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Button fx:id="btnEngadirActividade" mnemonicParsing="false" onAction="#btnEngadirActividadeAction" text="Engadir Actividade" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Button fx:id="btnBorrarActividade" mnemonicParsing="false" onAction="#btnBorrarActividadeAction" text="Borrar Actividade" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Button fx:id="btnModificarSeleccion" mnemonicParsing="false" onAction="#btnModificarSeleccionAction" text="Modificar selección" />
+                                                         </children>
+                                                      </VBox>
                                                    </children>
                                                 </HBox>
                                              </children>
                                           </VBox>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Participantes">
+                                  <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox layoutX="14.0" layoutY="14.0" prefHeight="292.0" prefWidth="582.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                              <children>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="Gardar" />
+                                                      <TableView fx:id="taboaUsuarios" prefHeight="286.0" prefWidth="644.0" HBox.hgrow="ALWAYS" />
                                                    </children>
                                                 </HBox>
                                              </children>
                                           </VBox>
-                                       </children></HBox>
-                                 </children></VBox>
-                           </children></AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Actividades">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox layoutX="14.0" layoutY="14.0" prefHeight="291.0" prefWidth="575.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                                 <children>
-                                    <HBox prefHeight="283.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <TableView prefHeight="234.0" prefWidth="583.0" HBox.hgrow="ALWAYS" />
                                        </children>
-                                    </HBox>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Button mnemonicParsing="false" text="Engadir Actividade" />
-                                             </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Button mnemonicParsing="false" text="Borrar Actividade" />
-                                             </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Button mnemonicParsing="false" text="Modificar selección" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children></AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab text="Participantes">
-                      <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox layoutX="14.0" layoutY="14.0" prefHeight="292.0" prefWidth="582.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <TableView prefHeight="286.0" prefWidth="644.0" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children></AnchorPane>
-                      </content>
-                  </Tab>
-                  <Tab text="Informe">
-                      <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                      </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
+                                    </AnchorPane>
+                                  </content>
+                              </Tab>
+                              <Tab text="Informe">
+                                  <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                  </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children></AnchorPane>
     </children>
 </AnchorPane>
