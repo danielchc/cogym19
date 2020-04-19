@@ -17,7 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class vXestionCursoController extends AbstractController implements Initializable {
@@ -113,7 +112,6 @@ public class vXestionCursoController extends AbstractController implements Initi
             taboaUsuarios.getItems().addAll(curso.getParticipantes());
         }
     }
-
 
     public void btnActivarAction(ActionEvent actionEvent) {
     }

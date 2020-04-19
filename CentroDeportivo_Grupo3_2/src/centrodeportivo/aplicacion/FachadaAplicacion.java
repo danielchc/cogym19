@@ -153,6 +153,10 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.cancelarCurso(curso);
     }
 
+    public ArrayList<Curso> consultarCursos(Curso curso) {
+        return xestionCursos.consultarCursos(curso);
+    }
+
 
 
 }
