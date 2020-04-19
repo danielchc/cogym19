@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
+import centrodeportivo.funcionsAux.ListenerMaxLogitud;
 import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -37,6 +38,7 @@ public class vXestionIncidenciaController extends AbstractController implements 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         campoCusto.textProperty().addListener(new ListenerTextFieldNumeros(campoCusto));
+        campoComentario.textProperty().addListener(new ListenerMaxLogitud(campoComentario,500));
         cargarIncidencia();
     }
 

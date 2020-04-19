@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.ListenerMaxLogitud;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.Transicion;
@@ -81,6 +82,7 @@ public class vNovoMensaxeController extends AbstractController implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.emisor=super.getvPrincipalController().obterUsuarioLogeado();
+        this.campoMensaxe.textProperty().addListener(new ListenerMaxLogitud(campoMensaxe,50));
 
         this.tAbrir = new TranslateTransition(Duration.millis(100),tablaUsuarios);
         this.tAbrir.setToX(tablaUsuarios.getTranslateX()-tablaUsuarios.getWidth());

@@ -7,6 +7,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.funcionsAux.ListenerMaxLogitud;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -42,6 +43,7 @@ public class vNovaIncidencia extends AbstractController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.listaAreas=super.getFachadaAplicacion().listarAreas();
         this.listaMaterial=super.getFachadaAplicacion().listarMateriais();
+        this.campoDescricion.textProperty().addListener(new ListenerMaxLogitud(campoDescricion,500));
 
         TreeItem rootItem = new TreeItem();
         TreeItem areaActual;

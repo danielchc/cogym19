@@ -3,6 +3,7 @@ package centrodeportivo.funcionsAux;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 
 
 /**
@@ -11,10 +12,10 @@ import javafx.scene.control.TextField;
  */
 public final class ListenerMaxLogitud implements ChangeListener<String> {
 
-    private TextField textField;
+    private TextInputControl textField;
     private Integer maxLoxitude;
 
-    public ListenerMaxLogitud(TextField textField, Integer maxLoxitude) {
+    public ListenerMaxLogitud(TextInputControl textField, Integer maxLoxitude) {
         this.textField = textField;
         this.maxLoxitude = maxLoxitude;
     }

@@ -11,6 +11,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.AuxiliaresGUI;
 import centrodeportivo.funcionsAux.Criptografia;
+import centrodeportivo.funcionsAux.ListenerMaxLogitud;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -107,6 +108,16 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         this.tipoUsuario.getItems().addAll(RexistroTipo.values());
         this.tipoUsuario.getSelectionModel().selectFirst();
         this.usuarioModificar=null;
+
+        this.campoPassword.textProperty().addListener(new ListenerMaxLogitud(campoPassword,64));
+        this.campoLogin.textProperty().addListener(new ListenerMaxLogitud(campoLogin,25));
+        this.campoTelf.textProperty().addListener(new ListenerMaxLogitud(campoTelf,9));
+        this.campoCorreo.textProperty().addListener(new ListenerMaxLogitud(campoCorreo,200));
+        this.campoIBAN.textProperty().addListener(new ListenerMaxLogitud(campoIBAN,24));
+        this.campoNUSS.textProperty().addListener(new ListenerMaxLogitud(campoNUSS,12));
+        this.campoNome.textProperty().addListener(new ListenerMaxLogitud(campoNome,200));
+        this.campoDificultades.textProperty().addListener(new ListenerMaxLogitud(campoDificultades,500));
+
         cambiarTipo();
         iniciarListeners();
     }

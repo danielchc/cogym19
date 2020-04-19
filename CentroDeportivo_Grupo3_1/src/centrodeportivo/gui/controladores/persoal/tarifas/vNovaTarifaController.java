@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.funcionsAux.ListenerMaxLogitud;
 import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -63,6 +64,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
         this.tarifaModificar=null;
         this.campoPrecioBase.textProperty().addListener(new ListenerTextFieldNumeros(campoPrecioBase));
         this.campoPrecioExtras.textProperty().addListener(new ListenerTextFieldNumeros(campoPrecioExtras));
+        this.campoNome.textProperty().addListener(new ListenerMaxLogitud(campoNome,50));
     }
 
     /**
