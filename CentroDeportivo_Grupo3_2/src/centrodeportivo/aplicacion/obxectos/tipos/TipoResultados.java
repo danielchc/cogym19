@@ -4,5 +4,6 @@ public enum TipoResultados {
     correcto,
     datoExiste,
     referenciaRestrict,
+    incoherenciaBorrado,
 
 }

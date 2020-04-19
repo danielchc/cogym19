@@ -8,6 +8,7 @@ import centrodeportivo.gui.FachadaGUI;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class XestionCursos {
     private FachadaGUI fachadaGUI;
@@ -60,7 +61,11 @@ public class XestionCursos {
             return TipoResultados.correcto;
         } else {
             //Se non, haberá un erro no borrado:
-            return TipoResultados.referenciaRestrict;
+            return TipoResultados.incoherenciaBorrado;
         }
+    }
+
+    public ArrayList<Curso> consultarCursos(Curso curso) {
+        return fachadaBD.consultarCursos(curso);
     }
 }

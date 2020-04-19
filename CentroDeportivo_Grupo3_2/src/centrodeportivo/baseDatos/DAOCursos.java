@@ -17,7 +17,6 @@ public final class DAOCursos extends AbstractDAO{
     public void rexistrarCurso(Curso curso) throws ExcepcionBD {
         //Rexistraremos unicamente datos propios do curso (da súa táboa).
         PreparedStatement stmCursos = null;
-        PreparedStatement stmActividades = null;
         ResultSet rsCursos;
         Connection con;
 
@@ -33,7 +32,7 @@ public final class DAOCursos extends AbstractDAO{
             stmCursos.setString(1, curso.getNome());
             stmCursos.setString(2, curso.getDescricion());
             stmCursos.setFloat(3, curso.getPrezo());
-            stmCursos.setBoolean(3, false);
+            stmCursos.setBoolean(4, false);
 
             //Realizamos entón a actualización sobre a base de datos:
             stmCursos.executeUpdate();
@@ -61,7 +60,6 @@ public final class DAOCursos extends AbstractDAO{
         } finally {
             //Peche dos statement:
             try {
-                stmActividades.close();
                 stmCursos.close();
             } catch (SQLException e){
                 System.out.println("Imposible pechar os cursores");
@@ -289,7 +287,8 @@ public final class DAOCursos extends AbstractDAO{
                     " WHERE lower(nome) = lower(?) " + //Comprobamos que non coincida o nome estrictamente.
                     "   and codCurso != ? ");
             //Completamos a consulta co campo do código do curso:
-            stmCursos.setInt(1, curso.getCodCurso());
+            stmCursos.setString(1, curso.getNome());
+            stmCursos.setInt(2, curso.getCodCurso());
             //Realizamos a consulta.
             rsCursos = stmCursos.executeQuery();
             //Comprobamos se houbo resultados: se é así, existe un curso na base de datos (que non é o pasado) co mesmo nome.
