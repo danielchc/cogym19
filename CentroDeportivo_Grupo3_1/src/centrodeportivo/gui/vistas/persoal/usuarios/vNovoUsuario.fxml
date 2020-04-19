@@ -148,7 +148,7 @@
                                              <Font name="System Bold" size="14.0" />
                                          </font>
                                      </Label>
-                                     <TextArea fx:id="campoDificultades" prefHeight="200.0" prefWidth="250.0" />
+                                     <TextArea fx:id="campoDificultades" prefHeight="200.0" prefWidth="250.0" wrapText="true" />
                                  </children>
                              </HBox>
                              <HBox fx:id="nussPersoalBox" prefHeight="100.0" prefWidth="200.0">

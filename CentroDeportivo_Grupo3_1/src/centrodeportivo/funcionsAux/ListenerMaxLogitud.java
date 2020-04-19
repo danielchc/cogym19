@@ -23,6 +23,7 @@ public final class ListenerMaxLogitud implements ChangeListener<String> {
 
     @Override
     public void changed(ObservableValue<? extends String> observableValue, String valorAnterior, String valorNovo) {
+        if(valorAnterior==null || valorAnterior.equals("")) return;
         if (valorNovo.length() > maxLoxitude) {
             textField.setText(valorAnterior);
         }

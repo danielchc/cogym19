@@ -42,7 +42,7 @@
                               <Insets left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextArea fx:id="infoObxecto" editable="false" layoutX="15.0" layoutY="30.0" prefHeight="150.0" prefWidth="366.0">
+                        <TextArea fx:id="infoObxecto" editable="false" layoutX="15.0" layoutY="30.0" prefHeight="150.0" prefWidth="366.0" wrapText="true">
                            <VBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                            </VBox.margin></TextArea>
@@ -54,7 +54,7 @@
                               <Insets left="5.0" right="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextArea fx:id="campoDescricion" prefHeight="274.0" prefWidth="355.0">
+                        <TextArea fx:id="campoDescricion" prefHeight="274.0" prefWidth="355.0" wrapText="true">
                            <VBox.margin>
                               <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                            </VBox.margin>

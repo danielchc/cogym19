@@ -38,7 +38,7 @@
                  <children>
                      <HBox alignment="CENTER" prefHeight="152.0" prefWidth="456.0">
                      <children>
-                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="166.0" prefWidth="430.0" />
+                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="166.0" prefWidth="430.0" wrapText="true" />
                      </children></HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="40.0" prefWidth="200.0">
                      <children>
@@ -57,7 +57,7 @@
                                      <Font name="System Bold" size="14.0" />
                                  </font>
                              </Label>
-                             <TextArea fx:id="campoComentario" prefHeight="116.0" prefWidth="251.0" />
+                             <TextArea fx:id="campoComentario" prefHeight="116.0" prefWidth="251.0" wrapText="true" />
                          </children>
                      </HBox>
                  </children>
