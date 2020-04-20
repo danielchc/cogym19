@@ -219,6 +219,12 @@ public final class DAOMaterial extends AbstractDAO {
     }
 
     // ListarMateriais -> devolve todos os materiais da base de datos
+
+    /**
+     * ListarMateriais -> obten todos os materiais almacenados na base de datos
+     *
+     * @return -> devolve un ArrayList cos materiais da base de datos
+     */
     public ArrayList<Material> listarMateriais() {
         ArrayList<Material> materiais = new ArrayList<>();
         PreparedStatement stmMaterial = null;

@@ -33,19 +33,19 @@ public final class FachadaBD {
     private DAOCursos daoCursos;
     private DAOMensaxes daoMensaxes;
 
-    public FachadaBD(FachadaAplicacion fachadaAplicacion)  {
-        this.fachadaAplicacion=fachadaAplicacion;
+    public FachadaBD(FachadaAplicacion fachadaAplicacion) {
+        this.fachadaAplicacion = fachadaAplicacion;
         Properties configuracion = new Properties();
         FileInputStream prop;
 
         //prop = new FileInputStream("baseDatos.properties");
         //configuracion.load(prop);
         //prop.close();
-        try{
-            String conf=new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
+        try {
+            String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
             //System.out.println(conf);
             configuracion.load(new StringReader(conf));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Non se pudo cargar o arquivo cifrado");
             System.exit(1);
         }
@@ -53,19 +53,19 @@ public final class FachadaBD {
         Properties usuario = new Properties();
         usuario.setProperty("user", configuracion.getProperty("usuario"));
         usuario.setProperty("password", configuracion.getProperty("clave"));
-        String con=String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"),configuracion.getProperty("servidor"),configuracion.getProperty("puerto"),configuracion.getProperty("baseDatos"));
-        try{
-            this.conexion= DriverManager.getConnection(con,usuario);
+        String con = String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"), configuracion.getProperty("servidor"), configuracion.getProperty("puerto"), configuracion.getProperty("baseDatos"));
+        try {
+            this.conexion = DriverManager.getConnection(con, usuario);
             this.conexion.setAutoCommit(false);
-        }catch (SQLException e){
-            fachadaAplicacion.mostrarErro("Erro","Erro na conexión ca base de datos");
+        } catch (SQLException e) {
+            fachadaAplicacion.mostrarErro("Erro", "Erro na conexión ca base de datos");
             System.exit(1);
         }
-        this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
-        this.daoInstalacions=new DAOInstalacions(this.conexion, this.fachadaAplicacion);
-        this.daoActividades=new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
-        this.daoCursos= new DAOCursos(this.conexion, this.fachadaAplicacion);
-        this.daoMensaxes=new DAOMensaxes(this.conexion, this.fachadaAplicacion);
+        this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
+        this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
+        this.daoActividades = new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
+        this.daoCursos = new DAOCursos(this.conexion, this.fachadaAplicacion);
+        this.daoMensaxes = new DAOMensaxes(this.conexion, this.fachadaAplicacion);
         this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
         this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
         this.daoTipoMaterial = new DAOTipoMaterial(this.conexion, this.fachadaAplicacion);
@@ -140,20 +140,20 @@ public final class FachadaBD {
     }
 
 
-    public ArrayList<TipoActividade> listarTiposActividades(){
+    public ArrayList<TipoActividade> listarTiposActividades() {
         return this.daoTiposActividades.listarTiposActividades();
     }
 
 
-    public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
+    public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade) {
         return this.daoTiposActividades.buscarTiposActividades(tipoActividade);
     }
 
-    public boolean comprobarExistencia(TipoActividade tipoActividade){
+    public boolean comprobarExistencia(TipoActividade tipoActividade) {
         return this.daoTiposActividades.comprobarExistencia(tipoActividade);
     }
 
-    public boolean tenActividades(TipoActividade tipoActividade){
+    public boolean tenActividades(TipoActividade tipoActividade) {
         return this.daoTiposActividades.tenActividades(tipoActividade);
     }
 
@@ -186,15 +186,15 @@ public final class FachadaBD {
         return daoCursos.consultarCursos(curso);
     }
 
-    public Curso recuperarDatosCurso(Curso curso){
+    public Curso recuperarDatosCurso(Curso curso) {
         return daoCursos.recuperarDatosCurso(curso);
     }
 
-    public boolean comprobarExistencia(Curso curso){
+    public boolean comprobarExistencia(Curso curso) {
         return daoCursos.comprobarExistencia(curso);
     }
 
-    public boolean tenParticipantes(Curso curso){
+    public boolean tenParticipantes(Curso curso) {
         return daoCursos.tenParticipantes(curso);
     }
 
@@ -223,6 +223,14 @@ public final class FachadaBD {
 
     public void modificarMaterial(Material material) throws ExcepcionBD {
         this.daoMaterial.modificarMaterial(material);
+    }
+
+    public boolean isMaterial(Material material) {
+        return this.daoMaterial.isMaterial(material);
+    }
+
+    public ArrayList<Material> listarMateriais() {
+        return this.daoMaterial.listarMateriais();
     }
 
 
