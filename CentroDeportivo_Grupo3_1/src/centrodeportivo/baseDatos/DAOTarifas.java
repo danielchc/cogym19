@@ -4,6 +4,8 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.AbstractDAO;
 
 import java.sql.Connection;
@@ -184,6 +186,31 @@ public final class DAOTarifas extends AbstractDAO {
                         resultTarifas.getFloat("precioExtra")
                 );
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmTarifa.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return null;
+    }
+
+    protected ArrayList<Usuario> listarSociosTarifa(Tarifa t){
+        PreparedStatement stmTarifa = null;
+        ResultSet resultTarifas;
+        ArrayList<Usuario> socios=new ArrayList<>();
+
+        try {
+            stmTarifa = super.getConexion().prepareStatement("SELECT * FROM socio WHERE tarifa=?;");
+            stmTarifa.setInt(1, t.getCodTarifa());
+            resultTarifas = stmTarifa.executeQuery();
+            while(resultTarifas.next()) {
+                socios.add(new Usuario(resultTarifas.getString("login")));
+            }
+            return socios;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

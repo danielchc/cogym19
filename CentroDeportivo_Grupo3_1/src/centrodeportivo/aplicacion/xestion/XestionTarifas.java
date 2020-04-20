@@ -2,6 +2,8 @@ package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
@@ -58,5 +60,9 @@ public class XestionTarifas {
 
     public boolean existeTarifa(String nome) {
         return fachadaBD.existeTarifa(nome);
+    }
+
+    public ArrayList<Usuario> listarSociosTarifa(Tarifa t){
+        return fachadaBD.listarSociosTarifa(t);
     }
 }
