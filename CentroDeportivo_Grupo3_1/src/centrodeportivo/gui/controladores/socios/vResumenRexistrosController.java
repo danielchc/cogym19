@@ -86,11 +86,11 @@ public class vResumenRexistrosController extends AbstractController implements I
             ppmAvg=ppmAvg/this.rexistros.size();
         }
 
-        this.campoPeso.setText(pesoavg+" Kg");
-        this.campoAltura.setText(alturaavg+" cm");
-        this.campoBFP.setText(bfpavg+" % de graxa corporal");
-        this.campoTension.setText(tensionAltaavg+" / "+tensionBaixaavg);
-        this.campoPPM.setText(ppmAvg+" ppm");
+        this.campoPeso.setText(String.format("%.2f",pesoavg)+" Kg");
+        this.campoAltura.setText(String.format("%.2f",alturaavg)+" cm");
+        this.campoBFP.setText(String.format("%.2f",bfpavg)+" % de graxa corporal");
+        this.campoTension.setText(String.format("%.2f",tensionAltaavg)+" / "+String.format("%.2f",tensionBaixaavg));
+        this.campoPPM.setText(String.format("%.2f",ppmAvg)+" ppm");
 
         generarTreeComentarios();
 
