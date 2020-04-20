@@ -157,6 +157,10 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.consultarCursos(curso);
     }
 
+    public Curso recuperarDatosCurso(Curso curso) {
+        return xestionCursos.recuperarDatosCurso(curso);
+    }
+
 
 
 }

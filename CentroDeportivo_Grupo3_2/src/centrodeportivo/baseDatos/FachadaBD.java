@@ -186,6 +186,10 @@ public final class FachadaBD {
         return daoCursos.consultarCursos(curso);
     }
 
+    public Curso recuperarDatosCurso(Curso curso){
+        return daoCursos.recuperarDatosCurso(curso);
+    }
+
     public boolean comprobarExistencia(Curso curso){
         return daoCursos.comprobarExistencia(curso);
     }

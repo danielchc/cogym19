@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.beans.property.SimpleStringProperty;
@@ -85,6 +86,7 @@ public class vAdministrarCursosController extends AbstractController implements 
         } else {
             taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(new Curso(campoNome.getText())));
         }
+        taboaCursos.getSelectionModel().selectFirst();
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
@@ -94,12 +96,31 @@ public class vAdministrarCursosController extends AbstractController implements 
         taboaCursos.getItems().removeAll(taboaCursos.getItems());
         //Refrescamos:
         taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(null));
+        taboaCursos.getSelectionModel().selectFirst();
     }
 
     public void btnXestionarAction(ActionEvent actionEvent) {
         //Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
-        Curso curso;
-
-
+        //Para iso, empezamos mirando se hai unha selección feita:
+        Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            //Gardamos o resultado noutra variable para refrescar toda a información
+            //Iso será o que se lle pase á ventá de xestión dun curso:
+            Curso curso = getFachadaAplicacion().recuperarDatosCurso(selected);
+            if(curso != null){
+                //Se houbo resultado, procedemos a pasar á ventá de xestión de cursos este curso:
+                vXestionCursoController cont = (vXestionCursoController) controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO);
+                cont.setCurso(curso);
+                //Chamamos á ventá.
+                controllerPrincipal.mostrarMenu(IdPantalla.XESTIONCURSO);
+            } else {
+                //Se houbo problemas ao recuperar a información, avisamos do erro:
+                this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                        "Produciuse un erro ao recuperar os datos do curso.");
+            }
+        } else {
+            this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                    "Selecciona un curso primeiro!");
+        }
     }
 }

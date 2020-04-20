@@ -346,6 +346,7 @@ public final class DAOCursos extends AbstractDAO{
                             rsActividades.getFloat("duracion"),
                             new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"))),
                             new TipoActividade(rsActividades.getInt("tipoactividade")),
+                            resultado,
                             new Persoal(rsActividades.getString("profesor"))));
                 }
 
@@ -452,7 +453,7 @@ public final class DAOCursos extends AbstractDAO{
         //Intentamos facer a consulta:
         try {
             //Buscamos se hai algún usuario realizando este curso:
-            stmCursos = con.prepareStatement("SELECT * FROM realizarCurso WHERE codCurso = ? ");
+            stmCursos = con.prepareStatement("SELECT * FROM realizarCurso WHERE curso = ? ");
 
             //Completamos a consulta co código do curso:
             stmCursos.setInt(1, curso.getCodCurso());

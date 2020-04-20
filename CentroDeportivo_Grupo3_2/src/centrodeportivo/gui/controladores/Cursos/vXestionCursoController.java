@@ -255,4 +255,14 @@ public class vXestionCursoController extends AbstractController implements Initi
         //En ambos casos, ocultamos a etiqueta de campos obrigatorios:
         tagObrigatorios.setVisible(false);
     }
+
+    //Getters se setters do curso:
+    public void setCurso(Curso curso){
+        this.curso = curso;
+    }
+
+    public Curso getCurso(){
+        return this.curso;
+    }
+
 }
