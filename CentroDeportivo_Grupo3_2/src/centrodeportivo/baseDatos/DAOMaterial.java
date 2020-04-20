@@ -167,7 +167,7 @@ public final class DAOMaterial extends AbstractDAO {
     /**
      * IsMaterial -> comproba se certo material existe na base de datos
      *
-     * @param material -> datos do material que se quere
+     * @param material -> datos do material que se quer validar
      * @return -> devolve true se o material se encontra na base de datos
      */
     public boolean isMaterial(Material material) {
@@ -218,7 +218,6 @@ public final class DAOMaterial extends AbstractDAO {
         return resultado;
     }
 
-    // ListarMateriais -> devolve todos os materiais da base de datos
 
     /**
      * ListarMateriais -> obten todos os materiais almacenados na base de datos

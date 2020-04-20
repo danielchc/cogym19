@@ -203,9 +203,17 @@ public final class FachadaBD {
         Funcións DAOTipoMaterial
      */
 
+    public void darAltaTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
+        this.daoTipoMaterial.darAltaTipoMaterial(tipoMaterial);
+    }
 
     public void borrarTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         this.daoTipoMaterial.borrarTipoMaterial(tipoMaterial);
+    }
+
+
+    public boolean isTipoMaterial(TipoMaterial tipoMaterial) {
+        return this.daoTipoMaterial.isTipoMaterial(tipoMaterial);
     }
 
 

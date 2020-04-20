@@ -4,6 +4,7 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 
 import java.sql.Connection;
@@ -28,7 +29,7 @@ public final class DAOTipoMaterial extends AbstractDAO {
      * @param tipoMaterial -> datos do material que creará
      * @throws ExcepcionBD -> excepción procedente do método dao para indicar problemas na inserción
      */
-    public void engadirTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
+    public void darAltaTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         PreparedStatement stmTipoMaterial = null;
         ResultSet rsTipoMaterial;
         Connection con;
@@ -109,6 +110,60 @@ public final class DAOTipoMaterial extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+    }
+
+    /**
+     * IsTipoMaterial -> comproba se certo tipo de material existe na base de datos
+     *
+     * @param tipoMaterial -> datos do tipo de material que se quer validar
+     * @return -> devolve true se o tipo de material se encontra na base de datos
+     */
+    public boolean isTipoMaterial(TipoMaterial tipoMaterial) {
+
+        boolean resultado = false;
+        PreparedStatement stmTipoMaterial = null;
+        ResultSet rsTipoMaterial = null;
+        Connection con;
+
+        // Recuperamos a conexión coa base de datos
+        con = super.getConexion();
+
+        // Preparamos a consulta
+        try {
+            stmTipoMaterial = con.prepareStatement("SELECT * " +
+                    "FROM tipoMaterial " +
+                    "WHERE lower(nome) =  lower (?) AND codTipoMaterial != ?");
+
+            // Asignamos os valores que corresponden:
+            stmTipoMaterial.setString(1, tipoMaterial.getNome());
+            stmTipoMaterial.setInt(2, tipoMaterial.getCodTipoMaterial());
+
+            // Executamos a consulta
+            rsTipoMaterial = stmTipoMaterial.executeQuery();
+
+            // Comprobamos o resultSet, se obtemos un resultado, o tipoMaterial existe
+            if (rsTipoMaterial.next()) {
+                resultado = true;
+            }
+
+            // Facemos o commit
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                assert stmTipoMaterial != null;
+                stmTipoMaterial.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
     }
 
 }
