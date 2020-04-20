@@ -743,7 +743,7 @@
 <XPD:ATTR name="Left" type="integer">660</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">744</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">102</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">108</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">111</XPD:ATTR>
 <XPD:REF name="Model">wPvTXZYx/0mawtFinPLsOwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="RpmVNfSgMUCfT6d43qw1nwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="ueRNPxIvokqV2ANI3ou8oQAA">
@@ -822,7 +822,7 @@
 <XPD:ATTR name="Alpha" type="real">-0,977908327995997</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">15,8113883008419</XPD:ATTR>
 <XPD:ATTR name="EdgePosition" type="EdgePositionKind">epTail</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">1..*</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">*</XPD:ATTR>
 <XPD:REF name="Model">xnEtEUF7rkeHYgD3AhbDhgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="HeadPropertyLabel" type="EdgeLabelView" guid="efUhQkeRuUumV4zdxdUdZAAA">
@@ -2785,7 +2785,7 @@ de Socios
 <XPD:ATTR name="#Associations" type="integer">2</XPD:ATTR>
 <XPD:REF name="Associations[0]">6aN8C6n8UUWV0veiXXUgBwAA</XPD:REF>
 <XPD:REF name="Associations[1]">DHn4HETQsku3dAnhIhdGJAAA</XPD:REF>
-<XPD:ATTR name="#Attributes" type="integer">5</XPD:ATTR>
+<XPD:ATTR name="#Attributes" type="integer">6</XPD:ATTR>
 <XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="+Vi4Z8P6lUWgDFnJaHS3GQAA">
 <XPD:ATTR name="Name" type="string">codCurso {PK}</XPD:ATTR>
 <XPD:REF name="Owner">wPvTXZYx/0mawtFinPLsOwAA</XPD:REF>
@@ -2806,6 +2806,10 @@ de Socios
 <XPD:ATTR name="Name" type="string">prezo</XPD:ATTR>
 <XPD:REF name="Owner">wPvTXZYx/0mawtFinPLsOwAA</XPD:REF>
 </XPD:OBJ>
+<XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="FPlsfRQVkkKll3iLQx1vNgAA">
+<XPD:ATTR name="Name" type="string">aberto</XPD:ATTR>
+<XPD:REF name="Owner">wPvTXZYx/0mawtFinPLsOwAA</XPD:REF>
+</XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[18]" type="UMLAssociation" guid="j1Yv0WtTA0Gm4ma4IbexkQAA">
 <XPD:ATTR name="Name" type="string">ConformarCurso</XPD:ATTR>
@@ -2817,7 +2821,7 @@ de Socios
 <XPD:REF name="Views[3]">tW5IlDLw5kW5sgi8s48WtgAA</XPD:REF>
 <XPD:ATTR name="#Connections" type="integer">2</XPD:ATTR>
 <XPD:OBJ name="Connections[0]" type="UMLAssociationEnd" guid="xnEtEUF7rkeHYgD3AhbDhgAA">
-<XPD:ATTR name="Multiplicity" type="string">1..*</XPD:ATTR>
+<XPD:ATTR name="Multiplicity" type="string">*</XPD:ATTR>
 <XPD:REF name="Association">j1Yv0WtTA0Gm4ma4IbexkQAA</XPD:REF>
 <XPD:REF name="Participant">46FMVR9x2EqMRlRtAaY8GgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>

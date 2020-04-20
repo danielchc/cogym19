@@ -2,8 +2,12 @@ package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,6 +15,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
+import jdk.nashorn.internal.codegen.CompilerConstants;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.net.URL;
 import java.sql.Timestamp;
@@ -48,8 +55,17 @@ public class vAdministrarCursosController extends AbstractController implements 
         TableColumn<Float, Curso> duracionColumn = new TableColumn<>("Duración");
         duracionColumn.setCellValueFactory(new PropertyValueFactory<>("duracion"));
 
-        TableColumn<Boolean, Curso> abertoColumn = new TableColumn<>("Aberto");
-        abertoColumn.setCellValueFactory(new PropertyValueFactory<>("aberto"));
+        TableColumn<Curso, String> abertoColumn = new TableColumn<>("Aberto");
+        abertoColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Curso, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Curso, String> p) {
+                if (p.getValue().isAberto()) {
+                    return new SimpleStringProperty("Si");
+                } else {
+                    return new SimpleStringProperty("Non");
+                }
+            }
+        });
 
         //Metemos as columnas creadas na táboa:
         taboaCursos.getColumns().addAll(nomeColumn, dataInicioColumn, numActividadesColumn, duracionColumn, abertoColumn);
@@ -58,6 +74,15 @@ public class vAdministrarCursosController extends AbstractController implements 
     }
 
     public void btnBuscarAction(ActionEvent actionEvent) {
+        //Primeiro borramos todos os items que hai amosados na táboa:
+        taboaCursos.getItems().removeAll(taboaCursos.getItems());
+
+        //Se o campo de nome non se cubre, o que faremos será listar todos os cursos, se non, faremos búsqueda por nome:
+        if(!ValidacionDatos.estanCubertosCampos(campoNome)){
+
+        } else {
+            taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(new Curso(campoNome.getText())));
+        }
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {

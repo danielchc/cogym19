@@ -221,6 +221,7 @@ public final class DAOCursos extends AbstractDAO{
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
         ArrayList<Curso> resultado = new ArrayList<>();
+        String consulta = "";
 
         //Recuperamos a conexión:
         Connection con = super.getConexion();
@@ -229,15 +230,25 @@ public final class DAOCursos extends AbstractDAO{
         try{
             //A búsqueda que poderá facer o persoal non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
             //No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
-            stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto, " +
-                    "                                    count(*) as numactividades, min(a.dataactividade) as datainicio, sum(a.duracion) as duracion" +
-                    " FROM curso as c, actividade as a" +
-                    " WHERE c.codcurso = a.curso" +
-                    "   and c.nome like ?" +
-                    " GROUP BY c.codcurso");
+            consulta = "SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
+                    "count(*) as numactividades, min(a.dataactividade) as datainicio, sum(a.duracion) as duracion " +
+                    " FROM curso as c, actividade as a " +
+                    " WHERE c.codcurso = a.curso";
 
-            //Completamos a consulta:
-            stmCursos.setString(1, "%" + curso.getNome() + "%");
+            //Pode ser que non pasemos curso (o pasemos como null) ou que pasemos algo.
+            //Se non pasamos ningún curso, non engadimos o filtro de busca, se non si:
+            if(curso != null){
+                consulta += "  and c.nome like ? ";
+            }
+
+            consulta += "  GROUP BY c.codcurso";
+
+            stmCursos = con.prepareStatement(consulta);
+
+            //Completamos a consulta (se procede):
+            if(curso != null){
+                stmCursos.setString(1, "%" + curso.getNome() + "%");
+            }
 
             //Intentamos levala a cabo:
             rsCursos = stmCursos.executeQuery();

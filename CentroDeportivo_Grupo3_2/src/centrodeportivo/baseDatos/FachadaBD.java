@@ -9,7 +9,6 @@ import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.gui.FachadaGUI;
 
 import java.io.FileInputStream;
 import java.io.StringReader;
@@ -24,7 +23,7 @@ public final class FachadaBD {
     private Connection conexion;
     private DAOUsuarios daoUsuarios;
     private DAOInstalacions daoInstalacions;
-    private DAOTiposActividades daoActividades;
+    private DAOTiposActividades daoTiposActividades;
     private DAOCursos daoCursos;
     private DAOMensaxes daoMensaxes;
 
@@ -58,7 +57,7 @@ public final class FachadaBD {
         }
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
         this.daoInstalacions=new DAOInstalacions(this.conexion, this.fachadaAplicacion);
-        this.daoActividades=new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
+        this.daoTiposActividades =new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
         this.daoCursos= new DAOCursos(this.conexion, this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion, this.fachadaAplicacion);
     }
@@ -119,31 +118,31 @@ public final class FachadaBD {
      */
 
     public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
-        this.daoActividades.crearTipoActividade(tipoActividade);
+        this.daoTiposActividades.crearTipoActividade(tipoActividade);
     }
 
     public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
-        this.daoActividades.modificarTipoActividade(tipoActividade);
+        this.daoTiposActividades.modificarTipoActividade(tipoActividade);
     }
 
     public void eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
-        this.daoActividades.eliminarTipoActividade(tipoActividade);
+        this.daoTiposActividades.eliminarTipoActividade(tipoActividade);
     }
 
     public ArrayList<TipoActividade> listarTiposActividades(){
-        return this.daoActividades.listarTiposActividades();
+        return this.daoTiposActividades.listarTiposActividades();
     }
 
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
-        return this.daoActividades.buscarTiposActividades(tipoActividade);
+        return this.daoTiposActividades.buscarTiposActividades(tipoActividade);
     }
 
     public boolean comprobarExistencia(TipoActividade tipoActividade){
-        return this.daoActividades.comprobarExistencia(tipoActividade);
+        return this.daoTiposActividades.comprobarExistencia(tipoActividade);
     }
 
     public boolean tenActividades(TipoActividade tipoActividade){
-        return this.daoActividades.tenActividades(tipoActividade);
+        return this.daoTiposActividades.tenActividades(tipoActividade);
     }
 
 

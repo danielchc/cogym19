@@ -37,12 +37,16 @@ public class Curso {
     private Timestamp dataInicio;
 
     //Constructores
-    public Curso(String nome, String descricion, float prezo){
+    public Curso(String nome){
         this.nome = nome;
-        this.descricion = descricion;
-        this.prezo = prezo;
         this.actividades = new ArrayList<>();
         this.participantes = new ArrayList<>();
+    }
+
+    public Curso(String nome, String descricion, float prezo){
+        this(nome);
+        this.descricion = descricion;
+        this.prezo = prezo;
     }
 
     public Curso(int codCurso, String nome, String descricion, float prezo){
@@ -128,5 +132,13 @@ public class Curso {
 
     public void setParticipantes(ArrayList<Usuario> participantes) {
         this.participantes = participantes;
+    }
+
+    public boolean isAberto() {
+        return aberto;
+    }
+
+    public void setAberto(boolean aberto) {
+        this.aberto = aberto;
     }
 }
