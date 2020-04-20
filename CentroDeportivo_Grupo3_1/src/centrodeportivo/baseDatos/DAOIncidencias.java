@@ -77,7 +77,7 @@ public final class DAOIncidencias extends AbstractDAO {
         try {
             if (tipoIncidencia == TipoIncidencia.Area || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement(
-                        "SELECT *,ar.nome AS nomeArea,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea " +
+                        "SELECT *,ar.nome AS nomeArea,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea AND ia.instalacion=ar.instalacion " +
                                 " WHERE ((LOWER(ar.nome) LIKE LOWER(?)) OR (LOWER(ia.descricion) LIKE LOWER(?))) "+uMos);
                 stmIncidencia.setString(1, "%"+textoBuscar+"%");
                 stmIncidencia.setString(2, "%"+textoBuscar+"%");
@@ -111,7 +111,7 @@ public final class DAOIncidencias extends AbstractDAO {
             if (tipoIncidencia == TipoIncidencia.Material || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement("SELECT " +
                         "*,tm.nome AS tipoMaterialNome,im.descricion AS descricionIncidencia " +
-                        "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial " +
+                        "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial AND im.tipomaterial=ma.tipomaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial " +
                         "WHERE ((LOWER(CONCAT_WS(' ',tm.nome,CAST( ma.codMaterial AS VARCHAR(5)))) LIKE LOWER(?) ) OR (LOWER(im.descricion) LIKE LOWER(?))) "+uMos);
                 stmIncidencia.setString(1, "%"+textoBuscar+"%");
                 stmIncidencia.setString(2, "%"+textoBuscar+"%");
@@ -199,7 +199,7 @@ public final class DAOIncidencias extends AbstractDAO {
             if (incidencia.getTipoIncidencia() == TipoIncidencia.Area) {
                 stmIncidencia = super.getConexion().prepareStatement(
                         "SELECT *,ar.nome AS nomeArea, ar.descricion AS descricionArea,ins.nome AS nomeInstalacion,ia.descricion AS descricionIncidencia " +
-                                "FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea JOIN instalacion AS ins ON ins.codinstalacion=ar.instalacion "+
+                                "FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea AND ia.instalacion=ar.instalacion JOIN instalacion AS ins ON ins.codinstalacion=ar.instalacion "+
                                 " WHERE ia.numero=?");
                 stmIncidencia.setInt(1, incidencia.getNumero());
                 rsIncidencias = stmIncidencia.executeQuery();
@@ -235,7 +235,7 @@ public final class DAOIncidencias extends AbstractDAO {
             if (incidencia.getTipoIncidencia() == TipoIncidencia.Material) {
                 stmIncidencia = super.getConexion().prepareStatement(
                         "SELECT *,tm.nome AS tipoMaterialNome,im.descricion AS descricionIncidencia,ar.nome AS nomeArea,ar.descricion AS descricionArea " +
-                                "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial JOIN area AS ar ON ar.codarea=ma.area " +
+                                "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial AND im.tipomaterial=ma.tipomaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial JOIN area AS ar ON ar.codarea=ma.area " +
                                 " WHERE im.numero=?");
                 stmIncidencia.setInt(1, incidencia.getNumero());
                 rsIncidencias = stmIncidencia.executeQuery();

@@ -79,7 +79,7 @@ CREATE TABLE tipoMaterial(
 );
 
 CREATE TABLE material(
-	codMaterial 	SERIAL NOT NULL,
+	codMaterial 	INT NOT NULL,
 	tipoMaterial	INT	NOT NULL,
 	area			INT NOT NULL,
 	instalacion 	INT NOT NULL,
