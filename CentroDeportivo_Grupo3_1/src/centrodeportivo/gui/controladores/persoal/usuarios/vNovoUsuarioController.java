@@ -295,8 +295,8 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
                 tlfBox,correoBox,ibanBox,tarifaSocioBox
         );
-        AuxiliaresGUI.visibilidadeHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
-        AuxiliaresGUI.managedHBoxs(false, tarifaSocioBox,nussPersoalBox,profesorBox);
+        AuxiliaresGUI.visibilidadeHBoxs(false, nussPersoalBox,profesorBox);
+        AuxiliaresGUI.managedHBoxs(false, nussPersoalBox,profesorBox);
         btnGardar.setDisable(false);
     }
 

@@ -4,6 +4,7 @@ import javafx.fxml.Initializable;
 
 import java.sql.Date;
 
+// Clase que almacenará información sobre o material
 public class Material {
 
 
@@ -13,11 +14,11 @@ public class Material {
     private Area area;
     private String estado;
     private Date dataCompra;
-    private double prezoCompra;
+    private float prezoCompra;
 
 
     // Constructores
-    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado, Date dataCompra, double prezoCompra) {
+    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado, Date dataCompra, float prezoCompra) {
         this.codMaterial = codMaterial;
         this.tipoMaterial = tipoMaterial;
         this.area = area;
@@ -49,7 +50,7 @@ public class Material {
         this.dataCompra = dataCompra;
     }
 
-    public void setPrezoCompra(double prezoCompra) {
+    public void setPrezoCompra(float prezoCompra) {
         this.prezoCompra = prezoCompra;
     }
 
@@ -73,16 +74,12 @@ public class Material {
         return dataCompra;
     }
 
-    public double getPrezoCompra() {
+    public float getPrezoCompra() {
         return prezoCompra;
     }
 
 
     // Outros métodos
-    public void setInstalacion(Instalacion instalacion) {
-        area.setInstalacion(instalacion);
-    }
-
     public Instalacion getInstalacion() {
         return area.getInstalacion();
     }

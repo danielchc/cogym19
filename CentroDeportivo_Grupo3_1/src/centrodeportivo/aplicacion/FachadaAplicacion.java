@@ -11,6 +11,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -257,6 +258,9 @@ public class FachadaAplicacion extends Application {
         return xestionTarifas.existeTarifa(nome);
     }
 
+    public ArrayList<Usuario> listarSociosTarifa(Tarifa t){
+        return xestionTarifas.listarSociosTarifa(t);
+    }
 
     /*
         Xestion mensaxes

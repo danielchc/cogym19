@@ -60,7 +60,7 @@ CREATE TABLE instalacion(
 );
 
 CREATE TABLE area(
-	codArea 	SERIAL NOT NULL,
+	codArea 	INT NOT NULL,
 	instalacion INT NOT NULL,
 	nome		VARCHAR(50),
 	descricion 	VARCHAR(200) NOT NULL,
@@ -228,24 +228,6 @@ CREATE TABLE estarCapacitado(
 
 
 
-
-
-CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
-	DECLARE
-		tr RECORD;
-	BEGIN
-		FOR tr IN
-			SELECT * FROM actividade WHERE curso=NEW.curso
-		LOOP
-			INSERT INTO realizarActividade(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
-		END LOOP;
-		RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
-
-
 CREATE OR REPLACE VIEW vistapersoal AS
 SELECT 
 	us.login,
@@ -283,3 +265,96 @@ CREATE OR REPLACE VIEW  vistasocio AS
 FROM socio AS so 
 JOIN persoaFisica AS pf ON so.login=pf.usuariosocio 
 JOIN usuario AS us ON us.login=so.login;
+
+
+CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
+	DECLARE
+		tr RECORD;
+	BEGIN
+		FOR tr IN
+			SELECT * FROM actividade WHERE curso=NEW.curso
+		LOOP
+			INSERT INTO realizarActividade(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
+		END LOOP;
+		RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION comprobarAreaLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,parea INT,pinstalacion INT) RETURNS boolean AS
+$func$
+  SELECT NOT EXISTS (
+   	SELECT 1 FROM actividade 
+	WHERE 
+	(
+		pdataActividade>=dataactividade AND pdataActividade <(dataactividade + (duracion * interval '1 hour'))
+		OR
+		(pdataactividade + (pduracion * interval '1 hour'))>dataactividade AND (pdataactividade + (pduracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
+	)
+	AND (area=parea AND instalacion=pinstalacion)
+	)
+$func$ LANGUAGE sql STABLE;
+
+
+CREATE OR REPLACE FUNCTION comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) RETURNS boolean AS
+$func$
+SELECT NOT EXISTS (
+   	SELECT 1 FROM actividade 
+	WHERE 
+	(
+		pdataActividade>=dataactividade AND pdataActividade <(dataactividade + (duracion * interval '1 hour'))
+		OR
+		(pdataactividade + (pduracion * interval '1 hour'))>dataactividade AND (pdataactividade + (pduracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
+	)
+	AND (profesor=pprofesor)
+)
+$func$ LANGUAGE sql STABLE;
+
+
+CREATE OR REPLACE  FUNCTION crearSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
+AS $$
+BEGIN
+  EXECUTE format('create sequence secuencia_area_%s', NEW.codinstalacion);
+  RETURN NEW;
+END
+$$;
+
+
+CREATE OR REPLACE FUNCTION engadirSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
+AS $$
+BEGIN
+  NEW.codArea := nextval('secuencia_area_' || NEW.instalacion);
+  RETURN NEW;
+END
+$$;
+
+CREATE OR REPLACE  FUNCTION crearSecuenciaMaterial() RETURNS TRIGGER LANGUAGE plpgsql
+AS $$
+BEGIN
+  EXECUTE format('create sequence secuencia_material_%s', NEW.codTipoMaterial);
+  RETURN NEW;
+END
+$$;
+
+
+CREATE OR REPLACE FUNCTION engadirSecuenciaMaterial() RETURNS TRIGGER LANGUAGE plpgsql
+AS $$
+BEGIN
+  NEW.codMaterial := nextval('secuencia_material_' || NEW.tipoMaterial);
+  RETURN NEW;
+END
+$$;
+
+
+CREATE TRIGGER crear_secuencia_area AFTER INSERT ON instalacion FOR EACH ROW EXECUTE PROCEDURE crearSecuenciaArea();
+CREATE TRIGGER engadir_secuencia_area BEFORE INSERT ON area FOR EACH ROW EXECUTE PROCEDURE engadirSecuenciaArea();
+
+
+CREATE TRIGGER crear_secuencia_material AFTER INSERT ON tipoMaterial FOR EACH ROW EXECUTE PROCEDURE crearSecuenciaMaterial();
+CREATE TRIGGER engadir_secuencia_material BEFORE INSERT ON material FOR EACH ROW EXECUTE PROCEDURE engadirSecuenciaMaterial();
+
+
+CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
+
+ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor));
+

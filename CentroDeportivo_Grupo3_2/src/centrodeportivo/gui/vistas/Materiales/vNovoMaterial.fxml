@@ -35,7 +35,7 @@
                         <Font name="System Bold" size="14.0"/>
                     </font>
                 </Label>
-                <ComboBox fx:id="comboTipo" prefHeight="18.0" prefWidth="174.0"/>
+                <ComboBox fx:id="comboTipoMaterial" prefHeight="18.0" prefWidth="174.0"/>
                 <VBox.margin>
                     <Insets bottom="20.0"/>
                 </VBox.margin>

@@ -11,6 +11,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
@@ -202,6 +203,10 @@ public final class FachadaBD {
 
     public boolean existeTarifa(String nome) {
         return daoTarifas.existeTarifa(nome);
+    }
+
+    public ArrayList<Usuario> listarSociosTarifa(Tarifa t){
+        return daoTarifas.listarSociosTarifa(t);
     }
 
     /*

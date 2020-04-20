@@ -46,6 +46,14 @@ public final class Tarifa {
         this.prezoExtras=prezoExtras;
     }
 
+    /**
+     * Constructor coa clave primaria.
+     * @param codTarifa código da tarifa.
+     */
+    public Tarifa(Integer codTarifa){
+        this.codTarifa=codTarifa;
+    }
+
 
     /**
      * Getters e Setters da clase Tarifa.
