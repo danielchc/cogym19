@@ -198,6 +198,11 @@ public final class DAOTarifas extends AbstractDAO {
         return null;
     }
 
+    /**
+     * Método para listar todos os usuarios que teñen unha tarifa dada.
+     * @param t tarifa buscada.
+     * @return Lista de usuarios que teñen esa tarifa.
+     */
     protected ArrayList<Usuario> listarSociosTarifa(Tarifa t){
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
