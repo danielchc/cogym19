@@ -296,7 +296,7 @@ public class FachadaAplicacion extends Application {
         xestionIncidencias.insertarIncidencia(incidencia);
     }
 
-    public Incidencia consultarIncidencia(Incidencia incidencia) throws ExcepcionBD {
+    public Incidencia consultarIncidencia(Incidencia incidencia) {
         return xestionIncidencias.consultarIncidencia(incidencia);
     }
 

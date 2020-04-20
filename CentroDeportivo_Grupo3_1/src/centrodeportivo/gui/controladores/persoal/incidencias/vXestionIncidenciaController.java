@@ -59,11 +59,7 @@ public class vXestionIncidenciaController extends AbstractController implements 
 
     public void cargarIncidencia() {
         String datos = "";
-        try {
-            incidenciaXestionar = getFachadaAplicacion().consultarIncidencia(incidenciaXestionar);
-        } catch (ExcepcionBD excepcionBD) {
-            getFachadaAplicacion().mostrarErro("Carga", excepcionBD.getMessage());
-        }
+        incidenciaXestionar = getFachadaAplicacion().consultarIncidencia(incidenciaXestionar);
         if (incidenciaXestionar instanceof IncidenciaArea) {
             datos = String.format(
                     "Data Falla: %s" +

@@ -244,7 +244,7 @@ public final class FachadaBD {
         daoIncidencias.resolverIncidencia(incidencia);
     }
 
-    public Incidencia consultarIncidencia(Incidencia incidencia) throws ExcepcionBD {
+    public Incidencia consultarIncidencia(Incidencia incidencia) {
        return daoIncidencias.consultarIncidencia(incidencia);
     }
 

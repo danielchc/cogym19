@@ -44,7 +44,7 @@ public class XestionIncidencias {
         fachadaBD.resolverIncidencia(incidencia);
     }
 
-    public Incidencia consultarIncidencia(Incidencia incidencia) throws ExcepcionBD {
+    public Incidencia consultarIncidencia(Incidencia incidencia) {
         return fachadaBD.consultarIncidencia(incidencia);
     }
 
