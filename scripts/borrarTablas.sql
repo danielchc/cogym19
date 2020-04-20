@@ -1,7 +1,12 @@
+ALTER TABLE actividade  DROP CONSTRAINT comprobar_libre;
 DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcurso CASCADE;
+DROP TRIGGER IF EXISTS crear_secuencia_area ON instalacion CASCADE;
+DROP TRIGGER IF EXISTS engadir_secuencia_area ON area CASCADE;
 DROP FUNCTION IF EXISTS comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) ;
 DROP FUNCTION IF EXISTS comprobarAreaLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,parea INT,pinstalacion INT);
 DROP FUNCTION IF EXISTS insertarActividades();
+DROP FUNCTION IF EXISTS crearSecuenciaArea();
+DROP FUNCTION IF EXISTS engadirSecuenciaArea();
 DROP VIEW IF EXISTS vistapersoal;
 DROP VIEW IF EXISTS vistasocio;
 DROP TABLE IF EXISTS estarCapacitado;

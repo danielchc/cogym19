@@ -60,7 +60,7 @@ CREATE TABLE instalacion(
 );
 
 CREATE TABLE area(
-	codArea 	SERIAL NOT NULL,
+	codArea 	INT NOT NULL,
 	instalacion INT NOT NULL,
 	nome		VARCHAR(50),
 	descricion 	VARCHAR(200) NOT NULL,
@@ -311,6 +311,28 @@ SELECT NOT EXISTS (
 $func$ LANGUAGE sql STABLE;
 
 
+CREATE OR REPLACE  FUNCTION crearSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
+AS $$
+BEGIN
+  EXECUTE format('create sequence secuencia_area_%s', NEW.codinstalacion);
+  RETURN NEW;
+END
+$$;
+
+
+CREATE OR REPLACE FUNCTION engadirSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
+AS $$
+BEGIN
+  NEW.codArea := nextval('secuencia_area_' || NEW.instalacion);
+  RETURN NEW;
+END
+$$;
+
+
+
+CREATE TRIGGER crear_secuencia_area AFTER INSERT ON instalacion FOR EACH ROW EXECUTE PROCEDURE crearSecuenciaArea();
+CREATE TRIGGER engadir_secuencia_area BEFORE INSERT ON area FOR EACH ROW EXECUTE PROCEDURE engadirSecuenciaArea();
 CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
 
 ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor));
+
