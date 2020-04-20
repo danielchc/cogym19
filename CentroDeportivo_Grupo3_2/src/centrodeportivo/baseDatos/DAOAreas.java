@@ -104,6 +104,9 @@ public final class DAOAreas extends AbstractDAO {
             stmAreas.setInt(1, area.getCodArea());
             stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
 
+            //Facemos a consulta:
+            rsAux = stmAreas.executeQuery();
+
             if(!rsAux.next()) {
                 stmAreas = con.prepareStatement("SELECT area " +
                         " FROM material " +
@@ -111,6 +114,9 @@ public final class DAOAreas extends AbstractDAO {
 
                 stmAreas.setInt(1, area.getCodArea());
                 stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+
+                //Facemos a consulta:
+                rsAux = stmAreas.executeQuery();
 
                 if(!rsAux.next()) {
                     stmAreas = con.prepareStatement("DELETE FROM area " +
@@ -227,6 +233,9 @@ public final class DAOAreas extends AbstractDAO {
 
                 stmAreas.setInt(1, area.getCodArea());
                 stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+
+                //Facemos a consulta:
+                rsAux = stmAreas.executeQuery();
 
                 if(!rsAux.next()) {
                     stmAreas = con.prepareStatement("UPDATE area " +
