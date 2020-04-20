@@ -19,7 +19,7 @@
 <XPD:REF name="DiagramOwner">XjA+BU2y00iXgSnvwXyKZwAA</XPD:REF>
 <XPD:OBJ name="DiagramView" type="UMLClassDiagramView" guid="YJyyZYYnbkOU6MjmUFafZAAA">
 <XPD:REF name="Diagram">qfJDewxsikyue6KGNZFcCgAA</XPD:REF>
-<XPD:ATTR name="#OwnedViews" type="integer">48</XPD:ATTR>
+<XPD:ATTR name="#OwnedViews" type="integer">50</XPD:ATTR>
 <XPD:OBJ name="OwnedViews[0]" type="UMLClassView" guid="ueZbX7cfJUGnkhGVUu2ovwAA">
 <XPD:ATTR name="FillColor" type="string">$00FCEABA</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">404</XPD:ATTR>
@@ -1890,7 +1890,7 @@ de Areas
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedViews[40]" type="UMLAssociationView" guid="RqbWLk157EysatynfuV5aQAA">
-<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00FCEABA</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
 <XPD:ATTR name="Points" type="Points">456,900;456,846</XPD:ATTR>
 <XPD:REF name="Model">1zNGNJ2T10mGWp24X2IEQQAA</XPD:REF>
@@ -2305,6 +2305,23 @@ de Socios
 <XPD:REF name="Model">brN+K/ei+kO/GrbP35s26wAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
+<XPD:OBJ name="OwnedViews[48]" type="UMLNoteView" guid="AGfCzSWrEkeYGYbgEL37EgAA">
+<XPD:ATTR name="FillColor" type="string">$00FCEABA</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">268</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">852</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">93</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">38</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Ent. Débil
+de TipoMaterial
+</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[49]" type="UMLNoteLinkView" guid="hTBVARoKn0ymHE96Tc3W8QAA">
+<XPD:ATTR name="FillColor" type="string">$00FCEABA</XPD:ATTR>
+<XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">404,828;312,828;312,852</XPD:ATTR>
+<XPD:REF name="Head">AGfCzSWrEkeYGYbgEL37EgAA</XPD:REF>
+<XPD:REF name="Tail">sOlfyIiIC0252R6W5TDq+wAA</XPD:REF>
+</XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedElements" type="integer">42</XPD:ATTR>
@@ -2385,7 +2402,7 @@ de Socios
 <XPD:REF name="Associations[2]">KmJtdzE6fkGwrtaEXwwKRwAA</XPD:REF>
 <XPD:ATTR name="#Attributes" type="integer">4</XPD:ATTR>
 <XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="RRZ6lEc2xEKcTn75RcpgkgAA">
-<XPD:ATTR name="Name" type="string">codMaterial {PK}</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">codMaterial {PK_P}</XPD:ATTR>
 <XPD:REF name="Owner">38a8PIqfmUm+zwsOqPcJZQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="V9Mu8gESAUWLSYKIS3vBTwAA">
