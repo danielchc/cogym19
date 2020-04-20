@@ -1,7 +1,9 @@
 DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcurso CASCADE;
+DROP FUNCTION IF EXISTS comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) ;
+DROP FUNCTION IF EXISTS comprobarAreaLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,parea INT,pinstalacion INT);
 DROP FUNCTION IF EXISTS insertarActividades();
-DROP VIEW vistapersoal;
-DROP VIEW vistasocio;
+DROP VIEW IF EXISTS vistapersoal;
+DROP VIEW IF EXISTS vistasocio;
 DROP TABLE IF EXISTS estarCapacitado;
 DROP TABLE IF EXISTS enviarMensaxe;
 DROP TABLE IF EXISTS realizarCurso;
