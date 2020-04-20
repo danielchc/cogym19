@@ -5,6 +5,11 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -281,6 +286,113 @@ public final class DAOCursos extends AbstractDAO{
         }
 
         return resultado;
+    }
+
+    public Curso recuperarDatosCurso(Curso curso){
+        //Neste método recuperaremos todas as actividades do curso, os datos da consulta e os participantes:
+        PreparedStatement stmCursos = null;
+        PreparedStatement stmSocios = null;
+        PreparedStatement stmActividades = null;
+        ResultSet rsCursos;
+        ResultSet rsActividades;
+        ResultSet rsSocios;
+        Connection con;
+        Curso resultado = null;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Comezaremos recuperando todos os datos do curso:
+        try{
+            stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
+                    "count(*) as numactividades, min(a.dataactividade) as datainicio, sum(a.duracion) as duracion " +
+                    " FROM curso as c, actividade as a " +
+                    " WHERE c.codcurso = a.curso" +
+                    "   and c.codcurso = ?" +
+                    " GROUP BY c.codcurso"); //En principio non sería preciso o group by, porque só temos un curso, pero inda así reflexamos que agrupamos as actividades.
+
+            //Completamos a consulta.
+            stmCursos.setInt(1, curso.getCodCurso());
+
+            //Facemos a consulta:
+            rsCursos = stmCursos.executeQuery();
+
+            //Debería haber un resultado, caso no que será o curso que usaremos:
+            if(rsCursos.next()){
+                resultado = new Curso(rsCursos.getInt("codcurso"),
+                        rsCursos.getString("nome"),
+                        rsCursos.getString("descricion"),
+                        rsCursos.getFloat("prezo"),
+                        rsCursos.getBoolean("aberto"),
+                        rsCursos.getFloat("duracion"),
+                        rsCursos.getInt("numactividades"),
+                        rsCursos.getTimestamp("dataInicio"));
+
+                //Tendo o curso creado, procuraremos as súas actividades
+                stmActividades = con.prepareStatement("SELECT * FROM actividade " +
+                        "WHERE curso = ? ");
+
+                //Completamos a consulta:
+                stmActividades.setInt(1, resultado.getCodCurso());
+
+                //Executamos a consulta:
+                rsActividades = stmActividades.executeQuery();
+
+                //O seguinte paso é procesar o resultado:
+                while(rsActividades.next()){
+                    //Imos engadindo as actividades unha a unha, de momento non nos interesa recuperar moita máis información sobre a actividade.
+                    resultado.getActividades().add(new Actividade(rsActividades.getTimestamp("dataactividade"),
+                            rsActividades.getString("nome"),
+                            rsActividades.getFloat("duracion"),
+                            new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"))),
+                            new TipoActividade(rsActividades.getInt("tipoactividade")),
+                            new Persoal(rsActividades.getString("profesor"))));
+                }
+
+                //Feito isto, vamos a consultar os socios participantes:
+                stmSocios = con.prepareStatement("SELECT * FROM vistasocio as vs JOIN realizarcurso as rc" +
+                        " ON (vs.login = rc.usuario)" +
+                        " WHERE rc.curso = ?");
+
+                //Completamos a consulta:
+                stmSocios.setInt(1, resultado.getCodCurso());
+
+                //Realizámola:
+                rsSocios = stmSocios.executeQuery();
+
+                //Procesamos o resultado:
+                while(rsSocios.next()){
+                    //Imos engadindo os participantes:
+                    resultado.getParticipantes().add(new Socio(rsSocios.getString("login"),
+                            rsSocios.getString("nome"),
+                            rsSocios.getString("dificultades"),
+                            rsSocios.getDate("datanacemento"),
+                            rsSocios.getString("numtelefono"),
+                            rsSocios.getString("correoelectronico")));
+                }
+
+                //Con isto teremos buscado o necesario sobre o curso.
+                con.commit();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            //Tentamos pechar os statements:
+            try {
+                stmActividades.close();
+                stmCursos.close();
+                stmSocios.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        //Devolvemos o resultado:
+        return resultado; //Pode que sexa null, se a consulta non puido efectuarse.
     }
 
     public boolean comprobarExistencia(Curso curso){

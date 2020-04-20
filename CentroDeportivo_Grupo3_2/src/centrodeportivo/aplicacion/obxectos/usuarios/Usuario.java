@@ -30,21 +30,30 @@ public class Usuario {
     private String dificultades; //Dificultades que poida ter este usuario.
     private Date dataNacemento; //Data de nacemento do usuario.
 
+    public Usuario(String login){
+        this.login = login;
+    }
+
+    //Constructor sen datos persoais comprometedores:
+    public Usuario(String login, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico){
+        this.login = login;
+        this.nome = nome;
+        this.dificultades = dificultades;
+        this.dataNacemento = dataNacemento;
+        this.numTelefono = numTelefono;
+        this.correoElectronico = correoElectronico;
+    }
+
     public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta,Date dataAlta){
         this(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.dataAlta=dataAlta;
     }
 
     public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,String numTelefono,String correoElectronico,String IBANconta){
-        this.login=login;
+        this(login, nome, dificultades, dataNacemento, numTelefono, correoElectronico);
         this.contrasinal=contrasinal;
-        this.numTelefono=numTelefono;
-        this.correoElectronico=correoElectronico;
         this.IBANconta=IBANconta;
         this.DNI = DNI;
-        this.nome = nome;
-        this.dificultades = dificultades;
-        this.dataNacemento = dataNacemento;
     }
 
 

@@ -56,6 +56,7 @@ public class Curso {
 
     public Curso(int codCurso, String nome, String descricion, float prezo, boolean aberto, float duracion, int numActividades, Timestamp dataInicio){
         this(codCurso, nome, descricion, prezo);
+        this.aberto = aberto;
         this.duracion = duracion;
         this.numActividades = numActividades;
         this.dataInicio = dataInicio;

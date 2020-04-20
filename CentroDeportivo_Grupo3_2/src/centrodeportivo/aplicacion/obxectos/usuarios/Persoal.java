@@ -19,6 +19,10 @@ public class Persoal extends Usuario {
     private String NUSS;
     private boolean profesorActivo;
 
+    public Persoal (String login){
+        super(login);
+    }
+
     public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, String NUSS, boolean profesorActivo) {
         super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.NUSS = NUSS;
@@ -29,6 +33,8 @@ public class Persoal extends Usuario {
             super.setTipoUsuario(TipoUsuario.Persoal);
         }
     }
+
+
 
     public String getNUSS() {
         return NUSS;

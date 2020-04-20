@@ -70,7 +70,9 @@ public class vAdministrarCursosController extends AbstractController implements 
         //Metemos as columnas creadas na táboa:
         taboaCursos.getColumns().addAll(nomeColumn, dataInicioColumn, numActividadesColumn, duracionColumn, abertoColumn);
         //Buscamos os datos dos cursos e engadímolos.
-        taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(new Curso("","",0)));
+        taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(null));
+        //Modelo de selección:
+        taboaCursos.getSelectionModel().selectFirst();
     }
 
     public void btnBuscarAction(ActionEvent actionEvent) {
@@ -79,15 +81,25 @@ public class vAdministrarCursosController extends AbstractController implements 
 
         //Se o campo de nome non se cubre, o que faremos será listar todos os cursos, se non, faremos búsqueda por nome:
         if(!ValidacionDatos.estanCubertosCampos(campoNome)){
-
+            taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(null));
         } else {
             taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(new Curso(campoNome.getText())));
         }
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
+        //Ao limpar os campos, o que facemos será poñer o campo de búsqueda baleiro e refrescar a táboa sen filtros.
+        campoNome.setText("");
+        //Borramos os items:
+        taboaCursos.getItems().removeAll(taboaCursos.getItems());
+        //Refrescamos:
+        taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(null));
     }
 
     public void btnXestionarAction(ActionEvent actionEvent) {
+        //Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
+        Curso curso;
+
+
     }
 }

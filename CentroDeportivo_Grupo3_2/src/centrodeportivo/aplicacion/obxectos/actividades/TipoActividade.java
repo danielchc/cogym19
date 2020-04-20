@@ -51,6 +51,9 @@ public class TipoActividade {
         this.nome = nome;
     }
 
+    public TipoActividade(int codTipoActividade) {
+        this.codTipoActividade = codTipoActividade;
+    }
 
     /**
      * Getter do código do tipo de actividade.
