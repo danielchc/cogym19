@@ -7,8 +7,11 @@ import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.area.Material;
+import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.gui.FachadaGUI;
 
 import java.io.FileInputStream;
 import java.io.StringReader;
@@ -23,6 +26,9 @@ public final class FachadaBD {
     private Connection conexion;
     private DAOUsuarios daoUsuarios;
     private DAOInstalacions daoInstalacions;
+    private DAOTipoMaterial daoTipoMaterial;
+    private DAOMaterial daoMaterial;
+    private DAOTiposActividades daoActividades;
     private DAOTiposActividades daoTiposActividades;
     private DAOCursos daoCursos;
     private DAOMensaxes daoMensaxes;
@@ -57,9 +63,13 @@ public final class FachadaBD {
         }
         this.daoUsuarios=new DAOUsuarios(this.conexion,this.fachadaAplicacion);
         this.daoInstalacions=new DAOInstalacions(this.conexion, this.fachadaAplicacion);
-        this.daoTiposActividades =new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
+        this.daoActividades=new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
         this.daoCursos= new DAOCursos(this.conexion, this.fachadaAplicacion);
         this.daoMensaxes=new DAOMensaxes(this.conexion, this.fachadaAplicacion);
+        this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
+        this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
+        this.daoTipoMaterial = new DAOTipoMaterial(this.conexion, this.fachadaAplicacion);
+        this.daoMaterial = new DAOMaterial(this.conexion, this.fachadaAplicacion);
     }
 
     /*
@@ -97,19 +107,19 @@ public final class FachadaBD {
         daoInstalacions.modificarInstalacion(instalacion);
     }
 
-    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion) {
         return daoInstalacions.buscarInstalacions(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions(){
+    public ArrayList<Instalacion> listarInstalacions() {
         return daoInstalacions.listarInstalacións();
     }
 
-    public boolean comprobarExistencia(Instalacion instalacion){
+    public boolean comprobarExistencia(Instalacion instalacion) {
         return daoInstalacions.comprobarExistencia(instalacion);
     }
 
-    public boolean tenAreas(Instalacion instalacion){
+    public boolean tenAreas(Instalacion instalacion) {
         return daoInstalacions.tenAreas(instalacion);
     }
 
@@ -129,9 +139,11 @@ public final class FachadaBD {
         this.daoTiposActividades.eliminarTipoActividade(tipoActividade);
     }
 
+
     public ArrayList<TipoActividade> listarTiposActividades(){
         return this.daoTiposActividades.listarTiposActividades();
     }
+
 
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
         return this.daoTiposActividades.buscarTiposActividades(tipoActividade);
@@ -180,6 +192,33 @@ public final class FachadaBD {
 
     public boolean tenParticipantes(Curso curso){
         return daoCursos.tenParticipantes(curso);
+    }
+
+
+    /*
+        Funcións DAOTipoMaterial
+     */
+
+
+    public void borrarTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
+        this.daoTipoMaterial.borrarTipoMaterial(tipoMaterial);
+    }
+
+
+    /*
+        Funcións DAOMaterial
+     */
+
+    public void darAltaMaterial(Material material) throws ExcepcionBD {
+        this.daoMaterial.darAltaMaterial(material);
+    }
+
+    public void borrarMaterial(Material material) throws ExcepcionBD {
+        this.daoMaterial.borrarMaterial(material);
+    }
+
+    public void modificarMaterial(Material material) throws ExcepcionBD {
+        this.daoMaterial.modificarMaterial(material);
     }
 
 

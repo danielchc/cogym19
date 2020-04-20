@@ -1,6 +1,6 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
-// Clase que almacenará información sobre tipos de material:
+// Clase que almacenará información sobre tipos de material
 public class TipoMaterial {
 
 
