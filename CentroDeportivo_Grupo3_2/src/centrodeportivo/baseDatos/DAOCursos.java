@@ -329,8 +329,11 @@ public final class DAOCursos extends AbstractDAO{
                         rsCursos.getTimestamp("dataInicio"));
 
                 //Tendo o curso creado, procuraremos as súas actividades
-                stmActividades = con.prepareStatement("SELECT * FROM actividade " +
-                        "WHERE curso = ? ");
+                stmActividades = con.prepareStatement("SELECT ac.dataactividade, ac.tipoactividade, ac.area, " +
+                        " ac.instalacion, ac.profesor, ac.nome as nomeactividade, ac.duracion, ar.nome as nomearea " +
+                        " FROM actividade as ac, area as ar" +
+                        " WHERE ac.area = ar.codarea and ac.instalacion = ar.instalacion" +
+                        "  and curso = ? ");
 
                 //Completamos a consulta:
                 stmActividades.setInt(1, resultado.getCodCurso());
@@ -342,9 +345,11 @@ public final class DAOCursos extends AbstractDAO{
                 while(rsActividades.next()){
                     //Imos engadindo as actividades unha a unha, de momento non nos interesa recuperar moita máis información sobre a actividade.
                     resultado.getActividades().add(new Actividade(rsActividades.getTimestamp("dataactividade"),
-                            rsActividades.getString("nome"),
+                            rsActividades.getString("nomeactividade"),
                             rsActividades.getFloat("duracion"),
-                            new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"))),
+                            new Area(rsActividades.getInt("area"),
+                                    new Instalacion(rsActividades.getInt("instalacion")),
+                                    rsActividades.getString("nomearea")),
                             new TipoActividade(rsActividades.getInt("tipoactividade")),
                             resultado,
                             new Persoal(rsActividades.getString("profesor"))));

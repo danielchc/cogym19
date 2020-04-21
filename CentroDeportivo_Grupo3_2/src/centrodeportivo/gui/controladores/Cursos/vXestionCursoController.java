@@ -60,7 +60,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         TableColumn<Date, Actividade> dataActividadeColumn = new TableColumn<>("Data");
         dataActividadeColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
 
-        TableColumn<String, Actividade> areaColumn = new TableColumn<>("Area");
+        TableColumn<Integer, Actividade> areaColumn = new TableColumn<>("Area");
         areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
 
         TableColumn<Float, Actividade> duracionColumn = new TableColumn<>("Duración");
