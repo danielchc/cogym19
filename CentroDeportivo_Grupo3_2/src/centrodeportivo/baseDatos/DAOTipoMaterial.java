@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public final class DAOTipoMaterial extends AbstractDAO {
 
@@ -164,6 +165,51 @@ public final class DAOTipoMaterial extends AbstractDAO {
             }
         }
         return resultado;
+    }
+
+    /**
+     * ListarTiposMateriais -> obten todos os tipos de materiais almacenados na base de datos
+     *
+     * @return -> devolve un ArrayList cos tipos de materiais da base de datos
+     */
+    public ArrayList<TipoMaterial> listarTiposMateriais() {
+        ArrayList<TipoMaterial> tiposMateriais = new ArrayList<>();
+        PreparedStatement stmTipoMaterial = null;
+        ResultSet rsTipoMaterial;
+        Connection con;
+
+        // Recuperamos a conexión coa base de datos
+        con = super.getConexion();
+
+        // Preparamos a consulta
+        try {
+            stmTipoMaterial = con.prepareStatement("SELECT * FROM tipoMaterial");
+            // Executamos a consulta
+            rsTipoMaterial = stmTipoMaterial.executeQuery();
+
+            // Procesamos o ResultSet
+            while (rsTipoMaterial.next()) {
+                // Engadimos o ArrayList os tipos de materiais
+                tiposMateriais.add(new TipoMaterial(rsTipoMaterial.getInt(1), rsTipoMaterial.getString(2)));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Intentamos pechar o statement:
+            try {
+                assert stmTipoMaterial != null;
+                stmTipoMaterial.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return tiposMateriais;
     }
 
 }

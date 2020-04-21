@@ -216,6 +216,9 @@ public final class FachadaBD {
         return this.daoTipoMaterial.isTipoMaterial(tipoMaterial);
     }
 
+    public ArrayList<TipoMaterial> listarTiposMateriais() {
+        return this.daoTipoMaterial.listarTiposMateriais();
+    }
 
     /*
         Funcións DAOMaterial

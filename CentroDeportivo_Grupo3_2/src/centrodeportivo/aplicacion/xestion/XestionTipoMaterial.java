@@ -7,6 +7,8 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
+import java.util.ArrayList;
+
 public class XestionTipoMaterial {
 
 
@@ -39,6 +41,10 @@ public class XestionTipoMaterial {
         fachadaBD.borrarTipoMaterial(tipoMaterial);
         // Se se executou o método correctamente, devolvemos o enum que indica corrección;
         return TipoResultados.correcto;
+    }
+
+    public ArrayList<TipoMaterial> listarTiposMateriais() {
+        return fachadaBD.listarTiposMateriais();
     }
 
 }
