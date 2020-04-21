@@ -4,12 +4,11 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.area.Material;
+import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
-import centrodeportivo.aplicacion.xestion.XestionCursos;
-import centrodeportivo.aplicacion.xestion.XestionTiposActividades;
-import centrodeportivo.aplicacion.xestion.XestionInstalacions;
+import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.aplicacion.xestion.XestionUsuarios;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 import centrodeportivo.gui.controladores.vLoginController;
@@ -31,18 +30,22 @@ public class FachadaAplicacion extends Application {
     private XestionInstalacions xestionInstalacions;
     private XestionTiposActividades xestionActividades;
     private XestionCursos xestionCursos;
+    private XestionTipoMaterial xestionTipoMaterial;
+    private XestionMaterial xestionMaterial;
 
     public FachadaAplicacion() throws IOException, SQLException {
-        this.fachadaGUI=new FachadaGUI(this);
-        this.fachadaBD=new FachadaBD(this);
-        this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
+        this.fachadaGUI = new FachadaGUI(this);
+        this.fachadaBD = new FachadaBD(this);
+        this.xestionUsuarios = new XestionUsuarios(fachadaGUI, fachadaBD);
         this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
         this.xestionActividades = new XestionTiposActividades(fachadaGUI, fachadaBD);
         this.xestionCursos = new XestionCursos(fachadaGUI, fachadaBD);
+        this.xestionTipoMaterial = new XestionTipoMaterial(fachadaGUI, fachadaBD);
+        this.xestionMaterial = new XestionMaterial(fachadaGUI, fachadaBD);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/centrodeportivo/gui/vistas/vLogin.fxml"));
         loader.setController(new vLoginController(this));
         Parent root = loader.load();
@@ -74,19 +77,19 @@ public class FachadaAplicacion extends Application {
         fachadaGUI.mostrarVentaPersoal(loggedUser);
     }
 
-    public void mostrarAdvertencia(String titulo,String texto) {
+    public void mostrarAdvertencia(String titulo, String texto) {
         fachadaGUI.mostrarAdvertencia(titulo, texto);
     }
 
-    public void mostrarErro(String titulo,String texto) {
+    public void mostrarErro(String titulo, String texto) {
         fachadaGUI.mostrarErro(titulo, texto);
     }
 
-    public void mostrarInformacion(String titulo,String texto){
+    public void mostrarInformacion(String titulo, String texto) {
         fachadaGUI.mostrarInformacion(titulo, texto);
     }
 
-    public ButtonType mostrarConfirmacion(String titulo, String texto){
+    public ButtonType mostrarConfirmacion(String titulo, String texto) {
         return fachadaGUI.mostrarConfirmacion(titulo, texto);
     }
 
@@ -105,11 +108,11 @@ public class FachadaAplicacion extends Application {
         return xestionInstalacions.modificarInstalacion(instalacion);
     }
 
-    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion) {
         return xestionInstalacions.buscarInstalacions(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions(){
+    public ArrayList<Instalacion> listarInstalacions() {
         return xestionInstalacions.listarInstalacions();
     }
 
@@ -117,7 +120,7 @@ public class FachadaAplicacion extends Application {
         Xestión TIPOS de actividade
      */
 
-    public TipoResultados crearTipoActividade (TipoActividade tipoActividade) throws ExcepcionBD {
+    public TipoResultados crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.crearTipoActividade(tipoActividade);
     }
 
@@ -129,11 +132,11 @@ public class FachadaAplicacion extends Application {
         return xestionActividades.eliminarTipoActividade(tipoActividade);
     }
 
-    public ArrayList<TipoActividade> listarTiposActividades(){
+    public ArrayList<TipoActividade> listarTiposActividades() {
         return xestionActividades.listarTiposActividades();
     }
 
-    public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
+    public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade) {
         return xestionActividades.buscarTiposActividades(tipoActividade);
     }
 
@@ -161,6 +164,39 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.recuperarDatosCurso(curso);
     }
 
+    /*
+        Xestión TIPOS de material
+     */
+    public TipoResultados darAltaTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
+        return xestionTipoMaterial.darAltaTipoMaterial(tipoMaterial);
+    }
 
+    public TipoResultados borrarTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
+        return xestionTipoMaterial.borrarTipoMaterial(tipoMaterial);
+    }
+
+    public ArrayList<TipoMaterial> listarTiposMateriais() {
+        return xestionTipoMaterial.listarTiposMateriais();
+    }
+
+    /*
+        Xestión materiais
+     */
+
+    public TipoResultados darAltaMaterial(Material material) throws ExcepcionBD {
+        return xestionMaterial.darAltaMaterial(material);
+    }
+
+    public TipoResultados borrarMaterial(Material material) throws ExcepcionBD {
+        return xestionMaterial.borrarMaterial(material);
+    }
+
+    public TipoResultados modificarMaterial(Material material) throws ExcepcionBD {
+        return xestionMaterial.modificarMaterial(material);
+    }
+
+    public ArrayList<Material> listarMateriais() {
+        return xestionMaterial.listarMateriais();
+    }
 
 }
