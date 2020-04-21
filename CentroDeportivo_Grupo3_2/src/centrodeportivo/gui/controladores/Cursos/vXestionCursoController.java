@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.Date;
@@ -36,6 +37,9 @@ public class vXestionCursoController extends AbstractController implements Initi
     public TableView taboaUsuarios;
     public Button btnCancelar;
     public Button btnLimpar;
+    public Button btnXerarInforme;
+    public VBox vBoxBotonInforme;
+    public VBox vBoxDetalleInforme;
 
 
     //Privados
@@ -60,7 +64,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         TableColumn<Date, Actividade> dataActividadeColumn = new TableColumn<>("Data");
         dataActividadeColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
 
-        TableColumn<Integer, Actividade> areaColumn = new TableColumn<>("Area");
+        TableColumn<String, Actividade> areaColumn = new TableColumn<>("Area");
         areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
 
         TableColumn<Float, Actividade> duracionColumn = new TableColumn<>("Duración");
@@ -111,6 +115,9 @@ public class vXestionCursoController extends AbstractController implements Initi
             //Enchemos a táboa de participantes:
             taboaUsuarios.getItems().addAll(curso.getParticipantes());
         }
+
+        vBoxBotonInforme.setVisible(true);
+        vBoxDetalleInforme.setVisible(false);
     }
 
     public void btnActivarAction(ActionEvent actionEvent) {
@@ -265,4 +272,10 @@ public class vXestionCursoController extends AbstractController implements Initi
         return this.curso;
     }
 
+    public void btnXerarInformeAction(ActionEvent actionEvent) {
+        //O que hai que facer primeiro é comprobar se se está en condicións de recuperar os datos do informe, para o que
+        //haberá que saber se o curso xa rematou.
+        vBoxDetalleInforme.setVisible(true);
+        vBoxBotonInforme.setVisible(false);
+    }
 }

@@ -126,7 +126,7 @@ public class Area {
     @Override
     public String toString() {
         //Utilidade á hora de mostrar unha área concreta nas táboas.
-        return nome;
+        return nome + ", inst. " + instalacion.getCodInstalacion();
     }
 
     @Override
