@@ -84,8 +84,10 @@ public class Main {
             System.out.println(NonTocarEsto.hashSHA256("password"));*/
             //System.out.println(fb.getDaoUsuarios().listarProfesores().size());
             //System.out.println(Criptografia.hashSHA256("adfasdda"));
-            //byte[] k= Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
-            //Files.write(Paths.get("baseDatos.encrypted"),k);
+
+            byte[] k= Criptografia.encriptar(Files.readAllBytes(Paths.get("baseDatos.properties")));
+            Files.write(Paths.get("baseDatos.encrypted"),k);
+
             //System.out.println("PROFESOR");
             //System.out.println(fb.consultarTipo("pepe"));
             /*

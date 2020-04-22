@@ -61,27 +61,27 @@ public final class FachadaBD {
         Properties configuracion = new Properties();
         FileInputStream prop;
 
-        try {
-            prop = new FileInputStream("baseDatos.properties");
-            configuracion.load(prop);
-            prop.close();
-        } catch (IOException e) {
-            System.out.println("Non se pudo cargar o arquivo properties");
-            System.exit(1);
-        }
 
-        /*try {
+        try {
             String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
-            //System.out.println(conf);
             configuracion.load(new StringReader(conf));
         } catch (Exception ex) {
-            System.out.println("Non se pudo cargar o arquivo cifrado");
-            System.exit(1);
-        }*/
+            System.out.println("Non se pudo cargar o arquivo cifrado Empregando o arquivo sen cifrar");
+            try {
+                prop = new FileInputStream("baseDatos.properties");
+                configuracion.load(prop);
+                prop.close();
+            } catch (IOException e) {
+                fachadaAplicacion.mostrarAdvertencia("ADVERTENCIA", "Non se puido cargar o archivo de configuración da base de datos. (baseDatos.encrypted ou baseDatos.propierties)");
+                System.out.println("Non se pudo cargar o arquivo properties");
+                System.exit(1);
+            }
+        }
 
         Properties usuario = new Properties();
         usuario.setProperty("user", configuracion.getProperty("usuario"));
         usuario.setProperty("password", configuracion.getProperty("clave"));
+
         String con = String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"), configuracion.getProperty("servidor"), configuracion.getProperty("puerto"), configuracion.getProperty("baseDatos"));
         try {
             this.conexion = DriverManager.getConnection(con, usuario);
