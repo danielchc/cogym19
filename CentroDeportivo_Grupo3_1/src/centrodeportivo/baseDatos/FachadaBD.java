@@ -21,6 +21,8 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.FachadaGUI;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -59,17 +61,23 @@ public final class FachadaBD {
         Properties configuracion = new Properties();
         FileInputStream prop;
 
-        //prop = new FileInputStream("baseDatos.properties");
-        //configuracion.load(prop);
-        //prop.close();
         try {
+            prop = new FileInputStream("baseDatos.properties");
+            configuracion.load(prop);
+            prop.close();
+        } catch (IOException e) {
+            System.out.println("Non se pudo cargar o arquivo properties");
+            System.exit(1);
+        }
+
+        /*try {
             String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
             //System.out.println(conf);
             configuracion.load(new StringReader(conf));
         } catch (Exception ex) {
             System.out.println("Non se pudo cargar o arquivo cifrado");
             System.exit(1);
-        }
+        }*/
 
         Properties usuario = new Properties();
         usuario.setProperty("user", configuracion.getProperty("usuario"));

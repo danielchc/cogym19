@@ -1,5 +1,6 @@
 package centrodeportivo.funcionsAux;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import javax.crypto.*;
@@ -34,11 +35,15 @@ public abstract class Criptografia {
      * @return String correspondente ao array de bytes
      */
     private static String convertByteArrayToHexString(byte[] arrayBytes) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < arrayBytes.length; i++) {
-            stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16).substring(2));
+        BigInteger number = new BigInteger(1, arrayBytes);
+
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        while (hexString.length() < 32){
+            hexString.insert(0, '0');
         }
-        return stringBuffer.toString();
+
+        return hexString.toString();
     }
 
     /**

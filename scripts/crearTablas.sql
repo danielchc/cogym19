@@ -9,7 +9,7 @@ CREATE TABLE tarifa(
 
 CREATE TABLE usuario(
 	login 				VARCHAR(25) NOT NULL,
-	contrasinal 		VARCHAR(64),
+	contrasinal 		CHAR(64),
 	numTelefono 		CHAR(9),
 	correoElectronico 	VARCHAR(200),
 	IBAN 				CHAR(24),
