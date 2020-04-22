@@ -84,8 +84,8 @@ public final class DAOCursos extends AbstractDAO{
         try{
             //Intentamos levar a cabo a actualización: modificación do curso:
             stmCursos = con.prepareStatement("UPDATE curso " +
-                    " SET nome = ? " +
-                    "     descricion = ? " +
+                    " SET nome = ?, " +
+                    "     descricion = ?, " +
                     "     prezo = ? " +
                     " WHERE codCurso = ? ");
 
