@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="682.0" style="-fx-background-image: url('centrodeportivo/gui/imaxes/fondologin.png');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="682.0" style="-fx-background-image: url('centrodeportivo/gui/imaxes/fondologin.png');-fx-background-size: cover;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="label" alignment="CENTER" layoutY="288.0" prefHeight="43.0" prefWidth="602.0" text="Benvido :usuario:" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Label fx:id="label" alignment="CENTER" layoutY="288.0" prefHeight="43.0" prefWidth="602.0" text="Benvido :usuario:" textFill="WHITE" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="288.0">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
       </Label>
-      <BorderPane layoutY="14.0" prefHeight="256.0" prefWidth="682.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <BorderPane layoutY="14.0" prefHeight="256.0" prefWidth="682.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
          <center>
             <ImageView fitHeight="243.0" fitWidth="760.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>

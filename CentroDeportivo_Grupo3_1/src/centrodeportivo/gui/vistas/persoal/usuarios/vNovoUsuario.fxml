@@ -25,9 +25,7 @@
 
     </center>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-             <AnchorPane fx:id="panelNovoUsuario" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+             <AnchorPane fx:id="panelNovoUsuario" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="687.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
                  <children>
                      <Button fx:id="btnGardar" layoutX="253.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnGardarAccion" prefHeight="31.0" prefWidth="94.0" text="Gardar" AnchorPane.bottomAnchor="11.400000000000034" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="252.60000000000002">
                          <font>
@@ -39,7 +37,7 @@
                              <Font size="14.0" />
                          </font>
                      </Label>
-                     <VBox layoutX="130.0" layoutY="14.0" prefHeight="348.0" prefWidth="426.0" spacing="5.0">
+                     <VBox layoutX="130.0" layoutY="14.0" prefHeight="348.0" prefWidth="426.0" spacing="5.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="131.0" AnchorPane.topAnchor="14.0">
                          <children>
                              <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
@@ -179,7 +177,5 @@
                      </VBox>
                  </children>
              </AnchorPane>
-         </children>
-      </StackPane>
    </center>
 </BorderPane>
