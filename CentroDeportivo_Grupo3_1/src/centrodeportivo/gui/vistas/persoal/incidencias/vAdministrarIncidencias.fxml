@@ -14,12 +14,13 @@
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
+                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0"  layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
                     <image>
                         <Image url="@../../../imaxes/lista.png" />
                     </image>
                 </ImageView>
-            </children></AnchorPane>
+            </children>
+		</AnchorPane>
     </top>
     <center>
         <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
