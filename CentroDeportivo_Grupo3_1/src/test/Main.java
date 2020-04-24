@@ -20,7 +20,7 @@ public class Main {
     public static void main(String [] args) {
         FachadaBD fb=null;
         try{
-            //fb=new FachadaBD(null);
+            fb=new FachadaBD(null);
             //System.out.println(fb.listarAreas());
             //System.out.println(fb.consultarTipo("test0"));
 
