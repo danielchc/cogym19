@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
@@ -42,7 +43,7 @@ public class vCuotaController extends AbstractController implements Initializabl
     /**
      * Atributos do controlador
      */
-    private Usuario usuario;
+    private Socio socio;
 
     /**
      * Constructor do controlador.
@@ -51,7 +52,8 @@ public class vCuotaController extends AbstractController implements Initializabl
      */
     public vCuotaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
-        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
+        Usuario usuario=super.getvPrincipalController().obterUsuarioLogeado();
+        if(usuario instanceof Socio) this.socio= (Socio)usuario;
     }
 
     /**
@@ -63,7 +65,9 @@ public class vCuotaController extends AbstractController implements Initializabl
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Cuota cuota=super.getFachadaAplicacion().consultarCuota(this.usuario.getLogin());
+
+        socio.setTarifa(super.getFachadaAplicacion().consultarTarifaSocio(socio.getLogin()));
+        Cuota cuota=super.getFachadaAplicacion().consultarCuota(socio);
         this.campoSocio.setText(cuota.getUsuario().getNome());
         this.campoTarifa.setText(cuota.getTarifa().getNome());
         this.campoPrezoBase.setText(cuota.getTarifa().getPrezoBase() +" €");

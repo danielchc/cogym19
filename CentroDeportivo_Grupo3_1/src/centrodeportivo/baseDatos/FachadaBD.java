@@ -150,8 +150,8 @@ public final class FachadaBD {
         return daoUsuarios.buscarUsuarios(login, nome, filtroTipo, usuariosDeBaixa);
     }
 
-    public Cuota consultarCuota(String login) {
-        return daoUsuarios.consultarCuota(login);
+    public Cuota consultarCuota(Socio socio) {
+        return daoUsuarios.consultarCuota(socio);
     }
 
     public ArrayList<RexistroFisioloxico> listarRexistros(String login) {

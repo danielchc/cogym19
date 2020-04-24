@@ -187,8 +187,8 @@ public class FachadaAplicacion extends Application {
         return xestionUsuarios.buscarUsuarios("","",TipoUsuario.Todos);
     }
 
-    public Cuota consultarCuota(String login){
-        return xestionUsuarios.consultarCuota(login);
+    public Cuota consultarCuota(Socio socio){
+        return xestionUsuarios.consultarCuota(socio);
     }
 
     public ArrayList<RexistroFisioloxico> listarRexistros(String login){

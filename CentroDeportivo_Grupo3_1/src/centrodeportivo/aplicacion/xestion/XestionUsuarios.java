@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.funcionsAux.Criptografia;
@@ -100,8 +101,8 @@ public class XestionUsuarios {
         return fachadaBD.buscarUsuarios("", "", TipoUsuario.Todos, false);
     }
 
-    public Cuota consultarCuota(String login) {
-        return fachadaBD.consultarCuota(login);
+    public Cuota consultarCuota(Socio socio) {
+        return fachadaBD.consultarCuota(socio);
     }
 
     public ArrayList<RexistroFisioloxico> listarRexistros(String login) {

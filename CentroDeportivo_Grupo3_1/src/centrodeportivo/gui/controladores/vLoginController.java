@@ -68,8 +68,8 @@ public class vLoginController  extends AbstractController implements Initializab
         if(ValidacionDatos.estanCubertosCampos(tfUsuario,tfContrasinal)){
             try{
                 if(fa.validarUsuario(tfUsuario.getText(),tfContrasinal.getText())){
-                    usuarioLogeado=fa.consultarUsuario(tfUsuario.getText());
-                    switch (usuarioLogeado.getTipoUsuario()){
+                    usuarioLogeado=new Usuario(tfUsuario.getText());
+                    switch (fa.consultarTipo(tfUsuario.getText())){
                         case Socio:
                             fa.mostrarVentaSocios(usuarioLogeado);
                             break;

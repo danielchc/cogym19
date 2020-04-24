@@ -499,7 +499,7 @@ public final class DAOUsuarios extends AbstractDAO {
                     "(SELECT 1 FROM socio AS s WHERE s.login=u.login) AS eSocio," +
                     "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND profesoractivo=FALSE) AS ePersoal, " +
                     "(SELECT 1 FROM persoal AS pe WHERE pe.login=u.login AND profesoractivo=TRUE) AS eProfesor  " +
-                    "FROM usuario as u WHERE u.login=?"
+                    "FROM usuario as u WHERE LOWER(u.login)=LOWER(?)"
             );
             stmUsuario.setString(1, login);
 
@@ -610,6 +610,8 @@ public final class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
+
+
     /**
      * Método para obter os datos dun usuario
      * @param login login do usuario
@@ -622,8 +624,9 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             if (tipoUsuario == TipoUsuario.Socio) {
                 stmUsuario = super.getConexion().prepareStatement(
-                        "SELECT *, vs.nome AS nomeUsuario,t.nome AS nomeTarifa FROM vistasocio AS vs JOIN tarifa AS t ON vs.tarifa=t.codTarifa WHERE vs.login=?;"
+                        "SELECT *, vs.nome AS nomeUsuario FROM vistasocio AS vs  WHERE LOWER(vs.login)=LOWER(?);"
                 );
+                //JOIN tarifa AS t ON vs.tarifa=t.codTarifa
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
@@ -640,16 +643,12 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getDate("dataAlta"),
                             rsUsuarios.getDate("dataBaixa"),
                             new Tarifa(
-                                    rsUsuarios.getInt("tarifa"),
-                                    rsUsuarios.getString("nomeTarifa"),
-                                    rsUsuarios.getInt("maxActividades"),
-                                    rsUsuarios.getFloat("precioBase"),
-                                    rsUsuarios.getFloat("precioExtra")
+                                    rsUsuarios.getInt("tarifa")
                             )
                     );
                 }
             } else {
-                stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE vp.login=?;");
+                stmUsuario = super.getConexion().prepareStatement("SELECT * FROM vistapersoal AS vp WHERE LOWER(vp.login)=LOWER(?);");
                 stmUsuario.setString(1, login);
                 rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
@@ -684,13 +683,12 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para consultar qué cuota ten que pagar no mes actual un socio, así como información desranada sobre a mesma.
-     * @param login login do socio
+     * @param socio Socio do socio
      * @return Cuota que ten o socio
      */
-    protected Cuota consultarCuota(String login) {
+    protected Cuota consultarCuota(Socio socio) {
         PreparedStatement stm = null;
         ResultSet resultSet;
-        Socio socio;
         Tarifa tarifa;
         ArrayList<Actividade> actividadesMes = new ArrayList<>();
         ArrayList<Curso> cursosMes = new ArrayList<>();
@@ -699,8 +697,7 @@ public final class DAOUsuarios extends AbstractDAO {
         float totalCursos = 0.0f;
         float totalPrezo = 0.0f;
 
-        socio = (Socio) this.consultarUsuario(login);
-        tarifa = socio.getTarifa();
+        tarifa=socio.getTarifa();
 
         try {
             stm = super.getConexion().prepareStatement(
@@ -709,7 +706,7 @@ public final class DAOUsuarios extends AbstractDAO {
                             "WHERE dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
                             "AND usuario=? AND curso IS NULL;"
             );
-            stm.setString(1, login);
+            stm.setString(1, socio.getLogin());
             resultSet = stm.executeQuery();
             while (resultSet.next()) {
                 actividadesMes.add(new Actividade(
@@ -729,7 +726,7 @@ public final class DAOUsuarios extends AbstractDAO {
                             "WHERE codCurso IN (SELECT curso FROM realizarCurso WHERE usuario=?) " +
                             "AND codCurso IN (SELECT curso FROM actividade GROUP BY curso HAVING MAX(dataActividade)>=NOW());"
             );
-            stm.setString(1, login);
+            stm.setString(1, socio.getLogin());
             resultSet = stm.executeQuery();
             while (resultSet.next()) {
                 cursosMes.add(new Curso(
