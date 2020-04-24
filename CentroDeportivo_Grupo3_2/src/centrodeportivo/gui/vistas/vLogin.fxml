@@ -13,7 +13,7 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></TextField>
-            <PasswordField fx:id="tfContrasinal" alignment="CENTER" layoutX="50.0" layoutY="231.0" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="**********" text="abc123.." AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.99999999999997" AnchorPane.topAnchor="231.0">
+            <PasswordField fx:id="tfContrasinal" alignment="CENTER" layoutX="50.0" layoutY="231.0" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="**********" text="abc123" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.99999999999997" AnchorPane.topAnchor="231.0">
                <font>
                   <Font size="15.0" />
                </font></PasswordField>
