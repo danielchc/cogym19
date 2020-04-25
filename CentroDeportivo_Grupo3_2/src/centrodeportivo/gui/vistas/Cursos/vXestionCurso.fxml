@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="centrodeportivo.gui.controladores.Cursos.vXestionCursoController">
     <children>
         <AnchorPane prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: #005bbd;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -293,7 +293,7 @@
                                                                            </children></VBox>
                                                                         <VBox alignment="CENTER" prefHeight="35.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
                                                                            <children>
-                                                                              <TextField editable="false" prefHeight="26.0" prefWidth="88.0" />
+                                                                              <TextField fx:id="campoDuracion" editable="false" prefHeight="26.0" prefWidth="88.0" promptText="Duración..." />
                                                                            </children></VBox>
                                                                      </children>
                                                                   </HBox>
@@ -318,7 +318,7 @@
                                                                                        <children>
                                                                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                              <children>
-                                                                                                <TextField HBox.hgrow="ALWAYS" />
+                                                                                                <TextField fx:id="campoDataInicio" editable="false" promptText="Data de inicio..." HBox.hgrow="ALWAYS" />
                                                                                              </children>
                                                                                           </HBox>
                                                                                        </children></VBox>
@@ -341,7 +341,7 @@
                                                                                        <children>
                                                                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                              <children>
-                                                                                                <TextField HBox.hgrow="ALWAYS" />
+                                                                                                <TextField fx:id="campoNumParticipantes" editable="false" promptText="Número de participantes..." HBox.hgrow="ALWAYS" />
                                                                                              </children>
                                                                                           </HBox>
                                                                                        </children></VBox>
@@ -368,7 +368,7 @@
                                                                                        <children>
                                                                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                              <children>
-                                                                                                <TextField HBox.hgrow="ALWAYS" />
+                                                                                                <TextField fx:id="campoDataFin" editable="false" promptText="Data de fin..." HBox.hgrow="ALWAYS" />
                                                                                              </children>
                                                                                           </HBox>
                                                                                        </children></VBox>
@@ -392,7 +392,7 @@
                                                                                        <children>
                                                                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                              <children>
-                                                                                                <TextField HBox.hgrow="ALWAYS" />
+                                                                                                <TextField fx:id="campoNumActividades" editable="false" promptText="Número de actividades..." HBox.hgrow="ALWAYS" />
                                                                                              </children>
                                                                                           </HBox>
                                                                                        </children>
@@ -412,7 +412,7 @@
                                                                   </HBox>
                                                                   <HBox prefHeight="259.0" prefWidth="537.0" VBox.vgrow="ALWAYS">
                                                                      <children>
-                                                                        <TableView prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                                                        <TableView fx:id="taboaActividadesVal" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                                                      </children></HBox>
                                                                   <HBox prefHeight="65.0" prefWidth="547.0">
                                                                      <children>
@@ -433,7 +433,7 @@
                                                                            <children>
                                                                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                  <children>
-                                                                                    <Label text="Label">
+                                                                                    <Label fx:id="tagVTM" text="Label">
                                                                                        <font>
                                                                                           <Font name="System Bold" size="24.0" />
                                                                                        </font>
@@ -455,7 +455,7 @@
                                                                   </HBox>
                                                                   <HBox prefHeight="189.0" prefWidth="558.0" VBox.vgrow="ALWAYS">
                                                                      <children>
-                                                                        <TableView prefHeight="219.0" prefWidth="558.0" HBox.hgrow="ALWAYS" />
+                                                                        <TableView fx:id="taboaProfesores" prefHeight="219.0" prefWidth="558.0" HBox.hgrow="ALWAYS" />
                                                                      </children></HBox>
                                                                </children>
                                                             </VBox>

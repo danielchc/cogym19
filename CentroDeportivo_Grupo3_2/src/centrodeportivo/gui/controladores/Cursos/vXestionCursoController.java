@@ -40,6 +40,14 @@ public class vXestionCursoController extends AbstractController implements Initi
     public Button btnXerarInforme;
     public VBox vBoxBotonInforme;
     public VBox vBoxDetalleInforme;
+    public TextField campoDuracion;
+    public TextField campoDataInicio;
+    public TextField campoNumParticipantes;
+    public TextField campoDataFin;
+    public TextField campoNumActividades;
+    public TableView taboaActividadesVal;
+    public Label tagVTM;
+    public TableView taboaProfesores;
 
 
     //Privados
@@ -155,6 +163,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                         btnModificarSeleccion.setVisible(true);
                         btnEngadirActividade.setVisible(true);
                         btnBorrarActividade.setVisible(true);
+                        break;
                 }
             } catch (ExcepcionBD excepcionBD) {
                 this.getFachadaAplicacion().mostrarErro("Administración de Cursos", excepcionBD.getMessage());
@@ -176,6 +185,12 @@ public class vXestionCursoController extends AbstractController implements Initi
                         campoNome.setText(curso.getNome());
                         campoDescricion.setText(curso.getDescricion());
                         campoPrezo.setText(curso.getPrezo()+"");
+                        break;
+                    case foraTempo:
+                        //Se non se cumpren os tempos para modificar, é dicir, o curso xa comezou, non deixaremos modificar
+                        //a información e faremos o análogo ao caso anterior cos campos:
+                        this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                                "Non se poden actualizar os datos, pois o curso xa comezou.");
                         break;
                     case correcto:
                         //Se se puideron facer os cambios, entón os campos mantéñense e actualizamos o curso:

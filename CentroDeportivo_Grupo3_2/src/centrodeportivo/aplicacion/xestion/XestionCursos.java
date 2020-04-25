@@ -39,15 +39,21 @@ public class XestionCursos {
      * @throws ExcepcionBD
      */
     public TipoResultados modificarCurso(Curso curso) throws ExcepcionBD {
-        //Temos que verificar se o nome pertence a outro curso rexistrado na base de datos:
-        if(!fachadaBD.comprobarExistencia(curso)){
-            //Se non existe, como antes, poderemos facer a modificación:
-            fachadaBD.modificarCurso(curso);
-            //Chegados a este punto, remataríase correctamente:
-            return TipoResultados.correcto;
+        //Comezamos comprobando se comezou o curso, posto que nese caso xa non deixaremos modificar a información principal:
+        if(curso.getDataInicio().compareTo(new Date(System.currentTimeMillis())) > 0) {
+            //Temos que verificar se o nome pertence a outro curso rexistrado na base de datos:
+            if (!fachadaBD.comprobarExistencia(curso)) {
+                //Se non existe, como antes, poderemos facer a modificación:
+                fachadaBD.modificarCurso(curso);
+                //Chegados a este punto, remataríase correctamente:
+                return TipoResultados.correcto;
+            } else {
+                //Se existe, non se pode actualizar:
+                return TipoResultados.datoExiste;
+            }
         } else {
-            //Se existe, non se pode actualizar:
-            return TipoResultados.datoExiste;
+            //Se o curso xa comezou, entón non deixamos modificar eses datos.
+            return TipoResultados.foraTempo;
         }
     }
 
