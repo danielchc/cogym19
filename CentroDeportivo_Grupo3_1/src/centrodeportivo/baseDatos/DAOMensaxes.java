@@ -77,7 +77,7 @@ public final class DAOMensaxes extends AbstractDAO {
             throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
-                stmMensaxe.close();
+                if(stmMensaxe!=null) stmMensaxe.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }

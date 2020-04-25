@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -82,9 +83,10 @@ public class FachadaAplicacion extends Application {
         loader.setController(new vLoginController(new FachadaAplicacion()));
         Parent root = loader.load();
 
+        primaryStage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoPequeno.png"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(true);
-        primaryStage.setTitle("Centro Deportivo");
+        primaryStage.setTitle("COGYM-19");
         primaryStage.show();
     }
 

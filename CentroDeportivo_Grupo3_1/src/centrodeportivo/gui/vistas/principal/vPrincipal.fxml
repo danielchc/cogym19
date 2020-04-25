@@ -15,7 +15,7 @@
         <!--Persoal-->
         <VBox id="vb-sidebar" fx:id="sideBarUsuariosP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button id="NOVOUSUARIO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
+                <Button id="USUARIO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>

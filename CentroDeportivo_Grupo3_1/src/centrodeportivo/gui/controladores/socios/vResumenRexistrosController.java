@@ -53,11 +53,12 @@ public class vResumenRexistrosController extends AbstractController implements I
 
     public vResumenRexistrosController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
-        this.socio=super.getvPrincipalController().obterUsuarioLogeado();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.socio=super.getvPrincipalController().obterUsuarioLogeado();
+
         this.labelSocio.setText(socio.getLogin());
         this.rexistros=super.getFachadaAplicacion().listarRexistros(socio.getLogin());
         generarGraficaPeso();

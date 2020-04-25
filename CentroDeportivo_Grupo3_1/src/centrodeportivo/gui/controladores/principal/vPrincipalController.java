@@ -14,7 +14,7 @@ import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasCont
 import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarCapacidadesController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarUsuariosController;
-import centrodeportivo.gui.controladores.persoal.usuarios.vNovoUsuarioController;
+import centrodeportivo.gui.controladores.comun.vUsuarioController;
 import centrodeportivo.gui.controladores.socios.vCuotaController;
 import centrodeportivo.gui.controladores.socios.vEliminarRexistroController;
 import centrodeportivo.gui.controladores.socios.vNovoRexistroController;
@@ -114,21 +114,27 @@ public class vPrincipalController extends AbstractController implements Initiali
      */
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
-        this.pantallas.put(IdPantalla.NOVOUSUARIO, new DatosVista("../../vistas/persoal/usuarios/vNovoUsuario.fxml", new vNovoUsuarioController(super.getFachadaAplicacion(), this)));
+        if (pantallaAMostrar == IdPantalla.PANTALLAPERSOAL) {
+            this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS, new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml", new vAdministrarUsuariosController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.NOVATARIFA, new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml", new vNovaTarifaController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS, new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml", new vAdministrarTarifasController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS, new DatosVista("../../vistas/persoal/incidencias/vAdministrarIncidencias.fxml", new vAdministrarIncidenciasController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES, new DatosVista("../../vistas/persoal/usuarios/vAdministrarCapacidades.fxml", new vAdministrarCapacidadesController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.XESTIONINCIDENCIA, new DatosVista("../../vistas/persoal/incidencias/vXestionIncidencia.fxml", new vXestionIncidenciaController(super.getFachadaAplicacion(), this)));
+
+        } else if (pantallaAMostrar == IdPantalla.PANTALLASOCIO) {
+            this.pantallas.put(IdPantalla.CUOTA, new DatosVista("../../vistas/socios/vCuota.fxml", new vCuotaController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.RESUMENREXISTROS, new DatosVista("../../vistas/socios/vResumenRexistros.fxml", new vResumenRexistrosController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.NOVOREXISTRO, new DatosVista("../../vistas/socios/vNovoRexistro.fxml", new vNovoRexistroController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ELIMINARREXISTRO, new DatosVista("../../vistas/socios/vEliminarRexistro.fxml", new vEliminarRexistroController(super.getFachadaAplicacion(), this)));
+
+        }
+        
+        this.pantallas.put(IdPantalla.USUARIO, new DatosVista("../../vistas/comun/vUsuario.fxml", new vUsuarioController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.INICIO, new DatosVista("../../vistas/principal/vInicio.fxml", new vInicioController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS, new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml", new vAdministrarUsuariosController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.NOVATARIFA, new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml", new vNovaTarifaController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS, new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml", new vAdministrarTarifasController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.MENSAXES, new DatosVista("../../vistas/comun/vMensaxes.fxml", new vMensaxesController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.NOVOMENSAXE, new DatosVista("../../vistas/comun/vNovoMensaxe.fxml", new vNovoMensaxeController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.CUOTA, new DatosVista("../../vistas/socios/vCuota.fxml", new vCuotaController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.RESUMENREXISTROS, new DatosVista("../../vistas/socios/vResumenRexistros.fxml", new vResumenRexistrosController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.NOVOREXISTRO, new DatosVista("../../vistas/socios/vNovoRexistro.fxml", new vNovoRexistroController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.ELIMINARREXISTRO, new DatosVista("../../vistas/socios/vEliminarRexistro.fxml", new vEliminarRexistroController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS, new DatosVista("../../vistas/persoal/incidencias/vAdministrarIncidencias.fxml", new vAdministrarIncidenciasController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES, new DatosVista("../../vistas/persoal/usuarios/vAdministrarCapacidades.fxml", new vAdministrarCapacidadesController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.NOVAINCIDENCIA, new DatosVista("../../vistas/comun/vNovaIncidencia.fxml", new vNovaIncidencia(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.XESTIONINCIDENCIA, new DatosVista("../../vistas/persoal/incidencias/vXestionIncidencia.fxml", new vXestionIncidenciaController(super.getFachadaAplicacion(), this)));
     }
 
     /**
@@ -273,8 +279,8 @@ public class vPrincipalController extends AbstractController implements Initiali
      */
     public void perfilUsuarioAction() {
         esconderTodosSliders();
-        mostrarMenu(IdPantalla.NOVOUSUARIO);
-        ((vNovoUsuarioController) getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(super.getFachadaAplicacion().consultarUsuario(this.loginUsuarioLoggeado));
+        mostrarMenu(IdPantalla.USUARIO);
+        ((vUsuarioController) getControlador(IdPantalla.USUARIO)).cargarDatosUsuario(super.getFachadaAplicacion().consultarUsuario(this.loginUsuarioLoggeado));
     }
 
     /**

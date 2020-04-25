@@ -62,12 +62,13 @@ public class vNovoRexistroController extends AbstractController implements Initi
      */
     public vNovoRexistroController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
-        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
         this.vPrincipalController=vPrincipalController;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.usuario=this.vPrincipalController.obterUsuarioLogeado();
+
         inicializarHashMaps();
     }
 

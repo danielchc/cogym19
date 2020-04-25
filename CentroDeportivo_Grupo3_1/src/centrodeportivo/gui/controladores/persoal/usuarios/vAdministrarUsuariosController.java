@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.comun.vUsuarioController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
@@ -160,8 +161,8 @@ public class vAdministrarUsuariosController extends AbstractController implement
         if(!listaUsuarios.getSelectionModel().isEmpty()) {
             Usuario usuario=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem());
             if(usuario.estaDeBaixa()) return;
-            vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
-            ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(usuario);
+            vPrincipal.mostrarMenu(IdPantalla.USUARIO);
+            ((vUsuarioController) vPrincipal.getControlador(IdPantalla.USUARIO)).cargarDatosUsuario(usuario);
         }
     }
 
@@ -174,8 +175,8 @@ public class vAdministrarUsuariosController extends AbstractController implement
             if(usuario.estaDeBaixa()){
                 //se non é nulo entón estaba de baixa e hai que dalo de alta.
                 if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
-                    vPrincipal.mostrarMenu(IdPantalla.NOVOUSUARIO);
-                    ((vNovoUsuarioController) vPrincipal.getControlador(IdPantalla.NOVOUSUARIO)).cargarDatosUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
+                    vPrincipal.mostrarMenu(IdPantalla.USUARIO);
+                    ((vUsuarioController) vPrincipal.getControlador(IdPantalla.USUARIO)).cargarDatosUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
                 }
             }else{
                 if((usuario instanceof Persoal) && fachadaAplicacion.tenClasesPendentes((Persoal)usuario)){

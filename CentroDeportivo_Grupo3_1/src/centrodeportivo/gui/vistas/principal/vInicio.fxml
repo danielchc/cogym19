@@ -16,7 +16,7 @@
          <center>
             <ImageView fitHeight="243.0" fitWidth="760.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../../imaxes/logoPocho2.png" />
+                  <Image url="@../../imaxes/logo.png" />
                </image>
             </ImageView>
          </center>

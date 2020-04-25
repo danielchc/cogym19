@@ -1,4 +1,4 @@
-package centrodeportivo.gui.controladores.persoal.usuarios;
+package centrodeportivo.gui.controladores.comun;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class vNovoUsuarioController extends AbstractController implements Initializable {
+public class vUsuarioController extends AbstractController implements Initializable {
 
     /**
      * Atributos do fxml
@@ -90,7 +90,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
      * @param fachadaAplicacion Fachada da aplicación.
      * @param vPrincipalController Controlador da vista principal.
      */
-    public vNovoUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+    public vUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.controllerPrincipal=super.getvPrincipalController();
         this.fachadaAplicacion=super.getFachadaAplicacion();
@@ -137,7 +137,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
         if(usuarioModificar==null && !comprobarLogin()) return;
 
         ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
-        if(contasP==ContasPersoa.Ningunha){
+        if(usuarioModificar==null && contasP==ContasPersoa.Ningunha){
             if(!comprobarDNI()) return;
         }
 
@@ -204,7 +204,7 @@ public class vNovoUsuarioController extends AbstractController implements Initia
                 super.getFachadaAplicacion().mostrarErro("Usuario",excepcionBD.getMessage());
             }
         }
-        this.controllerPrincipal.volverAtras();
+        this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
     }
 
     /**

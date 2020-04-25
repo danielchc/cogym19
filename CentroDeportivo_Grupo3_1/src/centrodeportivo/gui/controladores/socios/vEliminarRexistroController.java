@@ -40,7 +40,6 @@ public class vEliminarRexistroController extends AbstractController implements I
      */
     public vEliminarRexistroController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
-        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
     }
 
     /**
@@ -51,6 +50,8 @@ public class vEliminarRexistroController extends AbstractController implements I
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
+
         this.tablaRexistros.setPlaceholder(new Label("Non hai rexistros dispoñibles."));
 
         TableColumn<Timestamp, RexistroFisioloxico> columna1=new TableColumn<>("Data");

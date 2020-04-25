@@ -93,7 +93,6 @@ public final class DAOTarifas extends AbstractDAO {
             stmTarifa.setFloat(3, t.getPrezoExtras());
             stmTarifa.setInt(4, t.getCodTarifa());
             stmTarifa.executeUpdate();
-            System.out.println(stmTarifa);
             conexion.commit();
         } catch (SQLException e) {
             throw new ExcepcionBD(super.getConexion(), e);

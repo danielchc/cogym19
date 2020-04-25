@@ -52,8 +52,6 @@ public class vCuotaController extends AbstractController implements Initializabl
      */
     public vCuotaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
-        Usuario usuario=super.getvPrincipalController().obterUsuarioLogeado();
-        if(usuario instanceof Socio) this.socio= (Socio)usuario;
     }
 
     /**
@@ -65,6 +63,8 @@ public class vCuotaController extends AbstractController implements Initializabl
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Usuario usuario=super.getvPrincipalController().obterUsuarioLogeado();
+        if(usuario instanceof Socio) this.socio= (Socio)usuario;
 
         socio.setTarifa(super.getFachadaAplicacion().consultarTarifaSocio(socio.getLogin()));
         Cuota cuota=super.getFachadaAplicacion().consultarCuota(socio);

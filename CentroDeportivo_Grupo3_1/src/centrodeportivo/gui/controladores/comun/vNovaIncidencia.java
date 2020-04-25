@@ -36,11 +36,12 @@ public class vNovaIncidencia extends AbstractController implements Initializable
 
     public vNovaIncidencia(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
-        this.usuario=vPrincipalController.obterUsuarioLogeado();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
+
         this.listaAreas=super.getFachadaAplicacion().listarAreas();
         this.listaMaterial=super.getFachadaAplicacion().listarMateriais();
         this.campoDescricion.textProperty().addListener(new ListenerMaxLogitud(campoDescricion,500));

@@ -143,7 +143,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
         try {
-            stmUsuario = super.getConexion().prepareStatement("SELECT * FROM persoaFisica WHERE dni=UPPER(?)");
+            stmUsuario = super.getConexion().prepareStatement("SELECT * FROM persoaFisica WHERE UPPER(dni)=UPPER(?)");
             stmUsuario.setString(1, dni);
             resultValidacion = stmUsuario.executeQuery();
             if (resultValidacion.next()) {
