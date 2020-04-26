@@ -38,13 +38,13 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="sliderPeso" blockIncrement="1.0" majorTickUnit="20.0" max="200.0" min="1.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <Slider fx:id="sliderPeso" blockIncrement="1.0" majorTickUnit="20.0" max="200.0" min="1.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="264.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                   <TextField fx:id="campoPeso" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="5.0" right="20.0" />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -56,13 +56,13 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="sliderAltura" blockIncrement="1.0" majorTickUnit="20.0" max="250.0" min="80.0" minorTickCount="0" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                  <TextField fx:id="campoAltura" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
+                  <Slider fx:id="sliderAltura" blockIncrement="1.0" majorTickUnit="20.0" max="250.0" min="80.0" minorTickCount="0" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="263.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="campoAltura" editable="false" prefHeight="38.0" prefWidth="58.0" text="-">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="5.0" right="20.0" />
                      </HBox.margin>
                   </TextField>
                </children>

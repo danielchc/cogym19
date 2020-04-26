@@ -95,6 +95,8 @@ public class vCuotaController extends AbstractController implements Initializabl
      * Método para cargar as actividades realizadas no mes.
      */
     private void cargarActividadesTabla(){
+        this.tablaActividades.setPlaceholder(new Label("Non se realizou ningunha actividade."));
+
         TableColumn<Actividade,String> dataColum = new TableColumn<>("Data");
         dataColum.setCellValueFactory(
                 c -> new SimpleStringProperty(
@@ -131,6 +133,8 @@ public class vCuotaController extends AbstractController implements Initializabl
      * Método para cargar os cursos realizados no mes.
      */
     private void cargarCursosTabla(){
+        this.tablaCursos.setPlaceholder(new Label("Non se realizou ningún curso."));
+
         TableColumn<Actividade,Integer> codColum = new TableColumn<>("Código");
         codColum.setCellValueFactory(new PropertyValueFactory<>("codCurso"));
         TableColumn<Actividade,String> nomeColum = new TableColumn<>("Nome do Curso");
