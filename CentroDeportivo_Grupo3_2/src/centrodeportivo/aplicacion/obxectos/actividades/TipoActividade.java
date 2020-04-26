@@ -19,9 +19,9 @@ public class TipoActividade {
     /**
      * Constructor que involucra todos os atributos. Usarémolo cando se coñeza toda a información sobre o tipo de actividade
      * de antemán (por exemplo, cando se recuperen datos da base de datos).
-     * @param codTipoActividade
-     * @param nome
-     * @param descricion
+     * @param codTipoActividade O código do tipo de actividade.
+     * @param nome O nome do tipo de actividade
+     * @param descricion A descrición asociada ao tipo de actividade.
      */
     public TipoActividade(int codTipoActividade, String nome, String descricion) {
         this.codTipoActividade = codTipoActividade;
@@ -33,8 +33,8 @@ public class TipoActividade {
      * Constructor que involucra sómentes o nome e a descrición, que son os atributos que pode introducir o usuario.
      * Usarémolo precisamente cando se queira insertar un novo tipo de actividade na base de datos (e aínda non se coñeza
      * o código xerado).
-     * @param nome
-     * @param descricion
+     * @param nome O nome do tipo de actividade
+     * @param descricion A descrición asociada ao tipo de actividade.
      */
     public TipoActividade(String nome, String descricion) {
         this.nome = nome;
@@ -45,12 +45,18 @@ public class TipoActividade {
     /**
      * Constructor que involucra somentes o nome do tipo de actividade, que usaremos para cando se fagan buscas (pois
      * só se busca polo nome, tanto nos teñen o resto de atributos da clase).
-     * @param nome
+     * @param nome O nome do tipo de actividade considerado.
      */
     public TipoActividade(String nome) {
         this.nome = nome;
     }
 
+
+    /**
+     * Constructor que involucra só o código do tipo de actividade, necesario cando se fai referencia ao tipo de actividade
+     * dende outras clases e non se quere almacenar nada máis.
+     * @param codTipoActividade O código do tipo de actividade considerado.
+     */
     public TipoActividade(int codTipoActividade) {
         this.codTipoActividade = codTipoActividade;
     }
@@ -65,7 +71,7 @@ public class TipoActividade {
 
     /**
      * Setter do código do tipo de actividade.
-     * @param codTipoActividade
+     * @param codTipoActividade O código do tipo de actividade a asignar.
      */
     public void setCodTipoActividade(int codTipoActividade) {
         this.codTipoActividade = codTipoActividade;
@@ -82,7 +88,7 @@ public class TipoActividade {
 
     /**
      * Setter do nome do tipo de actividade
-     * @param nome
+     * @param nome O nome do tipo de actividade a asignar.
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -98,7 +104,7 @@ public class TipoActividade {
 
     /**
      * Setter da descrición dun tipo de actividade.
-     * @param descricion
+     * @param descricion A descrición do tipo de actividade a asignar.
      */
     public void setDescricion(String descricion) {
         this.descricion = descricion;
@@ -119,7 +125,7 @@ public class TipoActividade {
 
     /**
      * Método que permite determinar se dous obxectos son iguais
-     * @param obj
+     * @param obj O obxecto a comparar con este tipo de actividade.
      * @return Booleano que indica se dúas instancias de tipo de actividade son iguais.
      */
     @Override

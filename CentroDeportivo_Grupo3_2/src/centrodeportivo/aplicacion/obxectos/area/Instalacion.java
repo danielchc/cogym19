@@ -19,7 +19,7 @@ public class Instalacion {
     /**
      * Constructor cun só argumento: o código da instalación (que é a clave primaria).
      *
-     * @param codInstalacion
+     * @param codInstalacion O código identificador da instalación.
      */
     public Instalacion(int codInstalacion) {
         this.codInstalacion = codInstalacion;
@@ -29,9 +29,9 @@ public class Instalacion {
      * Constructor con tres argumentos: usarase cando un usuario queira introducir unha nova instalación, dado que
      * inicialmente non se coñecerá o seu código (ata que se inserte).
      *
-     * @param nome
-     * @param numTelefono
-     * @param direccion
+     * @param nome O nome da instalación
+     * @param numTelefono O número de teléfono da instalación
+     * @param direccion A dirección da instalación
      */
     public Instalacion(String nome, String numTelefono, String direccion) {
         this.nome = nome;
@@ -43,10 +43,10 @@ public class Instalacion {
     /**
      * Constructor con todos os argumentos, para os casos nos que se teña toda a información (ao recuperala).
      *
-     * @param codInstalacion
-     * @param nome
-     * @param numTelefono
-     * @param direccion
+     * @param codInstalacion O código identificador da instalación.
+     * @param nome O nome da instalación
+     * @param numTelefono O número de teléfono da instalación
+     * @param direccion A dirección da instalación
      */
     public Instalacion(int codInstalacion, String nome, String numTelefono, String direccion) {
         this(nome, numTelefono, direccion);
@@ -65,7 +65,7 @@ public class Instalacion {
     /**
      * Setter do código da instalación
      *
-     * @param codInstalacion
+     * @param codInstalacion O código da instalación a asignar
      */
     public void setCodInstalacion(int codInstalacion) {
         this.codInstalacion = codInstalacion;
@@ -83,7 +83,7 @@ public class Instalacion {
     /**
      * Setter do nome da instalación
      *
-     * @param nome
+     * @param nome O nome da instalación a asignar
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -101,7 +101,7 @@ public class Instalacion {
     /**
      * Setter do número de teléfono da instalación
      *
-     * @param numTelefono
+     * @param numTelefono O número de teléfono da instalación a asignar.
      */
     public void setNumTelefono(String numTelefono) {
         this.numTelefono = numTelefono;
@@ -119,7 +119,7 @@ public class Instalacion {
     /**
      * Setter da dirección da instalación
      *
-     * @param direccion
+     * @param direccion A dirección da instalación a asignar
      */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
@@ -143,7 +143,7 @@ public class Instalacion {
     /**
      * Método que comproba se dúas instalacións son iguais.
      *
-     * @param obj
+     * @param obj O obxecto a comparar coa instalación.
      * @return booleano que indica se a instalación coincide coa pasada como argumento.
      */
     @Override

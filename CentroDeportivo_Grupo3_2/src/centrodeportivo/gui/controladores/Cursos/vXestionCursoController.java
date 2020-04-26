@@ -145,10 +145,6 @@ public class vXestionCursoController extends AbstractController implements Initi
             btnModificarSeleccion.setVisible(false);
             btnCancelar.setVisible(false);
             btnXerarInforme.setVisible(false);
-            campoCodigo.setText("");
-            campoNome.setText("");
-            campoDescricion.setText("");
-            campoPrezo.setText("");
 
         } else { //Situación 2:
             //Entón teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
@@ -170,8 +166,11 @@ public class vXestionCursoController extends AbstractController implements Initi
         vBoxDetalleInforme.setVisible(false);
     }
 
+    //Método activado en caso de querer reiniciar esta ventá:
     @Override
     public void reiniciarForm(){
+        //Reestablecemos o campo do curso de cara á apertura de novo da ventá.
+        //Se se quere abrir para xestión dun novo curso haberá que volver a asignalo:
         this.curso = null;
     }
 

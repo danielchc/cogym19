@@ -20,13 +20,13 @@ public class Curso {
     /**
      * Atributos da clase:
      */
-    private int codCurso;
-    private String nome;
-    private String descricion;
-    private float prezo;
-    private boolean aberto;
-    private ArrayList<Actividade> actividades;
-    private ArrayList<Usuario> participantes;
+    private int codCurso; //Código do curso
+    private String nome; //Nome do curso
+    private String descricion; //Descrición do curso
+    private float prezo; //Prezo do curso
+    private boolean aberto; //Indicador de se o curso foi aberto ao público ou non.
+    private ArrayList<Actividade> actividades; //Actividades do curso.
+    private ArrayList<Usuario> participantes; //Participantes do curso.
 
     /**
      * Estes atrributos non están almacenados como tal na base de datos, pero son cuestións que poderemos recuperar
@@ -34,13 +34,13 @@ public class Curso {
      * No MER só metimos algún calculado para non enchelo deles, por exemplo puxemos o de duración, pero o resto son
      * cuestións que tamén fomos sacando a posteriori e que cremos que inundarían o modelo sen ter por que facelo.
      */
-    private float duracion;
-    private int numActividades;
-    private Date dataInicio;
-    private Date dataFin;
-    private int numProfesores;
-    private ArrayList<Persoal> profesores;
-    private Float valMedia;
+    private float duracion; //Duración total do curso.
+    private int numActividades; //Número de actividades do curso.
+    private Date dataInicio; //Data de comezo do curso.
+    private Date dataFin; //Data de finalización do curso.
+    private int numProfesores; //Número de profesores que ten o curso.
+    private ArrayList<Persoal> profesores; //Profesores do curso.
+    private Float valMedia; //Valoración media total do curso.
 
     //Constructores
     public Curso(String nome){
