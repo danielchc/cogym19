@@ -78,4 +78,8 @@ public class XestionCursos {
     public Curso recuperarDatosCurso(Curso curso){
         return fachadaBD.recuperarDatosCurso(curso);
     }
+
+    public Curso informeCurso(Curso curso){
+        return fachadaBD.informeCurso(curso);
+    }
 }

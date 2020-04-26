@@ -190,6 +190,10 @@ public final class FachadaBD {
         return daoCursos.recuperarDatosCurso(curso);
     }
 
+    public Curso informeCurso(Curso curso) {
+        return daoCursos.informeCurso(curso);
+    }
+
     public boolean comprobarExistencia(Curso curso) {
         return daoCursos.comprobarExistencia(curso);
     }

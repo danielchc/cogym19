@@ -28,7 +28,7 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
     public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
@@ -36,7 +36,7 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.setTitle("Xestión Centro Deportivo");
         stage.setScene(new Scene(fxmlLoader.load()));
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 

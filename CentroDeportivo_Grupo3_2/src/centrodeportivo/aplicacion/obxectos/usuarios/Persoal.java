@@ -19,8 +19,15 @@ public class Persoal extends Usuario {
     private String NUSS;
     private boolean profesorActivo;
 
+    private Float valoracion;
+
     public Persoal (String login){
         super(login);
+    }
+
+    public Persoal (String login, Float valoracion){
+        super(login);
+        this.valoracion = valoracion;
     }
 
     public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, String NUSS, boolean profesorActivo) {
@@ -50,5 +57,13 @@ public class Persoal extends Usuario {
 
     public void setProfesorActivo(boolean profesorActivo){
         this.profesorActivo = profesorActivo;
+    }
+
+    public Float getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(Float valoracion) {
+        this.valoracion = valoracion;
     }
 }

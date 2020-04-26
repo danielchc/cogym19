@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -42,9 +43,9 @@ public class vXestionCursoController extends AbstractController implements Initi
     public VBox vBoxDetalleInforme;
     public TextField campoDuracion;
     public TextField campoDataInicio;
-    public TextField campoNumParticipantes;
-    public TextField campoDataFin;
     public TextField campoNumActividades;
+    public TextField campoDataFin;
+    public TextField campoNumProfesores;
     public TableView taboaActividadesVal;
     public Label tagVTM;
     public TableView taboaProfesores;
@@ -101,6 +102,36 @@ public class vXestionCursoController extends AbstractController implements Initi
         taboaUsuarios.getColumns().addAll(loginColumn,dataNacementoColumn,dificultadesColumn,numTelefonoColumn);
         //Facemos isto para controlar o tamaño das columnas.
         taboaUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        //Táboa de actividades e valoracións asociadas: será semellante á outra de actividades:
+        TableColumn<Date, Actividade> dataActColumn = new TableColumn<>("Data");
+        dataActColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+
+        TableColumn<String, Actividade> areaActColumn = new TableColumn<>("Area");
+        areaActColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+
+        TableColumn<String, Actividade> profActColumn = new TableColumn<>("Profesor");
+        profActColumn.setCellValueFactory(new PropertyValueFactory<>("profesor"));
+
+        //Engadimos unha columna diferente, a das valoracións:
+        TableColumn<Float, Actividade> valoracionColumn = new TableColumn<>("Valoración");
+        valoracionColumn.setCellValueFactory(new PropertyValueFactory<>("valMedia"));
+
+        taboaActividadesVal.getColumns().addAll(dataActColumn, areaActColumn, profActColumn, valoracionColumn);
+        //Con isto controlamos o tamaño das columnas:
+        taboaActividadesVal.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        //Táboa de valoracións aos profesores:
+        //De novo, hai columnas similares coas de usuario:
+        TableColumn<String, Usuario> loginProfColumn = new TableColumn<>("Login");
+        loginProfColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
+
+        TableColumn<Float, Persoal> valoracionPersoalColumn = new TableColumn<>("Valoración");
+        valoracionPersoalColumn.setCellValueFactory(new PropertyValueFactory<>("valoracion"));
+        //Engadimos columnas:
+        taboaProfesores.getColumns().addAll(loginProfColumn, valoracionPersoalColumn);
+        //Controlamos o tamaño das columnas:
+        taboaProfesores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //Situación 1:
         if(curso == null){
@@ -278,7 +309,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         tagObrigatorios.setVisible(false);
     }
 
-    //Getters se setters do curso:
+    //Getters e setters do curso:
     public void setCurso(Curso curso){
         this.curso = curso;
     }
@@ -290,6 +321,33 @@ public class vXestionCursoController extends AbstractController implements Initi
     public void btnXerarInformeAction(ActionEvent actionEvent) {
         //O que hai que facer primeiro é comprobar se se está en condicións de recuperar os datos do informe, para o que
         //haberá que saber se o curso xa rematou.
+        //Iremos a recuperar a información do curso:
+        curso = getFachadaAplicacion().informeCurso(curso);
+        //Actualizamos todos os campos cos novos resultados:
+        //O nome do curso:
+        campoNome.setText(curso.getNome());
+        //A descrición
+        campoDescricion.setText(curso.getDescricion());
+        //O prezo do curso:
+        campoPrezo.setText(curso.getPrezo()+"");
+        //Actualizamos as táboas, primeiro eliminando os campos actuais:
+        taboaActividades.getItems().removeAll(taboaActividades.getItems());
+        taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
+        //Enchemos a táboa de actividades:
+        taboaActividades.getItems().addAll(curso.getActividades());
+        //Enchemos a táboa de participantes:
+        taboaUsuarios.getItems().addAll(curso.getParticipantes());
+
+        //Imos agora a encher os campos do informe en sí:
+        campoDuracion.setText(curso.getDuracion()+"");
+        campoDataInicio.setText(curso.getDataInicio().toString());
+        campoDataFin.setText(curso.getDataFin().toString());
+        campoNumProfesores.setText(curso.getNumProfesores()+"");
+        campoNumActividades.setText(curso.getNumActividades()+"");
+        //Enchemos as novas táboas:
+        taboaActividadesVal.getItems().addAll(curso.getActividades());
+        taboaProfesores.getItems().addAll(curso.getProfesores());
+
         vBoxDetalleInforme.setVisible(true);
         vBoxBotonInforme.setVisible(false);
     }

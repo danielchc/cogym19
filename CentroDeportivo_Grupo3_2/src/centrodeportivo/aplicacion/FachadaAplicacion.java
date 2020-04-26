@@ -51,7 +51,7 @@ public class FachadaAplicacion extends Application {
         Parent root = loader.load();
 
         primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.setTitle("Centro Deportivo");
         primaryStage.show();
     }
@@ -162,6 +162,10 @@ public class FachadaAplicacion extends Application {
 
     public Curso recuperarDatosCurso(Curso curso) {
         return xestionCursos.recuperarDatosCurso(curso);
+    }
+
+    public Curso informeCurso(Curso curso) {
+        return xestionCursos.informeCurso(curso);
     }
 
     /*

@@ -24,13 +24,16 @@ public class Actividade {
     private TipoActividade tipoActividade;
     private Persoal profesor;
 
+    private Float valMedia;
+
     //Constructor
     public Actividade(Timestamp data, Area area){
         this.data = data;
         this.area = area;
     }
 
-    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade, Curso curso, Persoal profesor){
+    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade,
+                      Curso curso, Persoal profesor){
         this.data = data;
         this.nome = nome;
         this.duracion = duracion;
@@ -38,6 +41,12 @@ public class Actividade {
         this.tipoActividade = tipoActividade;
         this.profesor = profesor;
         this.curso = curso;
+    }
+
+    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade,
+                      Curso curso, Persoal profesor, Float valMedia){
+        this(data, nome, duracion, area, tipoActividade, curso, profesor);
+        this.valMedia = valMedia;
     }
 
     //Getters e setters:
@@ -95,5 +104,13 @@ public class Actividade {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public Float getValMedia() {
+        return valMedia;
+    }
+
+    public void setValMedia(Float valMedia) {
+        this.valMedia = valMedia;
     }
 }
