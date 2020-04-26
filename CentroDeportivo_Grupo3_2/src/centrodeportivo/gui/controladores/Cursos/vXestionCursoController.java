@@ -11,11 +11,13 @@ import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import com.sun.prism.paint.Color;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.sql.Date;
@@ -344,6 +346,12 @@ public class vXestionCursoController extends AbstractController implements Initi
         campoDataFin.setText(curso.getDataFin().toString());
         campoNumProfesores.setText(curso.getNumProfesores()+"");
         campoNumActividades.setText(curso.getNumActividades()+"");
+        tagVTM.setText(curso.getValMedia().toString());
+        if(curso.getValMedia().compareTo((float)2.5) > 0){
+            tagVTM.setTextFill(Paint.valueOf("Green"));
+        } else {
+            tagVTM.setTextFill(Paint.valueOf("Red"));
+        }
         //Enchemos as novas táboas:
         taboaActividadesVal.getItems().addAll(curso.getActividades());
         taboaProfesores.getItems().addAll(curso.getProfesores());

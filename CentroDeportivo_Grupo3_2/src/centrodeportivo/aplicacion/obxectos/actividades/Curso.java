@@ -40,6 +40,7 @@ public class Curso {
     private Date dataFin;
     private int numProfesores;
     private ArrayList<Persoal> profesores;
+    private Float valMedia;
 
     //Constructores
     public Curso(String nome){
@@ -69,10 +70,11 @@ public class Curso {
     }
 
     public Curso(int codCurso, String nome, String descricion, float prezo, boolean aberto, float duracion, int numActividades, Date dataInicio,
-                 Date dataFin, int numProfesores){
+                 Date dataFin, int numProfesores, Float valMedia){
         this(codCurso, nome, descricion, prezo, aberto, duracion, numActividades, dataInicio);
         this.dataFin = dataFin;
         this.numProfesores = numProfesores;
+        this.valMedia = valMedia;
     }
 
     //Getters e setters:
@@ -178,5 +180,13 @@ public class Curso {
 
     public void setProfesores(ArrayList<Persoal> profesores) {
         this.profesores = profesores;
+    }
+
+    public Float getValMedia() {
+        return valMedia;
+    }
+
+    public void setValMedia(Float valMedia) {
+        this.valMedia = valMedia;
     }
 }

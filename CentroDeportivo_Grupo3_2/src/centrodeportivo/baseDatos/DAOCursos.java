@@ -423,12 +423,14 @@ public final class DAOCursos extends AbstractDAO{
         //Imos ir agora paso por paso con todas as consultas que hai que ir levando a cabo:
         try{
             //Comezaremos por recuperar os datos necesarios do propio curso. Agora, ademais, teremos que recuperar a data
-            //de finalización
+            //de finalización e a media do curso
             stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
                     " count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion," +
                     " DATE(max(a.dataactividade)) as datafin, " +
-                    " count(distinct a.profesor) as numProfesores" +
+                    " count(distinct a.profesor) as numProfesores, " +
+                    " avg(rA.valoracion) as valMediaCurso " +
                     " FROM curso as c, actividade as a " +
+                    "   JOIN realizarActividade as rA USING (dataActividade, area, instalacion) " +
                     " WHERE c.codcurso = a.curso" +
                     "   and c.codcurso = ?" +
                     " GROUP BY c.codcurso");
@@ -452,7 +454,8 @@ public final class DAOCursos extends AbstractDAO{
                         rsCursos.getInt("numactividades"),
                         rsCursos.getDate("datainicio"),
                         rsCursos.getDate("datafin"),
-                        rsCursos.getInt("numprofesores"));
+                        rsCursos.getInt("numprofesores"),
+                        rsCursos.getFloat("valMediaCurso"));
 
                 //A continuación, vamos a facer a busca dos datos das actividades, só que agora teremos en conta
                 //tamén as valoracións realizadas.
