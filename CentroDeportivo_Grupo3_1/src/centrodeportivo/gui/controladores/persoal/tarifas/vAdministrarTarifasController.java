@@ -104,8 +104,8 @@ public class vAdministrarTarifasController extends AbstractController implements
     public void modificarTarifa(){
         if(!listaTarifas.getSelectionModel().isEmpty()){
             Tarifa tarifa=((Tarifa)listaTarifas.getSelectionModel().getSelectedItem());
-            this.vPrincipal.mostrarMenu(IdPantalla.NOVATARIFA);
-            ((vNovaTarifaController)this.vPrincipal.getControlador(IdPantalla.NOVATARIFA)).setTarifa(tarifa);
+            this.vPrincipal.mostrarMenu(IdPantalla.XESTIONTARIFA);
+            ((vXestionTarifaController)this.vPrincipal.getControlador(IdPantalla.XESTIONTARIFA)).setTarifa(tarifa);
         }
     }
 

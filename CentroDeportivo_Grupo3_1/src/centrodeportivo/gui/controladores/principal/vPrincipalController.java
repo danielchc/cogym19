@@ -12,7 +12,7 @@ import centrodeportivo.gui.controladores.comun.vNovoMensaxeController;
 import centrodeportivo.gui.controladores.persoal.incidencias.vAdministrarIncidenciasController;
 import centrodeportivo.gui.controladores.persoal.incidencias.vXestionIncidenciaController;
 import centrodeportivo.gui.controladores.persoal.tarifas.vAdministrarTarifasController;
-import centrodeportivo.gui.controladores.persoal.tarifas.vNovaTarifaController;
+import centrodeportivo.gui.controladores.persoal.tarifas.vXestionTarifaController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarCapacidadesController;
 import centrodeportivo.gui.controladores.persoal.usuarios.vAdministrarUsuariosController;
 import centrodeportivo.gui.controladores.comun.vUsuarioController;
@@ -117,7 +117,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         //carganse todas as pantallas necesarias
         if (pantallaAMostrar == IdPantalla.PANTALLAPERSOAL) {
             this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS, new DatosVista("/centrodeportivo/gui/vistas/persoal/usuarios/vAdministrarUsuarios.fxml", new vAdministrarUsuariosController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.NOVATARIFA, new DatosVista("/centrodeportivo/gui/vistas/persoal/tarifas/vNovaTarifa.fxml", new vNovaTarifaController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.XESTIONTARIFA, new DatosVista("/centrodeportivo/gui/vistas/persoal/tarifas/vXestionTarifa.fxml", new vXestionTarifaController(super.getFachadaAplicacion(), this)));
             this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS, new DatosVista("/centrodeportivo/gui/vistas/persoal/tarifas/vAdministrarTarifas.fxml", new vAdministrarTarifasController(super.getFachadaAplicacion(), this)));
             this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS, new DatosVista("/centrodeportivo/gui/vistas/persoal/incidencias/vAdministrarIncidencias.fxml", new vAdministrarIncidenciasController(super.getFachadaAplicacion(), this)));
             this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES, new DatosVista("/centrodeportivo/gui/vistas/persoal/usuarios/vAdministrarCapacidades.fxml", new vAdministrarCapacidadesController(super.getFachadaAplicacion(), this)));

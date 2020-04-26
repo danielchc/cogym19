@@ -74,7 +74,7 @@ public class vAdministrarUsuariosController extends AbstractController implement
         TableColumn<Usuario,String> correoElectronicoColumn = new TableColumn<>("Correo Electronico");
         correoElectronicoColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         TableColumn<Usuario,String> tipoUsuarioColumn = new TableColumn<>("Tipo Usuario");
-
+        btnCapacidades.setVisible(false);
 
         tipoUsuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Usuario, String>, ObservableValue<String>>() {
             @Override

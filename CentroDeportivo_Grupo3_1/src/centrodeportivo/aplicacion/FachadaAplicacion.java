@@ -79,15 +79,7 @@ public class FachadaAplicacion extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/centrodeportivo/gui/vistas/vLogin.fxml"));
-        loader.setController(new vLoginController(new FachadaAplicacion()));
-        Parent root = loader.load();
-
-        primaryStage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoPequeno.png"));
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(true);
-        primaryStage.setTitle("COGYM-19");
-        primaryStage.show();
+        fachadaGUI.mostrarLogin(this,primaryStage);
     }
 
 

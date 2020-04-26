@@ -4,7 +4,9 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import centrodeportivo.gui.controladores.vLoginController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -120,4 +122,15 @@ public class FachadaGUI {
         return alert.getResult();
     }
 
+    public void mostrarLogin(FachadaAplicacion fachadaAplicacion, Stage primaryStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/centrodeportivo/gui/vistas/vLogin.fxml"));
+        loader.setController(new vLoginController(fachadaAplicacion));
+        Parent root = loader.load();
+
+        primaryStage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoPequeno.png"));
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("COGYM-19");
+        primaryStage.show();
+    }
 }

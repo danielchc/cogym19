@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class vNovaTarifaController extends AbstractController implements Initializable {
+public class vXestionTarifaController extends AbstractController implements Initializable {
 
     /**
      * Atributos do fxml.
@@ -45,7 +45,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
      * @param fachadaAplicacion fachada da aplicación
      * @param vPrincipalController controlador da vista principals
      */
-    public vNovaTarifaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
+    public vXestionTarifaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion,vPrincipalController);
         this.fachadaAplicacion=super.getFachadaAplicacion();
         this.vPrincipal=vPrincipalController;
@@ -85,7 +85,7 @@ public class vNovaTarifaController extends AbstractController implements Initial
             try {
                 fachadaAplicacion.actualizarTarifa(tarifa);
                 fachadaAplicacion.enviarMensaxe(getvPrincipalController().obterUsuarioLogeado(),fachadaAplicacion.listarSociosTarifa(tarifa),"A súa tarifa "+tarifa.getNome()+" foi modificada.");
-                fachadaAplicacion.mostrarInformacion("Tarifas","Gardaronse os cambios  na tarifa "+campoNome.getText()+" correctamente");
+                fachadaAplicacion.mostrarInformacion("Tarifas","Gardaronse os cambios na tarifa "+campoNome.getText()+" correctamente");
             } catch (ExcepcionBD excepcionBD) {
                 super.getFachadaAplicacion().mostrarErro("Tarifas",excepcionBD.getMessage());
             }
