@@ -12,159 +12,159 @@
     <top>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER_RIGHT" layoutX="135.0" layoutY="10.0" prefHeight="30.0" prefWidth="248.0" text="Novo Rexistro Fisiolóxico" textFill="WHITE" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="304.0" AnchorPane.topAnchor="10.0">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Label>
-                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
-                    <image>
-                        <Image url="@../../imaxes/corazon.png" />
-                    </image>
-                </ImageView>
+            <FlowPane alignment="CENTER" hgap="10.0" layoutX="193.0" layoutY="5.0" prefHeight="40.0" prefWidth="302.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="5.0">
+               <children>
+                      <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="248.0" text="Novo Rexistro Fisiolóxico" textFill="WHITE">
+                          <font>
+                              <Font name="System Bold" size="20.0" />
+                          </font>
+                      </Label>
+                      <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../imaxes/corazon.png" />
+                          </image>
+                      </ImageView>
+               </children>
+            </FlowPane>
             </children></AnchorPane>
     </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" maxWidth="486.0" prefHeight="433.0" prefWidth="486.0" spacing="5.0">
          <children>
-            <VBox layoutX="100.0" layoutY="48.0" prefHeight="366.0" prefWidth="486.0">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Peso">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Slider fx:id="sliderPeso" blockIncrement="1.0" majorTickUnit="20.0" max="200.0" min="1.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                        <TextField fx:id="campoPeso" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Altura">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Slider fx:id="sliderAltura" blockIncrement="1.0" majorTickUnit="20.0" max="250.0" min="80.0" minorTickCount="0" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                        <TextField fx:id="campoAltura" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="\% Graxa corporal*">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Slider fx:id="sliderGrasa" blockIncrement="1.0" majorTickUnit="20.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                        <TextField fx:id="campoGrasa" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="71.0" prefHeight="30.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Tensión Alta*">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Slider fx:id="sliderTensionAlta" blockIncrement="1.0" majorTickUnit="20.0" max="180.0" min="80.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                        <TextField fx:id="campoTensionAlta" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="71.0" prefHeight="30.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Tensión Baixa*">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Slider fx:id="sliderTensionBaixa" blockIncrement="1.0" majorTickUnit="20.0" max="150.0" min="50.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                        <TextField fx:id="campoTensionBaixa" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="101.0" prefHeight="30.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Pulsacións*">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Slider fx:id="sliderPulsacions" blockIncrement="1.0" majorTickUnit="20.0" max="200.0" min="1.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                        <TextField fx:id="campoPulsacions" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="132.0" prefHeight="74.0" prefWidth="486.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Comentario*">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <TextArea fx:id="campoComentario" prefHeight="74.0" prefWidth="339.0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="24.0" prefWidth="486.0">
-                     <children>
-                        <Label prefHeight="24.0" prefWidth="314.0" text="* Se non coñeces estos datos, desactiva a casilla asociada" />
-                     </children>
-                  </HBox>
-                  <Label fx:id="labelError" alignment="CENTER" prefHeight="18.0" prefWidth="496.0" textFill="#9a0404" />
-                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="486.0">
-                     <children>
-                        <Button fx:id="btnGardar" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="97.0" text="Gardar" />
-                     </children>
-                  </HBox>
+                  <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Peso">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderPeso" blockIncrement="1.0" majorTickUnit="20.0" max="200.0" min="1.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="campoPeso" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
                </children>
-            </VBox>
-            <CheckBox fx:id="chkGrasa" layoutX="598.0" layoutY="133.0" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
-            <CheckBox fx:id="chkAlta" layoutX="598.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
-            <CheckBox fx:id="chkBaixa" layoutX="598.0" layoutY="207.0" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
-            <CheckBox fx:id="chkPPM" layoutX="598.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Altura">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderAltura" blockIncrement="1.0" majorTickUnit="20.0" max="250.0" min="80.0" minorTickCount="0" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="campoAltura" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="\% Graxa corporal*">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderGrasa" blockIncrement="1.0" majorTickUnit="20.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="campoGrasa" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="chkGrasa" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="71.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Tensión Alta*">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderTensionAlta" blockIncrement="1.0" majorTickUnit="20.0" max="180.0" min="80.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="campoTensionAlta" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="chkAlta" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="71.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Tensión Baixa*">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderTensionBaixa" blockIncrement="1.0" majorTickUnit="20.0" max="150.0" min="50.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="campoTensionBaixa" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="chkBaixa" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="101.0" prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Pulsacións*">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="sliderPulsacions" blockIncrement="1.0" majorTickUnit="20.0" max="200.0" min="1.0" minorTickCount="1" onMouseDragged="#listenerSlider" prefHeight="38.0" prefWidth="275.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="campoPulsacions" editable="false" prefHeight="38.0" prefWidth="60.0" text="-">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="chkPPM" mnemonicParsing="false" onMouseClicked="#listenerCheckBox" selected="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="132.0" prefHeight="74.0" prefWidth="486.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="84.0" prefWidth="150.0" text="Comentario*">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="campoComentario" prefHeight="74.0" prefWidth="339.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="24.0" prefWidth="486.0" spacing="5.0">
+               <children>
+                  <Label prefHeight="24.0" prefWidth="314.0" text="* Se non coñeces estos datos, desactiva a casilla asociada" />
+               </children>
+            </HBox>
+            <Label fx:id="labelError" alignment="CENTER" prefHeight="18.0" prefWidth="496.0" textFill="#9a0404" />
+            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="486.0">
+               <children>
+                  <Button fx:id="btnGardar" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="97.0" text="Gardar" />
+               </children>
+            </HBox>
          </children>
-      </AnchorPane>
+      </VBox>
    </center>
 </BorderPane>
