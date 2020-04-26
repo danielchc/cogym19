@@ -10,29 +10,29 @@
     <top>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER_RIGHT" layoutX="209.0" layoutY="10.0" prefHeight="30.0" prefWidth="169.0" text="Nova Incidencia" textFill="WHITE" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="303.79999999999995" AnchorPane.topAnchor="10.0">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Label>
-                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
-                    <image>
-                        <Image url="@../../imaxes/novo.png" />
-                    </image>
-                </ImageView>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" layoutX="222.0" layoutY="5.0" prefHeight="40.0" prefWidth="243.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="222.0" AnchorPane.topAnchor="5.0">
+               <children>
+                      <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="169.0" text="Nova Incidencia" textFill="WHITE">
+                          <font>
+                              <Font name="System Bold" size="20.0" />
+                          </font>
+                      </Label>
+                      <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../imaxes/novo.png" />
+                          </image>
+                      </ImageView>
+               </children>
+            </FlowPane>
             </children></AnchorPane>
     </top>
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutX="18.0" layoutY="30.0" prefHeight="406.0" prefWidth="650.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.800000000000068" AnchorPane.topAnchor="30.0">
+            <HBox alignment="CENTER" layoutX="18.0" layoutY="30.0" prefHeight="406.0" prefWidth="650.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.800000000000068" AnchorPane.topAnchor="30.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="281.0">
-                     <children>
-                        <TreeView fx:id="selectorIncidencia" prefHeight="413.0" prefWidth="281.0" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="366.0">
+                  <TreeView fx:id="selectorIncidencia" maxHeight="600.0" prefHeight="413.0" prefWidth="281.0" />
+                  <VBox alignment="CENTER" prefHeight="406.0" prefWidth="366.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="438.0" text="Información">
                            <font>
@@ -68,6 +68,9 @@
                            </font>
                         </Button>
                      </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
                   </VBox>
                </children>
             </HBox>

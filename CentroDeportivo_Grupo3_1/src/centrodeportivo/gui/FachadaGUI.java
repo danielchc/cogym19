@@ -43,6 +43,8 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoPequeno.png"));
         stage.setTitle("COGYM-19");
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setResizable(true);
         stage.show();
@@ -58,6 +60,8 @@ public class FachadaGUI {
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
         stage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoPequeno.png"));
         stage.setTitle("COGYM-19");
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setResizable(true);
         stage.show();

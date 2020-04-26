@@ -1,78 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="687.0" style="-fx-background-color: #005bbd;" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER_RIGHT" layoutX="187.0" layoutY="10.0" prefHeight="30.0" prefWidth="196.0" text="Xestionar Incidencia" textFill="WHITE" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="187.0" AnchorPane.rightAnchor="304.0" AnchorPane.topAnchor="10.0">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Label>
-                <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="242.39999999999998" AnchorPane.topAnchor="5.0">
-                    <image>
-                        <Image url="@../../../imaxes/lista.png" />
-                    </image>
-                </ImageView>
+            <FlowPane alignment="CENTER" layoutX="209.0" layoutY="5.0" prefHeight="40.0" prefWidth="270.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="5.0">
+               <children>
+                      <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="196.0" text="Xestionar Incidencia" textFill="WHITE">
+                          <font>
+                              <Font name="System Bold" size="20.0" />
+                          </font>
+                      </Label>
+                      <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../../imaxes/lista.png" />
+                          </image>
+                      </ImageView>
+               </children>
+            </FlowPane>
             </children></AnchorPane>
     </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button layoutX="315.0" layoutY="368.0" mnemonicParsing="false" onAction="#volverAdministracion" prefHeight="35.0" prefWidth="127.0" text="Volver" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="242.0">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnResolverIncidencia" layoutX="462.0" layoutY="368.0" mnemonicParsing="false" onAction="#resolverIncidencia" prefHeight="35.0" prefWidth="127.0" text="Resolver" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="462.0" AnchorPane.rightAnchor="98.0">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-             <VBox layoutX="130.0" layoutY="14.0" prefHeight="328.0" prefWidth="459.0" spacing="5.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="14.0">
-                 <children>
-                     <HBox alignment="CENTER" prefHeight="152.0" prefWidth="456.0">
-                     <children>
-                        <TextArea fx:id="datosIncidencia" editable="false" prefHeight="166.0" prefWidth="430.0" wrapText="true" />
-                     </children></HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="40.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="69.0" prefWidth="200.0" text="Custo de resolución">
+       <VBox alignment="CENTER" prefHeight="353.0" prefWidth="625.0" spacing="5.0">
+           <children>
+               <HBox alignment="CENTER" prefHeight="152.0" prefWidth="456.0">
+               <children>
+                  <TextArea fx:id="datosIncidencia" editable="false" prefHeight="151.0" prefWidth="461.0" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="38.0" prefWidth="669.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="69.0" prefWidth="200.0" text="Custo de resolución">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="campoCusto" prefHeight="30.0" prefWidth="251.0" />
+               </children>
+            </HBox>
+               <HBox alignment="CENTER" prefHeight="116.0" prefWidth="417.0">
+                   <children>
+                       <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Comentario resolución">
                            <font>
-                              <Font name="System Bold" size="14.0" />
+                               <Font name="System Bold" size="14.0" />
                            </font>
-                        </Label>
-                        <TextField fx:id="campoCusto" prefHeight="30.0" prefWidth="251.0" />
-                     </children>
-                  </HBox>
-                     <HBox alignment="CENTER" prefHeight="116.0" prefWidth="417.0">
-                         <children>
-                             <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="datosUsuarios" text="Comentario resolución">
-                                 <font>
-                                     <Font name="System Bold" size="14.0" />
-                                 </font>
-                             </Label>
-                             <TextArea fx:id="campoComentario" prefHeight="116.0" prefWidth="251.0" wrapText="true" />
-                         </children>
-                     </HBox>
-                 </children>
-             </VBox>
-            <Label fx:id="mensaxeAdvertencia" layoutX="560.0" layoutY="341.0" text="Non se pode modificar unha indicencia resolta fai máis de 5 días" AnchorPane.bottomAnchor="68.0" AnchorPane.rightAnchor="99.0">
+                       </Label>
+                       <TextArea fx:id="campoComentario" prefHeight="116.0" prefWidth="251.0" wrapText="true" />
+                   </children>
+               </HBox>
+           </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+       </VBox>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="95.0" prefWidth="687.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="402.0" layoutY="38.0" mnemonicParsing="false" onAction="#volverAdministracion" prefHeight="35.0" prefWidth="127.0" text="Volver" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="158.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnResolverIncidencia" layoutX="546.0" layoutY="38.0" mnemonicParsing="false" onAction="#resolverIncidencia" prefHeight="35.0" prefWidth="127.0" text="Resolver" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="14.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="mensaxeAdvertencia" layoutX="310.0" layoutY="27.0" text="Non se pode modificar unha indicencia resolta fai máis de 5 días" AnchorPane.bottomAnchor="51.0" AnchorPane.rightAnchor="14.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="mensaxeSenCubrir" layoutX="453.0" layoutY="342.0" text="Algún campo sen cubrir" textFill="RED">
+            <Label fx:id="mensaxeSenCubrir" layoutX="542.0" layoutY="6.0" text="Algún campo sen cubrir" textFill="RED" AnchorPane.bottomAnchor="72.0" AnchorPane.rightAnchor="10.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-   </center>
+   </bottom>
 </BorderPane>
