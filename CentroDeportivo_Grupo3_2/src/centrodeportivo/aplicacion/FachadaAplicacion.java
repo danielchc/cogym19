@@ -56,7 +56,6 @@ public class FachadaAplicacion extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -166,6 +165,10 @@ public class FachadaAplicacion extends Application {
 
     public Curso informeCurso(Curso curso) {
         return xestionCursos.informeCurso(curso);
+    }
+
+    public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
+        return xestionCursos.activarCurso(curso);
     }
 
     /*

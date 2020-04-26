@@ -144,6 +144,7 @@ public class vXestionCursoController extends AbstractController implements Initi
             btnEngadirActividade.setVisible(false);
             btnModificarSeleccion.setVisible(false);
             btnCancelar.setVisible(false);
+            btnXerarInforme.setVisible(false);
 
         } else { //Situación 2:
             //Entón teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
@@ -155,6 +156,10 @@ public class vXestionCursoController extends AbstractController implements Initi
             taboaActividades.getItems().addAll(curso.getActividades());
             //Enchemos a táboa de participantes:
             taboaUsuarios.getItems().addAll(curso.getParticipantes());
+            if(curso.isAberto()){
+                //Se o curso xa está aberto non damos opción a abrilo:
+                btnActivar.setVisible(false);
+            }
         }
 
         vBoxBotonInforme.setVisible(true);
@@ -162,6 +167,37 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     public void btnActivarAction(ActionEvent actionEvent) {
+        //Neste caso o que se fará é intentar activar o curso:
+        if(curso != null && curso.getCodCurso() != 0){ //NULL?
+            if(!curso.isAberto()){
+                //Tentamos facer a activación:
+                try {
+                    TipoResultados res = getFachadaAplicacion().activarCurso(curso);
+                    switch(res){
+                        case sitIncoherente:
+                            //No caso de devolver este valor, indicará que o curso non estaba preparado para ser activado:
+                            getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                                    "O curso non está todavía preparado para ser activado. Lembra, debe de ter" +
+                                            " como mínimo dúas actividades e non pode ter comezado!");
+                            //Non faríamos ningunha modificación.
+                            break;
+                        case correcto:
+                            //Unha vez activado, confirmarémolo, quitaremos o botón de activar curso e deixaremos continuar:
+                            getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
+                                    "O curso activouse. Dende agora pódese apuntar calquera persoa nel.");
+                    }
+                } catch (ExcepcionBD excepcionBD) {
+                    excepcionBD.printStackTrace();
+                }
+            } else {
+                getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                        "Non podes activar un curso xa aberto!");
+            }
+        } else {
+            //Se non se cumpre esa primeira condición avísase:
+            getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                    "Non se pode activar o curso se inda non se insertou!");
+        }
     }
 
     public void btnGardarAction(ActionEvent actionEvent) {
@@ -193,6 +229,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                         campoCodigo.setText(curso.getCodCurso() +"");
                         //Activamos o resto de botóns para que o usuario poida seguir coa xestión do curso:
                         btnActivar.setVisible(true);
+                        btnCancelar.setVisible(true);
                         btnModificarSeleccion.setVisible(true);
                         btnEngadirActividade.setVisible(true);
                         btnBorrarActividade.setVisible(true);

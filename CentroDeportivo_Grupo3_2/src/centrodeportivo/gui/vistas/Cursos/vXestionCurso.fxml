@@ -271,11 +271,11 @@
                                                   <content>
                                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="571.0">
                                                          <children>
-                                                            <VBox alignment="CENTER" layoutY="3.0" prefHeight="600.0" prefWidth="537.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                                            <VBox alignment="CENTER" layoutY="3.0" prefHeight="620.0" prefWidth="537.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                                                <children>
                                                                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="558.0" VBox.vgrow="ALWAYS">
                                                                      <children>
-                                                                        <Label text="~Información adicional do Curso~">
+                                                                        <Label text="~Información adicional do Curso~" HBox.hgrow="ALWAYS">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
                                                                            </font>
@@ -286,14 +286,14 @@
                                                                      <children>
                                                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                                            <children>
-                                                                              <Label text="Duración do curso (número de horas activas)">
+                                                                              <Label text="Duración do curso (número de horas activas)" VBox.vgrow="ALWAYS">
                                                                                  <font>
                                                                                     <Font name="System Bold" size="14.0" />
                                                                                  </font></Label>
                                                                            </children></VBox>
-                                                                        <VBox alignment="CENTER" prefHeight="35.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
+                                                                        <VBox alignment="CENTER" prefHeight="50.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
                                                                            <children>
-                                                                              <TextField fx:id="campoDuracion" editable="false" prefHeight="26.0" prefWidth="88.0" promptText="Duración..." />
+                                                                              <TextField fx:id="campoDuracion" editable="false" prefHeight="26.0" prefWidth="36.0" promptText="Duración..." VBox.vgrow="ALWAYS" />
                                                                            </children></VBox>
                                                                      </children>
                                                                   </HBox>
@@ -301,11 +301,11 @@
                                                                      <children>
                                                                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                                            <children>
-                                                                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                  <children>
                                                                                     <VBox prefHeight="40.0" prefWidth="20.0" HBox.hgrow="ALWAYS">
                                                                                        <children>
-                                                                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                              <children>
                                                                                                 <Label text="Data inicio" HBox.hgrow="ALWAYS">
                                                                                                    <font>
@@ -324,11 +324,11 @@
                                                                                        </children></VBox>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                  <children>
                                                                                     <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                                                        <children>
-                                                                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                              <children>
                                                                                                 <Label text="Número de profesores" HBox.hgrow="ALWAYS">
                                                                                                    <font>
@@ -351,7 +351,7 @@
                                                                         </VBox>
                                                                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                                            <children>
-                                                                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                  <children>
                                                                                     <VBox prefHeight="40.0" prefWidth="20.0" HBox.hgrow="ALWAYS">
                                                                                        <children>
@@ -374,7 +374,7 @@
                                                                                        </children></VBox>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                  <children>
                                                                                     <VBox prefHeight="47.0" prefWidth="146.0" HBox.hgrow="ALWAYS">
                                                                                        <children>
@@ -388,7 +388,7 @@
                                                                                           </HBox>
                                                                                        </children>
                                                                                     </VBox>
-                                                                                    <VBox prefHeight="40.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
+                                                                                    <VBox prefHeight="47.0" prefWidth="38.0" HBox.hgrow="ALWAYS">
                                                                                        <children>
                                                                                           <HBox alignment="CENTER" prefHeight="47.0" prefWidth="78.0" VBox.vgrow="ALWAYS">
                                                                                              <children>
@@ -403,7 +403,7 @@
                                                                      </children></HBox>
                                                                   <HBox alignment="CENTER" prefHeight="55.0" prefWidth="547.0" VBox.vgrow="ALWAYS">
                                                                      <children>
-                                                                        <Label text="~Actividades con valoración media~">
+                                                                        <Label text="~Actividades con valoración media~" HBox.hgrow="ALWAYS">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
                                                                            </font>
@@ -414,13 +414,13 @@
                                                                      <children>
                                                                         <TableView fx:id="taboaActividadesVal" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                                                      </children></HBox>
-                                                                  <HBox prefHeight="65.0" prefWidth="547.0">
+                                                                  <HBox prefHeight="65.0" prefWidth="547.0" VBox.vgrow="ALWAYS">
                                                                      <children>
                                                                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                                            <children>
                                                                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                  <children>
-                                                                                    <Label text="Valoración total media (VTM)">
+                                                                                    <Label text="Valoración total media (VTM)" HBox.hgrow="ALWAYS">
                                                                                        <font>
                                                                                           <Font name="System Bold" size="14.0" />
                                                                                        </font>
@@ -433,7 +433,7 @@
                                                                            <children>
                                                                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                                  <children>
-                                                                                    <Label fx:id="tagVTM" text="Label">
+                                                                                    <Label fx:id="tagVTM" text="Label" HBox.hgrow="ALWAYS">
                                                                                        <font>
                                                                                           <Font name="System Bold" size="24.0" />
                                                                                        </font>
@@ -444,9 +444,9 @@
                                                                         </VBox>
                                                                      </children>
                                                                   </HBox>
-                                                                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="558.0">
+                                                                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="558.0" VBox.vgrow="ALWAYS">
                                                                      <children>
-                                                                        <Label text="~Valoracións dos profesores~">
+                                                                        <Label text="~Valoracións dos profesores~" HBox.hgrow="ALWAYS">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
                                                                            </font>

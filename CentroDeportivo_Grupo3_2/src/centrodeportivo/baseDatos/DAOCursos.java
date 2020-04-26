@@ -238,13 +238,13 @@ public final class DAOCursos extends AbstractDAO{
             //No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
             consulta = "SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
                     "count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion " +
-                    " FROM curso as c, actividade as a " +
-                    " WHERE c.codcurso = a.curso";
+                    " FROM curso as c LEFT JOIN actividade as a " +
+                    "   ON (c.codcurso = a.curso)";
 
             //Pode ser que non pasemos curso (o pasemos como null) ou que pasemos algo.
             //Se non pasamos ningún curso, non engadimos o filtro de busca, se non si:
             if(curso != null){
-                consulta += "  and c.nome like ? ";
+                consulta += " WHERE c.nome like ? ";
             }
 
             consulta += "  GROUP BY c.codcurso";
@@ -307,9 +307,9 @@ public final class DAOCursos extends AbstractDAO{
         try{
             stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
                     "count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion " +
-                    " FROM curso as c, actividade as a " +
-                    " WHERE c.codcurso = a.curso" +
-                    "   and c.codcurso = ?" +
+                    " FROM curso as c LEFT JOIN actividade as a " +
+                    "   ON (c.codcurso = a.curso)" +
+                    " WHERE c.codcurso = ?" +
                     " GROUP BY c.codcurso"); //En principio non sería preciso o group by, porque só temos un curso, pero inda así reflexamos que agrupamos as actividades.
 
 
@@ -648,4 +648,58 @@ public final class DAOCursos extends AbstractDAO{
         //Devolvemos o booleano:
         return resultado;
     }
+
+    public boolean listoParaActivar(Curso curso){
+        //Consultaremos se hai neste curso, como mínimo, dúas actividades, para poder abrilo ao público:
+        //Ademais, comprobaremos se se cumpren as restriccións de data (que non comezara).
+        PreparedStatement stmCursos = null;
+        ResultSet rsCursos;
+        Connection con;
+        boolean resultado = false;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Intentamos levar a cabo a consulta:
+        try{
+            //Buscamos o número de actividades que ten o curso preparadas:
+            stmCursos = con.prepareStatement("SELECT count(*) as numAct, " +
+                    " DATE(min(dataActividade)) > current_date as inTime" +
+                    " FROM actividade WHERE curso = ?");
+
+            //Completamos a consulta:
+            stmCursos.setInt(1, curso.getCodCurso());
+
+            //Executamos consulta:
+            rsCursos = stmCursos.executeQuery();
+
+            //O seguinte paso é comprobar o resultado:
+            if(rsCursos.next()){
+                if(rsCursos.getInt(1) >= 2 && rsCursos.getBoolean(2) == true){
+                    resultado = true; //Devolveremos true se hai dúas actividades e inda non debería ter comezado o curso.
+                }
+            }
+
+            //Feito isto, rematamos co commit:
+            con.commit();
+        } catch (SQLException e){
+            //Faríamos rollback e amosaríamos un erro:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch(SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            //Pechamos o statement:
+            try{
+                stmCursos.close();
+            } catch (SQLException e){
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        //Devolvemos o resultado:
+        return resultado;
+    }
+
 }

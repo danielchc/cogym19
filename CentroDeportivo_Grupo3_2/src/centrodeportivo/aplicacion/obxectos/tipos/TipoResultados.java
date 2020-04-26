@@ -6,5 +6,6 @@ public enum TipoResultados {
     referenciaRestrict,
     incoherenciaBorrado,
     foraTempo,
+    sitIncoherente
 
 }
