@@ -705,6 +705,7 @@ public final class DAOUsuarios extends AbstractDAO {
                             "rA.*, act.*, " +
                             "act.nome as nomeAct, " +
                             "ar.nome as nomeArea, " +
+                            "ar.codArea as codArea, " +
                             "tAct.nome as nomeTipo " +
                         "FROM realizarActividade as rA NATURAL JOIN actividade as act " +
                             "JOIN area AS ar ON act.area=ar.codArea AND act.instalacion=ar.instalacion " +
@@ -717,17 +718,14 @@ public final class DAOUsuarios extends AbstractDAO {
             while (resultSet.next()) {
 
                 Area area=new Area(
+                        resultSet.getInt("codArea"),
                         new Instalacion(resultSet.getInt("instalacion")),
-                        resultSet.getString("nomeArea"),
-                        null,
-                        null
-
+                        resultSet.getString("nomeArea")
                 );
 
                 TipoActividade tipoActividade=new TipoActividade(
                         resultSet.getInt("tipoActividade"),
-                        resultSet.getString("nomeTipo"),
-                        null
+                        resultSet.getString("nomeTipo")
                 );
 
                 actividadesMes.add(new Actividade(

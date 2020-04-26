@@ -29,9 +29,11 @@ public class TipoActividade{
     /**
      * Constructor coa clave primaria.
      * @param codTipoActividade código do tipo
+     * @param nome nome do tipo
      */
-    public TipoActividade(Integer codTipoActividade){
+    public TipoActividade(Integer codTipoActividade, String nome){
         this.codTipoActividade=codTipoActividade;
+        this.nome=nome;
     }
 
 

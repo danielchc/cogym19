@@ -48,6 +48,17 @@ public class Area {
     }
 
     /**
+     * @param codArea código da área.
+     * @param instalacion instalación na que está
+     * @param nome nome da área
+     */
+    public Area(Integer codArea,Instalacion instalacion, String nome) {
+        this.codArea=codArea;
+        this.instalacion = instalacion;
+        this.nome = nome;
+    }
+
+    /**
      * Constructor con todos os datos dunha área
      * @param codArea código da área.
      * @param instalacion instalación na que está
