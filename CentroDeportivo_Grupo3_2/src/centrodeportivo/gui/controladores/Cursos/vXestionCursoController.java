@@ -145,7 +145,7 @@ public class vXestionCursoController extends AbstractController implements Initi
             btnModificarSeleccion.setVisible(false);
             btnCancelar.setVisible(false);
 
-        } else {
+        } else { //Situación 2:
             //Entón teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
             campoCodigo.setText(curso.getCodCurso()+"");
             campoNome.setText(curso.getNome());
@@ -325,38 +325,52 @@ public class vXestionCursoController extends AbstractController implements Initi
         //haberá que saber se o curso xa rematou.
         //Iremos a recuperar a información do curso:
         curso = getFachadaAplicacion().informeCurso(curso);
-        //Actualizamos todos os campos cos novos resultados:
-        //O nome do curso:
-        campoNome.setText(curso.getNome());
-        //A descrición
-        campoDescricion.setText(curso.getDescricion());
-        //O prezo do curso:
-        campoPrezo.setText(curso.getPrezo()+"");
-        //Actualizamos as táboas, primeiro eliminando os campos actuais:
-        taboaActividades.getItems().removeAll(taboaActividades.getItems());
-        taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
-        //Enchemos a táboa de actividades:
-        taboaActividades.getItems().addAll(curso.getActividades());
-        //Enchemos a táboa de participantes:
-        taboaUsuarios.getItems().addAll(curso.getParticipantes());
+        //Comprobamos que se devolvese correctamente o curso:
+        if(curso != null) {
+            //Neste caso actualizaremos seguro aqueles campos que se amosan sempre nesta pantalla:
+            //O nome do curso:
+            campoNome.setText(curso.getNome());
+            //A descrición
+            campoDescricion.setText(curso.getDescricion());
+            //O prezo do curso:
+            campoPrezo.setText(curso.getPrezo()+"");
+            //Actualizamos as táboas, primeiro eliminando os campos actuais:
+            taboaActividades.getItems().removeAll(taboaActividades.getItems());
+            taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
+            //Enchemos a táboa de actividades:
+            taboaActividades.getItems().addAll(curso.getActividades());
+            //Enchemos a táboa de participantes:
+            taboaUsuarios.getItems().addAll(curso.getParticipantes());
+            //Comprobamos tamén que rematara:
+            if(curso.getDataFin().before(new Date(System.currentTimeMillis()))) {
+                //Imos agora a encher os campos do informe en sí:
+                campoDuracion.setText(curso.getDuracion()+"");
+                campoDataInicio.setText(curso.getDataInicio().toString());
+                campoDataFin.setText(curso.getDataFin().toString());
+                campoNumProfesores.setText(curso.getNumProfesores()+"");
+                campoNumActividades.setText(curso.getNumActividades()+"");
+                tagVTM.setText(curso.getValMedia().toString());
+                if(curso.getValMedia().compareTo((float)2.5) > 0){
+                    tagVTM.setTextFill(Paint.valueOf("Green"));
+                } else {
+                    tagVTM.setTextFill(Paint.valueOf("Red"));
+                }
+                //Enchemos as novas táboas:
+                taboaActividadesVal.getItems().addAll(curso.getActividades());
+                taboaProfesores.getItems().addAll(curso.getProfesores());
 
-        //Imos agora a encher os campos do informe en sí:
-        campoDuracion.setText(curso.getDuracion()+"");
-        campoDataInicio.setText(curso.getDataInicio().toString());
-        campoDataFin.setText(curso.getDataFin().toString());
-        campoNumProfesores.setText(curso.getNumProfesores()+"");
-        campoNumActividades.setText(curso.getNumActividades()+"");
-        tagVTM.setText(curso.getValMedia().toString());
-        if(curso.getValMedia().compareTo((float)2.5) > 0){
-            tagVTM.setTextFill(Paint.valueOf("Green"));
+                //Cambiamos a VBox visible:
+                vBoxDetalleInforme.setVisible(true);
+                vBoxBotonInforme.setVisible(false);
+            } else {
+                getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                        "Non se pode amosar o informe do curso, dado que inda non rematou.");
+            }
         } else {
-            tagVTM.setTextFill(Paint.valueOf("Red"));
+            getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                    "Produciuse un erro na busca e perdéronse os datos. Volva a intentalo noutro momento.");
+            //Ademais, creo que resulta conveniente neste caso saír desta pantalla e volver ao inicio:
+            controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARCURSOS);
         }
-        //Enchemos as novas táboas:
-        taboaActividadesVal.getItems().addAll(curso.getActividades());
-        taboaProfesores.getItems().addAll(curso.getProfesores());
-
-        vBoxDetalleInforme.setVisible(true);
-        vBoxBotonInforme.setVisible(false);
     }
 }
