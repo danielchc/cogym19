@@ -145,6 +145,10 @@ public class vXestionCursoController extends AbstractController implements Initi
             btnModificarSeleccion.setVisible(false);
             btnCancelar.setVisible(false);
             btnXerarInforme.setVisible(false);
+            campoCodigo.setText("");
+            campoNome.setText("");
+            campoDescricion.setText("");
+            campoPrezo.setText("");
 
         } else { //Situación 2:
             //Entón teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
@@ -164,6 +168,11 @@ public class vXestionCursoController extends AbstractController implements Initi
 
         vBoxBotonInforme.setVisible(true);
         vBoxDetalleInforme.setVisible(false);
+    }
+
+    @Override
+    public void reiniciarForm(){
+        this.curso = null;
     }
 
     public void btnActivarAction(ActionEvent actionEvent) {
