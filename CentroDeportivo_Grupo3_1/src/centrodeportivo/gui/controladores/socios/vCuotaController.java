@@ -1,24 +1,30 @@
 package centrodeportivo.gui.controladores.socios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
@@ -35,15 +41,17 @@ public class vCuotaController extends AbstractController implements Initializabl
     public TextField campoPrezoBase;
     public TextField campoPrezoExtras;
     public TextField campoMaxActividades;
-    public ComboBox campoActividades;
-    public ComboBox campoCursos;
+    public TableView tablaActividades;
+    public TableView tablaCursos;
     public Label campoPrezoTotal;
     public TreeView campoPrezos;
+    public PieChart graficaActividades;
 
     /**
      * Atributos do controlador
      */
     private Socio socio;
+    private Cuota cuota;
 
     /**
      * Constructor do controlador.
@@ -67,7 +75,8 @@ public class vCuotaController extends AbstractController implements Initializabl
         if(usuario instanceof Socio) this.socio= (Socio)usuario;
 
         socio.setTarifa(super.getFachadaAplicacion().consultarTarifaSocio(socio.getLogin()));
-        Cuota cuota=super.getFachadaAplicacion().consultarCuota(socio);
+        this.cuota=super.getFachadaAplicacion().consultarCuota(socio);
+
         this.campoSocio.setText(cuota.getUsuario().getNome());
         this.campoTarifa.setText(cuota.getTarifa().getNome());
         this.campoPrezoBase.setText(cuota.getTarifa().getPrezoBase() +" €");
@@ -75,26 +84,69 @@ public class vCuotaController extends AbstractController implements Initializabl
         this.campoMaxActividades.setText(String.valueOf(cuota.getTarifa().getMaxActividades()));
         this.campoPrezoTotal.setText(cuota.getTotalPrezo()+" €");
 
-        //actividades
-        this.campoActividades.getItems().addAll(cuota.getActividadesMes());
-        this.campoActividades.setPlaceholder(new Label("Sen actividades..."));
-        this.campoActividades.valueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object o, Object t1) {
-                return;
-            }
-        });
+        cargarActividadesTabla();
+        generarGraficaActividades();
+        cargarCursosTabla();
+        cargarDesgloseTabla();
 
-        //cursos
-        this.campoCursos.getItems().addAll(cuota.getCursosMes());
-        this.campoCursos.setPlaceholder(new Label("Sen cursos..."));
-        this.campoCursos.valueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object o, Object t1) {
-                return;
-            }
-        });
+    }
 
+    /**
+     * Método para cargar as actividades realizadas no mes.
+     */
+    private void cargarActividadesTabla(){
+        TableColumn<Actividade,String> dataColum = new TableColumn<>("Data");
+        dataColum.setCellValueFactory(
+                c -> new SimpleStringProperty(
+                        new Date(c.getValue().getData().getTime()).toString()
+                )
+        );
+
+        TableColumn<Actividade,String> lugarColum = new TableColumn<>("Lugar");
+        lugarColum.setCellValueFactory(
+                c -> new SimpleStringProperty(
+                        c.getValue().getArea().getNome()
+                )
+        );
+
+        TableColumn<Actividade,String> tipoActividadeColum = new TableColumn<>("Tipo de Actividade");
+        tipoActividadeColum.setCellValueFactory(
+                c -> new SimpleStringProperty(
+                        c.getValue().getTipoActividade().getNome()
+                )
+        );
+
+        TableColumn<Actividade,String> nomeColum = new TableColumn<>("Nome da Actividade");
+        nomeColum.setCellValueFactory(
+                c -> new SimpleStringProperty(
+                        c.getValue().getNome()
+                )
+        );
+
+        this.tablaActividades.getColumns().addAll(dataColum,lugarColum,tipoActividadeColum,nomeColum);
+        this.tablaActividades.getItems().addAll(this.cuota.getActividadesMes());
+    }
+
+    /**
+     * Método para cargar os cursos realizados no mes.
+     */
+    private void cargarCursosTabla(){
+        TableColumn<Actividade,Integer> codColum = new TableColumn<>("Código");
+        codColum.setCellValueFactory(new PropertyValueFactory<>("codCurso"));
+        TableColumn<Actividade,String> nomeColum = new TableColumn<>("Nome do Curso");
+        nomeColum.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        TableColumn<Actividade,String> descrColum = new TableColumn<>("Descrición");
+        descrColum.setCellValueFactory(new PropertyValueFactory<>("descricion"));
+
+
+        this.tablaCursos.getColumns().addAll(codColum,nomeColum,descrColum);
+        this.tablaCursos.getItems().addAll(this.cuota.getCursosMes());
+    }
+
+    /**
+     * Método para cargar a tabla de desglose.
+     */
+    private void cargarDesgloseTabla(){
         //tabla precios
         TreeItem<String> actItem=new TreeItem<String>("Prezos Actividades");
         actItem.getChildren().add(new TreeItem<String>("Total actividades realizadas: "+cuota.getActividadesMes().size()));
@@ -110,5 +162,24 @@ public class vCuotaController extends AbstractController implements Initializabl
         root.getChildren().add(actItem);
         root.getChildren().add(curItem);
         this.campoPrezos.setRoot(root);
+    }
+
+    private void generarGraficaActividades(){
+        HashMap<String,Integer> numTipos=new HashMap<>();
+        for(Actividade a:this.cuota.getActividadesMes()){
+            String nTipo=a.getTipoActividade().getNome();
+            if(numTipos.get(nTipo)!=null){
+                Integer old=numTipos.get(nTipo);
+                old=old+1;
+                numTipos.replace(nTipo,old);
+            }else{
+                numTipos.put(nTipo,1);
+            }
+        }
+
+        for(String s:numTipos.keySet()){
+            PieChart.Data parte=new PieChart.Data(s,numTipos.get(s));
+            this.graficaActividades.getData().add(parte);
+        }
     }
 }

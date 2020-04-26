@@ -701,18 +701,39 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             stm = super.getConexion().prepareStatement(
-                    "SELECT * " +
-                            "FROM realizarActividade NATURAL JOIN actividade " +
-                            "WHERE dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
-                            "AND usuario=? AND curso IS NULL;"
+                    "SELECT " +
+                            "rA.*, act.*, " +
+                            "act.nome as nomeAct, " +
+                            "ar.nome as nomeArea, " +
+                            "tAct.nome as nomeTipo " +
+                        "FROM realizarActividade as rA NATURAL JOIN actividade as act " +
+                            "JOIN area AS ar ON act.area=ar.codArea AND act.instalacion=ar.instalacion " +
+                            "JOIN tipoActividade as tAct ON tAct.codTipoActividade=act.tipoActividade " +
+                        "WHERE rA.dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
+                        "AND rA.usuario=? AND act.curso IS NULL;"
             );
             stm.setString(1, socio.getLogin());
             resultSet = stm.executeQuery();
             while (resultSet.next()) {
+
+                Area area=new Area(
+                        new Instalacion(resultSet.getInt("instalacion")),
+                        resultSet.getString("nomeArea"),
+                        null,
+                        null
+
+                );
+
+                TipoActividade tipoActividade=new TipoActividade(
+                        resultSet.getInt("tipoActividade"),
+                        resultSet.getString("nomeTipo"),
+                        null
+                );
+
                 actividadesMes.add(new Actividade(
                         resultSet.getTimestamp("dataActividade"),
-                        new Area(resultSet.getInt("area"), new Instalacion(resultSet.getInt("instalacion"))),
-                        new TipoActividade(resultSet.getInt("tipoActividade")),
+                        area,
+                        tipoActividade,
                         new Curso(resultSet.getInt("curso")),
                         resultSet.getString("nome"),
                         resultSet.getFloat("duracion"),

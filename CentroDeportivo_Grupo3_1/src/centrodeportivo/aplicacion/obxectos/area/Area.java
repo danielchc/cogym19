@@ -19,7 +19,7 @@ public class Area {
     private Instalacion instalacion;
     private String nome;
     private String descricion;
-    private int aforoMaximo;
+    private Integer aforoMaximo;
     private Date dataBaixa;
     private ArrayList<Material> materiais;
 
@@ -40,7 +40,7 @@ public class Area {
      * @param descricion descrición
      * @param aforoMaximo afóro máximo da área
      */
-    public Area(Instalacion instalacion, String nome, String descricion, int aforoMaximo) {
+    public Area(Instalacion instalacion, String nome, String descricion, Integer aforoMaximo) {
         this.instalacion = instalacion;
         this.nome = nome;
         this.descricion = descricion;
