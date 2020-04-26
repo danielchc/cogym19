@@ -13,7 +13,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.xestion.*;
-import centrodeportivo.funcionsAux.Criptografia;
+import centrodeportivo.auxiliar.Criptografia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;

@@ -2,9 +2,10 @@ package centrodeportivo.gui.controladores.principal;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.DatosVista;
-import centrodeportivo.gui.controladores.Transicion;
+import centrodeportivo.auxiliar.DatosVista;
+import centrodeportivo.auxiliar.Transicion;
 import centrodeportivo.gui.controladores.comun.vMensaxesController;
 import centrodeportivo.gui.controladores.comun.vNovaIncidencia;
 import centrodeportivo.gui.controladores.comun.vNovoMensaxeController;
@@ -115,26 +116,26 @@ public class vPrincipalController extends AbstractController implements Initiali
     private void cargarPantallas() {
         //carganse todas as pantallas necesarias
         if (pantallaAMostrar == IdPantalla.PANTALLAPERSOAL) {
-            this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS, new DatosVista("../../vistas/persoal/usuarios/vAdministrarUsuarios.fxml", new vAdministrarUsuariosController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.NOVATARIFA, new DatosVista("../../vistas/persoal/tarifas/vNovaTarifa.fxml", new vNovaTarifaController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS, new DatosVista("../../vistas/persoal/tarifas/vAdministrarTarifas.fxml", new vAdministrarTarifasController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS, new DatosVista("../../vistas/persoal/incidencias/vAdministrarIncidencias.fxml", new vAdministrarIncidenciasController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES, new DatosVista("../../vistas/persoal/usuarios/vAdministrarCapacidades.fxml", new vAdministrarCapacidadesController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.XESTIONINCIDENCIA, new DatosVista("../../vistas/persoal/incidencias/vXestionIncidencia.fxml", new vXestionIncidenciaController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ADMINISTRARUSUARIOS, new DatosVista("/centrodeportivo/gui/vistas/persoal/usuarios/vAdministrarUsuarios.fxml", new vAdministrarUsuariosController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.NOVATARIFA, new DatosVista("/centrodeportivo/gui/vistas/persoal/tarifas/vNovaTarifa.fxml", new vNovaTarifaController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ADMINISTRARTARIFAS, new DatosVista("/centrodeportivo/gui/vistas/persoal/tarifas/vAdministrarTarifas.fxml", new vAdministrarTarifasController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ADMINISTRARINCIDENCIAS, new DatosVista("/centrodeportivo/gui/vistas/persoal/incidencias/vAdministrarIncidencias.fxml", new vAdministrarIncidenciasController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ADMINISTRARCAPACIDADES, new DatosVista("/centrodeportivo/gui/vistas/persoal/usuarios/vAdministrarCapacidades.fxml", new vAdministrarCapacidadesController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.XESTIONINCIDENCIA, new DatosVista("/centrodeportivo/gui/vistas/persoal/incidencias/vXestionIncidencia.fxml", new vXestionIncidenciaController(super.getFachadaAplicacion(), this)));
 
         } else if (pantallaAMostrar == IdPantalla.PANTALLASOCIO) {
-            this.pantallas.put(IdPantalla.CUOTA, new DatosVista("../../vistas/socios/vCuota.fxml", new vCuotaController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.RESUMENREXISTROS, new DatosVista("../../vistas/socios/vResumenRexistros.fxml", new vResumenRexistrosController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.NOVOREXISTRO, new DatosVista("../../vistas/socios/vNovoRexistro.fxml", new vNovoRexistroController(super.getFachadaAplicacion(), this)));
-            this.pantallas.put(IdPantalla.ELIMINARREXISTRO, new DatosVista("../../vistas/socios/vEliminarRexistro.fxml", new vEliminarRexistroController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.CUOTA, new DatosVista("/centrodeportivo/gui/vistas/socios/vCuota.fxml", new vCuotaController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.RESUMENREXISTROS, new DatosVista("/centrodeportivo/gui/vistas/socios/vResumenRexistros.fxml", new vResumenRexistrosController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.NOVOREXISTRO, new DatosVista("/centrodeportivo/gui/vistas/socios/vNovoRexistro.fxml", new vNovoRexistroController(super.getFachadaAplicacion(), this)));
+            this.pantallas.put(IdPantalla.ELIMINARREXISTRO, new DatosVista("/centrodeportivo/gui/vistas/socios/vEliminarRexistro.fxml", new vEliminarRexistroController(super.getFachadaAplicacion(), this)));
 
         }
         
-        this.pantallas.put(IdPantalla.USUARIO, new DatosVista("../../vistas/comun/vUsuario.fxml", new vUsuarioController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.INICIO, new DatosVista("../../vistas/principal/vInicio.fxml", new vInicioController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.MENSAXES, new DatosVista("../../vistas/comun/vMensaxes.fxml", new vMensaxesController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.NOVOMENSAXE, new DatosVista("../../vistas/comun/vNovoMensaxe.fxml", new vNovoMensaxeController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.NOVAINCIDENCIA, new DatosVista("../../vistas/comun/vNovaIncidencia.fxml", new vNovaIncidencia(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.USUARIO, new DatosVista("/centrodeportivo/gui/vistas/comun/vUsuario.fxml", new vUsuarioController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.INICIO, new DatosVista("/centrodeportivo/gui/vistas/principal/vInicio.fxml", new vInicioController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.MENSAXES, new DatosVista("/centrodeportivo/gui/vistas/comun/vMensaxes.fxml", new vMensaxesController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.NOVOMENSAXE, new DatosVista("/centrodeportivo/gui/vistas/comun/vNovoMensaxe.fxml", new vNovoMensaxeController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.NOVAINCIDENCIA, new DatosVista("/centrodeportivo/gui/vistas/comun/vNovaIncidencia.fxml", new vNovaIncidencia(super.getFachadaAplicacion(), this)));
     }
 
     /**

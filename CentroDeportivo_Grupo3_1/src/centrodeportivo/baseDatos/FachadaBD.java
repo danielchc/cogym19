@@ -12,7 +12,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
-import centrodeportivo.funcionsAux.Criptografia;
+import centrodeportivo.auxiliar.Criptografia;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
@@ -21,7 +21,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.FachadaGUI;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;

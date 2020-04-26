@@ -6,20 +6,16 @@ import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
-import centrodeportivo.funcionsAux.ListenerMaxLogitud;
-import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
-import centrodeportivo.funcionsAux.ValidacionDatos;
+import centrodeportivo.auxiliar.ListenerMaxLogitud;
+import centrodeportivo.auxiliar.ListenerTextFieldNumeros;
+import centrodeportivo.auxiliar.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
-import java.sql.Timestamp;
-import java.time.chrono.MinguoDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -34,6 +30,7 @@ public class vXestionIncidenciaController extends AbstractController implements 
     public TextArea datosIncidencia;
     public Label mensaxeAdvertencia;
     public Button btnResolverIncidencia;
+    public Label mensaxeSenCubrir;
 
     /**
      * Atributos privados do controlador
@@ -55,6 +52,7 @@ public class vXestionIncidenciaController extends AbstractController implements 
         campoCusto.textProperty().addListener(new ListenerTextFieldNumeros(campoCusto));
         campoComentario.textProperty().addListener(new ListenerMaxLogitud(campoComentario, 500));
         cargarIncidencia();
+        mensaxeSenCubrir.setVisible(false);
     }
 
     public void cargarIncidencia() {
@@ -98,7 +96,6 @@ public class vXestionIncidenciaController extends AbstractController implements 
             datos += String.format("\nResolta: %s", incidenciaXestionar.getDataResolucion().toString());
             long diff = new Date().getTime() - incidenciaXestionar.getDataResolucion().getTime();
             if (diff > 432000000) {
-                System.out.println("Non se pode editar");
                 this.campoCusto.setDisable(true);
                 this.campoComentario.setDisable(true);
                 this.btnResolverIncidencia.setDisable(true);
@@ -119,8 +116,10 @@ public class vXestionIncidenciaController extends AbstractController implements 
 
     public void resolverIncidencia() {
         if (!ValidacionDatos.estanCubertosCampos(campoComentario, campoCusto)) {
+            mensaxeSenCubrir.setVisible(true);
             return;
         }
+        mensaxeSenCubrir.setVisible(false);
         incidenciaXestionar.setComentarioResolucion(campoComentario.getText());
         incidenciaXestionar.setCustoReparacion(Float.valueOf(campoCusto.getText()));
         try {

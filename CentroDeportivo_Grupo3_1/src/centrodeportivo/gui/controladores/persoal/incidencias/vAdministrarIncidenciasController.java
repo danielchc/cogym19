@@ -6,7 +6,7 @@ import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;

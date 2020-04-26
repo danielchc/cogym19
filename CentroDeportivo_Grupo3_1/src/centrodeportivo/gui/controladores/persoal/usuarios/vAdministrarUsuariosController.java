@@ -7,7 +7,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.comun.vUsuarioController;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;

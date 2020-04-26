@@ -1,4 +1,4 @@
-package centrodeportivo.funcionsAux;
+package centrodeportivo.auxiliar;
 
 import javafx.scene.Node;
 import javafx.scene.control.TextInputControl;

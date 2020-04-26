@@ -1,4 +1,4 @@
-package centrodeportivo.gui.controladores;
+package centrodeportivo.auxiliar;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;

@@ -11,7 +11,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
-import centrodeportivo.funcionsAux.Criptografia;
+import centrodeportivo.auxiliar.Criptografia;
 import centrodeportivo.gui.FachadaGUI;
 
 import java.util.ArrayList;

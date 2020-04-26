@@ -2,8 +2,8 @@ package centrodeportivo.gui.controladores;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.funcionsAux.ValidacionDatos;
-import javafx.event.Event;
+import centrodeportivo.auxiliar.ValidacionDatos;
+import centrodeportivo.gui.controladores.AbstractController;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
 
 /**
  * @author David Carracedo

@@ -1,4 +1,4 @@
-package centrodeportivo.gui.controladores.principal;
+package centrodeportivo.auxiliar;
 
 /**
  * @author David Carracedo

@@ -1,20 +1,10 @@
 package test;
 
-import centrodeportivo.aplicacion.obxectos.Mensaxe;
-import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
-import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
-import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
-import centrodeportivo.funcionsAux.Criptografia;
-import centrodeportivo.funcionsAux.ValidacionDatos;
+import centrodeportivo.auxiliar.Criptografia;
 
-import javax.management.InstanceAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String [] args) {

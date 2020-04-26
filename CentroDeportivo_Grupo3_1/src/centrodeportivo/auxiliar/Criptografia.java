@@ -1,4 +1,4 @@
-package centrodeportivo.funcionsAux;
+package centrodeportivo.auxiliar;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

@@ -2,7 +2,7 @@ package centrodeportivo.gui;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

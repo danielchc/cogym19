@@ -3,23 +3,19 @@ package centrodeportivo.gui.controladores.persoal.tarifas;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
-import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
-import centrodeportivo.funcionsAux.ListenerMaxLogitud;
-import centrodeportivo.funcionsAux.ListenerTextFieldNumeros;
-import centrodeportivo.funcionsAux.ValidacionDatos;
+import centrodeportivo.auxiliar.ListenerMaxLogitud;
+import centrodeportivo.auxiliar.ListenerTextFieldNumeros;
+import centrodeportivo.auxiliar.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 
 /**

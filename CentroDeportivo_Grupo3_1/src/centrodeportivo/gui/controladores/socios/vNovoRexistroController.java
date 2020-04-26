@@ -6,7 +6,7 @@ import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;

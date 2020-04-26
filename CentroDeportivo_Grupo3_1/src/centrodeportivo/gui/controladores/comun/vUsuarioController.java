@@ -5,32 +5,26 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
-import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.funcionsAux.AuxiliaresGUI;
-import centrodeportivo.funcionsAux.Criptografia;
-import centrodeportivo.funcionsAux.ListenerMaxLogitud;
-import centrodeportivo.funcionsAux.ValidacionDatos;
+import centrodeportivo.auxiliar.AuxiliaresGUI;
+import centrodeportivo.auxiliar.ListenerMaxLogitud;
+import centrodeportivo.auxiliar.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**

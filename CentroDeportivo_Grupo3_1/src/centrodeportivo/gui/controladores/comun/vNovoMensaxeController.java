@@ -5,28 +5,23 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.funcionsAux.ListenerMaxLogitud;
-import centrodeportivo.funcionsAux.ValidacionDatos;
+import centrodeportivo.auxiliar.ListenerMaxLogitud;
+import centrodeportivo.auxiliar.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.Transicion;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 
 

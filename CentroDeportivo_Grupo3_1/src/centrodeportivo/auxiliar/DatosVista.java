@@ -1,4 +1,6 @@
-package centrodeportivo.gui.controladores;
+package centrodeportivo.auxiliar;
+
+import centrodeportivo.gui.controladores.AbstractController;
 
 /**
  * @author David Carracedo

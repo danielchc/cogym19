@@ -1,10 +1,8 @@
-package centrodeportivo.funcionsAux;
+package centrodeportivo.auxiliar;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 
 /**
