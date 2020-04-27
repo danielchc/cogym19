@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +27,10 @@ public class FachadaGUI {
     public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
         fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser, IdPantalla.PANTALLAPERSOAL));
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
-        stage.setTitle("Xestión Centro Deportivo");
+        stage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoBrancoAzul.png"));
+        stage.setTitle("CoGYM-19: Persoal");
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setResizable(true);
         stage.show();
@@ -34,7 +38,10 @@ public class FachadaGUI {
     public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
         fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser,IdPantalla.PANTALLASOCIO));
         fxmlLoader.setLocation(getClass().getResource("./vistas/principal/vPrincipal.fxml"));
-        stage.setTitle("Xestión Centro Deportivo");
+        stage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoBrancoAzul.png"));
+        stage.setTitle("CoGYM-19: Socio");
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setResizable(true);
         stage.show();
