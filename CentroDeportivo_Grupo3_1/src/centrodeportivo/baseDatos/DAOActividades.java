@@ -16,20 +16,21 @@ import java.util.ArrayList;
 public class DAOActividades extends AbstractDAO {
 
     /**
-     * @param conexion Conexión coa base de datos
+     * @param conexion          Conexión coa base de datos
      * @param fachadaAplicacion fachada da aplicación
      */
     protected DAOActividades(Connection conexion, FachadaAplicacion fachadaAplicacion) {
-        super(conexion,fachadaAplicacion);
+        super(conexion, fachadaAplicacion);
     }
 
     /**
      * Método para listar os tipos de actividades.
+     *
      * @return lista con todos os tipos de actividades
      */
-    protected ArrayList<TipoActividade> listarTipoActividades(){
+    protected ArrayList<TipoActividade> listarTipoActividades() {
         PreparedStatement stmActividade = null;
-        ArrayList<TipoActividade> tipoActividades=new ArrayList<TipoActividade>();
+        ArrayList<TipoActividade> tipoActividades = new ArrayList<TipoActividade>();
         ResultSet rsActividade;
         try {
             stmActividade = super.getConexion().prepareStatement("SELECT * FROM tipoactividade;");
@@ -43,10 +44,10 @@ public class DAOActividades extends AbstractDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 stmActividade.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible cerrar cursores");
             }
         }

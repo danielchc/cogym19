@@ -30,7 +30,7 @@ public class XestionUsuarios {
 
     /**
      * @param fachadaGUI Fachada da gui.
-     * @param fachadaBD Fachada da base de datos.
+     * @param fachadaBD  Fachada da base de datos.
      */
     public XestionUsuarios(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
@@ -69,7 +69,7 @@ public class XestionUsuarios {
     }
 
     public void actualizarUsuario(Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
-        if(contrasinalCambiado) usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
+        if (contrasinalCambiado) usuario.setContrasinal(Criptografia.hashSHA256(usuario.getContrasinal()));
         fachadaBD.actualizarUsuario(usuario);
     }
 

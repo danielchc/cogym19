@@ -6,7 +6,7 @@ import java.util.Objects;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class TipoActividade{
+public class TipoActividade {
 
     /**
      * Atributos da clase Tipo de Actividade
@@ -17,8 +17,8 @@ public class TipoActividade{
 
     /**
      * @param codTipoActividade código
-     * @param nome nome do tipo
-     * @param descricion descrición
+     * @param nome              nome do tipo
+     * @param descricion        descrición
      */
     public TipoActividade(Integer codTipoActividade, String nome, String descricion) {
         this.codTipoActividade = codTipoActividade;
@@ -28,12 +28,13 @@ public class TipoActividade{
 
     /**
      * Constructor coa clave primaria.
+     *
      * @param codTipoActividade código do tipo
-     * @param nome nome do tipo
+     * @param nome              nome do tipo
      */
-    public TipoActividade(Integer codTipoActividade, String nome){
-        this.codTipoActividade=codTipoActividade;
-        this.nome=nome;
+    public TipoActividade(Integer codTipoActividade, String nome) {
+        this.codTipoActividade = codTipoActividade;
+        this.nome = nome;
     }
 
 

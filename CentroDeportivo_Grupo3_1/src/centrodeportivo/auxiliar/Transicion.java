@@ -9,7 +9,7 @@ import javafx.util.Duration;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public final class Transicion{
+public final class Transicion {
 
     /**
      * Atributos necesarios para animar unha transición.
@@ -21,12 +21,13 @@ public final class Transicion{
     /**
      * Constructor para as transicións.
      * Inicializa as transcións de peche e apertura asociadas a un desplegable (vbox).
+     *
      * @param slider Desplegable asociado ás transicións.
      */
     public Transicion(VBox slider) {
         this.slider = slider;
-        this.transicionAbrir = new TranslateTransition(Duration.millis(100),slider);
-        this.transicionAbrir.setToX(slider.getTranslateX()-slider.getWidth());
+        this.transicionAbrir = new TranslateTransition(Duration.millis(100), slider);
+        this.transicionAbrir.setToX(slider.getTranslateX() - slider.getWidth());
         this.transicionCerrar = new TranslateTransition(Duration.millis(100), slider);
     }
 

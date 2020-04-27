@@ -19,12 +19,12 @@ public class vInicioController extends AbstractController implements Initializab
     private Usuario usuario;
 
     public vInicioController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
-        super(fachadaAplicacion,vPrincipalController);
+        super(fachadaAplicacion, vPrincipalController);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
-        label.setText("Benvido "+usuario.getNome()+"!!!");
+        this.usuario = super.getvPrincipalController().obterUsuarioLogeado();
+        label.setText("Benvido " + usuario.getNome() + "!!!");
     }
 }

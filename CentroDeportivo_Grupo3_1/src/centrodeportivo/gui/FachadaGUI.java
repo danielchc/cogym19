@@ -1,4 +1,8 @@
 package centrodeportivo.gui;
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -26,22 +30,24 @@ public class FachadaGUI {
 
     /**
      * Constructor da fachada da GUI.
+     *
      * @param fachadaAplicacion fachada da aplicación.
      */
     public FachadaGUI(FachadaAplicacion fachadaAplicacion) {
         this.fachadaAplicacion = fachadaAplicacion;
         stage = new Stage();
-        fxmlLoader= new FXMLLoader();
+        fxmlLoader = new FXMLLoader();
     }
 
     /**
      * Método para iniciar a vista principal do persoal
+     *
      * @param loggedUser usuario loggeado
      * @throws IOException
      */
     public void mostrarVentaPersoal(Usuario loggedUser) throws IOException {
 
-        fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser, IdPantalla.PANTALLAPERSOAL));
+        fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion, loggedUser, IdPantalla.PANTALLAPERSOAL));
         fxmlLoader.setLocation(getClass().getResource("/centrodeportivo/gui/vistas/principal/vPrincipal.fxml"));
         stage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoPequeno.png"));
         stage.setTitle("COGYM-19");
@@ -54,11 +60,12 @@ public class FachadaGUI {
 
     /**
      * Método para iniciar a vista principal dos socios
+     *
      * @param loggedUser usuario loggeado
      * @throws IOException
      */
     public void mostrarVentaSocios(Usuario loggedUser) throws IOException {
-        fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion,loggedUser,IdPantalla.PANTALLASOCIO));
+        fxmlLoader.setController(new vPrincipalController(this.fachadaAplicacion, loggedUser, IdPantalla.PANTALLASOCIO));
         fxmlLoader.setLocation(getClass().getResource("/centrodeportivo/gui/vistas/principal/vPrincipal.fxml"));
         stage.getIcons().add(new Image("/centrodeportivo/gui/imaxes/logoPequeno.png"));
         stage.setTitle("COGYM-19");
@@ -71,10 +78,11 @@ public class FachadaGUI {
 
     /**
      * Método para mostrar unha advertencia.
+     *
      * @param titulo título
-     * @param texto texto a mostrar
+     * @param texto  texto a mostrar
      */
-    public void mostrarAdvertencia(String titulo,String texto){
+    public void mostrarAdvertencia(String titulo, String texto) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titulo);
 
@@ -84,10 +92,11 @@ public class FachadaGUI {
 
     /**
      * Método para mostrar un erro.
+     *
      * @param titulo título
-     * @param texto texto a mostrar
+     * @param texto  texto a mostrar
      */
-    public void mostrarErro(String titulo,String texto){
+    public void mostrarErro(String titulo, String texto) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
@@ -97,10 +106,11 @@ public class FachadaGUI {
 
     /**
      * Método para mostrar unha información.
+     *
      * @param titulo título
-     * @param texto texto a mostrar
+     * @param texto  texto a mostrar
      */
-    public void mostrarInformacion(String titulo,String texto){
+    public void mostrarInformacion(String titulo, String texto) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
@@ -110,10 +120,11 @@ public class FachadaGUI {
 
     /**
      * Método para mostrar unha confirmación.
+     *
      * @param titulo título
-     * @param texto texto a mostrar
+     * @param texto  texto a mostrar
      */
-    public ButtonType mostrarConfirmacion(String titulo, String texto){
+    public ButtonType mostrarConfirmacion(String titulo, String texto) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public final class DAOIncidencias extends AbstractDAO {
 
     /**
-     * @param conexion Conexión coa base de datos
+     * @param conexion          Conexión coa base de datos
      * @param fachadaAplicacion fachada da aplicación
      */
     protected DAOIncidencias(Connection conexion, FachadaAplicacion fachadaAplicacion) {
@@ -30,6 +30,7 @@ public final class DAOIncidencias extends AbstractDAO {
 
     /**
      * Método para insertar unha incidencia na base de datos.
+     *
      * @param incidencia Incidencia a ser insertada
      * @throws ExcepcionBD
      */
@@ -64,13 +65,14 @@ public final class DAOIncidencias extends AbstractDAO {
 
     /**
      * Método para buscar as incidencias que satisfagan os parámetros.
-     * @param textoBuscar  texto descriptivo
+     *
+     * @param textoBuscar    texto descriptivo
      * @param tipoIncidencia tipo de incidencia a buscar
      * @return lista coas incidencias encontradas
      */
-    protected ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia,boolean mostrarResoltas) {
-        String uMos="";
-        if(!mostrarResoltas)uMos=" AND dataresolucion IS NULL";
+    protected ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia, boolean mostrarResoltas) {
+        String uMos = "";
+        if (!mostrarResoltas) uMos = " AND dataresolucion IS NULL";
         PreparedStatement stmIncidencia = null;
         ArrayList<Incidencia> incidencias = new ArrayList<>();
         ResultSet rsIncidencias;
@@ -78,9 +80,9 @@ public final class DAOIncidencias extends AbstractDAO {
             if (tipoIncidencia == TipoIncidencia.Area || tipoIncidencia == TipoIncidencia.Todos) {
                 stmIncidencia = super.getConexion().prepareStatement(
                         "SELECT *,ar.nome AS nomeArea,ia.descricion AS descricionIncidencia,ar.descricion AS descricionArea FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea AND ia.instalacion=ar.instalacion " +
-                                " WHERE ((LOWER(ar.nome) LIKE LOWER(?)) OR (LOWER(ia.descricion) LIKE LOWER(?))) "+uMos);
-                stmIncidencia.setString(1, "%"+textoBuscar+"%");
-                stmIncidencia.setString(2, "%"+textoBuscar+"%");
+                                " WHERE ((LOWER(ar.nome) LIKE LOWER(?)) OR (LOWER(ia.descricion) LIKE LOWER(?))) " + uMos);
+                stmIncidencia.setString(1, "%" + textoBuscar + "%");
+                stmIncidencia.setString(2, "%" + textoBuscar + "%");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Area area;
                 Instalacion instalacion;
@@ -112,9 +114,9 @@ public final class DAOIncidencias extends AbstractDAO {
                 stmIncidencia = super.getConexion().prepareStatement("SELECT " +
                         "*,tm.nome AS tipoMaterialNome,im.descricion AS descricionIncidencia " +
                         "FROM incidenciamaterial AS im JOIN material AS ma ON im.material=ma.codMaterial AND im.tipomaterial=ma.tipomaterial JOIN tipomaterial AS tm ON tm.codtipomaterial=ma.tipomaterial " +
-                        "WHERE ((LOWER(CONCAT_WS(' ',tm.nome,CAST( ma.codMaterial AS VARCHAR(5)))) LIKE LOWER(?) ) OR (LOWER(im.descricion) LIKE LOWER(?))) "+uMos);
-                stmIncidencia.setString(1, "%"+textoBuscar+"%");
-                stmIncidencia.setString(2, "%"+textoBuscar+"%");
+                        "WHERE ((LOWER(CONCAT_WS(' ',tm.nome,CAST( ma.codMaterial AS VARCHAR(5)))) LIKE LOWER(?) ) OR (LOWER(im.descricion) LIKE LOWER(?))) " + uMos);
+                stmIncidencia.setString(1, "%" + textoBuscar + "%");
+                stmIncidencia.setString(2, "%" + textoBuscar + "%");
                 rsIncidencias = stmIncidencia.executeQuery();
                 Material material;
                 while (rsIncidencias.next()) {
@@ -156,6 +158,7 @@ public final class DAOIncidencias extends AbstractDAO {
 
     /**
      * Método para resolver unha incidencia.
+     *
      * @param incidencia incidencia a ser resolta
      * @throws ExcepcionBD
      */
@@ -167,7 +170,7 @@ public final class DAOIncidencias extends AbstractDAO {
                 stmIncidencia.setString(1, incidencia.getComentarioResolucion());
                 stmIncidencia.setDouble(2, incidencia.getCustoReparacion());
                 stmIncidencia.setInt(3, incidencia.getNumero());
-            } else if (incidencia instanceof IncidenciaMaterial){
+            } else if (incidencia instanceof IncidenciaMaterial) {
                 stmIncidencia = super.getConexion().prepareStatement("UPDATE incidenciaMaterial SET comentarioResolucion=?, dataResolucion=NOW(), custoReparacion=?  WHERE numero=?;");
                 stmIncidencia.setString(1, incidencia.getComentarioResolucion());
                 stmIncidencia.setDouble(2, incidencia.getCustoReparacion());
@@ -188,10 +191,11 @@ public final class DAOIncidencias extends AbstractDAO {
 
     /**
      * Método para consultar toda a información dunha incidencia.
+     *
      * @param incidencia Incidencia a ser consultada
      * @return Incidencia con toda a información.
      */
-    protected Incidencia consultarIncidencia(Incidencia incidencia){
+    protected Incidencia consultarIncidencia(Incidencia incidencia) {
         PreparedStatement stmIncidencia = null;
         ArrayList<Incidencia> incidencias = new ArrayList<Incidencia>();
         ResultSet rsIncidencias;
@@ -199,7 +203,7 @@ public final class DAOIncidencias extends AbstractDAO {
             if (incidencia.getTipoIncidencia() == TipoIncidencia.Area) {
                 stmIncidencia = super.getConexion().prepareStatement(
                         "SELECT *,ar.nome AS nomeArea, ar.descricion AS descricionArea,ins.nome AS nomeInstalacion,ia.descricion AS descricionIncidencia " +
-                                "FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea AND ia.instalacion=ar.instalacion JOIN instalacion AS ins ON ins.codinstalacion=ar.instalacion "+
+                                "FROM incidenciaArea AS ia JOIN area AS ar ON ia.area=ar.codArea AND ia.instalacion=ar.instalacion JOIN instalacion AS ins ON ins.codinstalacion=ar.instalacion " +
                                 " WHERE ia.numero=?");
                 stmIncidencia.setInt(1, incidencia.getNumero());
                 rsIncidencias = stmIncidencia.executeQuery();

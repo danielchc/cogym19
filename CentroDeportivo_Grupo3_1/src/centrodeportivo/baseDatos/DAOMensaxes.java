@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public final class DAOMensaxes extends AbstractDAO {
 
     /**
-     * @param conexion Conexión coa base de datos
+     * @param conexion          Conexión coa base de datos
      * @param fachadaAplicacion fachada da aplicación
      */
     protected DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
@@ -28,6 +28,7 @@ public final class DAOMensaxes extends AbstractDAO {
 
     /**
      * Método para enviar unha mensaxe que se pasa como parámetro.
+     *
      * @param m mensaxe a ser enviado.
      * @throws ExcepcionBD
      */
@@ -55,16 +56,17 @@ public final class DAOMensaxes extends AbstractDAO {
 
     /**
      * Método para enviar unha mensaxe a varias receptores.
-     * @param emisor emisor da mensaxe
+     *
+     * @param emisor     emisor da mensaxe
      * @param receptores lista de receptores
-     * @param mensaxe mensaxe a ser enviado
+     * @param mensaxe    mensaxe a ser enviado
      * @throws ExcepcionBD
      */
     protected void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) throws ExcepcionBD {
         PreparedStatement stmMensaxe = null;
         try {
             for (Usuario receptor : receptores) {
-                if(receptor.equals(emisor)) continue;
+                if (receptor.equals(emisor)) continue;
                 stmMensaxe = super.getConexion().prepareStatement("INSERT INTO enviarMensaxe (emisor,receptor,dataEnvio,contido,lido) VALUES (?,?,NOW(),?,?);");
                 stmMensaxe.setString(1, emisor.getLogin());
                 stmMensaxe.setString(2, receptor.getLogin());
@@ -77,7 +79,7 @@ public final class DAOMensaxes extends AbstractDAO {
             throw new ExcepcionBD(super.getConexion(), e);
         } finally {
             try {
-                if(stmMensaxe!=null) stmMensaxe.close();
+                if (stmMensaxe != null) stmMensaxe.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -86,6 +88,7 @@ public final class DAOMensaxes extends AbstractDAO {
 
     /**
      * Método para marcar unha mensaxe como lida.
+     *
      * @param m mensaxe
      * @throws ExcepcionBD
      */
@@ -112,6 +115,7 @@ public final class DAOMensaxes extends AbstractDAO {
 
     /**
      * Método para listar todas as mensaxes que lle chegaron a un usuario
+     *
      * @param loginReceptor login do usuario receptor
      * @return
      */

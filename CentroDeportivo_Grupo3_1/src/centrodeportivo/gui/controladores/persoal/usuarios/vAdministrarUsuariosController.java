@@ -48,32 +48,34 @@ public class vAdministrarUsuariosController extends AbstractController implement
 
     /**
      * Constructor do controlador de administrar usuarios.
+     *
      * @param fachadaAplicacion Fachada da aplicación.
-     * @param vPrincipal Controlador da vista principal.
+     * @param vPrincipal        Controlador da vista principal.
      */
     public vAdministrarUsuariosController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipal) {
-        super(fachadaAplicacion,vPrincipal);
-        this.fachadaAplicacion=super.getFachadaAplicacion();
-        this.vPrincipal=super.getvPrincipalController();
+        super(fachadaAplicacion, vPrincipal);
+        this.fachadaAplicacion = super.getFachadaAplicacion();
+        this.vPrincipal = super.getvPrincipalController();
     }
 
 
     /**
      * Método para inicializar a vista.
+     *
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TableColumn<Usuario,String> loginColumn = new TableColumn<>("Login");
+        TableColumn<Usuario, String> loginColumn = new TableColumn<>("Login");
         loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
-        TableColumn<Usuario,String> nomeColumn = new TableColumn<>("Nome");
+        TableColumn<Usuario, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        TableColumn<Usuario,String> dniColumn = new TableColumn<>("DNI");
+        TableColumn<Usuario, String> dniColumn = new TableColumn<>("DNI");
         dniColumn.setCellValueFactory(new PropertyValueFactory<>("DNI"));
-        TableColumn<Usuario,String> correoElectronicoColumn = new TableColumn<>("Correo Electronico");
+        TableColumn<Usuario, String> correoElectronicoColumn = new TableColumn<>("Correo Electronico");
         correoElectronicoColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
-        TableColumn<Usuario,String> tipoUsuarioColumn = new TableColumn<>("Tipo Usuario");
+        TableColumn<Usuario, String> tipoUsuarioColumn = new TableColumn<>("Tipo Usuario");
         btnCapacidades.setVisible(false);
 
         tipoUsuarioColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Usuario, String>, ObservableValue<String>>() {
@@ -86,15 +88,15 @@ public class vAdministrarUsuariosController extends AbstractController implement
         listaUsuarios.setRowFactory(tv -> new TableRow<Usuario>() {
             @Override
             public void updateItem(Usuario item, boolean empty) {
-                super.updateItem(item, empty) ;
-                if ((item != null)&&(item.estaDeBaixa()))getStyleClass().add("resolta");
+                super.updateItem(item, empty);
+                if ((item != null) && (item.estaDeBaixa())) getStyleClass().add("resolta");
                 else getStyleClass().remove("resolta");
             }
         });
 
-        listaUsuarios.getColumns().addAll(loginColumn,nomeColumn,dniColumn,correoElectronicoColumn,tipoUsuarioColumn);
+        listaUsuarios.getColumns().addAll(loginColumn, nomeColumn, dniColumn, correoElectronicoColumn, tipoUsuarioColumn);
         listaUsuarios.getItems().addAll(super.getFachadaAplicacion().listarUsuarios());
-        if(listaUsuarios.getItems().size()>0){
+        if (listaUsuarios.getItems().size() > 0) {
             listenerTabla();
         }
         campoTipoUsuario.getItems().addAll(TipoUsuario.values());
@@ -106,11 +108,11 @@ public class vAdministrarUsuariosController extends AbstractController implement
     /**
      * Método para añadir o pulsado de Enter aos campos e gardar automáticamente.
      */
-    private void iniciarListeners(){
-        EventHandler<KeyEvent> handler=new EventHandler<KeyEvent>() {
+    private void iniciarListeners() {
+        EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(keyEvent.getCode() == KeyCode.ENTER) buscarUsuarios();
+                if (keyEvent.getCode() == KeyCode.ENTER) buscarUsuarios();
             }
         };
         campoNomeBuscar.setOnKeyPressed(handler);
@@ -120,10 +122,10 @@ public class vAdministrarUsuariosController extends AbstractController implement
     /**
      * Método para buscar os usuarios e engadilos á tabla.
      */
-    public void buscarUsuarios(){
+    public void buscarUsuarios() {
         listaUsuarios.getItems().removeAll(listaUsuarios.getItems());
-        listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(),campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()],mostrarUsuariosBaixa.isSelected()));
-        if(!listaUsuarios.getItems().isEmpty()){
+        listaUsuarios.getItems().addAll(fachadaAplicacion.buscarUsuarios(campoLoginBuscar.getText(), campoNomeBuscar.getText(), TipoUsuario.values()[campoTipoUsuario.getSelectionModel().getSelectedIndex()], mostrarUsuariosBaixa.isSelected()));
+        if (!listaUsuarios.getItems().isEmpty()) {
             listaUsuarios.getSelectionModel().selectFirst();
             listenerTabla();
         }
@@ -134,8 +136,8 @@ public class vAdministrarUsuariosController extends AbstractController implement
      * Segundo o tipo e situación do usuario seleccionado amosaránse unhos botóns para
      * a xestión ou outros.
      */
-    public void listenerTabla(){
-        if(!this.listaUsuarios.getSelectionModel().isEmpty()) {
+    public void listenerTabla() {
+        if (!this.listaUsuarios.getSelectionModel().isEmpty()) {
             Usuario usuario = ((Usuario) listaUsuarios.getSelectionModel().getSelectedItem());
             this.btnCapacidades.setVisible(!usuario.estaDeBaixa() && usuario.getTipoUsuario() != TipoUsuario.Socio);
             this.btnModificar.setVisible(!usuario.estaDeBaixa());
@@ -147,8 +149,8 @@ public class vAdministrarUsuariosController extends AbstractController implement
     /**
      * Método para ir á xestión de capacidades dun persoal.
      */
-    public void capacidadeUsuario(){
-        if(!listaUsuarios.getSelectionModel().isEmpty()) {
+    public void capacidadeUsuario() {
+        if (!listaUsuarios.getSelectionModel().isEmpty()) {
             vPrincipal.mostrarMenu(IdPantalla.ADMINISTRARCAPACIDADES);
             ((vAdministrarCapacidadesController) vPrincipal.getControlador(IdPantalla.ADMINISTRARCAPACIDADES)).setUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
         }
@@ -157,10 +159,10 @@ public class vAdministrarUsuariosController extends AbstractController implement
     /**
      * Método para ir á ventá de modificación de datos do usuario seleccionado.
      */
-    public void modificarUsuario(){
-        if(!listaUsuarios.getSelectionModel().isEmpty()) {
-            Usuario usuario=((Usuario)listaUsuarios.getSelectionModel().getSelectedItem());
-            if(usuario.estaDeBaixa()) return;
+    public void modificarUsuario() {
+        if (!listaUsuarios.getSelectionModel().isEmpty()) {
+            Usuario usuario = ((Usuario) listaUsuarios.getSelectionModel().getSelectedItem());
+            if (usuario.estaDeBaixa()) return;
             vPrincipal.mostrarMenu(IdPantalla.USUARIO);
             ((vUsuarioController) vPrincipal.getControlador(IdPantalla.USUARIO)).cargarDatosUsuario(usuario);
         }
@@ -169,34 +171,34 @@ public class vAdministrarUsuariosController extends AbstractController implement
     /**
      * Método para Desactivar/reactivar o usuario seleccionado segundo este dado de baixa ou non.
      */
-    public void activarDesactivarUsuario(){
-        if(!listaUsuarios.getSelectionModel().isEmpty()){
-            Usuario usuario=(Usuario) listaUsuarios.getSelectionModel().getSelectedItem();
-            if(usuario.estaDeBaixa()){
+    public void activarDesactivarUsuario() {
+        if (!listaUsuarios.getSelectionModel().isEmpty()) {
+            Usuario usuario = (Usuario) listaUsuarios.getSelectionModel().getSelectedItem();
+            if (usuario.estaDeBaixa()) {
                 //se non é nulo entón estaba de baixa e hai que dalo de alta.
-                if(fachadaAplicacion.mostrarConfirmacion("Reactivar usuario","Desexa reactivar a conta do usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                if (fachadaAplicacion.mostrarConfirmacion("Reactivar usuario", "Desexa reactivar a conta do usuario " + usuario.getLogin() + "?") == ButtonType.OK) {
                     vPrincipal.mostrarMenu(IdPantalla.USUARIO);
                     ((vUsuarioController) vPrincipal.getControlador(IdPantalla.USUARIO)).cargarDatosUsuario(((Usuario) listaUsuarios.getSelectionModel().getSelectedItem()));
                 }
-            }else{
-                if((usuario instanceof Persoal) && fachadaAplicacion.tenClasesPendentes((Persoal)usuario)){
-                    fachadaAplicacion.mostrarErro("Clases pendentes","Non podes dar de baixa o usuario "+usuario.getLogin()+ " porque ten clases pendentes.");
+            } else {
+                if ((usuario instanceof Persoal) && fachadaAplicacion.tenClasesPendentes((Persoal) usuario)) {
+                    fachadaAplicacion.mostrarErro("Clases pendentes", "Non podes dar de baixa o usuario " + usuario.getLogin() + " porque ten clases pendentes.");
                     return;
                 }
-                try{
-                    if(usuario.equals(vPrincipal.obterUsuarioLogeado())){
-                        if(fachadaAplicacion.mostrarConfirmacion("ATENCIÓN","Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?")==ButtonType.OK){
+                try {
+                    if (usuario.equals(vPrincipal.obterUsuarioLogeado())) {
+                        if (fachadaAplicacion.mostrarConfirmacion("ATENCIÓN", "Estás apunto de darte de baixa a ti mesmo, esta acción fará que saías da aplicación. Queres continuar?") == ButtonType.OK) {
                             fachadaAplicacion.darBaixaUsuario(usuario);
                             System.exit(0);
                         }
-                    }else{
-                        if(fachadaAplicacion.mostrarConfirmacion("Desactivar usuario","Desexa dar de baixa a o usuario "+usuario.getLogin()+ "?")==ButtonType.OK){
+                    } else {
+                        if (fachadaAplicacion.mostrarConfirmacion("Desactivar usuario", "Desexa dar de baixa a o usuario " + usuario.getLogin() + "?") == ButtonType.OK) {
                             fachadaAplicacion.darBaixaUsuario(usuario);
-                            fachadaAplicacion.mostrarInformacion("Desactivar usuario","O usuario "+usuario.getLogin()+ " deuse de baixa correctamente.");
+                            fachadaAplicacion.mostrarInformacion("Desactivar usuario", "O usuario " + usuario.getLogin() + " deuse de baixa correctamente.");
                         }
                     }
-                }catch (ExcepcionBD excepcionBD){
-                    super.getFachadaAplicacion().mostrarErro("Usuarios",excepcionBD.getMessage());
+                } catch (ExcepcionBD excepcionBD) {
+                    super.getFachadaAplicacion().mostrarErro("Usuarios", excepcionBD.getMessage());
                 }
             }
             buscarUsuarios();

@@ -125,11 +125,11 @@ public class vXestionIncidenciaController extends AbstractController implements 
         try {
             ButtonType resposta = super.getFachadaAplicacion().mostrarConfirmacion("Incidencia", "Desexa notificar ao usuario " + incidenciaXestionar.getUsuario().getLogin() + " da resolución?");
             getFachadaAplicacion().resolverIncidencia(incidenciaXestionar);
-            if(resposta==ButtonType.OK) {
+            if (resposta == ButtonType.OK) {
                 super.getFachadaAplicacion().enviarMensaxe(new Mensaxe(
                         super.getvPrincipalController().obterUsuarioLogeado(),
                         incidenciaXestionar.getUsuario(),
-                        "Resolveuse a incidencia "+incidenciaXestionar.getNumero()+" presentada por vostede."
+                        "Resolveuse a incidencia " + incidenciaXestionar.getNumero() + " presentada por vostede."
                 ));
             }
             getFachadaAplicacion().mostrarInformacion("Incidencia", "Gardouse a resolución da indicencia, podela editar durante 5 días");

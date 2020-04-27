@@ -36,8 +36,8 @@ public class vResumenRexistrosController extends AbstractController implements I
      * Atributos do fxml
      */
     public Label labelSocio;
-    public LineChart<String,Float> graficaPeso;
-    public StackedAreaChart<String,Integer> graficaTension;
+    public LineChart<String, Float> graficaPeso;
+    public StackedAreaChart<String, Integer> graficaTension;
     public TextField campoPeso;
     public TextField campoAltura;
     public TextField campoBFP;
@@ -52,84 +52,84 @@ public class vResumenRexistrosController extends AbstractController implements I
     private ArrayList<RexistroFisioloxico> rexistros;
 
     public vResumenRexistrosController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
-        super(fachadaAplicacion,vPrincipalController);
+        super(fachadaAplicacion, vPrincipalController);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.socio=super.getvPrincipalController().obterUsuarioLogeado();
+        this.socio = super.getvPrincipalController().obterUsuarioLogeado();
 
         this.labelSocio.setText(socio.getLogin());
-        this.rexistros=super.getFachadaAplicacion().listarRexistros(socio.getLogin());
+        this.rexistros = super.getFachadaAplicacion().listarRexistros(socio.getLogin());
         generarGraficaPeso();
         generarGraficaTension();
 
-        float pesoavg=0;
-        float alturaavg=0;
-        float bfpavg=0;
-        float tensionAltaavg=0;
-        float tensionBaixaavg=0;
-        float ppmAvg=0;
-        for(RexistroFisioloxico rex:this.rexistros){
-            pesoavg+=rex.getPeso();
-            alturaavg+=rex.getAltura();
-            if(rex.getBfp()!=null) bfpavg+=rex.getBfp();
-            if(rex.getTensionAlta()!=null) tensionAltaavg+=rex.getTensionAlta();
-            if(rex.getTensionBaixa()!=null) tensionBaixaavg+=rex.getTensionBaixa();
-            if(rex.getPpm()!=null) ppmAvg+=rex.getPpm();
+        float pesoavg = 0;
+        float alturaavg = 0;
+        float bfpavg = 0;
+        float tensionAltaavg = 0;
+        float tensionBaixaavg = 0;
+        float ppmAvg = 0;
+        for (RexistroFisioloxico rex : this.rexistros) {
+            pesoavg += rex.getPeso();
+            alturaavg += rex.getAltura();
+            if (rex.getBfp() != null) bfpavg += rex.getBfp();
+            if (rex.getTensionAlta() != null) tensionAltaavg += rex.getTensionAlta();
+            if (rex.getTensionBaixa() != null) tensionBaixaavg += rex.getTensionBaixa();
+            if (rex.getPpm() != null) ppmAvg += rex.getPpm();
         }
-        if(this.rexistros.size()!=0){
-            pesoavg=pesoavg/this.rexistros.size();
-            alturaavg=alturaavg/this.rexistros.size();
-            bfpavg=bfpavg/this.rexistros.size();
-            tensionAltaavg=tensionAltaavg/this.rexistros.size();
-            tensionBaixaavg=tensionBaixaavg/this.rexistros.size();
-            ppmAvg=ppmAvg/this.rexistros.size();
+        if (this.rexistros.size() != 0) {
+            pesoavg = pesoavg / this.rexistros.size();
+            alturaavg = alturaavg / this.rexistros.size();
+            bfpavg = bfpavg / this.rexistros.size();
+            tensionAltaavg = tensionAltaavg / this.rexistros.size();
+            tensionBaixaavg = tensionBaixaavg / this.rexistros.size();
+            ppmAvg = ppmAvg / this.rexistros.size();
         }
 
-        this.campoPeso.setText(String.format("%.2f",pesoavg)+" Kg");
-        this.campoAltura.setText(String.format("%.2f",alturaavg)+" cm");
-        this.campoBFP.setText(String.format("%.2f",bfpavg)+" % de graxa corporal");
-        this.campoTension.setText(String.format("%.2f",tensionAltaavg)+" / "+String.format("%.2f",tensionBaixaavg));
-        this.campoPPM.setText(String.format("%.2f",ppmAvg)+" ppm");
+        this.campoPeso.setText(String.format("%.2f", pesoavg) + " Kg");
+        this.campoAltura.setText(String.format("%.2f", alturaavg) + " cm");
+        this.campoBFP.setText(String.format("%.2f", bfpavg) + " % de graxa corporal");
+        this.campoTension.setText(String.format("%.2f", tensionAltaavg) + " / " + String.format("%.2f", tensionBaixaavg));
+        this.campoPPM.setText(String.format("%.2f", ppmAvg) + " ppm");
 
         generarTreeComentarios();
 
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if(rexistros.size()==0){
-                    getFachadaAplicacion().mostrarAdvertencia("Rexistros Fisiolóxicos","Non dispón de rexistros fisiolóxicos almacenados no sistema.");
+                if (rexistros.size() == 0) {
+                    getFachadaAplicacion().mostrarAdvertencia("Rexistros Fisiolóxicos", "Non dispón de rexistros fisiolóxicos almacenados no sistema.");
                 }
             }
         });
     }
 
-    private void generarGraficaPeso(){
-        XYChart.Series<String,Float> datos = new XYChart.Series<>();
+    private void generarGraficaPeso() {
+        XYChart.Series<String, Float> datos = new XYChart.Series<>();
         datos.setName("Peso");
-        for(RexistroFisioloxico rex:this.rexistros){
-            LocalDateTime fecha=rex.getData().toLocalDateTime();
-            String dataFormateada=String.format("%d-%d-%d %d:%d:%d",
+        for (RexistroFisioloxico rex : this.rexistros) {
+            LocalDateTime fecha = rex.getData().toLocalDateTime();
+            String dataFormateada = String.format("%d-%d-%d %d:%d:%d",
                     fecha.getDayOfMonth(),
                     fecha.getMonthValue(),
                     fecha.getYear(),
                     fecha.getHour(),
                     fecha.getMinute(),
                     fecha.getSecond()
-                );
+            );
             datos.getData().add(new XYChart.Data(dataFormateada, rex.getPeso()));
         }
         graficaPeso.getData().add(datos);
     }
 
-    private void generarGraficaTension(){
-        XYChart.Series<String,Integer> datosAlta = new XYChart.Series<>();
+    private void generarGraficaTension() {
+        XYChart.Series<String, Integer> datosAlta = new XYChart.Series<>();
         datosAlta.setName("Tensión Alta");
-        for(RexistroFisioloxico rex:this.rexistros){
-            if(rex.getTensionAlta()==0) continue;
-            LocalDateTime fecha=rex.getData().toLocalDateTime();
-            String dataFormateada=String.format("%d-%d-%d %d:%d:%d",
+        for (RexistroFisioloxico rex : this.rexistros) {
+            if (rex.getTensionAlta() == 0) continue;
+            LocalDateTime fecha = rex.getData().toLocalDateTime();
+            String dataFormateada = String.format("%d-%d-%d %d:%d:%d",
                     fecha.getDayOfMonth(),
                     fecha.getMonthValue(),
                     fecha.getYear(),
@@ -140,12 +140,12 @@ public class vResumenRexistrosController extends AbstractController implements I
             datosAlta.getData().add(new XYChart.Data(dataFormateada, rex.getTensionAlta()));
         }
         graficaTension.getData().add(datosAlta);
-        XYChart.Series<String,Integer> datosBaixa = new XYChart.Series<>();
+        XYChart.Series<String, Integer> datosBaixa = new XYChart.Series<>();
         datosBaixa.setName("Tensión Baixa");
-        for(RexistroFisioloxico rex:this.rexistros){
-            if(rex.getTensionBaixa()==0) continue;
-            LocalDateTime fecha=rex.getData().toLocalDateTime();
-            String dataFormateada=String.format("%d-%d-%d %d:%d:%d",
+        for (RexistroFisioloxico rex : this.rexistros) {
+            if (rex.getTensionBaixa() == 0) continue;
+            LocalDateTime fecha = rex.getData().toLocalDateTime();
+            String dataFormateada = String.format("%d-%d-%d %d:%d:%d",
                     fecha.getDayOfMonth(),
                     fecha.getMonthValue(),
                     fecha.getYear(),
@@ -158,13 +158,13 @@ public class vResumenRexistrosController extends AbstractController implements I
         graficaTension.getData().add(datosBaixa);
     }
 
-    private void generarTreeComentarios(){
-        TreeItem<String> root=new TreeItem<>("Comentarios das distintas medicións...");
+    private void generarTreeComentarios() {
+        TreeItem<String> root = new TreeItem<>("Comentarios das distintas medicións...");
 
-        for(RexistroFisioloxico rex:this.rexistros){
-            if(rex.getComentario()==null) continue;
-            if(rex.getComentario().equals("")) continue;
-            TreeItem<String> item=new TreeItem<String>(rex.getData().toLocalDateTime().toLocalDate().toString());
+        for (RexistroFisioloxico rex : this.rexistros) {
+            if (rex.getComentario() == null) continue;
+            if (rex.getComentario().equals("")) continue;
+            TreeItem<String> item = new TreeItem<String>(rex.getData().toLocalDateTime().toLocalDate().toString());
             item.getChildren().add(new TreeItem<>(rex.getComentario()));
             root.getChildren().add(item);
         }

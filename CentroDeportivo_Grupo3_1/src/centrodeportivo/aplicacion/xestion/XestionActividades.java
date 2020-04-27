@@ -20,7 +20,7 @@ public class XestionActividades {
 
     /**
      * @param fachadaGUI Fachada da gui.
-     * @param fachadaBD Fachada da base de datos.
+     * @param fachadaBD  Fachada da base de datos.
      */
     public XestionActividades(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;

@@ -16,7 +16,8 @@ public final class DatosVista {
 
     /**
      * Constructor dos datos dunha vista.
-     * @param pathFXML URL do arquivo FXML.
+     *
+     * @param pathFXML    URL do arquivo FXML.
      * @param controlador Controlador asociado ao fxml.
      */
     public DatosVista(String pathFXML, AbstractController controlador) {

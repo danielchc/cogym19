@@ -15,15 +15,16 @@ public abstract class Criptografia {
 
     /**
      * Método para facer o hash SHA256 dunha contrasinal.
+     *
      * @param pass contrasinal a hashear
      * @return contrasinal hasheado
      */
-    public static String hashSHA256(String pass){
-        try{
+    public static String hashSHA256(String pass) {
+        try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = digest.digest(pass.getBytes(StandardCharsets.UTF_8));
             return convertByteArrayToHexString(hashedBytes);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("Error calculando hash");
         }
         return null;
@@ -31,6 +32,7 @@ public abstract class Criptografia {
 
     /**
      * Método para convertir un array de bytes a un String
+     *
      * @param arrayBytes array de bytes a convertir
      * @return String correspondente ao array de bytes
      */
@@ -39,7 +41,7 @@ public abstract class Criptografia {
 
         StringBuilder hexString = new StringBuilder(number.toString(16));
 
-        while (hexString.length() < 32){
+        while (hexString.length() < 32) {
             hexString.insert(0, '0');
         }
 
@@ -48,6 +50,7 @@ public abstract class Criptografia {
 
     /**
      * Método para encriptar o arquivo properties.
+     *
      * @param text array a encriptar
      * @return array encriptado
      * @throws Exception
@@ -61,6 +64,7 @@ public abstract class Criptografia {
 
     /**
      * Método para desencriptar o arquivo properties.
+     *
      * @param text array a desencriptar
      * @return array desencriptado
      * @throws Exception

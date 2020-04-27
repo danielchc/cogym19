@@ -2,31 +2,26 @@ package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Material;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.tarifas.Cuota;
+import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoIncidencia;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.auxiliar.Criptografia;
-import centrodeportivo.aplicacion.obxectos.Mensaxe;
-import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
-import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
-import centrodeportivo.gui.controladores.vLoginController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,38 +48,41 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Constructor da fachada de aplicación.
+     *
      * @throws IOException
      * @throws SQLException
      */
     public FachadaAplicacion() throws IOException, SQLException {
-        this.fachadaGUI=new FachadaGUI(this);
+        this.fachadaGUI = new FachadaGUI(this);
         try {
-            this.fachadaBD=new FachadaBD(this);
+            this.fachadaBD = new FachadaBD(this);
         } catch (ExcepcionBD excepcionBD) {
             System.out.println(excepcionBD.getMessage());
             System.exit(1);
         }
-        this.xestionUsuarios=new XestionUsuarios(fachadaGUI,fachadaBD);
-        this.xestionMensaxes=new XestionMensaxes(fachadaGUI,fachadaBD);
-        this.xestionTarifas=new XestionTarifas(fachadaGUI,fachadaBD);
-        this.xestionIncidencias=new XestionIncidencias(fachadaGUI, fachadaBD);
-        this.xestionInstalacions=new XestionInstalacions(fachadaGUI, fachadaBD);
-        this.xestionActividades=new XestionActividades(fachadaGUI, fachadaBD);
+        this.xestionUsuarios = new XestionUsuarios(fachadaGUI, fachadaBD);
+        this.xestionMensaxes = new XestionMensaxes(fachadaGUI, fachadaBD);
+        this.xestionTarifas = new XestionTarifas(fachadaGUI, fachadaBD);
+        this.xestionIncidencias = new XestionIncidencias(fachadaGUI, fachadaBD);
+        this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
+        this.xestionActividades = new XestionActividades(fachadaGUI, fachadaBD);
     }
 
     /**
      * Método para iniciar a ventá de login.
+     *
      * @param primaryStage
      * @throws Exception
      */
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        fachadaGUI.mostrarLogin(this,primaryStage);
+    public void start(Stage primaryStage) throws Exception {
+        fachadaGUI.mostrarLogin(this, primaryStage);
     }
 
 
     /**
      * Main da aplicación
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -106,30 +104,30 @@ public class FachadaAplicacion extends Application {
         fachadaGUI.mostrarVentaPersoal(loggedUser);
     }
 
-    public void mostrarAdvertencia(String titulo,String texto) {
+    public void mostrarAdvertencia(String titulo, String texto) {
         fachadaGUI.mostrarAdvertencia(titulo, texto);
     }
 
-    public void mostrarErro(String titulo,String texto) {
+    public void mostrarErro(String titulo, String texto) {
         fachadaGUI.mostrarErro(titulo, texto);
     }
 
-    public void mostrarInformacion(String titulo,String texto){
+    public void mostrarInformacion(String titulo, String texto) {
         fachadaGUI.mostrarInformacion(titulo, texto);
     }
 
-    public ButtonType mostrarConfirmacion(String titulo, String texto){
+    public ButtonType mostrarConfirmacion(String titulo, String texto) {
         return fachadaGUI.mostrarConfirmacion(titulo, texto);
     }
 
     /*
         Xestion usuarios
      */
-    public boolean existeUsuario(String login)  {
+    public boolean existeUsuario(String login) {
         return xestionUsuarios.existeUsuario(login);
     }
 
-    public boolean existeDNI(String dni)  {
+    public boolean existeDNI(String dni) {
         return xestionUsuarios.existeDNI(dni);
     }
 
@@ -137,11 +135,11 @@ public class FachadaAplicacion extends Application {
         return xestionUsuarios.existeNUSS(nuss);
     }
 
-    public ContasPersoa contasPersoaFisica(String dni){
+    public ContasPersoa contasPersoaFisica(String dni) {
         return xestionUsuarios.contasPersoaFisica(dni);
     }
 
-    public boolean validarUsuario(String login,String password) {
+    public boolean validarUsuario(String login, String password) {
         return xestionUsuarios.validarUsuario(login, Criptografia.hashSHA256(password));
     }
 
@@ -150,14 +148,14 @@ public class FachadaAplicacion extends Application {
     }
 
     public void actualizarUsuario(Usuario usuario, boolean contrasinalCambiado) throws ExcepcionBD {
-        xestionUsuarios.actualizarUsuario(usuario,contrasinalCambiado);
+        xestionUsuarios.actualizarUsuario(usuario, contrasinalCambiado);
     }
 
     public void darBaixaUsuario(Usuario usuario) throws ExcepcionBD {
         xestionUsuarios.darBaixaUsuario(usuario);
     }
 
-    public TipoUsuario consultarTipo(String login)  {
+    public TipoUsuario consultarTipo(String login) {
         return xestionUsuarios.consultarTipo(login);
     }
 
@@ -165,27 +163,27 @@ public class FachadaAplicacion extends Application {
         return xestionUsuarios.consultarUsuario(login);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo,boolean usuariosDeBaixa){
-        return xestionUsuarios.buscarUsuarios(login,nome,filtroTipo,usuariosDeBaixa);
+    public ArrayList<Usuario> buscarUsuarios(String login, String nome, TipoUsuario filtroTipo, boolean usuariosDeBaixa) {
+        return xestionUsuarios.buscarUsuarios(login, nome, filtroTipo, usuariosDeBaixa);
     }
 
-    public ArrayList<Usuario> buscarUsuarios(String login,String nome,TipoUsuario filtroTipo) {
-        return xestionUsuarios.buscarUsuarios(login,nome,filtroTipo);
+    public ArrayList<Usuario> buscarUsuarios(String login, String nome, TipoUsuario filtroTipo) {
+        return xestionUsuarios.buscarUsuarios(login, nome, filtroTipo);
     }
 
-    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro)  {
-        return xestionUsuarios.buscarUsuarios("","",filtro);
+    public ArrayList<Usuario> listarUsuarios(TipoUsuario filtro) {
+        return xestionUsuarios.buscarUsuarios("", "", filtro);
     }
 
-    public ArrayList<Usuario> listarUsuarios()  {
-        return xestionUsuarios.buscarUsuarios("","",TipoUsuario.Todos);
+    public ArrayList<Usuario> listarUsuarios() {
+        return xestionUsuarios.buscarUsuarios("", "", TipoUsuario.Todos);
     }
 
-    public Cuota consultarCuota(Socio socio){
+    public Cuota consultarCuota(Socio socio) {
         return xestionUsuarios.consultarCuota(socio);
     }
 
-    public ArrayList<RexistroFisioloxico> listarRexistros(String login){
+    public ArrayList<RexistroFisioloxico> listarRexistros(String login) {
         return xestionUsuarios.listarRexistros(login);
     }
 
@@ -197,7 +195,7 @@ public class FachadaAplicacion extends Application {
         xestionUsuarios.eliminarRexistro(rexistroFisioloxico);
     }
 
-    public PersoaFisica consultarPersoaFisica(String DNI){
+    public PersoaFisica consultarPersoaFisica(String DNI) {
         return xestionUsuarios.consultarPersoaFisica(DNI);
     }
 
@@ -213,11 +211,11 @@ public class FachadaAplicacion extends Application {
         xestionUsuarios.eliminarCapacidade(login, tipoActividade);
     }
 
-    public boolean tenClasesPendentes(Persoal persoal, TipoActividade tipoActividade){
+    public boolean tenClasesPendentes(Persoal persoal, TipoActividade tipoActividade) {
         return xestionUsuarios.tenClasesPendentes(persoal, tipoActividade);
     }
 
-    public boolean tenClasesPendentes(Persoal persoal){
+    public boolean tenClasesPendentes(Persoal persoal) {
         return xestionUsuarios.tenClasesPendentes(persoal);
     }
 
@@ -252,7 +250,7 @@ public class FachadaAplicacion extends Application {
         return xestionTarifas.existeTarifa(nome);
     }
 
-    public ArrayList<Usuario> listarSociosTarifa(Tarifa t){
+    public ArrayList<Usuario> listarSociosTarifa(Tarifa t) {
         return xestionTarifas.listarSociosTarifa(t);
     }
 
@@ -263,7 +261,7 @@ public class FachadaAplicacion extends Application {
         xestionMensaxes.enviarMensaxe(m);
     }
 
-    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores,String mensaxe) throws ExcepcionBD {
+    public void enviarMensaxe(Usuario emisor, ArrayList<Usuario> receptores, String mensaxe) throws ExcepcionBD {
         xestionMensaxes.enviarMensaxe(emisor, receptores, mensaxe);
     }
 
@@ -282,8 +280,8 @@ public class FachadaAplicacion extends Application {
         Xestion incidencias
      */
 
-    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia,boolean mostrarResoltas) {
-        return xestionIncidencias.buscarIncidencias(textoBuscar, tipoIncidencia,mostrarResoltas);
+    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia, boolean mostrarResoltas) {
+        return xestionIncidencias.buscarIncidencias(textoBuscar, tipoIncidencia, mostrarResoltas);
     }
 
     public void insertarIncidencia(Incidencia incidencia) throws ExcepcionBD {
@@ -302,7 +300,7 @@ public class FachadaAplicacion extends Application {
         Xestion instalacións
      */
 
-    public ArrayList<Area> listarAreas(){
+    public ArrayList<Area> listarAreas() {
         return xestionInstalacions.listarAreas();
     }
 
@@ -313,7 +311,7 @@ public class FachadaAplicacion extends Application {
     /*
         Xestión Actividades
      */
-    public ArrayList<TipoActividade> listarTipoActividades(){
+    public ArrayList<TipoActividade> listarTipoActividades() {
         return xestionActividades.listarTipoActividades();
     }
 

@@ -29,24 +29,25 @@ public final class Cuota {
     /**
      * Constructor da clase cuota con todos os datos necesarios para empaquetalos dende a base de datos
      * ata a aplicación.
-     * @param usuario Socio á que pertence a Cuota
-     * @param tarifa Tarifa asociada á cuota
+     *
+     * @param usuario               Socio á que pertence a Cuota
+     * @param tarifa                Tarifa asociada á cuota
      * @param prezoActividadesExtra Prezo a pagar por actividades extras
-     * @param totalActividades Prezo a pagar en total polas actividades realizadas
-     * @param totalCursos Prezo total a pagar polos cursos realizados
-     * @param totalPrezo Prezo total a pagar mensual
-     * @param actividades Actividades realizadas no mes actual
-     * @param cursos Cursos realizados no mes actual
+     * @param totalActividades      Prezo a pagar en total polas actividades realizadas
+     * @param totalCursos           Prezo total a pagar polos cursos realizados
+     * @param totalPrezo            Prezo total a pagar mensual
+     * @param actividades           Actividades realizadas no mes actual
+     * @param cursos                Cursos realizados no mes actual
      */
-    public Cuota(Socio usuario, Tarifa tarifa, float prezoActividadesExtra, float totalActividades, float totalCursos, float totalPrezo,ArrayList<Actividade> actividades,ArrayList<Curso> cursos){
+    public Cuota(Socio usuario, Tarifa tarifa, float prezoActividadesExtra, float totalActividades, float totalCursos, float totalPrezo, ArrayList<Actividade> actividades, ArrayList<Curso> cursos) {
         this.usuario = usuario;
         this.tarifa = tarifa;
         this.prezoActividadesExtra = prezoActividadesExtra;
         this.totalActividades = totalActividades;
         this.totalCursos = totalCursos;
         this.totalPrezo = totalPrezo;
-        this.actividadesMes=actividades;
-        this.cursosMes=cursos;
+        this.actividadesMes = actividades;
+        this.cursosMes = cursos;
     }
 
 

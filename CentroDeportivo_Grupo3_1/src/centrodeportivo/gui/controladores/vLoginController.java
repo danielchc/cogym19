@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class vLoginController  extends AbstractController implements Initializable {
+public class vLoginController extends AbstractController implements Initializable {
 
     /**
      * Atributos do fxml
@@ -36,20 +36,21 @@ public class vLoginController  extends AbstractController implements Initializab
 
     /**
      * Constructor do controlador da pantalla de login
+     *
      * @param fachadaAplicacion fachada da aplicación
      */
     public vLoginController(FachadaAplicacion fachadaAplicacion) {
         super(fachadaAplicacion);
-        fa=super.getFachadaAplicacion();
+        fa = super.getFachadaAplicacion();
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        EventHandler<KeyEvent> handler=new EventHandler<KeyEvent>() {
+        EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
+                if (keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
             }
         };
         tfUsuario.setOnKeyPressed(handler);
@@ -64,11 +65,11 @@ public class vLoginController  extends AbstractController implements Initializab
      */
     public void btnIniciarAction() {
         Usuario usuarioLogeado;
-        if(ValidacionDatos.estanCubertosCampos(tfUsuario,tfContrasinal)){
-            try{
-                if(fa.validarUsuario(tfUsuario.getText(),tfContrasinal.getText())){
-                    usuarioLogeado=new Usuario(tfUsuario.getText());
-                    switch (fa.consultarTipo(tfUsuario.getText())){
+        if (ValidacionDatos.estanCubertosCampos(tfUsuario, tfContrasinal)) {
+            try {
+                if (fa.validarUsuario(tfUsuario.getText(), tfContrasinal.getText())) {
+                    usuarioLogeado = new Usuario(tfUsuario.getText());
+                    switch (fa.consultarTipo(tfUsuario.getText())) {
                         case Socio:
                             fa.mostrarVentaSocios(usuarioLogeado);
                             break;
@@ -78,13 +79,13 @@ public class vLoginController  extends AbstractController implements Initializab
                             break;
                     }
                     ((Stage) tfUsuario.getScene().getWindow()).close();
-                }else{
+                } else {
                     labelError.setText("Algún campo incorrecto");
                 }
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        }else{
+        } else {
             labelError.setText("Algún campo está incompleto");
         }
     }

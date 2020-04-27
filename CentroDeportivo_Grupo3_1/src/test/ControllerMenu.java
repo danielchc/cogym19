@@ -1,5 +1,9 @@
 package test;
 
+/**
+ * @author David Carracedo
+ * @author Daniel Chenel
+ */
 import javafx.fxml.Initializable;
 
 import java.net.URL;

@@ -19,14 +19,15 @@ public class ExcepcionBD extends Exception {
     /**
      * Constructor da excepción para as transaccións sql.
      * Garda os datos da excepción e realiza o rollback da transacción que fallou.
-     * @param conexion conexion coa base.
+     *
+     * @param conexion  conexion coa base.
      * @param excepcion excepcion SQL producida.
      */
-    public ExcepcionBD(Connection conexion, SQLException excepcion){
+    public ExcepcionBD(Connection conexion, SQLException excepcion) {
         super();
-        this.conexion=conexion;
-        this.codigoError=Integer.parseInt(excepcion.getSQLState());
-        this.exceptionSQL=excepcion;
+        this.conexion = conexion;
+        this.codigoError = Integer.parseInt(excepcion.getSQLState());
+        this.exceptionSQL = excepcion;
         try {
             conexion.rollback();
         } catch (SQLException e) {
@@ -36,30 +37,31 @@ public class ExcepcionBD extends Exception {
 
     /**
      * Método para obter a causa da excepción.
+     *
      * @return mensaxe co erro
      */
     @Override
-    public String getMessage(){
-        String msg="Erro na base de datos: ";
-        switch (codigoError){
+    public String getMessage() {
+        String msg = "Erro na base de datos: ";
+        switch (codigoError) {
             //claves primarias repetidas/uniques
             case 23505:
-                msg+="Intentouse introducir un dato xa en uso";
+                msg += "Intentouse introducir un dato xa en uso";
                 break;
             //checks
             case 23514:
-                msg+="Non se validou algunha das condicións necesarias para a actualización";
+                msg += "Non se validou algunha das condicións necesarias para a actualización";
                 break;
             //claves foráneas
             case 23503:
-                msg+="Problema coas dependencias dos datos.";
+                msg += "Problema coas dependencias dos datos.";
                 break;
             //conexion coa base
             case 8004:
-                msg+="Problema ao conectar coa base de datos";
+                msg += "Problema ao conectar coa base de datos";
                 break;
         }
-        return msg+=" ("+codigoError+": "+exceptionSQL.getMessage()+").";
+        return msg += " (" + codigoError + ": " + exceptionSQL.getMessage() + ").";
     }
 
 

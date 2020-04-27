@@ -22,7 +22,7 @@ import java.util.Scanner;
 public final class DAOTarifas extends AbstractDAO {
 
     /**
-     * @param conexion Conexión coa base de datos
+     * @param conexion          Conexión coa base de datos
      * @param fachadaAplicacion fachada da aplicación
      */
     protected DAOTarifas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
@@ -31,6 +31,7 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para gardar unha tarifa na base de datos.
+     *
      * @param t Tarifa a ser insertada
      * @throws ExcepcionBD
      */
@@ -57,6 +58,7 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para borrar unha tarifa da base de datos.
+     *
      * @param codTarifa Código da tarifa a borrar
      * @throws ExcepcionBD
      */
@@ -80,6 +82,7 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para actualizar os datos dunha tarifa.
+     *
      * @param t tarifa a ser actualizada
      * @throws ExcepcionBD
      */
@@ -107,6 +110,7 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para comprobar se unha tarifa está sendo usada por algún socio.
+     *
      * @param codTarifa código da tarifa
      * @return
      */
@@ -133,6 +137,7 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para listar todas as tarifas dispoñibles.
+     *
      * @return lista de tarifas.
      */
     protected ArrayList<Tarifa> listarTarifas() {
@@ -166,6 +171,7 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para comprobar qué tarifa ten un socio.
+     *
      * @param loginSocio login do socio
      * @return tarifa que ten o socio
      */
@@ -199,19 +205,20 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para listar todos os usuarios que teñen unha tarifa dada.
+     *
      * @param t tarifa buscada.
      * @return Lista de usuarios que teñen esa tarifa.
      */
-    protected ArrayList<Usuario> listarSociosTarifa(Tarifa t){
+    protected ArrayList<Usuario> listarSociosTarifa(Tarifa t) {
         PreparedStatement stmTarifa = null;
         ResultSet resultTarifas;
-        ArrayList<Usuario> socios=new ArrayList<>();
+        ArrayList<Usuario> socios = new ArrayList<>();
 
         try {
             stmTarifa = super.getConexion().prepareStatement("SELECT * FROM socio WHERE tarifa=?;");
             stmTarifa.setInt(1, t.getCodTarifa());
             resultTarifas = stmTarifa.executeQuery();
-            while(resultTarifas.next()) {
+            while (resultTarifas.next()) {
                 socios.add(new Usuario(resultTarifas.getString("login")));
             }
             return socios;
@@ -229,6 +236,7 @@ public final class DAOTarifas extends AbstractDAO {
 
     /**
      * Método para comprobar se unha tarifa con nome dado existe.
+     *
      * @param nome nome da tarifa
      * @return true se existe, false se non
      */

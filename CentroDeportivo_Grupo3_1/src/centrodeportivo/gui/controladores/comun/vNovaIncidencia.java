@@ -40,20 +40,20 @@ public class vNovaIncidencia extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
+        this.usuario = super.getvPrincipalController().obterUsuarioLogeado();
 
-        this.listaAreas=super.getFachadaAplicacion().listarAreas();
-        this.listaMaterial=super.getFachadaAplicacion().listarMateriais();
-        this.campoDescricion.textProperty().addListener(new ListenerMaxLogitud(campoDescricion,500));
+        this.listaAreas = super.getFachadaAplicacion().listarAreas();
+        this.listaMaterial = super.getFachadaAplicacion().listarMateriais();
+        this.campoDescricion.textProperty().addListener(new ListenerMaxLogitud(campoDescricion, 500));
 
         TreeItem rootItem = new TreeItem();
         TreeItem areaActual;
         this.selectorIncidencia.setRoot(rootItem);
         this.selectorIncidencia.setShowRoot(false);
-        for(Area area:this.listaAreas){
-            area.setMateriais(new ArrayList<>(this.listaMaterial.stream().filter(f->f.getArea().equals(area)).collect(Collectors.toList())));
-            areaActual= new TreeItem(area);
-            for (Material m:area.getMateriais()){
+        for (Area area : this.listaAreas) {
+            area.setMateriais(new ArrayList<>(this.listaMaterial.stream().filter(f -> f.getArea().equals(area)).collect(Collectors.toList())));
+            areaActual = new TreeItem(area);
+            for (Material m : area.getMateriais()) {
                 m.setArea(area);
                 areaActual.getChildren().add(new TreeItem(m));
             }
@@ -64,8 +64,8 @@ public class vNovaIncidencia extends AbstractController implements Initializable
             @Override
             public void changed(ObservableValue<? extends TreeItem> observable, TreeItem oldValue, TreeItem newValue) {
 
-                if(newValue.getValue() instanceof Material){
-                    Material material= (Material) newValue.getValue();
+                if (newValue.getValue() instanceof Material) {
+                    Material material = (Material) newValue.getValue();
                     infoObxecto.setText(String.format("Tipo de material: %s\nNúmero: %d\nEstado: %s\nÁrea: %s(%s)",
                             material.getTipoNombre(),
                             material.getCodMaterial(),
@@ -73,8 +73,8 @@ public class vNovaIncidencia extends AbstractController implements Initializable
                             material.getArea().getNome(),
                             material.getArea().getInstalacion().getNome()
                     ));
-                }else if (newValue.getValue() instanceof Area){
-                    Area area= (Area) newValue.getValue();
+                } else if (newValue.getValue() instanceof Area) {
+                    Area area = (Area) newValue.getValue();
                     infoObxecto.setText(String.format("Código: %d\nÁrea: %s\nInstalación: %s\nDirección: %s",
                             area.getCodArea(),
                             area.getNome(),
@@ -89,12 +89,12 @@ public class vNovaIncidencia extends AbstractController implements Initializable
             @Override
             public void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty)setText("");
+                if (empty) setText("");
                 else {
-                    if(item instanceof Material){
-                        setText(String.format("%s %d",((Material) item).getTipoNombre(),((Material) item).getCodMaterial()));
-                    }else if (item instanceof Area){
-                        setText(String.format("%s (%s)",((Area)item).getNome(),((Area)item).getInstalacion().getNome()));
+                    if (item instanceof Material) {
+                        setText(String.format("%s %d", ((Material) item).getTipoNombre(), ((Material) item).getCodMaterial()));
+                    } else if (item instanceof Area) {
+                        setText(String.format("%s (%s)", ((Area) item).getNome(), ((Area) item).getInstalacion().getNome()));
                     }
                 }
                 setGraphic(null);
@@ -103,31 +103,31 @@ public class vNovaIncidencia extends AbstractController implements Initializable
         });
     }
 
-    private void listenerTabla(){
+    private void listenerTabla() {
 
     }
 
     public void btnGardarAction(ActionEvent actionEvent) {
-        if(!this.selectorIncidencia.getSelectionModel().isEmpty() && ValidacionDatos.estanCubertosCampos(campoDescricion)){
-            TreeItem selectedItem=(TreeItem)this.selectorIncidencia.getSelectionModel().getSelectedItem();
-            try{
-                if(selectedItem.getValue() instanceof Material){
-                    Material material= (Material) selectedItem.getValue();
+        if (!this.selectorIncidencia.getSelectionModel().isEmpty() && ValidacionDatos.estanCubertosCampos(campoDescricion)) {
+            TreeItem selectedItem = (TreeItem) this.selectorIncidencia.getSelectionModel().getSelectedItem();
+            try {
+                if (selectedItem.getValue() instanceof Material) {
+                    Material material = (Material) selectedItem.getValue();
                     getFachadaAplicacion().insertarIncidencia(new IncidenciaMaterial(
                             super.getvPrincipalController().obterUsuarioLogeado(),
                             this.campoDescricion.getText(),
                             material
                     ));
-                }else if (selectedItem.getValue() instanceof Area){
-                    Area area=(Area)selectedItem.getValue();
+                } else if (selectedItem.getValue() instanceof Area) {
+                    Area area = (Area) selectedItem.getValue();
                     getFachadaAplicacion().insertarIncidencia(new IncidenciaArea(
                             super.getvPrincipalController().obterUsuarioLogeado(),
                             this.campoDescricion.getText(),
                             area
                     ));
                 }
-            }catch (ExcepcionBD excepcionBD){
-                super.getFachadaAplicacion().mostrarErro("Incidencia",excepcionBD.getMessage());
+            } catch (ExcepcionBD excepcionBD) {
+                super.getFachadaAplicacion().mostrarErro("Incidencia", excepcionBD.getMessage());
             }
             getFachadaAplicacion().mostrarInformacion("Incidencia creada", "Creouse a incidencia correctamente.");
             getvPrincipalController().mostrarMenu(IdPantalla.INICIO);

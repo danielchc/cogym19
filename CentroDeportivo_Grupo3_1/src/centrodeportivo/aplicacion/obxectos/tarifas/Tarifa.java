@@ -19,39 +19,42 @@ public final class Tarifa {
 
     /**
      * Constructor con todos os parámetros para recuperar os datos da base e envialos á aplicación.
-     * @param codTarifa  Código da tarifa
-     * @param nome Nome da Tarifa
+     *
+     * @param codTarifa      Código da tarifa
+     * @param nome           Nome da Tarifa
      * @param maxActividades Máximo de actividades dunha tarifa
-     * @param prezoBase Prezo mensual dunha tarifa
-     * @param prezoExtras Prezo extra por cada tarfia a maiores de maxActividades
+     * @param prezoBase      Prezo mensual dunha tarifa
+     * @param prezoExtras    Prezo extra por cada tarfia a maiores de maxActividades
      */
-    public Tarifa(int codTarifa,String nome,Integer maxActividades,float prezoBase,float prezoExtras){
+    public Tarifa(int codTarifa, String nome, Integer maxActividades, float prezoBase, float prezoExtras) {
         this(nome, maxActividades, prezoBase, prezoExtras);
-        this.codTarifa=codTarifa;
+        this.codTarifa = codTarifa;
     }
 
     /**
      * Constructor sen o parámetro codTarifa.
      * Este constructor emprégase para enviar datos dende a aplicación ao DAO.
      * O código non fai falta xa que se xera na inserción na base de datos
-     * @param nome Nome da Tarifa
+     *
+     * @param nome           Nome da Tarifa
      * @param maxActividades Máximo de actividades dunha tarifa
-     * @param prezoBase Prezo mensual dunha tarifa
-     * @param prezoExtras Prezo extra por cada tarfia a maiores de maxActividades
+     * @param prezoBase      Prezo mensual dunha tarifa
+     * @param prezoExtras    Prezo extra por cada tarfia a maiores de maxActividades
      */
-    public Tarifa(String nome,Integer maxActividades,float prezoBase,float prezoExtras){
-        this.nome=nome;
-        this.maxActividades=maxActividades;
-        this.prezoBase=prezoBase;
-        this.prezoExtras=prezoExtras;
+    public Tarifa(String nome, Integer maxActividades, float prezoBase, float prezoExtras) {
+        this.nome = nome;
+        this.maxActividades = maxActividades;
+        this.prezoBase = prezoBase;
+        this.prezoExtras = prezoExtras;
     }
 
     /**
      * Constructor coa clave primaria.
+     *
      * @param codTarifa código da tarifa.
      */
-    public Tarifa(Integer codTarifa){
-        this.codTarifa=codTarifa;
+    public Tarifa(Integer codTarifa) {
+        this.codTarifa = codTarifa;
     }
 
 
@@ -104,9 +107,9 @@ public final class Tarifa {
      * @return true se son iguais, false se non.
      */
     @Override
-    public boolean equals(Object o){
-        if(o instanceof Tarifa){
-            return ((Tarifa) o).getCodTarifa()==(this.codTarifa);
+    public boolean equals(Object o) {
+        if (o instanceof Tarifa) {
+            return ((Tarifa) o).getCodTarifa() == (this.codTarifa);
         }
         return false;
     }
@@ -116,7 +119,7 @@ public final class Tarifa {
      */
     @Override
     public String toString() {
-        return  "["+nome+"]:" +
+        return "[" + nome + "]:" +
                 " maxActividades=" + maxActividades +
                 ", prezoBase=" + prezoBase +
                 ", prezoExtras=" + prezoExtras;

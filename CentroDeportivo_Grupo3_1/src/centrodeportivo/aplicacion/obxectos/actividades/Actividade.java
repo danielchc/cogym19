@@ -26,6 +26,7 @@ public class Actividade {
 
     /**
      * Constructor coas claves primarias.
+     *
      * @param data Data da actividade
      * @param area Area onde se realiza
      */
@@ -36,22 +37,23 @@ public class Actividade {
 
     /**
      * Constructor con todos os datos dunha actividade.
-     * @param data Data da actividade
-     * @param area Área onde se realiza
+     *
+     * @param data           Data da actividade
+     * @param area           Área onde se realiza
      * @param tipoActividade Tipo de Actividade
-     * @param curso Curso asociado á actividade
-     * @param nome Nome da actividade.
-     * @param duracion Duración da actividade
-     * @param profesor Profesor que imparte a actividade.
+     * @param curso          Curso asociado á actividade
+     * @param nome           Nome da actividade.
+     * @param duracion       Duración da actividade
+     * @param profesor       Profesor que imparte a actividade.
      */
-    public Actividade(Timestamp data, Area area, TipoActividade tipoActividade, Curso curso, String nome, float duracion,Persoal profesor) {
+    public Actividade(Timestamp data, Area area, TipoActividade tipoActividade, Curso curso, String nome, float duracion, Persoal profesor) {
         this.data = data;
         this.area = area;
         this.tipoActividade = tipoActividade;
         this.curso = curso;
         this.nome = nome;
         this.duracion = duracion;
-        this.profesor=profesor;
+        this.profesor = profesor;
     }
 
     /**
@@ -118,9 +120,9 @@ public class Actividade {
      */
     @Override
     public String toString() {
-        Date date=new Date(this.data.getTime());
-        return "Nome: "+this.nome+
-                ", Data: "+date;
+        Date date = new Date(this.data.getTime());
+        return "Nome: " + this.nome +
+                ", Data: " + date;
     }
 
     @Override

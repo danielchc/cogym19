@@ -6,7 +6,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**

@@ -36,34 +36,36 @@ public class vEliminarRexistroController extends AbstractController implements I
 
     /**
      * Constructor do controlador
+     *
      * @param fachadaAplicacion Fachada da aplicación
      */
     public vEliminarRexistroController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
-        super(fachadaAplicacion,vPrincipalController);
+        super(fachadaAplicacion, vPrincipalController);
     }
 
     /**
      * Método para inicializar o fxml.
      * Aquí cárgase a tabla de rexistros do usuario rexistrado.
+     *
      * @param url
      * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.usuario=super.getvPrincipalController().obterUsuarioLogeado();
+        this.usuario = super.getvPrincipalController().obterUsuarioLogeado();
 
         this.tablaRexistros.setPlaceholder(new Label("Non hai rexistros dispoñibles."));
 
-        TableColumn<Timestamp, RexistroFisioloxico> columna1=new TableColumn<>("Data");
+        TableColumn<Timestamp, RexistroFisioloxico> columna1 = new TableColumn<>("Data");
         columna1.setCellValueFactory(new PropertyValueFactory<>("data"));
-        TableColumn<Float, RexistroFisioloxico> columna2=new TableColumn<>("Peso");
+        TableColumn<Float, RexistroFisioloxico> columna2 = new TableColumn<>("Peso");
         columna2.setCellValueFactory(new PropertyValueFactory<>("peso"));
-        TableColumn<Float, RexistroFisioloxico> columna3=new TableColumn<>("Altura");
+        TableColumn<Float, RexistroFisioloxico> columna3 = new TableColumn<>("Altura");
         columna3.setCellValueFactory(new PropertyValueFactory<>("altura"));
-        TableColumn<String, RexistroFisioloxico> columna4=new TableColumn<>("Comentario");
+        TableColumn<String, RexistroFisioloxico> columna4 = new TableColumn<>("Comentario");
         columna4.setCellValueFactory(new PropertyValueFactory<>("comentario"));
 
-        tablaRexistros.getColumns().addAll(columna1,columna2,columna3,columna4);
+        tablaRexistros.getColumns().addAll(columna1, columna2, columna3, columna4);
 
         cargarRexistrosTabla();
     }
@@ -72,14 +74,14 @@ public class vEliminarRexistroController extends AbstractController implements I
      * Método para cargar os datos da base na tabla.
      * Se hai datos dispoñibles habilítase o boton para eliminar.
      */
-    private void cargarRexistrosTabla(){
+    private void cargarRexistrosTabla() {
         tablaRexistros.getItems().removeAll(tablaRexistros.getItems());
         tablaRexistros.getItems().addAll(super.getFachadaAplicacion().listarRexistros(usuario.getLogin()));
 
-        if(tablaRexistros.getItems().size()>0){
+        if (tablaRexistros.getItems().size() > 0) {
             this.btnEliminar.setDisable(false);
             this.tablaRexistros.getSelectionModel().selectFirst();
-        }else{
+        } else {
             this.btnEliminar.setDisable(true);
         }
     }
@@ -87,15 +89,17 @@ public class vEliminarRexistroController extends AbstractController implements I
     /**
      * Método para xestionar a acción do botón de eliminar.
      * Pregúntase pola confirmación do usuario, e en caso afirmativo eliminase o rexistro seleccionado.
+     *
      * @param actionEvent evento
      */
     public void btnEliminarAction(ActionEvent actionEvent) {
-        if(super.getFachadaAplicacion().mostrarConfirmacion("Rexistro","Estás seguro de que queres eliminar este rexistro?")== ButtonType.CANCEL) return;
+        if (super.getFachadaAplicacion().mostrarConfirmacion("Rexistro", "Estás seguro de que queres eliminar este rexistro?") == ButtonType.CANCEL)
+            return;
         try {
             super.getFachadaAplicacion().eliminarRexistro((RexistroFisioloxico) this.tablaRexistros.getSelectionModel().getSelectedItem());
             cargarRexistrosTabla();
         } catch (ExcepcionBD excepcionBD) {
-            super.getFachadaAplicacion().mostrarErro("Rexistros",excepcionBD.getMessage());
+            super.getFachadaAplicacion().mostrarErro("Rexistros", excepcionBD.getMessage());
         }
     }
 }

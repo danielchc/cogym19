@@ -52,6 +52,7 @@ public final class FachadaBD {
      * Este é o constructor da fachada de base de datos.
      * Establecese a conexión coa base de datos mediante o arquivo properties.
      * (Hai dúas versións do arquivo, unha cifrada e outra que non, ambas son compatibles).
+     *
      * @param fachadaAplicacion fachada da aplicación
      * @throws ExcepcionBD
      */
@@ -212,7 +213,7 @@ public final class FachadaBD {
         return daoTarifas.existeTarifa(nome);
     }
 
-    public ArrayList<Usuario> listarSociosTarifa(Tarifa t){
+    public ArrayList<Usuario> listarSociosTarifa(Tarifa t) {
         return daoTarifas.listarSociosTarifa(t);
     }
 
@@ -243,8 +244,8 @@ public final class FachadaBD {
         daoIncidencias.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia,boolean mostrarResoltas) {
-        return daoIncidencias.buscarIncidencias(textoBuscar, tipoIncidencia,mostrarResoltas);
+    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia, boolean mostrarResoltas) {
+        return daoIncidencias.buscarIncidencias(textoBuscar, tipoIncidencia, mostrarResoltas);
     }
 
     public void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {
@@ -252,7 +253,7 @@ public final class FachadaBD {
     }
 
     public Incidencia consultarIncidencia(Incidencia incidencia) {
-       return daoIncidencias.consultarIncidencia(incidencia);
+        return daoIncidencias.consultarIncidencia(incidencia);
     }
 
     /*
@@ -270,7 +271,6 @@ public final class FachadaBD {
     public ArrayList<TipoActividade> listarTipoActividades() {
         return daoActividades.listarTipoActividades();
     }
-
 
 
     public Connection getConexion() {

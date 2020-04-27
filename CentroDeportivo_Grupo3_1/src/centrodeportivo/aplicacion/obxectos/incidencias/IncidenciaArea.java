@@ -19,6 +19,7 @@ public class IncidenciaArea extends Incidencia {
 
     /**
      * Constructor coa clave primaria
+     *
      * @param numero número da incidencia
      */
     public IncidenciaArea(int numero) {
@@ -26,8 +27,8 @@ public class IncidenciaArea extends Incidencia {
     }
 
     public IncidenciaArea(int numero, Usuario usuario, String descricionIncidencia, Area area) {
-        super(numero,usuario,descricionIncidencia);
-        this.area=area;
+        super(numero, usuario, descricionIncidencia);
+        this.area = area;
     }
 
     /**

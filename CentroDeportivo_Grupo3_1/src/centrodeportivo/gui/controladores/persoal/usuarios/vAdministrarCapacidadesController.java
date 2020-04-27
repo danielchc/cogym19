@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class vAdministrarCapacidadesController extends AbstractController implements Initializable  {
+public class vAdministrarCapacidadesController extends AbstractController implements Initializable {
 
     /**
      * Atributos do fxml.
@@ -42,7 +42,8 @@ public class vAdministrarCapacidadesController extends AbstractController implem
 
     /**
      * Constructor do controlador
-     * @param fachadaAplicacion fachada da apliación
+     *
+     * @param fachadaAplicacion    fachada da apliación
      * @param vPrincipalController controlador da vista principal
      */
     public vAdministrarCapacidadesController(FachadaAplicacion fachadaAplicacion, centrodeportivo.gui.controladores.principal.vPrincipalController vPrincipalController) {
@@ -51,6 +52,7 @@ public class vAdministrarCapacidadesController extends AbstractController implem
 
     /**
      * Método para inicializar a vista.
+     *
      * @param location
      * @param resources
      */
@@ -93,13 +95,14 @@ public class vAdministrarCapacidadesController extends AbstractController implem
 
     /**
      * Método para settera un persoal e editar as súas capacidades
+     *
      * @param selectedItem usuario a ser editado.
      */
     public void setUsuario(Usuario selectedItem) {
-        usuarioLabel.setText(String.format("Editando capacidades de %s",selectedItem.getLogin()));
-        persoal=(Persoal)selectedItem;
-        capacidadesActuales=super.getFachadaAplicacion().listarCapacidades(persoal.getLogin());
-        capacidadesDisponibles=super.getFachadaAplicacion().listarTipoActividades();
+        usuarioLabel.setText(String.format("Editando capacidades de %s", selectedItem.getLogin()));
+        persoal = (Persoal) selectedItem;
+        capacidadesActuales = super.getFachadaAplicacion().listarCapacidades(persoal.getLogin());
+        capacidadesDisponibles = super.getFachadaAplicacion().listarTipoActividades();
         capacidadesDisponibles.removeAll(capacidadesActuales);
 
         listaCapacidades.getItems().addAll(capacidadesActuales);
@@ -109,16 +112,16 @@ public class vAdministrarCapacidadesController extends AbstractController implem
     /**
      * Método para engadir a capacidade seleccionada
      */
-    public void engadirCapacidade(){
+    public void engadirCapacidade() {
         TipoActividade actividadeSeleccionada;
-        if(!listaDisponibles.getSelectionModel().isEmpty()){
-            actividadeSeleccionada= (TipoActividade) listaDisponibles.getSelectionModel().getSelectedItems().get(0);
+        if (!listaDisponibles.getSelectionModel().isEmpty()) {
+            actividadeSeleccionada = (TipoActividade) listaDisponibles.getSelectionModel().getSelectedItems().get(0);
             listaDisponibles.getItems().remove(actividadeSeleccionada);
             listaCapacidades.getItems().add(actividadeSeleccionada);
             try {
-                super.getFachadaAplicacion().engadirCapadidade(persoal.getLogin(),actividadeSeleccionada);
+                super.getFachadaAplicacion().engadirCapadidade(persoal.getLogin(), actividadeSeleccionada);
             } catch (ExcepcionBD excepcionBD) {
-                super.getFachadaAplicacion().mostrarErro("Capacidades",excepcionBD.getMessage());
+                super.getFachadaAplicacion().mostrarErro("Capacidades", excepcionBD.getMessage());
             }
         }
     }
@@ -126,20 +129,20 @@ public class vAdministrarCapacidadesController extends AbstractController implem
     /**
      * Método para engadir a capacidade seleccionada
      */
-    public void eliminarCapacidade(){
+    public void eliminarCapacidade() {
         TipoActividade actividadeSeleccionada;
-        if(!listaCapacidades.getSelectionModel().isEmpty()){
-            actividadeSeleccionada= (TipoActividade) listaCapacidades.getSelectionModel().getSelectedItems().get(0);
-            if(super.getFachadaAplicacion().tenClasesPendentes(persoal,actividadeSeleccionada)){
+        if (!listaCapacidades.getSelectionModel().isEmpty()) {
+            actividadeSeleccionada = (TipoActividade) listaCapacidades.getSelectionModel().getSelectedItems().get(0);
+            if (super.getFachadaAplicacion().tenClasesPendentes(persoal, actividadeSeleccionada)) {
                 getFachadaAplicacion().mostrarErro("Non se pode eliminar a capacidade", "Este usuario ainda ten unha clase pendente de esta actividade");
                 return;
             }
             listaCapacidades.getItems().remove(actividadeSeleccionada);
             listaDisponibles.getItems().add(actividadeSeleccionada);
             try {
-                super.getFachadaAplicacion().eliminarCapacidade(persoal.getLogin(),actividadeSeleccionada);
+                super.getFachadaAplicacion().eliminarCapacidade(persoal.getLogin(), actividadeSeleccionada);
             } catch (ExcepcionBD excepcionBD) {
-                super.getFachadaAplicacion().mostrarErro("Capacidades",excepcionBD.getMessage());
+                super.getFachadaAplicacion().mostrarErro("Capacidades", excepcionBD.getMessage());
             }
         }
     }
@@ -147,7 +150,7 @@ public class vAdministrarCapacidadesController extends AbstractController implem
     /**
      * Método para volver ao menú
      */
-    public void volverMenu(){
+    public void volverMenu() {
         super.getvPrincipalController().volverAtras();
     }
 

@@ -22,7 +22,7 @@ public class XestionIncidencias {
 
     /**
      * @param fachadaGUI Fachada da gui.
-     * @param fachadaBD Fachada da base de datos.
+     * @param fachadaBD  Fachada da base de datos.
      */
     public XestionIncidencias(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
@@ -36,8 +36,8 @@ public class XestionIncidencias {
         fachadaBD.insertarIncidencia(incidencia);
     }
 
-    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia,boolean mostrarResoltas) {
-        return fachadaBD.buscarIncidencias(textoBuscar, tipoIncidencia,mostrarResoltas);
+    public ArrayList<Incidencia> buscarIncidencias(String textoBuscar, TipoIncidencia tipoIncidencia, boolean mostrarResoltas) {
+        return fachadaBD.buscarIncidencias(textoBuscar, tipoIncidencia, mostrarResoltas);
     }
 
     public void resolverIncidencia(Incidencia incidencia) throws ExcepcionBD {

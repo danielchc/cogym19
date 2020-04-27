@@ -25,7 +25,8 @@ public final class RexistroFisioloxico {
 
     /**
      * Constructor con só as claves primarias como parámetros.
-     * @param data Data de creación do rexistro
+     *
+     * @param data  Data de creación do rexistro
      * @param socio Socio que o rexistra.
      */
     public RexistroFisioloxico(Timestamp data, Socio socio) {
@@ -35,15 +36,16 @@ public final class RexistroFisioloxico {
 
     /**
      * Constructor con todos os parámetros para devolver os datos da base á aplicación.
-     * @param data Data de creación do rexistro.
-     * @param socio Socio que o rexistra.
-     * @param peso Peso
-     * @param altura Altura
-     * @param bfp Porcentaxe de grasa
-     * @param tensionAlta Tensión alta
+     *
+     * @param data         Data de creación do rexistro.
+     * @param socio        Socio que o rexistra.
+     * @param peso         Peso
+     * @param altura       Altura
+     * @param bfp          Porcentaxe de grasa
+     * @param tensionAlta  Tensión alta
      * @param tensionBaixa Tensión baixa
-     * @param ppm Pulsacións
-     * @param comentario Comentario sobre o rexistro
+     * @param ppm          Pulsacións
+     * @param comentario   Comentario sobre o rexistro
      */
     public RexistroFisioloxico(Timestamp data, Socio socio, Float peso, Float altura, Float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
         this.data = data;
@@ -60,14 +62,15 @@ public final class RexistroFisioloxico {
     /**
      * Constructor con todos os parámetros menos a data para insertar os datos da base á aplicación.
      * A data introdúcese á hora da inserción na base de datos, por eso non fai falta pasala como parametro.
-     * @param socio Socio que o rexistra.
-     * @param peso Peso
-     * @param altura Altura
-     * @param bfp Porcentaxe de grasa
-     * @param tensionAlta Tensión alta
+     *
+     * @param socio        Socio que o rexistra.
+     * @param peso         Peso
+     * @param altura       Altura
+     * @param bfp          Porcentaxe de grasa
+     * @param tensionAlta  Tensión alta
      * @param tensionBaixa Tensión baixa
-     * @param ppm Pulsacións
-     * @param comentario Comentario sobre o rexistro
+     * @param ppm          Pulsacións
+     * @param comentario   Comentario sobre o rexistro
      */
     public RexistroFisioloxico(Socio socio, Float peso, Float altura, Float bfp, Integer tensionAlta, Integer tensionBaixa, Integer ppm, String comentario) {
         this.socio = socio;
@@ -176,8 +179,8 @@ public final class RexistroFisioloxico {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o instanceof RexistroFisioloxico){
+    public boolean equals(Object o) {
+        if (o instanceof RexistroFisioloxico) {
             return ((RexistroFisioloxico) o).getData().equals(this.data) && ((RexistroFisioloxico) o).getSocio().equals(this.socio);
         }
         return false;

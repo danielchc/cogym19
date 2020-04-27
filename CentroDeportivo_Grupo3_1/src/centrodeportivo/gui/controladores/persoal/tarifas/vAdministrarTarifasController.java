@@ -31,18 +31,19 @@ public class vAdministrarTarifasController extends AbstractController implements
     private vPrincipalController vPrincipal;
 
     /**
-     * @param fachadaAplicacion fachada da aplicación
+     * @param fachadaAplicacion    fachada da aplicación
      * @param vPrincipalController controlador da vista principals
      */
     public vAdministrarTarifasController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
-        super(fachadaAplicacion,vPrincipalController);
-        this.fachadaAplicacion=super.getFachadaAplicacion();
-        this.vPrincipal=vPrincipalController;
+        super(fachadaAplicacion, vPrincipalController);
+        this.fachadaAplicacion = super.getFachadaAplicacion();
+        this.vPrincipal = vPrincipalController;
     }
 
 
     /**
      * Método para inicializar a vista.
+     *
      * @param location
      * @param resources
      */
@@ -63,7 +64,7 @@ public class vAdministrarTarifasController extends AbstractController implements
         TableColumn<Integer, Tarifa> prezoExtrasColumn = new TableColumn<>("Prezo Extra");
         prezoExtrasColumn.setCellValueFactory(new PropertyValueFactory<>("prezoExtras"));
 
-        listaTarifas.getColumns().addAll(codTarifaColumn,nomeTarifaColumn,maxActividadesColumn,prezoBaseColumn,prezoExtrasColumn);
+        listaTarifas.getColumns().addAll(codTarifaColumn, nomeTarifaColumn, maxActividadesColumn, prezoBaseColumn, prezoExtrasColumn);
         listarTarifas();
         listaTarifas.setPlaceholder(new Label("Non se atoparon tarifas"));
     }
@@ -71,7 +72,7 @@ public class vAdministrarTarifasController extends AbstractController implements
     /**
      * Método para cargar as tarifas.
      */
-    private void listarTarifas(){
+    private void listarTarifas() {
         listaTarifas.getItems().removeAll(listaTarifas.getItems());
         listaTarifas.getItems().addAll(super.getFachadaAplicacion().listarTarifas());
     }
@@ -79,19 +80,19 @@ public class vAdministrarTarifasController extends AbstractController implements
     /**
      * Método para borrar unha tarifa seleccionada
      */
-    public void borrarTarifa(){
-        if(!listaTarifas.getSelectionModel().isEmpty()){
-            Tarifa tarifa=((Tarifa)listaTarifas.getSelectionModel().getSelectedItem());
-            if(fachadaAplicacion.estaEnUsoTarifa(tarifa.getCodTarifa())){
+    public void borrarTarifa() {
+        if (!listaTarifas.getSelectionModel().isEmpty()) {
+            Tarifa tarifa = ((Tarifa) listaTarifas.getSelectionModel().getSelectedItem());
+            if (fachadaAplicacion.estaEnUsoTarifa(tarifa.getCodTarifa())) {
                 fachadaAplicacion.mostrarAdvertencia("Tarifa en uso", "Esta tarifa está actualmente en uso, non se pode borrar");
                 return;
             }
-            if(fachadaAplicacion.mostrarConfirmacion("Borrar tarifa","Desexa borrar a tarifa "+tarifa.getNome() + "?")==ButtonType.OK){
+            if (fachadaAplicacion.mostrarConfirmacion("Borrar tarifa", "Desexa borrar a tarifa " + tarifa.getNome() + "?") == ButtonType.OK) {
                 try {
                     fachadaAplicacion.borrarTarifa(tarifa.getCodTarifa());
-                    fachadaAplicacion.mostrarInformacion("Borrar tarifa","A tarifa "+tarifa.getNome()+ " borrouse correctamente.");
+                    fachadaAplicacion.mostrarInformacion("Borrar tarifa", "A tarifa " + tarifa.getNome() + " borrouse correctamente.");
                 } catch (ExcepcionBD excepcionBD) {
-                    super.getFachadaAplicacion().mostrarErro("Tarifas",excepcionBD.getMessage());
+                    super.getFachadaAplicacion().mostrarErro("Tarifas", excepcionBD.getMessage());
                 }
             }
             listarTarifas();
@@ -101,11 +102,11 @@ public class vAdministrarTarifasController extends AbstractController implements
     /**
      * Método para modificar unha tarifa seleccionada
      */
-    public void modificarTarifa(){
-        if(!listaTarifas.getSelectionModel().isEmpty()){
-            Tarifa tarifa=((Tarifa)listaTarifas.getSelectionModel().getSelectedItem());
+    public void modificarTarifa() {
+        if (!listaTarifas.getSelectionModel().isEmpty()) {
+            Tarifa tarifa = ((Tarifa) listaTarifas.getSelectionModel().getSelectedItem());
             this.vPrincipal.mostrarMenu(IdPantalla.XESTIONTARIFA);
-            ((vXestionTarifaController)this.vPrincipal.getControlador(IdPantalla.XESTIONTARIFA)).setTarifa(tarifa);
+            ((vXestionTarifaController) this.vPrincipal.getControlador(IdPantalla.XESTIONTARIFA)).setTarifa(tarifa);
         }
     }
 

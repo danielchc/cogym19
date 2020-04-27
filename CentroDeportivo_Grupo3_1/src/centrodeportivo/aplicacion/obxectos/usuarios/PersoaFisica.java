@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class PersoaFisica  {
+public class PersoaFisica {
 
     /**
      * Atributos da clase Persoa Física
@@ -27,9 +27,10 @@ public class PersoaFisica  {
 
     /**
      * Constructor cos datos dunha persoa
-     * @param DNI dni da persoa.
-     * @param nome nome da persoa
-     * @param dificultades dificultades físicas
+     *
+     * @param DNI           dni da persoa.
+     * @param nome          nome da persoa
+     * @param dificultades  dificultades físicas
      * @param dataNacemento data de nacemento
      */
     public PersoaFisica(String DNI, String nome, String dificultades, Date dataNacemento) {
@@ -40,7 +41,7 @@ public class PersoaFisica  {
     }
 
     /**
-     *  Getters e Setters
+     * Getters e Setters
      */
     public String getDNI() {
         return DNI;

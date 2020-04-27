@@ -22,31 +22,33 @@ public final class Mensaxe {
 
     /**
      * Contructor con todos os parámetros para devolver os datos da base a aplicación.
-     * @param emisor Usuario que manda o mensaxe
-     * @param receptor Usuario que recibe o mensaxe
+     *
+     * @param emisor    Usuario que manda o mensaxe
+     * @param receptor  Usuario que recibe o mensaxe
      * @param dataEnvio Data de envío do mensaxe
-     * @param contido Contido do mensaxe
-     * @param lido boolean que indica se un mensaxe está lido ou non
+     * @param contido   Contido do mensaxe
+     * @param lido      boolean que indica se un mensaxe está lido ou non
      */
-    public Mensaxe(Usuario emisor,Usuario receptor,Timestamp dataEnvio,String contido,boolean lido){
+    public Mensaxe(Usuario emisor, Usuario receptor, Timestamp dataEnvio, String contido, boolean lido) {
         this(emisor, receptor, contido);
-        this.dataEnvio=dataEnvio;
-        this.lido=lido;
+        this.dataEnvio = dataEnvio;
+        this.lido = lido;
     }
 
     /**
      * Contructor sen atributos dataEnvio nin lido.
      * Este constructor serve para insertar datos na base, xa que a data insértase á hora de realizar
      * a insercción na base. Lido será false sempre á hora de crear un mensaxe novo.
+     *
      * @param emisor
      * @param receptor
      * @param contido
      */
-    public Mensaxe(Usuario emisor,Usuario receptor,String contido){
-        this.emisor=emisor;
-        this.receptor=receptor;
-        this.contido=contido;
-        this.lido=false;
+    public Mensaxe(Usuario emisor, Usuario receptor, String contido) {
+        this.emisor = emisor;
+        this.receptor = receptor;
+        this.contido = contido;
+        this.lido = false;
     }
 
 
@@ -99,8 +101,8 @@ public final class Mensaxe {
      */
 
     @Override
-    public boolean equals(Object o){
-        if(o instanceof Mensaxe){
+    public boolean equals(Object o) {
+        if (o instanceof Mensaxe) {
             return ((Mensaxe) o).getEmisor().equals(this.emisor) && ((Mensaxe) o).getReceptor().equals(this.receptor) && ((Mensaxe) o).getDataEnvio().equals(this.dataEnvio);
         }
         return false;

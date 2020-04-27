@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public final class DAOUsuarios extends AbstractDAO {
 
     /**
-     * @param conexion Conexión coa base de datos
+     * @param conexion          Conexión coa base de datos
      * @param fachadaAplicacion fachada da aplicación
      */
     protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
@@ -36,6 +36,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para comprobar se un login xa existe na base de datos.
+     *
      * @param login login buscado
      * @return true se existe ese login, false se non.
      */
@@ -61,6 +62,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para comprobar se existe unha persoa concreta na base de datos.
+     *
      * @param DNI DNI buscado.
      * @return true se existe esa persoa, false se non.
      */
@@ -86,6 +88,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para comprobar se xa existe un dni na base de datos.
+     *
      * @param dni DNI buscado.
      * @return true se existe ese DNI, false se non.
      */
@@ -111,6 +114,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para comprobar se xa existe un número da seguridade social na base de datos.
+     *
      * @param nuss nuss buscado.
      * @return true se existe ese nuss, false se non.
      */
@@ -136,6 +140,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para comprobar se unha persoa ten conta, e en caso afirmativo, que tipos de contas ten.
+     *
      * @param dni dni da persoa bucada
      * @return enum indicando as contas que ten esa persoa
      */
@@ -170,7 +175,8 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para comprobar se os datos introducidos corresponden cun usuario válido.
-     * @param login login introducido
+     *
+     * @param login    login introducido
      * @param password contrasinal introducido
      * @return true se se valida, false se non
      */
@@ -198,6 +204,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para consultar os datos dunha persoa física.
+     *
      * @param DNI dni da persoa.
      * @return PersoaFisica cos datos da persoa.
      */
@@ -231,6 +238,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para insertar un usuario na base de datos.
+     *
      * @param usuario usuario a ser insertado
      * @throws ExcepcionBD
      */
@@ -296,6 +304,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para actualizar a información dun usuario
+     *
      * @param usuario usuario a ser actualizado
      * @throws ExcepcionBD
      */
@@ -346,6 +355,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para dar de baixa un usuario da base de datos.
+     *
      * @param usuario usuario a ser dado de baixa
      * @throws ExcepcionBD
      */
@@ -354,35 +364,35 @@ public final class DAOUsuarios extends AbstractDAO {
 
         try {
             stmUsuario = super.getConexion().prepareStatement(
-                    "UPDATE usuario "+
-                        "SET dataBaixa=NOW(), "+
-                        "correoElectronico=NULL, "+
-                        "numTelefono=NULL, "+
-                        "contrasinal=NULL, "+
-                        "iban=NULL "+
-                        "WHERE login=?;"
+                    "UPDATE usuario " +
+                            "SET dataBaixa=NOW(), " +
+                            "correoElectronico=NULL, " +
+                            "numTelefono=NULL, " +
+                            "contrasinal=NULL, " +
+                            "iban=NULL " +
+                            "WHERE login=?;"
             );
             stmUsuario.setString(1, usuario.getLogin());
             stmUsuario.executeUpdate();
 
-            if(usuario instanceof Socio){
+            if (usuario instanceof Socio) {
                 stmUsuario = super.getConexion().prepareStatement(
-                        "UPDATE persoaFisica "+"" +
-                                "SET nome=NULL, "+
-                                "dificultades=NULL, "+
-                                "dataNacemento=NULL "+
-                                "WHERE usuarioSocio=? AND "+
+                        "UPDATE persoaFisica " + "" +
+                                "SET nome=NULL, " +
+                                "dificultades=NULL, " +
+                                "dataNacemento=NULL " +
+                                "WHERE usuarioSocio=? AND " +
                                 "(SELECT TRUE FROM usuario WHERE login=usuarioPersoal AND dataBaixa IS NOT NULL);"
                 );
                 stmUsuario.setString(1, usuario.getLogin());
                 stmUsuario.executeUpdate();
-            }else if(usuario instanceof Persoal){
+            } else if (usuario instanceof Persoal) {
                 stmUsuario = super.getConexion().prepareStatement(
-                        "UPDATE persoaFisica "+"" +
-                                "SET nome=NULL, "+
-                                "dificultades=NULL, "+
-                                "dataNacemento=NULL "+
-                                "WHERE usuarioPersoal=? AND "+
+                        "UPDATE persoaFisica " + "" +
+                                "SET nome=NULL, " +
+                                "dificultades=NULL, " +
+                                "dataNacemento=NULL " +
+                                "WHERE usuarioPersoal=? AND " +
                                 "(SELECT TRUE FROM usuario WHERE login=usuarioSocio AND dataBaixa IS NOT NULL);"
                 );
                 stmUsuario.setString(1, usuario.getLogin());
@@ -402,7 +412,8 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para engadir unha capacidade a un persoal
-     * @param login login do persoal
+     *
+     * @param login          login do persoal
      * @param tipoActividade tipo de actividade para engadirlle
      * @throws ExcepcionBD
      */
@@ -428,7 +439,8 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para eliminar unha capacidade dun persoal
-     * @param login login do persoal
+     *
+     * @param login          login do persoal
      * @param tipoActividade tipo de actividade para eliminar
      * @throws ExcepcionBD
      */
@@ -454,6 +466,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para listar os tipos de actividades que pode impartir un profesor.
+     *
      * @param login login do persoal
      * @return lista de capacidades dun persoal
      */
@@ -486,6 +499,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para consultar o tipo de usuario dun usuario.
+     *
      * @param login login do usuario
      * @return tipo de usuario
      */
@@ -523,9 +537,10 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para encontrar unha lista de usuarios que satisfagan as condicións pasadas como parámetros.
-     * @param login login buscado
-     * @param nome nome buscado
-     * @param filtroTipo tipos de usuario buscados
+     *
+     * @param login           login buscado
+     * @param nome            nome buscado
+     * @param filtroTipo      tipos de usuario buscados
      * @param usuariosDeBaixa incluir usuarios de baixa no resultado
      * @return lista de usuarios encontrados
      */
@@ -611,9 +626,9 @@ public final class DAOUsuarios extends AbstractDAO {
     }
 
 
-
     /**
      * Método para obter os datos dun usuario
+     *
      * @param login login do usuario
      * @return Usuario coa información
      */
@@ -683,6 +698,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para consultar qué cuota ten que pagar no mes actual un socio, así como información desranada sobre a mesma.
+     *
      * @param socio Socio do socio
      * @return Cuota que ten o socio
      */
@@ -697,7 +713,7 @@ public final class DAOUsuarios extends AbstractDAO {
         float totalCursos = 0.0f;
         float totalPrezo = 0.0f;
 
-        tarifa=socio.getTarifa();
+        tarifa = socio.getTarifa();
 
         try {
             stm = super.getConexion().prepareStatement(
@@ -707,23 +723,23 @@ public final class DAOUsuarios extends AbstractDAO {
                             "ar.nome as nomeArea, " +
                             "ar.codArea as codArea, " +
                             "tAct.nome as nomeTipo " +
-                        "FROM realizarActividade as rA NATURAL JOIN actividade as act " +
+                            "FROM realizarActividade as rA NATURAL JOIN actividade as act " +
                             "JOIN area AS ar ON act.area=ar.codArea AND act.instalacion=ar.instalacion " +
                             "JOIN tipoActividade as tAct ON tAct.codTipoActividade=act.tipoActividade " +
-                        "WHERE rA.dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
-                        "AND rA.usuario=? AND act.curso IS NULL;"
+                            "WHERE rA.dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
+                            "AND rA.usuario=? AND act.curso IS NULL;"
             );
             stm.setString(1, socio.getLogin());
             resultSet = stm.executeQuery();
             while (resultSet.next()) {
 
-                Area area=new Area(
+                Area area = new Area(
                         resultSet.getInt("codArea"),
                         new Instalacion(resultSet.getInt("instalacion")),
                         resultSet.getString("nomeArea")
                 );
 
-                TipoActividade tipoActividade=new TipoActividade(
+                TipoActividade tipoActividade = new TipoActividade(
                         resultSet.getInt("tipoActividade"),
                         resultSet.getString("nomeTipo")
                 );
@@ -780,6 +796,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para insertar un novo rexistro fisiolóxico dun socio.
+     *
      * @param rexistroFisioloxico rexistro cos datos
      * @throws ExcepcionBD
      */
@@ -814,6 +831,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para eliminar un rexistro fisiolóxico dun socio.
+     *
      * @param rexistroFisioloxico rexistro cos datos
      * @throws ExcepcionBD
      */
@@ -841,6 +859,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para consultar todos os rexistros fisiolóxicos dun socio concreto.
+     *
      * @param login login do socio
      * @return lista dos seus rexistros almacenados
      */
@@ -885,7 +904,8 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método para comprobar se un profesor ten clases pendentes dun tipo de actividade concreto.
-     * @param persoal persoal
+     *
+     * @param persoal        persoal
      * @param tipoActividade tipo de actividade
      * @return true se ten clases pendentes dese tipo, false se non.
      */

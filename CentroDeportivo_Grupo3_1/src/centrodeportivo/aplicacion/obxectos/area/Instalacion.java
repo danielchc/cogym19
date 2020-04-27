@@ -16,7 +16,8 @@ public class Instalacion {
 
     /**
      * Constructor coa clave primaria
-     * @param codInstalacion  código da instalación
+     *
+     * @param codInstalacion código da instalación
      */
     public Instalacion(int codInstalacion) {
         this.codInstalacion = codInstalacion;
@@ -24,9 +25,10 @@ public class Instalacion {
 
     /**
      * Constructor de instalación
-     * @param nome nome da instalación
+     *
+     * @param nome        nome da instalación
      * @param numTelefono número de contacto
-     * @param direccion dirección da instalación
+     * @param direccion   dirección da instalación
      */
     public Instalacion(String nome, String numTelefono, String direccion) {
         this.nome = nome;
@@ -36,10 +38,11 @@ public class Instalacion {
 
     /**
      * Constructor con todos os datos da instalación
+     *
      * @param codInstalacion código
-     * @param nome nome da instalación
-     * @param numTelefono número de contacto
-     * @param direccion dirección da instalación
+     * @param nome           nome da instalación
+     * @param numTelefono    número de contacto
+     * @param direccion      dirección da instalación
      */
     public Instalacion(int codInstalacion, String nome, String numTelefono, String direccion) {
         this(nome, numTelefono, direccion);
@@ -95,11 +98,9 @@ public class Instalacion {
     }
 
     @Override
-    public boolean equals(Object obj){
-        if(obj instanceof Instalacion){
-            if(((Instalacion)obj).getCodInstalacion() == this.codInstalacion){
-                return true;
-            }
+    public boolean equals(Object obj) {
+        if (obj instanceof Instalacion) {
+            return ((Instalacion) obj).getCodInstalacion() == this.codInstalacion;
         }
         return false;
     }

@@ -22,10 +22,11 @@ public class Curso {
 
     /**
      * Contructor cos datos dun curso.
-     * @param codCurso Código do curso
-     * @param nome Nome do curso
+     *
+     * @param codCurso   Código do curso
+     * @param nome       Nome do curso
      * @param descricion Descrición do curso.
-     * @param prezo Prezo mensual do curso.
+     * @param prezo      Prezo mensual do curso.
      */
     public Curso(int codCurso, String nome, String descricion, float prezo) {
         this.codCurso = codCurso;
@@ -36,6 +37,7 @@ public class Curso {
 
     /**
      * Constructor coa clave primaria.
+     *
      * @param codCurso Código do curso.
      */
     public Curso(int codCurso) {
@@ -84,13 +86,13 @@ public class Curso {
      */
     @Override
     public String toString() {
-        return "Nome: "+this.nome+
-                ", Código: "+this.codCurso;
+        return "Nome: " + this.nome +
+                ", Código: " + this.codCurso;
     }
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Curso){
+        if (o instanceof Curso) {
             return ((Curso) o).getCodCurso() == this.codCurso;
         }
         return false;

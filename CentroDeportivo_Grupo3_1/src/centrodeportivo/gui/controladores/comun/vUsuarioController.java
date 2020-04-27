@@ -71,27 +71,30 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * Atributos privados do controlador.
      */
-    enum  RexistroTipo {
+    enum RexistroTipo {
         Socio,
         Persoal
-    };
+    }
+
     private Usuario usuarioModificar;
     private vPrincipalController controllerPrincipal;
     private FachadaAplicacion fachadaAplicacion;
 
     /**
      * Constructor do controlador de alta dun novo usuario.
-     * @param fachadaAplicacion Fachada da aplicación.
+     *
+     * @param fachadaAplicacion    Fachada da aplicación.
      * @param vPrincipalController Controlador da vista principal.
      */
     public vUsuarioController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
-        super(fachadaAplicacion,vPrincipalController);
-        this.controllerPrincipal=super.getvPrincipalController();
-        this.fachadaAplicacion=super.getFachadaAplicacion();
+        super(fachadaAplicacion, vPrincipalController);
+        this.controllerPrincipal = super.getvPrincipalController();
+        this.fachadaAplicacion = super.getFachadaAplicacion();
     }
 
     /**
      * Método para inicicializar a vista.
+     *
      * @param url
      * @param resourceBundle
      */
@@ -101,16 +104,16 @@ public class vUsuarioController extends AbstractController implements Initializa
         this.comboTarifa.getSelectionModel().selectFirst();
         this.tipoUsuario.getItems().addAll(RexistroTipo.values());
         this.tipoUsuario.getSelectionModel().selectFirst();
-        this.usuarioModificar=null;
+        this.usuarioModificar = null;
 
-        this.campoPassword.textProperty().addListener(new ListenerMaxLogitud(campoPassword,64));
-        this.campoLogin.textProperty().addListener(new ListenerMaxLogitud(campoLogin,25));
-        this.campoTelf.textProperty().addListener(new ListenerMaxLogitud(campoTelf,9));
-        this.campoCorreo.textProperty().addListener(new ListenerMaxLogitud(campoCorreo,200));
-        this.campoIBAN.textProperty().addListener(new ListenerMaxLogitud(campoIBAN,24));
-        this.campoNUSS.textProperty().addListener(new ListenerMaxLogitud(campoNUSS,12));
-        this.campoNome.textProperty().addListener(new ListenerMaxLogitud(campoNome,200));
-        this.campoDificultades.textProperty().addListener(new ListenerMaxLogitud(campoDificultades,500));
+        this.campoPassword.textProperty().addListener(new ListenerMaxLogitud(campoPassword, 64));
+        this.campoLogin.textProperty().addListener(new ListenerMaxLogitud(campoLogin, 25));
+        this.campoTelf.textProperty().addListener(new ListenerMaxLogitud(campoTelf, 9));
+        this.campoCorreo.textProperty().addListener(new ListenerMaxLogitud(campoCorreo, 200));
+        this.campoIBAN.textProperty().addListener(new ListenerMaxLogitud(campoIBAN, 24));
+        this.campoNUSS.textProperty().addListener(new ListenerMaxLogitud(campoNUSS, 12));
+        this.campoNome.textProperty().addListener(new ListenerMaxLogitud(campoNome, 200));
+        this.campoDificultades.textProperty().addListener(new ListenerMaxLogitud(campoDificultades, 500));
 
         cambiarTipo();
         iniciarListeners();
@@ -119,26 +122,25 @@ public class vUsuarioController extends AbstractController implements Initializa
 
     /**
      * Método para realizar a acción de gardar cando se pulsa o botón de gardar.
-     *
      */
     public void btnGardarAccion() {
-        if(!ValidacionDatos.estanCubertosCampos(campoNome,campoLogin,campoCorreo,campoDNI,campoPassword,campoTelf,campoIBAN)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoLogin, campoCorreo, campoDNI, campoPassword, campoTelf, campoIBAN)) {
             this.labelError.setText("Algún campo sen cubrir.");
             return;
         }
-        if(!comprobarFormatos()) return;
-        if(!comprobarDataMais16anos()) return;
-        if(usuarioModificar==null && !comprobarLogin()) return;
+        if (!comprobarFormatos()) return;
+        if (!comprobarDataMais16anos()) return;
+        if (usuarioModificar == null && !comprobarLogin()) return;
 
-        ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
-        if(usuarioModificar==null && contasP==ContasPersoa.Ningunha){
-            if(!comprobarDNI()) return;
+        ContasPersoa contasP = super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
+        if (usuarioModificar == null && contasP == ContasPersoa.Ningunha) {
+            if (!comprobarDNI()) return;
         }
 
 
-        if(this.tipoUsuario.getSelectionModel().getSelectedItem()==RexistroTipo.Socio){
-            Tarifa tarifa=(Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
-            Socio socio=new Socio(
+        if (this.tipoUsuario.getSelectionModel().getSelectedItem() == RexistroTipo.Socio) {
+            Tarifa tarifa = (Tarifa) comboTarifa.getSelectionModel().getSelectedItem();
+            Socio socio = new Socio(
                     campoLogin.getText(),
                     campoPassword.getText(),
                     campoDNI.getText(),
@@ -150,26 +152,26 @@ public class vUsuarioController extends AbstractController implements Initializa
                     campoIBAN.getText(),
                     tarifa
             );
-            try{
-                if(usuarioModificar!=null){
-                    super.getFachadaAplicacion().actualizarUsuario(socio,usuarioModificar.getContrasinal()==null || !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
-                    this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+socio.getLogin() +" correctamente");
-                }else{
+            try {
+                if (usuarioModificar != null) {
+                    super.getFachadaAplicacion().actualizarUsuario(socio, usuarioModificar.getContrasinal() == null || !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
+                    this.fachadaAplicacion.mostrarInformacion("Usuario", "Modificouse o usuario " + socio.getLogin() + " correctamente");
+                } else {
                     this.fachadaAplicacion.insertarUsuario(socio);
-                    this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+socio.getLogin() +" correctamente");
+                    this.fachadaAplicacion.mostrarInformacion("Usuario", "Creouse o usuario " + socio.getLogin() + " correctamente");
                 }
-            }catch (ExcepcionBD excepcionBD){
-                super.getFachadaAplicacion().mostrarErro("Usuario",excepcionBD.getMessage());
+            } catch (ExcepcionBD excepcionBD) {
+                super.getFachadaAplicacion().mostrarErro("Usuario", excepcionBD.getMessage());
             }
 
-        }else{
-            if(!ValidacionDatos.isCorrectoNUSS(campoNUSS.getText())){
+        } else {
+            if (!ValidacionDatos.isCorrectoNUSS(campoNUSS.getText())) {
                 this.labelError.setText("NUSS con formato incorrecto.");
                 return;
             }
-            if(usuarioModificar==null && !comprobarNUSS()) return;
+            if (usuarioModificar == null && !comprobarNUSS()) return;
 
-            Persoal persoal=new Persoal(
+            Persoal persoal = new Persoal(
                     campoLogin.getText(),
                     campoPassword.getText(),
                     campoDNI.getText(),
@@ -182,20 +184,20 @@ public class vUsuarioController extends AbstractController implements Initializa
                     campoNUSS.getText().trim(),
                     checkProfesor.isSelected()
             );
-            try{
-                if(usuarioModificar!=null){
-                    if(fachadaAplicacion.tenClasesPendentes(persoal) && (!checkProfesor.isSelected())){
-                        fachadaAplicacion.mostrarErro("Clases pendentes","O persoal "+persoal.getLogin()+ " non pode deixar de ser profesor porque ten clases pendentes.");
+            try {
+                if (usuarioModificar != null) {
+                    if (fachadaAplicacion.tenClasesPendentes(persoal) && (!checkProfesor.isSelected())) {
+                        fachadaAplicacion.mostrarErro("Clases pendentes", "O persoal " + persoal.getLogin() + " non pode deixar de ser profesor porque ten clases pendentes.");
                         return;
                     }
-                    super.getFachadaAplicacion().actualizarUsuario(persoal,usuarioModificar.getContrasinal()==null || !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
-                    this.fachadaAplicacion.mostrarInformacion("Usuario","Modificouse o usuario "+persoal.getLogin() +" correctamente");
-                }else{
+                    super.getFachadaAplicacion().actualizarUsuario(persoal, usuarioModificar.getContrasinal() == null || !usuarioModificar.getContrasinal().equals(campoPassword.getText()));
+                    this.fachadaAplicacion.mostrarInformacion("Usuario", "Modificouse o usuario " + persoal.getLogin() + " correctamente");
+                } else {
                     this.fachadaAplicacion.insertarUsuario(persoal);
-                    this.fachadaAplicacion.mostrarInformacion("Usuario","Creouse o usuario "+persoal.getLogin() +" correctamente");
+                    this.fachadaAplicacion.mostrarInformacion("Usuario", "Creouse o usuario " + persoal.getLogin() + " correctamente");
                 }
-            }catch (ExcepcionBD excepcionBD){
-                super.getFachadaAplicacion().mostrarErro("Usuario",excepcionBD.getMessage());
+            } catch (ExcepcionBD excepcionBD) {
+                super.getFachadaAplicacion().mostrarErro("Usuario", excepcionBD.getMessage());
             }
         }
         this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
@@ -204,10 +206,10 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * Método que se executa cando se cambia de tipo de usuario no combobox.
      */
-    public void cambiarTipo(){
-        if(this.tipoUsuario.getSelectionModel().getSelectedIndex()== RexistroTipo.Socio.ordinal()){
+    public void cambiarTipo() {
+        if (this.tipoUsuario.getSelectionModel().getSelectedIndex() == RexistroTipo.Socio.ordinal()) {
             mostrarCamposSocio();
-        }else{
+        } else {
             mostrarCamposPersoal();
         }
     }
@@ -216,13 +218,14 @@ public class vUsuarioController extends AbstractController implements Initializa
      * Método executado cando se escribe algo no campo do dni.
      * Comproba se existe xa a persoa asociada ao dni escrito e en caso correcto mostra os campos adecuados
      * á situción de dita persoa.
+     *
      * @param keyEvent evento
      */
-    public void dniCambiadoAction(KeyEvent keyEvent){
-        if(usuarioModificar!=null) return;
+    public void dniCambiadoAction(KeyEvent keyEvent) {
+        if (usuarioModificar != null) return;
         this.labelError.setText("");
-        ContasPersoa contasP=super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
-        switch (contasP){
+        ContasPersoa contasP = super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
+        switch (contasP) {
             case Ningunha:
                 this.labelError.setText("");
                 this.tipoUsuario.setDisable(false);
@@ -251,11 +254,11 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * Método para esconder todos os campos do formulario.
      */
-    private void esconderCampos(){
+    private void esconderCampos() {
         AuxiliaresGUI.visibilidadeHBoxs(false,
-                dataNacementoSocioBox,tarifaSocioBox,dificultadesSocioBox,
-                nussPersoalBox,nomeBox,loginBox, passBox,
-                tlfBox,correoBox,ibanBox, profesorBox
+                dataNacementoSocioBox, tarifaSocioBox, dificultadesSocioBox,
+                nussPersoalBox, nomeBox, loginBox, passBox,
+                tlfBox, correoBox, ibanBox, profesorBox
         );
         btnGardar.setDisable(true);
     }
@@ -263,14 +266,14 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * Método para mostrar so os campos asociados a un novo persoal.
      */
-    private void mostrarCamposPersoal(){
+    private void mostrarCamposPersoal() {
         AuxiliaresGUI.visibilidadeHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
+                dataNacementoSocioBox, dificultadesSocioBox, nomeBox, loginBox, passBox,
+                tlfBox, correoBox, ibanBox, nussPersoalBox, profesorBox
         );
         AuxiliaresGUI.managedHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,nussPersoalBox,profesorBox
+                dataNacementoSocioBox, dificultadesSocioBox, nomeBox, loginBox, passBox,
+                tlfBox, correoBox, ibanBox, nussPersoalBox, profesorBox
         );
         AuxiliaresGUI.visibilidadeHBoxs(false, tarifaSocioBox);
         AuxiliaresGUI.managedHBoxs(false, tarifaSocioBox);
@@ -280,43 +283,44 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * Método para mostrar so os campos asociados a un novo socio.
      */
-    private void mostrarCamposSocio(){
+    private void mostrarCamposSocio() {
         AuxiliaresGUI.visibilidadeHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,tarifaSocioBox
+                dataNacementoSocioBox, dificultadesSocioBox, nomeBox, loginBox, passBox,
+                tlfBox, correoBox, ibanBox, tarifaSocioBox
         );
         AuxiliaresGUI.managedHBoxs(true,
-                dataNacementoSocioBox,dificultadesSocioBox,nomeBox,loginBox,passBox,
-                tlfBox,correoBox,ibanBox,tarifaSocioBox
+                dataNacementoSocioBox, dificultadesSocioBox, nomeBox, loginBox, passBox,
+                tlfBox, correoBox, ibanBox, tarifaSocioBox
         );
-        AuxiliaresGUI.visibilidadeHBoxs(false, nussPersoalBox,profesorBox);
-        AuxiliaresGUI.managedHBoxs(false, nussPersoalBox,profesorBox);
+        AuxiliaresGUI.visibilidadeHBoxs(false, nussPersoalBox, profesorBox);
+        AuxiliaresGUI.managedHBoxs(false, nussPersoalBox, profesorBox);
         btnGardar.setDisable(false);
     }
 
 
     /**
      * Método para comprobar os formatos dos datos introducidos.
+     *
      * @return true se todos os datos están correctos, false noutro caso.
      */
-    private boolean comprobarFormatos(){
-        if(!ValidacionDatos.isCorrectoTelefono(this.campoTelf.getText())){
+    private boolean comprobarFormatos() {
+        if (!ValidacionDatos.isCorrectoTelefono(this.campoTelf.getText())) {
             this.labelError.setText("Teléfono incorrecto.");
             return false;
         }
-        if(!ValidacionDatos.isCorrectoCorreo(this.campoCorreo.getText())){
+        if (!ValidacionDatos.isCorrectoCorreo(this.campoCorreo.getText())) {
             this.labelError.setText("Correo incorrecto.");
             return false;
         }
-        if(!ValidacionDatos.isCorrectoDNI(this.campoDNI.getText())){
+        if (!ValidacionDatos.isCorrectoDNI(this.campoDNI.getText())) {
             this.labelError.setText("DNI incorrecto.");
             return false;
         }
-        if(!ValidacionDatos.isCorrectoIBAN(this.campoIBAN.getText())){
+        if (!ValidacionDatos.isCorrectoIBAN(this.campoIBAN.getText())) {
             this.labelError.setText("IBAN incorrecto.");
             return false;
         }
-        if(campoData.getValue()==null){
+        if (campoData.getValue() == null) {
             this.labelError.setText("Data non introducida");
             return false;
         }
@@ -325,12 +329,13 @@ public class vUsuarioController extends AbstractController implements Initializa
 
     /**
      * Método para comprobar se a data de nacemento introducida é válida.
+     *
      * @return true se ten polo menos 16 anos, false noutro caso.
      */
-    private boolean comprobarDataMais16anos(){
-        LocalDate data=this.campoData.getValue();
-        LocalDate fechaLimite=LocalDate.now().minus(Period.ofYears(16));
-        if(data.compareTo(fechaLimite)>0){
+    private boolean comprobarDataMais16anos() {
+        LocalDate data = this.campoData.getValue();
+        LocalDate fechaLimite = LocalDate.now().minus(Period.ofYears(16));
+        if (data.compareTo(fechaLimite) > 0) {
             this.labelError.setText("O usuario debe ter polo menos 16 anos.");
             return false;
         }
@@ -339,11 +344,12 @@ public class vUsuarioController extends AbstractController implements Initializa
 
     /**
      * Método para comprobar a dispoñibilidade dun login.
+     *
      * @return true se é válido, false noutro caso.
      */
-    private boolean comprobarLogin(){
-        if(super.getFachadaAplicacion().existeUsuario(campoLogin.getText())){
-            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O login "+campoLogin.getText()+" xa está en uso.");
+    private boolean comprobarLogin() {
+        if (super.getFachadaAplicacion().existeUsuario(campoLogin.getText())) {
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario", "O login " + campoLogin.getText() + " xa está en uso.");
             return false;
         }
         return true;
@@ -352,9 +358,9 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * @return método para comprobar se un dni xa existe.
      */
-    private boolean comprobarDNI(){
-        if(super.getFachadaAplicacion().existeDNI(campoDNI.getText())){
-            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O DNI "+campoDNI.getText()+" xa está rexistrado.");
+    private boolean comprobarDNI() {
+        if (super.getFachadaAplicacion().existeDNI(campoDNI.getText())) {
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario", "O DNI " + campoDNI.getText() + " xa está rexistrado.");
             return false;
         }
         return true;
@@ -363,9 +369,9 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * @return método para comprobar se un nuss xa existe.
      */
-    private boolean comprobarNUSS(){
-        if(super.getFachadaAplicacion().existeNUSS(campoNUSS.getText())){
-            super.getFachadaAplicacion().mostrarAdvertencia("Usuario","O NUSS "+campoNUSS.getText()+" xa está rexistrado.");
+    private boolean comprobarNUSS() {
+        if (super.getFachadaAplicacion().existeNUSS(campoNUSS.getText())) {
+            super.getFachadaAplicacion().mostrarAdvertencia("Usuario", "O NUSS " + campoNUSS.getText() + " xa está rexistrado.");
             return false;
         }
         return true;
@@ -374,11 +380,11 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * Método para añadir o pulsado de Enter aos campos e gardar automáticamente.
      */
-    private void iniciarListeners(){
-        EventHandler<KeyEvent> handler=new EventHandler<KeyEvent>() {
+    private void iniciarListeners() {
+        EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(keyEvent.getCode() == KeyCode.ENTER) btnGardarAccion();
+                if (keyEvent.getCode() == KeyCode.ENTER) btnGardarAccion();
             }
         };
         campoNome.setOnKeyPressed(handler);
@@ -395,9 +401,9 @@ public class vUsuarioController extends AbstractController implements Initializa
     /**
      * Método para autocompletar os datos dun usuario para modificar.
      */
-    private void cargarDatosUsuario(){
-        if(usuarioModificar==null) return;
-        if(usuarioModificar.getNome()!=null){
+    private void cargarDatosUsuario() {
+        if (usuarioModificar == null) return;
+        if (usuarioModificar.getNome() != null) {
             campoNome.setText(usuarioModificar.getNome());
             campoPassword.setText(usuarioModificar.getContrasinal());
             campoTelf.setText(usuarioModificar.getNumTelefono());
@@ -410,15 +416,15 @@ public class vUsuarioController extends AbstractController implements Initializa
         campoLogin.setText(usuarioModificar.getLogin());
         campoDNI.setText(usuarioModificar.getDNI());
 
-        if(usuarioModificar instanceof Socio){
-            Socio socio=(Socio)usuarioModificar;
+        if (usuarioModificar instanceof Socio) {
+            Socio socio = (Socio) usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Socio);
             this.comboTarifa.getSelectionModel().select(socio.getTarifa());
-        }else if(usuarioModificar instanceof Persoal){
-            Persoal persoal=(Persoal)usuarioModificar;
+        } else if (usuarioModificar instanceof Persoal) {
+            Persoal persoal = (Persoal) usuarioModificar;
             this.tipoUsuario.getSelectionModel().select(RexistroTipo.Persoal);
             campoNUSS.setText(persoal.getNUSS().trim());
-            checkProfesor.setSelected(persoal.getTipoUsuario()==TipoUsuario.Profesor);
+            checkProfesor.setSelected(persoal.getTipoUsuario() == TipoUsuario.Profesor);
         }
         campoLogin.setEditable(false);
         tipoUsuario.setDisable(true);
@@ -428,6 +434,7 @@ public class vUsuarioController extends AbstractController implements Initializa
 
     /**
      * Método para cargar un usuario e podelo modificar.
+     *
      * @param usuario usuario a ser modificado
      */
     public void cargarDatosUsuario(Usuario usuario) {

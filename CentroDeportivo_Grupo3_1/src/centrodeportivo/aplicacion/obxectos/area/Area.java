@@ -25,19 +25,21 @@ public class Area {
 
     /**
      * Constructor coas claves primarias.
-     * @param codArea código da área.
+     *
+     * @param codArea     código da área.
      * @param instalacion instalación na que está.
      */
-    public Area(int codArea,Instalacion instalacion) {
+    public Area(int codArea, Instalacion instalacion) {
         this.codArea = codArea;
         this.instalacion = instalacion;
     }
 
     /**
      * Constructor da clase área.
+     *
      * @param instalacion instalación na que está
-     * @param nome nome da área
-     * @param descricion descrición
+     * @param nome        nome da área
+     * @param descricion  descrición
      * @param aforoMaximo afóro máximo da área
      */
     public Area(Instalacion instalacion, String nome, String descricion, Integer aforoMaximo) {
@@ -48,26 +50,27 @@ public class Area {
     }
 
     /**
-     * @param codArea código da área.
+     * @param codArea     código da área.
      * @param instalacion instalación na que está
-     * @param nome nome da área
+     * @param nome        nome da área
      */
-    public Area(Integer codArea,Instalacion instalacion, String nome) {
-        this.codArea=codArea;
+    public Area(Integer codArea, Instalacion instalacion, String nome) {
+        this.codArea = codArea;
         this.instalacion = instalacion;
         this.nome = nome;
     }
 
     /**
      * Constructor con todos os datos dunha área
-     * @param codArea código da área.
+     *
+     * @param codArea     código da área.
      * @param instalacion instalación na que está
-     * @param nome nome da área
-     * @param descricion descrición
+     * @param nome        nome da área
+     * @param descricion  descrición
      * @param aforoMaximo afóro máximo da área
-     * @param dataBaixa data de baixa da área.
+     * @param dataBaixa   data de baixa da área.
      */
-    public Area(int codArea,Instalacion instalacion, String nome, String descricion, int aforoMaximo,Date dataBaixa) {
+    public Area(int codArea, Instalacion instalacion, String nome, String descricion, int aforoMaximo, Date dataBaixa) {
         this(instalacion, nome, descricion, aforoMaximo);
         this.codArea = codArea;
         this.dataBaixa = dataBaixa;
@@ -146,7 +149,7 @@ public class Area {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Area area = (Area) o;
-        return ((this.codArea==((Area) o).codArea) && (this.instalacion.getCodInstalacion()==((Area) o).getInstalacion().getCodInstalacion()));
+        return ((this.codArea == ((Area) o).codArea) && (this.instalacion.getCodInstalacion() == ((Area) o).getInstalacion().getCodInstalacion()));
     }
 
     @Override

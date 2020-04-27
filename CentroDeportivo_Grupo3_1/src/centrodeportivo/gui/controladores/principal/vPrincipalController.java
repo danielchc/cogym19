@@ -130,7 +130,7 @@ public class vPrincipalController extends AbstractController implements Initiali
             this.pantallas.put(IdPantalla.ELIMINARREXISTRO, new DatosVista("/centrodeportivo/gui/vistas/socios/vEliminarRexistro.fxml", new vEliminarRexistroController(super.getFachadaAplicacion(), this)));
 
         }
-        
+
         this.pantallas.put(IdPantalla.USUARIO, new DatosVista("/centrodeportivo/gui/vistas/comun/vUsuario.fxml", new vUsuarioController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.INICIO, new DatosVista("/centrodeportivo/gui/vistas/principal/vInicio.fxml", new vInicioController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.MENSAXES, new DatosVista("/centrodeportivo/gui/vistas/comun/vMensaxes.fxml", new vMensaxesController(super.getFachadaAplicacion(), this)));

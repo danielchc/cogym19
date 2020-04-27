@@ -19,12 +19,12 @@ public abstract class AbstractController {
 
 
     /**
-     * @param fachadaAplicacion Fachada da aplicación
+     * @param fachadaAplicacion    Fachada da aplicación
      * @param vPrincipalController Controlador da vista principal
      */
     public AbstractController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         this.fachadaAplicacion = fachadaAplicacion;
-        this.vPrincipalController=vPrincipalController;
+        this.vPrincipalController = vPrincipalController;
     }
 
     /**

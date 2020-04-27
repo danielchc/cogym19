@@ -24,31 +24,33 @@ public final class Material {
 
     /**
      * Constructor coa clave primaria
-     * @param codMaterial código do material.
+     *
+     * @param codMaterial     código do material.
      * @param codTipoMaterial código do tipo de material
      */
     public Material(Integer codMaterial, Integer codTipoMaterial) {
         this.codMaterial = codMaterial;
-        this.codTipoMaterial=codTipoMaterial;
+        this.codTipoMaterial = codTipoMaterial;
     }
 
     /**
      * Constructor cos datos do material
-     * @param codMaterial código do material.
+     *
+     * @param codMaterial     código do material.
      * @param codTipoMaterial código do tipo de material
-     * @param area Área na que está
-     * @param estado Estado no que se encontra
-     * @param dataCompra Data de compra
-     * @param prezoCompra Prezo de compra
+     * @param area            Área na que está
+     * @param estado          Estado no que se encontra
+     * @param dataCompra      Data de compra
+     * @param prezoCompra     Prezo de compra
      */
     public Material(Integer codMaterial, Integer codTipoMaterial, String tipoNombre, Area area, String estado, Date dataCompra, float prezoCompra) {
         this.codMaterial = codMaterial;
-        this.codTipoMaterial=codTipoMaterial;
+        this.codTipoMaterial = codTipoMaterial;
         this.area = area;
         this.estado = estado;
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
-        this.tipoNombre=tipoNombre;
+        this.tipoNombre = tipoNombre;
     }
 
 
@@ -126,8 +128,8 @@ public final class Material {
                 '}';
     }
 
-    public boolean equals(Object o){
-        if(o instanceof Material){
+    public boolean equals(Object o) {
+        if (o instanceof Material) {
             return ((Material) o).getCodMaterial().equals(this.codMaterial);
         }
         return false;

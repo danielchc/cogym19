@@ -42,13 +42,13 @@ public class vXestionTarifaController extends AbstractController implements Init
     private vPrincipalController vPrincipal;
 
     /**
-     * @param fachadaAplicacion fachada da aplicación
+     * @param fachadaAplicacion    fachada da aplicación
      * @param vPrincipalController controlador da vista principals
      */
     public vXestionTarifaController(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
-        super(fachadaAplicacion,vPrincipalController);
-        this.fachadaAplicacion=super.getFachadaAplicacion();
-        this.vPrincipal=vPrincipalController;
+        super(fachadaAplicacion, vPrincipalController);
+        this.fachadaAplicacion = super.getFachadaAplicacion();
+        this.vPrincipal = vPrincipalController;
     }
 
     /**
@@ -56,49 +56,50 @@ public class vXestionTarifaController extends AbstractController implements Init
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
-        this.tarifaModificar=null;
+        this.labelNumActividades.setText(String.valueOf((int) this.campoActividades.getValue()));
+        this.tarifaModificar = null;
         this.campoPrecioBase.textProperty().addListener(new ListenerTextFieldNumeros(campoPrecioBase));
         this.campoPrecioExtras.textProperty().addListener(new ListenerTextFieldNumeros(campoPrecioExtras));
-        this.campoNome.textProperty().addListener(new ListenerMaxLogitud(campoNome,50));
+        this.campoNome.textProperty().addListener(new ListenerMaxLogitud(campoNome, 50));
     }
 
     /**
      * Método para gardar os datos introducidos.
+     *
      * @param actionEvent evento.
      */
     public void btnGardarAccion(ActionEvent actionEvent) {
-        if(!ValidacionDatos.estanCubertosCampos(campoNome,campoPrecioBase,campoPrecioExtras)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoPrecioBase, campoPrecioExtras)) {
             labelError.setText("Algún campo sen cubrir.");
             return;
         }
 
-        Tarifa tarifa=new Tarifa(
+        Tarifa tarifa = new Tarifa(
                 this.campoNome.getText(),
-                (int)this.campoActividades.getValue(),
+                (int) this.campoActividades.getValue(),
                 Float.parseFloat(campoPrecioBase.getText()),
                 Float.parseFloat(campoPrecioExtras.getText())
         );
-        if(tarifaModificar!=null){
+        if (tarifaModificar != null) {
 
             tarifa.setCodTarifa(tarifaModificar.getCodTarifa());
             try {
                 fachadaAplicacion.actualizarTarifa(tarifa);
-                fachadaAplicacion.enviarMensaxe(getvPrincipalController().obterUsuarioLogeado(),fachadaAplicacion.listarSociosTarifa(tarifa),"A súa tarifa "+tarifa.getNome()+" foi modificada.");
-                fachadaAplicacion.mostrarInformacion("Tarifas","Gardaronse os cambios na tarifa "+campoNome.getText()+" correctamente");
+                fachadaAplicacion.enviarMensaxe(getvPrincipalController().obterUsuarioLogeado(), fachadaAplicacion.listarSociosTarifa(tarifa), "A súa tarifa " + tarifa.getNome() + " foi modificada.");
+                fachadaAplicacion.mostrarInformacion("Tarifas", "Gardaronse os cambios na tarifa " + campoNome.getText() + " correctamente");
             } catch (ExcepcionBD excepcionBD) {
-                super.getFachadaAplicacion().mostrarErro("Tarifas",excepcionBD.getMessage());
+                super.getFachadaAplicacion().mostrarErro("Tarifas", excepcionBD.getMessage());
             }
-        }else{
-            if(this.fachadaAplicacion.existeTarifa(campoNome.getText())){
-                fachadaAplicacion.mostrarErro("Error", "Xa existe unha tarifa co nome "+campoNome.getText());
+        } else {
+            if (this.fachadaAplicacion.existeTarifa(campoNome.getText())) {
+                fachadaAplicacion.mostrarErro("Error", "Xa existe unha tarifa co nome " + campoNome.getText());
                 return;
             }
             try {
                 fachadaAplicacion.insertarTarifa(tarifa);
-                fachadaAplicacion.mostrarInformacion("Tarifas","Creouse a tarifa "+campoNome.getText()+" correctamente");
+                fachadaAplicacion.mostrarInformacion("Tarifas", "Creouse a tarifa " + campoNome.getText() + " correctamente");
             } catch (ExcepcionBD excepcionBD) {
-                fachadaAplicacion.mostrarErro("Tarifas",excepcionBD.getMessage());
+                fachadaAplicacion.mostrarErro("Tarifas", excepcionBD.getMessage());
             }
         }
         this.vPrincipal.volverAtras();
@@ -107,14 +108,16 @@ public class vXestionTarifaController extends AbstractController implements Init
 
     /**
      * Método para cambiar o valor do slider.
+     *
      * @param mouseEvent evento
      */
     public void listenerSlider(MouseEvent mouseEvent) {
-        this.labelNumActividades.setText(String.valueOf((int)this.campoActividades.getValue()));
+        this.labelNumActividades.setText(String.valueOf((int) this.campoActividades.getValue()));
     }
 
     /**
      * Método para cargar unha tarifa e ser modificada.s
+     *
      * @param tarifa tarifa a modificar
      */
     public void setTarifa(Tarifa tarifa) {
@@ -125,9 +128,9 @@ public class vXestionTarifaController extends AbstractController implements Init
     /**
      * Método para cargar unha tarifa.
      */
-    private void cargarTarifa(){
+    private void cargarTarifa() {
         campoNome.setDisable(false);
-        if(tarifaModificar==null)return;
+        if (tarifaModificar == null) return;
         campoNome.setDisable(true);
         campoNome.setText(tarifaModificar.getNome());
         campoActividades.setValue(tarifaModificar.getMaxActividades());

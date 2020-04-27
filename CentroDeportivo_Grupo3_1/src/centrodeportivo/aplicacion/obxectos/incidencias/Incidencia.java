@@ -26,6 +26,7 @@ public abstract class Incidencia {
 
     /**
      * Constructor coa clave primaria
+     *
      * @param numero número da incidencia
      */
     public Incidencia(int numero) {
@@ -34,18 +35,20 @@ public abstract class Incidencia {
 
     /**
      * Contructor para engadir unha os datos dunha incidencia
-     * @param usuario usuario que a presenta
+     *
+     * @param usuario     usuario que a presenta
      * @param descripcion descripción da incidencia
      */
     public Incidencia(Usuario usuario, String descripcion) {
-        this.usuario=usuario;
-        this.descricion=descripcion;
+        this.usuario = usuario;
+        this.descricion = descripcion;
     }
 
     /**
      * Contructor con todos os datos dunha incidencia
-     * @param numero número
-     * @param usuario usuario que a presenta
+     *
+     * @param numero     número
+     * @param usuario    usuario que a presenta
      * @param descricion descripción da incidencia
      */
     public Incidencia(int numero, Usuario usuario, String descricion, String comentarioResolucion, Date dataFalla, Date dataResolucion, float custoReparacion) {
@@ -65,12 +68,13 @@ public abstract class Incidencia {
     }
 
     /**
-     *  Getters e Setters.
+     * Getters e Setters.
      */
 
-    public boolean estaResolta(){
-        return (this.dataResolucion!=null);
+    public boolean estaResolta() {
+        return (this.dataResolucion != null);
     }
+
     public abstract TipoIncidencia getTipoIncidencia();
 
     public int getNumero() {
