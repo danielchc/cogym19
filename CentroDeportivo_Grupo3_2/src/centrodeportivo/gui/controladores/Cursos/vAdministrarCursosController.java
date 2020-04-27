@@ -22,6 +22,7 @@ import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.net.URL;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class vAdministrarCursosController extends AbstractController implements Initializable {
@@ -47,8 +48,10 @@ public class vAdministrarCursosController extends AbstractController implements 
         TableColumn<String, Curso> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        TableColumn<Timestamp, Curso> dataInicioColumn = new TableColumn<>("Data Inicio");
-        dataInicioColumn.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+        TableColumn<Curso, String> dataInicioColumn = new TableColumn<>("Data Inicio");
+        dataInicioColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                new SimpleDateFormat("dd/MM/yyyy").format(c.getValue().getDataInicio())
+        ));
 
         TableColumn<Integer, Curso> numActividadesColumn = new TableColumn<>("Numero de Actividades");
         numActividadesColumn.setCellValueFactory(new PropertyValueFactory<>("numActividades"));
