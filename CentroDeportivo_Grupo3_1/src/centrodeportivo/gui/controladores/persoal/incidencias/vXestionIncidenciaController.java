@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.persoal.incidencias;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.incidencias.Incidencia;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaArea;
 import centrodeportivo.aplicacion.obxectos.incidencias.IncidenciaMaterial;
@@ -12,10 +13,12 @@ import centrodeportivo.auxiliar.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -67,7 +70,7 @@ public class vXestionIncidenciaController extends AbstractController implements 
                             "\nInstalación: %s" +
                             "\nUsuario incidencia: %s" +
                             "\nDescrición: %s",
-                    incidenciaXestionar.getDataFalla(),
+                    new SimpleDateFormat("MM/dd/yyyy").format(incidenciaXestionar.getDataFalla()),
                     incidenciaXestionar.getNumero(),
                     ((IncidenciaArea) incidenciaXestionar).getArea(),
                     ((IncidenciaArea) incidenciaXestionar).getArea().getNome(),

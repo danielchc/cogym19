@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.socios;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
@@ -22,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +104,7 @@ public class vCuotaController extends AbstractController implements Initializabl
         TableColumn<Actividade, String> dataColum = new TableColumn<>("Data");
         dataColum.setCellValueFactory(
                 c -> new SimpleStringProperty(
-                        new Date(c.getValue().getData().getTime()).toString()
+                        new SimpleDateFormat("MM/dd/yyyy").format(((Actividade)c.getValue()).getData())
                 )
         );
 

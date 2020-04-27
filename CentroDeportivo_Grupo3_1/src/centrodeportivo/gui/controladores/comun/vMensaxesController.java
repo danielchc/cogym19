@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -71,7 +72,7 @@ public class vMensaxesController extends AbstractController implements Initializ
         this.containerChats.setPlaceholder(new Label("Buzón vacío"));
         TableColumn<Mensaxe, String> column = new TableColumn<>("Chats");
         column.setCellValueFactory(c -> new SimpleStringProperty(
-                "[Hora]:" + new Date(c.getValue().getDataEnvio().getTime()).toString() + "[Emisor]: " + c.getValue().getEmisor().getLogin()));
+                "[Hora]: " + new SimpleDateFormat("MM/dd/yyyy").format((c.getValue().getDataEnvio().getTime())) + " [Emisor]: " + c.getValue().getEmisor().getLogin()));
         this.containerChats.setRowFactory(tv -> new TableRow<Mensaxe>() {
             @Override
             public void updateItem(Mensaxe item, boolean empty) {

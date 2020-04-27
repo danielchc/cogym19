@@ -727,7 +727,7 @@ public final class DAOUsuarios extends AbstractDAO {
                             "JOIN area AS ar ON act.area=ar.codArea AND act.instalacion=ar.instalacion " +
                             "JOIN tipoActividade as tAct ON tAct.codTipoActividade=act.tipoActividade " +
                             "WHERE rA.dataActividade BETWEEN to_date(format('%s-%s-%s',EXTRACT(YEAR from NOW()),EXTRACT(MONTH from NOW()),'01'),'YYYY-MM-DD') AND NOW() " +
-                            "AND rA.usuario=? AND act.curso IS NULL;"
+                            "AND rA.usuario=? AND act.curso IS NULL ORDER BY act.dataActividade DESC;"
             );
             stm.setString(1, socio.getLogin());
             resultSet = stm.executeQuery();

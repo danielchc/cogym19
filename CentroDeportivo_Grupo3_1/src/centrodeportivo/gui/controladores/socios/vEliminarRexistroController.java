@@ -6,13 +6,16 @@ import centrodeportivo.aplicacion.obxectos.RexistroFisioloxico;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -56,8 +59,12 @@ public class vEliminarRexistroController extends AbstractController implements I
 
         this.tablaRexistros.setPlaceholder(new Label("Non hai rexistros dispoñibles."));
 
-        TableColumn<Timestamp, RexistroFisioloxico> columna1 = new TableColumn<>("Data");
-        columna1.setCellValueFactory(new PropertyValueFactory<>("data"));
+        TableColumn<RexistroFisioloxico , String> columna1 = new TableColumn<>("Data");
+        columna1.setCellValueFactory(
+                c -> new SimpleStringProperty(
+                        new SimpleDateFormat("MM/dd/yyyy kk:mm").format(((RexistroFisioloxico)c.getValue()).getData())
+                )
+        );
         TableColumn<Float, RexistroFisioloxico> columna2 = new TableColumn<>("Peso");
         columna2.setCellValueFactory(new PropertyValueFactory<>("peso"));
         TableColumn<Float, RexistroFisioloxico> columna3 = new TableColumn<>("Altura");
