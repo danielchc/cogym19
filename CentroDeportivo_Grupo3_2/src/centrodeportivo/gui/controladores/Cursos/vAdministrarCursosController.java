@@ -109,10 +109,11 @@ public class vAdministrarCursosController extends AbstractController implements 
             Curso curso = getFachadaAplicacion().recuperarDatosCurso(selected);
             if(curso != null){
                 //Se houbo resultado, procedemos a pasar á ventá de xestión de cursos este curso:
-                vXestionCursoController cont = (vXestionCursoController) controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO);
-                cont.setCurso(curso);
                 //Chamamos á ventá.
                 controllerPrincipal.mostrarMenu(IdPantalla.XESTIONCURSO);
+                //Asignamos o curso:
+                vXestionCursoController cont = (vXestionCursoController) controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO);
+                cont.setCurso(curso);
             } else {
                 //Se houbo problemas ao recuperar a información, avisamos do erro:
                 this.getFachadaAplicacion().mostrarErro("Administración de Cursos",

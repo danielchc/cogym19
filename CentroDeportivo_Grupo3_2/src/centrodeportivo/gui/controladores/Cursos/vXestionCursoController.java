@@ -69,8 +69,10 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Hai que levar a cabo varias tarefas, e pode haber dúas situacións:
         //Situación 1 - Non hai curso asociado á clase (NULL).
         //Situación 2 - Hai curso asociado á clase.
+        //De todos os xeitos, na inicialización non contemplaremos iso, senón que
+        //o cambio farémolo no setter.
 
-        //Igualmente, en ambos casos hai que inicializar as táboas:
+        //Inicializamos as táboas
         //Táboa de actividades:
         TableColumn<Date, Actividade> dataActividadeColumn = new TableColumn<>("Data");
         dataActividadeColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
@@ -135,34 +137,14 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Controlamos o tamaño das columnas:
         taboaProfesores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        //Situación 1:
-        if(curso == null){
-            //Neste caso teremos que axustarnos para reflexar o rexistro dun curso:
-            //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
-            btnActivar.setVisible(false);
-            btnBorrarActividade.setVisible(false);
-            btnEngadirActividade.setVisible(false);
-            btnModificarSeleccion.setVisible(false);
-            btnCancelar.setVisible(false);
-            btnXerarInforme.setVisible(false);
-
-        } else { //Situación 2:
-            //Entón teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
-            campoCodigo.setText(curso.getCodCurso()+"");
-            campoNome.setText(curso.getNome());
-            campoDescricion.setText(curso.getDescricion());
-            campoPrezo.setText(curso.getPrezo()+"");
-            //Enchemos a táboa de actividades:
-            taboaActividades.getItems().addAll(curso.getActividades());
-            //Enchemos a táboa de participantes:
-            taboaUsuarios.getItems().addAll(curso.getParticipantes());
-            if(curso.isAberto()){
-                //Se o curso xa está aberto non damos opción a abrilo:
-                btnActivar.setVisible(false);
-            }
-        }
-
-        vBoxBotonInforme.setVisible(true);
+        //Neste caso teremos que axustarnos para reflexar o rexistro dun curso:
+        //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
+        btnActivar.setVisible(false);
+        btnBorrarActividade.setVisible(false);
+        btnEngadirActividade.setVisible(false);
+        btnModificarSeleccion.setVisible(false);
+        btnCancelar.setVisible(false);
+        vBoxBotonInforme.setVisible(false);
         vBoxDetalleInforme.setVisible(false);
     }
 
@@ -170,7 +152,6 @@ public class vXestionCursoController extends AbstractController implements Initi
     @Override
     public void reiniciarForm(){
         //Reestablecemos o campo do curso de cara á apertura de novo da ventá.
-        //Se se quere abrir para xestión dun novo curso haberá que volver a asignalo:
         this.curso = null;
     }
 
@@ -357,8 +338,31 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     //Getters e setters do curso:
+    //O setter fai máis cousas: actualiza a interface.
     public void setCurso(Curso curso){
+        //Asignamos o curso:
         this.curso = curso;
+        //Teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
+        campoCodigo.setText(curso.getCodCurso()+"");
+        campoNome.setText(curso.getNome());
+        campoDescricion.setText(curso.getDescricion());
+        campoPrezo.setText(curso.getPrezo()+"");
+        //Enchemos a táboa de actividades:
+        taboaActividades.getItems().addAll(curso.getActividades());
+        //Enchemos a táboa de participantes:
+        taboaUsuarios.getItems().addAll(curso.getParticipantes());
+        if(curso.isAberto()) {
+            //Se o curso xa está aberto non damos opción a abrilo:
+            btnActivar.setVisible(false);
+        } else {
+            btnActivar.setVisible(true);
+        }
+        //Activamos botóns actividades, cancelación e xeración de informe
+        btnBorrarActividade.setVisible(true);
+        btnEngadirActividade.setVisible(true);
+        btnModificarSeleccion.setVisible(true);
+        btnCancelar.setVisible(true);
+        vBoxBotonInforme.setVisible(true);
     }
 
     public Curso getCurso(){
