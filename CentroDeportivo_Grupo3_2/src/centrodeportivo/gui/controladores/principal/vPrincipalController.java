@@ -79,7 +79,7 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     private void cargarPantallas() {
         //Cargamos as pantallas que sexan precisas:
-        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this.usuario)));
+        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this, this.usuario)));
         //Pantalla de nova instalación: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.NOVAINSTALACION,new DatosVista("../../vistas/Instalacions/vNovaInstalacion.fxml",new vNovaInstalacionController(super.getFachadaAplicacion(), this)));
         //Pantalla de administración das instalacións: pasámoslle o fxml e o controlador.
