@@ -41,6 +41,12 @@ public class Usuario {
         this.login = login;
     }
 
+    public Usuario(String nome, String DNI, String login){
+        this.nome = nome;
+        this.DNI = DNI;
+        this.login = login;
+    }
+
     /**
      * Constructor sen datos persoais comprometedores:
      * @param login O login para o inicio de sesión do usuario.

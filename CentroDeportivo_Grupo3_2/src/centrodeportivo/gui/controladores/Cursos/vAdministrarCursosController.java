@@ -6,7 +6,10 @@ import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-//import com.sun.org.apache.xpath.internal.operations.Bool;
+<<<<<<< HEAD
+import com.sun.org.apache.xpath.internal.operations.Bool;
+=======
+>>>>>>> f9519a368e9c7e74c10670d287f8b5e70fc83cff
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,11 +20,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-//import jdk.nashorn.internal.codegen.CompilerConstants;
-//import sun.java2d.pipe.SpanShapeRenderer;
+<<<<<<< HEAD
+import jdk.nashorn.internal.codegen.CompilerConstants;
+import sun.java2d.pipe.SpanShapeRenderer;
+=======
+>>>>>>> f9519a368e9c7e74c10670d287f8b5e70fc83cff
 
 import java.net.URL;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class vAdministrarCursosController extends AbstractController implements Initializable {
@@ -47,8 +53,10 @@ public class vAdministrarCursosController extends AbstractController implements 
         TableColumn<String, Curso> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        TableColumn<Timestamp, Curso> dataInicioColumn = new TableColumn<>("Data Inicio");
-        dataInicioColumn.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+        TableColumn<Curso, String> dataInicioColumn = new TableColumn<>("Data Inicio");
+        dataInicioColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                new SimpleDateFormat("dd/MM/yyyy").format(c.getValue().getDataInicio())
+        ));
 
         TableColumn<Integer, Curso> numActividadesColumn = new TableColumn<>("Numero de Actividades");
         numActividadesColumn.setCellValueFactory(new PropertyValueFactory<>("numActividades"));
@@ -109,10 +117,11 @@ public class vAdministrarCursosController extends AbstractController implements 
             Curso curso = getFachadaAplicacion().recuperarDatosCurso(selected);
             if(curso != null){
                 //Se houbo resultado, procedemos a pasar á ventá de xestión de cursos este curso:
-                vXestionCursoController cont = (vXestionCursoController) controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO);
-                cont.setCurso(curso);
                 //Chamamos á ventá.
                 controllerPrincipal.mostrarMenu(IdPantalla.XESTIONCURSO);
+                //Asignamos o curso:
+                vXestionCursoController cont = (vXestionCursoController) controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO);
+                cont.setCurso(curso);
             } else {
                 //Se houbo problemas ao recuperar a información, avisamos do erro:
                 this.getFachadaAplicacion().mostrarErro("Administración de Cursos",

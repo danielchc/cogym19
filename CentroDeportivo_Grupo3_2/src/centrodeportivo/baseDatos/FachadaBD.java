@@ -21,9 +21,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Esta clase é a fachada que ten a parte da base de datos do noso proxecto. Con ela, o resto de partes da aplicación
+ * simplemente terán que ter coñecemento desta fachada, evitando coñecer todos os DAOs.
+ */
 public final class FachadaBD {
-    private FachadaAplicacion fachadaAplicacion;
-    private Connection conexion;
+    /**
+     * Atributos da clase
+     */
+    private FachadaAplicacion fachadaAplicacion; //Fachada de aplicación
+    private Connection conexion; //Conexión coa base de datos.
+    /**
+     * Os diferentes DAO (Data Access Object) dende os que faremos os métodos que realmente acceden á base de datos.
+     */
     private DAOUsuarios daoUsuarios;
     private DAOInstalacions daoInstalacions;
     private DAOTipoMaterial daoTipoMaterial;
@@ -33,34 +46,53 @@ public final class FachadaBD {
     private DAOCursos daoCursos;
     private DAOMensaxes daoMensaxes;
 
+    /**
+     * Constructor da fachada da base de datos:
+     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     */
     public FachadaBD(FachadaAplicacion fachadaAplicacion) {
+        //Para empezar, asociaremos a fachada de aplicación ao atributo correspondente:
         this.fachadaAplicacion = fachadaAplicacion;
+        //Creamos o atributo de tipo properties para gardar toda a información para a configuración.
         Properties configuracion = new Properties();
-        FileInputStream prop;
-
+        //FileInputStream prop;
         //prop = new FileInputStream("baseDatos.properties");
         //configuracion.load(prop);
         //prop.close();
+
         try {
+            //Tentamos desencriptar todos os datos que están no arquivo properties.
             String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
             //System.out.println(conf);
+            //Cargamos a información lida do cifrado:
             configuracion.load(new StringReader(conf));
         } catch (Exception ex) {
+            //En caso de problemas ao desencriptar o cifrado, avisamos e saímos:
             System.out.println("Non se pudo cargar o arquivo cifrado");
             System.exit(1);
         }
 
+        //A partir da información lida do cifrado, imos ir asociando as propiedades ao usuario para o acceso á BD:
         Properties usuario = new Properties();
+        //Nome de usuario da base de datos:
         usuario.setProperty("user", configuracion.getProperty("usuario"));
+        //Clave do usuario
         usuario.setProperty("password", configuracion.getProperty("clave"));
+        //Creamos o string para poder solicitar a conexión coa base de datos:
         String con = String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"), configuracion.getProperty("servidor"), configuracion.getProperty("puerto"), configuracion.getProperty("baseDatos"));
         try {
+            //Tentamos establecer a conexión:
             this.conexion = DriverManager.getConnection(con, usuario);
+            //Por convenio global estableceremos o autoCommit a false. POLO TANTO, teremos que facer commit nos métodos
+            //de DAO.
             this.conexion.setAutoCommit(false);
         } catch (SQLException e) {
+            //Se non podemos, amosamos un erro e asociamos:
             fachadaAplicacion.mostrarErro("Erro", "Erro na conexión ca base de datos");
             System.exit(1);
         }
+
+        //Creamos todos os DAOs:
         this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
         this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
         this.daoActividades = new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
@@ -75,6 +107,12 @@ public final class FachadaBD {
 
     /*
         Funcions DAOUsuarios
+     */
+    /**
+     * Método que nos permitirá levar a cabo a validación dun usuario:
+     * @param login O login introducido polo usuario.
+     * @param contrasinal O contrasinal introducido polo usuario.
+     * @return booleano que nos indica se a validación foi correcta ou non.
      */
     public boolean validarUsuario(String login, String contrasinal) {
         return daoUsuarios.validarUsuario(login, contrasinal);

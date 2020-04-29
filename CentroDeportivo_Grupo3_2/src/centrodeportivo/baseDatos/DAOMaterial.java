@@ -7,11 +7,11 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-// TODO: REVISAR COMENTARIOS - HELENA
 
 public final class DAOMaterial extends AbstractDAO {
 
@@ -174,7 +174,7 @@ public final class DAOMaterial extends AbstractDAO {
 
         boolean resultado = false;
         PreparedStatement stmMaterial = null;
-        ResultSet rsMaterial = null;
+        ResultSet rsMaterial;
         Connection con;
 
         // Recuperamos a conexión coa base de datos
@@ -226,9 +226,12 @@ public final class DAOMaterial extends AbstractDAO {
      */
     public ArrayList<Material> listarMateriais() {
         ArrayList<Material> materiais = new ArrayList<>();
-        PreparedStatement stmMaterial = null;
-        ResultSet rsMaterial;
+        PreparedStatement stmMaterial = null, stmTipoMaterial = null, stmArea = null, stmInstalacion = null;
+        ResultSet rsMaterial, rsTipoMaterial, rsArea, rsInstalacion;
         Connection con;
+        TipoMaterial tipoMaterial = null;
+        Area area = null;
+        Instalacion instalacion = null;
 
         // Recuperamos a conexión coa base de datos
         con = super.getConexion();
@@ -241,9 +244,37 @@ public final class DAOMaterial extends AbstractDAO {
 
             // Procesamos o ResultSet
             while (rsMaterial.next()) {
-                // Engadimos o ArrayList os materiais
-                //TODO: CREAR TIPO MATERIAL E CREAR AREA DO MATERIAL, SOBREESCRIBIR O CONSTRUCTOR
-                //materiais.add(new Material(rsMaterial.getInt(1), CREARTIPOMATERIAL:),CREARAREAMATERIAL:), rsMaterial.getString(4), rsMaterial.getDate(5), rsMaterial.getFloat(6)));
+
+                // Recuperamos o tipo de material que é:
+                stmTipoMaterial = con.prepareStatement("SELECT * FROM tipoMaterial WHERE codTipoMaterial = ?");
+                stmTipoMaterial.setInt(1, rsMaterial.getInt(2));
+                rsTipoMaterial = stmTipoMaterial.executeQuery();
+                while (rsTipoMaterial.next()) {  //TODO: poñer un while ou un if
+                    tipoMaterial = new TipoMaterial(rsTipoMaterial.getInt(1), rsTipoMaterial.getString(2));
+                }
+
+                // Recuperamos a instalación na que se atopa:
+                stmInstalacion = con.prepareStatement("SELECT * FROM instalacion WHERE codinstalacion = ?");
+                stmInstalacion.setInt(1, rsMaterial.getInt(4));
+                rsInstalacion = stmInstalacion.executeQuery();
+                while (rsInstalacion.next()) {  //TODO: poñer un while ou un if
+                    instalacion = new Instalacion(rsInstalacion.getInt(1), rsInstalacion.getString(2),
+                            rsInstalacion.getString(3), rsInstalacion.getString(4));
+                }
+
+                // Recuperamos a área na que se atopa:
+                stmArea = con.prepareStatement("select * from area WHERE codarea = ? AND instalacion = ?");
+                stmArea.setInt(1, rsMaterial.getInt(3));
+                stmArea.setInt(2, rsMaterial.getInt(4));
+                rsArea = stmArea.executeQuery();
+                while (rsArea.next()) {  //TODO: poñer un while ou un if
+                    area = new Area(rsArea.getInt(1), instalacion, rsArea.getString(3),
+                            rsArea.getString(4), rsArea.getInt(5), rsArea.getDate(6));
+                }
+
+                // Engadimos o material o ArrayList
+                materiais.add(new Material(rsMaterial.getInt(1), tipoMaterial, area,
+                        rsMaterial.getString(4), rsMaterial.getDate(5), rsMaterial.getFloat(6)));
             }
             con.commit();
         } catch (SQLException e) {
@@ -258,6 +289,12 @@ public final class DAOMaterial extends AbstractDAO {
             try {
                 assert stmMaterial != null;
                 stmMaterial.close();
+                assert stmTipoMaterial != null;
+                stmTipoMaterial.close();
+                assert stmArea != null;
+                stmArea.close();
+                assert stmInstalacion != null;
+                stmInstalacion.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }

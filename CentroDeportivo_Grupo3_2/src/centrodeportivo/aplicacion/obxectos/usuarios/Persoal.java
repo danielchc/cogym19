@@ -32,6 +32,16 @@ public final class Persoal extends Usuario {
         super(login);
     }
 
+    public Persoal(String nome, String DNI, String login, boolean profesorActivo){
+        super(nome, DNI, login);
+        this.profesorActivo = profesorActivo;
+        if(profesorActivo){
+            super.setTipoUsuario(TipoUsuario.ProfesorActivo);
+        } else {
+            super.setTipoUsuario(TipoUsuario.Persoal);
+        }
+    }
+
     /**
      * Constructor que recibe somentes login e valoración: usámolo dende o DAO de cursos cando se recuperan as
      * valoracións dos profesores participantes.
