@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 
 import java.sql.*;
 
@@ -122,6 +123,7 @@ public final class DAOUsuarios extends AbstractDAO {
                         " WHERE login = ? " +
                         "   AND dataBaixa IS NULL");
                 stmUsuario.setString(1, login);
+                rsUsuarios = stmUsuario.executeQuery();
                 if (rsUsuarios.next()) {
                     resultado = new Socio(rsUsuarios.getString("nome"),
                             rsUsuarios.getString("dni"),
