@@ -6,10 +6,7 @@ import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-<<<<<<< HEAD
-import com.sun.org.apache.xpath.internal.operations.Bool;
-=======
->>>>>>> f9519a368e9c7e74c10670d287f8b5e70fc83cff
+//import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -20,11 +17,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-<<<<<<< HEAD
-import jdk.nashorn.internal.codegen.CompilerConstants;
-import sun.java2d.pipe.SpanShapeRenderer;
-=======
->>>>>>> f9519a368e9c7e74c10670d287f8b5e70fc83cff
+//import jdk.nashorn.internal.codegen.CompilerConstants;
+//import sun.java2d.pipe.SpanShapeRenderer;
+
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
