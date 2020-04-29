@@ -201,11 +201,12 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmActivide = con.prepareStatement("DELETE FROM area " +
-                    " WHERE codarea = ? and codinstalacion = ?");
+            stmActivide = con.prepareStatement("DELETE FROM actividade " +
+                    " WHERE dataactividade = ? and instalacion = ? and area = ?");
 
-            stmActivide.setInt(1, actividade.getArea().getCodArea());
+            stmActivide.setTimestamp(1, actividade.getData());
             stmActivide.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setInt(3, actividade.getArea().getCodArea());
 
             //Realizamos a actualización:
             stmActivide.executeUpdate();
@@ -226,8 +227,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public void apuntarseActividade(Actividade actividade, Usuario usuario)
-    {
+    public void apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -263,4 +263,79 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        PreparedStatement stmActivide = null;
+        ResultSet rsActividade;
+        Connection con;
+        //Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        //Preparamos a inserción:
+        try {
+            stmActivide = con.prepareStatement("DELETE FROM realizaractividade " +
+                    " WHERE dataactividade = ? and instalacion = ? and area = ? and usuario = ?");
+            //Establecemos os valores
+            stmActivide.setTimestamp(1, actividade.getData());
+            stmActivide.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setInt(3, actividade.getArea().getCodArea());
+            stmActivide.setString(4, usuario.getLogin());
+
+            //Realizamos a actualización:
+            stmActivide.executeUpdate();
+
+            //Facemos commit:
+            con.commit();
+
+        } catch (SQLException e){
+            //Lanzamos neste caso unha excepción cara a aplicación:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //En calquera caso, téntase pechar os cursores.
+            try {
+                stmActivide.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
+
+    public boolean estarApuntado(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        PreparedStatement stmActivide = null;
+        ResultSet rsActividade;
+        Connection con;
+        //Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        //Preparamos a inserción:
+        try {
+            stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion, usuario " +
+                    " FROM realizaractividade " +
+                    " WHERE dataactividade = ? and area = ? and instalacion = ? and usuario = ?");
+
+            //Establecemos os valores:
+            stmActivide.setTimestamp(1, actividade.getData());
+            stmActivide.setInt(2, actividade.getArea().getCodArea());
+            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setString(4, usuario.getLogin());
+
+            //Facemos a consulta:
+            rsActividade = stmActivide.executeQuery();
+
+            if (rsActividade.next())
+                if ((rsActividade.getTimestamp(1) == actividade.getData()) && (rsActividade.getInt(2) == actividade.getArea().getCodArea()) && (rsActividade.getInt(3) == actividade.getArea().getInstalacion().getCodInstalacion()) && (rsActividade.getString(4).equals(usuario.getLogin())))
+                    return true;
+            return false;
+
+        } catch (SQLException e){
+            //Lanzamos neste caso unha excepción cara a aplicación:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //En calquera caso, téntase pechar os cursores.
+            try {
+                stmActivide.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
 }
