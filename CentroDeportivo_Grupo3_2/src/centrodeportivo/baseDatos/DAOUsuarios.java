@@ -80,17 +80,26 @@ public final class DAOUsuarios extends AbstractDAO {
         return resultado;
     }
 
+    /**
+     * Método que nos permitirá consultar os datos esenciais dun usuario:
+     * @param login O login do usuario que se quere consultar.
+     * @return Usuario con algúns dos datos asociados na base de datos ao login pasado como argumento.
+     */
     protected Usuario consultarUsuario(String login) {
         //Nesta consulta comprobaremos primeiro o tipo de usuario e recupesaremos algúns datos comúns do usuario.
-        PreparedStatement stmUsuario = null;
+        PreparedStatement stmUsuarios = null;
         ResultSet rsUsuarios;
         //Empregaremos un atributo para o tipo de usuario e o usuario:
         TipoUsuario tipoUsuario = null;
         Usuario resultado = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
 
         try {
             //Intentamos consultar en primeiro lugar o tipo de usuario:
-            stmUsuario = super.getConexion().prepareStatement("SELECT CASE" +
+            stmUsuarios = con.prepareStatement("SELECT CASE" +
                     " WHEN EXISTS(SELECT * FROM socio as s WHERE s.login = ?) THEN 'socio'" +
                     " WHEN EXISTS(SELECT * FROM persoal as pe WHERE pe.login = ? and pe.profesorActivo = false) THEN 'persoal'" +
                     " WHEN EXISTS(SELECT * FROM persoal as pe WHERE pe.login = ? and pe.profesorActivo = true) THEN 'profesor' " +
@@ -98,12 +107,12 @@ public final class DAOUsuarios extends AbstractDAO {
                     " END as tipoUsuario"
             );
             //Completamos a consulta. Os tres campos interrogantes son o mesmo: o login do usuario.
-            stmUsuario.setString(1, login);
-            stmUsuario.setString(2, login);
-            stmUsuario.setString(3, login);
+            stmUsuarios.setString(1, login);
+            stmUsuarios.setString(2, login);
+            stmUsuarios.setString(3, login);
 
             //Realizamos a consulta:
-            rsUsuarios = stmUsuario.executeQuery();
+            rsUsuarios = stmUsuarios.executeQuery();
             //Seguro que ten resultado:
             rsUsuarios.next();
             //En función do string devolto (se chegamos a este punto, sabendo que non se pode borrar un usuario, vaisenos
@@ -117,13 +126,16 @@ public final class DAOUsuarios extends AbstractDAO {
 
             //Agora consultaremos os datos do usuario. Na nosa parte da aplicación somentes tomaremos datos realmente esenciais.
             if(tipoUsuario==TipoUsuario.Socio) {
-                //Neste caso consultaremos un socio:
-                stmUsuario = super.getConexion().prepareStatement("SELECT nome, dni, login " +
+                //Neste caso consultaremos un socio, accedendo á vista de socios:
+                stmUsuarios = con.prepareStatement("SELECT nome, dni, login " +
                         " FROM vistasocio " +
                         " WHERE login = ? " +
                         "   AND dataBaixa IS NULL");
-                stmUsuario.setString(1, login);
-                rsUsuarios = stmUsuario.executeQuery();
+                //Completamos a consulta:
+                stmUsuarios.setString(1, login);
+                //Realizamos a consulta:
+                rsUsuarios = stmUsuarios.executeQuery();
+                //Se hai resultados (que debería), créase o socio:
                 if (rsUsuarios.next()) {
                     resultado = new Socio(rsUsuarios.getString("nome"),
                             rsUsuarios.getString("dni"),
@@ -131,12 +143,15 @@ public final class DAOUsuarios extends AbstractDAO {
                 }
             }else{
                 //Noutro caso (profesor/persoal): consultamos un membro do persoal.
-                stmUsuario = super.getConexion().prepareStatement("SELECT nome, dni, login, profesorActivo " +
+                stmUsuarios = con.prepareStatement("SELECT nome, dni, login, profesorActivo " +
                         " FROM vistapersoal " +
                         " WHERE login = ? " +
                         "   AND dataBaixa IS NULL");
-                stmUsuario.setString(1, login);
-                rsUsuarios = stmUsuario.executeQuery();
+                //Complétase a consula introducindo o login:
+                stmUsuarios.setString(1, login);
+                //Realizamos a consulta:
+                rsUsuarios = stmUsuarios.executeQuery();
+                //Se hai resultados, que debería, créase o persoal:
                 if (rsUsuarios.next()) {
                     resultado = new Persoal(rsUsuarios.getString("nome"),
                             rsUsuarios.getString("dni"),
@@ -144,11 +159,21 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getBoolean("profesorActivo"));
                 }
             }
+            //Remátase realizando o commit:
+            con.commit();
         } catch (SQLException e) {
+            //En caso de haber excepción, faise o rollback:
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+            //Imprimimos o stack trace:
             e.printStackTrace();
         }finally {
+            //Para rematar, téntase pechar o statement de usuarios:
             try {
-                stmUsuario.close();
+                stmUsuarios.close();
             } catch (SQLException e){
                 System.out.println("Imposible pechar os cursores");
             }

@@ -45,7 +45,13 @@ public class XestionUsuarios {
         return fachadaBD.validarUsuario(login, Criptografia.hashSHA256(contrasinal));
     }
 
+    /**
+     * Método que nos permitirá consultar os datos esenciais dun usuario:
+     * @param login O login do usuario que se quere consultar.
+     * @return Usuario con algúns datos asociados na base de datos ao login pasado como argumento.
+     */
     public Usuario consultarUsuario(String login)  {
+        //Chamamos ao método correspondente da fachada da base de datos.
         return fachadaBD.consultarUsuario(login);
     }
 

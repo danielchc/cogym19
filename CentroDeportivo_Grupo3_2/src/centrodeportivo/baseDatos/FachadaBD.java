@@ -118,7 +118,13 @@ public final class FachadaBD {
         return daoUsuarios.validarUsuario(login, contrasinal);
     }
 
+    /**
+     * Método que nos permitirá consultar os datos esenciais dun usuario:
+     * @param login O login do usuario que se quere consultar.
+     * @return Usuario con algúns dos datos asociados na base de datos ao login pasado como argumento.
+     */
     public Usuario consultarUsuario(String login) {
+        //Chamamos ao método do dao correspondente.
         return daoUsuarios.consultarUsuario(login);
     }
 
