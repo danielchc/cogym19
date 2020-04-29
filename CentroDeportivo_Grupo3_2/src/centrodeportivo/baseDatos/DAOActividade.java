@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.*;
 import java.util.concurrent.TimeUnit;
@@ -94,6 +95,10 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public boolean horarioOcupadoActividade(Actividade actividade) throws ExcepcionBD {
+        /*
+        * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
+        * na base de datos.
+        * */
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -201,6 +206,43 @@ public class DAOActividade extends AbstractDAO {
 
             stmActivide.setInt(1, actividade.getArea().getCodArea());
             stmActivide.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
+
+            //Realizamos a actualización:
+            stmActivide.executeUpdate();
+
+            //Facemos commit:
+            con.commit();
+
+        } catch (SQLException e){
+            //Lanzamos neste caso unha excepción cara a aplicación:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //En calquera caso, téntase pechar os cursores.
+            try {
+                stmActivide.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
+
+    public void apuntarseActividade(Actividade actividade, Usuario usuario)
+    {
+        PreparedStatement stmActivide = null;
+        ResultSet rsActividade;
+        Connection con;
+        //Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        //Preparamos a inserción:
+        try {
+            stmActivide = con.prepareStatement("INSERT INTO realizaractividade (dataactividade, area, instalacion, usuario) " +
+                    " VALUES (?, ?, ?, ?)");
+            //Establecemos os valores:
+            stmActivide.setTimestamp(1, actividade.getData());
+            stmActivide.setInt(2, actividade.getArea().getCodArea());
+            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setString(4, usuario.getLogin());
 
             //Realizamos a actualización:
             stmActivide.executeUpdate();
