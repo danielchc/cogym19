@@ -94,15 +94,13 @@ public class vLoginController  extends AbstractController implements Initializab
         }
     }
 
+    /**
+     * Método invocado cando se presiona unha tecla do teclado.
+     * @param keyEvent O evento de pulsado dunha tecla.
+     */
     public void keyPressedIniciar(KeyEvent keyEvent) {
+        //Se se pulsase a tecla enter, nesta ventá, faríase o análogo a iniciar sesión:
         if(keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
     }
 
-    public FachadaAplicacion getFa() {
-        return fa;
-    }
-
-    public void setFa(FachadaAplicacion fa) {
-        this.fa = fa;
-    }
 }
