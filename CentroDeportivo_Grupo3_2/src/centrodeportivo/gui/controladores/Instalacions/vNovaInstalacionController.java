@@ -68,7 +68,7 @@ public class vNovaInstalacionController extends AbstractController implements In
                     this.getFachadaAplicacion().mostrarInformacion("Instalacións", "Creada a instalación " +
                             instalacion.getNome() + ". O seu id é: " + instalacion.getCodInstalacion() + ".");
                     //Volvemos á pantalla principal:
-                    this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+                    this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
                     break;
                 case datoExiste:
                     //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.

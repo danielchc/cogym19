@@ -2,7 +2,6 @@ package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
-import centrodeportivo.baseDatos.AbstractDAO;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -91,7 +90,7 @@ public class vAdministrarTiposActividadesController extends AbstractController i
         cont.setTipoActividade(null);
 
         //Agora, amósase esa pantalla:
-        controllerPrincipal.mostrarMenu(IdPantalla.INSERCIONTIPOACTIVIDADE);
+        controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONTIPOACTIVIDADE);
     }
 
     public void btnXestionarAction(ActionEvent actionEvent) {
@@ -102,7 +101,7 @@ public class vAdministrarTiposActividadesController extends AbstractController i
             //Introducese o tipo de actividade como atributo no controlador correspondente:
             cont.setTipoActividade(tipoActividade);
             //Agora, amósase esa pantalla:
-            controllerPrincipal.mostrarMenu(IdPantalla.INSERCIONTIPOACTIVIDADE);
+            controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONTIPOACTIVIDADE);
         } else {
             super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Non hai ningunha selección para editar!");
         }

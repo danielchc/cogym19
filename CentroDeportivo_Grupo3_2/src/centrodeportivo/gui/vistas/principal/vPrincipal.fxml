@@ -7,13 +7,13 @@
 
 <AnchorPane prefHeight="482.0" prefWidth="783.0" stylesheets="@cssMenu.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <StackPane fx:id="mainContainer" layoutX="101.0" maxHeight="1.7976931348623157E308" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <StackPane fx:id="contedorPrincipal" layoutX="101.0" maxHeight="1.7976931348623157E308" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
             </children>
         </StackPane>
 
         <!--Persoal-->
-        <VBox id="vb-sidebar" fx:id="sideBarAreasP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
+        <VBox id="vb-sidebar" fx:id="sideBarAreasPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <Button id="NOVAINSTALACION" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE">
                 <font>
                     <Font name="System Bold" size="12.0" />
@@ -76,7 +76,7 @@
             </Button>
         </VBox>
 
-        <VBox id="vb-sidebar" fx:id="sideBarActividadesP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
+        <VBox id="vb-sidebar" fx:id="sideBarActividadesPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Button id="ADMINISTRARTIPOSACTIVIDADES" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Tipos de Actividades" textFill="WHITE">
                     <font>
@@ -117,7 +117,7 @@
             </children>
         </VBox>
 
-        <VBox id="vb-sidebar" fx:id="sideBarMaterialP" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
+        <VBox id="vb-sidebar" fx:id="sideBarMaterialPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Material" textFill="WHITE">
                     <font>
@@ -137,7 +137,7 @@
 
         <!--Socios-->
 
-        <VBox id="vb-sidebar" fx:id="sideBarActividadesS" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
+        <VBox id="vb-sidebar" fx:id="sideBarActividadesSocios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Usuario" textFill="WHITE">
                     <font>
@@ -175,7 +175,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnAreasP" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Infraestructura" textFill="WHITE">
+                <Button fx:id="btnAreasPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Infraestructura" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="11.0" />
                     </font>
@@ -187,7 +187,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnActividadesP" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
+                <Button fx:id="btnActividadesPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -199,7 +199,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnMaterialP" contentDisplay="TOP" layoutX="10.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Material" textFill="WHITE">
+                <Button fx:id="btnMaterialPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Material" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -215,7 +215,7 @@
         </VBox>
 
 
-        <VBox id="vb-sidebar" fx:id="menuSocio" prefHeight="482.0" prefWidth="100.0" style="-fx-background-color: #005bbd;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox id="vb-sidebar" fx:id="menuSocioPersoal" prefHeight="482.0" prefWidth="100.0" style="-fx-background-color: #005bbd;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Button id="INICIO" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Inicio" textFill="WHITE">
                     <font>
@@ -229,7 +229,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnActividadesS" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
+                <Button fx:id="btnActividadesSocios" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>

@@ -103,7 +103,7 @@ public class vAdministrarInstalacionsController extends AbstractController imple
             //Accedemos ao controlador da ventá de edición dunha instalación:
             ((vEditarInstalacionController)this.controllerPrincipal.getControlador(IdPantalla.EDITARINSTALACION)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
-            this.controllerPrincipal.mostrarMenu(IdPantalla.EDITARINSTALACION);
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
         } else {
             this.getFachadaAplicacion().mostrarErro("Administración de instalacións", "Non hai celda seleccionada!");
         }

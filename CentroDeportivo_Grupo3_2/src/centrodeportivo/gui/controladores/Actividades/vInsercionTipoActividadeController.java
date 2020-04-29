@@ -69,7 +69,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     public void btnVolverAction(ActionEvent actionEvent) {
         //Nese caso, pásase á venta de administración:
-        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+        controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
     }
 
     public void btnGardarAction(ActionEvent actionEvent) {
@@ -124,7 +124,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
                                 "Introducido o tipo de actividade, o seu ID é " + tipoActividade.getCodTipoActividade() + ".");
                         //Finalmente, sáese unha vez rematado:
-                        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+                        controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
                         break;
                 }
             } catch (ExcepcionBD excepcionBD) {
@@ -148,7 +148,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                         this.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
                                 "Eliminación correcta.");
                         //Volvese á ventá anterior:
-                        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+                        controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
                         break;
                     case referenciaRestrict:
                         //Amosamos mensaxe de erro:

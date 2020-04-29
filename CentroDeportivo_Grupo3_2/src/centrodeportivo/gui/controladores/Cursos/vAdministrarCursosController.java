@@ -113,7 +113,7 @@ public class vAdministrarCursosController extends AbstractController implements 
             if(curso != null){
                 //Se houbo resultado, procedemos a pasar á ventá de xestión de cursos este curso:
                 //Chamamos á ventá.
-                controllerPrincipal.mostrarMenu(IdPantalla.XESTIONCURSO);
+                controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONCURSO);
                 //Asignamos o curso:
                 vXestionCursoController cont = (vXestionCursoController) controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO);
                 cont.setCurso(curso);

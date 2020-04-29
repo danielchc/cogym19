@@ -122,7 +122,7 @@ public class vEditarAreaController extends AbstractController implements Initial
                         super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións",
                                 "Instalación borrada correctamente.");
                         //Se se logrou borrar, logo haberá que amosar de novo a pantalla anterior (a xestión desa instalación deixa de ter sentido).
-                        controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARINSTALACIONS);
+                        controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARINSTALACIONS);
                         break;
                 }
             } catch(ExcepcionBD e){
@@ -141,6 +141,6 @@ public class vEditarAreaController extends AbstractController implements Initial
 
     public void btnVolverAction(ActionEvent actionEvent) {
         //Se se pulsa o botón volver, amosarase de novo a pantalla de administrar instalacións:
-        this.controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARINSTALACIONS);
+        this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARINSTALACIONS);
     }
 }

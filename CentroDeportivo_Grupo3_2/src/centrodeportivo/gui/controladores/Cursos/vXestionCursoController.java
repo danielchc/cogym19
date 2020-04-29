@@ -301,7 +301,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                             super.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
                                     "O curso foi borrado. Avisouse automáticamente a todos os usuarios.");
                             //Directamente neste caso o que se fai é saír desta ventá:
-                            this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+                            this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
                             break;
                     }
                 } catch(ExcepcionBD excepcionBD){
@@ -310,7 +310,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                     //é que se volva directamente á ventá de inicio se hai calquera erro na base de datos.
                     super.getFachadaAplicacion().mostrarErro("Administración de Cursos",
                             excepcionBD.getMessage());
-                    this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
+                    this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
                 }
             }
         } else {
@@ -418,7 +418,7 @@ public class vXestionCursoController extends AbstractController implements Initi
             getFachadaAplicacion().mostrarErro("Administración de Cursos",
                     "Produciuse un erro na busca e perdéronse os datos. Volva a intentalo noutro momento.");
             //Ademais, creo que resulta conveniente neste caso saír desta pantalla e volver ao inicio:
-            controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARCURSOS);
+            controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARCURSOS);
         }
     }
 }
