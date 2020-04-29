@@ -7,24 +7,48 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('centrodeportivo/gui/imaxes/fondologin.png');" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('centrodeportivo/gui/imaxes/fondologin.png'); -fx-background-size: cover;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="tfUsuario" alignment="CENTER" layoutX="50.0" layoutY="168.0" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="Login Usuario" text="test0" AnchorPane.leftAnchor="49.99999999999997" AnchorPane.rightAnchor="49.99999999999997" AnchorPane.topAnchor="168.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></TextField>
-            <PasswordField fx:id="tfContrasinal" alignment="CENTER" layoutX="50.0" layoutY="231.0" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="**********" text="abc123" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.99999999999997" AnchorPane.topAnchor="231.0">
-               <font>
-                  <Font size="15.0" />
-               </font></PasswordField>
-            <Label fx:id="labelError" alignment="CENTER_RIGHT" layoutX="189.0" layoutY="286.0" prefHeight="20.0" prefWidth="250.0" textFill="#bf0a0a" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="286.0">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font></Label>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="125.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.39999999999998" AnchorPane.topAnchor="33.0">
-               <image>
-                  <Image url="@../imaxes/usuariologin.png" />
-               </image></ImageView>
+            <VBox prefHeight="374.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="110.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@../imaxes/usuariologin.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TextField fx:id="tfUsuario" alignment="CENTER" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="Login Usuario" text="test0">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <PasswordField fx:id="tfContrasinal" alignment="CENTER" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="**********" text="abc123">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </PasswordField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="22.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="labelError" alignment="CENTER" prefHeight="35.0" prefWidth="330.0" textFill="#bf0a0a" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children></AnchorPane>
    </center>
    <bottom>

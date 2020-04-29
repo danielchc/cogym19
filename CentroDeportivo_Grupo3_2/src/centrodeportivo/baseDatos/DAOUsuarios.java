@@ -8,12 +8,21 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.*;
 
+/**
+ *
+ */
 public final class DAOUsuarios extends AbstractDAO {
 
     protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion,fachadaAplicacion);
     }
 
+    /**
+     * Método que nos permitirá levar a cabo a validación dun usuario:
+     * @param login O login introducido polo usuario.
+     * @param contrasinal O contrasinal introducido polo usuario.
+     * @return booleano que nos indica se a validación foi correcta ou non.
+     */
     protected boolean validarUsuario(String login, String contrasinal) {
         PreparedStatement stmUsuario = null;
         ResultSet resultValidacion;
