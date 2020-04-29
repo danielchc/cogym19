@@ -36,6 +36,11 @@ public final class Socio extends Usuario {
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
+    public Socio(String nome, String DNI, String login){
+        super(nome, DNI, login);
+        super.setTipoUsuario(TipoUsuario.Socio);
+    }
+
     /**
      * Constructor reducido, cando non se queira recopilar toda a información:
      * @param login Login para o inicio de sesión do usuario

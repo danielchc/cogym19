@@ -17,10 +17,6 @@ public abstract class ValidacionDatos {
         return tlf.matches("[0-9]+") && tlf.length()==9;
     }
 
-    public static boolean isCorrectoCorreo(String mail){
-        return mail.contains("@") && mail.contains(".");
-    }
-
     /**
      * Método que nos permite comprobar se os campos pasados están cubertos.
      * @param nodes Os campos que se quere validar que están cubertos.
