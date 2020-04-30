@@ -26,16 +26,17 @@ public final class Persoal extends Usuario {
 
     /**
      * Construtor únicamente co login do usuario:
+     *
      * @param login O login do usuario
      */
-    public Persoal (String login){
+    public Persoal(String login) {
         super(login);
     }
 
-    public Persoal(String nome, String DNI, String login, boolean profesorActivo){
+    public Persoal(String nome, String DNI, String login, boolean profesorActivo) {
         super(nome, DNI, login);
         this.profesorActivo = profesorActivo;
-        if(profesorActivo){
+        if (profesorActivo) {
             super.setTipoUsuario(TipoUsuario.ProfesorActivo);
         } else {
             super.setTipoUsuario(TipoUsuario.Persoal);
@@ -45,10 +46,11 @@ public final class Persoal extends Usuario {
     /**
      * Constructor que recibe somentes login e valoración: usámolo dende o DAO de cursos cando se recuperan as
      * valoracións dos profesores participantes.
-     * @param login O login do usuario
+     *
+     * @param login      O login do usuario
      * @param valoracion Valoración dada a ese persoal nalgunha actividade na que foi profesor.
      */
-    public Persoal (String login, Float valoracion){
+    public Persoal(String login, Float valoracion) {
         //Chamamos ao construtor da clase pai:
         super(login);
         //Asignamos o atributo correspondente a esta clase.
@@ -58,17 +60,18 @@ public final class Persoal extends Usuario {
     /**
      * Constructor que tolera todos os parámetros que dispón o usuario (salvo o das valoracións propio do persoal, que
      * só se require cando se recupera esa información particular da base de datos).
-     * @param login Login de inicio de sesión
-     * @param contrasinal Contrasinal que emprega o usuario para iniciar a sesión.
-     * @param DNI DNI do usuario
-     * @param nome Nome real dese usuario
-     * @param dificultades Dificultades que posúa dito usuario
-     * @param dataNacemento Data de nacemenro
-     * @param numTelefono Número de teléfono
+     *
+     * @param login             Login de inicio de sesión
+     * @param contrasinal       Contrasinal que emprega o usuario para iniciar a sesión.
+     * @param DNI               DNI do usuario
+     * @param nome              Nome real dese usuario
+     * @param dificultades      Dificultades que posúa dito usuario
+     * @param dataNacemento     Data de nacemenro
+     * @param numTelefono       Número de teléfono
      * @param correoElectronico Correo electrónico do usuario.
-     * @param IBANconta IBAN da conta bancaria do usuario
-     * @param NUSS Número da seguridade social do usuario
-     * @param profesorActivo Indicador de se o persoal é un profesor activo ou non.
+     * @param IBANconta         IBAN da conta bancaria do usuario
+     * @param NUSS              Número da seguridade social do usuario
+     * @param profesorActivo    Indicador de se o persoal é un profesor activo ou non.
      */
     public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento,
                    String numTelefono, String correoElectronico, String IBANconta, String NUSS, boolean profesorActivo) {
@@ -76,9 +79,9 @@ public final class Persoal extends Usuario {
         super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         //Asignamos os atributos propios desta clase filla.
         this.NUSS = NUSS;
-        this.profesorActivo= profesorActivo;
+        this.profesorActivo = profesorActivo;
         //Establecemos o valor do enumerado de cara á clase pai.
-        if(this.profesorActivo) {
+        if (this.profesorActivo) {
             super.setTipoUsuario(TipoUsuario.ProfesorActivo);
         } else {
             super.setTipoUsuario(TipoUsuario.Persoal);
@@ -88,6 +91,7 @@ public final class Persoal extends Usuario {
 
     /**
      * Getter do NUSS do persoal
+     *
      * @return O número da seguridade social que ten ese persoal.
      */
     public String getNUSS() {
@@ -96,6 +100,7 @@ public final class Persoal extends Usuario {
 
     /**
      * Setter do NUSS do persoal
+     *
      * @param NUSS o NUSS a establecer para ese membro do persoal.
      */
     public void setNUSS(String NUSS) {
@@ -104,22 +109,25 @@ public final class Persoal extends Usuario {
 
     /**
      * Getter do atributo que indica se o persoal é un profesor activo neste momento.
+     *
      * @return profesorActivo, o indicador de se o persoal é profesor activo ou non.
      */
-    public boolean getProfesorActivo(){
+    public boolean getProfesorActivo() {
         return profesorActivo;
     }
 
     /**
      * Setter do atributo que indica se o persoal é un profesor activo neste momento.
+     *
      * @param profesorActivo Booleano que indica se ese persoal é profesor activo ou non.
      */
-    public void setProfesorActivo(boolean profesorActivo){
+    public void setProfesorActivo(boolean profesorActivo) {
         this.profesorActivo = profesorActivo;
     }
 
     /**
      * Getter do atributo da valoración dun persoal.
+     *
      * @return A valoración que ten almacenada actualmente dito persoal.
      */
     public Float getValoracion() {
@@ -128,6 +136,7 @@ public final class Persoal extends Usuario {
 
     /**
      * Setter do atributo da valoración dun persoal
+     *
      * @param valoracion A valoración que se lle quere outorgar a este membro do persoal.
      */
     public void setValoracion(Float valoracion) {
