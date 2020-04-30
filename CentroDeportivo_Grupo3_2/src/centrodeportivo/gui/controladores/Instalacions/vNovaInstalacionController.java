@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- * Esta clase funcionará como controlador da ventá de inserción de datos para unha nova instalación.
+ * Esta clase funcionará como controlador da ventá de inserción dos datos dunha nova instalación.
  */
 public class vNovaInstalacionController extends AbstractController implements Initializable {
     /**

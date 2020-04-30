@@ -159,13 +159,16 @@ public final class FachadaBD {
         daoInstalacions.modificarInstalacion(instalacion);
     }
 
+    /**
+     * Método que nos permite buscar instalacións na base de datos, tanto con coma sen filtros.
+     * @param instalacion Se non é null, a consulta das instalacións realizarase en base aos campos desta instalación.
+     * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
+     * contrario, devolverase un listado de todas as instalacións.
+     */
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion) {
         return daoInstalacions.buscarInstalacions(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions() {
-        return daoInstalacions.listarInstalacións();
-    }
 
     /**
      * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo

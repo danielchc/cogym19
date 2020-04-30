@@ -151,6 +151,12 @@ public final class DAOInstalacions extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que nos permite buscar instalacións na base de datos, tanto con coma sen filtros.
+     * @param instalacion Se non é null, a consulta das instalacións realizarase en base aos campos desta instalación.
+     * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
+     * contrario, devolverase un listado de todas as instalacións.
+     */
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
         //Usaremos un ArrayList para almacenar unha nova instalación:
         ArrayList<Instalacion> instalacions = new ArrayList<>();
@@ -164,16 +170,26 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos a consulta:
         try{
-            stmInstalacions = con.prepareStatement("SELECT codinstalacion, nome, numtelefono, direccion " +
-                    " FROM instalacion " +
-                    " WHERE nome like ? " +
-                    "   and numtelefono like ? " +
-                    "   and direccion like ? ");
+            String consulta = "SELECT codinstalacion, nome, numtelefono, direccion " +
+                    " FROM instalacion ";
 
-            //Establecemos os valores da consulta segundo a instancia de instalación pasada:
-            stmInstalacions.setString(1, "%" + instalacion.getNome() + "%");
-            stmInstalacions.setString(2, "%" + instalacion.getNumTelefono() + "%");
-            stmInstalacions.setString(3, "%" + instalacion.getDireccion() + "%");
+            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha instalación non nula como
+            //argumento:
+            if(instalacion != null){
+                consulta += " WHERE nome like ? " +
+                        "   and numtelefono like ? " +
+                        "   and direccion like ? ";
+            }
+
+            stmInstalacions = con.prepareStatement(consulta);
+
+            //Tamén se se pasa argumento haberá que completar a consulta:
+            if(instalacion != null){
+                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
+                stmInstalacions.setString(1, "%" + instalacion.getNome() + "%");
+                stmInstalacions.setString(2, "%" + instalacion.getNumTelefono() + "%");
+                stmInstalacions.setString(3, "%" + instalacion.getDireccion() + "%");
+            }
 
             //Realizamos a consulta:
             rsInstalacions = stmInstalacions.executeQuery();
@@ -184,8 +200,11 @@ public final class DAOInstalacions extends AbstractDAO {
                 instalacions.add(new Instalacion(rsInstalacions.getInt(1), rsInstalacions.getString(2),
                         rsInstalacions.getString(3), rsInstalacions.getString(4)));
             }
+
+            //Facemos o commit para rematar:
             con.commit();
         } catch (SQLException e) {
+            //Se se recibe unha excepción, imprimimos o stack trace e facemos o rollback:
             e.printStackTrace();
             try{
                 con.rollback();
@@ -200,50 +219,7 @@ public final class DAOInstalacions extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores");
             }
         }
-        return instalacions;
-    }
-
-    public ArrayList<Instalacion> listarInstalacións(){
-        //Este método serviranos para amosar todas as instalacións, e evitar usar o where en buscas sen filtros:
-        ArrayList<Instalacion> instalacions = new ArrayList<>();
-
-        PreparedStatement stmInstalacions = null;
-        ResultSet rsInstalacions = null;
-        Connection con;
-
-        //Recuperamos a conexión:
-        con = super.getConexion();
-
-        //Preparamos a consulta:
-        try{
-            stmInstalacions = con.prepareStatement("SELECT codInstalacion, nome, numTelefono, direccion " +
-                    "FROM Instalacion");
-
-            //Non hai nada que insertar na consulta, polo que directamente a realizamos:
-            rsInstalacions = stmInstalacions.executeQuery();
-
-            //Recibida a consulta, procesámola:
-            while(rsInstalacions.next()){
-                //Imos engadindo ao ArrayList do resultado cada Instalación consultada:
-                instalacions.add(new Instalacion(rsInstalacions.getInt(1), rsInstalacions.getString(2),
-                        rsInstalacions.getString(3), rsInstalacions.getString(4)));
-            }
-            con.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try{
-                con.rollback();
-            } catch (SQLException ex){
-                ex.printStackTrace();
-            }
-        } finally {
-            //Intentamos pechar o statement:
-            try{
-                stmInstalacions.close();
-            } catch(SQLException e){
-                System.out.println("Imposible pechar os cursores.");
-            }
-        }
+        //Devolvemos as instalacións como resultado:
         return instalacions;
     }
 

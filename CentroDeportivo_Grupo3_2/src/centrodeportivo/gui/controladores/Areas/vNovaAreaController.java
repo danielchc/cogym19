@@ -62,7 +62,7 @@ public class vNovaAreaController  extends AbstractController implements Initiali
         //Feito isto, engadimos as columnas:
         taboaInstalacions.getColumns().addAll(colCodigo, colNome, colTelf, colDir);
         //Agora engadimos items:
-        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaInstalacions.getSelectionModel().selectFirst();
     }
@@ -77,7 +77,7 @@ public class vNovaAreaController  extends AbstractController implements Initiali
         //Inda que poida parecer redundante, é un xeito de actualizar a información:
         if(!ValidacionDatos.estanCubertosCampos(campoNomeInstalacion) && ! ValidacionDatos.estanCubertosCampos(campoTelefono)
                 && !ValidacionDatos.estanCubertosCampos(campoDireccion)){
-            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
             //Creamos unha instalación co que se ten:
@@ -97,7 +97,7 @@ public class vNovaAreaController  extends AbstractController implements Initiali
         //Eliminamos os items:
         taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
         //Engadimos todas as instalacións tras consultalas (así actualizamos):
-        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().listarInstalacions());
+        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaInstalacions.getSelectionModel().selectFirst();
     }
