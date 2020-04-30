@@ -7,15 +7,29 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * DAO relacionado con aqueles accesos á base de datos que involucren ás instalacións.
+ */
 public final class DAOInstalacions extends AbstractDAO {
 
+    /**
+     * Constructor do DAO de instalacións:
+     * @param conexion Referencia á conexión coa base de datos.
+     * @param fachadaAplicacion Referencia á fachada da parte da aplicación.
+     */
     public DAOInstalacions(Connection conexion, FachadaAplicacion fachadaAplicacion){
+        //Chamamos ao constructor da clase pai:
         super(conexion, fachadaAplicacion);
     }
 
     /**
-     * Método para dar de alta unha nova instalación:
-     * @param instalacion a instalación a insertar
+     * Método que nos permitirá dar de alta unha nova instalación.
+     * @param instalacion A instalación a dar de alta.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
      */
     public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
         PreparedStatement stmInstalacions = null;
@@ -26,14 +40,15 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
+            //Colocaremos nome, número de teléfono e dirección:
             stmInstalacions = con.prepareStatement("INSERT INTO Instalacion (nome, numtelefono, direccion) " +
                     " VALUES (?, ?, ?)");
-            //Establecemos os valores:
+            //Establecemos os valores para a inserción:
             stmInstalacions.setString(1, instalacion.getNome());
             stmInstalacions.setString(2, instalacion.getNumTelefono());
             stmInstalacions.setString(3, instalacion.getDireccion());
 
-            //Realizamos a actualización:
+            //Realizamos a actualización sobre a base de datos:
             stmInstalacions.executeUpdate();
 
             //Imos facer unha segunda consulta para recuperar o ID da instalación:
@@ -49,7 +64,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
             //Feita a consulta, recuperamos o valor:
             if(rsInstalacions.next()) { //Só debería devolverse un ID.
-                //Así metemos o ID na instalación, e podemos amosalo para rematar a operación.
+                //Así metemos o ID na instalación, e poderemos amosalo dende a interface para rematar a operación.
                 instalacion.setCodInstalacion(rsInstalacions.getInt(1));
             }
 
@@ -59,7 +74,7 @@ public final class DAOInstalacions extends AbstractDAO {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            //En calquera caso, téntanse pechar os cursores.
             try {
                 stmInstalacions.close();
             } catch (SQLException e) {
@@ -232,7 +247,14 @@ public final class DAOInstalacions extends AbstractDAO {
         return instalacions;
     }
 
+    /**
+     * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo
+     * nome.
+     * @param instalacion A instalación cuxo nome queremos validar
+     * @return True se hai unha instalación xa co mesmo nome, False en caso contrario.
+     */
     public boolean comprobarExistencia(Instalacion instalacion){
+        //Devolveremos un booleano:
         boolean resultado = false;
 
         PreparedStatement stmInstalacions = null;
@@ -259,8 +281,10 @@ public final class DAOInstalacions extends AbstractDAO {
             if(rsInstalacions.next()){
                 resultado = true;
             }
+            //Ao rematar, facemos commit:
             con.commit();
         } catch (SQLException e) {
+            //En caso de erro, imprimimos o stack trace e facemos rollback:
             e.printStackTrace();
             try{
                 con.rollback();
@@ -268,12 +292,14 @@ public final class DAOInstalacions extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
+            //Para rematar pechamos os cursores:
             try{
                 stmInstalacions.close();
             } catch(SQLException e){
                 System.out.println("Imposible pechar os cursores");
             }
         }
+        //Devolvemos, para rematar, o resultado:
         return resultado;
     }
 

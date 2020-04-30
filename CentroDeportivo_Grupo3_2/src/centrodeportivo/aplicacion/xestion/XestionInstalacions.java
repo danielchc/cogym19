@@ -8,22 +8,46 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Esta clase é aquela na que se levarán a cabo tarefas de xestión na parte de aplicación relacionadas coas instalacións.
+ * Introduciremos aquí as comprobacións que se realizarán para cada caso.
+ */
 public class XestionInstalacions {
+    /**
+     * Atributos da xestión de instalacións: basicamente son referencias ás demáis fachadas.
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
+    /**
+     * Constructor da clase de xestión de instalacións:
+     * @param fachadaGUI Referencia á fachada da interface gráfica.
+     * @param fachadaBD Referencia á fachada da parte da Base de datos.
+     */
     public XestionInstalacions(FachadaGUI fachadaGUI, FachadaBD fachadaBD){
+        //Asignamos os parámetros pasados aos atributos correspondentes:
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
+    /**
+     * Método que nos permitirá dar de alta unha nova instalación.
+     * @param instalacion A instalación a dar de alta.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
+     */
     public TipoResultados darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
+        //Primeiro comprobaremos se hai unha instalación co mesmo nome ca esta.
         if(!fachadaBD.comprobarExistencia(instalacion)) {
+            //Se non existe, entón poderemos insertar esta sen ningún problema:
             fachadaBD.darAltaInstalacion(instalacion);
-            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que rematou ben a inserción:
             return TipoResultados.correcto;
         } else {
+            //En caso de que xa existise unha instalación co mesmo nome, devolvemos un resultado incorrecto.
             return TipoResultados.datoExiste;
         }
 

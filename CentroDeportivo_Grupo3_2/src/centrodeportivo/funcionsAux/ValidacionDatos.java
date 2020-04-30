@@ -13,7 +13,13 @@ import javafx.scene.control.TextInputControl;
  */
 public abstract class ValidacionDatos {
 
+    /**
+     * Método que nos permite comprobar se o número de teléfono facilitado é correcto.
+     * @param tlf O número de teléfono a validar
+     * @return True se o teléfono é correcto, False en caso contrario.
+     */
     public static boolean isCorrectoTelefono(String tlf){
+        //Comprobamos que a cadea teña strings do 0 ao 9 e a súa lonxitude sexa de 9 elementos:
         return tlf.matches("[0-9]+") && tlf.length()==9;
     }
 

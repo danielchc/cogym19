@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class XestionUsuarios {
     /**
-     * Atributos da clase: son as fachadas.
+     * Atributos da clase: son as fachadas da GUI e da parte da base de datos.
      */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;

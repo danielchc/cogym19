@@ -140,7 +140,14 @@ public final class FachadaBD {
         Funcións DAOInstalacions
      */
 
+    /**
+     * Método que nos permitirá dar de alta unha nova instalación.
+     * @param instalacion A instalación a dar de alta.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
+     */
     public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        //Chamamos ao método correspondente do dao de instalacións:
         daoInstalacions.darAltaInstalacion(instalacion);
     }
 
@@ -160,6 +167,12 @@ public final class FachadaBD {
         return daoInstalacions.listarInstalacións();
     }
 
+    /**
+     * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo
+     * nome.
+     * @param instalacion A instalación cuxo nome queremos validar
+     * @return True se hai unha instalación xa co mesmo nome, False en caso contrario.
+     */
     public boolean comprobarExistencia(Instalacion instalacion) {
         return daoInstalacions.comprobarExistencia(instalacion);
     }

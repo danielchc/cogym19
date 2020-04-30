@@ -176,7 +176,14 @@ public class FachadaAplicacion extends Application {
     /*
         Xestion instalacións
      */
+    /**
+     * Método que nos permitirá dar de alta unha nova instalación.
+     * @param instalacion A instalación a dar de alta.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
+     */
     public TipoResultados darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        //Chamamos ao método correspondente da clase de xestión de instalacións:
         return xestionInstalacions.darAltaInstalacion(instalacion);
     }
 
