@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
@@ -45,6 +46,7 @@ public final class FachadaBD {
     private DAOTiposActividades daoTiposActividades;
     private DAOCursos daoCursos;
     private DAOMensaxes daoMensaxes;
+    private DAOAreas daoareas;
 
     /**
      * Constructor da fachada da base de datos:
@@ -310,5 +312,17 @@ public final class FachadaBD {
 
     public void setDaoUsuarios(DAOUsuarios daoUsuarios) {
         this.daoUsuarios = daoUsuarios;
+    }
+
+    public DAOAreas getDaoareas() {
+        return daoareas;
+    }
+
+    public void setDaoareas(DAOAreas daoareas) {
+        this.daoareas = daoareas;
+    }
+
+    public void EngadirArea(Area area) throws ExcepcionBD {
+        daoareas.EngadirArea(area);
     }
 }
