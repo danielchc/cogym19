@@ -96,7 +96,7 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe = null;
 
         try {
-            stmMensaxe = super.getConexion().prepareStatement("UPDATE enviarMensaxe SET lido=TRUE WHERE emisor=? AND receptor=? AND dataEnvio=?;");
+            stmMensaxe = super.getConexion().prepareStatement("UPDATE enviarMensaxe SET lido=TRUE WHERE LOWER(emisor)=LOWER(?) AND LOWER(receptor)=LOWER(?) AND dataEnvio=?;");
             stmMensaxe.setString(1, m.getEmisor().getLogin());
             stmMensaxe.setString(2, m.getReceptor().getLogin());
             stmMensaxe.setTimestamp(3, m.getDataEnvio());
@@ -124,7 +124,7 @@ public final class DAOMensaxes extends AbstractDAO {
         PreparedStatement stmMensaxe = null;
         ResultSet resultMensaxes;
         try {
-            stmMensaxe = super.getConexion().prepareStatement("SELECT * FROM enviarMensaxe WHERE receptor=? ORDER BY dataEnvio DESC;");
+            stmMensaxe = super.getConexion().prepareStatement("SELECT * FROM enviarMensaxe WHERE LOWER(receptor)=LOWER(?) ORDER BY dataEnvio DESC;");
             stmMensaxe.setString(1, loginReceptor);
             resultMensaxes = stmMensaxe.executeQuery();
             while (resultMensaxes.next()) {
