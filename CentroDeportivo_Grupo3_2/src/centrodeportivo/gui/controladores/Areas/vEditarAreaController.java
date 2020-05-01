@@ -46,7 +46,7 @@ public class vEditarAreaController extends AbstractController implements Initial
     //Sobreescritura do método initialize, por implementar a interface initializable:
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        //Para inicializar, comprobaremos se hai unha instalación:
+        //Para inicializar,comprobaremos se hai unha instalación:
         if(instalacion != null){
             //Se a hai, enchemos os campos coa información:
             campoNome.setText(instalacion.getNome());

@@ -187,10 +187,22 @@ public class FachadaAplicacion extends Application {
         return xestionInstalacions.darAltaInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta eliminar os datos da instalación pasada como argumento da base de datos.
+     * @param instalacion A instalación cuxos datos se queren eliminar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
+     */
     public TipoResultados borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         return xestionInstalacions.borrarInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta modificar os datos da instalación pasada como argumento na base de datos.
+     * @param instalacion Os datos da instalación para ser modificados.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public TipoResultados modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         return xestionInstalacions.modificarInstalacion(instalacion);
     }
@@ -203,6 +215,15 @@ public class FachadaAplicacion extends Application {
      */
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion) {
         return xestionInstalacions.buscarInstalacions(instalacion);
+    }
+
+    /**
+     * Método que nos permite consultar unha instalación concreta:
+     * @param instalacion A instalación de referencia para a que se consultará a información
+     * @return A instalación con todos os datos, actualizada totalmente.
+     */
+    public Instalacion consultarInstalacion(Instalacion instalacion){
+        return xestionInstalacions.consultarInstalacion(instalacion);
     }
 
     /*

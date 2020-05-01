@@ -53,8 +53,16 @@ public class XestionInstalacions {
 
     }
 
+    /**
+     * Método que tenta eliminar os datos da instalación pasada como argumento da base de datos.
+     * @param instalacion A instalación cuxos datos se queren eliminar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
+     */
     public TipoResultados borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        //Comprobamos se a instalación ten áreas asociadas:
         if(!fachadaBD.tenAreas(instalacion)){
+            //Se non ten áreas asociadas, poderemos borrala:
             fachadaBD.borrarInstalacion(instalacion);
             //Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
@@ -62,11 +70,19 @@ public class XestionInstalacions {
             //Se houbese áreas asociadas a instalacións, devolvemos o enum de erro por referencias co restrict.
             return TipoResultados.referenciaRestrict;
         }
-
     }
 
+    /**
+     * Método que tenta modificar os datos da instalación pasada como argumento na base de datos.
+     * @param instalacion Os datos da instalación para ser modificados.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public TipoResultados modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        //De xeito análogo ao que facemos cando se inserta, comprobamos que o nome non esté rexistrado xa na base
+        //de datos, ollo, NOUTRA instalación que non sexa esta.
         if(!fachadaBD.comprobarExistencia(instalacion)) {
+            //Se non o está, entón procedemos a modificar a instalación:
             fachadaBD.modificarInstalacion(instalacion);
             //Devolvemos co enum que se fixo a modificación sen problemas chegados a este punto:
             return TipoResultados.correcto;
@@ -84,6 +100,15 @@ public class XestionInstalacions {
      */
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
         return fachadaBD.buscarInstalacions(instalacion);
+    }
+
+    /**
+     * Método que nos permite consultar unha instalación concreta:
+     * @param instalacion A instalación de referencia para a que se consultará a información
+     * @return A instalación con todos os datos, actualizada totalmente.
+     */
+    public Instalacion consultarInstalacion(Instalacion instalacion){
+        return fachadaBD.consultarInstalacion(instalacion);
     }
 
 }

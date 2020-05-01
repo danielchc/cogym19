@@ -94,7 +94,7 @@ public class vLoginController  extends AbstractController implements Initializab
     }
 
     /**
-     * Método invocado cando se presiona unha tecla do teclado.
+     * Método invocado cando se presiona unha tecla calquera do teclado.
      * @param keyEvent O evento de pulsado dunha tecla.
      */
     public void keyPressedIniciar(KeyEvent keyEvent) {

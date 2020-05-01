@@ -143,7 +143,6 @@ public final class FachadaBD {
     /**
      * Método que nos permitirá dar de alta unha nova instalación.
      * @param instalacion A instalación a dar de alta.
-     * @return O resultado da operación levada a cabo.
      * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
      */
     public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
@@ -151,10 +150,20 @@ public final class FachadaBD {
         daoInstalacions.darAltaInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta eliminar os datos da instalación pasada como argumento da base de datos.
+     * @param instalacion A instalación cuxos datos se queren eliminar.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
+     */
     public void borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         daoInstalacions.borrarInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta modificar os datos da instalación pasada como argumento na base de datos.
+     * @param instalacion Os datos da instalación para ser modificados.
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public void modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         daoInstalacions.modificarInstalacion(instalacion);
     }
@@ -169,6 +178,15 @@ public final class FachadaBD {
         return daoInstalacions.buscarInstalacions(instalacion);
     }
 
+    /**
+     * Método que nos permite consultar unha instalación concreta:
+     * @param instalacion A instalación de referencia para a que se consultará a información
+     * @return A instalación con todos os datos, actualizada totalmente.
+     */
+    public Instalacion consultarInstalacion(Instalacion instalacion){
+        return daoInstalacions.consultarInstalacion(instalacion);
+    }
+
 
     /**
      * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo
@@ -180,6 +198,11 @@ public final class FachadaBD {
         return daoInstalacions.comprobarExistencia(instalacion);
     }
 
+    /**
+     * Método que nos permite comprobar se unha instalación ten asociada algunha área.
+     * @param instalacion A instalación para a cal queremos comprobar se ten áreas.
+     * @return True se a instalación ten áreas, False en caso contrario.
+     */
     public boolean tenAreas(Instalacion instalacion) {
         return daoInstalacions.tenAreas(instalacion);
     }

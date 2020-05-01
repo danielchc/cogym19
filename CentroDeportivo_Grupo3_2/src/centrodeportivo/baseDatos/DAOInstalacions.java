@@ -28,7 +28,6 @@ public final class DAOInstalacions extends AbstractDAO {
     /**
      * Método que nos permitirá dar de alta unha nova instalación.
      * @param instalacion A instalación a dar de alta.
-     * @return O resultado da operación levada a cabo.
      * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
      */
     public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
@@ -83,6 +82,11 @@ public final class DAOInstalacions extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que tenta eliminar os datos da instalación pasada como argumento da base de datos.
+     * @param instalacion A instalación cuxos datos se queren eliminar.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
+     */
     public void borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         PreparedStatement stmInstalacions = null;
         Connection con;
@@ -92,8 +96,10 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos o borrado:
         try{
+            //Usamos como referencia o código da instalación:
             stmInstalacions = con.prepareStatement("DELETE FROM Instalacion " +
                     " WHERE codInstalacion = ?");
+            //Completamos a sentencia anterior:
             stmInstalacions.setInt(1, instalacion.getCodInstalacion());
 
             //Realizamos a actualización:
@@ -101,7 +107,7 @@ public final class DAOInstalacions extends AbstractDAO {
             //Facemos o commit:
             con.commit();
         } catch (SQLException e){
-            //Lanzamos unha das nosas excepcións propias:
+            //Lanzamos unha das nosas excepcións propias en caso de que se capture excepción SQL:
             throw new ExcepcionBD(con, e);
         } finally {
             //Pechamos o statement para rematar.
@@ -113,6 +119,11 @@ public final class DAOInstalacions extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que tenta modificar os datos da instalación pasada como argumento na base de datos.
+     * @param instalacion Os datos da instalación para ser modificados.
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public void modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         PreparedStatement stmInstalacions = null;
         Connection con;
@@ -122,6 +133,7 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos a modificación:
         try{
+            //Como temos o código da instalación, podemos ir directamente á tupla que nos interesa:
             stmInstalacions = con.prepareStatement("UPDATE Instalacion " +
                     " SET nome = ?, " +
                     "     numtelefono = ?, " +
@@ -139,7 +151,7 @@ public final class DAOInstalacions extends AbstractDAO {
             //Facemos un commit, dado que se rematou a actualización:
             con.commit();
         } catch (SQLException e) {
-            //Lanzamos a nosa excepción de base de datos.
+            //Lanzamos a nosa excepción de base de datos en caso de que se capture unha excepción SQL.
             throw new ExcepcionBD(con, e);
         } finally {
             try {
@@ -224,6 +236,65 @@ public final class DAOInstalacions extends AbstractDAO {
     }
 
     /**
+     * Método que nos permite consultar unha instalación concreta:
+     * @param instalacion A instalación de referencia para a que se consultará a información
+     * @return A instalación con todos os datos, actualizada totalmente.
+     */
+    public Instalacion consultarInstalacion(Instalacion instalacion){
+        PreparedStatement stmInstalacions = null;
+        ResultSet rsInstalacions;
+        //Devolverase unha instalación como resultado:
+        Instalacion resultado = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Tentamos levar a cabo a consulta. Farémola directamente pola clave primaria: isto é unha consulta dunha
+        //instalación concreta.
+        try{
+            stmInstalacions = con.prepareStatement("SELECT codInstalacion, nome, numtelefono, direccion " +
+                    " FROM instalacion" +
+                    " WHERE codInstalacion = ?");
+
+            //Completamos a preparación da consulta:
+            stmInstalacions.setInt(1,instalacion.getCodInstalacion());
+
+            //A continuación, realizamos a consulta:
+            rsInstalacions = stmInstalacions.executeQuery();
+
+            //Procesámola
+            if(rsInstalacions.next()){
+                //Debería haber un só elemento de resultado:
+                resultado = new Instalacion(rsInstalacions.getInt("codInstalacion"),
+                        rsInstalacions.getString("nome"),
+                        rsInstalacions.getString("numtelefono"),
+                        rsInstalacions.getString("direccion"));
+            }
+
+            //Feito isto, facemos o commit:
+            con.commit();
+        } catch (SQLException e){
+            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        } finally {
+            //Finalmente, pechamos o statement:
+            try {
+                stmInstalacions.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        //Devolvemos o resultado da consulta:
+        return resultado;
+    }
+
+    /**
      * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo
      * nome.
      * @param instalacion A instalación cuxo nome queremos validar
@@ -242,15 +313,26 @@ public final class DAOInstalacions extends AbstractDAO {
 
         //Preparamos a consulta: buscamos se hai unha instalación co id pasado:
         try{
-            //Ademais, de cara a comprobar se se cambia o nome dunha instalación, buscaremos
-            //que o código da instalación sexa distinto (se se pasa unha instalación nova, o código será 0).
-            stmInstalacions = con.prepareStatement("SELECT * " +
+            //Ademais, de cara a comprobar se se cambia o nome dunha instalación e esa instalación xa está na base de datos,
+            //buscaremos que o código da instalación sexa distinto.
+            String consulta = "SELECT * " +
                     "FROM instalacion " +
-                    "WHERE lower(nome) = lower(?) " +
-                    "  and codInstalacion != ? ");
+                    "WHERE lower(nome) = lower(?) ";
+
+            //Preparamos antes a consulta precisamente por poder variar esta:
+            if(instalacion.getCodInstalacion() != null){
+                consulta += "  and codInstalacion != ? ";
+            }
+
+            stmInstalacions = con.prepareStatement(consulta);
+
             //Introducimos o nome como filtro:
             stmInstalacions.setString(1, instalacion.getNome());
-            stmInstalacions.setInt(2, instalacion.getCodInstalacion());
+
+            if(instalacion.getCodInstalacion() != null){
+                //Asociamos o enteiro en caso do que non sexa null:
+                stmInstalacions.setInt(2, instalacion.getCodInstalacion());
+            }
             //Executamos a consulta:
             rsInstalacions = stmInstalacions.executeQuery();
             //Comprobamos: se hai resultado, o nome non é valido, xa existe unha instalación así.
@@ -279,6 +361,11 @@ public final class DAOInstalacions extends AbstractDAO {
         return resultado;
     }
 
+    /**
+     * Método que nos permite comprobar se unha instalación ten asociada algunha área.
+     * @param instalacion A instalación para a cal queremos comprobar se ten áreas.
+     * @return True se a instalación ten áreas, False en caso contrario.
+     */
     public boolean tenAreas(Instalacion instalacion){
         boolean resultado = false;
 
@@ -300,21 +387,26 @@ public final class DAOInstalacions extends AbstractDAO {
             if(rsAreas.next()){
                 resultado = true;
             }
+            //Para rematar facemos o commit:
             con.commit();
         } catch (SQLException e) {
+            //En caso de capturar unha excepción, imprimimos o stack trace:
             e.printStackTrace();
+            //Tentamos facer rollback:
             try{
                 con.rollback();
             } catch (SQLException ex){
                 ex.printStackTrace();
             }
         } finally {
+            //Para rematar, pechamos o statement:
             try{
                 stmAreas.close();
             } catch (SQLException e){
                 System.out.println("Imposible pechar os cursores");
             }
         }
+        //Devolvemos o booleano como resultado:
         return resultado;
     }
 
