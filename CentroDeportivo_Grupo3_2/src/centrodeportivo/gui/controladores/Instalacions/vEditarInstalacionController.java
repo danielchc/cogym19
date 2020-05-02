@@ -200,6 +200,7 @@ public class vEditarInstalacionController extends AbstractController implements 
      * Método que realiza a consulta da instalación que se está a considerar e actualiza os seus campos.
      */
     private void actualizarCamposInstalacion(){
+        //Consultamos a instalación:
         instalacion = getFachadaAplicacion().consultarInstalacion(instalacion);
         //Volvemos a validar que está rexistrada a instalación:
         if(instalacion != null){

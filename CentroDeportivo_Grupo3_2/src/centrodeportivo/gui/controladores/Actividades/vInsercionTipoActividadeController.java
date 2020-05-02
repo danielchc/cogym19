@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
@@ -23,9 +24,13 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Victor Barreiro
+ * Clase que servirá de controlador da pantalla de inserción/modificación dun tipo de actividade.
  */
 public class vInsercionTipoActividadeController extends AbstractController implements Initializable {
-    //Atributos públicos (compoñentes da ventá):
+    
+    /**
+     * Atributos públicos: son compoñentes da pantalla de inserción de tipos de actividades.
+     */
     public HBox caixaCodigo;
     public TextField campoCodigo;
     public TextField campoNome;
@@ -33,48 +38,67 @@ public class vInsercionTipoActividadeController extends AbstractController imple
     public Button btnVolver;
     public Button btnGardar;
     public Button btnBorrar;
-
-    //Atributos privados:
+    
+    /**
+     * Atributos privados: temos dous, por un lado, a referencia ao controlador da ventá principal e, por outro,
+     * a referencia ao tipo de actividade que se pode amosar na pantalla.
+     * Pode ser que esta pantalla se use para insertar un novo tipo de actividade ou ben para modificar un existente.
+     */
     private vPrincipalController controllerPrincipal;
     private TipoActividade tipoActividade;
 
-    //Constructor:
+    /**
+     * Constructor do controlador da ventá de inserción/modificación dun tipo de actividade.
+     * @param fachadaAplicacion Referencia á fachada da parte de aplicación.
+     * @param controllerPrincipal Referencia ao controlador da ventá principal.
+     */
     public vInsercionTipoActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal){
+        //Chamamos ao constructor da clase pai.
         super(fachadaAplicacion);
+        //Asociamos o controlador principal ao atributo que lle corresponde:
         this.controllerPrincipal = controllerPrincipal;
     }
 
+    /**
+     * Método que se executará ao amosar esta pantalla, co que inicializala.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //A inicialización pode darse de dous xeitos: que se teña un tipo de actividade ou que sexa un null.
         if(tipoActividade == null){
-            //No primeiro caso: todos os campos baleiros - inserción dun novo tipo.
-            caixaCodigo.setVisible(false); //Ocultamos a parte que amosa o código.
-            //Facemos editable o nome:
-            //Vaciamos os campos:
-            campoNome.setText("");
-            campoCodigo.setText("");
-            //Impídese o borrado:
-            btnBorrar.setVisible(false);
+            AuxGUI.ocultarCampos(caixaCodigo, btnBorrar); //Ocultamos a parte que amosa o código e o borrado.
+            //Vaciamos os campos de nome e código:
+            AuxGUI.vaciarCamposTexto(campoNome,campoCodigo);
         } else {
             //Se hai un tipo de actividade, entón amosarase a súa información.
-            caixaCodigo.setVisible(true); //Facemos visible a parte que amosa o código.
-            campoCodigo.setText(""+tipoActividade.getCodTipoActividade());
+            //Facemos visible a parte do código e do borrado:
+            AuxGUI.amosarCampos(caixaCodigo, btnBorrar);
+            campoCodigo.setText(tipoActividade.getCodTipoActividade().toString());
             campoNome.setText(tipoActividade.getNome());
             campoDescricion.setText(tipoActividade.getDescricion());
-            //Habilítanse borrados:
-            btnBorrar.setVisible(true);
         }
     }
 
+    /**
+     * Método que se executará ao premer no botón de retorno.
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnVolverAction(ActionEvent actionEvent) {
         //Nese caso, pásase á venta de administración:
         controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
     }
 
+    /**
+     * Método que se executará ao premer no botón de gardado dun tipo de actividade.
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnGardarAction(ActionEvent actionEvent) {
         //Antes de nada, hai que verificar que o nome esté cuberto:
         if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
+            //Como só é un campo, o que faremos e avisar de que hai que insertalo, non amosamos unha etiqueta coma
+            //no caso das instalacións.
             super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Hai que insertar un nome!");
             return;
         }
@@ -92,7 +116,6 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                         //Se rematou o método sen problema, entón amósase confirmación:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
                                 "Tipo de actividade con id = " + tipoActividade.getCodTipoActividade() + " modificado correctamente.");
-                        //Non saímos por se se queren facer outras tarefas:
                         break;
                     case datoExiste:
                         //Se xa existía outro tipo de actividade co nome que se quería poñer, avísase do erro:
@@ -101,8 +124,9 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                                 "Non se puido modificar a base de datos: xa existe un tipo de actividade de nome '" +
                                         tipoActividade.getNome().toLowerCase() + "'.");
                         break;
-
                 }
+                //Non saímos por se se queren facer outras tarefas, senón que actualizamos:
+                actualizarCamposTAct();
             } catch (ExcepcionBD excepcionBD) {
                 getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", excepcionBD.getMessage());
             }
@@ -162,13 +186,27 @@ public class vInsercionTipoActividadeController extends AbstractController imple
         }
     }
 
+    private void actualizarCamposTAct(){
+        //Volvemos a consultar o tipo de actividade:
+        tipoActividade = super.getFachadaAplicacion().consultarTipoActividade(tipoActividade);
+        //Ao rematar, consultamos se houbo resultado ou non:
+        if(tipoActividade != null){
+            //Se hai resultado, completamos os campos:
+            campoCodigo.setText(tipoActividade.getCodTipoActividade().toString());
+            campoNome.setText(tipoActividade.getNome());
+            campoDescricion.setText(tipoActividade.getDescricion());
+        } else {
+            //Noutro caso, amosarase un erro e sairemos:
+            super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
+                    "Este tipo de actividade xa non existe. Saíndo da ventá.");
+            //Volvemos para a pantalla de administración de tipos de actividades:
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
+        }
+    }
+
     //Getter e setter para o tipo de actividade:
     public void setTipoActividade(TipoActividade tipoActividade){
         this.tipoActividade = tipoActividade;
-    }
-
-    public TipoActividade getTipoActividade(){
-        return tipoActividade;
     }
 
 }

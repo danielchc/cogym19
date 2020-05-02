@@ -3,9 +3,7 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -275,7 +273,7 @@ public final class DAOTiposActividades extends AbstractDAO {
         return resultado;
     }
 
-    public boolean comprobarExistencia(TipoActividade tipoActividade){
+    public boolean comprobarExistencia(TipoActividade tipoActividade) {
         boolean resultado = false;
 
         PreparedStatement stmTiposActividades = null;
@@ -286,18 +284,27 @@ public final class DAOTiposActividades extends AbstractDAO {
         con = super.getConexion();
 
         //Preparamos a consulta: miraremos se hai tipos de actividades co mesmo nome que o pasado.
-        //Sempre temos en conta o código pasado (porque o nome pasado pode ser o que xa ten ese tipo de actividade):
+        //Se a instalación está na base de datos, temos en conta o código pasado (porque o nome pasado pode ser
+        //o que xa ten ese tipo de actividade):
         try{
-            stmTiposActividades = con.prepareStatement("SELECT * FROM tipoActividade " +
-                    "WHERE lower(nome) = lower(?) " +
-                    "  and codTipoActividade != ? ");
+            String consulta = "SELECT * FROM tipoActividade " +
+                    "WHERE lower(nome) = lower(?) ";
+
+            if(tipoActividade.getCodTipoActividade() != null){
+                consulta += "  and codTipoActividade != ? ";
+            }
+
+            stmTiposActividades = con.prepareStatement(consulta);
             //Completamos os campos:
             stmTiposActividades.setString(1, tipoActividade.getNome());
-            stmTiposActividades.setInt(2, tipoActividade.getCodTipoActividade());
+            if(tipoActividade.getCodTipoActividade()!=null) {
+                //O código só o engadimos se é realmente necesario:
+                stmTiposActividades.setInt(2, tipoActividade.getCodTipoActividade());
+            }
             //Realizamos a consulta:
             rsTiposActividades = stmTiposActividades.executeQuery();
             //Comprobamos se hai resultados, pois se é así existirá xa un tipo de actividade con ese nome:
-            if(rsTiposActividades.next()){
+            if(rsTiposActividades.next()) {
                 resultado = true;
             }
             //Facemos o commit:
@@ -321,7 +328,7 @@ public final class DAOTiposActividades extends AbstractDAO {
         return resultado;
     }
 
-    public boolean tenActividades(TipoActividade tipoActividade){
+    public boolean tenActividades(TipoActividade tipoActividade) {
         boolean resultado = false;
 
         PreparedStatement stmActividades = null;
