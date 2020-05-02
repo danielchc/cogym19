@@ -247,14 +247,34 @@ public class FachadaAplicacion extends Application {
         Xestión TIPOS de actividade
      */
 
+    /**
+     * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
+     * se pasa como arugmento.
+     * @param tipoActividade Os datos do tipo de actividade a insertar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
+     */
     public TipoResultados crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.crearTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
+     * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     * @param tipoActividade O tipo de actividade cos datos a actualizar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a actualización da base de datos.
+     */
     public TipoResultados modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.modificarTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     * @param tipoActividade O tipo de actividade que se quere eliminar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
+     */
     public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.eliminarTipoActividade(tipoActividade);
     }

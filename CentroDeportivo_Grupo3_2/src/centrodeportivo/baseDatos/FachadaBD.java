@@ -211,15 +211,34 @@ public final class FachadaBD {
         Funcións DAOTiposActividades
      */
 
+    /**
+     * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
+     * se pasa como arugmento.
+     * @param tipoActividade Os datos do tipo de actividade a insertar.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
+     */
     public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         this.daoTiposActividades.crearTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
+     * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     * @param tipoActividade O tipo de actividade cos datos a actualizar.
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a inserción na base de datos.
+     */
     public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        //Chamamos ao método do dao de tipos de actividades:
         this.daoTiposActividades.modificarTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     * @param tipoActividade O tipo de actividade que se quere eliminar.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
+     */
     public void eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        //Chamamos ao método do dao correspondente:
         this.daoTiposActividades.eliminarTipoActividade(tipoActividade);
     }
 
@@ -242,11 +261,25 @@ public final class FachadaBD {
         return this.daoTiposActividades.consultarTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite comprobar que non existe un tipo de actividade diferente co mesmo nome ca o tipo pasado
+     * como argumento.
+     * @param tipoActividade O tipo para o que se quere validar a existencia.
+     * @return True se existe un tipo de actividade diferente na base de datos que ten o mesmo nome, False en caso
+     * contrario.
+     */
     public boolean comprobarExistencia(TipoActividade tipoActividade) {
+        //Chamamos ao dao de tipos de actividades:
         return this.daoTiposActividades.comprobarExistencia(tipoActividade);
     }
 
+    /**
+     * Método que nos permite comprobar se un tipo de actividade ten actividades asociadas.
+     * @param tipoActividade  O tipo para o que se quere validar se ten actividades.
+     * @return True se este tipo de actividade ten actividades asociadas, False noutro caso.
+     */
     public boolean tenActividades(TipoActividade tipoActividade) {
+        //Accedemos ao método correspondente do dao de tipos de actividades
         return this.daoTiposActividades.tenActividades(tipoActividade);
     }
 

@@ -102,14 +102,17 @@ public class vInsercionTipoActividadeController extends AbstractController imple
             super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Hai que insertar un nome!");
             return;
         }
+
         //Poden ocorrer dúas cousas: que haxa que insertar un novo tipo ou modificalo.
         if(tipoActividade != null) {
-            //Se o tipo de actividade non é nulo, é unha modificación. Como a descrición pode ser nula, faise a actualización directamente.
+            //Se o tipo de actividade non é nulo, é unha modificación. Como a descrición pode ser nula, faise a
+            //actualización directamente.
             tipoActividade.setDescricion(campoDescricion.getText());
             //Engadimos tamén o nome actualizado:
             tipoActividade.setNome(campoNome.getText());
             //Intentaremos entón modificar o tipo de actividade:
             try {
+                //Executamos a operación e avaliamos o resultado obtido:
                 TipoResultados res = this.getFachadaAplicacion().modificarTipoActividade(tipoActividade);
                 switch(res){
                     case correcto:
@@ -128,6 +131,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                 //Non saímos por se se queren facer outras tarefas, senón que actualizamos:
                 actualizarCamposTAct();
             } catch (ExcepcionBD excepcionBD) {
+                //En caso de obter unha excepción da base de datos, amosamos o erro producido:
                 getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", excepcionBD.getMessage());
             }
         } else {
@@ -139,27 +143,33 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                 //En función do resultado, avaliamos:
                 switch(res){
                     case datoExiste:
-                        //Mostramos un erro:
+                        //Mostramos un erro en caso de que xa exista un tipo de actividade co mesmo nome:
                         this.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
                                 "Xa existe un tipo de actividade de nome '" + tipoActividade.getNome().toLowerCase() + "'.");
                         break;
                     case correcto:
-                        //Amosamos unha confirmación:
+                        //Amosamos unha confirmación en caso de que se lograra introducir:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
                                 "Introducido o tipo de actividade, o seu ID é " + tipoActividade.getCodTipoActividade() + ".");
-                        //Finalmente, sáese unha vez rematado:
+                        //Finalmente, sáese unha vez rematado o proceso de inserción. Iremos á pantalla de administración directamente:
                         controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
                         break;
                 }
             } catch (ExcepcionBD excepcionBD) {
+                //En caso de recibir unha excepción da base de datos, amosaremos a mensaxe asociada ao erro producido:
                 getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", excepcionBD.getMessage());
             }
         }
 
     }
 
+    /**
+     * Método que se executará ao premer no botón de borrado dun tipo de actividade.
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnBorrarAction(ActionEvent actionEvent) {
         //Se se puido presionar, é porque se quere borrar o tipo de actividade presentado.
+        //Por iso, pediremos unha confirmación adicional do usuario.
         if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
                 "Desexa eliminar o tipo de actividade seleccionado?") == ButtonType.OK) {
             //Se así o quere facer o usuario, tentaremos o borrado do tipo:
@@ -186,6 +196,9 @@ public class vInsercionTipoActividadeController extends AbstractController imple
         }
     }
 
+    /**
+     * Método que nos permite actualizar a información dos campos do tipo de actividade asociado.
+     */
     private void actualizarCamposTAct(){
         //Volvemos a consultar o tipo de actividade:
         tipoActividade = super.getFachadaAplicacion().consultarTipoActividade(tipoActividade);

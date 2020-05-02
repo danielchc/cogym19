@@ -20,8 +20,17 @@ public class XestionTiposActividades {
         this.fachadaGUI = fachadaGUI;
     }
 
+    /**
+     * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
+     * se pasa como arugmento.
+     * @param tipoActividade Os datos do tipo de actividade a insertar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
+     */
     public TipoResultados crearTipoActividade (TipoActividade tipoActividade) throws ExcepcionBD {
+        //Comprobamos que non exista outro tipo de actividade co mesmo nome ca o que se quere insertar:
         if(!this.fachadaBD.comprobarExistencia(tipoActividade)){
+            //Chamamos á base de datos para crear un novo tipo de actividade.
             this.fachadaBD.crearTipoActividade(tipoActividade);
             //En caso de que se cree o tipo de actividade, enton devolvemos un indicador do remate correcto:
             return TipoResultados.correcto;
@@ -31,6 +40,13 @@ public class XestionTiposActividades {
         }
     }
 
+    /**
+     * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
+     * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     * @param tipoActividade O tipo de actividade cos datos a actualizar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a inserción na base de datos.
+     */
     public TipoResultados modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         //Hai que verificar primeiro que non exista outro tipo de actividade existente co nome pasado
         //(que non sexa este, claro):
@@ -46,8 +62,16 @@ public class XestionTiposActividades {
         }
     }
 
+    /**
+     * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     * @param tipoActividade O tipo de actividade que se quere eliminar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
+     */
     public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        //O curso non se pode borrar se ten actividades, polo que faremos primeiro esa comprobación:
         if(!this.fachadaBD.tenActividades(tipoActividade)){
+            //En caso de que non teña actividades, poderemos facer o borrado:
             this.fachadaBD.eliminarTipoActividade(tipoActividade);
             //Se se chegou a este punto, entón devólvese unha confirmación do remate correcto:
             return TipoResultados.correcto;

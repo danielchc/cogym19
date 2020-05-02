@@ -10,15 +10,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que incluirá os métodos DAO asociado na súa maioría aos tipos de actividades do centro deportivo.
+ */
 public final class DAOTiposActividades extends AbstractDAO {
-    //DAO para o relativo á xestión de actividades e tipos de actividades:
 
-    //Constructor:
+    /**
+     * Construtor do DAO de tipos de actividades.
+     * @param conexion A referencia da conexión coa base de datos.
+     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     */
     public DAOTiposActividades(Connection conexion, FachadaAplicacion fachadaAplicacion){
         //Chamamos ao constructor da clase pai:
         super(conexion, fachadaAplicacion);
     }
 
+    /**
+     * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
+     * se pasa como arugmento.
+     * @param tipoActividade Os datos do tipo de actividade a insertar.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
+     */
     public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         //Faremos unha actualización na Base de Datos, usaremos PreparedStatement:
         PreparedStatement stmTiposActividades = null;
@@ -72,6 +87,12 @@ public final class DAOTiposActividades extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
+     * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     * @param tipoActividade O tipo de actividade cos datos a actualizar.
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a inserción na base de datos.
+     */
     public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         //Faremos unha actualización sobre a base de datos, usaremos PreparedStatement:
         PreparedStatement stmTiposActividades = null;
@@ -111,6 +132,11 @@ public final class DAOTiposActividades extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     * @param tipoActividade O tipo de actividade que se quere eliminar.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
+     */
     public void eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         //Tamén faremos unha actualización sobre a base de datos.
         PreparedStatement stmTiposActividades = null;
@@ -123,7 +149,8 @@ public final class DAOTiposActividades extends AbstractDAO {
         try{
             stmTiposActividades = con.prepareStatement("DELETE FROM tipoActividade " +
                     "WHERE codTipoActividade = ?");
-            //Completamos a sentenza:
+
+            //Completamos a sentenza incluíndo o código do tipo de actividade:
             stmTiposActividades.setInt(1, tipoActividade.getCodTipoActividade());
 
             //Executamos a actualización:
@@ -273,7 +300,15 @@ public final class DAOTiposActividades extends AbstractDAO {
         return resultado;
     }
 
+    /**
+     * Método que nos permite comprobar que non existe un tipo de actividade diferente co mesmo nome ca o tipo pasado
+     * como argumento.
+     * @param tipoActividade O tipo para o que se quere validar a existencia.
+     * @return True se existe un tipo de actividade diferente na base de datos que ten o mesmo nome, False en caso
+     * contrario.
+     */
     public boolean comprobarExistencia(TipoActividade tipoActividade) {
+        //Devolveremos como resultado un booleano:
         boolean resultado = false;
 
         PreparedStatement stmTiposActividades = null;
@@ -328,7 +363,13 @@ public final class DAOTiposActividades extends AbstractDAO {
         return resultado;
     }
 
+    /**
+     * Método que nos permite comprobar se un tipo de actividade ten actividades asociadas.
+     * @param tipoActividade  O tipo para o que se quere validar se ten actividades.
+     * @return True se este tipo de actividade ten actividades asociadas, False noutro caso.
+     */
     public boolean tenActividades(TipoActividade tipoActividade) {
+        //Devolveremos un booleano:
         boolean resultado = false;
 
         PreparedStatement stmActividades = null;
@@ -338,7 +379,7 @@ public final class DAOTiposActividades extends AbstractDAO {
         //Recuperamos a conexión:
         con = super.getConexion();
 
-        //Preparamos a consulta - comprobamos se hai actividades con ese tipo:
+        //Preparamos a consulta - comprobamos se hai actividades co tipo de actividade pasado como argumento:
         try{
             stmActividades = con.prepareStatement("SELECT * FROM actividade WHERE tipoActividade = ? ");
             //Completamos a consulta:
@@ -367,6 +408,7 @@ public final class DAOTiposActividades extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores");
             }
         }
+        //Devolvemos o resultado, o booleano:
         return resultado;
     }
 }
