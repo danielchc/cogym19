@@ -38,7 +38,8 @@ public class vInsercionTipoActividadeController extends AbstractController imple
     public Button btnVolver;
     public Button btnGardar;
     public Button btnBorrar;
-    
+    public Button btnLimpar;
+
     /**
      * Atributos privados: temos dous, por un lado, a referencia ao controlador da ventá principal e, por outro,
      * a referencia ao tipo de actividade que se pode amosar na pantalla.
@@ -197,6 +198,21 @@ public class vInsercionTipoActividadeController extends AbstractController imple
     }
 
     /**
+     * Método que se executará ao premer o botón de limpar os campos da pantalla.
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnLimparAction(ActionEvent actionEvent) {
+        //Dúas opcións, cando estamos insertando un novo tipo de actividade e cando o modificamos:
+        if(tipoActividade != null){
+            //Se estamos modificando (tipo de actividade non nulo) actualizamos os campos, non os borramos:
+            actualizarCamposTAct();
+        } else {
+            //Noutro caso, estaremos insertando: vaciaremos os campos:
+            AuxGUI.vaciarCamposTexto(campoNome,campoDescricion);
+        }
+    }
+
+    /**
      * Método que nos permite actualizar a información dos campos do tipo de actividade asociado.
      */
     private void actualizarCamposTAct(){
@@ -217,7 +233,11 @@ public class vInsercionTipoActividadeController extends AbstractController imple
         }
     }
 
-    //Getter e setter para o tipo de actividade:
+
+    /**
+     * Setter para o tipo de actividade asociado á pantalla.
+     * @param tipoActividade O tipo de actividade a asignar ao atributo do controlador.
+     */
     public void setTipoActividade(TipoActividade tipoActividade){
         this.tipoActividade = tipoActividade;
     }
