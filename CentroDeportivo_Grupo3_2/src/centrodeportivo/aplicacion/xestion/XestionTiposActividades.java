@@ -58,10 +58,6 @@ public class XestionTiposActividades {
 
     }
 
-    public ArrayList<TipoActividade> listarTiposActividades(){
-        return this.fachadaBD.listarTiposActividades();
-    }
-
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
         return this.fachadaBD.buscarTiposActividades(tipoActividade);
     }

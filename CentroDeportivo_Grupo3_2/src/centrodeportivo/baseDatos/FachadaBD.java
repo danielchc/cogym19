@@ -223,10 +223,6 @@ public final class FachadaBD {
         this.daoTiposActividades.eliminarTipoActividade(tipoActividade);
     }
 
-    public ArrayList<TipoActividade> listarTiposActividades() {
-        return this.daoTiposActividades.listarTiposActividades();
-    }
-
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade) {
         return this.daoTiposActividades.buscarTiposActividades(tipoActividade);
     }

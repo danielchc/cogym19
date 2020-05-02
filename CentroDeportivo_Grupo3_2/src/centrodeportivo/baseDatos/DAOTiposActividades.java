@@ -146,46 +146,6 @@ public final class DAOTiposActividades extends AbstractDAO {
         }
     }
 
-    public ArrayList<TipoActividade> listarTiposActividades(){
-        //Trátase dunha consulta sobre a base de datos.
-        ArrayList<TipoActividade> tiposActividades = new ArrayList<>();
-        PreparedStatement stmTiposActividades = null;
-        ResultSet rsTiposActividades = null;
-        Connection con;
-
-        //Recuperamos a conexión
-        con = super.getConexion();
-
-        //Intentamos realizar a consulta:
-        try{
-            stmTiposActividades = con.prepareStatement("SELECT codTipoActividade, nome, descricion " +
-                    "FROM tipoActividade");
-            //Executámola:
-            rsTiposActividades = stmTiposActividades.executeQuery();
-
-            //Procesámola:
-            while(rsTiposActividades.next()){
-                //Imos creando instancias de tipos de actividades e engadíndoas ao ArrayList:
-                tiposActividades.add(new TipoActividade(rsTiposActividades.getInt(1),
-                        rsTiposActividades.getString(2), rsTiposActividades.getString(3)));
-            }
-
-            //Facemos o commit:
-            con.commit();
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-        } finally {
-            //Intentamos pechar o statement:
-            try {
-                stmTiposActividades.close();
-            } catch (SQLException e){
-                System.out.println("Imposible pechar os cursores");
-            }
-        }
-        //Ofrecemos como resultado os tipos de actividades recuperados:
-        return tiposActividades;
-    }
-
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
         //É unha consulta sobre a base de datos.
         ArrayList<TipoActividade> tiposActividades = new ArrayList<>();
@@ -198,13 +158,24 @@ public final class DAOTiposActividades extends AbstractDAO {
 
         //Intentamos realizar a consulta:
         try{
+            //Elaboramos un string previo porque a consulta pode variar en función de se o tipo de actividade pasado
+            //é null ou non
+            String consulta =  "SELECT codTipoActividade, nome, descricion " +
+                    "FROM tipoActividade ";
+
+            //Se o tipo de actividade non é null, entón filtramos polo nome:
+            if(tipoActividade != null){
+                consulta += "WHERE nome like ? ";
+            }
+
             //Recuperamos todos os tipos de actividades posíbeis a partir do nome dentro do tipo de actividade
-            //pasado como argumento:
-            stmTiposActividades = con.prepareStatement("SELECT codTipoActividade, nome, descricion " +
-                    "FROM tipoActividade " +
-                    "WHERE nome like ? ");
-            //Completamos a consulta a realizar:
-            stmTiposActividades.setString(1, "%" + tipoActividade.getNome() + "%");
+            //pasado como argumento (se non é null):
+            stmTiposActividades = con.prepareStatement(consulta);
+
+            //Completamos a consulta a realizar (en caso de que haxa que completala):
+            if(tipoActividade != null){
+                stmTiposActividades.setString(1, "%" + tipoActividade.getNome() + "%");
+            }
 
             //Realizamos a consulta:
             rsTiposActividades =  stmTiposActividades.executeQuery();

@@ -259,10 +259,6 @@ public class FachadaAplicacion extends Application {
         return xestionActividades.eliminarTipoActividade(tipoActividade);
     }
 
-    public ArrayList<TipoActividade> listarTiposActividades() {
-        return xestionActividades.listarTiposActividades();
-    }
-
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade) {
         return xestionActividades.buscarTiposActividades(tipoActividade);
     }
