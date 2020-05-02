@@ -51,7 +51,12 @@ public class FachadaAplicacion extends Application {
     public FachadaAplicacion() throws IOException, SQLException {
         // Primeiro, creamos as fachadas:
         this.fachadaGUI = new FachadaGUI(this);
-        this.fachadaBD = new FachadaBD(this);
+        try {
+            this.fachadaBD = new FachadaBD(this);
+        } catch (ExcepcionBD excepcionBD) {
+            //Amosaremos a mensaxe de erro proporcionada pola excepción:
+            this.mostrarErro("Conexión coa base de datos", excepcionBD.getMessage());
+        }
         // Tendo as fachadas creadas, imos creando as clases de xestión, ás que lle pasaremos ditas fachadas.
         this.xestionUsuarios = new XestionUsuarios(fachadaGUI, fachadaBD);
         this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);

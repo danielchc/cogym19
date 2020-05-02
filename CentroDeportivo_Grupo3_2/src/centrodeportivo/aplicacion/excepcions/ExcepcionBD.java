@@ -51,17 +51,17 @@ public class ExcepcionBD extends Exception {
         //Todas as mensaxes empezarán por esta frase:
         String msg = "Erro na base de datos: ";
         //Agora, en función do código de estado SQL co que se devolvera a excepción, personalizamos algo a mensaxe:
-        switch(Integer.parseInt(excepcionSQL.getSQLState())){
-            case 23505: //Unique duplicado - claves priamrias e alternativas
+        switch(excepcionSQL.getSQLState()){
+            case "23505": //Unique duplicado - claves priamrias e alternativas
                 msg += "intentouse introducir un dato xa en uso";
                 break;
-            case 23514: //Checks inclumplidos.
+            case "23514": //Checks inclumplidos.
                 msg += "non se validou algunha das condicións necesarias para a actualización";
                 break;
-            case 23503: //Claves foráneas
-                msg += "";
+            case "23503": //Claves foráneas
+                msg += "produciuse algún problema de dependencia cos datos";
                 break;
-            case 8004: //Erro coa conexión
+            case "8004": //Erro coa conexión
                 msg += "problema ao conectar coa base de datos";
                 break;
         }

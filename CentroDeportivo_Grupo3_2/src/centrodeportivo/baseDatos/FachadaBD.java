@@ -49,30 +49,31 @@ public final class FachadaBD {
     /**
      * Constructor da fachada da base de datos:
      * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     * @throws ExcepcionBD excepción asociada a problemas relativos á base de datos.
      */
-    public FachadaBD(FachadaAplicacion fachadaAplicacion) {
+    public FachadaBD(FachadaAplicacion fachadaAplicacion) throws ExcepcionBD {
         //Para empezar, asociaremos a fachada de aplicación ao atributo correspondente:
         this.fachadaAplicacion = fachadaAplicacion;
         //Creamos o atributo de tipo properties para gardar toda a información para a configuración.
         Properties configuracion = new Properties();
-        //FileInputStream prop;
-        //prop = new FileInputStream("baseDatos.properties");
-        //configuracion.load(prop);
-        //prop.close();
+        FileInputStream prop;
 
         try {
-            //Tentamos desencriptar todos os datos que están no arquivo properties.
-            String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
-            //System.out.println(conf);
-            //Cargamos a información lida do cifrado:
-            configuracion.load(new StringReader(conf));
+            //Cargamos os datos incluidos no .properties.
+            prop = new FileInputStream("baseDatos.properties");
+            configuracion.load(prop);
+            prop.close();
         } catch (Exception ex) {
             //En caso de problemas ao desencriptar o cifrado, avisamos e saímos:
-            System.out.println("Non se pudo cargar o arquivo cifrado");
+            //O aviso farase tanto por ventá:
+            fachadaAplicacion.mostrarErro("Carga do arquivo de configuración",
+                    "Non se puido cargar o arquivo de configuración da base de datos");
+            //Coma por texto:
+            System.out.println("Non se puido cargar o arquivo properties");
             System.exit(1);
         }
 
-        //A partir da información lida do cifrado, imos ir asociando as propiedades ao usuario para o acceso á BD:
+        //A partir da información lida imos ir asociando as propiedades ao usuario para o acceso á BD:
         Properties usuario = new Properties();
         //Nome de usuario da base de datos:
         usuario.setProperty("user", configuracion.getProperty("usuario"));
@@ -87,9 +88,8 @@ public final class FachadaBD {
             //de DAO.
             this.conexion.setAutoCommit(false);
         } catch (SQLException e) {
-            //Se non podemos, amosamos un erro e asociamos:
-            fachadaAplicacion.mostrarErro("Erro", "Erro na conexión ca base de datos");
-            System.exit(1);
+            //Se non podemos, lanzaremos a nosa propia excepción asociada á base de datos:
+            throw new ExcepcionBD(this.conexion, e);
         }
 
         //Creamos todos os DAOs:
