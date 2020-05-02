@@ -63,20 +63,15 @@ public final class FachadaBD {
 
 
         try {
-            String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
-            configuracion.load(new StringReader(conf));
-        } catch (Exception ex) {
-            System.out.println("Non se pudo cargar o arquivo cifrado Empregando o arquivo sen cifrar");
-            try {
-                prop = new FileInputStream("baseDatos.properties");
-                configuracion.load(prop);
-                prop.close();
-            } catch (IOException e) {
-                fachadaAplicacion.mostrarAdvertencia("ADVERTENCIA", "Non se puido cargar o archivo de configuración da base de datos. (baseDatos.encrypted ou baseDatos.propierties)");
-                System.out.println("Non se pudo cargar o arquivo properties");
-                System.exit(1);
-            }
+            prop = new FileInputStream("baseDatos.properties");
+            configuracion.load(prop);
+            prop.close();
+        } catch (IOException e) {
+            fachadaAplicacion.mostrarAdvertencia("ADVERTENCIA", "Non se puido cargar o archivo de configuración da base de datos. (baseDatos.encrypted ou baseDatos.propierties)");
+            System.out.println("Non se pudo cargar o arquivo properties");
+            System.exit(1);
         }
+
 
         Properties usuario = new Properties();
         usuario.setProperty("user", configuracion.getProperty("usuario"));
