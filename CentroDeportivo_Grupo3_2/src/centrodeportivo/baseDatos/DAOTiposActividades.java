@@ -146,6 +146,12 @@ public final class DAOTiposActividades extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que ofrece un conxunto de tipos de actividade contidos na base de datos.
+     * @param tipoActividade O tipo de actividade modelo co que se vai a facer a búsqueda.
+     * @return Se o tipo de actividade é null, devolveranse todos os tipos de actividades rexistrados, en caso contrario
+     * todos os tipos de actividade que teñan coincidencia co nome que ten o tipo pasado como argumento.
+     */
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade){
         //É unha consulta sobre a base de datos.
         ArrayList<TipoActividade> tiposActividades = new ArrayList<>();
@@ -190,18 +196,83 @@ public final class DAOTiposActividades extends AbstractDAO {
             //Realizamos o commit:
             con.commit();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //En caso de erro, imprimimos o stack trace e facemos rollback:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
         } finally {
-            //Intentamos pechar os cursores:
+            //Para rematar pechamos os cursores:
             try{
                 stmTiposActividades.close();
-            } catch (SQLException e){
+            } catch(SQLException e){
                 System.out.println("Imposible pechar os cursores");
             }
         }
 
         //Ofrecemos como resultado os tipos de actividades obtidos da consulta (no peor caso, un arraylist vacío).
         return tiposActividades;
+    }
+
+    /**
+     * Método que nos permite consultar un tipo de actividade a partir do código do tipo pasado como argumento.
+     * @param tipoActividade O tipo de actividade do que se collerá o código para a consulta.
+     * @return O tipo de actividade co código buscado (se todavía existe na base de datos).
+     */
+    public TipoActividade consultarTipoActividade(TipoActividade tipoActividade){
+        //Neste método usaremos o código do tipo pasado como argumento para consultar se segue estando aí ese tipo de
+        //actividade.
+        PreparedStatement stmTiposActividades = null;
+        ResultSet rsTiposActividades;
+        //O resultado meterémolo no seguinte obxecto:
+        TipoActividade resultado = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Intentamos facer a consulta:
+        try{
+            //Consultamos por código:
+            stmTiposActividades = con.prepareStatement("SELECT codtipoactividade, nome, descricion " +
+                    " FROM tipoactividade" +
+                    " WHERE codtipoactividade = ?");
+
+            //Completamos a consulta:
+            stmTiposActividades.setInt(1, tipoActividade.getCodTipoActividade());
+
+            //Executamos a consulta:
+            rsTiposActividades = stmTiposActividades.executeQuery();
+
+            //Procesamos o resultado, en caso de habelo, só habería 1 tupla (O código é PK!)
+            if(rsTiposActividades.next()){
+                resultado = new TipoActividade(rsTiposActividades.getInt("codtipoactividade"),
+                        rsTiposActividades.getString("nome"),
+                        rsTiposActividades.getString("descricion"));
+            }
+
+            //Chegados a este punto, é o momento de facer o commit:
+            con.commit();
+        } catch (SQLException e){
+            //En caso de erro, imprimimos o stack trace e facemos rollback:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        } finally {
+            //Para rematar pechamos os cursores:
+            try{
+                stmTiposActividades.close();
+            } catch(SQLException e){
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+
+        return resultado;
     }
 
     public boolean comprobarExistencia(TipoActividade tipoActividade){
@@ -229,9 +300,18 @@ public final class DAOTiposActividades extends AbstractDAO {
             if(rsTiposActividades.next()){
                 resultado = true;
             }
+            //Facemos o commit:
+            con.commit();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            //En caso de erro, imprimimos o stack trace e facemos rollback:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
         } finally {
+            //Para rematar pechamos os cursores:
             try{
                 stmTiposActividades.close();
             } catch(SQLException e){
@@ -262,13 +342,22 @@ public final class DAOTiposActividades extends AbstractDAO {
             if(rsActividades.next()){
                 resultado = true;
             }
+            //Facemos commit:
+            con.commit();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            //En caso de erro, imprimimos o stack trace e facemos rollback:
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
         } finally {
+            //Para rematar pechamos os cursores:
             try{
                 stmActividades.close();
             } catch(SQLException e){
-                System.out.println("Imposible pechar os cursores.");
+                System.out.println("Imposible pechar os cursores");
             }
         }
         return resultado;

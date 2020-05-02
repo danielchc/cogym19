@@ -131,13 +131,27 @@ public class vAdministrarTiposActividadesController extends AbstractController i
         //Se se quere xestionar un tipo de actividade existente, hai que comprobar que haxa unha selección:
         TipoActividade tipoActividade = (TipoActividade) taboaTiposActividades.getSelectionModel().getSelectedItem();
         if(tipoActividade != null) {
+            //Se hai selección, recuperamos o controlador da ventá de inserción do tipo de actividade:
             vInsercionTipoActividadeController cont = (vInsercionTipoActividadeController) controllerPrincipal.getControlador(IdPantalla.INSERCIONTIPOACTIVIDADE);
-            //Introducese o tipo de actividade como atributo no controlador correspondente:
-            cont.setTipoActividade(tipoActividade);
-            //Agora, amósase esa pantalla:
-            controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONTIPOACTIVIDADE);
+            //Introducese o tipo de actividade como atributo no controlador correspondente, pero antes consúltase
+            //de novo na base de datos, por se pasou moito tempo e xa non está rexistrado:
+            tipoActividade = super.getFachadaAplicacion().consultarTipoActividade(tipoActividade);
+            if(tipoActividade != null) {
+                //En caso de seguir almacenado, establécese o tipo de actividade do controlador da seguinte ventá:
+                cont.setTipoActividade(tipoActividade);
+                //Agora, amósase esa pantalla:
+                controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONTIPOACTIVIDADE);
+            } else {
+                //Noutro caso amosamos un erro e mantémonos nesta ventá, actualizando:
+                super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
+                        "O tipo de actividade seleccionado xa non existe na base de datos.");
+                //Actualizamos a táboa de tipos de actividades:
+                this.refrescarTaboaTiposAct(super.getFachadaAplicacion().buscarTiposActividades(null));
+            }
         } else {
-            super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades", "Non hai ningunha selección para editar!");
+            //En caso de non haber selección, avísase:
+            super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
+                    "Non hai ningunha selección para editar!");
         }
     }
 
