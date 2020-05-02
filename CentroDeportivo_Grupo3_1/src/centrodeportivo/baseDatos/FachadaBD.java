@@ -67,7 +67,7 @@ public final class FachadaBD {
             configuracion.load(prop);
             prop.close();
         } catch (IOException e) {
-            fachadaAplicacion.mostrarAdvertencia("ADVERTENCIA", "Non se puido cargar o archivo de configuración da base de datos. (baseDatos.encrypted ou baseDatos.propierties)");
+            fachadaAplicacion.mostrarAdvertencia("ADVERTENCIA", "Non se puido cargar o archivo de configuración da base de datos. (baseDatos.propierties)");
             System.out.println("Non se pudo cargar o arquivo properties");
             System.exit(1);
         }
@@ -82,9 +82,7 @@ public final class FachadaBD {
             this.conexion = DriverManager.getConnection(con, usuario);
             this.conexion.setAutoCommit(false);
         } catch (SQLException e) {
-            //fachadaAplicacion.mostrarErro("Erro","Erro na conexión ca base de datos");
             throw new ExcepcionBD(this.conexion, e);
-            //System.exit(1);
         }
         this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
         this.daoTarifas = new DAOTarifas(this.conexion, this.fachadaAplicacion);

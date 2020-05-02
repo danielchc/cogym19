@@ -13,7 +13,7 @@ public class ExcepcionBD extends Exception {
      * Atributos da clase Excepción SQL.
      */
     private Connection conexion;
-    private int codigoError;
+    private String codigoError;
     private SQLException exceptionSQL;
 
     /**
@@ -26,10 +26,10 @@ public class ExcepcionBD extends Exception {
     public ExcepcionBD(Connection conexion, SQLException excepcion) {
         super();
         this.conexion = conexion;
-        this.codigoError = Integer.parseInt(excepcion.getSQLState());
+        this.codigoError = excepcion.getSQLState();
         this.exceptionSQL = excepcion;
         try {
-            conexion.rollback();
+            if(conexion!=null)conexion.rollback();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,19 +45,19 @@ public class ExcepcionBD extends Exception {
         String msg = "Erro na base de datos: ";
         switch (codigoError) {
             //claves primarias repetidas/uniques
-            case 23505:
+            case "23505":
                 msg += "Intentouse introducir un dato xa en uso";
                 break;
             //checks
-            case 23514:
+            case "23514":
                 msg += "Non se validou algunha das condicións necesarias para a actualización";
                 break;
             //claves foráneas
-            case 23503:
+            case "23503":
                 msg += "Problema coas dependencias dos datos.";
                 break;
             //conexion coa base
-            case 8004:
+            case "8004":
                 msg += "Problema ao conectar coa base de datos";
                 break;
         }
@@ -76,11 +76,11 @@ public class ExcepcionBD extends Exception {
         this.conexion = conexion;
     }
 
-    public int getCodigoError() {
+    public String getCodigoError() {
         return codigoError;
     }
 
-    public void setCodigoError(int codigoError) {
+    public void setCodigoError(String codigoError) {
         this.codigoError = codigoError;
     }
 
