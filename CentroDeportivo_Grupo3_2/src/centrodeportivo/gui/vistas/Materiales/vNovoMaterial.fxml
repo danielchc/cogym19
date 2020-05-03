@@ -15,7 +15,7 @@
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="326.0">
                 <Label alignment="CENTER" prefHeight="46.0" prefWidth="166.0" text="Novo material" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="20.0"/>
                     </font>
                 </Label>
                 <ImageView fitHeight="43.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
@@ -29,14 +29,15 @@
         <VBox alignment="TOP_CENTER" layoutX="25.0" layoutY="23.0" prefHeight="298.0" prefWidth="550.0"
               AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
               AnchorPane.topAnchor="23.0">
-            <HBox alignment="CENTER" prefWidth="550.0" spacing="20.0" VBox.vgrow="ALWAYS">
-                <Label alignment="TOP_LEFT" prefHeight="26.0" prefWidth="176.0" text="Tipo de material: *">
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="550.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                <Label prefHeight="26.0" prefWidth="176.0" text="Tipo de material: *">
                     <font>
                         <Font name="System Bold" size="14.0"/>
                     </font>
                 </Label>
                 <ComboBox fx:id="comboTipoMaterial" prefHeight="26.0" prefWidth="234.0"/>
-                <Button fx:id="btnXestionar" onAction="#btnXestionarAction" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Xestionar">
+                <Button fx:id="btnXestionar" alignment="CENTER" mnemonicParsing="false" onAction="#btnXestionarAction"
+                        prefHeight="26.0" prefWidth="126.0" text="Xestionar">
                     <opaqueInsets>
                         <Insets/>
                     </opaqueInsets>
@@ -45,8 +46,8 @@
                     <Insets bottom="20.0"/>
                 </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefWidth="550.0" VBox.vgrow="ALWAYS">
-                <Label alignment="TOP_CENTER" prefHeight="26.0" prefWidth="166.0" text="Estado: *">
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                <Label prefHeight="26.0" prefWidth="166.0" text="Estado: *">
                     <font>
                         <Font name="System Bold" size="14.0"/>
                     </font>
@@ -68,7 +69,7 @@
                         <ComboBox fx:id="comboInstalacion" prefHeight="18.0" prefWidth="174.0"/>
                     </HBox>
                     <HBox alignment="CENTER" prefWidth="550.0" VBox.vgrow="ALWAYS">
-                        <Label alignment="TOP_CENTER" prefHeight="26.0" prefWidth="180.0" text="Data da compra: ">
+                        <Label prefHeight="26.0" prefWidth="180.0" text="Data da compra: ">
                             <font>
                                 <Font name="System Bold" size="14.0"/>
                             </font>
@@ -77,7 +78,7 @@
                                     promptText="DD/MM/AAAA"/>
                     </HBox>
                 </VBox>
-                <VBox prefHeight="50.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
+                <VBox prefHeight="125.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
 
                     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                         <Label alignment="CENTER" prefHeight="26.0" prefWidth="166.0" styleClass="estilo-label"
@@ -98,9 +99,9 @@
                                 <Insets left="10.0"/>
                             </opaqueInsets>
                         </Label>
-                        <TextField fx:id="campoPrezoMaterial" alignment="CENTER" prefHeight="26.0" prefWidth="151.0"
-                                   promptText="00.00"/>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="52.0" text="€">
+                        <TextField fx:id="campoPrezoMaterial" alignment="CENTER_RIGHT" prefHeight="26.0"
+                                   prefWidth="151.0" promptText="00.00"/>
+                        <Label alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="52.0" text="€">
                             <font>
                                 <Font name="System Bold" size="14.0"/>
                             </font>
@@ -111,7 +112,7 @@
                     </HBox>
                 </VBox>
             </HBox>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="550.0">
                 <Button fx:id="btnGardarMaterial" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
                         prefHeight="26.0" prefWidth="160.0" text="Gardar">
                     <HBox.margin>
@@ -119,7 +120,7 @@
                     </HBox.margin>
                 </Button>
             </HBox>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="550.0">
                 <Button fx:id="btnLimparMaterial" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0"
                         text="Limpar campos"/>
             </HBox>

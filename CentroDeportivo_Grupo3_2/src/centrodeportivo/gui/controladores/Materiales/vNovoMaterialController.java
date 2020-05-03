@@ -53,6 +53,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
                         setText(null);
                     } else {
                         if (item.isEmpty()) {
+                            // TODO: quitar o de engadir novo ou algo
                             setText("Engadir novo...");
                         } else {
                             setText(item);
@@ -85,7 +86,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnXestionarAction(ActionEvent actionEvent) {
-        // Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
+        // Feito iso, facemos que sexa visible a ventá para a xestión
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOMATERIAL);
     }
 
