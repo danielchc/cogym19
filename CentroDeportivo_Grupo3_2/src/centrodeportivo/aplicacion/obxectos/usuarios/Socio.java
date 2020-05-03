@@ -13,8 +13,6 @@ import java.sql.Date;
  */
 public final class Socio extends Usuario {
 
-    //Canto aos atributos, non temos nada adicional.
-
     /**
      * Constructor con todos os atributos que se extenden do persoal.
      *

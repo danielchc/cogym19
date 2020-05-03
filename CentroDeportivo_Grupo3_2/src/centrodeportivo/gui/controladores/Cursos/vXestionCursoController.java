@@ -9,6 +9,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -76,13 +77,24 @@ public class vXestionCursoController extends AbstractController implements Initi
     private vPrincipalController controllerPrincipal;
     private Curso curso;
 
-    //Constructor:
+    /**
+     * Constructor da pantalla de xestión dun curso
+     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     * @param controllerPrincipal A referencia ao controlador da ventá principal.
+     */
     public vXestionCursoController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+        //Chamamos ao constructor da clase pai.
         super(fachadaAplicacion);
+        //Asignamos o atributo do controlador da ventá principal:
         this.controllerPrincipal = controllerPrincipal;
     }
 
-    //Método para inicializar a ventá:
+
+    /**
+     * Método executado para inicializar a pantalla.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Hai que levar a cabo varias tarefas, e pode haber dúas situacións:
@@ -127,46 +139,71 @@ public class vXestionCursoController extends AbstractController implements Initi
         taboaActividades.getColumns().addAll(dataActividadeColumn, horaActividadeColumn, areaColumn, duracionColumn, profesorColumn);
         //Facemos isto para controlar o tamaño das columnas.
         taboaActividades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        taboaActividades.getSelectionModel().selectFirst();
 
         //Táboa de socios:
         //Empezamos polo login do usuario:
         TableColumn<Usuario, String> loginColumn = new TableColumn<>("Login");
         loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
 
-        //A idade:
-        TableColumn<Usuario, Integer> dataNacementoColumn = new TableColumn<>("Idade");
-        dataNacementoColumn.setCellValueFactory(new PropertyValueFactory<>("idade"));
+        //O nome do usuario:
+        TableColumn<Usuario, String> nomeColumn = new TableColumn<>("Nome");
+        nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        TableColumn<String, Usuario> dificultadesColumn = new TableColumn<>("Dificultades");
+        //A idade:
+        TableColumn<Usuario, Integer> idadeColumn = new TableColumn<>("Idade");
+        idadeColumn.setCellValueFactory(new PropertyValueFactory<>("idade"));
+
+        //As dificultades do usuario:
+        TableColumn<Usuario, String> dificultadesColumn = new TableColumn<>("Dificultades");
         dificultadesColumn.setCellValueFactory(new PropertyValueFactory<>("dificultades"));
 
-        TableColumn<String, Usuario> numTelefonoColumn = new TableColumn<>("Número de Teléfono");
+        //O número de teléfono
+        TableColumn<Usuario, String> numTelefonoColumn = new TableColumn<>("Número de Teléfono");
         numTelefonoColumn.setCellValueFactory(new PropertyValueFactory<>("numTelefono"));
 
-        taboaUsuarios.getColumns().addAll(loginColumn,dataNacementoColumn,dificultadesColumn,numTelefonoColumn);
+        //O correo electrónico:
+        TableColumn<Usuario, String> correoColumn = new TableColumn<>("Correo electrónico");
+        correoColumn.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
+
+        taboaUsuarios.getColumns().addAll(loginColumn,nomeColumn, idadeColumn,dificultadesColumn,
+                numTelefonoColumn, correoColumn);
         //Facemos isto para controlar o tamaño das columnas.
         taboaUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //Táboa de actividades e valoracións asociadas: será semellante á outra de actividades:
-        TableColumn<Date, Actividade> dataActColumn = new TableColumn<>("Data");
-        dataActColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+        //Comezamos amosando a data no formato dia/mes/ano
+        TableColumn<Actividade, String> dataActColumn = new TableColumn<>("Data");
+        dataActColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                new SimpleDateFormat("dd/MM/yyyy").format(c.getValue().getData().getTime())
+        ));
 
-        TableColumn<String, Actividade> areaActColumn = new TableColumn<>("Area");
-        areaActColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+        //Formateamos ahora a hora na que ten lugar a actividade:
+        TableColumn<Actividade, String> horaActColumn = new TableColumn<>("Hora");
+        horaActColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                new Time(c.getValue().getData().getTime()).toString()
+        ));
 
-        TableColumn<String, Actividade> profActColumn = new TableColumn<>("Profesor");
+        //A área na que ten lugar:
+        TableColumn<Actividade, String> areaActColumn = new TableColumn<>("Area");
+        areaActColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getArea().getNome() + ", inst. " + c.getValue().getArea().getInstalacion().getCodInstalacion()
+        ));
+
+        TableColumn<Actividade, String> profActColumn = new TableColumn<>("Profesor");
         profActColumn.setCellValueFactory(new PropertyValueFactory<>("profesor"));
 
         //Engadimos unha columna diferente, a das valoracións:
-        TableColumn<Float, Actividade> valoracionColumn = new TableColumn<>("Valoración");
+        TableColumn<Actividade, Float> valoracionColumn = new TableColumn<>("Valoración");
         valoracionColumn.setCellValueFactory(new PropertyValueFactory<>("valMedia"));
 
-        taboaActividadesVal.getColumns().addAll(dataActColumn, areaActColumn, profActColumn, valoracionColumn);
+        //Metemos todas as columnas na táboa:
+        taboaActividadesVal.getColumns().addAll(dataActColumn, horaActColumn, areaActColumn, profActColumn, valoracionColumn);
         //Con isto controlamos o tamaño das columnas:
         taboaActividadesVal.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //Táboa de valoracións aos profesores:
-        //De novo, hai columnas similares coas de usuario:
+        //Hai columnas similares coas de usuario:
         TableColumn<String, Usuario> loginProfColumn = new TableColumn<>("Login");
         loginProfColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
 
@@ -177,21 +214,20 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Controlamos o tamaño das columnas:
         taboaProfesores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        //Neste caso teremos que axustarnos para reflexar o rexistro dun curso:
         //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
-        btnActivar.setVisible(false);
-        btnBorrarActividade.setVisible(false);
-        btnEngadirActividade.setVisible(false);
-        btnModificarSeleccion.setVisible(false);
-        btnCancelar.setVisible(false);
-        vBoxBotonInforme.setVisible(false);
-        vBoxDetalleInforme.setVisible(false);
+        AuxGUI.ocultarCampos(btnActivar,btnBorrarActividade,btnEngadirActividade,btnModificarSeleccion,
+                btnCancelar,vBoxBotonInforme,vBoxDetalleInforme);
     }
 
-    //Método activado en caso de querer reiniciar esta ventá:
+
+    /**
+     * Método que se executa tras amosar a pantalla, para reiniciar aqueles atributos que sexa preciso.
+     */
     @Override
     public void reiniciarForm(){
         //Reestablecemos o campo do curso de cara á apertura de novo da ventá.
+        //Deste xeito, para indicar que se vai configurar un curso haberá que usar o setter que temos máis abaixo
+        //despois de abrir a ventá.
         this.curso = null;
     }
 
@@ -371,37 +407,38 @@ public class vXestionCursoController extends AbstractController implements Initi
         tagObrigatorios.setVisible(false);
     }
 
-    //Getters e setters do curso:
-    //O setter fai máis cousas: actualiza a interface.
+
+    /**
+     * Setter do curso, co que prepararemos a pantalla para a configuración do curso pasado.
+     * @param curso O curso do que se vai amosar a información.
+     */
     public void setCurso(Curso curso){
         //Asignamos o curso:
         this.curso = curso;
         //Teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
-        campoCodigo.setText(curso.getCodCurso()+"");
+        campoCodigo.setText(curso.getCodCurso().toString());
         campoNome.setText(curso.getNome());
         campoDescricion.setText(curso.getDescricion());
-        campoPrezo.setText(curso.getPrezo()+"");
+        campoPrezo.setText(curso.getPrezo().toString());
         //Enchemos a táboa de actividades:
         taboaActividades.getItems().addAll(curso.getActividades());
         //Enchemos a táboa de participantes:
         taboaUsuarios.getItems().addAll(curso.getParticipantes());
         if(curso.isAberto()) {
             //Se o curso xa está aberto non damos opción a abrilo:
-            btnActivar.setVisible(false);
+            AuxGUI.ocultarCampos(btnActivar);
         } else {
-            btnActivar.setVisible(true);
+            AuxGUI.amosarCampos(btnActivar);
         }
         //Activamos botóns actividades, cancelación e xeración de informe
-        btnBorrarActividade.setVisible(true);
-        btnEngadirActividade.setVisible(true);
-        btnModificarSeleccion.setVisible(true);
-        btnCancelar.setVisible(true);
-        vBoxBotonInforme.setVisible(true);
+        AuxGUI.amosarCampos(btnBorrarActividade, btnEngadirActividade, btnModificarSeleccion,
+                btnCancelar);
+        //Se o curso está rematado, entón daremos opción a amosar o botón do informe:
+        if(curso.getDataFin() != null && curso.getDataFin().before(new Date(System.currentTimeMillis()))){
+            AuxGUI.amosarCampos(vBoxBotonInforme);
+        }
     }
 
-    public Curso getCurso(){
-        return this.curso;
-    }
 
     public void btnXerarInformeAction(ActionEvent actionEvent) {
         //O que hai que facer primeiro é comprobar se se está en condicións de recuperar os datos do informe, para o que

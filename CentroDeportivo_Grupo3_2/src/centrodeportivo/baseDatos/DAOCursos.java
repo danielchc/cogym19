@@ -381,7 +381,9 @@ public final class DAOCursos extends AbstractDAO{
                 }
 
                 //Feito isto, vamos a consultar os socios participantes:
-                stmSocios = con.prepareStatement("SELECT * FROM vistasocio as vs JOIN realizarcurso as rc" +
+                stmSocios = con.prepareStatement("SELECT vs.login, vs.nome, vs.dificultades, " +
+                        " date_part('year', age(vs.datanacemento)) as idade, vs.numtelefono, vs.correoelectronico" +
+                        " FROM vistasocio as vs JOIN realizarcurso as rc" +
                         " ON (vs.login = rc.usuario)" +
                         " WHERE rc.curso = ?");
 
@@ -516,7 +518,9 @@ public final class DAOCursos extends AbstractDAO{
 
                 //Agora toca consultar os participantes, coma na outra consulta
                 //A razón é que aproveitaremos esta consulta para refrescar tamén a información existente.
-                stmSocios = con.prepareStatement("SELECT * FROM vistasocio as vs JOIN realizarcurso as rc" +
+                stmSocios = con.prepareStatement("SELECT vs.login, vs.nome, vs.dificultades, " +
+                        " date_part('year', age(vs.datanacemento)) as idade, vs.numtelefono, vs.correoelectronico" +
+                        " FROM vistasocio as vs JOIN realizarcurso as rc" +
                         " ON (vs.login = rc.usuario)" +
                         " WHERE rc.curso = ?");
 
