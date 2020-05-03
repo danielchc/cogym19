@@ -30,13 +30,15 @@ public class ExcepcionBD extends Exception {
         //Chamamos ao constructor da clase pai:
         super();
         //Asignamos os parámetros aos atributos da excepción:
-        this.conexion = conexion;
+        this.conexion = con;
         this.excepcionSQL = excepcionSQL;
         //Tentamos realizar, coa conexión pasada, o rollback() para que non se aplique ningún cambio sobre a BD.
-        try{
-            con.rollback();
-        } catch(SQLException e){
-            e.printStackTrace(); //Imprimiríamos por consola se houbese algún problema no rollback.
+        if(this.conexion != null){
+            try {
+                this.conexion.rollback();
+            } catch(SQLException e) {
+                e.printStackTrace(); //Imprimiríamos por consola se houbese algún problema no rollback.
+            }
         }
     }
 
@@ -61,7 +63,7 @@ public class ExcepcionBD extends Exception {
             case "23503": //Claves foráneas
                 msg += "produciuse algún problema de dependencia cos datos";
                 break;
-            case "8004": //Erro coa conexión
+            case "08004": //Erro coa conexión
                 msg += "problema ao conectar coa base de datos";
                 break;
         }

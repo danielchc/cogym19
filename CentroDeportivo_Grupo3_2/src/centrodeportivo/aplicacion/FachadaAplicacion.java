@@ -56,6 +56,7 @@ public class FachadaAplicacion extends Application {
         } catch (ExcepcionBD excepcionBD) {
             //Amosaremos a mensaxe de erro proporcionada pola excepción:
             this.mostrarErro("Conexión coa base de datos", excepcionBD.getMessage());
+            System.exit(1);
         }
         // Tendo as fachadas creadas, imos creando as clases de xestión, ás que lle pasaremos ditas fachadas.
         this.xestionUsuarios = new XestionUsuarios(fachadaGUI, fachadaBD);
