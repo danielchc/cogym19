@@ -191,13 +191,16 @@ public final class DAOTiposActividades extends AbstractDAO {
         try{
             //Elaboramos un string previo porque a consulta pode variar en función de se o tipo de actividade pasado
             //é null ou non
-            String consulta =  "SELECT codTipoActividade, nome, descricion " +
+            String consulta =  "SELECT codtipoactividade, nome, descricion " +
                     "FROM tipoActividade ";
 
             //Se o tipo de actividade non é null, entón filtramos polo nome:
             if(tipoActividade != null){
                 consulta += "WHERE nome like ? ";
             }
+
+            //Ordenamos polo código do tipo de actividade para que nos aparezan así en orde:
+            consulta += " ORDER BY codtipoactividade";
 
             //Recuperamos todos os tipos de actividades posíbeis a partir do nome dentro do tipo de actividade
             //pasado como argumento (se non é null):

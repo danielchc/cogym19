@@ -193,6 +193,9 @@ public final class DAOInstalacions extends AbstractDAO {
                         "   and direccion like ? ";
             }
 
+            //Ordenaremos o resultado polo código da instalación (para que saian así ordenadas)
+            consulta += " ORDER BY codinstalacion";
+
             stmInstalacions = con.prepareStatement(consulta);
 
             //Tamén se se pasa argumento haberá que completar a consulta:
