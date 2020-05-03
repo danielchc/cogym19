@@ -15,7 +15,7 @@ public class DAOActividade extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
-    public void EngadiActividade(Actividade actividade) throws ExcepcionBD {
+    public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -55,7 +55,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public boolean existeActividae(Actividade actividade) throws ExcepcionBD {
+    public boolean existeActividade(Actividade actividade) throws ExcepcionBD {
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -121,7 +121,7 @@ public class DAOActividade extends AbstractDAO {
             stmActivide.setTimestamp(4, actividade.getData());
             stmActivide.setTimestamp(5, actividade.getData());
             //Calculamos o momento no que reamta a actividade
-            stmActivide.setTimestamp(6, new Timestamp(actividade.getData().getTime() + TimeUnit.HOURS.toMillis((long)actividade.getDuracion())));
+            stmActivide.setTimestamp(6, new Timestamp(actividade.getData().getTime() + TimeUnit.HOURS.toMillis((long)actividade.getDuracion().floatValue())));
 
 
             //Facemos a consulta:

@@ -197,13 +197,18 @@ public class vAdministrarCursosController extends AbstractController implements 
     }
 
     /**
-     *
-     * @param actionEvent
+     * Método que se executa cando se pulsa o checkbox para resaltar os cursos que xa remataron.
+     * @param actionEvent A acción que tivo lugar.
      */
     public void checkResaltarAction(ActionEvent actionEvent){
+        //Únicamente se refresca a táboa:
         taboaCursos.refresh();
     }
 
+    /**
+     * Método que nos permite actualizar a táboa de cursos (vaciándoa e reenchéndoa):
+     * @param cursos Os cursos que se van a introducir na táboa
+     */
     private void actualizarTaboaCursos(ArrayList<Curso> cursos){
         //Primeiro borramos todos os items que hai amosados na táboa:
         taboaCursos.getItems().removeAll(taboaCursos.getItems());
