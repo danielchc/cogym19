@@ -19,7 +19,7 @@ public class XestionArea {
     }
 
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
+        //Se a area non existe, dase de alta:
         if(!fachadaBD.ExisteArea(area)) {
             fachadaBD.EngadirArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
@@ -35,13 +35,11 @@ public class XestionArea {
             //Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
         } else {
-            //Se houbese áreas asociadas a instalacións, devolvemos o enum de erro por referencias co restrict.
             return TipoResultados.referenciaRestrict;
         }
     }
 
     public TipoResultados modificarArea(Area area) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
         if(fachadaBD.ExisteArea(area)) {
             fachadaBD.modificarArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
@@ -52,7 +50,6 @@ public class XestionArea {
     }
 
     public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
         if (fachadaBD.ExisteArea(area) && !fachadaBD.EBaixaArea(area)) {
             fachadaBD.darDeBaixaArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
@@ -63,7 +60,7 @@ public class XestionArea {
     }
 
     public TipoResultados darDeAltaAreaa(Area area) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
+        //Se a area non existe, dase de alta:
         if (fachadaBD.ExisteArea(area) && fachadaBD.EBaixaArea(area)) {
             fachadaBD.darDeAltaArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:

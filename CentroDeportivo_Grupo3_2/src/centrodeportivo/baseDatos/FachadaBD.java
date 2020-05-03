@@ -10,14 +10,9 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
-import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.gui.FachadaGUI;
 
 import java.io.FileInputStream;
-import java.io.StringReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -457,12 +452,12 @@ public final class FachadaBD {
         daoActividade.EngadirActividade(actividade);
     }
 
-    public void existeActividade(Actividade actividade) throws ExcepcionBD {
-        daoActividade.existeActividade(actividade);
+    public boolean existeActividade(Actividade actividade) throws ExcepcionBD {
+        return daoActividade.existeActividade(actividade);
     }
 
-    public void horarioOcupadoActividade(Actividade actividade) throws ExcepcionBD {
-        daoActividade.horarioOcupadoActividade(actividade);
+    public boolean horarioOcupadoActividade(Actividade actividade) throws ExcepcionBD {
+        return daoActividade.horarioOcupadoActividade(actividade);
     }
 
     public void modificarActividade(Actividade actividade) throws ExcepcionBD {
@@ -477,12 +472,14 @@ public final class FachadaBD {
         daoActividade.apuntarseActividade(actividade, usuario);
     }
 
+    //Aleguen apuntado
+
     public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         daoActividade.borrarseDeActividade(actividade, usuario);
     }
 
-    public void estarApuntado(Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        daoActividade.estarApuntado(actividade, usuario);
+    public boolean estarApuntado(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        return daoActividade.estarApuntado(actividade, usuario);
     }
 
 }
