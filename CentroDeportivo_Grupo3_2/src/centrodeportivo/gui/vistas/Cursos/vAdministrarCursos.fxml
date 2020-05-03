@@ -36,9 +36,9 @@
         </AnchorPane>
         <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
             <children>
-                <VBox layoutX="25.0" layoutY="20.0" prefHeight="305.0" prefWidth="550.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="20.0">
+                <VBox layoutX="25.0" layoutY="20.0" prefHeight="305.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <HBox prefHeight="64.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="64.0" prefWidth="550.0" VBox.vgrow="NEVER">
                             <children>
                                 <VBox prefHeight="50.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
                                     <children>
@@ -88,13 +88,9 @@
                                     </columnResizePolicy>
                                 </TableView>
                             </children></HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="550.0" VBox.vgrow="NEVER">
                             <children>
-                                <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Button fx:id="btnXestionar" alignment="CENTER" mnemonicParsing="false" onAction="#btnXestionarAction" prefHeight="26.0" prefWidth="135.0" text="Xestionar" />
-                                    </children>
-                                </VBox>
+                                  <Button fx:id="btnXestionar" alignment="CENTER" mnemonicParsing="false" onAction="#btnXestionarAction" prefHeight="26.0" prefWidth="135.0" text="Xestionar" />
                             </children>
                         </HBox>
                     </children>

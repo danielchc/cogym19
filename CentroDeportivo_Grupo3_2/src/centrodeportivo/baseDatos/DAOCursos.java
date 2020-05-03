@@ -2,7 +2,6 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
-import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -10,7 +9,6 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -236,8 +234,9 @@ public final class DAOCursos extends AbstractDAO{
         try{
             //A búsqueda que poderá facer o persoal non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
             //No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
-            consulta = "SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
-                    "count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion " +
+            consulta = "SELECT c.codcurso, c.nome, c.aberto," +
+                    " count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion," +
+                    " DATE(max(a.dataactividade)) as datafin " +
                     " FROM curso as c LEFT JOIN actividade as a " +
                     "   ON (c.codcurso = a.curso)";
 
@@ -263,9 +262,9 @@ public final class DAOCursos extends AbstractDAO{
             while(rsCursos.next()){
                 //Imos creando instancias de cursos cos datos recuperados:
                 resultado.add(new Curso(rsCursos.getInt("codcurso"), rsCursos.getString("nome"),
-                        rsCursos.getString("descricion"), rsCursos.getFloat("prezo"),
                         rsCursos.getBoolean("aberto"), rsCursos.getFloat("duracion"),
-                        rsCursos.getInt("numactividades"), rsCursos.getDate("datainicio")));
+                        rsCursos.getInt("numactividades"), rsCursos.getDate("datainicio"),
+                        rsCursos.getDate("datafin")));
             }
             //Rematado isto, facemos o commit:
             con.commit();

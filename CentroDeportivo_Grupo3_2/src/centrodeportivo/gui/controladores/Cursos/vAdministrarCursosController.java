@@ -25,6 +25,13 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que funciona como controlador da pantalla de administración dos cursos (onde se amosa unha lista dos cursos
+ * rexistrados).
+ */
 public class vAdministrarCursosController extends AbstractController implements Initializable {
 
     //Atributos públicos:
@@ -45,7 +52,7 @@ public class vAdministrarCursosController extends AbstractController implements 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //O primeiro paso será inicializar a táboa na que se amosan os cursos:
-        TableColumn<String, Curso> nomeColumn = new TableColumn<>("Nome");
+        TableColumn<Curso, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
         TableColumn<Curso, String> dataInicioColumn = new TableColumn<>("Data Inicio");
@@ -53,11 +60,14 @@ public class vAdministrarCursosController extends AbstractController implements 
                 new SimpleDateFormat("dd/MM/yyyy").format(c.getValue().getDataInicio())
         ));
 
-        TableColumn<Integer, Curso> numActividadesColumn = new TableColumn<>("Numero de Actividades");
+        TableColumn<Curso, Integer> numActividadesColumn = new TableColumn<>("Numero de Actividades");
         numActividadesColumn.setCellValueFactory(new PropertyValueFactory<>("numActividades"));
 
-        TableColumn<Float, Curso> duracionColumn = new TableColumn<>("Duración");
-        duracionColumn.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+        TableColumn<Curso, String> duracionColumn = new TableColumn<>("Duración");
+        duracionColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getDuracion().intValue() + "h, " +
+                        (int) ((c.getValue().getDuracion().floatValue()-c.getValue().getDuracion().intValue())*60) + "m"
+        ));
 
         TableColumn<Curso, String> abertoColumn = new TableColumn<>("Aberto");
         abertoColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Curso, String>, ObservableValue<String>>() {

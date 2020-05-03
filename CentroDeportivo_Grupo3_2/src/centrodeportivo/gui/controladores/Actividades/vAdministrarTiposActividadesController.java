@@ -64,13 +64,13 @@ public class vAdministrarTiposActividadesController extends AbstractController i
         //Haberá que colocar todos os campos na táboa correspondente:
         //Tres columnas
         //A primeira terá o código do tipo de actividade
-        TableColumn<Integer, TipoActividade> colCodigo = new TableColumn<>("Código");
+        TableColumn<TipoActividade, Integer> colCodigo = new TableColumn<>("Código");
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codTipoActividade"));
         //A segunda terá o nome do tipo de actividade
-        TableColumn<String, TipoActividade> colNome = new TableColumn<>("Nome");
+        TableColumn<TipoActividade, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         //A terceira terá a descrición
-        TableColumn<String, TipoActividade> colDescricion = new TableColumn<>("Descrción");
+        TableColumn<TipoActividade, String> colDescricion = new TableColumn<>("Descrción");
         colDescricion.setCellValueFactory(new PropertyValueFactory<>("descricion"));
 
         //Engadimos as columnas á táboa
