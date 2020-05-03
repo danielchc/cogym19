@@ -47,6 +47,7 @@ public final class FachadaBD {
     private DAOCursos daoCursos;
     private DAOMensaxes daoMensaxes;
     private DAOAreas daoareas;
+    private DAOActividade daoActividade;
 
     /**
      * Constructor da fachada da base de datos:
@@ -105,6 +106,7 @@ public final class FachadaBD {
         this.daoTiposActividades = new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
         this.daoTipoMaterial = new DAOTipoMaterial(this.conexion, this.fachadaAplicacion);
         this.daoMaterial = new DAOMaterial(this.conexion, this.fachadaAplicacion);
+        this.daoActividade = new DAOActividade(this.conexion, this.fachadaAplicacion);
     }
 
     /*
@@ -448,4 +450,39 @@ public final class FachadaBD {
     public ArrayList<Area> listarAreas() throws ExcepcionBD {
         return daoareas.listarAreas();
     }
+
+
+    //Actividades
+    public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
+        daoActividade.EngadirActividade(actividade);
+    }
+
+    public void existeActividade(Actividade actividade) throws ExcepcionBD {
+        daoActividade.existeActividade(actividade);
+    }
+
+    public void horarioOcupadoActividade(Actividade actividade) throws ExcepcionBD {
+        daoActividade.horarioOcupadoActividade(actividade);
+    }
+
+    public void modificarActividade(Actividade actividade) throws ExcepcionBD {
+        daoActividade.modificarActividade(actividade);
+    }
+
+    public void borrarActividade(Actividade actividade) throws ExcepcionBD {
+        daoActividade.borrarActividade(actividade);
+    }
+
+    public void apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        daoActividade.apuntarseActividade(actividade, usuario);
+    }
+
+    public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        daoActividade.borrarseDeActividade(actividade, usuario);
+    }
+
+    public void estarApuntado(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        daoActividade.estarApuntado(actividade, usuario);
+    }
+
 }
