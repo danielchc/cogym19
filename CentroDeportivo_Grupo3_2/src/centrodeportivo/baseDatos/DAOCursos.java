@@ -13,8 +13,20 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que conterá todos os métodos DAO relacionados na súa maioría con xestións dos cursos.
+ */
 public final class DAOCursos extends AbstractDAO{
+    /**
+     * Constructor do DAO de cursos
+     * @param conexion Referencia á conexión coa base de datos.
+     * @param fachadaAplicacion Referencia á fachada da parte de aplicación.
+     */
     public DAOCursos (Connection conexion, FachadaAplicacion fachadaAplicacion){
+        //Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 
@@ -220,6 +232,11 @@ public final class DAOCursos extends AbstractDAO{
         }
     }
 
+    /**
+     * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
+     */
     public ArrayList<Curso> consultarCursos(Curso curso){
         //Esta é a consulta que se usará dende a parte de persoal:
         PreparedStatement stmCursos = null;
@@ -246,8 +263,10 @@ public final class DAOCursos extends AbstractDAO{
                 consulta += " WHERE c.nome like ? ";
             }
 
+            //Agrupamos tamén polo código do curso:
             consulta += "  GROUP BY c.codcurso";
 
+            //Preparamos entón o statement de cursos para levar a cabo a consulta:
             stmCursos = con.prepareStatement(consulta);
 
             //Completamos a consulta (se procede):
@@ -284,10 +303,16 @@ public final class DAOCursos extends AbstractDAO{
                 System.out.println("Imposible pechar os cursores");
             }
         }
-
+        //Devolvemos os cursos consultados:
         return resultado;
     }
 
+    /**
+     * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
+     * máis información todavía.
+     * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
+     * @return Datos completos do curso procurado.
+     */
     public Curso recuperarDatosCurso(Curso curso){
         //Neste método recuperaremos todas as actividades do curso, os datos da consulta e os participantes:
         PreparedStatement stmCursos = null;
@@ -305,7 +330,7 @@ public final class DAOCursos extends AbstractDAO{
         //Comezaremos recuperando todos os datos do curso:
         try{
             stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
-                    "count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion " +
+                    " DATE(min(a.dataactividade)) as datainicio, DATE(max(a.dataactividade)) as datafin" +
                     " FROM curso as c LEFT JOIN actividade as a " +
                     "   ON (c.codcurso = a.curso)" +
                     " WHERE c.codcurso = ?" +
@@ -325,9 +350,8 @@ public final class DAOCursos extends AbstractDAO{
                         rsCursos.getString("descricion"),
                         rsCursos.getFloat("prezo"),
                         rsCursos.getBoolean("aberto"),
-                        rsCursos.getFloat("duracion"),
-                        rsCursos.getInt("numactividades"),
-                        rsCursos.getDate("dataInicio"));
+                        rsCursos.getDate("dataInicio"),
+                        rsCursos.getDate("dataFin"));
 
                 //Tendo o curso creado, procuraremos as súas actividades
                 stmActividades = con.prepareStatement("SELECT ac.dataactividade, ac.tipoactividade, ac.area, " +
@@ -378,10 +402,11 @@ public final class DAOCursos extends AbstractDAO{
                             rsSocios.getString("correoelectronico")));
                 }
 
-                //Con isto teremos buscado o necesario sobre o curso.
+                //Con isto teremos buscado o necesario sobre o curso, polo que temos rematada a consulta.
                 con.commit();
             }
         } catch (SQLException e){
+            //En caso de excepción, imprimiríamos o stack trace e faríamos o rollback:
             e.printStackTrace();
             try{
                 con.rollback();
@@ -395,6 +420,7 @@ public final class DAOCursos extends AbstractDAO{
                 stmCursos.close();
                 stmSocios.close();
             } catch (SQLException e) {
+                //Imprimiríamos o stack trace se houbo problemas.
                 e.printStackTrace();
             }
         }
@@ -567,12 +593,22 @@ public final class DAOCursos extends AbstractDAO{
 
         //Intentamos facer a consulta:
         try{
-            stmCursos = con.prepareStatement("SELECT * FROM curso" +
-                    " WHERE lower(nome) = lower(?) " + //Comprobamos que non coincida o nome estrictamente.
-                    "   and codCurso != ? ");
-            //Completamos a consulta co campo do código do curso:
+            //Controlamos que o curso está creado ou non a través do código do curso, polo que a veces teremos que
+            //incluílo e a veces non:
+            String consulta = "SELECT * FROM curso" +
+                    " WHERE lower(nome) = lower(?) ";
+
+            if(curso.getCodCurso()!=null){
+                consulta += "   and codCurso != ? ";
+            }
+
+            stmCursos = con.prepareStatement(consulta);
+
+            //Completamos a consulta co campo do nome e do código do curso se é necesario:
             stmCursos.setString(1, curso.getNome());
-            stmCursos.setInt(2, curso.getCodCurso());
+            if(curso.getCodCurso()!=null){
+                stmCursos.setInt(2, curso.getCodCurso());
+            }
             //Realizamos a consulta.
             rsCursos = stmCursos.executeQuery();
             //Comprobamos se houbo resultados: se é así, existe un curso na base de datos (que non é o pasado) co mesmo nome.

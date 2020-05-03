@@ -68,6 +68,28 @@ public class Curso {
         this.dataFin = dataFin;
     }
 
+    /**
+     * Constructor que empregaremos ao recuperar datos relevantes do curso para ser editados na pantalla correspondente.
+     * @param codCurso O código do curso
+     * @param nome O nome do curso
+     * @param descricion A descrición do curso
+     * @param prezo O prezo que ten o curso
+     * @param aberto Información se o curso está aberto.
+     * @param dataInicio Data de inicio do curso.
+     * @param dataFin Data de finalización do curso.
+     */
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Date dataInicio, Date dataFin){
+        //Imos asignando todos os atributos, aproveitando que temos xa un constructor para o nome (de aí usar this()).
+        this(nome);
+        //Asignamos o resto de atributos:
+        this.codCurso = codCurso;
+        this.descricion = descricion;
+        this.prezo = prezo;
+        this.aberto = aberto;
+        this.dataInicio = dataInicio;
+        this.dataFin = dataFin;
+    }
+
     public Curso(String nome, String descricion, Float prezo){
         this(nome);
         this.descricion = descricion;

@@ -1,0 +1,11 @@
+.table-row-cell {
+    -fx-background-color:white;
+}
+
+.table-row-cell.resaltar {
+    -fx-background-color:gray;
+}
+
+.table-row-cell:selected, .table-row-cell.resaltar:selected {
+    -fx-background-color:#4AACE5;
+}

@@ -10,10 +10,25 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase na que se levarán a cabo todas as xestións que teñan que ver cos cursos do centro deportivo.
+ */
 public class XestionCursos {
+    /**
+     * Coma en todas as clases de xestión, gardamos como atributos referencias ás outras fachadas da aplicación: a da
+     * base de datos e á da GUI.
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
+    /**
+     * Constructor da clase de xestión de cursos:
+     * @param fachadaGUI A referencia á fachada da interface gráfica.
+     * @param fachadaBD A referencia á fachada da parte da base de datos.
+     */
     public XestionCursos(FachadaGUI fachadaGUI, FachadaBD fachadaBD){
         this.fachadaBD = fachadaBD;
         this.fachadaGUI = fachadaGUI;
@@ -40,7 +55,7 @@ public class XestionCursos {
      */
     public TipoResultados modificarCurso(Curso curso) throws ExcepcionBD {
         //Comezamos comprobando se comezou o curso, posto que nese caso xa non deixaremos modificar a información principal:
-        if(curso.getDataInicio().compareTo(new Date(System.currentTimeMillis())) > 0) {
+        if(curso.getDataInicio() == null || curso.getDataInicio().compareTo(new Date(System.currentTimeMillis())) > 0) {
             //Temos que verificar se o nome pertence a outro curso rexistrado na base de datos:
             if (!fachadaBD.comprobarExistencia(curso)) {
                 //Se non existe, como antes, poderemos facer a modificación:
@@ -85,10 +100,21 @@ public class XestionCursos {
         }
     }
 
+    /**
+     * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
+     */
     public ArrayList<Curso> consultarCursos(Curso curso) {
         return fachadaBD.consultarCursos(curso);
     }
 
+    /**
+     * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
+     * máis información todavía.
+     * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
+     * @return Datos completos do curso procurado.
+     */
     public Curso recuperarDatosCurso(Curso curso){
         return fachadaBD.recuperarDatosCurso(curso);
     }

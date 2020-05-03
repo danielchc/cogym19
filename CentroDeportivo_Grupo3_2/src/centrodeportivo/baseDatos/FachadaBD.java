@@ -307,10 +307,21 @@ public final class FachadaBD {
         daoCursos.cancelarCurso(curso);
     }
 
+    /**
+     * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
+     */
     public ArrayList<Curso> consultarCursos(Curso curso) {
         return daoCursos.consultarCursos(curso);
     }
 
+    /**
+     * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
+     * máis información todavía.
+     * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
+     * @return Datos completos do curso procurado.
+     */
     public Curso recuperarDatosCurso(Curso curso) {
         return daoCursos.recuperarDatosCurso(curso);
     }
