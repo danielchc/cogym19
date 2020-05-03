@@ -48,13 +48,13 @@ public final class Socio extends Usuario {
      * @param login             Login para o inicio de sesión do usuario
      * @param nome              Nome completo do usuario
      * @param dificultades      Dificultades que presenta o usuario
-     * @param dataNacemento     Data de nacemento do usuario
+     * @param idade             Idade do usuario
      * @param numTelefono       Número de teléfono do usuario
      * @param correoElectronico Dirección de correo electrónico do usuario.
      */
-    public Socio(String login, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico) {
+    public Socio(String login, String nome, String dificultades, Integer idade, String numTelefono, String correoElectronico) {
         //Chamamos ao constructor da clase pai:
-        super(login, nome, dificultades, dataNacemento, numTelefono, correoElectronico);
+        super(login, nome, dificultades, idade, numTelefono, correoElectronico);
         //Establecemos o tipo de usuario, coma no outro constructor.
         super.setTipoUsuario(TipoUsuario.Socio);
     }

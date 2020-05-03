@@ -11,6 +11,7 @@ import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -105,11 +106,13 @@ public class vXestionCursoController extends AbstractController implements Initi
                 new Time(c.getValue().getData().getTime()).toString()
         ));
 
+        //Personalizamos tamén a columna na que se representa a área:
         TableColumn<Actividade, String> areaColumn = new TableColumn<>("Area");
         areaColumn.setCellValueFactory(c -> new SimpleStringProperty(
                 c.getValue().getArea().getNome() + ", inst. " + c.getValue().getArea().getInstalacion().getCodInstalacion()
         ));
 
+        //A duración representámola partindo as horas e os minutos:
         TableColumn<Actividade, String> duracionColumn = new TableColumn<>("Duración");
         duracionColumn.setCellValueFactory(c -> new SimpleStringProperty(
                 //Basicamente collo a parte enteira e logo a decimal multiplicada por 60:
@@ -117,19 +120,22 @@ public class vXestionCursoController extends AbstractController implements Initi
                         (int) ((c.getValue().getDuracion().floatValue()-c.getValue().getDuracion().intValue())*60) + "m"
         ));
 
-        TableColumn<String, Actividade> profesorColumn = new TableColumn<>("Profesor");
+        TableColumn<Actividade, String> profesorColumn = new TableColumn<>("Profesor");
         profesorColumn.setCellValueFactory(new PropertyValueFactory<>("profesor"));
 
+        //Engadimos todas as columnas á táboa.
         taboaActividades.getColumns().addAll(dataActividadeColumn, horaActividadeColumn, areaColumn, duracionColumn, profesorColumn);
         //Facemos isto para controlar o tamaño das columnas.
         taboaActividades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //Táboa de socios:
-        TableColumn<String, Usuario> loginColumn = new TableColumn<>("Login");
+        //Empezamos polo login do usuario:
+        TableColumn<Usuario, String> loginColumn = new TableColumn<>("Login");
         loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
 
-        TableColumn<Date, Usuario> dataNacementoColumn = new TableColumn<>("Data de Nacemento");
-        dataNacementoColumn.setCellValueFactory(new PropertyValueFactory<>("dataNacemento"));
+        //A idade:
+        TableColumn<Usuario, Integer> dataNacementoColumn = new TableColumn<>("Idade");
+        dataNacementoColumn.setCellValueFactory(new PropertyValueFactory<>("idade"));
 
         TableColumn<String, Usuario> dificultadesColumn = new TableColumn<>("Dificultades");
         dificultadesColumn.setCellValueFactory(new PropertyValueFactory<>("dificultades"));

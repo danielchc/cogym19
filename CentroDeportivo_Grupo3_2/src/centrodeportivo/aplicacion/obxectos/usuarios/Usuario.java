@@ -30,6 +30,7 @@ public class Usuario {
     private TipoUsuario tipoUsuario; //Tipo de usuario
     private String dificultades; //Dificultades que poida ter este usuario.
     private Date dataNacemento; //Data de nacemento do usuario.
+    private Integer idade; //Idade do usuario
 
     /**
      * Constructor únicamente co login do usuario, necesario dende certas buscas onde simplemente queremos recoller o
@@ -54,17 +55,17 @@ public class Usuario {
      * @param login             O login para o inicio de sesión do usuario.
      * @param nome              O nome real do usuario.
      * @param dificultades      Dificultades que presenta o usuario.
-     * @param dataNacemento     Data de nacemento do usuario.
+     * @param idade             Idade do usuario.
      * @param numTelefono       Número de teléfono do usuario.
      * @param correoElectronico Correo electrónico do usuario.
      */
-    public Usuario(String login, String nome, String dificultades, Date dataNacemento, String numTelefono,
+    public Usuario(String login, String nome, String dificultades, Integer idade, String numTelefono,
                    String correoElectronico) {
         //Imos asignando todos os atributos dispoñibles aos que se pasaron:
         this.login = login;
         this.nome = nome;
         this.dificultades = dificultades;
-        this.dataNacemento = dataNacemento;
+        this.idade = idade;
         this.numTelefono = numTelefono;
         this.correoElectronico = correoElectronico;
     }
@@ -84,10 +85,13 @@ public class Usuario {
      */
     public Usuario(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento,
                    String numTelefono, String correoElectronico, String IBANconta) {
-        this(login, nome, dificultades, dataNacemento, numTelefono, correoElectronico);
+        this(nome, DNI, login);
+        this.dificultades = dificultades;
+        this.dataNacemento = dataNacemento;
+        this.numTelefono = numTelefono;
+        this.correoElectronico = correoElectronico;
         this.contrasinal = contrasinal;
         this.IBANconta = IBANconta;
-        this.DNI = DNI;
     }
 
 
@@ -308,6 +312,25 @@ public class Usuario {
     }
 
     /**
+     * Getter da idade do usuario.
+     *
+     * @return A idade almacenada do usuario.
+     */
+    public Integer getIdade() {
+        return idade;
+    }
+
+    /**
+     * Setter da idade do usuario
+     *
+     * @param idade A idade a asignar ao usuario
+     */
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+
+    /**
      * Método que comproba cando dous usuarios son iguais.
      *
      * @param o O obxecto a comparar co usuario.
@@ -331,4 +354,6 @@ public class Usuario {
         //Utilidade ao amosar usuarios nas táboas: amosamos en principio só o seu login.
         return getLogin();
     }
+
+
 }

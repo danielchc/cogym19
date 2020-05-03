@@ -397,7 +397,7 @@ public final class DAOCursos extends AbstractDAO{
                     resultado.getParticipantes().add(new Socio(rsSocios.getString("login"),
                             rsSocios.getString("nome"),
                             rsSocios.getString("dificultades"),
-                            rsSocios.getDate("datanacemento"),
+                            rsSocios.getInt("idade"),
                             rsSocios.getString("numtelefono"),
                             rsSocios.getString("correoelectronico")));
                 }
@@ -532,7 +532,7 @@ public final class DAOCursos extends AbstractDAO{
                     resultado.getParticipantes().add(new Socio(rsSocios.getString("login"),
                             rsSocios.getString("nome"),
                             rsSocios.getString("dificultades"),
-                            rsSocios.getDate("datanacemento"),
+                            rsSocios.getInt("idade"),
                             rsSocios.getString("numtelefono"),
                             rsSocios.getString("correoelectronico")));
                 }
