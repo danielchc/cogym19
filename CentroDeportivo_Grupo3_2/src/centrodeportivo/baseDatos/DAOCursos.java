@@ -252,7 +252,7 @@ public final class DAOCursos extends AbstractDAO{
             //A búsqueda que poderá facer o persoal non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
             //No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
             consulta = "SELECT c.codcurso, c.nome, c.aberto," +
-                    " count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion," +
+                    " count(distinct dataactividade) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion," +
                     " DATE(max(a.dataactividade)) as datafin " +
                     " FROM curso as c LEFT JOIN actividade as a " +
                     "   ON (c.codcurso = a.curso)";
@@ -450,7 +450,7 @@ public final class DAOCursos extends AbstractDAO{
             //Comezaremos por recuperar os datos necesarios do propio curso. Agora, ademais, teremos que recuperar a data
             //de finalización e a media do curso
             stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
-                    " count(*) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion," +
+                    " count(distinct dataactividade) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion," +
                     " DATE(max(a.dataactividade)) as datafin, " +
                     " count(distinct a.profesor) as numProfesores, " +
                     " avg(rA.valoracion) as valMediaCurso " +

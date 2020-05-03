@@ -2,26 +2,19 @@ package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-//import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-//import jdk.nashorn.internal.codegen.CompilerConstants;
-//import sun.java2d.pipe.SpanShapeRenderer;
 
-
-import javax.swing.*;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;

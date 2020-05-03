@@ -199,28 +199,22 @@ public class vXestionCursoController extends AbstractController implements Initi
         //da situación.
         if(curso == null) {
             try {
-                curso = new Curso(campoNome.getText(), campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
-                TipoResultados res = getFachadaAplicacion().rexistrarCurso(curso);
+                Curso c = new Curso(campoNome.getText(), campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
+                TipoResultados res = getFachadaAplicacion().rexistrarCurso(c);
                 //En función do resultado, amosaremos un erro ou continuaremos:
                 switch(res){
                     case datoExiste:
                         this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
-                                "Xa existe un curso co nome " + curso.getNome().toLowerCase());
+                                "Xa existe un curso co nome " + c.getNome().toLowerCase());
                         break;
                     case correcto:
                         //En caso de que se teña resultado correcto, habilitaranse outras modificacións da pantalla e avisarase
                         //da correcta inserción:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
-                                "Curso " + curso.getNome() + " insertado correctamente." +
-                                "O seu ID é " + curso.getCodCurso() + ".");
-                        //Primeiro, gardamos no campo do código do curso o código:
-                        campoCodigo.setText(curso.getCodCurso() +"");
-                        //Activamos o resto de botóns para que o usuario poida seguir coa xestión do curso:
-                        btnActivar.setVisible(true);
-                        btnCancelar.setVisible(true);
-                        btnModificarSeleccion.setVisible(true);
-                        btnEngadirActividade.setVisible(true);
-                        btnBorrarActividade.setVisible(true);
+                                "Curso " + c.getNome() + " insertado correctamente." +
+                                "O seu ID é " + c.getCodCurso() + ".");
+                        //Asignamos o curso:
+                        this.setCurso(c);
                         break;
                 }
             } catch (ExcepcionBD excepcionBD) {
