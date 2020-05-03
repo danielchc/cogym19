@@ -304,7 +304,7 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a modificación:
         try{
-            stmAreas = con.prepareStatement("SELECT codarea " +
+            stmAreas = con.prepareStatement("SELECT codarea , instalacion" +
                     " FROM area " +
                     " WHERE codarea = ? and codinstalacion = ?");
 
@@ -315,7 +315,7 @@ public final class DAOAreas extends AbstractDAO {
             rsAux = stmAreas.executeQuery();
 
             if (rsAux.next()) {
-                if (rsAux.getInt(1) == area.getInstalacion().getCodInstalacion()) {
+                if (rsAux.getInt(1) == area.getCodArea() && rsAux.getInt(2) == area.getInstalacion().getCodInstalacion()) {
                     stmAreas = con.prepareStatement("UPDATE area " +
                             " SET databaixa = ? " +
                             " WHERE codarea = ? and instalacion = ? ");
@@ -333,6 +333,48 @@ public final class DAOAreas extends AbstractDAO {
                 }
             }
             return 1; //Non existe a area na base de datos
+
+        } catch (SQLException e) {
+            //Lanzamos a nosa excepción de base de datos.
+            throw new ExcepcionBD(con, e);
+        } finally {
+            try {
+                //Tentamos pechar o statement usado nesta actualización:
+                stmAreas.close();
+            } catch (SQLException e){
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+    }
+
+    public boolean EBaixaArea (Area area) throws ExcepcionBD {
+        PreparedStatement stmAreas = null;
+        Connection con;
+        ResultSet rsAux = null;
+
+        int result;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a modificación:
+        try{
+            stmAreas = con.prepareStatement("SELECT instalacion, codarea " +
+                    " FROM area " +
+                    " WHERE codarea = ? and codinstalacion = ? and databaixa is null");
+
+            stmAreas.setInt(1, area.getCodArea());
+            stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+
+            //Facemos a consulta:
+            rsAux = stmAreas.executeQuery();
+
+            if (rsAux.next()) {
+                if (rsAux.getInt(1) == area.getInstalacion().getCodInstalacion() && rsAux.getInt(2) == area.getCodArea()) {
+                    return true;
+                }
+            }
+            return false; //Non existe a area na base de datos
 
         } catch (SQLException e) {
             //Lanzamos a nosa excepción de base de datos.

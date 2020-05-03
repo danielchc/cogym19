@@ -437,6 +437,10 @@ public final class FachadaBD {
         return daoareas.darDeBaixaArea(area);
     }
 
+    public boolean EBaixaArea(Area area) throws ExcepcionBD {
+        return daoareas.EBaixaArea(area);
+    }
+
     public int darDeAltaArea(Area area) throws ExcepcionBD {
         return daoareas.darDeAltaArea(area);
     }
