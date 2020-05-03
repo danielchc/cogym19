@@ -1,8 +1,12 @@
 package centrodeportivo.gui.controladores.Materiales;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -73,6 +77,16 @@ public class vNovoMaterialController extends AbstractController implements Initi
             return cell;
         });
 
+    }
+
+    /**
+     * Método que se executa cando se preme o botón asociado a xestionar unha instalación seleccionada.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnXestionarAction(ActionEvent actionEvent) {
+        // Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
+        this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOMATERIAL);
     }
 
 }
