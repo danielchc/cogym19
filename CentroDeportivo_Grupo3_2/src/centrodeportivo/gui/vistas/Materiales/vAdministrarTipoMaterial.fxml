@@ -30,7 +30,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <TextField prefHeight="26.0" prefWidth="301.0" />
+                <TextField fx:id="campoTipoMaterial" prefHeight="26.0" prefWidth="301.0" promptText="Nome do tipo de material..."/>
 
                 <VBox prefHeight="200.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -43,7 +43,7 @@
 
 
             <HBox prefHeight="216.0" prefWidth="551.0" VBox.vgrow="ALWAYS">
-                <TableView fx:id="taboaTiposMateriais" prefHeight="225.0" prefWidth="551.0" HBox.hgrow="ALWAYS">
+                <TableView fx:id="taboaTipoMaterial" prefHeight="225.0" prefWidth="551.0" HBox.hgrow="ALWAYS">
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
@@ -60,7 +60,7 @@
                     <Button fx:id="btnEngadir" mnemonicParsing="false" prefHeight="26.0" prefWidth="137.0" text="Engadir" />
                 </VBox>
                 <VBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
-                    <Button fx:id="btnXestionar" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Eliminar" />
+                    <Button fx:id="btnEliminar" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Eliminar" />
                 </VBox>
             </HBox>
         </VBox>

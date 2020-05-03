@@ -4,6 +4,7 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 
@@ -168,11 +169,13 @@ public final class DAOTipoMaterial extends AbstractDAO {
     }
 
     /**
-     * ListarTiposMateriais -> obten todos os tipos de materiais almacenados na base de datos
+     * Método que nos permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
      *
-     * @return -> devolve un ArrayList cos tipos de materiais da base de datos
+     * @param tipoMaterial Se non é null, a consulta realizase en base o nome do tipo de material.
+     * @return Se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
+     * noutro caso, listanse todos os tipos de materiais.
      */
-    public ArrayList<TipoMaterial> listarTiposMateriais() {
+    public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         ArrayList<TipoMaterial> tiposMateriais = new ArrayList<>();
         PreparedStatement stmTipoMaterial = null;
         ResultSet rsTipoMaterial;
@@ -183,15 +186,35 @@ public final class DAOTipoMaterial extends AbstractDAO {
 
         // Preparamos a consulta
         try {
-            stmTipoMaterial = con.prepareStatement("SELECT * FROM tipoMaterial");
+            String consultaTipoMaterial = "SELECT codtipomaterial, nome FROM tipoMaterial";
+
+            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha instalación non nula como
+            //argumento:
+            if (tipoMaterial != null) {
+                consultaTipoMaterial += " WHERE nome like ? ";
+            }
+
+            //Ordenaremos o resultado polo código da instalación (para que saian así ordenadas)
+            consultaTipoMaterial += " ORDER BY codtipomaterial";
+
+            stmTipoMaterial = con.prepareStatement(consultaTipoMaterial);
+
+            //Tamén se se pasa argumento haberá que completar a consulta:
+            if (tipoMaterial != null) {
+                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
+                stmTipoMaterial.setString(1, "%" + tipoMaterial.getNome() + "%");
+            }
+
             // Executamos a consulta
             rsTipoMaterial = stmTipoMaterial.executeQuery();
 
-            // Procesamos o ResultSet
+            //Recibida a consulta, procesámola:
             while (rsTipoMaterial.next()) {
-                // Engadimos o ArrayList os tipos de materiais
+                //Imos engadindo ao ArrayList do resultado cada Instalación consultada:
                 tiposMateriais.add(new TipoMaterial(rsTipoMaterial.getInt(1), rsTipoMaterial.getString(2)));
             }
+
+            //Facemos o commit para rematar:
             con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -210,6 +233,6 @@ public final class DAOTipoMaterial extends AbstractDAO {
             }
         }
         return tiposMateriais;
-    }
 
+    }
 }

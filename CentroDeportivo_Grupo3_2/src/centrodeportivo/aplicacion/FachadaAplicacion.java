@@ -256,6 +256,7 @@ public class FachadaAplicacion extends Application {
     /**
      * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
      * se pasa como arugmento.
+     *
      * @param tipoActividade Os datos do tipo de actividade a insertar.
      * @return O resultado da operación levada a cabo.
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
@@ -267,6 +268,7 @@ public class FachadaAplicacion extends Application {
     /**
      * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
      * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     *
      * @param tipoActividade O tipo de actividade cos datos a actualizar.
      * @return O resultado da operación levada a cabo.
      * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a actualización da base de datos.
@@ -277,6 +279,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     *
      * @param tipoActividade O tipo de actividade que se quere eliminar.
      * @return O resultado da operación levada a cabo.
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
@@ -287,6 +290,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que ofrece un conxunto de tipos de actividade contidos na base de datos.
+     *
      * @param tipoActividade O tipo de actividade modelo co que se vai a facer a búsqueda.
      * @return Se o tipo de actividade é null, devolveranse todos os tipos de actividades rexistrados, en caso contrario
      * todos os tipos de actividade que teñan coincidencia co nome que ten o tipo pasado como argumento.
@@ -297,10 +301,11 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite consultar un tipo de actividade a partir do código do tipo pasado como argumento.
+     *
      * @param tipoActividade O tipo de actividade do que se collerá o código para a consulta.
      * @return O tipo de actividade co código buscado (se todavía existe na base de datos).
      */
-    public TipoActividade consultarTipoActividade(TipoActividade tipoActividade){
+    public TipoActividade consultarTipoActividade(TipoActividade tipoActividade) {
         return xestionActividades.consultarTipoActividade(tipoActividade);
     }
 
@@ -358,8 +363,8 @@ public class FachadaAplicacion extends Application {
         return xestionTipoMaterial.borrarTipoMaterial(tipoMaterial);
     }
 
-    public ArrayList<TipoMaterial> listarTiposMateriais() {
-        return xestionTipoMaterial.listarTiposMateriais();
+    public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
+        return xestionTipoMaterial.buscarTipoMaterial(tipoMaterial);
     }
 
     /*

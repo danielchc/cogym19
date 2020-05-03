@@ -13,6 +13,7 @@ import centrodeportivo.gui.controladores.Instalacions.vAdministrarInstalacionsCo
 import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
 import centrodeportivo.gui.controladores.Instalacions.vNovaInstalacionController;
 import centrodeportivo.gui.controladores.Materiales.vAdministrarMateriaisController;
+import centrodeportivo.gui.controladores.Materiales.vAdministrarTipoMaterial;
 import centrodeportivo.gui.controladores.Materiales.vEditarMaterialController;
 import centrodeportivo.gui.controladores.Materiales.vNovoMaterialController;
 import centrodeportivo.gui.controladores.Transicion;
@@ -126,6 +127,8 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARCURSOS, new DatosVista("../../vistas/Cursos/vAdministrarCursos.fxml", new vAdministrarCursosController(super.getFachadaAplicacion(), this)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.NOVOMATERIAL, new DatosVista("../../vistas/Materiales/vNovoMaterial.fxml", new vNovoMaterialController(super.getFachadaAplicacion(), this)));
+        // Pantalla administrar tipos de materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.ADMINISTRARTIPOMATERIAL, new DatosVista("../../vistas/Materiales/vAdministrarTipoMaterial.fxml", new vAdministrarTipoMaterial(super.getFachadaAplicacion(), this)));
         // Pantalla administrar materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ADMINISTRARMATERIAIS, new DatosVista("../../vistas/Materiales/vAdministrarMaterial.fxml", new vAdministrarMateriaisController(super.getFachadaAplicacion(), this)));
         // Pantalla editar material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
