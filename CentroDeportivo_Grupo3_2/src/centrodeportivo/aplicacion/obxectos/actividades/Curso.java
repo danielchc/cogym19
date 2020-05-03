@@ -3,9 +3,7 @@ package centrodeportivo.aplicacion.obxectos.actividades;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
-import java.sql.Array;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 
@@ -20,10 +18,10 @@ public class Curso {
     /**
      * Atributos da clase:
      */
-    private int codCurso; //Código do curso
+    private Integer codCurso; //Código do curso
     private String nome; //Nome do curso
     private String descricion; //Descrición do curso
-    private float prezo; //Prezo do curso
+    private Float prezo; //Prezo do curso
     private boolean aberto; //Indicador de se o curso foi aberto ao público ou non.
     private ArrayList<Actividade> actividades; //Actividades do curso.
     private ArrayList<Usuario> participantes; //Participantes do curso.
@@ -34,11 +32,11 @@ public class Curso {
      * No MER só metimos algún calculado para non enchelo deles, por exemplo puxemos o de duración, pero o resto son
      * cuestións que tamén fomos sacando a posteriori e que cremos que inundarían o modelo sen ter por que facelo.
      */
-    private float duracion; //Duración total do curso.
-    private int numActividades; //Número de actividades do curso.
+    private Float duracion; //Duración total do curso.
+    private Integer numActividades; //Número de actividades do curso.
     private Date dataInicio; //Data de comezo do curso.
     private Date dataFin; //Data de finalización do curso.
-    private int numProfesores; //Número de profesores que ten o curso.
+    private Integer numProfesores; //Número de profesores que ten o curso.
     private ArrayList<Persoal> profesores; //Profesores do curso.
     private Float valMedia; //Valoración media total do curso.
 
@@ -50,18 +48,60 @@ public class Curso {
         this.profesores = new ArrayList<>();
     }
 
-    public Curso(String nome, String descricion, float prezo){
+    /**
+     * Constructor que empregaremos no caso de querer listar os cursos: recollemos datos xerais de cada un
+     * @param codCurso O código do curso
+     * @param nome O nome que ten o curso
+     * @param aberto Indicador de se o curso está aberto ou non
+     * @param duracion Duración do curso
+     * @param numActividades Número de actividades que ten o curso.
+     * @param dataInicio Data de comezo do curso
+     * @param dataFin Data de fin do curso
+     */
+    public Curso(Integer codCurso, String nome, boolean aberto, Float duracion, Integer numActividades, Date dataInicio, Date dataFin){
+        this(nome);
+        this.codCurso = codCurso;
+        this.aberto = aberto;
+        this.duracion = duracion;
+        this.numActividades = numActividades;
+        this.dataInicio = dataInicio;
+        this.dataFin = dataFin;
+    }
+
+    /**
+     * Constructor que empregaremos ao recuperar datos relevantes do curso para ser editados na pantalla correspondente.
+     * @param codCurso O código do curso
+     * @param nome O nome do curso
+     * @param descricion A descrición do curso
+     * @param prezo O prezo que ten o curso
+     * @param aberto Información se o curso está aberto.
+     * @param dataInicio Data de inicio do curso.
+     * @param dataFin Data de finalización do curso.
+     */
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Date dataInicio, Date dataFin){
+        //Imos asignando todos os atributos, aproveitando que temos xa un constructor para o nome (de aí usar this()).
+        this(nome);
+        //Asignamos o resto de atributos:
+        this.codCurso = codCurso;
+        this.descricion = descricion;
+        this.prezo = prezo;
+        this.aberto = aberto;
+        this.dataInicio = dataInicio;
+        this.dataFin = dataFin;
+    }
+
+    public Curso(String nome, String descricion, Float prezo){
         this(nome);
         this.descricion = descricion;
         this.prezo = prezo;
     }
 
-    public Curso(int codCurso, String nome, String descricion, float prezo){
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo){
         this(nome, descricion, prezo);
         this.codCurso = codCurso;
     }
 
-    public Curso(int codCurso, String nome, String descricion, float prezo, boolean aberto, float duracion, int numActividades, Date dataInicio){
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio){
         this(codCurso, nome, descricion, prezo);
         this.aberto = aberto;
         this.duracion = duracion;
@@ -69,8 +109,8 @@ public class Curso {
         this.dataInicio = dataInicio;
     }
 
-    public Curso(int codCurso, String nome, String descricion, float prezo, boolean aberto, float duracion, int numActividades, Date dataInicio,
-                 Date dataFin, int numProfesores, Float valMedia){
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio,
+                 Date dataFin, Integer numProfesores, Float valMedia){
         this(codCurso, nome, descricion, prezo, aberto, duracion, numActividades, dataInicio);
         this.dataFin = dataFin;
         this.numProfesores = numProfesores;
@@ -78,11 +118,11 @@ public class Curso {
     }
 
     //Getters e setters:
-    public void setCodCurso(int codCurso){
+    public void setCodCurso(Integer codCurso){
         this.codCurso = codCurso;
     }
 
-    public int getCodCurso(){
+    public Integer getCodCurso(){
         return codCurso;
     }
 
@@ -102,19 +142,19 @@ public class Curso {
         return descricion;
     }
 
-    public void setDuracion(float duracion){
+    public void setDuracion(Float duracion){
         this.duracion = duracion;
     }
 
-    public float getDuracion(){
+    public Float getDuracion(){
         return duracion;
     }
 
-    public void setPrezo(float prezo){
+    public void setPrezo(Float prezo){
         this.prezo = prezo;
     }
 
-    public float getPrezo(){
+    public Float getPrezo(){
         return prezo;
     }
 
@@ -126,11 +166,11 @@ public class Curso {
         return this.actividades;
     }
 
-    public int getNumActividades() {
+    public Integer getNumActividades() {
         return numActividades;
     }
 
-    public void setNumActividades(int numActividades) {
+    public void setNumActividades(Integer numActividades) {
         this.numActividades = numActividades;
     }
 
@@ -166,11 +206,11 @@ public class Curso {
         this.dataFin = dataFin;
     }
 
-    public int getNumProfesores() {
+    public Integer getNumProfesores() {
         return numProfesores;
     }
 
-    public void setNumProfesores(int numProfesores) {
+    public void setNumProfesores(Integer numProfesores) {
         this.numProfesores = numProfesores;
     }
 

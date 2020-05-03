@@ -11,7 +11,7 @@ public class Instalacion {
     /**
      * Atributos dunha instalación: coinciden coa información que se ten gardada na base de datos.
      */
-    private int codInstalacion; //Código dunha instalación
+    private Integer codInstalacion; //Código dunha instalación
     private String nome; //Nome dunha instalación
     private String numTelefono; //Número de telefono
     private String direccion; //Dirección.
@@ -21,7 +21,7 @@ public class Instalacion {
      *
      * @param codInstalacion O código identificador da instalación.
      */
-    public Instalacion(int codInstalacion) {
+    public Instalacion(Integer codInstalacion) {
         this.codInstalacion = codInstalacion;
     }
 
@@ -34,6 +34,7 @@ public class Instalacion {
      * @param direccion A dirección da instalación
      */
     public Instalacion(String nome, String numTelefono, String direccion) {
+        //Asignamos os atributos corespondentes:
         this.nome = nome;
         this.numTelefono = numTelefono;
         this.direccion = direccion;
@@ -48,7 +49,7 @@ public class Instalacion {
      * @param numTelefono O número de teléfono da instalación
      * @param direccion A dirección da instalación
      */
-    public Instalacion(int codInstalacion, String nome, String numTelefono, String direccion) {
+    public Instalacion(Integer codInstalacion, String nome, String numTelefono, String direccion) {
         this(nome, numTelefono, direccion);
         this.codInstalacion = codInstalacion;
     }
@@ -58,7 +59,7 @@ public class Instalacion {
      *
      * @return codInstalación -> O código da instalación
      */
-    public int getCodInstalacion() {
+    public Integer getCodInstalacion() {
         return codInstalacion;
     }
 
@@ -67,7 +68,7 @@ public class Instalacion {
      *
      * @param codInstalacion O código da instalación a asignar
      */
-    public void setCodInstalacion(int codInstalacion) {
+    public void setCodInstalacion(Integer codInstalacion) {
         this.codInstalacion = codInstalacion;
     }
 

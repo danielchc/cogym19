@@ -117,21 +117,34 @@
             </children>
         </VBox>
 
-        <VBox id="vb-sidebar" fx:id="sideBarMaterialPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Material" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/placeholder.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
+        <VBox id="vb-sidebar" fx:id="sideBarMaterialPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
+              style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
+              AnchorPane.topAnchor="0.0">
+            <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                    text="Novo material" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../imaxes/novo.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button id="ADMINISTRARMATERIAIS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                    text="Administrar materiais" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../imaxes/editar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+
         </VBox>
 
 

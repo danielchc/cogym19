@@ -46,14 +46,21 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Constructor da clase, onde se inicializan todos os atributos comentados antes (fachadas e ventás ded xestión).
-     * @throws IOException Excepción de entrada/saída.
+     *
+     * @throws IOException  Excepción de entrada/saída.
      * @throws SQLException Excepción de SQL ao abrir a fachada da base de datos.
      */
     public FachadaAplicacion() throws IOException, SQLException {
-        //Primeiro, creamos as fachadas:
+        // Primeiro, creamos as fachadas:
         this.fachadaGUI = new FachadaGUI(this);
-        this.fachadaBD = new FachadaBD(this);
-        //Tendo as fachadas creadas, imos creando as clases de xestión, ás que lle pasaremos ditas fachadas.
+        try {
+            this.fachadaBD = new FachadaBD(this);
+        } catch (ExcepcionBD excepcionBD) {
+            //Amosaremos a mensaxe de erro proporcionada pola excepción:
+            this.mostrarErro("Conexión coa base de datos", excepcionBD.getMessage());
+            System.exit(1);
+        }
+        // Tendo as fachadas creadas, imos creando as clases de xestión, ás que lle pasaremos ditas fachadas.
         this.xestionUsuarios = new XestionUsuarios(fachadaGUI, fachadaBD);
         this.xestionInstalacions = new XestionInstalacions(fachadaGUI, fachadaBD);
         this.xestionActividades = new XestionTiposActividades(fachadaGUI, fachadaBD);
@@ -65,6 +72,7 @@ public class FachadaAplicacion extends Application {
     /**
      * Con este outro método sobreescrito, start, iniciarase o que é a ventá de login, a partir do que o usuario
      * poderá comezar a meter os datos.
+     *
      * @param primaryStage O escenario principal.
      * @throws Exception As excepcións que se poden lanzar por culpa da inicialización.
      */
@@ -76,6 +84,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Este é o main, onde comeza a executarse a aplicación.
+     *
      * @param args Argumentos pasados por liña de comandos (non os empregaremos)
      */
     public static void main(String[] args) {
@@ -91,6 +100,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite amosar a ventá da aplicación orientada aos socios.
+     *
      * @param loggedUser O usuario que iniciou sesión na aplicación, e que desencadeou a apertura desta ventá.
      * @throws IOException Excepción asociada á entrada/saída.
      */
@@ -101,6 +111,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite amosar a ventá da aplicación asociada ao persoal do centro.
+     *
      * @param loggedUser O usuario que iniciou sesión na aplicación, e que desencadeou a apertura desta ventá.
      * @throws IOException Excepción asociada á entrada/saída.
      */
@@ -111,8 +122,9 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite amosar advertencias por pantalla.
+     *
      * @param titulo O título que se lle quere dar á alerta onde apareza a advertencia.
-     * @param texto A mensaxe que se lle quere transmitir ao usuario.
+     * @param texto  A mensaxe que se lle quere transmitir ao usuario.
      */
     public void mostrarAdvertencia(String titulo, String texto) {
         //Accedemos ao método correspondente da GUI:
@@ -121,8 +133,9 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite amosar por pantalla unha mensaxe de erro.
+     *
      * @param titulo O título que se lle quere dar á ventá onde se presente o erro.
-     * @param texto A mensaxe que se lle quere transmitir ao usuario.
+     * @param texto  A mensaxe que se lle quere transmitir ao usuario.
      */
     public void mostrarErro(String titulo, String texto) {
         //Accedemos ao método correspondente da GUI, pasando os mesmos argumentos:
@@ -131,8 +144,9 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos peremite amosar información por pantalla (sen ser erro nin advertencia)
+     *
      * @param titulo O título que se lle quere dar á ventá onde se presente dita información.
-     * @param texto A mensaxe que se lle quere transmitir ao usuario.
+     * @param texto  A mensaxe que se lle quere transmitir ao usuario.
      */
     public void mostrarInformacion(String titulo, String texto) {
         //Accederemos ao método correspondente da GUI, pasando os mesmos argumentos.
@@ -141,8 +155,9 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método co que se lle amosa unha mensaxe ao usuario por pantalla, esperando unha confirmación por parte do mesmo.
+     *
      * @param titulo O título que se lle quere dar á ventá na que se amose a información.
-     * @param texto A mensaxe que se quere transmitir.
+     * @param texto  A mensaxe que se quere transmitir.
      * @return Un dato tipo ButtonType, co que se poderá saber se o usuario deu a súa autorización (confirmou) ou non a
      * raíz da mensaxe introducida.
      */
@@ -156,7 +171,8 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permitirá levar a cabo a validación dun usuario:
-     * @param login O login introducido polo usuario.
+     *
+     * @param login       O login introducido polo usuario.
      * @param contrasinal O contrasinal introducido polo usuario.
      * @return booleano que nos indica se a validación foi correcta ou non.
      */
@@ -167,6 +183,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permitirá consultar os datos esenciais dun usuario:
+     *
      * @param login O login do usuario que se quere consultar.
      * @return Usuario con algúns dos datos asociados na base de datos ao login pasado como argumento.
      */
@@ -178,48 +195,120 @@ public class FachadaAplicacion extends Application {
     /*
         Xestion instalacións
      */
+
+    /**
+     * Método que nos permitirá dar de alta unha nova instalación.
+     *
+     * @param instalacion A instalación a dar de alta.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
+     */
     public TipoResultados darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        //Chamamos ao método correspondente da clase de xestión de instalacións:
         return xestionInstalacions.darAltaInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta eliminar os datos da instalación pasada como argumento da base de datos.
+     *
+     * @param instalacion A instalación cuxos datos se queren eliminar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
+     */
     public TipoResultados borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         return xestionInstalacions.borrarInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta modificar os datos da instalación pasada como argumento na base de datos.
+     *
+     * @param instalacion Os datos da instalación para ser modificados.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public TipoResultados modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         return xestionInstalacions.modificarInstalacion(instalacion);
     }
 
+    /**
+     * Método que nos permite buscar instalacións na base de datos, tanto con coma sen filtros.
+     *
+     * @param instalacion Se non é null, a consulta das instalacións realizarase en base aos campos desta instalación.
+     * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
+     * contrario, devolverase un listado de todas as instalacións.
+     */
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion) {
         return xestionInstalacions.buscarInstalacions(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions() {
-        return xestionInstalacions.listarInstalacions();
+    /**
+     * Método que nos permite consultar unha instalación concreta:
+     *
+     * @param instalacion A instalación de referencia para a que se consultará a información
+     * @return A instalación con todos os datos, actualizada totalmente.
+     */
+    public Instalacion consultarInstalacion(Instalacion instalacion) {
+        return xestionInstalacions.consultarInstalacion(instalacion);
     }
 
     /*
         Xestión TIPOS de actividade
      */
 
+    /**
+     * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
+     * se pasa como arugmento.
+     *
+     * @param tipoActividade Os datos do tipo de actividade a insertar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
+     */
     public TipoResultados crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.crearTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
+     * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     *
+     * @param tipoActividade O tipo de actividade cos datos a actualizar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a actualización da base de datos.
+     */
     public TipoResultados modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.modificarTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     *
+     * @param tipoActividade O tipo de actividade que se quere eliminar.
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
+     */
     public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.eliminarTipoActividade(tipoActividade);
     }
 
-    public ArrayList<TipoActividade> listarTiposActividades() {
-        return xestionActividades.listarTiposActividades();
-    }
-
+    /**
+     * Método que ofrece un conxunto de tipos de actividade contidos na base de datos.
+     *
+     * @param tipoActividade O tipo de actividade modelo co que se vai a facer a búsqueda.
+     * @return Se o tipo de actividade é null, devolveranse todos os tipos de actividades rexistrados, en caso contrario
+     * todos os tipos de actividade que teñan coincidencia co nome que ten o tipo pasado como argumento.
+     */
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade) {
         return xestionActividades.buscarTiposActividades(tipoActividade);
+    }
+
+    /**
+     * Método que nos permite consultar un tipo de actividade a partir do código do tipo pasado como argumento.
+     *
+     * @param tipoActividade O tipo de actividade do que se collerá o código para a consulta.
+     * @return O tipo de actividade co código buscado (se todavía existe na base de datos).
+     */
+    public TipoActividade consultarTipoActividade(TipoActividade tipoActividade) {
+        return xestionActividades.consultarTipoActividade(tipoActividade);
     }
 
     /*
@@ -238,10 +327,21 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.cancelarCurso(curso);
     }
 
+    /**
+     * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
+     */
     public ArrayList<Curso> consultarCursos(Curso curso) {
         return xestionCursos.consultarCursos(curso);
     }
 
+    /**
+     * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
+     * máis información todavía.
+     * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
+     * @return Datos completos do curso procurado.
+     */
     public Curso recuperarDatosCurso(Curso curso) {
         return xestionCursos.recuperarDatosCurso(curso);
     }
@@ -265,8 +365,8 @@ public class FachadaAplicacion extends Application {
         return xestionTipoMaterial.borrarTipoMaterial(tipoMaterial);
     }
 
-    public ArrayList<TipoMaterial> listarTiposMateriais() {
-        return xestionTipoMaterial.listarTiposMateriais();
+    public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
+        return xestionTipoMaterial.buscarTipoMaterial(tipoMaterial);
     }
 
     /*

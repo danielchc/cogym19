@@ -35,13 +35,14 @@ public class Usuario {
      * Constructor únicamente co login do usuario, necesario dende certas buscas onde simplemente queremos recoller o
      * login do usuario (inda que para facer adaptable o programa deixamos igual o atributo do Usuario completo por se
      * se queren meter máis cousas).
+     *
      * @param login O login para o inicio de sesión do usuario.
      */
-    public Usuario(String login){
+    public Usuario(String login) {
         this.login = login;
     }
 
-    public Usuario(String nome, String DNI, String login){
+    public Usuario(String nome, String DNI, String login) {
         this.nome = nome;
         this.DNI = DNI;
         this.login = login;
@@ -49,15 +50,16 @@ public class Usuario {
 
     /**
      * Constructor sen datos persoais comprometedores:
-     * @param login O login para o inicio de sesión do usuario.
-     * @param nome O nome real do usuario.
-     * @param dificultades Dificultades que presenta o usuario.
-     * @param dataNacemento Data de nacemento do usuario.
-     * @param numTelefono Número de teléfono do usuario.
+     *
+     * @param login             O login para o inicio de sesión do usuario.
+     * @param nome              O nome real do usuario.
+     * @param dificultades      Dificultades que presenta o usuario.
+     * @param dataNacemento     Data de nacemento do usuario.
+     * @param numTelefono       Número de teléfono do usuario.
      * @param correoElectronico Correo electrónico do usuario.
      */
     public Usuario(String login, String nome, String dificultades, Date dataNacemento, String numTelefono,
-                   String correoElectronico){
+                   String correoElectronico) {
         //Imos asignando todos os atributos dispoñibles aos que se pasaron:
         this.login = login;
         this.nome = nome;
@@ -69,27 +71,29 @@ public class Usuario {
 
     /**
      * Constructor con máis atributos, máis privados de cada usuario.
-     * @param login O login para o inicio de sesión do usuario.
-     * @param contrasinal O contrasinal empregado para o inicio de sesión.
-     * @param DNI O DNI do usuario.
-     * @param nome O nome real do usuario.
-     * @param dificultades Dificultades que presenta o usuario.
-     * @param dataNacemento Data de nacemento do usuario.
-     * @param numTelefono Número de teléfono do usuario.
+     *
+     * @param login             O login para o inicio de sesión do usuario.
+     * @param contrasinal       O contrasinal empregado para o inicio de sesión.
+     * @param DNI               O DNI do usuario.
+     * @param nome              O nome real do usuario.
+     * @param dificultades      Dificultades que presenta o usuario.
+     * @param dataNacemento     Data de nacemento do usuario.
+     * @param numTelefono       Número de teléfono do usuario.
      * @param correoElectronico Dirección de correo electrónico do usuario.
-     * @param IBANconta IBAN da conta bancaria do usuario.
+     * @param IBANconta         IBAN da conta bancaria do usuario.
      */
-    public Usuario(String login,String contrasinal,String DNI, String nome, String dificultades, Date dataNacemento,
-                   String numTelefono,String correoElectronico,String IBANconta){
+    public Usuario(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento,
+                   String numTelefono, String correoElectronico, String IBANconta) {
         this(login, nome, dificultades, dataNacemento, numTelefono, correoElectronico);
-        this.contrasinal=contrasinal;
-        this.IBANconta=IBANconta;
+        this.contrasinal = contrasinal;
+        this.IBANconta = IBANconta;
         this.DNI = DNI;
     }
 
 
     /**
      * Getter do login do usuario.
+     *
      * @return O login almacenado do usuario.
      */
     public String getLogin() {
@@ -98,6 +102,7 @@ public class Usuario {
 
     /**
      * Setter do login do usuario
+     *
      * @param login O login a asignar ao usuario.
      */
     public void setLogin(String login) {
@@ -106,6 +111,7 @@ public class Usuario {
 
     /**
      * Getter do contrasinal do usuario.
+     *
      * @return O contrasinal almacenado do usuario.
      */
     public String getContrasinal() {
@@ -114,6 +120,7 @@ public class Usuario {
 
     /**
      * Setter do contrasinal do usuario
+     *
      * @param contrasinal O contrasinal a asignar ao usuario.
      */
     public void setContrasinal(String contrasinal) {
@@ -122,6 +129,7 @@ public class Usuario {
 
     /**
      * Getter do nome do usuario.
+     *
      * @return O nome almacenado do usuario.
      */
     public String getNome() {
@@ -130,6 +138,7 @@ public class Usuario {
 
     /**
      * Setter do nome do usuario.
+     *
      * @param nome O nome a asignar ao usuario.
      */
     public void setNome(String nome) {
@@ -138,6 +147,7 @@ public class Usuario {
 
     /**
      * Getter do número de teléfono do usuario.
+     *
      * @return O número de teléfono almacenado do usuario.
      */
     public String getNumTelefono() {
@@ -146,6 +156,7 @@ public class Usuario {
 
     /**
      * Setter do número de teléfono do usuario.
+     *
      * @param numTelefono O número de teléfono a asignar ao usuario.
      */
     public void setNumTelefono(String numTelefono) {
@@ -154,6 +165,7 @@ public class Usuario {
 
     /**
      * Getter do DNI do usuario.
+     *
      * @return O DNI almacenado do usuario.
      */
     public String getDNI() {
@@ -162,6 +174,7 @@ public class Usuario {
 
     /**
      * Setter do DNI do usuario.
+     *
      * @param DNI O dni a asignar ao usuario.
      */
     public void setDNI(String DNI) {
@@ -170,6 +183,7 @@ public class Usuario {
 
     /**
      * Getter do correo electrónico do usuario.
+     *
      * @return A dirección de correo electrónico almacenada do usuario.
      */
     public String getCorreoElectronico() {
@@ -178,6 +192,7 @@ public class Usuario {
 
     /**
      * Setter do correo electrónico do usuario.
+     *
      * @param correoElectronico A dirección de correo electrónico a asignar ao usuario.
      */
     public void setCorreoElectronico(String correoElectronico) {
@@ -186,6 +201,7 @@ public class Usuario {
 
     /**
      * Getter do IBAN da conta bancaria do usuario.
+     *
      * @return O IBAN da conta bancaria almacenado do usuario.
      */
     public String getIBANconta() {
@@ -194,6 +210,7 @@ public class Usuario {
 
     /**
      * Setter do IBAN da conta bancaria do usuario.
+     *
      * @param IBANconta O IBAN da conta bancaria a asignar ao usuario.
      */
     public void setIBANconta(String IBANconta) {
@@ -202,6 +219,7 @@ public class Usuario {
 
     /**
      * Getter da data de alta do usuario.
+     *
      * @return A data de alta almacenada do usuario.
      */
     public Date getDataAlta() {
@@ -210,6 +228,7 @@ public class Usuario {
 
     /**
      * Setter da data de alta do usuario.
+     *
      * @param dataAlta A data de alta a asignar ao usuario.
      */
     public void setDataAlta(Date dataAlta) {
@@ -218,6 +237,7 @@ public class Usuario {
 
     /**
      * Getter da data de baixa do usuario.
+     *
      * @return A data de baixa almacenada do usuario.
      */
     public Date getDataBaixa() {
@@ -226,6 +246,7 @@ public class Usuario {
 
     /**
      * Setter da data de baixa do usuario.
+     *
      * @param dataBaixa A data de baixa a asignar ao usuario.
      */
     public void setDataBaixa(Date dataBaixa) {
@@ -234,6 +255,7 @@ public class Usuario {
 
     /**
      * Getter do tipo de usuario.
+     *
      * @return O tipo deste usuario.
      */
     public TipoUsuario getTipoUsuario() {
@@ -242,6 +264,7 @@ public class Usuario {
 
     /**
      * Setter do tipo de usuario.
+     *
      * @param tipoUsuario O tipo a asignar a este usuario.
      */
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
@@ -250,44 +273,49 @@ public class Usuario {
 
     /**
      * Getter das dificultades do usuario.
+     *
      * @return As dificultades almacenadas do usuario.
      */
-    public String getDificultades(){
+    public String getDificultades() {
         return dificultades;
     }
 
     /**
      * Setter das dificultades do usuario.
+     *
      * @param dificultades As dificultades a asignar ao usuario.
      */
-    public void setDificultades(String dificultades){
+    public void setDificultades(String dificultades) {
         this.dificultades = dificultades;
     }
 
     /**
      * Getter da data de nacemento do usuario.
+     *
      * @return A data de nacemento almacenada do usuario.
      */
-    public Date getDataNacemento(){
+    public Date getDataNacemento() {
         return dataNacemento;
     }
 
     /**
      * Setter da data de nacemento do usuario.
+     *
      * @param dataNacemento A data de nacemento a asignar ao usuario.
      */
-    public void setDataNacemento(Date dataNacemento){
+    public void setDataNacemento(Date dataNacemento) {
         this.dataNacemento = dataNacemento;
     }
 
     /**
      * Método que comproba cando dous usuarios son iguais.
+     *
      * @param o O obxecto a comparar co usuario.
      * @return booleano indicador de se os dous obxectos son o mesmo realmente.
      */
     @Override
-    public boolean equals(Object o){
-        if(o instanceof Usuario){
+    public boolean equals(Object o) {
+        if (o instanceof Usuario) {
             return ((Usuario) o).getLogin().equals(this.login);
         }
         return false;
@@ -295,10 +323,11 @@ public class Usuario {
 
     /**
      * Método que permite amosar un usuario como cadea de caracteres.
+     *
      * @return O usuario representado cun String.
      */
     @Override
-    public String toString(){
+    public String toString() {
         //Utilidade ao amosar usuarios nas táboas: amosamos en principio só o seu login.
         return getLogin();
     }

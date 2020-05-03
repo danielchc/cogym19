@@ -143,7 +143,7 @@ public class vUsuarioController extends AbstractController implements Initializa
             Socio socio = new Socio(
                     campoLogin.getText(),
                     campoPassword.getText(),
-                    campoDNI.getText(),
+                    campoDNI.getText().toUpperCase(),
                     campoNome.getText(),
                     campoDificultades.getText(),
                     Date.valueOf(campoData.getValue()),
@@ -174,7 +174,7 @@ public class vUsuarioController extends AbstractController implements Initializa
             Persoal persoal = new Persoal(
                     campoLogin.getText(),
                     campoPassword.getText(),
-                    campoDNI.getText(),
+                    campoDNI.getText().toUpperCase(),
                     campoNome.getText(),
                     campoDificultades.getText(),
                     Date.valueOf(campoData.getValue()),

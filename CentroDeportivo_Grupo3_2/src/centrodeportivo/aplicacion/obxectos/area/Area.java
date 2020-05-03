@@ -1,16 +1,16 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
-
 
 
 /**
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- *
+ * <p>
  * Clase xeral para almacenar información de Area.
  * Incorporanse distintos construtres coa finalidade de que poida atender as distintas
  * finalidades de xestión, incluso cando a información recuperada da area non sexa completa.
@@ -57,6 +57,14 @@ public class Area {
         this.instalacion = instalacion;
         this.materiais = materiais;
         this.nome = nome;
+    }
+
+    //TODO: Constructor palero helena
+    public Area(int codArea, Instalacion instalacion, String nome, String descricion) {
+        this.codArea = codArea;
+        this.instalacion = instalacion;
+        this.nome = nome;
+        this.descricion = descricion;
     }
 
     //Getters e setters
@@ -130,8 +138,7 @@ public class Area {
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Area area = (Area) o;

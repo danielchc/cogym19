@@ -11,6 +11,7 @@ import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,11 +21,26 @@ import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que serve de controlador da pantalla de xestión dun curso determinado, unha das pantallas máis completas que
+ * desenvolvemos na nosa parte de aplicación.
+ * Dous usos:
+ *      - Editar datos dun curso e amosar diferente información do mesmo (cando xa está creado).
+ *      - Introducir os datos dun novo curso.
+ */
 public class vXestionCursoController extends AbstractController implements Initializable {
 
-    //Atributos públicos: correspóndense coas compoñentes desta ventá:
+    /**
+     * Atributos públicos: correspóndense con diferentes compoñentes desta ventá. Hai unha gran cantidade deles neste
+     * caso:
+     */
     public TextField campoCodigo;
     public TextField campoNome;
     public TextArea campoDescricion;
@@ -52,7 +68,10 @@ public class vXestionCursoController extends AbstractController implements Initi
     public TableView taboaProfesores;
 
 
-    //Privados
+    /**
+     * Atributos privados: coma sempre, temos por un lado a referencia ao controlador da ventá principal.
+     * Por outro lado, tense unha referencia a un curso (pode ser null ou non, dependerá da ventá usada.
+     */
     private vPrincipalController controllerPrincipal;
     private Curso curso;
 
@@ -69,23 +88,39 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Situación 1 - Non hai curso asociado á clase (NULL).
         //Situación 2 - Hai curso asociado á clase.
         //De todos os xeitos, na inicialización non contemplaremos iso, senón que
-        //o cambio farémolo no setter.
+        //o cambio farémolo no setter do curso.
 
         //Inicializamos as táboas
         //Táboa de actividades:
-        TableColumn<Date, Actividade> dataActividadeColumn = new TableColumn<>("Data");
-        dataActividadeColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+        //En primeiro lugar poremos a data nun formato "amigable" para nós (día/mes/ano):
+        TableColumn<Actividade, String> dataActividadeColumn = new TableColumn<>("Data");
+        dataActividadeColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                new SimpleDateFormat("dd/MM/yyyy").format(c.getValue().getData().getTime())
+        ));
 
-        TableColumn<String, Actividade> areaColumn = new TableColumn<>("Area");
-        areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+        //En segundo lugar, poremos a hora na que ten lugar a actividade. Volvemos a recurrir ao simplestringformat
+        //e ao timestamp recollido da base de datos:
+        TableColumn<Actividade, String> horaActividadeColumn = new TableColumn<>("Hora");
+        horaActividadeColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                new Time(c.getValue().getData().getTime()).toString()
+        ));
 
-        TableColumn<Float, Actividade> duracionColumn = new TableColumn<>("Duración");
-        duracionColumn.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+        TableColumn<Actividade, String> areaColumn = new TableColumn<>("Area");
+        areaColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getArea().getNome() + ", inst. " + c.getValue().getArea().getInstalacion().getCodInstalacion()
+        ));
+
+        TableColumn<Actividade, String> duracionColumn = new TableColumn<>("Duración");
+        duracionColumn.setCellValueFactory(c -> new SimpleStringProperty(
+                //Basicamente collo a parte enteira e logo a decimal multiplicada por 60:
+                c.getValue().getDuracion().intValue() + "h, " +
+                        (int) ((c.getValue().getDuracion().floatValue()-c.getValue().getDuracion().intValue())*60) + "m"
+        ));
 
         TableColumn<String, Actividade> profesorColumn = new TableColumn<>("Profesor");
         profesorColumn.setCellValueFactory(new PropertyValueFactory<>("profesor"));
 
-        taboaActividades.getColumns().addAll(dataActividadeColumn, areaColumn, duracionColumn, profesorColumn);
+        taboaActividades.getColumns().addAll(dataActividadeColumn, horaActividadeColumn, areaColumn, duracionColumn, profesorColumn);
         //Facemos isto para controlar o tamaño das columnas.
         taboaActividades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -199,28 +234,22 @@ public class vXestionCursoController extends AbstractController implements Initi
         //da situación.
         if(curso == null) {
             try {
-                curso = new Curso(campoNome.getText(), campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
-                TipoResultados res = getFachadaAplicacion().rexistrarCurso(curso);
+                Curso c = new Curso(campoNome.getText(), campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
+                TipoResultados res = getFachadaAplicacion().rexistrarCurso(c);
                 //En función do resultado, amosaremos un erro ou continuaremos:
                 switch(res){
                     case datoExiste:
                         this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
-                                "Xa existe un curso co nome " + curso.getNome().toLowerCase());
+                                "Xa existe un curso co nome " + c.getNome().toLowerCase());
                         break;
                     case correcto:
                         //En caso de que se teña resultado correcto, habilitaranse outras modificacións da pantalla e avisarase
                         //da correcta inserción:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
-                                "Curso " + curso.getNome() + " insertado correctamente." +
-                                "O seu ID é " + curso.getCodCurso() + ".");
-                        //Primeiro, gardamos no campo do código do curso o código:
-                        campoCodigo.setText(curso.getCodCurso() +"");
-                        //Activamos o resto de botóns para que o usuario poida seguir coa xestión do curso:
-                        btnActivar.setVisible(true);
-                        btnCancelar.setVisible(true);
-                        btnModificarSeleccion.setVisible(true);
-                        btnEngadirActividade.setVisible(true);
-                        btnBorrarActividade.setVisible(true);
+                                "Curso " + c.getNome() + " insertado correctamente." +
+                                "O seu ID é " + c.getCodCurso() + ".");
+                        //Asignamos o curso:
+                        this.setCurso(c);
                         break;
                 }
             } catch (ExcepcionBD excepcionBD) {

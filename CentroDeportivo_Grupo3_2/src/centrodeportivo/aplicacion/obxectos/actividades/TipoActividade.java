@@ -11,10 +11,9 @@ public class TipoActividade {
     /**
      * Atributos dun tipo de actividade: coinciden coa información que se ten almacenada na base de datos.
      */
-    private int codTipoActividade; //Código do tipo de actividade.
+    private Integer codTipoActividade; //Código do tipo de actividade.
     private String nome; //Nome do tipo de actividade.
     private String descricion; //Descrición do tipo de actividade.
-
 
     /**
      * Constructor que involucra todos os atributos. Usarémolo cando se coñeza toda a información sobre o tipo de actividade
@@ -23,7 +22,7 @@ public class TipoActividade {
      * @param nome O nome do tipo de actividade
      * @param descricion A descrición asociada ao tipo de actividade.
      */
-    public TipoActividade(int codTipoActividade, String nome, String descricion) {
+    public TipoActividade(Integer codTipoActividade, String nome, String descricion) {
         this.codTipoActividade = codTipoActividade;
         this.nome = nome;
         this.descricion = descricion;
@@ -57,7 +56,7 @@ public class TipoActividade {
      * dende outras clases e non se quere almacenar nada máis.
      * @param codTipoActividade O código do tipo de actividade considerado.
      */
-    public TipoActividade(int codTipoActividade) {
+    public TipoActividade(Integer codTipoActividade) {
         this.codTipoActividade = codTipoActividade;
     }
 
@@ -65,7 +64,7 @@ public class TipoActividade {
      * Getter do código do tipo de actividade.
      * @return O código que contén esta instancia como atributo.
      */
-    public int getCodTipoActividade() {
+    public Integer getCodTipoActividade() {
         return codTipoActividade;
     }
 
@@ -73,7 +72,7 @@ public class TipoActividade {
      * Setter do código do tipo de actividade.
      * @param codTipoActividade O código do tipo de actividade a asignar.
      */
-    public void setCodTipoActividade(int codTipoActividade) {
+    public void setCodTipoActividade(Integer codTipoActividade) {
         this.codTipoActividade = codTipoActividade;
     }
 

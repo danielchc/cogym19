@@ -16,6 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
  *      - O arquivo baseDatos.properties.
  */
 public abstract class Criptografia {
+    //Clave
     final static String key = "3cdMAqREs7hd7c3SzDq56pgcvnXHE9MN";
 
     /**

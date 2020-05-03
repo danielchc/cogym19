@@ -19,7 +19,7 @@ public class Actividade {
     private Timestamp data;
     private Curso curso;
     private String nome;
-    private float duracion;
+    private Float duracion;
     private Area area;
     private TipoActividade tipoActividade;
     private Persoal profesor;
@@ -32,7 +32,7 @@ public class Actividade {
         this.area = area;
     }
 
-    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade,
+    public Actividade(Timestamp data, String nome, Float duracion, Area area, TipoActividade tipoActividade,
                       Curso curso, Persoal profesor){
         this.data = data;
         this.nome = nome;
@@ -43,7 +43,7 @@ public class Actividade {
         this.curso = curso;
     }
 
-    public Actividade(Timestamp data, String nome, float duracion, Area area, TipoActividade tipoActividade,
+    public Actividade(Timestamp data, String nome, Float duracion, Area area, TipoActividade tipoActividade,
                       Curso curso, Persoal profesor, Float valMedia){
         this(data, nome, duracion, area, tipoActividade, curso, profesor);
         this.valMedia = valMedia;
@@ -66,11 +66,11 @@ public class Actividade {
         this.nome = nome;
     }
 
-    public float getDuracion() {
+    public Float getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(float duracion) {
+    public void setDuracion(Float duracion) {
         this.duracion = duracion;
     }
 

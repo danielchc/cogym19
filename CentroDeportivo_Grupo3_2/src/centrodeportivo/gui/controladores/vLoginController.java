@@ -71,7 +71,6 @@ public class vLoginController  extends AbstractController implements Initializab
                     //Se se logra realizar a validación, consúltanse máis datos do usuario para manter tras iniciar sesión:
                     Usuario usuario = fa.consultarUsuario(tfUsuario.getText());
                     //Se o tipo do usuario é socio, entón amosamos a ventá de socios.
-                    System.out.println(usuario.getTipoUsuario());
                     if(usuario.getTipoUsuario() == TipoUsuario.Socio){
                         fa.mostrarVentaSocios(usuario);
                     } else {
@@ -95,7 +94,7 @@ public class vLoginController  extends AbstractController implements Initializab
     }
 
     /**
-     * Método invocado cando se presiona unha tecla do teclado.
+     * Método invocado cando se presiona unha tecla calquera do teclado.
      * @param keyEvent O evento de pulsado dunha tecla.
      */
     public void keyPressedIniciar(KeyEvent keyEvent) {

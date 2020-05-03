@@ -51,30 +51,31 @@ public final class FachadaBD {
     /**
      * Constructor da fachada da base de datos:
      * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     * @throws ExcepcionBD excepción asociada a problemas relativos á base de datos.
      */
-    public FachadaBD(FachadaAplicacion fachadaAplicacion) {
+    public FachadaBD(FachadaAplicacion fachadaAplicacion) throws ExcepcionBD {
         //Para empezar, asociaremos a fachada de aplicación ao atributo correspondente:
         this.fachadaAplicacion = fachadaAplicacion;
         //Creamos o atributo de tipo properties para gardar toda a información para a configuración.
         Properties configuracion = new Properties();
-        //FileInputStream prop;
-        //prop = new FileInputStream("baseDatos.properties");
-        //configuracion.load(prop);
-        //prop.close();
+        FileInputStream prop;
 
         try {
-            //Tentamos desencriptar todos os datos que están no arquivo properties.
-            String conf = new String(Criptografia.desencriptar(Files.readAllBytes(Paths.get("baseDatos.encrypted"))));
-            //System.out.println(conf);
-            //Cargamos a información lida do cifrado:
-            configuracion.load(new StringReader(conf));
+            //Cargamos os datos incluidos no .properties.
+            prop = new FileInputStream("baseDatos.properties");
+            configuracion.load(prop);
+            prop.close();
         } catch (Exception ex) {
             //En caso de problemas ao desencriptar o cifrado, avisamos e saímos:
-            System.out.println("Non se pudo cargar o arquivo cifrado");
+            //O aviso farase tanto por ventá:
+            fachadaAplicacion.mostrarErro("Carga do arquivo de configuración",
+                    "Non se puido cargar o arquivo de configuración da base de datos");
+            //Coma por texto:
+            System.out.println("Non se puido cargar o arquivo properties");
             System.exit(1);
         }
 
-        //A partir da información lida do cifrado, imos ir asociando as propiedades ao usuario para o acceso á BD:
+        //A partir da información lida imos ir asociando as propiedades ao usuario para o acceso á BD:
         Properties usuario = new Properties();
         //Nome de usuario da base de datos:
         usuario.setProperty("user", configuracion.getProperty("usuario"));
@@ -89,9 +90,8 @@ public final class FachadaBD {
             //de DAO.
             this.conexion.setAutoCommit(false);
         } catch (SQLException e) {
-            //Se non podemos, amosamos un erro e asociamos:
-            fachadaAplicacion.mostrarErro("Erro", "Erro na conexión ca base de datos");
-            System.exit(1);
+            //Se non podemos, lanzaremos a nosa propia excepción asociada á base de datos:
+            throw new ExcepcionBD(this.conexion, e);
         }
 
         //Creamos todos os DAOs:
@@ -142,30 +142,69 @@ public final class FachadaBD {
         Funcións DAOInstalacions
      */
 
+    /**
+     * Método que nos permitirá dar de alta unha nova instalación.
+     * @param instalacion A instalación a dar de alta.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
+     */
     public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
+        //Chamamos ao método correspondente do dao de instalacións:
         daoInstalacions.darAltaInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta eliminar os datos da instalación pasada como argumento da base de datos.
+     * @param instalacion A instalación cuxos datos se queren eliminar.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
+     */
     public void borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         daoInstalacions.borrarInstalacion(instalacion);
     }
 
+    /**
+     * Método que tenta modificar os datos da instalación pasada como argumento na base de datos.
+     * @param instalacion Os datos da instalación para ser modificados.
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public void modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
         daoInstalacions.modificarInstalacion(instalacion);
     }
 
+    /**
+     * Método que nos permite buscar instalacións na base de datos, tanto con coma sen filtros.
+     * @param instalacion Se non é null, a consulta das instalacións realizarase en base aos campos desta instalación.
+     * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
+     * contrario, devolverase un listado de todas as instalacións.
+     */
     public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion) {
         return daoInstalacions.buscarInstalacions(instalacion);
     }
 
-    public ArrayList<Instalacion> listarInstalacions() {
-        return daoInstalacions.listarInstalacións();
+    /**
+     * Método que nos permite consultar unha instalación concreta:
+     * @param instalacion A instalación de referencia para a que se consultará a información
+     * @return A instalación con todos os datos, actualizada totalmente.
+     */
+    public Instalacion consultarInstalacion(Instalacion instalacion){
+        return daoInstalacions.consultarInstalacion(instalacion);
     }
 
+
+    /**
+     * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo
+     * nome.
+     * @param instalacion A instalación cuxo nome queremos validar
+     * @return True se hai unha instalación xa co mesmo nome, False en caso contrario.
+     */
     public boolean comprobarExistencia(Instalacion instalacion) {
         return daoInstalacions.comprobarExistencia(instalacion);
     }
 
+    /**
+     * Método que nos permite comprobar se unha instalación ten asociada algunha área.
+     * @param instalacion A instalación para a cal queremos comprobar se ten áreas.
+     * @return True se a instalación ten áreas, False en caso contrario.
+     */
     public boolean tenAreas(Instalacion instalacion) {
         return daoInstalacions.tenAreas(instalacion);
     }
@@ -174,31 +213,75 @@ public final class FachadaBD {
         Funcións DAOTiposActividades
      */
 
+    /**
+     * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
+     * se pasa como arugmento.
+     * @param tipoActividade Os datos do tipo de actividade a insertar.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
+     */
     public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         this.daoTiposActividades.crearTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
+     * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     * @param tipoActividade O tipo de actividade cos datos a actualizar.
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a inserción na base de datos.
+     */
     public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        //Chamamos ao método do dao de tipos de actividades:
         this.daoTiposActividades.modificarTipoActividade(tipoActividade);
     }
 
+    /**
+     * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     * @param tipoActividade O tipo de actividade que se quere eliminar.
+     * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
+     */
     public void eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        //Chamamos ao método do dao correspondente:
         this.daoTiposActividades.eliminarTipoActividade(tipoActividade);
     }
 
-    public ArrayList<TipoActividade> listarTiposActividades() {
-        return this.daoTiposActividades.listarTiposActividades();
-    }
-
+    /**
+     * Método que ofrece un conxunto de tipos de actividade contidos na base de datos.
+     * @param tipoActividade O tipo de actividade modelo co que se vai a facer a búsqueda.
+     * @return Se o tipo de actividade é null, devolveranse todos os tipos de actividades rexistrados, en caso contrario
+     * todos os tipos de actividade que teñan coincidencia co nome que ten o tipo pasado como argumento.
+     */
     public ArrayList<TipoActividade> buscarTiposActividades(TipoActividade tipoActividade) {
         return this.daoTiposActividades.buscarTiposActividades(tipoActividade);
     }
 
+    /**
+     * Método que nos permite consultar un tipo de actividade a partir do código do tipo pasado como argumento.
+     * @param tipoActividade O tipo de actividade do que se collerá o código para a consulta.
+     * @return O tipo de actividade co código buscado (se todavía existe na base de datos).
+     */
+    public TipoActividade consultarTipoActividade(TipoActividade tipoActividade){
+        return this.daoTiposActividades.consultarTipoActividade(tipoActividade);
+    }
+
+    /**
+     * Método que nos permite comprobar que non existe un tipo de actividade diferente co mesmo nome ca o tipo pasado
+     * como argumento.
+     * @param tipoActividade O tipo para o que se quere validar a existencia.
+     * @return True se existe un tipo de actividade diferente na base de datos que ten o mesmo nome, False en caso
+     * contrario.
+     */
     public boolean comprobarExistencia(TipoActividade tipoActividade) {
+        //Chamamos ao dao de tipos de actividades:
         return this.daoTiposActividades.comprobarExistencia(tipoActividade);
     }
 
+    /**
+     * Método que nos permite comprobar se un tipo de actividade ten actividades asociadas.
+     * @param tipoActividade  O tipo para o que se quere validar se ten actividades.
+     * @return True se este tipo de actividade ten actividades asociadas, False noutro caso.
+     */
     public boolean tenActividades(TipoActividade tipoActividade) {
+        //Accedemos ao método correspondente do dao de tipos de actividades
         return this.daoTiposActividades.tenActividades(tipoActividade);
     }
 
@@ -226,10 +309,21 @@ public final class FachadaBD {
         daoCursos.cancelarCurso(curso);
     }
 
+    /**
+     * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
+     */
     public ArrayList<Curso> consultarCursos(Curso curso) {
         return daoCursos.consultarCursos(curso);
     }
 
+    /**
+     * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
+     * máis información todavía.
+     * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
+     * @return Datos completos do curso procurado.
+     */
     public Curso recuperarDatosCurso(Curso curso) {
         return daoCursos.recuperarDatosCurso(curso);
     }
@@ -267,8 +361,8 @@ public final class FachadaBD {
         return this.daoTipoMaterial.isTipoMaterial(tipoMaterial);
     }
 
-    public ArrayList<TipoMaterial> listarTiposMateriais() {
-        return this.daoTipoMaterial.listarTiposMateriais();
+    public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
+        return this.daoTipoMaterial.buscarTipoMaterial(tipoMaterial);
     }
 
     /*

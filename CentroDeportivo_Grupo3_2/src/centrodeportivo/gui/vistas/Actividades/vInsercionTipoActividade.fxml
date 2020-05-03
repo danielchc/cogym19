@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -36,15 +37,15 @@
         </AnchorPane>
         <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
             <children>
-                <VBox layoutX="25.0" layoutY="33.0" prefHeight="277.0" prefWidth="550.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="33.0">
+                <VBox layoutX="25.0" layoutY="33.0" prefHeight="277.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <HBox fx:id="caixaCodigo" prefHeight="70.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                        <HBox fx:id="caixaCodigo" prefHeight="70.0" prefWidth="550.0" VBox.vgrow="NEVER">
                             <children>
                                 <VBox prefHeight="50.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
                                     <children>
                                         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="269.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                                <Label alignment="CENTER" prefHeight="20.0" prefWidth="80.0" text="Codigo">
+                                                <Label alignment="CENTER" prefHeight="20.0" prefWidth="150.0" text="Codigo">
                                                     <font>
                                                         <Font name="System Bold" size="14.0" />
                                                     </font>
@@ -54,17 +55,17 @@
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="50.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
                            <children>
-                                          <TextField fx:id="campoCodigo" editable="false" prefHeight="26.0" prefWidth="180.0" promptText="Código..." />
+                                          <TextField fx:id="campoCodigo" disable="true" editable="false" maxWidth="50.0" prefHeight="26.0" prefWidth="50.0" promptText="Código..." VBox.vgrow="ALWAYS" />
                            </children>
                                 </VBox>
                             </children></HBox>
-                        <HBox prefHeight="70.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="70.0" prefWidth="550.0" VBox.vgrow="NEVER">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="233.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label text="Nome" HBox.hgrow="ALWAYS">
+                                    <Label alignment="CENTER" prefWidth="150.0" text="Nome" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -87,7 +88,7 @@
                             <children>
                                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Descrición do tipo">
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="150.0" text="Descrición do tipo">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -95,35 +96,47 @@
                            </children></VBox>
                                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextArea fx:id="campoDescricion" prefHeight="106.0" prefWidth="275.0" promptText="Introduce descrición..." wrapText="true" />
+                              <TextArea fx:id="campoDescricion" prefHeight="106.0" prefWidth="275.0" promptText="Introduce descrición..." wrapText="true" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin></TextArea>
                            </children></VBox>
                             </children>
                         </HBox>
-                  <HBox alignment="CENTER" prefHeight="68.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="550.0" VBox.vgrow="NEVER">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox prefHeight="88.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="CENTER" prefHeight="88.0" prefWidth="120.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="113.0" text="Volver" />
+                                    <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="120.0" text="Volver" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox prefHeight="88.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="150.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#btnBorrarAction" prefHeight="26.0" prefWidth="109.0" text="Borrar" />
+                                    <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#btnBorrarAction" prefHeight="26.0" prefWidth="120.0" text="Borrar" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox prefHeight="88.0" prefWidth="150.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER" prefHeight="88.0" prefWidth="80.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnGardar" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="128.0" text="Gardar" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="26.0" prefWidth="120.0" text="Limpar Campos" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="88.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="180.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="btnGardar" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="120.0" text="Gardar" />
                                  </children>
                               </HBox>
                            </children>

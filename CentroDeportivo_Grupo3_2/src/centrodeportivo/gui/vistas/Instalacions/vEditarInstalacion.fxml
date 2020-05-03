@@ -31,114 +31,107 @@
         </AnchorPane>
         <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
             <children>
-                <VBox layoutX="25.0" layoutY="23.0" prefHeight="298.0" prefWidth="550.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="23.0">
+                <VBox alignment="CENTER" layoutX="25.0" layoutY="23.0" prefHeight="298.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                  <HBox alignment="CENTER" prefHeight="15.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" text="Editar información da instalación" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                        <HBox prefHeight="103.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <VBox prefHeight="119.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <Label alignment="CENTER" prefHeight="20.0" prefWidth="80.0" text="Nome" HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="System Bold" size="14.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="180.0" promptText="Nome a modificar..." HBox.hgrow="ALWAYS" />
-                                            </children>
-                                        </HBox>
-                                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <Label alignment="CENTER" prefWidth="80.0" text="Dirección" HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="System Bold" size="14.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextField fx:id="campoDireccion" prefHeight="26.0" prefWidth="180.0" promptText="Dirección a modificar..." HBox.hgrow="ALWAYS" />
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </VBox>
-                                <VBox prefHeight="50.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <Label alignment="CENTER" prefWidth="80.0" text="Teléfono" HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="System Bold" size="14.0" />
-                                                    </font></Label>
-                                                <TextField fx:id="campoTelefono" prefWidth="180.0" promptText="Número de teléfono a modificar..." HBox.hgrow="ALWAYS" />
-                                            </children>
-                                        </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="65.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" prefWidth="80.0" text="Código" HBox.hgrow="ALWAYS">
+                                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="218.0" text="Editar información da instalación" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="campoCodigo" disable="true" prefHeight="26.0" prefWidth="51.0" HBox.hgrow="ALWAYS" />
-                                 </children></HBox>
-                                    </children>
-                                </VBox>
-                            </children></HBox>
-                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label fx:id="etiquetaAviso" text="Todos os campos deben estar cubertos!" textFill="RED" visible="false">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
-                     <children>
-                                <Button fx:id="btnModificar" alignment="CENTER" mnemonicParsing="false" onAction="#btnModificarAction" prefHeight="26.0" prefWidth="127.0" text="Modificar" HBox.hgrow="ALWAYS" />
-                     </children></HBox>
-                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="102.0" text="Outras xestións">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="87.0" prefWidth="643.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="26.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#btnBorrarAction" prefHeight="26.0" prefWidth="160.0" text="Borrar Instalación" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="15.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
+                                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="160.0" text="Volver" />
+                                    <Label alignment="CENTER" prefWidth="80.0" text="Código">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="campoCodigo" disable="true" prefHeight="26.0" prefWidth="45.0" />
                                  </children>
                               </HBox>
+                                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <Label prefHeight="20.0" prefWidth="70.0" text="Nome" HBox.hgrow="ALWAYS">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="190.0" promptText="Nome a modificar..." />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <Label prefWidth="70.0" text="Dirección" HBox.hgrow="ALWAYS">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="campoDireccion" prefHeight="26.0" prefWidth="190.0" promptText="Dirección a modificar..." />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <Label prefWidth="70.0" text="Teléfono" HBox.hgrow="ALWAYS">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0" />
+                                                    </font>
+                                    </Label>
+                                                <TextField fx:id="campoTelefono" prefWidth="190.0" promptText="Número de teléfono a modificar..." />
+                                            </children>
+                                        </HBox>
+                              <HBox prefHeight="75.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                    <HBox alignment="CENTER" prefHeight="0.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnEngadirArea" mnemonicParsing="false" onAction="#btnEngadirAreaAction" prefHeight="26.0" prefWidth="160.0" text="Engadir Área" />
+                                            <Button fx:id="btnModificar" alignment="CENTER" mnemonicParsing="false" onAction="#btnModificarAction" prefHeight="40.0" prefWidth="175.0" text="Modificar Instalación" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER" prefHeight="30.0" prefWidth="300.0">
                                  <children>
-                                    <Button fx:id="btnAdministrarAreas" mnemonicParsing="false" onAction="#btnAdministrarAreasAction" prefHeight="26.0" prefWidth="160.0" text="Administrar Áreas" />
+                                    <Label alignment="CENTER" prefHeight="0.0" prefWidth="102.0" text="Outras xestións">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="172.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#btnBorrarAction" prefHeight="40.0" prefWidth="175.0" text="Borrar Instalación" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="40.0" prefWidth="175.0" text="Volver" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Button fx:id="btnEngadirArea" mnemonicParsing="false" onAction="#btnEngadirAreaAction" prefHeight="40.0" prefWidth="175.0" text="Engadir Área" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Button fx:id="btnAdministrarAreas" mnemonicParsing="false" onAction="#btnAdministrarAreasAction" prefHeight="40.0" prefWidth="175.0" text="Administrar Áreas" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="75.0" prefWidth="275.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </children>

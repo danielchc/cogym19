@@ -58,6 +58,7 @@ public class FachadaAplicacion extends Application {
             this.fachadaBD = new FachadaBD(this);
         } catch (ExcepcionBD excepcionBD) {
             System.out.println(excepcionBD.getMessage());
+            fachadaGUI.mostrarErro("Erro na conexion",excepcionBD.getMessage());
             System.exit(1);
         }
         this.xestionUsuarios = new XestionUsuarios(fachadaGUI, fachadaBD);

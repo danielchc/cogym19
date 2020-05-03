@@ -18,14 +18,19 @@ public class Material {
 
 
     // Constructores
-    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado, Date dataCompra, float prezoCompra) {
+    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado) {
         this.codMaterial = codMaterial;
         this.tipoMaterial = tipoMaterial;
         this.area = area;
         this.estado = estado;
+    }
+
+    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado, Date dataCompra, float prezoCompra) {
+        this(codMaterial, tipoMaterial, area, estado);
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
     }
+
 
 
     // Getters e setters

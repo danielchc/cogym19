@@ -43,8 +43,8 @@ public class XestionTipoMaterial {
         return TipoResultados.correcto;
     }
 
-    public ArrayList<TipoMaterial> listarTiposMateriais() {
-        return fachadaBD.listarTiposMateriais();
+    public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
+        return fachadaBD.buscarTipoMaterial(tipoMaterial);
     }
 
 }

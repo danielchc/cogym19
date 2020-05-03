@@ -12,6 +12,9 @@ import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Instalacions.vAdministrarInstalacionsController;
 import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
 import centrodeportivo.gui.controladores.Instalacions.vNovaInstalacionController;
+import centrodeportivo.gui.controladores.Materiales.vAdministrarMateriaisController;
+import centrodeportivo.gui.controladores.Materiales.vAdministrarTipoMaterial;
+import centrodeportivo.gui.controladores.Materiales.vEditarMaterialController;
 import centrodeportivo.gui.controladores.Materiales.vNovoMaterialController;
 import centrodeportivo.gui.controladores.Transicion;
 import javafx.animation.TranslateTransition;
@@ -54,8 +57,8 @@ public class vPrincipalController extends AbstractController implements Initiali
     public VBox sideBarActividadesSocios;
 
     /**
-     *  Atributos privados: outras compoñentes necesarias dende o controlador:
-     *  Todos eles son final, dado que non os volvemos a modificar en toda a execución:
+     * Atributos privados: outras compoñentes necesarias dende o controlador:
+     * Todos eles son final, dado que non os volvemos a modificar en toda a execución:
      */
     private final HashMap<Button, Transicion> transicions; //HashMap de transicións para cada un dos botóns.
     private final ArrayList<Button> btnsMenu; //Lista de botóns do menú.
@@ -65,26 +68,28 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     /**
      * Constructor do controlador da ventá principal.
+     *
      * @param fachadaAplicacion Referencia á fachada da parte de aplicación.
-     * @param usuario O usuario que iniciou sesión no sistema.
-     * @param pantallaAMostrar A pantalla que se amosará para comezar.
+     * @param usuario           O usuario que iniciou sesión no sistema.
+     * @param pantallaAMostrar  A pantalla que se amosará para comezar.
      */
     public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario usuario, IdPantalla pantallaAMostrar) {
         //Chamamos ao constructor da clase pai (AbstractController):
         super(fachadaAplicacion);
         //Asignamos os demais parámetros pasados aos atributos:
-        this.usuario=usuario;
-        this.pantallaAMostrar=pantallaAMostrar;
+        this.usuario = usuario;
+        this.pantallaAMostrar = pantallaAMostrar;
         //Creamos os conxuntos de datos:
-        this.transicions =new HashMap<>();
-        this.btnsMenu =new ArrayList<>();
-        this.pantallas=new HashMap<>();
+        this.transicions = new HashMap<>();
+        this.btnsMenu = new ArrayList<>();
+        this.pantallas = new HashMap<>();
         //Procedemos ao que se chama carga de pantallas, que se pode analizar en detalle máis abaixo:
         cargarPantallas();
     }
 
     /**
      * Método empregado para inicializar a ventá cando se abre.
+     *
      * @param url
      * @param resourceBundle
      */
@@ -105,9 +110,9 @@ public class vPrincipalController extends AbstractController implements Initiali
     private void cargarPantallas() {
         //Cargamos as pantallas que sexan precisas:
         //Comezamos pola de inicio.
-        this.pantallas.put(IdPantalla.INICIO,new DatosVista("../../vistas/principal/vInicio.fxml",new vInicioController(super.getFachadaAplicacion(),this, this.usuario)));
+        this.pantallas.put(IdPantalla.INICIO, new DatosVista("../../vistas/principal/vInicio.fxml", new vInicioController(super.getFachadaAplicacion(), this, this.usuario)));
         //Pantalla de nova instalación: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
-        this.pantallas.put(IdPantalla.NOVAINSTALACION,new DatosVista("../../vistas/Instalacions/vNovaInstalacion.fxml",new vNovaInstalacionController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.NOVAINSTALACION, new DatosVista("../../vistas/Instalacions/vNovaInstalacion.fxml", new vNovaInstalacionController(super.getFachadaAplicacion(), this)));
         //Pantalla de administración das instalacións: pasámoslle o fxml e o controlador.
         this.pantallas.put(IdPantalla.ADMINISTRARINSTALACIONS, new DatosVista("../../vistas/Instalacions/vAdministrarInstalacions.fxml", new vAdministrarInstalacionsController(super.getFachadaAplicacion(), this)));
         //Pantalla de edición dunha instalación:
@@ -121,7 +126,13 @@ public class vPrincipalController extends AbstractController implements Initiali
         //Pantalla de administración de cursos:
         this.pantallas.put(IdPantalla.ADMINISTRARCURSOS, new DatosVista("../../vistas/Cursos/vAdministrarCursos.fxml", new vAdministrarCursosController(super.getFachadaAplicacion(), this)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
-        this.pantallas.put(IdPantalla.NOVOMATERIAL,new DatosVista("../../vistas/Materiales/vNovoMaterial.fxml",new vNovoMaterialController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.NOVOMATERIAL, new DatosVista("../../vistas/Materiales/vNovoMaterial.fxml", new vNovoMaterialController(super.getFachadaAplicacion(), this)));
+        // Pantalla administrar tipos de materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.ADMINISTRARTIPOMATERIAL, new DatosVista("../../vistas/Materiales/vAdministrarTipoMaterial.fxml", new vAdministrarTipoMaterial(super.getFachadaAplicacion(), this)));
+        // Pantalla administrar materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.ADMINISTRARMATERIAIS, new DatosVista("../../vistas/Materiales/vAdministrarMaterial.fxml", new vAdministrarMateriaisController(super.getFachadaAplicacion(), this)));
+        // Pantalla editar material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.EDITARMATERIAL, new DatosVista("../../vistas/Materiales/vEditarMaterial.fxml", new vEditarMaterialController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.NOVAAREA, new DatosVista("../../vistas/Areas/vNovaArea.fxml", new vNovaAreaController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.NOVAAREA1, new DatosVista("../../vistas/Areas/vNovaArea1.fxml", new vNovaAreaController(super.getFachadaAplicacion(), this)));
 
@@ -132,7 +143,7 @@ public class vPrincipalController extends AbstractController implements Initiali
      */
     private void inicioTransicions() {
         //Creamos un array de sliders (son vBoxes):
-        ArrayList<VBox> sliders=new ArrayList<>();
+        ArrayList<VBox> sliders = new ArrayList<>();
         //Engadimos as distintas barras da ventá:
         sliders.add(sideBarAreasPersoal);
         sliders.add(sideBarActividadesPersoal);
@@ -146,16 +157,16 @@ public class vPrincipalController extends AbstractController implements Initiali
         btnsMenu.add(btnActividadesSocios);
 
         //Imos engadindo as transicións para cada un dos botóns:
-        for(int i = 0; i< btnsMenu.size(); i++){
-            this.transicions.put(btnsMenu.get(i),new Transicion(sliders.get(i)));
+        for (int i = 0; i < btnsMenu.size(); i++) {
+            this.transicions.put(btnsMenu.get(i), new Transicion(sliders.get(i)));
         }
 
         //Mediantea seguinte chamada poderemos ir facendo actualizacións sobre os sliders:
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                for(VBox v:sliders){
-                    TranslateTransition t=new TranslateTransition(Duration.millis(.1),v);
+                for (VBox v : sliders) {
+                    TranslateTransition t = new TranslateTransition(Duration.millis(.1), v);
                     t.setToX(-(v.getWidth()));
                     t.play();
                 }
@@ -169,12 +180,12 @@ public class vPrincipalController extends AbstractController implements Initiali
      */
     private void ocultarMenusInnecesarios() {
         //Se se vai executar a aplicación para a pantalla do persoal, ocultaremos o menú dos socios:
-        if(pantallaAMostrar==IdPantalla.PANTALLAPERSOAL){
+        if (pantallaAMostrar == IdPantalla.PANTALLAPERSOAL) {
             this.menuSocioPersoal.setVisible(false);
             sideBarActividadesSocios.setVisible(false);
 
-        //Pola contra, se se vai a executar a aplicación para a pantalla dos socios, ocultaremos a parte do persoal:
-        }else if(pantallaAMostrar==IdPantalla.PANTALLASOCIO){
+            //Pola contra, se se vai a executar a aplicación para a pantalla dos socios, ocultaremos a parte do persoal:
+        } else if (pantallaAMostrar == IdPantalla.PANTALLASOCIO) {
             this.menuPersoal.setVisible(false);
             sideBarAreasPersoal.setVisible(false);
             sideBarActividadesPersoal.setVisible(false);
@@ -184,17 +195,18 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     /**
      * Acción levada a cabo cando se pulsa un dos botóns do menú:
+     *
      * @param actionEvent
      */
     public void btnMenuAction(ActionEvent actionEvent) {
         //Recuperamos o botón que foi pulsado:
-        Button boton=(Button)actionEvent.getSource();
+        Button boton = (Button) actionEvent.getSource();
         //Recuperamos a transición asociada a dito botón:
-        Transicion t=this.transicions.get(boton);
+        Transicion t = this.transicions.get(boton);
         //Escondemos todos os sliders:
         esconderTodosSliders();
         //Se o slider está pechado, ábrese:
-        if ((t.getSlider().getTranslateX()) == -(t.getSlider().getWidth()) ) {
+        if ((t.getSlider().getTranslateX()) == -(t.getSlider().getWidth())) {
             boton.getStyleClass().remove("sidebar-button");
             boton.getStyleClass().add("sidebar-button-active");
             t.getTransicionAbrir().play();
@@ -206,13 +218,14 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     /**
      * Método que permite agochar un slider asociado a un botón:
+     *
      * @param boton O botón asociado ao slider a agochar.
      */
-    private void esconderSliderBotonMenu(Button boton){
+    private void esconderSliderBotonMenu(Button boton) {
         boton.getStyleClass().remove("sidebar-button-active");
         boton.getStyleClass().add("sidebar-button");
         //Recupérase a transición do botón:
-        Transicion t=this.transicions.get(boton);
+        Transicion t = this.transicions.get(boton);
         //Emprégase a transición de peche para isto:
         t.getTransicionCerrar().setToX(-(t.getSlider().getWidth()));
         //Execútase:
@@ -222,25 +235,26 @@ public class vPrincipalController extends AbstractController implements Initiali
     /**
      * Método que permite agochar directamente todos os sliders:
      */
-    private void esconderTodosSliders(){
+    private void esconderTodosSliders() {
         //Chámase a esconderSliderBotonMenu para cada botón:
-        for(Button b:this.btnsMenu){
+        for (Button b : this.btnsMenu) {
             esconderSliderBotonMenu(b);
         }
     }
 
     /**
      * Método que nos permite amosar unha das pantallas na ventá principal:
+     *
      * @param idPantalla O identificador da pantalla a amosar.
      */
-    public void mostrarPantalla(IdPantalla idPantalla){
+    public void mostrarPantalla(IdPantalla idPantalla) {
         //Primeiro, vaciamos o que hai no contedor principal:
         this.contedorPrincipal.getChildren().removeAll(this.contedorPrincipal.getChildren());
         try {
             //recuperamos os datos da vista asociada ao id da pantalla pasado como argumento:
-            DatosVista dv=this.pantallas.get(idPantalla);
+            DatosVista dv = this.pantallas.get(idPantalla);
             //Creamos un fxmlLoader:
-            FXMLLoader fxmlLoader=new FXMLLoader();
+            FXMLLoader fxmlLoader = new FXMLLoader();
             //Asociámoslle o controlador da pantalla a abrir:
             fxmlLoader.setController(dv.getControlador());
             //Asociámoslle a ubicación do fxml que contén a pantalla.
@@ -258,22 +272,24 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     /**
      * Acción levada a cabo cando se preme un botón dun slider que nos leva a abrir unha pantalla:
+     *
      * @param actionEvent O evento producido
      */
     public void btnSliderAction(ActionEvent actionEvent) {
         //Agochamos todos os sliders:
         esconderTodosSliders();
         //Amosamos a pantalla que corresponda ao botón que se premeu:
-        mostrarPantalla(IdPantalla.valueOf(((Button)actionEvent.getSource()).getId()));
+        mostrarPantalla(IdPantalla.valueOf(((Button) actionEvent.getSource()).getId()));
     }
 
     /**
      * Método que nos permite recuperar o controlador de calquera das pantallas vinculadas á ventá principal:
+     *
      * @param idPantalla O identificador da pantalla para a cal se quere recuperar o controlador.
      * @return O controlador asociado á pantalla. Como todos son subclase de AbstractController poderemos devolver
      * calquera deles.
      */
-    public AbstractController getControlador(IdPantalla idPantalla){
+    public AbstractController getControlador(IdPantalla idPantalla) {
         return this.pantallas.get(idPantalla).getControlador();
     }
 }

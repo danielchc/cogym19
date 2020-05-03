@@ -19,6 +19,7 @@ import java.util.Scanner;
  * @author David Carracedo
  * @author Daniel Chenel
  */
+
 public final class DAOTarifas extends AbstractDAO {
 
     /**
@@ -112,7 +113,7 @@ public final class DAOTarifas extends AbstractDAO {
      * Método para comprobar se unha tarifa está sendo usada por algún socio.
      *
      * @param codTarifa código da tarifa
-     * @return
+     * @return Devolve se está en uso tarifa
      */
     protected boolean estaEnUsoTarifa(Integer codTarifa) {
         Connection conexion = super.getConexion();
