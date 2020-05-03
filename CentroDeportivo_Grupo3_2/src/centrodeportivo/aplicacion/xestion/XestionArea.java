@@ -7,6 +7,8 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
+import java.util.ArrayList;
+
 public class XestionArea {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
@@ -16,8 +18,44 @@ public class XestionArea {
         this.fachadaBD = fachadaBD;
     }
 
-    public void EngadirArea(Area area) throws ExcepcionBD {
+    public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
         //Se a instalación non existe, dase de alta:
-        fachadaBD.EngadirArea(area);
+        if(!fachadaBD.ExisteArea(area)) {
+            fachadaBD.EngadirArea(area);
+            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+            return TipoResultados.correcto;
+        } else {
+            return TipoResultados.datoExiste;
+        }
+    }
+
+    public TipoResultados borrarArea(Area area) throws ExcepcionBD {
+        if(!fachadaBD.ExisteArea(area)){
+            fachadaBD.borrarArea(area);
+            //Se se completou o método correctamente, devolvemos o enum que indica corrección:
+            return TipoResultados.correcto;
+        } else {
+            //Se houbese áreas asociadas a instalacións, devolvemos o enum de erro por referencias co restrict.
+            return TipoResultados.referenciaRestrict;
+        }
+    }
+
+    public TipoResultados modificarArea(Area area) throws ExcepcionBD {
+        //Se a instalación non existe, dase de alta:
+        if(!fachadaBD.ExisteArea(area)) {
+            fachadaBD.modificarArea(area);
+            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+            return TipoResultados.correcto;
+        } else {
+            return TipoResultados.datoExiste;
+        }
+    }
+
+    public ArrayList<Instalacion> buscarInstalacions(Instalacion instalacion){
+        return fachadaBD.buscarInstalacions(instalacion);
+    }
+
+    public ArrayList<Area> listarAreas() throws ExcepcionBD {
+        return fachadaBD.listarAreas();
     }
 }

@@ -322,7 +322,32 @@ public final class FachadaBD {
         this.daoareas = daoareas;
     }
 
-    public void EngadirArea(Area area) throws ExcepcionBD {
-        daoareas.EngadirArea(area);
+    //Areas
+    public boolean ExisteArea(Area area) throws ExcepcionBD {
+        return daoareas.ExisteArea(area);
+    }
+
+    public int EngadirArea(Area area) throws ExcepcionBD {
+        return daoareas.EngadirArea(area);
+    }
+
+    public int  borrarArea(Area area) throws ExcepcionBD {
+        return daoareas.borrarArea(area);
+    }
+
+    public int  modificarArea(Area area) throws ExcepcionBD {
+        return daoareas.modificarArea(area);
+    }
+
+    public int darDeBaixaArea(Area area) throws ExcepcionBD {
+        return daoareas.darDeBaixaArea(area);
+    }
+
+    public int darDeAltaArea(Area area) throws ExcepcionBD {
+        return daoareas.darDeAltaArea(area);
+    }
+
+    public ArrayList<Area> listarAreas() throws ExcepcionBD {
+        return daoareas.listarAreas();
     }
 }

@@ -17,6 +17,45 @@ public final class DAOAreas extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+    public boolean ExisteArea(Area area) throws ExcepcionBD {
+        PreparedStatement stmAreas = null;
+        ResultSet rsAreas;
+        Connection con;
+        //Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        //Preparamos a inserción:
+        try {
+            stmAreas = con.prepareStatement("SELECT codarea, instalacion " +
+                    " FROM area " +
+                    " WHERE instalacion = ? and cod = ?");
+
+            stmAreas.setInt(1, area.getInstalacion().getCodInstalacion());
+            stmAreas.setInt(2, area.getCodArea());
+
+            //Facemos a consulta:
+            rsAreas = stmAreas.executeQuery();
+
+            if(rsAreas.next()) {
+                if ((rsAreas.getInt(1) == area.getInstalacion().getCodInstalacion()) && (rsAreas.getInt(2) == area.getCodArea()))
+                    return true;
+            }
+            return false; //Dado que non existe dita area na base de datos
+
+        } catch (SQLException e){
+            //Lanzamos neste caso unha excepción cara a aplicación:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //En calquera caso, téntase pechar os cursores.
+            try {
+                stmAreas.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+
+    }
+
     public int EngadirArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         ResultSet rsAreas;
@@ -26,53 +65,36 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmAreas = con.prepareStatement("SELECT codinstalacion " +
-                    " FROM instalacion " +
-                    " WHERE codinstalacion = ? ");
-
+            stmAreas = con.prepareStatement("INSERT INTO Area (instalacion, nome, descricion, aforomaximo) " +
+                    " VALUES (?, ?, ?, ?)");
+            //Establecemos os valores:
             stmAreas.setInt(1, area.getInstalacion().getCodInstalacion());
+            stmAreas.setString(2, area.getNome());
+            stmAreas.setString(3, area.getDescricion());
+            stmAreas.setInt(4, area.getAforoMaximo());
+
+            //Realizamos a actualización:
+            stmAreas.executeUpdate();
+
+            //Fago a consulta polo nome porque tamén é único:
+            stmAreas = con.prepareStatement("SELECT codarea FROM area " +
+                    " WHERE nome = ? and instalacion = ? ");
+
+            //Establecemos o valor que se necesita:
+            stmAreas.setString(1, area.getNome());
+            stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
 
             //Facemos a consulta:
             rsAreas = stmAreas.executeQuery();
 
+            //Feita a consulta, recuperamos o valor:
             if(rsAreas.next()) {
-                if (rsAreas.getInt(1) == area.getInstalacion().getCodInstalacion())
-                {
-                    stmAreas = con.prepareStatement("INSERT INTO Area (instalacion, nome, descricion, aforomaximo) " +
-                            " VALUES (?, ?, ?, ?)");
-                    //Establecemos os valores:
-                    stmAreas.setInt(1, area.getInstalacion().getCodInstalacion());
-                    stmAreas.setString(2, area.getNome());
-                    stmAreas.setString(3, area.getDescricion());
-                    stmAreas.setInt(4, area.getAforoMaximo());
-
-                    //Realizamos a actualización:
-                    stmAreas.executeUpdate();
-
-                    //Imos facer unha segunda consulta para recuperar o ID da instalación:
-                    //Fago a consulta polo nome porque tamén é único:
-                    stmAreas = con.prepareStatement("SELECT codarea FROM area " +
-                            " WHERE nome = ? and instalacion = ? ");
-
-                    //Establecemos o valor que se necesita:
-                    stmAreas.setString(1, area.getNome());
-                    stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
-
-                    //Facemos a consulta:
-                    rsAreas = stmAreas.executeQuery();
-
-                    //Feita a consulta, recuperamos o valor:
-                    if(rsAreas.next()) { //Só debería devolverse un ID.
-                        //Así metemos o ID na instalación, e podemos amosalo para rematar a operación.
-                        area.setCodArea(rsAreas.getInt(1));
-                    }
-
-                    //Facemos commit:
-                    con.commit();
-                    return 0;
-                }
+                area.setCodArea(rsAreas.getInt(1));
             }
-            return 1; //Dado que non existe dita instalación na base de datos
+
+            //Facemos commit:
+            con.commit();
+            return 0;
 
         } catch (SQLException e){
             //Lanzamos neste caso unha excepción cara a aplicación:
@@ -310,7 +332,7 @@ public final class DAOAreas extends AbstractDAO {
                     return 0;
                 }
             }
-            return 1; //Non existe a instalacion na base de datos
+            return 1; //Non existe a area na base de datos
 
         } catch (SQLException e) {
             //Lanzamos a nosa excepción de base de datos.
@@ -328,7 +350,6 @@ public final class DAOAreas extends AbstractDAO {
 
 
     public ArrayList<Area> listarAreas(){
-        //Este método serviranos para amosar todas as instalacións, e evitar usar o where en buscas sen filtros:
         ArrayList<Area> areas = new ArrayList<>();
 
         PreparedStatement stmAreas = null;
@@ -348,7 +369,7 @@ public final class DAOAreas extends AbstractDAO {
 
             //Recibida a consulta, procesámola:
             while(rsAreas.next()){
-                //Imos engadindo ao ArrayList do resultado cada Instalación consultada:
+                //Imos engadindo ao ArrayList do resultado cada area consultada:
                 areas.add(new Area(rsAreas.getInt(2),new Instalacion(rsAreas.getInt(1)),
                         rsAreas.getString(3), rsAreas.getString(4), rsAreas.getInt(5), rsAreas.getDate(6)));
             }
@@ -366,6 +387,54 @@ public final class DAOAreas extends AbstractDAO {
                 stmAreas.close();
             } catch(SQLException e){
                 System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return areas;
+    }
+
+    public ArrayList<Area> buscarAreas(Area area){
+        //Usaremos un ArrayList para almacenar unha nova area:
+        ArrayList<Area> areas = new ArrayList<>();
+
+        PreparedStatement stmAreas = null;
+        ResultSet rsAreas = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a consulta:
+        try{
+            stmAreas = con.prepareStatement("SELECT codArea, instalacion, nome, describn, aforomaxiom, databaixa" +
+                    " FROM area " +
+                    " WHERE nome like ? ");
+
+            //Establecemos os valores da consulta segundo a instancia de area pasada:
+            stmAreas.setString(1, "%" + area.getNome() + "%");
+
+            //Realizamos a consulta:
+            rsAreas = stmAreas.executeQuery();
+
+            //Recibida a consulta, procesámola:
+            while(rsAreas.next()){
+                //Imos engadindo ao ArrayList do resultado cada area consultada:
+                areas.add(new Area(rsAreas.getInt(2),new Instalacion(rsAreas.getInt(1)),
+                        rsAreas.getString(3), rsAreas.getString(4), rsAreas.getInt(5), rsAreas.getDate(6)));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try{
+                con.rollback();
+            } catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        } finally {
+            //Peche do statement:
+            try {
+                stmAreas.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
             }
         }
         return areas;

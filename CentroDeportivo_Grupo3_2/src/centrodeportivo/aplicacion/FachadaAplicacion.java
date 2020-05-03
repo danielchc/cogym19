@@ -3,6 +3,7 @@ package centrodeportivo.aplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
@@ -41,6 +42,7 @@ public class FachadaAplicacion extends Application {
     private XestionCursos xestionCursos;
     private XestionTipoMaterial xestionTipoMaterial;
     private XestionMaterial xestionMaterial;
+    private XestionArea xestionArea;
 
     /**
      * Constructor da clase, onde se inicializan todos os atributos comentados antes (fachadas e ventás ded xestión).
@@ -285,6 +287,10 @@ public class FachadaAplicacion extends Application {
 
     public ArrayList<Material> listarMateriais() {
         return xestionMaterial.listarMateriais();
+    }
+
+    public void EngadirArea(Area area) throws ExcepcionBD {
+        xestionArea.EngadirArea(area);
     }
 
 }

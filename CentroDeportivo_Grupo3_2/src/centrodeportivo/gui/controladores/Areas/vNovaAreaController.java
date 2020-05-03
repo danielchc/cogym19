@@ -1,5 +1,6 @@
 package centrodeportivo.gui.controladores.Areas;
 
+import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.aplicacion.FachadaAplicacion;
@@ -31,6 +32,7 @@ public class vNovaAreaController  extends AbstractController implements Initiali
     //Xestion creacion
     public TextField campoNomeArea;
     public TextField campoDescricion;
+    public Instalacion instalacion;
 
 
 
@@ -104,12 +106,14 @@ public class vNovaAreaController  extends AbstractController implements Initiali
 
     public void btnNovaArea(ActionEvent actionEvent) {
         //Recuperamos primeiro a instalación seleccionada:
-        Instalacion instalacion = (Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem();
+        this.instalacion = (Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem();
         if(instalacion != null){
             //Accedemos ao controlador da ventá de edición dunha Area:
-            ((vEditarAreaController)this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA1)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
+            //this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA);
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
-            //this.controllerPrincipal.mostrarMenu(IdPantalla.NOVAAREA1);
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.NOVAAREA1);
+
+
         } else {
 
             this.getFachadaAplicacion().mostrarErro("Administración de instalacións", "Non hai celda seleccionada!");
