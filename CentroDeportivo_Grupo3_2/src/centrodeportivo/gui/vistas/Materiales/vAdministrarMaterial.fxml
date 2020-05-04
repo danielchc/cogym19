@@ -78,7 +78,6 @@
                 </TableView>
             </HBox>
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
-
                 <VBox alignment="BOTTOM_LEFT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                         <Button fx:id="btnLimpar" mnemonicParsing="false" prefHeight="26.0"
@@ -91,7 +90,6 @@
                         <Button fx:id="btnXestionar" alignment="CENTER" mnemonicParsing="false"
                                 prefHeight="26.0" prefWidth="127.0" text="Xestionar"
                                 HBox.hgrow="ALWAYS"/>
-
                         <!--onAction="#btnXestionarAction" -->
                     </HBox>
                 </VBox>
