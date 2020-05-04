@@ -63,7 +63,7 @@
                 </VBox>
                 <VBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <Button fx:id="btnEliminar" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0"
-                            prefWidth="127.0" text="Eliminar"/>
+                            prefWidth="127.0" text="Eliminar" onAction="#btnEliminarAction"/>
                 </VBox>
             </HBox>
         </VBox>

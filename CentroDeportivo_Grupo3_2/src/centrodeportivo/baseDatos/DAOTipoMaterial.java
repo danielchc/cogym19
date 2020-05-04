@@ -234,4 +234,55 @@ public final class DAOTipoMaterial extends AbstractDAO {
         return tiposMateriais;
 
     }
+
+    /**
+     * Método que nos permite comprobar existen materiais vinculados o tipo.
+     *
+     * @param tipoMaterial O tipo de material do cal queremos comprobar se existen materiais vinculados
+     * @return True se o tipo ten materiais vinculados, False en caso contrario.
+     */
+    public boolean tenMateriais(TipoMaterial tipoMaterial) {
+        boolean resultado = false;
+
+        PreparedStatement stmMaterial = null;
+        ResultSet rsMaterial = null;
+        Connection con;
+
+        // Recuperamos a conexión:
+        con = super.getConexion();
+
+        // Preparamos a consulta: hai que comprobar se hai materiais asociados o tipo:
+        try {
+            stmMaterial = con.prepareStatement("SELECT * FROM material WHERE tipomaterial = ? ");
+            // Completamos a consulta:
+            stmMaterial.setInt(1, tipoMaterial.getCodTipoMaterial());
+            // Realizamos a consulta:
+            rsMaterial = stmMaterial.executeQuery();
+            // Comprobamos se hai resultado: se o hai, existen materiais do tipo:
+            if (rsMaterial.next()) {
+                resultado = true;
+            }
+            // Para rematar facemos commit:
+            con.commit();
+        } catch (SQLException e) {
+            // En caso de capturar unha excepción, imprimimos o stack trace:
+            e.printStackTrace();
+            // Tentamos facer rollback:
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Para rematar, pechamos o statement:
+            try {
+                assert stmMaterial != null;
+                stmMaterial.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        // Devolvemos o resultado:
+        return resultado;
+    }
 }

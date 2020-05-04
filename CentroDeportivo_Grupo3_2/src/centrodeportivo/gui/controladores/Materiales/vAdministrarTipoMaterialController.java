@@ -12,10 +12,7 @@ import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -157,6 +154,45 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
             this.getFachadaAplicacion().mostrarErro("Administración dos tipos de materiais", e.getMessage());
         }
         // Se houbo algún erro, seguirase nesta pantalla.
+    }
+
+    /**
+     * Acción efectuada ao premer o botón para eliminar
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnEliminarAction(ActionEvent actionEvent) {
+        // Cando se pide borrar, primeiro solicitarase a confirmación por parte do usuario.
+        if (super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
+                "Desexa eliminar o tipo de material seleccionado?") == ButtonType.OK) {
+            // Intentamos levar a cabo o borrado da instalación:
+            try {
+                TipoResultados res = super.getFachadaAplicacion().borrarTipoMaterial((TipoMaterial) taboaTipoMaterial.getSelectionModel().getSelectedItem());
+                // En función do resultado, actuamos:
+                switch (res) {
+                    case referenciaRestrict:
+                        // En caso de existir materiais dese tipo, devolvemos este enum para amosar un mensaxe co erro
+                        super.getFachadaAplicacion().mostrarErro("Administración dos tipos de materiais",
+                                "O tipo de material non se pode borrar dado que, existen materiais dese tipo!");
+                        break;
+                    case correcto:
+                        // En caso de borrado correcto, confírmase o resultado:
+                        super.getFachadaAplicacion().mostrarInformacion("Administración dos tipos de materiais",
+                                "Tipo de material borrado correctamente.");
+                        break;
+                }
+            } catch (ExcepcionBD e) {
+                // No caso de termos outra excepción da base de datos, amosamola por pantalla
+                // A mensaxe xestiónase a través do método getMessage:
+                super.getFachadaAplicacion().mostrarErro("Administración dos tipos de materiais", e.getMessage());
+            }
+
+            // Vaciaranse os campos e, depaso, listaranse todas os tipos dispoñibeis de novo:
+            AuxGUI.vaciarCamposTexto(campoTipoMaterial);
+            // Aproveitamos entón para actualizar a táboa:
+            actualizarTaboaTipoMaterial(super.getFachadaAplicacion().buscarTipoMaterial(null));
+        }
+
     }
 
 
