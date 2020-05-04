@@ -393,3 +393,19 @@ CREATE UNIQUE INDEX IF NOT EXISTS instalacion_minusculas ON instalacion((LOWER(n
 CREATE UNIQUE INDEX IF NOT EXISTS tipoMaterial_minusculas ON tipoMaterial((LOWER(nome)));
 CREATE UNIQUE INDEX IF NOT EXISTS tipoActividade_minusculas ON tipoActividade((LOWER(nome)));
 CREATE UNIQUE INDEX IF NOT EXISTS curso_minusculas ON curso((LOWER(nome)));
+
+
+
+
+
+--PROBAAAAAAAAAAAR
+CREATE OR REPLACE FUNCTION comprobarAforoMaximoCurso(codCurso INT) RETURNS boolean AS
+$func$
+	SELECT MIN(aforomaximo)>=(SELECT COUNT(*) FROM realizarcurso WHERE curso=codCurso) AS podese
+	FROM actividade AS ac JOIN area AS ar ON ac.area=ar.codarea AND ac.instalacion=ar.instalacion 
+	WHERE ac.curso=codCurso;
+$func$ LANGUAGE sql STABLE;
+
+ALTER TABLE realizarcurso ADD CONSTRAINT comprobarAforoCursoMaximo CHECK (comprobarAforoMaximoCurso(curso));
+
+
