@@ -356,6 +356,7 @@ CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH R
 ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor));
 
 
+CREATE UNIQUE INDEX IF NOT EXISTS dni_minusculas ON persoaFisica((LOWER(DNI)));
 CREATE UNIQUE INDEX IF NOT EXISTS login_minusculas ON usuario((LOWER(login)));
 CREATE UNIQUE INDEX IF NOT EXISTS tarifa_minusculas ON tarifa((LOWER(nome)));
 CREATE UNIQUE INDEX IF NOT EXISTS instalacion_minusculas ON instalacion((LOWER(nome)));
