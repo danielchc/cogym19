@@ -17,7 +17,15 @@ public class Material {
     private float prezoCompra;
 
 
-    // Constructores
+    // Constructores:
+    // Atributos not null sen código
+    public Material(TipoMaterial tipoMaterial, Area area, String estado) {
+        this.tipoMaterial = tipoMaterial;
+        this.area = area;
+        this.estado = estado;
+    }
+
+    // Atributos not null máis o código
     public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado) {
         this.codMaterial = codMaterial;
         this.tipoMaterial = tipoMaterial;
@@ -25,12 +33,12 @@ public class Material {
         this.estado = estado;
     }
 
+    // Atributos not null + atributos que poden ser null con código
     public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado, Date dataCompra, float prezoCompra) {
         this(codMaterial, tipoMaterial, area, estado);
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
     }
-
 
 
     // Getters e setters
