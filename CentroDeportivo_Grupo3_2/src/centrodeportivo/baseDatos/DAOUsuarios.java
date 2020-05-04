@@ -48,7 +48,7 @@ public final class DAOUsuarios extends AbstractDAO {
         //Intentamos facer devandita consulta:
         try {
             //Preparamos a consulta:
-            stmUsuarios = con.prepareStatement("SELECT * FROM usuario WHERE login=? AND contrasinal=? AND dataBaixa IS NULL");
+            stmUsuarios = con.prepareStatement("SELECT * FROM usuario WHERE lower(login)=lower(?) AND contrasinal=? AND dataBaixa IS NULL");
             //Completámolas cos campos con ?
             stmUsuarios.setString(1, login);
             stmUsuarios.setString(2, contrasinal);
