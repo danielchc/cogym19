@@ -36,7 +36,7 @@ public class XestionInstalacions {
         return fachadaBD.listarAreas();
     }
 
-    public ArrayList<Material> listarMateriais() {
-        return fachadaBD.listarMateriais();
+    public ArrayList<Material> listarMateriais(Area area) {
+        return fachadaBD.listarMateriais(area);
     }
 }

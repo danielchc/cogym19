@@ -68,12 +68,14 @@ public class DAOInstalacions extends AbstractDAO {
      *
      * @return lista cos materiais.
      */
-    protected ArrayList<Material> listarMateriais() {
+    protected ArrayList<Material> listarMateriais(Area area) {
         PreparedStatement stmMateriais = null;
         ArrayList<Material> listaMaterial = new ArrayList<>();
         ResultSet rsMaterial;
         try {
-            stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material AS ma JOIN tipomaterial AS tp ON ma.tipomaterial=tp.codtipomaterial ORDER BY tp.nome;");
+            stmMateriais = super.getConexion().prepareStatement("SELECT * FROM material AS ma JOIN tipomaterial AS tp ON ma.tipomaterial=tp.codtipomaterial WHERE area=? AND instalacion=? ORDER BY tp.nome;");
+            stmMateriais.setInt(1, area.getCodArea());
+            stmMateriais.setInt(2, area.getInstalacion().getCodInstalacion());
             rsMaterial = stmMateriais.executeQuery();
             while (rsMaterial.next()) {
                 listaMaterial.add(new Material(

@@ -257,8 +257,8 @@ public final class FachadaBD {
         return daoInstalacions.listarAreas();
     }
 
-    public ArrayList<Material> listarMateriais() {
-        return daoInstalacions.listarMateriais();
+    public ArrayList<Material> listarMateriais(Area area) {
+        return daoInstalacions.listarMateriais(area);
     }
 
     public ArrayList<TipoActividade> listarTipoActividades() {

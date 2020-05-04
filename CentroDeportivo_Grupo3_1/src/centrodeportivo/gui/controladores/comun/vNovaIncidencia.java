@@ -32,7 +32,6 @@ public class vNovaIncidencia extends AbstractController implements Initializable
     public TextArea campoDescricion;
     private Usuario usuario;
     private ArrayList<Area> listaAreas;
-    private ArrayList<Material> listaMaterial;
 
     public vNovaIncidencia(FachadaAplicacion fachadaAplicacion, vPrincipalController vPrincipalController) {
         super(fachadaAplicacion, vPrincipalController);
@@ -43,7 +42,6 @@ public class vNovaIncidencia extends AbstractController implements Initializable
         this.usuario = super.getvPrincipalController().obterUsuarioLogeado();
 
         this.listaAreas = super.getFachadaAplicacion().listarAreas();
-        this.listaMaterial = super.getFachadaAplicacion().listarMateriais();
         this.campoDescricion.textProperty().addListener(new ListenerMaxLogitud(campoDescricion, 500));
 
         TreeItem rootItem = new TreeItem();
@@ -51,7 +49,7 @@ public class vNovaIncidencia extends AbstractController implements Initializable
         this.selectorIncidencia.setRoot(rootItem);
         this.selectorIncidencia.setShowRoot(false);
         for (Area area : this.listaAreas) {
-            area.setMateriais(new ArrayList<>(this.listaMaterial.stream().filter(f -> f.getArea().equals(area)).collect(Collectors.toList())));
+            area.setMateriais(super.getFachadaAplicacion().listarMateriais(area));
             areaActual = new TreeItem(area);
             for (Material m : area.getMateriais()) {
                 m.setArea(area);
