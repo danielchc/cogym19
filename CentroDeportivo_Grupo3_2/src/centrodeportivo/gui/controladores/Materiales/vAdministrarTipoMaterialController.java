@@ -117,7 +117,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
      *
      * @param actionEvent A acción que tivo lugar.
      */
-    public void setBtnEngadir(ActionEvent actionEvent) {
+    public void btnEngadirAction(ActionEvent actionEvent) {
 
 
         // Primeiro comprobamos que o nome non este valeiro

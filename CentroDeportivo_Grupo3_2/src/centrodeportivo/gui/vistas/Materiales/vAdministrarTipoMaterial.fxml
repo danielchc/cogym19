@@ -41,8 +41,7 @@
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
 
                         <Button fx:id="btnBuscar" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0"
-                                prefWidth="95.0" text="Buscar" HBox.hgrow="ALWAYS"/>
-                        <!--onAction="#btnBuscarAction"-->
+                                prefWidth="95.0" text="Buscar" HBox.hgrow="ALWAYS" onAction="#btnBuscarAction"/>
                     </HBox>
                 </VBox>
             </HBox>
@@ -56,11 +55,11 @@
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                 <VBox alignment="BOTTOM_LEFT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <Button fx:id="btnLimpar" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0"
-                            text="Limpar campos"/>
+                            text="Limpar campos" onAction="#btnLimparAction"/>
                 </VBox>
                 <VBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <Button fx:id="btnEngadir" mnemonicParsing="false" prefHeight="26.0" prefWidth="137.0"
-                            text="Engadir"/>
+                            text="Engadir" onAction="#btnEngadirAction"/>
                 </VBox>
                 <VBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <Button fx:id="btnEliminar" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0"
