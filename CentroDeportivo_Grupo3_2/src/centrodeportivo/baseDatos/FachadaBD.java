@@ -145,6 +145,15 @@ public final class FachadaBD {
         daoMensaxes.enviarAvisoSocios(mensaxe);
     }
 
+    /**
+     * Método que nos permite enviar un aviso aos socios dun curso determinado.
+     * @param mensaxe A mensaxe que se vai a enviar aos socios.
+     * @param curso O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
+        daoMensaxes.enviarAvisoSociosCurso(mensaxe, curso);
+    }
 
     /*
         Funcións DAOInstalacions

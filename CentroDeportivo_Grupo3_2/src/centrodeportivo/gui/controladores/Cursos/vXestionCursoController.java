@@ -282,6 +282,8 @@ public class vXestionCursoController extends AbstractController implements Initi
                                 //Esa mensaxe mandarémola a todos os socios:
                                 getFachadaAplicacion().enviarAvisoSocios(mensaxe);
 
+                                //Se se chega aquí sen lanzar unha excepción, será porque se logrou avisar a todos
+                                //os socios. Avísase:
                                 getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
                                         "Avisado a TODOS os socios");
                             }
@@ -378,13 +380,18 @@ public class vXestionCursoController extends AbstractController implements Initi
                         campoPrezo.setText(curso.getPrezo().toString());
                         break;
                     case correcto:
-                        //Se se puideron facer os cambios, entón os campos mantéñense e actualizamos o curso:
-                        this.getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
-                                "Datos do curso " + curso.getCodCurso() + " modificados correctamente");
+                        //Se se puideron facer os cambios, entón os campos mantéñense e actualizamos o curso_
                         //Buscamos de novo o curso para así refrescar:
                         Curso actu = getFachadaAplicacion().recuperarDatosCurso(curso);
                         //Actualizamos toda a información:
                         setCurso(actu);
+
+                        //Solicitaremos ao usuario se quere que lle mandemos unha mensaxe aos membros do curso:
+                        if(getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
+                                "Datos do curso " + curso.getCodCurso() + " modificados correctamente. Queres avisar " +
+                                        "aos socios participantes no curso de que houbo cambios?") == ButtonType.OK) {
+
+                        }
                         break;
                 }
             } catch(ExcepcionBD excepcionBD){

@@ -2,6 +2,7 @@ package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
@@ -39,4 +40,13 @@ public class XestionMensaxes {
         fachadaBD.enviarAvisoSocios(mensaxe);
     }
 
+    /**
+     * Método que nos permite enviar un aviso aos socios dun curso determinado.
+     * @param mensaxe A mensaxe que se vai a enviar aos socios.
+     * @param curso O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD{
+        fachadaBD.enviarAvisoSociosCurso(mensaxe, curso);
+    }
 }

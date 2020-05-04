@@ -3,6 +3,7 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -87,5 +88,63 @@ public final class DAOMensaxes extends AbstractDAO{
         }
     }
 
+    /**
+     * Método que nos permite enviar un aviso aos socios dun curso determinado.
+     * @param mensaxe A mensaxe que se vai a enviar aos socios.
+     * @param curso O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
+        //Primeiro recuperaremos os datos dos socios que están realiando o curso e logo mandaremos a mensaxe:
+        PreparedStatement stmUsuarios = null;
+        PreparedStatement stmMensaxes = null;
+        ResultSet rsUsuarios;
+        Connection con;
 
+        //Recuperamos a conexión coa base de datos:
+        con = super.getConexion();
+
+        //Tentamos levar a cabo a consulta:
+        try{
+            //Comezaremos por buscar os participantes no curso:
+            stmUsuarios = con.prepareStatement("SELECT usuario FROM realizarcurso WHERE curso = ?");
+            //Completamos a consulta co código do curso:
+            stmUsuarios.setInt(1, curso.getCodCurso());
+            //Agora executamos a consulta:
+            rsUsuarios = stmUsuarios.executeQuery();
+
+            //Agora procedemos ao envío das mensaxes:
+            //Preparamos o envío do mensaxe, o que cambia é o destinatario:
+            stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido) " +
+                    "VALUES (?, ?, ?, ?)");
+
+            //Asignamos dende xa os campos invariantes:
+            stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
+            stmMensaxes.setString(3, mensaxe.getContido());
+            stmMensaxes.setBoolean(4, false);
+
+            //A medida que lemos o result set imos procesando os envíos de mensaxes:
+            while(rsUsuarios.next()){
+                //Establecemos o parámetro variante en cada inserción:
+                stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
+                //Executamos entón actualizacións sobre a base de datos:
+                stmMensaxes.executeQuery();
+            }
+
+            //Facemos agora xa o commit, dado que rematamos a transacción:
+            con.commit();
+
+        } catch (SQLException e){
+            //Lanzamos a nosa propia excepción cara arriba:
+            throw new ExcepcionBD(con,e);
+        } finally {
+            //Intentamos pechar os statement:
+            try {
+                stmMensaxes.close();
+                stmUsuarios.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+    }
 }
