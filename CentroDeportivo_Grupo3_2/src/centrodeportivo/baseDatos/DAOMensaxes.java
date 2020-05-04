@@ -70,6 +70,9 @@ public final class DAOMensaxes extends AbstractDAO{
                 stmMensaxes.executeUpdate();
             }
 
+            //Facemos o commit para rematar:
+            con.commit();
+
         } catch(SQLException e){
             //Lanzamos a nosa propia excepción:
             throw new ExcepcionBD(con,e);
