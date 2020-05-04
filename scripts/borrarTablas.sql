@@ -1,5 +1,7 @@
 --Borro o check que comproba que hai actividades
 ALTER TABLE actividade  DROP CONSTRAINT comprobar_libre;
+--Borramos o check que comproba a activación do curso
+ALTER TABLE curso DROP CONSTRAINT activacion;
 
 --Borramos os triggers
 DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcurso CASCADE;
@@ -9,6 +11,7 @@ DROP TRIGGER IF EXISTS crear_secuencia_material ON tipoMaterial CASCADE;
 DROP TRIGGER IF EXISTS engadir_secuencia_material ON material CASCADE;
 
 --Borramos as funcions
+DROP FUNCTION IF EXISTS comprobarCondicionActivacion(codCurso INT);
 DROP FUNCTION IF EXISTS comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) ;
 DROP FUNCTION IF EXISTS comprobarAreaLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,parea INT,pinstalacion INT);
 DROP FUNCTION IF EXISTS insertarActividades();

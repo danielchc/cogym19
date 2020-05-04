@@ -231,12 +231,18 @@ public class vXestionCursoController extends AbstractController implements Initi
         this.curso = null;
     }
 
+    /**
+     * Método que representa as accións realizadas ao premer o botón de activación dun curso:
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnActivarAction(ActionEvent actionEvent) {
         //Neste caso o que se fará é intentar activar o curso:
-        if(curso != null && curso.getCodCurso() != 0){ //NULL?
-            if(!curso.isAberto()){
+        if(curso != null && curso.getCodCurso() != null) {
+            //Evidentemente, só poderemos activar o curso se non está aberto:
+            if(!curso.isAberto()) {
                 //Tentamos facer a activación:
                 try {
+                    //Gardamos o resultado:
                     TipoResultados res = getFachadaAplicacion().activarCurso(curso);
                     switch(res){
                         case sitIncoherente:

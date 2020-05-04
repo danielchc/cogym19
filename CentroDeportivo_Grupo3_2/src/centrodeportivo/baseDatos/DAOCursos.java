@@ -688,12 +688,18 @@ public final class DAOCursos extends AbstractDAO{
         return resultado;
     }
 
+    /**
+     * Método que leva a cabo as comprobacións de se un curso está preparado para ser activado:
+     * @param curso O curso a activar.
+     * @return True se o curso se pode activar, False en caso contrario.
+     */
     public boolean listoParaActivar(Curso curso){
         //Consultaremos se hai neste curso, como mínimo, dúas actividades, para poder abrilo ao público:
         //Ademais, comprobaremos se se cumpren as restriccións de data (que non comezara).
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
         Connection con;
+        //Devolveremos un resultado como booleano:
         boolean resultado = false;
 
         //Recuperamos a conexión:
@@ -703,7 +709,7 @@ public final class DAOCursos extends AbstractDAO{
         try{
             //Buscamos o número de actividades que ten o curso preparadas:
             stmCursos = con.prepareStatement("SELECT count(*) as numAct, " +
-                    " DATE(min(dataActividade)) > current_date as inTime" +
+                    " DATE(min(dataActividade)) > (current_date + interval '2 days') as inTime" +
                     " FROM actividade WHERE curso = ?");
 
             //Completamos a consulta:

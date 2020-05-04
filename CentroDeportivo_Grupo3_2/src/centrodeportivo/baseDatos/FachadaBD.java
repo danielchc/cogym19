@@ -337,6 +337,11 @@ public final class FachadaBD {
         return daoCursos.tenParticipantes(curso);
     }
 
+    /**
+     * Método que leva a cabo as comprobacións de se un curso está preparado para ser activado:
+     * @param curso O curso a activar.
+     * @return True se o curso se pode activar, False en caso contrario.
+     */
     public boolean listoParaActivar(Curso curso) {
         return daoCursos.listoParaActivar(curso);
     }

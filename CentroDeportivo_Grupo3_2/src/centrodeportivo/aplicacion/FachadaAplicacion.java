@@ -350,6 +350,12 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.informeCurso(curso);
     }
 
+    /**
+     * Método que nos permite levar a cabo a activación dun curso:
+     * @param curso Os datos do curso que se quere activar.
+     * @return O resultado da operación
+     * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
+     */
     public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
         return xestionCursos.activarCurso(curso);
     }

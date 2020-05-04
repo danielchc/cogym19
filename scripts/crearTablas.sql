@@ -351,6 +351,16 @@ BEGIN
 END
 $$;
 
+--Con esta función comprobaremos a condición que se ten que cumprir cando un curso está activo.
+--Ten que ter, como mínimo dúas actividades.
+CREATE OR REPLACE FUNCTION comprobarCondicionActivacion(codCurso INT) RETURNS boolean AS
+$func$
+  --Pasamos o código do curso e seleccionamos se o número de tuplas que hai en actividade onde temos este curso é maior ou igual a dous.
+  SELECT count(*) >= 2
+  FROM actividade WHERE curso = codCurso -- filtramos polo código do curso.
+$func$ LANGUAGE sql STABLE;
+
+
 --Engado os triggers as funcions previamente declaradas, 
 
 
@@ -370,6 +380,10 @@ CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH R
 
 --Engadolle o CHECK, para comprobar que cando se engada unha actividade non esté ocupada nin a area nin o profesor
 ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor));
+
+--Na táboa de curso engadimos a restricción seguinte: ou o curso non está aberto ou ten máis de dúas actividades:
+ALTER TABLE curso ADD CONSTRAINT activacion CHECK ((aberto = false) or (comprobarCondicionActivacion(codcurso)));
+
 
 --Creo os UNIQUE con lower, para asegurarnos que non existen campos que se diferencien na maiusculas, e minusculas
 CREATE UNIQUE INDEX IF NOT EXISTS dni_minusculas ON persoaFisica((LOWER(DNI)));
