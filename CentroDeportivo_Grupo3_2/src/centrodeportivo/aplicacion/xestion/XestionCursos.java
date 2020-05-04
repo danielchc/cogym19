@@ -35,6 +35,12 @@ public class XestionCursos {
         this.fachadaGUI = fachadaGUI;
     }
 
+    /**
+     * Método que nos permite introducir os datos dun novo curso na base de datos.
+     * @param curso O curso a insertar
+     * @return O resultado da operación
+     * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
+     */
     public TipoResultados rexistrarCurso(Curso curso) throws ExcepcionBD {
         //Primeiro, verificamos que non exista xa un curso co mesmo nome:
         if(!fachadaBD.comprobarExistencia(curso)){
@@ -91,15 +97,14 @@ public class XestionCursos {
     /**
      * Método que nos permite levar a cabo a activación dun curso:
      * @param curso Os datos do curso que se quere activar.
-     * @param responsable A persoa que foi responsable de abrir o curso.
      * @return O resultado da operación
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
-    public TipoResultados activarCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
+    public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
         //Primeiro haberá que comprobar que cumple as condicións para poder ser activado:
         if(fachadaBD.listoParaActivar(curso)){
             //Neste caso faremos a activación:
-            fachadaBD.abrirCurso(curso, responsable);
+            fachadaBD.abrirCurso(curso);
             //Se se chega a este punto, devolvemos un tipo de resultado correcto:
             return TipoResultados.correcto;
         } else {

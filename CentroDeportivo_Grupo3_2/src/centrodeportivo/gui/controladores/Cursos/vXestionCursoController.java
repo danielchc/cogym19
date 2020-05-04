@@ -256,7 +256,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                 //Tentamos facer a activación:
                 try {
                     //Gardamos o resultado:
-                    TipoResultados res = getFachadaAplicacion().activarCurso(curso, (Persoal) controllerPrincipal.getUsuario());
+                    TipoResultados res = getFachadaAplicacion().activarCurso(curso);
                     switch(res){
                         case sitIncoherente:
                             //No caso de devolver este valor, indicará que o curso non estaba preparado para ser activado:
@@ -305,6 +305,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         //da situación.
         if(curso == null) {
             try {
+                //Rexistramos un novo curso na base de datos:
                 Curso c = new Curso(campoNome.getText(), campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
                 TipoResultados res = getFachadaAplicacion().rexistrarCurso(c);
                 //En función do resultado, amosaremos un erro ou continuaremos:
@@ -336,6 +337,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                 //tanto actualizar o curso.
                 Curso cursoModif = new Curso(curso.getCodCurso(), campoNome.getText(),
                         campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
+                //Chamamos ao método que realiza a modificación:
                 TipoResultados res = getFachadaAplicacion().modificarCurso(curso);
                 //En función do resultado, diferentes alternativas:
                 switch(res){

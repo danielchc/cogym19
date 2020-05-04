@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
@@ -44,6 +45,7 @@ public class FachadaAplicacion extends Application {
     private XestionTipoMaterial xestionTipoMaterial;
     private XestionMaterial xestionMaterial;
     private XestionArea xestionArea;
+    private XestionMensaxes xestionMensaxes;
 
     /**
      * Constructor da clase, onde se inicializan todos os atributos comentados antes (fachadas e ventás ded xestión).
@@ -68,6 +70,7 @@ public class FachadaAplicacion extends Application {
         this.xestionCursos = new XestionCursos(fachadaGUI, fachadaBD);
         this.xestionTipoMaterial = new XestionTipoMaterial(fachadaGUI, fachadaBD);
         this.xestionMaterial = new XestionMaterial(fachadaGUI, fachadaBD);
+        this.xestionMensaxes = new XestionMensaxes(fachadaGUI, fachadaBD);
     }
 
     /**
@@ -194,6 +197,19 @@ public class FachadaAplicacion extends Application {
     }
 
     /*
+        Xestión mensaxes
+     */
+
+    /**
+     * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
+     * @param mensaxe A mensaxe a transmitir
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD{
+        xestionMensaxes.enviarAvisoSocios(mensaxe);
+    }
+
+    /*
         Xestion instalacións
      */
 
@@ -316,6 +332,12 @@ public class FachadaAplicacion extends Application {
         Xestión cursos
      */
 
+    /**
+     * Método que nos permite introducir os datos dun novo curso na base de datos.
+     * @param curso O curso a insertar
+     * @return O resultado da operación
+     * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
+     */
     public TipoResultados rexistrarCurso(Curso curso) throws ExcepcionBD {
         return xestionCursos.rexistrarCurso(curso);
     }
@@ -354,12 +376,11 @@ public class FachadaAplicacion extends Application {
     /**
      * Método que nos permite levar a cabo a activación dun curso:
      * @param curso Os datos do curso que se quere activar.
-     * @param responsable A persoa que foi responsable de abrir o curso.
      * @return O resultado da operación
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
-    public TipoResultados activarCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
-        return xestionCursos.activarCurso(curso, responsable);
+    public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
+        return xestionCursos.activarCurso(curso);
     }
 
     /*

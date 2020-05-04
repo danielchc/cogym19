@@ -43,6 +43,7 @@ public final class FachadaBD {
     private DAOCursos daoCursos;
     private DAOAreas daoareas;
     private DAOActividade daoActividade;
+    private DAOMensaxes daoMensaxes;
 
     /**
      * Constructor da fachada da base de datos:
@@ -101,6 +102,7 @@ public final class FachadaBD {
         this.daoTipoMaterial = new DAOTipoMaterial(this.conexion, this.fachadaAplicacion);
         this.daoMaterial = new DAOMaterial(this.conexion, this.fachadaAplicacion);
         this.daoActividade = new DAOActividade(this.conexion, this.fachadaAplicacion);
+        this.daoMensaxes = new DAOMensaxes(this.conexion, this.fachadaAplicacion);
     }
 
     /*
@@ -125,7 +127,21 @@ public final class FachadaBD {
         //Chamamos ao método do dao correspondente.
         return daoUsuarios.consultarUsuario(login);
     }
-    
+
+    /*
+        Funcións DAOMensaxes:
+     */
+
+    /**
+     * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
+     * @param mensaxe A mensaxe a transmitir
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD{
+        daoMensaxes.enviarAvisoSocios(mensaxe);
+    }
+
+
     /*
         Funcións DAOInstalacions
      */
@@ -277,6 +293,11 @@ public final class FachadaBD {
         Funcións DAOCursos
      */
 
+    /**
+     * Método que nos permite introducir os datos dun novo curso na base de datos.
+     * @param curso O curso a insertar
+     * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
+     */
     public void rexistrarCurso(Curso curso) throws ExcepcionBD {
         daoCursos.rexistrarCurso(curso);
     }
@@ -292,11 +313,10 @@ public final class FachadaBD {
     /**
      * Método que nos permite levar a cabo a activación dun curso:
      * @param curso Os datos do curso que se quere activar.
-     * @param responsable A persoa que foi responsable de abrir o curso.
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
-    public void abrirCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
-        daoCursos.abrirCurso(curso, responsable);
+    public void abrirCurso(Curso curso) throws ExcepcionBD {
+        daoCursos.abrirCurso(curso);
     }
 
     public void cancelarCurso(Curso curso) throws ExcepcionBD {
@@ -326,6 +346,11 @@ public final class FachadaBD {
         return daoCursos.informeCurso(curso);
     }
 
+    /**
+     * Método que nos permite comprobar que non existe un curso rexistrado co mesmo nome
+     * @param curso O curso que se quere validar
+     * @return True se non existe outro curso diferente que teña o mesmo nome ca este, False noutro caso.
+     */
     public boolean comprobarExistencia(Curso curso) {
         return daoCursos.comprobarExistencia(curso);
     }

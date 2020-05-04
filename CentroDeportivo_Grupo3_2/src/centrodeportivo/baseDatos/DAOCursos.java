@@ -31,6 +31,11 @@ public final class DAOCursos extends AbstractDAO{
         super(conexion, fachadaAplicacion);
     }
 
+    /**
+     * Método que nos permite introducir os datos dun novo curso na base de datos.
+     * @param curso O curso a insertar
+     * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
+     */
     public void rexistrarCurso(Curso curso) throws ExcepcionBD {
         //Rexistraremos unicamente datos propios do curso (da súa táboa).
         PreparedStatement stmCursos = null;
@@ -170,15 +175,11 @@ public final class DAOCursos extends AbstractDAO{
     /**
      * Método que nos permite levar a cabo a activación dun curso:
      * @param curso Os datos do curso que se quere activar.
-     * @param responsable A persoa que foi responsable de abrir o curso.
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
-    public void abrirCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
+    public void abrirCurso(Curso curso) throws ExcepcionBD {
         //Introduciremos que o curso está aberto para que a xente poida comezar a rexistrarse nel:
         PreparedStatement stmCursos = null;
-        PreparedStatement stmMensaxes = null;
-        PreparedStatement stmUsuarios = null;
-        ResultSet rsUsuarios = null;
         Connection con;
 
         //Recuperamos a conexión:
@@ -197,35 +198,8 @@ public final class DAOCursos extends AbstractDAO{
             //Intentase realizar a actualización:
             stmCursos.executeUpdate();
 
-            //Se se consigue facer isto, entón é o momento de enviar un aviso aos socios da apertura do curso:
-            Mensaxe mensaxe = new Mensaxe(responsable, "Novo curso " + curso.getNome() + " aberto a inscricións!" +
-                    " Apurade a apuntarvos antes de que sexa demasiado tarde!");
-
-            //Primeiro consultamos os login de todos os socios:
-            stmUsuarios = con.prepareStatement("SELECT login FROM socio");
-            //Non precisamos pasarlle nada, posto que simplemente queremos recuperar os socios todos:
-            rsUsuarios = stmUsuarios.executeQuery();
-
-            //Imos preparando xa a inserción na táboa de mensaxes:
-            stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido)" +
-                    " VALUES (?, ?, ?, ?)");
-
-            //Establecemos o emisor, o contido e o lido porque non varían.
-            stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
-            stmMensaxes.setString(3, mensaxe.getContido());
-            stmMensaxes.setBoolean(4, false);
-
-            //Imos recuperando todos os resultados e, ao mesmo tempo, enviando as mensaxes:
-            while(rsUsuarios.next()){
-                //Poñemos agora como parámetro da consulta un dos logins recibidos:
-                stmMensaxes.setString(2,rsUsuarios.getString("login"));
-                //Executamos entón a actualización:
-                stmMensaxes.executeUpdate();
-            }
-
-            //Rematado isto, podemos poñer o commit: ou se fai ou non se fai todas as cousas
+            //Rematado isto, podemos poñer o commit:
             con.commit();
-
         } catch(SQLException e){
             //Lanzamos a nosa propia excepción:
             throw new ExcepcionBD(con,e);
@@ -623,6 +597,11 @@ public final class DAOCursos extends AbstractDAO{
         return resultado;
     }
 
+    /**
+     * Método que nos permite comprobar que non existe un curso rexistrado co mesmo nome
+     * @param curso O curso que se quere validar
+     * @return True se non existe outro curso diferente que teña o mesmo nome ca este, False noutro caso.
+     */
     public boolean comprobarExistencia(Curso curso){
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
@@ -639,10 +618,12 @@ public final class DAOCursos extends AbstractDAO{
             String consulta = "SELECT * FROM curso" +
                     " WHERE lower(nome) = lower(?) ";
 
+            //Introducimos o código do curso se non é null
             if(curso.getCodCurso()!=null){
                 consulta += "   and codCurso != ? ";
             }
 
+            //Preparamos o statement para a consulta:
             stmCursos = con.prepareStatement(consulta);
 
             //Completamos a consulta co campo do nome e do código do curso se é necesario:
@@ -668,13 +649,14 @@ public final class DAOCursos extends AbstractDAO{
                 ex.printStackTrace();
             }
         } finally {
-            //Pechamos o statement:
+            //Pechamos o statement de cursos:
             try {
                 stmCursos.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
+        //Devolvemos o booleano:
         return resultado;
     }
 
