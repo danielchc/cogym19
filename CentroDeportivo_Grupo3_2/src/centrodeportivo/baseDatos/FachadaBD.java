@@ -47,6 +47,7 @@ public final class FachadaBD {
 
     /**
      * Constructor da fachada da base de datos:
+     *
      * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
      * @throws ExcepcionBD excepción asociada a problemas relativos á base de datos.
      */
@@ -103,14 +104,17 @@ public final class FachadaBD {
         this.daoMaterial = new DAOMaterial(this.conexion, this.fachadaAplicacion);
         this.daoActividade = new DAOActividade(this.conexion, this.fachadaAplicacion);
         this.daoMensaxes = new DAOMensaxes(this.conexion, this.fachadaAplicacion);
+        this.daoareas = new DAOAreas(this.conexion, this.fachadaAplicacion);
     }
 
     /*
         Funcions DAOUsuarios
      */
+
     /**
      * Método que nos permitirá levar a cabo a validación dun usuario:
-     * @param login O login introducido polo usuario.
+     *
+     * @param login       O login introducido polo usuario.
      * @param contrasinal O contrasinal introducido polo usuario.
      * @return booleano que nos indica se a validación foi correcta ou non.
      */
@@ -120,6 +124,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permitirá consultar os datos esenciais dun usuario:
+     *
      * @param login O login do usuario que se quere consultar.
      * @return Usuario con algúns dos datos asociados na base de datos ao login pasado como argumento.
      */
@@ -148,6 +153,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permitirá dar de alta unha nova instalación.
+     *
      * @param instalacion A instalación a dar de alta.
      * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
      */
@@ -158,6 +164,7 @@ public final class FachadaBD {
 
     /**
      * Método que tenta eliminar os datos da instalación pasada como argumento da base de datos.
+     *
      * @param instalacion A instalación cuxos datos se queren eliminar.
      * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
      */
@@ -167,6 +174,7 @@ public final class FachadaBD {
 
     /**
      * Método que tenta modificar os datos da instalación pasada como argumento na base de datos.
+     *
      * @param instalacion Os datos da instalación para ser modificados.
      * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
      */
@@ -176,6 +184,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite buscar instalacións na base de datos, tanto con coma sen filtros.
+     *
      * @param instalacion Se non é null, a consulta das instalacións realizarase en base aos campos desta instalación.
      * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
      * contrario, devolverase un listado de todas as instalacións.
@@ -186,10 +195,11 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite consultar unha instalación concreta:
+     *
      * @param instalacion A instalación de referencia para a que se consultará a información
      * @return A instalación con todos os datos, actualizada totalmente.
      */
-    public Instalacion consultarInstalacion(Instalacion instalacion){
+    public Instalacion consultarInstalacion(Instalacion instalacion) {
         return daoInstalacions.consultarInstalacion(instalacion);
     }
 
@@ -197,6 +207,7 @@ public final class FachadaBD {
     /**
      * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo
      * nome.
+     *
      * @param instalacion A instalación cuxo nome queremos validar
      * @return True se hai unha instalación xa co mesmo nome, False en caso contrario.
      */
@@ -206,6 +217,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite comprobar se unha instalación ten asociada algunha área.
+     *
      * @param instalacion A instalación para a cal queremos comprobar se ten áreas.
      * @return True se a instalación ten áreas, False en caso contrario.
      */
@@ -220,6 +232,7 @@ public final class FachadaBD {
     /**
      * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
      * se pasa como arugmento.
+     *
      * @param tipoActividade Os datos do tipo de actividade a insertar.
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
      */
@@ -230,6 +243,7 @@ public final class FachadaBD {
     /**
      * Método que nos permite modificar os datos do tipo de actividade pasado como argumento. Suponse que ese tipo de
      * actividade xa está rexistrado e, polo tanto, ten un código asociado.
+     *
      * @param tipoActividade O tipo de actividade cos datos a actualizar.
      * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a inserción na base de datos.
      */
@@ -240,6 +254,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
+     *
      * @param tipoActividade O tipo de actividade que se quere eliminar.
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
      */
@@ -250,6 +265,7 @@ public final class FachadaBD {
 
     /**
      * Método que ofrece un conxunto de tipos de actividade contidos na base de datos.
+     *
      * @param tipoActividade O tipo de actividade modelo co que se vai a facer a búsqueda.
      * @return Se o tipo de actividade é null, devolveranse todos os tipos de actividades rexistrados, en caso contrario
      * todos os tipos de actividade que teñan coincidencia co nome que ten o tipo pasado como argumento.
@@ -260,16 +276,18 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite consultar un tipo de actividade a partir do código do tipo pasado como argumento.
+     *
      * @param tipoActividade O tipo de actividade do que se collerá o código para a consulta.
      * @return O tipo de actividade co código buscado (se todavía existe na base de datos).
      */
-    public TipoActividade consultarTipoActividade(TipoActividade tipoActividade){
+    public TipoActividade consultarTipoActividade(TipoActividade tipoActividade) {
         return this.daoTiposActividades.consultarTipoActividade(tipoActividade);
     }
 
     /**
      * Método que nos permite comprobar que non existe un tipo de actividade diferente co mesmo nome ca o tipo pasado
      * como argumento.
+     *
      * @param tipoActividade O tipo para o que se quere validar a existencia.
      * @return True se existe un tipo de actividade diferente na base de datos que ten o mesmo nome, False en caso
      * contrario.
@@ -281,7 +299,8 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite comprobar se un tipo de actividade ten actividades asociadas.
-     * @param tipoActividade  O tipo para o que se quere validar se ten actividades.
+     *
+     * @param tipoActividade O tipo para o que se quere validar se ten actividades.
      * @return True se este tipo de actividade ten actividades asociadas, False noutro caso.
      */
     public boolean tenActividades(TipoActividade tipoActividade) {
@@ -325,6 +344,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     *
      * @param curso Curso polo que se realiza a busca.
      * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
      */
@@ -335,6 +355,7 @@ public final class FachadaBD {
     /**
      * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
      * máis información todavía.
+     *
      * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
      * @return Datos completos do curso procurado.
      */
@@ -361,6 +382,7 @@ public final class FachadaBD {
 
     /**
      * Método que leva a cabo as comprobacións de se un curso está preparado para ser activado:
+     *
      * @param curso O curso a activar.
      * @return True se o curso se pode activar, False en caso contrario.
      */
@@ -387,6 +409,10 @@ public final class FachadaBD {
 
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return this.daoTipoMaterial.buscarTipoMaterial(tipoMaterial);
+    }
+
+    public boolean tenMateriais(TipoMaterial tipoMaterial) {
+        return this.daoTipoMaterial.tenMateriais(tipoMaterial);
     }
 
     /*
@@ -449,11 +475,11 @@ public final class FachadaBD {
         return daoareas.EngadirArea(area);
     }
 
-    public int  borrarArea(Area area) throws ExcepcionBD {
+    public int borrarArea(Area area) throws ExcepcionBD {
         return daoareas.borrarArea(area);
     }
 
-    public int  modificarArea(Area area) throws ExcepcionBD {
+    public int modificarArea(Area area) throws ExcepcionBD {
         return daoareas.modificarArea(area);
     }
 

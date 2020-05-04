@@ -71,6 +71,7 @@ public class FachadaAplicacion extends Application {
         this.xestionTipoMaterial = new XestionTipoMaterial(fachadaGUI, fachadaBD);
         this.xestionMaterial = new XestionMaterial(fachadaGUI, fachadaBD);
         this.xestionMensaxes = new XestionMensaxes(fachadaGUI, fachadaBD);
+        this.xestionArea = new XestionArea(fachadaGUI, fachadaBD);
     }
 
     /**
@@ -418,8 +419,10 @@ public class FachadaAplicacion extends Application {
         return xestionMaterial.listarMateriais();
     }
 
-    public void EngadirArea(Area area) throws ExcepcionBD {
-        xestionArea.EngadirArea(area);
+    public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
+        System.out.println("en fachada aplicacion " + area.getNome());
+        System.out.println(xestionArea==null);
+        return xestionArea.EngadirArea(area);
     }
 
 }

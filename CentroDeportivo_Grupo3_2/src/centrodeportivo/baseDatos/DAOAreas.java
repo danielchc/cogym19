@@ -28,7 +28,7 @@ public final class DAOAreas extends AbstractDAO {
         try {
             stmAreas = con.prepareStatement("SELECT codarea, instalacion " +
                     " FROM area " +
-                    " WHERE instalacion = ? and cod = ?");
+                    " WHERE instalacion = ? and codarea = ?");
 
             stmAreas.setInt(1, area.getInstalacion().getCodInstalacion());
             stmAreas.setInt(2, area.getCodArea());

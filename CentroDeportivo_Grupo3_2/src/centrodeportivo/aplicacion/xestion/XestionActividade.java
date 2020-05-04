@@ -56,7 +56,7 @@ public class XestionActividade {
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {
-            return TipoResultados.datoExiste;
+            return TipoResultados.sitIncoherente;
         }
     }
 
@@ -67,7 +67,7 @@ public class XestionActividade {
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {
-            return TipoResultados.datoExiste;
+            return TipoResultados.sitIncoherente;
         }
     }
 }

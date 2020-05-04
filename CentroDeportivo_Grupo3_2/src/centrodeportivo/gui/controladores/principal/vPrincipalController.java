@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.Actividades.vAdministrarTiposActividadesController;
 import centrodeportivo.gui.controladores.Actividades.vInsercionTipoActividadeController;
+import centrodeportivo.gui.controladores.Areas.vNovaArea1Controller;
 import centrodeportivo.gui.controladores.Areas.vNovaAreaController;
 import centrodeportivo.gui.controladores.Cursos.vAdministrarCursosController;
 import centrodeportivo.gui.controladores.Cursos.vXestionCursoController;
@@ -134,7 +135,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         // Pantalla editar material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.EDITARMATERIAL, new DatosVista("../../vistas/Materiales/vEditarMaterial.fxml", new vEditarMaterialController(super.getFachadaAplicacion(), this)));
         this.pantallas.put(IdPantalla.NOVAAREA, new DatosVista("../../vistas/Areas/vNovaArea.fxml", new vNovaAreaController(super.getFachadaAplicacion(), this)));
-        this.pantallas.put(IdPantalla.NOVAAREA1, new DatosVista("../../vistas/Areas/vNovaArea1.fxml", new vNovaAreaController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.NOVAAREA1, new DatosVista("../../vistas/Areas/vNovaArea1.fxml", new vNovaArea1Controller(super.getFachadaAplicacion(), this)));
 
     }
 
