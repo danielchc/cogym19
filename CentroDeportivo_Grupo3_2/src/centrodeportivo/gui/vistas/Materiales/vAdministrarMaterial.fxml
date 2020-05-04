@@ -53,8 +53,6 @@
                     </HBox>
                 </VBox>
             </HBox>
-
-
             <HBox prefHeight="44.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                 <Label prefHeight="26.0" prefWidth="166.0" text="Tipo de material:">
                     <font>
@@ -72,8 +70,6 @@
                     </HBox>
                 </VBox>
             </HBox>
-
-
             <HBox prefHeight="186.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                 <TableView fx:id="taboaMateriais" prefHeight="163.0" prefWidth="551.0" HBox.hgrow="ALWAYS">
                     <columnResizePolicy>
@@ -81,8 +77,6 @@
                     </columnResizePolicy>
                 </TableView>
             </HBox>
-
-
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
 
                 <VBox alignment="BOTTOM_LEFT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
