@@ -293,4 +293,12 @@ public class vPrincipalController extends AbstractController implements Initiali
     public AbstractController getControlador(IdPantalla idPantalla) {
         return this.pantallas.get(idPantalla).getControlador();
     }
+
+    /**
+     * Método que nos permite recuperar os datos do usuario que iniciou sesión
+     * @return O usuario que iniciou sesión
+     */
+    public Usuario getUsuario(){
+        return usuario;
+    }
 }

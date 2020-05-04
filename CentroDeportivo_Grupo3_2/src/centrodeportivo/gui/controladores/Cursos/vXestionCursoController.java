@@ -12,8 +12,9 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -217,6 +218,18 @@ public class vXestionCursoController extends AbstractController implements Initi
         //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
         AuxGUI.ocultarCampos(btnActivar,btnBorrarActividade,btnEngadirActividade,btnModificarSeleccion,
                 btnCancelar,vBoxBotonInforme,vBoxDetalleInforme);
+
+        //Engadimos un listener no campo do prezo para controlar os valores introducidos:
+        campoPrezo.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                //Se o novo valor que se quere introducir non concorda co formato de tres dixitos na parte enteira
+                //e dous na decimal, entón poñemos o valor antigo:
+                if (!newValue.matches("\\d{0,3}([\\.]\\d{0,2})?")) {
+                    campoPrezo.setText(oldValue);
+                }
+            }
+        });
     }
 
 
@@ -231,13 +244,19 @@ public class vXestionCursoController extends AbstractController implements Initi
         this.curso = null;
     }
 
+    /**
+     * Método que representa as accións realizadas ao premer o botón de activación dun curso:
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnActivarAction(ActionEvent actionEvent) {
         //Neste caso o que se fará é intentar activar o curso:
-        if(curso != null && curso.getCodCurso() != 0){ //NULL?
-            if(!curso.isAberto()){
+        if(curso != null && curso.getCodCurso() != null) {
+            //Evidentemente, só poderemos activar o curso se non está aberto:
+            if(!curso.isAberto()) {
                 //Tentamos facer a activación:
                 try {
-                    TipoResultados res = getFachadaAplicacion().activarCurso(curso);
+                    //Gardamos o resultado:
+                    TipoResultados res = getFachadaAplicacion().activarCurso(curso, (Persoal) controllerPrincipal.getUsuario());
                     switch(res){
                         case sitIncoherente:
                             //No caso de devolver este valor, indicará que o curso non estaba preparado para ser activado:
@@ -252,24 +271,34 @@ public class vXestionCursoController extends AbstractController implements Initi
                                     "O curso activouse. Dende agora pódese apuntar calquera persoa nel.");
                     }
                 } catch (ExcepcionBD excepcionBD) {
-                    excepcionBD.printStackTrace();
+                    //En caso de recoller unha excepción proveniente da base de datos,
+                    this.getFachadaAplicacion().mostrarErro("Administración de Cursos", excepcionBD.getMessage());
                 }
             } else {
+                //Se o curso xa estivese aberto, avisaríase cun erro que non se pode volver a activar.
                 getFachadaAplicacion().mostrarErro("Administración de Cursos",
                         "Non podes activar un curso xa aberto!");
             }
         } else {
-            //Se non se cumpre esa primeira condición avísase:
+            //Se non se cumpre esa primeira condición de curso ou código de curso nulo avísase:
             getFachadaAplicacion().mostrarErro("Administración de Cursos",
                     "Non se pode activar o curso se inda non se insertou!");
         }
     }
 
+    /**
+     * Método que representa as accións realizadas ao premer o botón de gardado dun curso.
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnGardarAction(ActionEvent actionEvent) {
         //No caso de gardar, hai que verificar que o nome e o ID estén cubertos.
         if(!ValidacionDatos.estanCubertosCampos(campoNome, campoPrezo)){
-            tagObrigatorios.setVisible(true);
+            //Se non se cubriron, habilítase a etiqueta que indica campos obrigatorios:
+            AuxGUI.amosarCampos(tagObrigatorios);
             return; //Non seguimos adiante.
+        } else {
+            //Se non, ocultamos esa etiqueta dado que non queremos que apareza
+            AuxGUI.ocultarCampos(tagObrigatorios);
         }
 
         //Chegados aquí, intentamos facer a actualización. Podería ser inserción de datos ou modificación, dependendo
@@ -281,6 +310,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                 //En función do resultado, amosaremos un erro ou continuaremos:
                 switch(res){
                     case datoExiste:
+                        //Se xa existe un curso co mesmo nome, amosamos erro:
                         this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
                                 "Xa existe un curso co nome " + c.getNome().toLowerCase());
                         break;
@@ -290,11 +320,13 @@ public class vXestionCursoController extends AbstractController implements Initi
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
                                 "Curso " + c.getNome() + " insertado correctamente." +
                                 "O seu ID é " + c.getCodCurso() + ".");
-                        //Asignamos o curso:
+                        //Asignamos o curso e así poderemos xa facer outro tipo de edicións:
                         this.setCurso(c);
                         break;
                 }
+                //Poderase capturar unha excepción proveniente da base de datos:
             } catch (ExcepcionBD excepcionBD) {
+                //Nese caso, amosamos un mensaxe xenerado na excepción:
                 this.getFachadaAplicacion().mostrarErro("Administración de Cursos", excepcionBD.getMessage());
             }
         } else {
@@ -313,21 +345,25 @@ public class vXestionCursoController extends AbstractController implements Initi
                                 "Xa existe un curso co nome " + curso.getNome().toLowerCase());
                         campoNome.setText(curso.getNome());
                         campoDescricion.setText(curso.getDescricion());
-                        campoPrezo.setText(curso.getPrezo()+"");
+                        campoPrezo.setText(curso.getPrezo().toString());
                         break;
                     case foraTempo:
                         //Se non se cumpren os tempos para modificar, é dicir, o curso xa comezou, non deixaremos modificar
                         //a información e faremos o análogo ao caso anterior cos campos:
                         this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
                                 "Non se poden actualizar os datos, pois o curso xa comezou.");
+                        campoNome.setText(curso.getNome());
+                        campoDescricion.setText(curso.getDescricion());
+                        campoPrezo.setText(curso.getPrezo().toString());
                         break;
                     case correcto:
                         //Se se puideron facer os cambios, entón os campos mantéñense e actualizamos o curso:
                         this.getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
                                 "Datos do curso " + curso.getCodCurso() + " modificados correctamente");
-                        curso.setNome(cursoModif.getNome());
-                        curso.setDescricion(cursoModif.getDescricion());
-                        curso.setPrezo(cursoModif.getPrezo());
+                        //Buscamos de novo o curso para así refrescar:
+                        Curso actu = getFachadaAplicacion().recuperarDatosCurso(curso);
+                        //Actualizamos toda a información:
+                        setCurso(actu);
                         break;
                 }
             } catch(ExcepcionBD excepcionBD){
@@ -335,20 +371,36 @@ public class vXestionCursoController extends AbstractController implements Initi
                 this.getFachadaAplicacion().mostrarErro("Administración de Cursos", excepcionBD.getMessage());
                 campoNome.setText(curso.getNome());
                 campoDescricion.setText(curso.getDescricion());
-                campoPrezo.setText(curso.getPrezo()+"");
+                campoPrezo.setText(curso.getPrezo().toString());
             }
         }
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de engadido dunha actividade.
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnEngadirActividadeAction(ActionEvent actionEvent) {
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de borrado dunha actividade.
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnBorrarActividadeAction(ActionEvent actionEvent) {
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de modificado dunha selección.
+     * @param actionEvent
+     */
     public void btnModificarSeleccionAction(ActionEvent actionEvent) {
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de cancelar.
+     * @param actionEvent
+     */
     public void btnCancelarAction(ActionEvent actionEvent) {
         //Tamén poderemos cancelar un curso, sempre e cando fora rexistrado:
         //(En teoría non debería darse o caso, pero facemos igualmente a comprobación):
@@ -421,8 +473,10 @@ public class vXestionCursoController extends AbstractController implements Initi
         campoDescricion.setText(curso.getDescricion());
         campoPrezo.setText(curso.getPrezo().toString());
         //Enchemos a táboa de actividades:
+        taboaActividades.getItems().removeAll(taboaActividades.getItems());
         taboaActividades.getItems().addAll(curso.getActividades());
         //Enchemos a táboa de participantes:
+        taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
         taboaUsuarios.getItems().addAll(curso.getParticipantes());
         if(curso.isAberto()) {
             //Se o curso xa está aberto non damos opción a abrilo:

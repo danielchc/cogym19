@@ -205,7 +205,7 @@ CREATE TABLE realizarCurso(
 CREATE TABLE enviarMensaxe(
 	emisor		VARCHAR(25) NOT NULL,
 	receptor	VARCHAR(25) NOT NULL,
-	dataEnvio 	TIMESTAMP 	NOT NULL,
+	dataEnvio 	TIMESTAMP 	NOT NULL DEFAULT NOW(),
 	contido 	VARCHAR(500) NOT NULL,
 	lido		BOOLEAN	DEFAULT FALSE,
 	PRIMARY KEY (emisor,receptor,dataEnvio),
@@ -265,19 +265,25 @@ JOIN persoaFisica AS pf ON so.login=pf.usuariosocio
 JOIN usuario AS us ON us.login=so.login;
 
 
+--Funcion que cando un socio se apunta nun curso, apunta o socio nas actividades de ese curso
+
 CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
 	DECLARE
 		tr RECORD;
 	BEGIN
 		FOR tr IN
+			--Recorremos as actividades
 			SELECT * FROM actividade WHERE curso=NEW.curso
 		LOOP
+			--Inserto en realizar actividade a o usuario
 			INSERT INTO realizarActividade(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
 		END LOOP;
 		RETURN NEW;
-END;
+	END;
 $$ LANGUAGE plpgsql;
 
+
+--Funcion que comproba que a area está libre para que non se solapen actividades
 
 CREATE OR REPLACE FUNCTION comprobarAreaLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,parea INT,pinstalacion INT) RETURNS boolean AS
 $func$
@@ -294,6 +300,7 @@ $func$
 $func$ LANGUAGE sql STABLE;
 
 
+--Funcion que comproba que o profesor está libre para que non solapen clases do profesor
 CREATE OR REPLACE FUNCTION comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) RETURNS boolean AS
 $func$
 SELECT NOT EXISTS (
@@ -308,16 +315,16 @@ SELECT NOT EXISTS (
 )
 $func$ LANGUAGE sql STABLE;
 
-
+--Funcion que crea unha secuencia distinta para cada instalacion
 CREATE OR REPLACE  FUNCTION crearSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
-  EXECUTE format('create sequence secuencia_area_%s', NEW.codinstalacion);
+  EXECUTE format('CREATE SEQUENCE secuencia_area_%s', NEW.codinstalacion);
   RETURN NEW;
 END
 $$;
 
-
+--Ao engadir un area, asignalle un codigo da secuencia creada anteriormente
 CREATE OR REPLACE FUNCTION engadirSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -326,15 +333,16 @@ BEGIN
 END
 $$;
 
+--Funcion que crea unha secuencia distinta para cada tipo de material
 CREATE OR REPLACE  FUNCTION crearSecuenciaMaterial() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
-  EXECUTE format('create sequence secuencia_material_%s', NEW.codTipoMaterial);
+  EXECUTE format('CREATE SEQUENCE secuencia_material_%s', NEW.codTipoMaterial);
   RETURN NEW;
 END
 $$;
 
-
+--Ao engadir un material, asignalle un codigo da secuencia creada anteriormente
 CREATE OR REPLACE FUNCTION engadirSecuenciaMaterial() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -343,19 +351,41 @@ BEGIN
 END
 $$;
 
+--Con esta función comprobaremos a condición que se ten que cumprir cando un curso está activo.
+--Ten que ter, como mínimo dúas actividades.
+CREATE OR REPLACE FUNCTION comprobarCondicionActivacion(codCurso INT) RETURNS boolean AS
+$func$
+  --Pasamos o código do curso e seleccionamos se o número de tuplas que hai en actividade onde temos este curso é maior ou igual a dous.
+  SELECT count(*) >= 2
+  FROM actividade WHERE curso = codCurso -- filtramos polo código do curso.
+$func$ LANGUAGE sql STABLE;
 
+
+--Engado os triggers as funcions previamente declaradas, 
+
+
+--Despois de insertar a instalacion creo un unha nova secuencia, que empregaremos na area
 CREATE TRIGGER crear_secuencia_area AFTER INSERT ON instalacion FOR EACH ROW EXECUTE PROCEDURE crearSecuenciaArea();
+--Antes de insertar unha area, facemos que lle añada un valor da secuencia das instalacions
 CREATE TRIGGER engadir_secuencia_area BEFORE INSERT ON area FOR EACH ROW EXECUTE PROCEDURE engadirSecuenciaArea();
 
 
+--Despois de insertar a tipo material creo un unha nova secuencia, que empregaremos nos materiais
 CREATE TRIGGER crear_secuencia_material AFTER INSERT ON tipoMaterial FOR EACH ROW EXECUTE PROCEDURE crearSecuenciaMaterial();
+--Antes de insertar unha material, facemos que lle añada un valor da secuencia das tipo material
 CREATE TRIGGER engadir_secuencia_material BEFORE INSERT ON material FOR EACH ROW EXECUTE PROCEDURE engadirSecuenciaMaterial();
 
+--Creo o trigger para apuntar automaticamente as persoas no curso
 CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
 
+--Engadolle o CHECK, para comprobar que cando se engada unha actividade non esté ocupada nin a area nin o profesor
 ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor));
 
+--Na táboa de curso engadimos a restricción seguinte: ou o curso non está aberto ou ten máis de dúas actividades:
+ALTER TABLE curso ADD CONSTRAINT activacion CHECK ((aberto = false) or (comprobarCondicionActivacion(codcurso)));
 
+
+--Creo os UNIQUE con lower, para asegurarnos que non existen campos que se diferencien na maiusculas, e minusculas
 CREATE UNIQUE INDEX IF NOT EXISTS dni_minusculas ON persoaFisica((LOWER(DNI)));
 CREATE UNIQUE INDEX IF NOT EXISTS login_minusculas ON usuario((LOWER(login)));
 CREATE UNIQUE INDEX IF NOT EXISTS tarifa_minusculas ON tarifa((LOWER(nome)));
@@ -363,3 +393,19 @@ CREATE UNIQUE INDEX IF NOT EXISTS instalacion_minusculas ON instalacion((LOWER(n
 CREATE UNIQUE INDEX IF NOT EXISTS tipoMaterial_minusculas ON tipoMaterial((LOWER(nome)));
 CREATE UNIQUE INDEX IF NOT EXISTS tipoActividade_minusculas ON tipoActividade((LOWER(nome)));
 CREATE UNIQUE INDEX IF NOT EXISTS curso_minusculas ON curso((LOWER(nome)));
+
+
+
+
+
+--PROBAAAAAAAAAAAR
+CREATE OR REPLACE FUNCTION comprobarAforoMaximoCurso(codCurso INT) RETURNS boolean AS
+$func$
+	SELECT MIN(aforomaximo)>=(SELECT COUNT(*) FROM realizarcurso WHERE curso=codCurso) AS podese
+	FROM actividade AS ac JOIN area AS ar ON ac.area=ar.codarea AND ac.instalacion=ar.instalacion 
+	WHERE ac.curso=codCurso;
+$func$ LANGUAGE sql STABLE;
+
+ALTER TABLE realizarcurso ADD CONSTRAINT comprobarAforoCursoMaximo CHECK (comprobarAforoMaximoCurso(curso));
+
+

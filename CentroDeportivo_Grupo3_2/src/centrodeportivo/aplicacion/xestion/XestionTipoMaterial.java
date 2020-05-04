@@ -1,7 +1,6 @@
 package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
-import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
@@ -11,13 +10,14 @@ import java.util.ArrayList;
 
 public class XestionTipoMaterial {
 
-
     // Atributos
+
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
 
     // Constructor
+
     public XestionTipoMaterial(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
@@ -38,9 +38,16 @@ public class XestionTipoMaterial {
     }
 
     public TipoResultados borrarTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
-        fachadaBD.borrarTipoMaterial(tipoMaterial);
-        // Se se executou o método correctamente, devolvemos o enum que indica corrección;
-        return TipoResultados.correcto;
+        // Comprobamos se existen materiais dese tipo:
+        if (!fachadaBD.tenMateriais(tipoMaterial)) {
+            // Se non ten materiais vinculados, podemos borralo:
+            fachadaBD.borrarTipoMaterial(tipoMaterial);
+            // Se se completou correctamente a execución do método, devolvemos un enum que indica correción:
+            return TipoResultados.correcto;
+        } else {
+            // No caso de que houbese algún material vinculado, devolvemos un enum especificando o erro por referencia co restrict
+            return TipoResultados.referenciaRestrict;
+        }
     }
 
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {

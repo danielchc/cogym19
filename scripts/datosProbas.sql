@@ -7,7 +7,7 @@ INSERT INTO tarifa (nome,maxActividades,precioBase,precioExtra) VALUES ('VIP',30
 
 ------------------USUARIO-------------------
 
-INSERT INTO usuario VALUES ('test0', 'b71d9f2dc43e58d21b085d1758dc622923e320f48842026f675a7c772d38b897', '991202931', 'rgeyton0@cnn.com', 'ES1020304095447685743869', '2017-05-01', NULL);
+INSERT INTO usuario VALUES ('test0', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', '991202931', 'rgeyton0@cnn.com', 'ES1020304095447685743869', '2017-05-01', NULL);
 INSERT INTO usuario VALUES ('manuelPersoal', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', '991202931', 'rgeyton0@cnn.com', 'ES1020304095447685743869', '2017-05-01', NULL);
 INSERT INTO usuario VALUES ('lucasPersoal', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', '981101010', 'nsherborne1@flickr.com', 'ES1020304095447685743869', '2016-06-22', NULL);
 INSERT INTO usuario VALUES ('raulPersoal', '6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090', '981101010', 'egulland2@unblog.fr', 'ES1020304095447685743869', '2017-06-09', NULL);
@@ -614,7 +614,6 @@ INSERT INTO realizarcurso (curso, usuario) VALUES (4, 'nataliaSocio');
 INSERT INTO realizarcurso (curso, usuario) VALUES (4, 'teresaSocio');
 INSERT INTO realizarcurso (curso, usuario) VALUES (5, 'pedroSocio');
 INSERT INTO realizarcurso (curso, usuario) VALUES (5, 'teresaSocio');
-
 ------------------SOCIO->ACTIVIDADE-------------------
 
 INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:00.00',1,1,'sergioSocio',NULL);
