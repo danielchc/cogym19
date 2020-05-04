@@ -186,35 +186,34 @@ public final class DAOTipoMaterial extends AbstractDAO {
 
         // Preparamos a consulta
         try {
-            String consultaTipoMaterial = "SELECT codtipomaterial, nome FROM tipoMaterial";
+            String consultaTipoMaterial = "SELECT * FROM tipoMaterial";
 
-            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha instalación non nula como
-            //argumento:
+            // Comprobaremos se estamos a pasar un tipo nulo e xestionaremolo en función do caso:
             if (tipoMaterial != null) {
                 consultaTipoMaterial += " WHERE nome like ? ";
             }
 
-            //Ordenaremos o resultado polo código da instalación (para que saian así ordenadas)
-            consultaTipoMaterial += " ORDER BY codtipomaterial";
+            // Ordenaremos o resultado en función do codigo
+            consultaTipoMaterial += " ORDER BY codtipomaterial ";
 
             stmTipoMaterial = con.prepareStatement(consultaTipoMaterial);
 
-            //Tamén se se pasa argumento haberá que completar a consulta:
+            // Completamos a consulta no caso de que o tipo de material non sexa nulo:
             if (tipoMaterial != null) {
-                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
+                // Establecese o nome do tipo como parametro
                 stmTipoMaterial.setString(1, "%" + tipoMaterial.getNome() + "%");
             }
 
             // Executamos a consulta
             rsTipoMaterial = stmTipoMaterial.executeQuery();
 
-            //Recibida a consulta, procesámola:
+            // Procesamos os resultados obtidos da consulta:
             while (rsTipoMaterial.next()) {
-                //Imos engadindo ao ArrayList do resultado cada Instalación consultada:
+                // Imos engadindo cada tipo de material o ArrayList que devolveremos:
                 tiposMateriais.add(new TipoMaterial(rsTipoMaterial.getInt(1), rsTipoMaterial.getString(2)));
             }
 
-            //Facemos o commit para rematar:
+            // Facemos un commit para rematar:
             con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -224,7 +223,7 @@ public final class DAOTipoMaterial extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            // Intentamos pechar o statement:
+            // Tentamos pechar o statement:
             try {
                 assert stmTipoMaterial != null;
                 stmTipoMaterial.close();

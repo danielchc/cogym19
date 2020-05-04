@@ -1,8 +1,10 @@
 package centrodeportivo.gui.controladores.Materiales;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
@@ -107,6 +109,54 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         AuxGUI.vaciarCamposTexto(campoTipoMaterial);
         // Aproveitamos entón para actualizar a táboa:
         actualizarTaboaTipoMaterial(super.getFachadaAplicacion().buscarTipoMaterial(null));
+    }
+
+
+    /**
+     * Acción efectuada ao premer o botón para engadir un tipo de material
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void setBtnEngadir(ActionEvent actionEvent) {
+
+
+        // Primeiro comprobamos que o nome non este valeiro
+        if (!ValidacionDatos.estanCubertosCampos(campoTipoMaterial)) {
+            // Se algún campo non esta cuberto, non se fai nada máis
+            // TODO: Amosar mensaxe de erro
+            return;
+        }
+
+        // Creamos un tipo de material co nome facilitado
+        TipoMaterial tipoMaterial = new TipoMaterial(campoTipoMaterial.getText());
+        // Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso.
+        try {
+            // A consulta pódenos devolver varios resultados en función da situación. Avaliámolos:
+            TipoResultados resultadoDarAlta = this.getFachadaAplicacion().darAltaTipoMaterial(tipoMaterial);
+            // En función do resultado, mostraremos unha mensaxe ou outra:
+            switch (resultadoDarAlta) {
+                case correcto:
+                    // Correcto -> Imprimimos mensaxe de éxito co ID do tipo de material insertado:
+                    this.getFachadaAplicacion().mostrarInformacion("Tipos de materiais",
+                            "Creada o novo tipo de material " + tipoMaterial.getNome() +
+                                    ". O seu id é: " + tipoMaterial.getCodTipoMaterial() + ".");
+                    // Continuamos na pantalla e valeiramos o campo do nome:
+                    AuxGUI.vaciarCamposTexto(campoTipoMaterial);
+                    // Actualizamos a táboa de tipo de material:
+                    actualizarTaboaTipoMaterial(super.getFachadaAplicacion().buscarTipoMaterial(null));
+                    break;
+                case datoExiste:
+                    // Se xa existía un tipo de material con ese nome amosase un erro nunha segunda pantalla:
+                    this.getFachadaAplicacion().mostrarErro("Administración dos tipos de materiais",
+                            "Xa hai un tipo co nome '" + tipoMaterial.getNome().toLowerCase() + "'.");
+                    break;
+            }
+        } catch (ExcepcionBD e) {
+            // Se se recibe unha excepción da base de datos, entón imprímese unha mensaxe informando.
+            // Esa mensaxe obtense dentro da excepción, co método getMessage():
+            this.getFachadaAplicacion().mostrarErro("Administración dos tipos de materiais", e.getMessage());
+        }
+        // Se houbo algún erro, seguirase nesta pantalla.
     }
 
 
