@@ -30,7 +30,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="campoTipoMaterial" prefHeight="26.0" prefWidth="301.0" promptText="Nome do tipo de material..."/>
+                <TextField fx:id="campoTipoMaterial" prefHeight="26.0" prefWidth="301.0" promptText="Nome do tipo de material..." />
 
                 <VBox prefHeight="200.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">

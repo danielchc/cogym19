@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * @author Víctor Barreiro
  * Clase que funciona como controlador da pantalla de administración dos tipos de materiais.
  */
-public class vAdministrarTipoMaterial extends AbstractController implements Initializable {
+public class vAdministrarTipoMaterialController extends AbstractController implements Initializable {
 
 
     // Atributos públicos: correspóndense con partes da interface gráfica:
@@ -47,7 +47,7 @@ public class vAdministrarTipoMaterial extends AbstractController implements Init
      * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
-    public vAdministrarTipoMaterial(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+    public vAdministrarTipoMaterialController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         // Chamamos ó constructor da clase que herda
         super(fachadaAplicacion);
         // Asignamos o controlador principal ó atributo correspondente:
