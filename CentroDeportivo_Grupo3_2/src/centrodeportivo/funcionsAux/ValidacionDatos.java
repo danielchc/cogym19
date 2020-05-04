@@ -37,4 +37,5 @@ public abstract class ValidacionDatos {
         //Se chegamos a superar o bucle, todos os campos estarán cubertos.
         return true;
     }
+
 }
