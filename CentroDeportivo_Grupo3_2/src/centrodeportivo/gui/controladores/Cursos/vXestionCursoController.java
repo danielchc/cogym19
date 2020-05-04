@@ -390,7 +390,17 @@ public class vXestionCursoController extends AbstractController implements Initi
                         if(getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
                                 "Datos do curso " + curso.getCodCurso() + " modificados correctamente. Queres avisar " +
                                         "aos socios participantes no curso de que houbo cambios?") == ButtonType.OK) {
+                            //Elaboramos unha mensaxe:
+                            Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                                    "O curso '" + curso.getNome() + "' sufriu certas modificacións. Vaia a " +
+                                            "consultalo para obter maior información.");
 
+                            //Enviámola:
+                            getFachadaAplicacion().enviarAvisoSociosCurso(mensaxe, curso);
+
+                            //Se se chega ata aquí, é que se rematou correctamente:
+                            getFachadaAplicacion().mostrarInformacion("Adminsitración de cursos",
+                                    "Avisados todos os membros do curso correctamente.");
                         }
                         break;
                 }

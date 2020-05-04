@@ -123,12 +123,13 @@ public final class DAOMensaxes extends AbstractDAO{
             stmMensaxes.setString(3, mensaxe.getContido());
             stmMensaxes.setBoolean(4, false);
 
+
             //A medida que lemos o result set imos procesando os envíos de mensaxes:
             while(rsUsuarios.next()){
                 //Establecemos o parámetro variante en cada inserción:
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
                 //Executamos entón actualizacións sobre a base de datos:
-                stmMensaxes.executeQuery();
+                stmMensaxes.executeUpdate();
             }
 
             //Facemos agora xa o commit, dado que rematamos a transacción:
