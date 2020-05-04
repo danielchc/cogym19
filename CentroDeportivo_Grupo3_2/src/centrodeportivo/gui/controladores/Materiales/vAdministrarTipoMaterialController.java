@@ -2,13 +2,11 @@ package centrodeportivo.gui.controladores.Materiales;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -29,6 +27,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
 
 
     // Atributos públicos: correspóndense con partes da interface gráfica:
+
     public TableView taboaTipoMaterial;
     public Button btnBuscar;
     public Button btnLimpar;
@@ -37,8 +36,11 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
     public TextField campoTipoMaterial;
 
 
-    // Atributo privado: referencia ó controlador da ventá principal sobre o que se amosan as diferentes ventás
+    // Atributos privados: referencia ó controlador da pantalla principal sobre o que se amosan as diferentes pantallas
     private vPrincipalController controllerPrincipal;
+
+
+    // Constructor
 
     /**
      * Constructor do controlador da ventá de administración dos tipos de materiais:
@@ -77,6 +79,9 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         taboaTipoMaterial.getSelectionModel().selectFirst();
     }
 
+
+    // Outros métodos
+
     /**
      * Acción efectuada ao premer o botón para realizar a búsqueda.
      *
@@ -107,7 +112,6 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         // Aproveitamos entón para actualizar a táboa:
         actualizarTaboaTipoMaterial(super.getFachadaAplicacion().buscarTipoMaterial(null));
     }
-
 
     /**
      * Acción efectuada ao premer o botón para engadir un tipo de material
@@ -163,7 +167,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
      */
     public void btnEliminarAction(ActionEvent actionEvent) {
         // Cando se pide borrar, primeiro solicitarase a confirmación por parte do usuario.
-        if (super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
+        if (super.getFachadaAplicacion().mostrarConfirmacion("Administración dos tipos de materiais",
                 "Desexa eliminar o tipo de material seleccionado?") == ButtonType.OK) {
             // Intentamos levar a cabo o borrado da instalación:
             try {
@@ -194,7 +198,6 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         }
 
     }
-
 
     /**
      * Método que nos permite actualizar a táboa dos tipos de material
