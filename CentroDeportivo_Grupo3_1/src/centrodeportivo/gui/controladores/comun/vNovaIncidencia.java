@@ -12,6 +12,7 @@ import centrodeportivo.auxiliar.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -44,19 +45,33 @@ public class vNovaIncidencia extends AbstractController implements Initializable
         this.listaAreas = super.getFachadaAplicacion().listarAreas();
         this.campoDescricion.textProperty().addListener(new ListenerMaxLogitud(campoDescricion, 500));
 
+
         TreeItem rootItem = new TreeItem();
         TreeItem areaActual;
         this.selectorIncidencia.setRoot(rootItem);
         this.selectorIncidencia.setShowRoot(false);
         for (Area area : this.listaAreas) {
-            area.setMateriais(super.getFachadaAplicacion().listarMateriais(area));
             areaActual = new TreeItem(area);
-            for (Material m : area.getMateriais()) {
-                m.setArea(area);
-                areaActual.getChildren().add(new TreeItem(m));
-            }
+            areaActual.getChildren().add(new TreeItem());
+            areaActual.expandedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    TreeItem t = (TreeItem) ((BooleanProperty) observable).getBean();
+
+                    t.getChildren().removeAll(t.getChildren());
+                    area.setMateriais(getFachadaAplicacion().listarMateriais(area));
+                    for (Material m : area.getMateriais()) {
+                        m.setArea(area);
+                        t.getChildren().add(new TreeItem(m));
+                    }
+                }
+            });
+
+
             rootItem.getChildren().add(areaActual);
         }
+
+
 
         this.selectorIncidencia.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem>() {
             @Override
