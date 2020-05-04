@@ -499,11 +499,11 @@ INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (17, 'sofiaPersoal'
 INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (18, 'soniaPersoal');
 
 ------------------CURSO-------------------
-INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25, true);
-INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Futbol avanzado', 'Curso adicado aos máis especialistas neste deporte.', 40, true);
-INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25, true);
-INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Movemento', 'Actividades variadas para exercitarse', 30, true);
-INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30, true);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25, false);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Futbol avanzado', 'Curso adicado aos máis especialistas neste deporte.', 40, false);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25, false);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Movemento', 'Actividades variadas para exercitarse', 30, false);
+INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30, false);
 
 ------------------ACTIVIDADE (PARA OS CURSOS ANTERIORES)-------------------
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) VALUES ('2019-10-02 10:00:00.00', 1, 1, 1, 1, 'manuelPersoal', 'Introdución ás carreiras', 2);
@@ -541,6 +541,9 @@ INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, curso
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) VALUES ('2020-07-10 12:30:00.00', 4, 5, 8, 5, 'soniaPersoal', 'Relaxación e descanso', 1);
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) VALUES ('2020-07-15 15:00:00.00', 2, 5, 18, 5, 'soniaPersoal', 'Saltos máis avanzados', 3.5);
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) VALUES ('2020-07-20 16:00:00.00', 1, 5, 18, 5, 'sofiaPersoal', 'Realización de carreiras diversas', 1.5);
+
+--Coas actividades insertadas xa poderemos deixar como abertos os cursos (no noso caso estarán todos abertos):
+UPDATE curso SET aberto = true;
 
 ------------------ACTIVIDADE (OUTRAS)-------------------
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2019-10-01 16:00:00.00', 1, 1, 1, 'manuelPersoal', 'Entrenamento adaptado para correr', 1.5);

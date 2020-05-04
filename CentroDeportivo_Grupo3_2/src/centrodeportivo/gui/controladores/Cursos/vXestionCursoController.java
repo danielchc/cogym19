@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
@@ -267,8 +268,26 @@ public class vXestionCursoController extends AbstractController implements Initi
                             break;
                         case correcto:
                             //Unha vez activado, confirmarémolo, quitaremos o botón de activar curso e deixaremos continuar:
-                            getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
-                                    "O curso activouse. Dende agora pódese apuntar calquera persoa nel.");
+                            //O que faremos será pedir confirmación ao usuario de se quere mandarlle unha mensaxe aos
+                            //socios:
+                            if(getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
+                                    "O curso activouse. ¿Queres mandar unha mensaxe avisando aos socios do centro?")
+                                    == ButtonType.OK) {
+
+                                //Se o quere, elaboraremos unha mensaxe:
+                                Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                                        "Abertas as inscricións ao curso '" + curso.getNome() + "'. A que esperas " +
+                                                "para apuntarte? As prazas voan!!!");
+
+                                //Esa mensaxe mandarémola a todos os socios:
+                                getFachadaAplicacion().enviarAvisoSocios(mensaxe);
+
+                                getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
+                                        "Avisado a TODOS os socios");
+                            }
+                            //Desaactivamos o botón de activación do curso:
+                            AuxGUI.ocultarCampos(btnActivar);
+                            break;
                     }
                 } catch (ExcepcionBD excepcionBD) {
                     //En caso de recoller unha excepción proveniente da base de datos,
