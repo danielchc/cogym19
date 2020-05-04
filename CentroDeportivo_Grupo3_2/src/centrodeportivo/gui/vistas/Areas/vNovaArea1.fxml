@@ -13,7 +13,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="46.0" prefWidth="326.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="46.0" prefWidth="211.0" text="Nova instalación" textFill="WHITE">
+                                <Label alignment="CENTER" prefHeight="46.0" prefWidth="211.0" text="Nova Area" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -35,7 +35,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label alignment="TOP_CENTER" prefHeight="0.0" prefWidth="167.0" text="Nome instalación*">
+                                <Label alignment="TOP_CENTER" prefHeight="0.0" prefWidth="167.0" text="Nome Area*">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
@@ -45,22 +45,22 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="342.0">
                             <children>
-                                <Label alignment="TOP_CENTER" prefHeight="26.0" prefWidth="166.0" text="Número de teléfono*">
+                                <Label alignment="TOP_CENTER" prefHeight="26.0" prefWidth="166.0" text="Descrición">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="campoNumTlf" prefHeight="18.0" prefWidth="174.0" promptText="Escriba teléfono..." />
+                                <TextField fx:id="campoDescricion" prefHeight="18.0" prefWidth="174.0" promptText="Descrición..." />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="342.0">
                             <children>
-                                <Label alignment="TOP_CENTER" prefHeight="0.0" prefWidth="167.0" text="Dirección*">
+                                <Label alignment="TOP_CENTER" prefHeight="0.0" prefWidth="167.0" text="Aforo Maximo">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="campoDireccion" prefHeight="0.0" prefWidth="174.0" promptText="Escriba dirección..." />
+                                <TextField fx:id="aforomaximo" prefHeight="0.0" prefWidth="174.0" promptText="Aforo Máximo..." />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="41.0" prefWidth="342.0">
@@ -74,7 +74,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="342.0">
                             <children>
-                                <Button fx:id="btnGardar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="160.0" text="Gardar instalación" />
+                                <Button fx:id="btnGardarAction" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="160.0" text="Gardar Area" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="414.0">

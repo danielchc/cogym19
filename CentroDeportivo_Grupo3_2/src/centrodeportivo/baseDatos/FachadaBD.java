@@ -102,6 +102,7 @@ public final class FachadaBD {
         this.daoTipoMaterial = new DAOTipoMaterial(this.conexion, this.fachadaAplicacion);
         this.daoMaterial = new DAOMaterial(this.conexion, this.fachadaAplicacion);
         this.daoActividade = new DAOActividade(this.conexion, this.fachadaAplicacion);
+        this.daoareas = new DAOAreas(this.conexion, this.fachadaAplicacion);
     }
 
     /*
