@@ -56,8 +56,8 @@ public class vNovaIncidencia extends AbstractController implements Initializable
             areaActual.expandedProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if (!newValue)return;
                     TreeItem t = (TreeItem) ((BooleanProperty) observable).getBean();
-
                     t.getChildren().removeAll(t.getChildren());
                     area.setMateriais(getFachadaAplicacion().listarMateriais(area));
                     for (Material m : area.getMateriais()) {
