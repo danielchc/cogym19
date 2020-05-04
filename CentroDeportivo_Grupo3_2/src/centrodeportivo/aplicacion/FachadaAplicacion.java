@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
@@ -353,11 +354,12 @@ public class FachadaAplicacion extends Application {
     /**
      * Método que nos permite levar a cabo a activación dun curso:
      * @param curso Os datos do curso que se quere activar.
+     * @param responsable A persoa que foi responsable de abrir o curso.
      * @return O resultado da operación
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
-    public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
-        return xestionCursos.activarCurso(curso);
+    public TipoResultados activarCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
+        return xestionCursos.activarCurso(curso, responsable);
     }
 
     /*

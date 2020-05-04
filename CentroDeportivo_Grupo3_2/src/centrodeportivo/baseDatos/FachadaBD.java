@@ -10,6 +10,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.io.FileInputStream;
@@ -40,7 +41,6 @@ public final class FachadaBD {
     private DAOTiposActividades daoActividades;
     private DAOTiposActividades daoTiposActividades;
     private DAOCursos daoCursos;
-    private DAOMensaxes daoMensaxes;
     private DAOAreas daoareas;
     private DAOActividade daoActividade;
 
@@ -95,7 +95,6 @@ public final class FachadaBD {
         this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
         this.daoActividades = new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
         this.daoCursos = new DAOCursos(this.conexion, this.fachadaAplicacion);
-        this.daoMensaxes = new DAOMensaxes(this.conexion, this.fachadaAplicacion);
         this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
         this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
         this.daoTiposActividades = new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
@@ -126,15 +125,7 @@ public final class FachadaBD {
         //Chamamos ao método do dao correspondente.
         return daoUsuarios.consultarUsuario(login);
     }
-
-    /*
-        Funcions DAOMensaxes
-     */
-
-    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD {
-        daoMensaxes.enviarAvisoSocios(mensaxe);
-    }
-
+    
     /*
         Funcións DAOInstalacions
      */
@@ -298,8 +289,14 @@ public final class FachadaBD {
         daoCursos.engadirActividade(curso, actividade);
     }
 
-    public void abrirCurso(Curso curso) throws ExcepcionBD {
-        daoCursos.abrirCurso(curso);
+    /**
+     * Método que nos permite levar a cabo a activación dun curso:
+     * @param curso Os datos do curso que se quere activar.
+     * @param responsable A persoa que foi responsable de abrir o curso.
+     * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
+     */
+    public void abrirCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
+        daoCursos.abrirCurso(curso, responsable);
     }
 
     public void cancelarCurso(Curso curso) throws ExcepcionBD {

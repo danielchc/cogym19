@@ -205,7 +205,7 @@ CREATE TABLE realizarCurso(
 CREATE TABLE enviarMensaxe(
 	emisor		VARCHAR(25) NOT NULL,
 	receptor	VARCHAR(25) NOT NULL,
-	dataEnvio 	TIMESTAMP 	NOT NULL,
+	dataEnvio 	TIMESTAMP 	NOT NULL DEFAULT NOW(),
 	contido 	VARCHAR(500) NOT NULL,
 	lido		BOOLEAN	DEFAULT FALSE,
 	PRIMARY KEY (emisor,receptor,dataEnvio),

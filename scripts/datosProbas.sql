@@ -614,7 +614,6 @@ INSERT INTO realizarcurso (curso, usuario) VALUES (4, 'nataliaSocio');
 INSERT INTO realizarcurso (curso, usuario) VALUES (4, 'teresaSocio');
 INSERT INTO realizarcurso (curso, usuario) VALUES (5, 'pedroSocio');
 INSERT INTO realizarcurso (curso, usuario) VALUES (5, 'teresaSocio');
-
 ------------------SOCIO->ACTIVIDADE-------------------
 
 INSERT INTO realizaractividade VALUES ('2020-05-01 18:00:00.00',1,1,'sergioSocio',NULL);

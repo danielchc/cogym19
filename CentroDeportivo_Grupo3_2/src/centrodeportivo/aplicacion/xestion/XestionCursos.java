@@ -3,6 +3,7 @@ package centrodeportivo.aplicacion.xestion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
@@ -90,14 +91,15 @@ public class XestionCursos {
     /**
      * Método que nos permite levar a cabo a activación dun curso:
      * @param curso Os datos do curso que se quere activar.
+     * @param responsable A persoa que foi responsable de abrir o curso.
      * @return O resultado da operación
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
-    public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
+    public TipoResultados activarCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
         //Primeiro haberá que comprobar que cumple as condicións para poder ser activado:
         if(fachadaBD.listoParaActivar(curso)){
             //Neste caso faremos a activación:
-            fachadaBD.abrirCurso(curso);
+            fachadaBD.abrirCurso(curso, responsable);
             //Se se chega a este punto, devolvemos un tipo de resultado correcto:
             return TipoResultados.correcto;
         } else {

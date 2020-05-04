@@ -2,6 +2,7 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -166,9 +167,18 @@ public final class DAOCursos extends AbstractDAO{
         }
     }
 
-    public void abrirCurso(Curso curso) throws ExcepcionBD {
+    /**
+     * Método que nos permite levar a cabo a activación dun curso:
+     * @param curso Os datos do curso que se quere activar.
+     * @param responsable A persoa que foi responsable de abrir o curso.
+     * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
+     */
+    public void abrirCurso(Curso curso, Persoal responsable) throws ExcepcionBD {
         //Introduciremos que o curso está aberto para que a xente poida comezar a rexistrarse nel:
         PreparedStatement stmCursos = null;
+        PreparedStatement stmMensaxes = null;
+        PreparedStatement stmUsuarios = null;
+        ResultSet rsUsuarios = null;
         Connection con;
 
         //Recuperamos a conexión:
@@ -176,17 +186,44 @@ public final class DAOCursos extends AbstractDAO{
 
         //Intentamos levar a cabo a apertura do curso:
         try {
+            //Facemos un update, poñendo a condición de apertura a true:
             stmCursos = con.prepareStatement("UPDATE curso" +
                     " SET aberto = ?" +
                     " WHERE codcurso = ?");
-            //Establecemos os valores dos campos con ?
+            //Establecemos os valores dos campos con ?:
             stmCursos.setBoolean(1,true);
             stmCursos.setInt(2, curso.getCodCurso());
 
             //Intentase realizar a actualización:
             stmCursos.executeUpdate();
 
-            //Rematado isto, faise o commit:
+            //Se se consigue facer isto, entón é o momento de enviar un aviso aos socios da apertura do curso:
+            Mensaxe mensaxe = new Mensaxe(responsable, "Novo curso " + curso.getNome() + " aberto a inscricións!" +
+                    " Apurade a apuntarvos antes de que sexa demasiado tarde!");
+
+            //Primeiro consultamos os login de todos os socios:
+            stmUsuarios = con.prepareStatement("SELECT login FROM socio");
+            //Non precisamos pasarlle nada, posto que simplemente queremos recuperar os socios todos:
+            rsUsuarios = stmUsuarios.executeQuery();
+
+            //Imos preparando xa a inserción na táboa de mensaxes:
+            stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido)" +
+                    " VALUES (?, ?, ?, ?)");
+
+            //Establecemos o emisor, o contido e o lido porque non varían.
+            stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
+            stmMensaxes.setString(3, mensaxe.getContido());
+            stmMensaxes.setBoolean(4, false);
+
+            //Imos recuperando todos os resultados e, ao mesmo tempo, enviando as mensaxes:
+            while(rsUsuarios.next()){
+                //Poñemos agora como parámetro da consulta un dos logins recibidos:
+                stmMensaxes.setString(2,rsUsuarios.getString("login"));
+                //Executamos entón a actualización:
+                stmMensaxes.executeUpdate();
+            }
+
+            //Rematado isto, podemos poñer o commit: ou se fai ou non se fai todas as cousas
             con.commit();
 
         } catch(SQLException e){
