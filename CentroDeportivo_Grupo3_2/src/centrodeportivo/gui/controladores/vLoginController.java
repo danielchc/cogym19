@@ -3,7 +3,6 @@ package centrodeportivo.gui.controladores;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

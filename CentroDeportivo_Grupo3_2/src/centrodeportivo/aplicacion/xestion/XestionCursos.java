@@ -3,12 +3,10 @@ package centrodeportivo.aplicacion.xestion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
-import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**

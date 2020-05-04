@@ -1,7 +1,6 @@
 package centrodeportivo.gui.controladores;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
-import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 /**
  * @author Manuel Bendaña

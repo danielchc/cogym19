@@ -56,30 +56,4 @@ public abstract class Criptografia {
         return hexString.toString();
     }
 
-    /**
-     * Método que nos permite encriptar o arquivo properties.
-     * @param text array a encriptar
-     * @return array encriptado
-     * @throws Exception Excepcións que poden ocorrer como resultado da encriptación.
-     */
-    public static byte[] encriptar(byte[] text) throws Exception {
-        SecretKey myDesKey = new SecretKeySpec(key.getBytes(), "AES");
-        Cipher desCipher = Cipher.getInstance("AES");
-        desCipher.init(Cipher.ENCRYPT_MODE, myDesKey);
-        return desCipher.doFinal(text);
-    }
-
-    /**
-     * Método para desencriptar o arquivo properties. Necesario para poder obter os datos dende a apliación.
-     * @param text array a desencriptar
-     * @return array desencriptado
-     * @throws Exception Excepcións que poden ocorrer ao tentar desencriptar.
-     */
-    public static byte[] desencriptar(byte[] text) throws Exception {
-        SecretKey myDesKey = new SecretKeySpec(key.getBytes(), "AES");
-        Cipher desCipher = Cipher.getInstance("AES");
-        desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
-        return desCipher.doFinal(text);
-    }
-
 }

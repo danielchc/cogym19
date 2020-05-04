@@ -1,6 +1,5 @@
 package centrodeportivo.aplicacion.xestion;
 
-import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.funcionsAux.Criptografia;

@@ -1,7 +1,6 @@
 package centrodeportivo.gui.controladores;
 
 import javafx.animation.TranslateTransition;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 

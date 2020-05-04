@@ -8,11 +8,11 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class vAdministrarActiviadeController extends AbstractController implements Initializable {
+public class vAdministrarActividadeController extends AbstractController implements Initializable {
 
     private vPrincipalController controllerPrincipal;
 
-    public vAdministrarActiviadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+    public vAdministrarActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }

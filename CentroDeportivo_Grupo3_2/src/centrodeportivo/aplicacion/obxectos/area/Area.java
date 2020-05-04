@@ -1,6 +1,5 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
-import javax.management.InstanceAlreadyExistsException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -10,9 +9,9 @@ import java.util.Objects;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- * <p>
+ *
  * Clase xeral para almacenar información de Area.
- * Incorporanse distintos construtres coa finalidade de que poida atender as distintas
+ * Incorporanse distintos construtores coa finalidade de que poida atender as distintas
  * finalidades de xestión, incluso cando a información recuperada da area non sexa completa.
  */
 public class Area {

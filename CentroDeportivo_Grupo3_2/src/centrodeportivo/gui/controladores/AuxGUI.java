@@ -1,14 +1,8 @@
 package centrodeportivo.gui.controladores;
 
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import javafx.scene.Node;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
 
 /**
  * @author Manuel Bendaña

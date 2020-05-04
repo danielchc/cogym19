@@ -1,7 +1,5 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
-import javafx.fxml.Initializable;
-
 import java.sql.Date;
 
 // Clase que almacenará información sobre o material
