@@ -70,7 +70,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codTipoMaterial"));
         // A segunda columna terá o nome do tipo:
         TableColumn<TipoMaterial, String> colNome = new TableColumn<>("Nome");
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nomeTipoMaterial"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
         // Engadimos as columnas a táboa:
         taboaTipoMaterial.getColumns().addAll(colCodigo, colNome);

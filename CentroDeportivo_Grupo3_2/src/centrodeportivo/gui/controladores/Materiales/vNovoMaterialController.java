@@ -81,12 +81,12 @@ public class vNovoMaterialController extends AbstractController implements Initi
     }
 
     /**
-     * Método que se executa cando se preme o botón asociado a xestionar unha instalación seleccionada.
+     * Método que se executa cando se preme o botón asociado a xestionar os tipos de materiais
      *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnXestionarAction(ActionEvent actionEvent) {
-        // Feito iso, facemos que sexa visible a ventá para a xestión
+        // Facemos que sexa visible a ventá de administrar os tipos de materiais:
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOMATERIAL);
     }
 
