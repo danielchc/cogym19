@@ -75,7 +75,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         // Engadimos as columnas a táboa:
         taboaTipoMaterial.getColumns().addAll(colCodigo, colNome);
         // Engadimos os items a táboa:
-        taboaTipoMaterial.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        taboaTipoMaterial.getItems().addAll(super.getFachadaAplicacion().buscarTipoMaterial(null));
         // Establecemos unha selección sobre a táboa no caso de que haxa resultados:
         taboaTipoMaterial.getSelectionModel().selectFirst();
     }
