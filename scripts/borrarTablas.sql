@@ -35,3 +35,22 @@ DROP TABLE IF EXISTS persoal;
 DROP TABLE IF EXISTS socio;
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS tarifa;
+
+CREATE OR REPLACE FUNCTION borrarSecuencias() RETURNS void AS $$
+	DECLARE
+		tr RECORD;
+	BEGIN
+		FOR tr IN
+			SELECT * FROM pg_class WHERE relkind = 'S' AND (relname LIKE 'secuencia\_material\_%' OR relname LIKE 'secuencia\_area\_%')
+		LOOP
+			RAISE NOTICE 'Borrar secuencia: %','DROP SEQUENCE IF EXISTS ' || tr.relname;
+			EXECUTE 'DROP SEQUENCE IF EXISTS ' || tr.relname;
+		END LOOP;
+	END;
+$$ LANGUAGE plpgsql;
+
+DO $$ BEGIN
+    PERFORM borrarSecuencias();
+END $$;
+
+DROP FUNCTION IF EXISTS borrarSecuencias();

@@ -275,7 +275,7 @@ CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
 			INSERT INTO realizarActividade(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
 		END LOOP;
 		RETURN NEW;
-END;
+	END;
 $$ LANGUAGE plpgsql;
 
 
