@@ -1,6 +1,6 @@
 CREATE TABLE tarifa(
 	codTarifa 		SERIAL NOT NULL,
-	nome 			VARCHAR(50) NOT NULL UNIQUE,
+	nome 			VARCHAR(50) NOT NULL,
 	maxActividades 	SMALLINT CHECK(maxActividades>=0) NOT NULL ,
 	precioBase 		DECIMAL NOT NULL,
 	precioExtra 	DECIMAL NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE persoaFisica(
 
 CREATE TABLE instalacion(
 	codInstalacion 	SERIAL NOT NULL,
-	nome 			VARCHAR(50) NOT NULL UNIQUE,
+	nome 			VARCHAR(50) NOT NULL,
 	numTelefono 	CHAR(9) NOT NULL,
 	direccion 		VARCHAR(200) NOT NULL,
 	PRIMARY KEY (codInstalacion)
@@ -95,14 +95,14 @@ CREATE TABLE material(
 
 CREATE TABLE tipoActividade(
 	codTipoActividade 	SERIAL NOT NULL,
-	nome				VARCHAR(50) UNIQUE NOT NULL,
+	nome				VARCHAR(50) NOT NULL,
 	descricion			VARCHAR(200),
 	PRIMARY KEY (codTipoActividade)
 );
 
 CREATE TABLE curso(
 	codCurso	SERIAL NOT NULL,
-	nome		VARCHAR(50) UNIQUE,
+	nome		VARCHAR(50),
 	descricion	VARCHAR(200),
 	prezo		DECIMAL	NOT NULL CHECK (prezo>=0),
 	aberto		BOOLEAN NOT NULL DEFAULT false,
@@ -147,7 +147,6 @@ CREATE TABLE incidenciaMaterial(
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
 CREATE TABLE incidenciaArea(
 	numero 			SERIAL NOT NULL,
 	area			INT	NOT NULL,
@@ -164,7 +163,6 @@ CREATE TABLE incidenciaArea(
 	FOREIGN KEY (area,instalacion) REFERENCES area(codArea,instalacion) 
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 
 CREATE TABLE rexistroFisioloxico(
 	socio			VARCHAR(25) NOT NULL,
@@ -353,8 +351,14 @@ CREATE TRIGGER engadir_secuencia_area BEFORE INSERT ON area FOR EACH ROW EXECUTE
 CREATE TRIGGER crear_secuencia_material AFTER INSERT ON tipoMaterial FOR EACH ROW EXECUTE PROCEDURE crearSecuenciaMaterial();
 CREATE TRIGGER engadir_secuencia_material BEFORE INSERT ON material FOR EACH ROW EXECUTE PROCEDURE engadirSecuenciaMaterial();
 
-
 CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
 
 ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor));
 
+
+CREATE UNIQUE INDEX IF NOT EXISTS login_minusculas ON usuario((LOWER(login)));
+CREATE UNIQUE INDEX IF NOT EXISTS tarifa_minusculas ON tarifa((LOWER(nome)));
+CREATE UNIQUE INDEX IF NOT EXISTS instalacion_minusculas ON instalacion((LOWER(nome)));
+CREATE UNIQUE INDEX IF NOT EXISTS tipoMaterial_minusculas ON tipoMaterial((LOWER(nome)));
+CREATE UNIQUE INDEX IF NOT EXISTS tipoActividade_minusculas ON tipoActividade((LOWER(nome)));
+CREATE UNIQUE INDEX IF NOT EXISTS curso_minusculas ON curso((LOWER(nome)));
