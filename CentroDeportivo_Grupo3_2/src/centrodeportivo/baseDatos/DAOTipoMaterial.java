@@ -3,6 +3,9 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -205,6 +208,60 @@ public final class DAOTipoMaterial extends AbstractDAO {
             // Procesamos os resultados obtidos da consulta:
             while (rsTipoMaterial.next()) {
                 // Imos engadindo cada tipo de material o ArrayList que devolveremos:
+                tiposMateriais.add(new TipoMaterial(rsTipoMaterial.getInt(1), rsTipoMaterial.getString(2)));
+            }
+
+            // Facemos un commit para rematar:
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Tentamos pechar o statement:
+            try {
+                assert stmTipoMaterial != null;
+                stmTipoMaterial.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return tiposMateriais;
+
+    }
+
+    /**
+     * Método que nos permite listar todos os tipos de materiais da base de datos.
+     *
+     * @return Listaranse todos os tipos de materiais
+     */
+    public ObservableList<TipoMaterial> listarTiposMateriais() {
+        ObservableList<TipoMaterial> tiposMateriais = FXCollections.observableArrayList();
+        PreparedStatement stmTipoMaterial = null;
+        ResultSet rsTipoMaterial;
+        Connection con;
+
+        // Recuperamos a conexión coa base de datos
+        con = super.getConexion();
+
+        // Preparamos a consulta
+        try {
+            String consultaTipoMaterial = "SELECT * FROM tipoMaterial";
+
+            // Ordenaremos o resultado en función do codigo
+            consultaTipoMaterial += " ORDER BY codtipomaterial ";
+
+            stmTipoMaterial = con.prepareStatement(consultaTipoMaterial);
+
+            // Executamos a consulta
+            rsTipoMaterial = stmTipoMaterial.executeQuery();
+
+            // Procesamos os resultados obtidos da consulta:
+            while (rsTipoMaterial.next()) {
+                // Imos engadindo cada tipo de material o ObservableList que devolveremos:
                 tiposMateriais.add(new TipoMaterial(rsTipoMaterial.getInt(1), rsTipoMaterial.getString(2)));
             }
 

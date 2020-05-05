@@ -14,6 +14,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
@@ -202,20 +203,22 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
+     *
      * @param mensaxe A mensaxe a transmitir
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD{
+    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD {
         xestionMensaxes.enviarAvisoSocios(mensaxe);
     }
 
     /**
      * Método que nos permite enviar un aviso aos socios dun curso determinado.
+     *
      * @param mensaxe A mensaxe que se vai a enviar aos socios.
-     * @param curso O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @param curso   O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD{
+    public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
         xestionMensaxes.enviarAvisoSociosCurso(mensaxe, curso);
     }
 
@@ -277,6 +280,15 @@ public class FachadaAplicacion extends Application {
      */
     public Instalacion consultarInstalacion(Instalacion instalacion) {
         return xestionInstalacions.consultarInstalacion(instalacion);
+    }
+
+    /**
+     * Método que lista todas as instalacións da base de datos
+     *
+     * @return Devolve un listado cas instalacions
+     */
+    public ObservableList<Instalacion> listarInstalacions() {
+        return fachadaBD.listarInstalacions();
     }
 
     /*
@@ -345,6 +357,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite introducir os datos dun novo curso na base de datos.
+     *
      * @param curso O curso a insertar
      * @return O resultado da operación
      * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
@@ -355,6 +368,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite realizar modificacións na información xeral dun curso determinado.
+     *
      * @param curso O curso do que se quere modificar a información, cos datos modificados.
      * @return O resultado da operación realizada.
      * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
@@ -365,7 +379,8 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite cancelar un curso, e polo tanto borrar a súa información da base de datos.
-     * @param curso O curso que se quere borrar.
+     *
+     * @param curso   O curso que se quere borrar.
      * @param mensaxe A mensaxe que se envía aos participantes polo borrado.
      * @return O resultado da operación
      * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
@@ -376,6 +391,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     *
      * @param curso Curso polo que se realiza a busca.
      * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
      */
@@ -386,6 +402,7 @@ public class FachadaAplicacion extends Application {
     /**
      * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
      * máis información todavía.
+     *
      * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
      * @return Datos completos do curso procurado.
      */
@@ -399,6 +416,7 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite levar a cabo a activación dun curso:
+     *
      * @param curso Os datos do curso que se quere activar.
      * @return O resultado da operación
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
@@ -420,6 +438,10 @@ public class FachadaAplicacion extends Application {
 
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return xestionTipoMaterial.buscarTipoMaterial(tipoMaterial);
+    }
+
+    public ObservableList<TipoMaterial> listarTiposMateriais() {
+        return xestionTipoMaterial.listarTiposMateriais();
     }
 
     /*
@@ -444,7 +466,7 @@ public class FachadaAplicacion extends Application {
 
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
         System.out.println("en fachada aplicacion " + area.getNome());
-        System.out.println(xestionArea==null);
+        System.out.println(xestionArea == null);
         return xestionArea.EngadirArea(area);
     }
 

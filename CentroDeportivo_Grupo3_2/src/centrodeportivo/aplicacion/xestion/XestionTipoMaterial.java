@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,10 @@ public class XestionTipoMaterial {
 
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return fachadaBD.buscarTipoMaterial(tipoMaterial);
+    }
+
+    public ObservableList<TipoMaterial> listarTiposMateriais(){
+        return fachadaBD.lsitarTiposMateriais();
     }
 
 }
