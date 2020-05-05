@@ -4,6 +4,9 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 
 public final class DAOAreas extends AbstractDAO {
 
-    public DAOAreas(Connection conexion, FachadaAplicacion fachadaAplicacion){
+    public DAOAreas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion, fachadaAplicacion);
     }
 
@@ -36,13 +39,13 @@ public final class DAOAreas extends AbstractDAO {
             //Facemos a consulta:
             rsAreas = stmAreas.executeQuery();
 
-            if(rsAreas.next()) {
+            if (rsAreas.next()) {
                 if ((rsAreas.getInt(1) == area.getInstalacion().getCodInstalacion()) && (rsAreas.getInt(2) == area.getCodArea()))
                     return true;
             }
             return false; //Dado que non existe dita area na base de datos
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -88,7 +91,7 @@ public final class DAOAreas extends AbstractDAO {
             rsAreas = stmAreas.executeQuery();
 
             //Feita a consulta, recuperamos o valor:
-            if(rsAreas.next()) {
+            if (rsAreas.next()) {
                 area.setCodArea(rsAreas.getInt(1));
             }
 
@@ -96,7 +99,7 @@ public final class DAOAreas extends AbstractDAO {
             con.commit();
             return 0;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -109,7 +112,7 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public int borrarArea (Area area) throws ExcepcionBD {
+    public int borrarArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -118,7 +121,7 @@ public final class DAOAreas extends AbstractDAO {
         con = super.getConexion();
 
         //Preparamos o borrado:
-        try{
+        try {
             stmAreas = con.prepareStatement("SELECT area " +
                     " FROM actividade " +
                     " WHERE area = ? and instalacion = ? ");
@@ -129,7 +132,7 @@ public final class DAOAreas extends AbstractDAO {
             //Facemos a consulta:
             rsAux = stmAreas.executeQuery();
 
-            if(!rsAux.next()) {
+            if (!rsAux.next()) {
                 stmAreas = con.prepareStatement("SELECT area " +
                         " FROM material " +
                         " WHERE area = ? and instalacion = ? ");
@@ -140,7 +143,7 @@ public final class DAOAreas extends AbstractDAO {
                 //Facemos a consulta:
                 rsAux = stmAreas.executeQuery();
 
-                if(!rsAux.next()) {
+                if (!rsAux.next()) {
                     stmAreas = con.prepareStatement("DELETE FROM area " +
                             " WHERE codarea = ? and codinstalacion = ?");
                     stmAreas.setInt(1, area.getCodArea());
@@ -156,12 +159,12 @@ public final class DAOAreas extends AbstractDAO {
             }
             return 1; //Devolvemos un 1 dado que hai algunha actividade neste area
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos unha das nosas excepcións propias:
             throw new ExcepcionBD(con, e);
         } finally {
             //Pechamos o statement para rematar.
-            try{
+            try {
                 stmAreas.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
@@ -169,7 +172,7 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public int modificarArea (Area area) throws ExcepcionBD {
+    public int modificarArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -221,13 +224,13 @@ public final class DAOAreas extends AbstractDAO {
             try {
                 //Tentamos pechar o statement usado nesta actualización:
                 stmAreas.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
     }
 
-    public int darDeBaixaArea (Area area) throws ExcepcionBD {
+    public int darDeBaixaArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -238,7 +241,7 @@ public final class DAOAreas extends AbstractDAO {
         con = super.getConexion();
 
         //Preparamos a modificación:
-        try{
+        try {
             stmAreas = con.prepareStatement("SELECT area " +
                     " FROM actividade " +
                     " WHERE area = ? and instalacion = ? ");
@@ -248,7 +251,7 @@ public final class DAOAreas extends AbstractDAO {
             //Facemos a consulta:
             rsAux = stmAreas.executeQuery();
 
-            if(!rsAux.next()) {
+            if (!rsAux.next()) {
                 stmAreas = con.prepareStatement("SELECT area " +
                         " FROM material " +
                         " WHERE area = ? and instalacion = ? ");
@@ -259,7 +262,7 @@ public final class DAOAreas extends AbstractDAO {
                 //Facemos a consulta:
                 rsAux = stmAreas.executeQuery();
 
-                if(!rsAux.next()) {
+                if (!rsAux.next()) {
                     stmAreas = con.prepareStatement("UPDATE area " +
                             " SET databaixa = ? " +
                             " WHERE codarea = ? and instalacion = ? ");
@@ -286,13 +289,13 @@ public final class DAOAreas extends AbstractDAO {
             try {
                 //Tentamos pechar o statement usado nesta actualización:
                 stmAreas.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
     }
 
-    public int darDeAltaArea (Area area) throws ExcepcionBD {
+    public int darDeAltaArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -303,7 +306,7 @@ public final class DAOAreas extends AbstractDAO {
         con = super.getConexion();
 
         //Preparamos a modificación:
-        try{
+        try {
             stmAreas = con.prepareStatement("SELECT codarea , instalacion" +
                     " FROM area " +
                     " WHERE codarea = ? and codinstalacion = ?");
@@ -341,13 +344,13 @@ public final class DAOAreas extends AbstractDAO {
             try {
                 //Tentamos pechar o statement usado nesta actualización:
                 stmAreas.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
     }
 
-    public boolean EBaixaArea (Area area) throws ExcepcionBD {
+    public boolean EBaixaArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -358,7 +361,7 @@ public final class DAOAreas extends AbstractDAO {
         con = super.getConexion();
 
         //Preparamos a modificación:
-        try{
+        try {
             stmAreas = con.prepareStatement("SELECT instalacion, codarea " +
                     " FROM area " +
                     " WHERE codarea = ? and codinstalacion = ? and databaixa is null");
@@ -383,15 +386,14 @@ public final class DAOAreas extends AbstractDAO {
             try {
                 //Tentamos pechar o statement usado nesta actualización:
                 stmAreas.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
     }
 
 
-
-    public ArrayList<Area> listarAreas(){
+    public ArrayList<Area> listarAreas() {
         ArrayList<Area> areas = new ArrayList<>();
 
         PreparedStatement stmAreas = null;
@@ -402,7 +404,7 @@ public final class DAOAreas extends AbstractDAO {
         con = super.getConexion();
 
         //Preparamos a consulta:
-        try{
+        try {
             stmAreas = con.prepareStatement("SELECT codarea, instalacion, nome, descricion, aforomaximo, databaixa " +
                     "FROM area");
 
@@ -410,31 +412,31 @@ public final class DAOAreas extends AbstractDAO {
             rsAreas = stmAreas.executeQuery();
 
             //Recibida a consulta, procesámola:
-            while(rsAreas.next()){
+            while (rsAreas.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
-                areas.add(new Area(rsAreas.getInt(2),new Instalacion(rsAreas.getInt(1)),
+                areas.add(new Area(rsAreas.getInt(2), new Instalacion(rsAreas.getInt(1)),
                         rsAreas.getString(3), rsAreas.getString(4), rsAreas.getInt(5), rsAreas.getDate(6)));
             }
             con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } finally {
             //Intentamos pechar o statement:
-            try{
+            try {
                 stmAreas.close();
-            } catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
         return areas;
     }
 
-    public ArrayList<Area> buscarAreas(Area area){
+    public ArrayList<Area> buscarAreas(Area area) {
         //Usaremos un ArrayList para almacenar unha nova area:
         ArrayList<Area> areas = new ArrayList<>();
 
@@ -446,7 +448,7 @@ public final class DAOAreas extends AbstractDAO {
         con = super.getConexion();
 
         //Preparamos a consulta:
-        try{
+        try {
             stmAreas = con.prepareStatement("SELECT codArea, instalacion, nome, describn, aforomaxiom, databaixa" +
                     " FROM area " +
                     " WHERE nome like ? ");
@@ -458,17 +460,17 @@ public final class DAOAreas extends AbstractDAO {
             rsAreas = stmAreas.executeQuery();
 
             //Recibida a consulta, procesámola:
-            while(rsAreas.next()){
+            while (rsAreas.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
-                areas.add(new Area(rsAreas.getInt(2),new Instalacion(rsAreas.getInt(1)),
+                areas.add(new Area(rsAreas.getInt(2), new Instalacion(rsAreas.getInt(1)),
                         rsAreas.getString(3), rsAreas.getString(4), rsAreas.getInt(5), rsAreas.getDate(6)));
             }
             con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } finally {
@@ -482,4 +484,76 @@ public final class DAOAreas extends AbstractDAO {
         return areas;
     }
 
+
+    /**
+     * Método que nos permite buscar areas na base de datos en función dunha instalación.
+     *
+     * @param instalacion Se non é null, a consulta realizase en base o codigo da area.
+     * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
+     * noutro caso, listaranse todas as areas.
+     */
+    public ObservableList<Area> listarAreasInstalacion(Instalacion instalacion) {
+        ObservableList<Area> areas = FXCollections.observableArrayList();
+        PreparedStatement stmArea = null;
+        ResultSet rsArea;
+        Connection con;
+
+        // Recuperamos a conexión:
+        con = super.getConexion();
+
+        // Preparamos a consulta:
+        try {
+            String consultaArea = "SELECT codarea, instalacion, nome, descricion, aforomaximo, databaixa " +
+                    "FROM area";
+
+
+            // Comprobaremos se estamos a pasar un tipo nulo e xestionaremolo en función do caso:
+            if (instalacion != null) {
+                consultaArea += " WHERE instalacion = ? ";
+            }
+
+            // Ordenaremos o resultado en función do codigo
+            consultaArea += " ORDER BY codArea ";
+
+            stmArea = con.prepareStatement(consultaArea);
+
+            // Completamos a consulta no caso de que o tipo de material non sexa nulo:
+            if (instalacion != null) {
+                // Establecese o nome do tipo como parametro
+                stmArea.setInt(1, instalacion.getCodInstalacion());
+            }
+
+            // Executamos a consulta
+            rsArea = stmArea.executeQuery();
+
+            // Procesamos os datos obtidos da consulta:
+            while (rsArea.next()) {
+                // Imos engadindo ao ObservableList do resultado cada area consultada:
+                areas.add(new Area(rsArea.getInt(2), new Instalacion(rsArea.getInt(1)),
+                        rsArea.getString(3), rsArea.getString(4), rsArea.getInt(5), rsArea.getDate(6)));
+            }
+
+            // Facemos un commit para rematar:
+            con.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Intentamos pechar o statement:
+            try {
+                assert stmArea != null;
+                stmArea.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return areas;
+    }
 }
+
+
