@@ -62,8 +62,8 @@ CREATE TABLE instalacion(
 CREATE TABLE area(
 	codArea 	INT NOT NULL,
 	instalacion INT NOT NULL,
-	nome		VARCHAR(50),
-	descricion 	VARCHAR(200) NOT NULL,
+	nome		VARCHAR(50) NOT NULL,
+	descricion 	VARCHAR(200),
 	aforoMaximo INT NOT NULL CHECK (aforoMaximo>0),
 	dataBaixa 	DATE,
 	PRIMARY KEY (codArea,instalacion),
