@@ -11,6 +11,8 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
+import javafx.beans.binding.ObjectExpression;
+import javafx.collections.ObservableList;
 
 import java.io.FileInputStream;
 import java.sql.*;
@@ -51,34 +53,34 @@ public final class FachadaBD {
      * @throws ExcepcionBD excepción asociada a problemas relativos á base de datos.
      */
     public FachadaBD(FachadaAplicacion fachadaAplicacion) throws ExcepcionBD {
-        //Para empezar, asociaremos a fachada de aplicación ao atributo correspondente:
+        // Para empezar, asociaremos a fachada de aplicación ao atributo correspondente:
         this.fachadaAplicacion = fachadaAplicacion;
-        //Creamos o atributo de tipo properties para gardar toda a información para a configuración.
+        // Creamos o atributo de tipo properties para gardar toda a información para a configuración.
         Properties configuracion = new Properties();
         FileInputStream prop;
 
         try {
-            //Cargamos os datos incluidos no .properties.
+            // Cargamos os datos incluidos no .properties.
             prop = new FileInputStream("baseDatos.properties");
             configuracion.load(prop);
             prop.close();
         } catch (Exception ex) {
-            //En caso de problemas ao desencriptar o cifrado, avisamos e saímos:
-            //O aviso farase tanto por ventá:
+            // En caso de problemas ao desencriptar o cifrado, avisamos e saímos:
+            // O aviso farase tanto por ventá:
             fachadaAplicacion.mostrarErro("Carga do arquivo de configuración",
                     "Non se puido cargar o arquivo de configuración da base de datos");
-            //Coma por texto:
+            // Coma por texto:
             System.out.println("Non se puido cargar o arquivo properties");
             System.exit(1);
         }
 
-        //A partir da información lida imos ir asociando as propiedades ao usuario para o acceso á BD:
+        // A partir da información lida imos ir asociando as propiedades ao usuario para o acceso á BD:
         Properties usuario = new Properties();
-        //Nome de usuario da base de datos:
+        // Nome de usuario da base de datos:
         usuario.setProperty("user", configuracion.getProperty("usuario"));
-        //Clave do usuario
+        // Clave do usuario
         usuario.setProperty("password", configuracion.getProperty("clave"));
-        //Creamos o string para poder solicitar a conexión coa base de datos:
+        // Creamos o string para poder solicitar a conexión coa base de datos:
         String con = String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"), configuracion.getProperty("servidor"), configuracion.getProperty("puerto"), configuracion.getProperty("baseDatos"));
         try {
             //Tentamos establecer a conexión:
@@ -138,17 +140,19 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
+     *
      * @param mensaxe A mensaxe a transmitir
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD{
+    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD {
         daoMensaxes.enviarAvisoSocios(mensaxe);
     }
 
     /**
      * Método que nos permite enviar un aviso aos socios dun curso determinado.
+     *
      * @param mensaxe A mensaxe que se vai a enviar aos socios.
-     * @param curso O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @param curso   O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
     public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
@@ -231,6 +235,16 @@ public final class FachadaBD {
      */
     public boolean tenAreas(Instalacion instalacion) {
         return daoInstalacions.tenAreas(instalacion);
+    }
+
+
+    /**
+     * Método que lista todas as instalacións da base de datos
+     *
+     * @return Devolve un listado cas instalacions
+     */
+    public ObservableList<Instalacion> listarInstalacions() {
+        return daoInstalacions.listarInstalacions();
     }
 
     /*
@@ -322,6 +336,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite introducir os datos dun novo curso na base de datos.
+     *
      * @param curso O curso a insertar
      * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
      */
@@ -331,6 +346,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite realizar modificacións na información xeral dun curso determinado.
+     *
      * @param curso O curso do que se quere modificar a información, cos datos modificados.
      * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
      */
@@ -344,6 +360,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite levar a cabo a activación dun curso:
+     *
      * @param curso Os datos do curso que se quere activar.
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
@@ -353,7 +370,8 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite cancelar un curso, e polo tanto borrar a súa información da base de datos.
-     * @param curso O curso que se quere borrar.
+     *
+     * @param curso   O curso que se quere borrar.
      * @param mensaxe A mensaxe que se envía aos participantes polo borrado.
      * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
      */
@@ -395,6 +413,7 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite comprobar que non existe un curso rexistrado co mesmo nome
+     *
      * @param curso O curso que se quere validar
      * @return True se non existe outro curso diferente que teña o mesmo nome ca este, False noutro caso.
      */
@@ -404,6 +423,7 @@ public final class FachadaBD {
 
     /**
      * Método que permite comprobar se un curso ten participantes.
+     *
      * @param curso O curso para o que se quere validar dita información.
      * @return True se o curso ten participantes, False se non os ten.
      */
@@ -440,6 +460,10 @@ public final class FachadaBD {
 
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return this.daoTipoMaterial.buscarTipoMaterial(tipoMaterial);
+    }
+
+    public ObservableList<TipoMaterial> lsitarTiposMateriais() {
+        return this.daoTipoMaterial.listarTiposMateriais();
     }
 
     public boolean tenMateriais(TipoMaterial tipoMaterial) {

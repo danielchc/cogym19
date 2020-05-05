@@ -2,7 +2,12 @@ package centrodeportivo.aplicacion.obxectos.area;
 
 import java.sql.Date;
 
-// Clase que almacenará información sobre o material
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Victor Barreiro
+ * Clase que almacenará información sobre o material
+ */
 public class Material {
 
 
