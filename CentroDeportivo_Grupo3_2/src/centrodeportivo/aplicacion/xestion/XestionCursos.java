@@ -61,7 +61,7 @@ public class XestionCursos {
      */
     public TipoResultados modificarCurso(Curso curso) throws ExcepcionBD {
         //Comezamos comprobando se comezou o curso, posto que nese caso xa non deixaremos modificar a información principal:
-        if(curso.getDataInicio() == null || curso.getDataInicio().compareTo(new Date(System.currentTimeMillis())) > 0) {
+        if(curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis()))) {
             //Temos que verificar se o nome pertence a outro curso rexistrado na base de datos:
             if (!fachadaBD.comprobarExistencia(curso)) {
                 //Se non existe, como antes, poderemos facer a modificación:

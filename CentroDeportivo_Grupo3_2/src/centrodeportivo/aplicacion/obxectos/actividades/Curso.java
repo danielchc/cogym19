@@ -96,17 +96,17 @@ public class Curso {
         this.prezo = prezo;
     }
 
-    public Curso(Integer codCurso, String nome, String descricion, Float prezo){
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, Date dataInicio){
         this(nome, descricion, prezo);
         this.codCurso = codCurso;
+        this.dataInicio = dataInicio;
     }
 
     public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio){
-        this(codCurso, nome, descricion, prezo);
+        this(codCurso, nome, descricion, prezo, dataInicio);
         this.aberto = aberto;
         this.duracion = duracion;
         this.numActividades = numActividades;
-        this.dataInicio = dataInicio;
     }
 
     public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio,

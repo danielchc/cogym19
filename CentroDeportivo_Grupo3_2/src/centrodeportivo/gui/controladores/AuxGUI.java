@@ -53,4 +53,28 @@ public abstract class AuxGUI {
         }
     }
 
+    /**
+     * Método que nos permitirá poñer certos campos deshabilitados.
+     * @param nodes Os campos que se queren deshabilitar.
+     */
+    public static void inhabilitarCampos(Node...nodes){
+        //Para cada un dos nodos pasados faremos o seguinte:
+        for (Node n: nodes){
+            //Poñemolo deshabilitado:
+            n.setDisable(true);
+        }
+    }
+
+    /**
+     * Método que nos permitirá poñer os campos habilitados
+     * @param nodes Os campos que se queren rehabilitar.
+     */
+    public static void habilitarCampos(Node...nodes){
+        //Para cada un dos nodos pasados agora facemos o contrario ca no metodo anterior:
+        for(Node n: nodes){
+            //Habilitámolo de novo:
+            n.setDisable(false);
+        }
+    }
+
 }

@@ -217,8 +217,10 @@ public class vXestionCursoController extends AbstractController implements Initi
         taboaProfesores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
-        AuxGUI.ocultarCampos(btnActivar,btnBorrarActividade,btnEngadirActividade,btnModificarSeleccion,
-                btnCancelar,vBoxBotonInforme,vBoxDetalleInforme);
+        AuxGUI.inhabilitarCampos(btnActivar,btnBorrarActividade,btnEngadirActividade,btnModificarSeleccion,
+                btnCancelar);
+        //Deshabilitamos os vbox:
+        AuxGUI.ocultarCampos(vBoxBotonInforme, vBoxDetalleInforme);
 
         //Engadimos un listener no campo do prezo para controlar os valores introducidos:
         campoPrezo.textProperty().addListener(new ChangeListener<String>() {
@@ -288,7 +290,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                                         "Avisado a TODOS os socios");
                             }
                             //Desaactivamos o botón de activación do curso:
-                            AuxGUI.ocultarCampos(btnActivar);
+                            AuxGUI.inhabilitarCampos(btnActivar);
                             break;
                     }
                 } catch (ExcepcionBD excepcionBD) {
@@ -356,28 +358,25 @@ public class vXestionCursoController extends AbstractController implements Initi
             try{
                 //Creamos un novo curso para poder modificar: inda non sabemos se os cambios se poden efectuar e polo
                 //tanto actualizar o curso.
+                //Pasamos tamén a data de inicio para poder comprobar que se poidan modificar os datos:
                 Curso cursoModif = new Curso(curso.getCodCurso(), campoNome.getText(),
-                        campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
+                        campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()),
+                        curso.getDataInicio());
                 //Chamamos ao método que realiza a modificación:
                 TipoResultados res = getFachadaAplicacion().modificarCurso(cursoModif);
                 //En función do resultado, diferentes alternativas:
                 switch(res){
                     case datoExiste:
-                        //Se xa existía un curso co nome que se intentou cambiar, avísase e déixanse os campos orixinais.
+                        //Se xa existía un curso co nome que se intentou cambiar, avísase.
                         this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
                                 "Xa existe un curso co nome " + curso.getNome().toLowerCase());
-                        campoNome.setText(curso.getNome());
-                        campoDescricion.setText(curso.getDescricion());
-                        campoPrezo.setText(curso.getPrezo().toString());
                         break;
                     case foraTempo:
                         //Se non se cumpren os tempos para modificar, é dicir, o curso xa comezou, non deixaremos modificar
-                        //a información e faremos o análogo ao caso anterior cos campos:
+                        //a información e restauraremos os campos, dado que non se poden cambiar:
                         this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
                                 "Non se poden actualizar os datos, pois o curso xa comezou.");
-                        campoNome.setText(curso.getNome());
-                        campoDescricion.setText(curso.getDescricion());
-                        campoPrezo.setText(curso.getPrezo().toString());
+                        completarCamposPrincipais();
                         break;
                     case correcto:
                         //Se se puideron facer os cambios, entón os campos mantéñense e actualizamos o curso_
@@ -405,11 +404,8 @@ public class vXestionCursoController extends AbstractController implements Initi
                         break;
                 }
             } catch(ExcepcionBD excepcionBD){
-                //Mostramos o erro asociado e restauramos os campos da inserción:
+                //Mostramos o erro asociado:
                 this.getFachadaAplicacion().mostrarErro("Administración de Cursos", excepcionBD.getMessage());
-                campoNome.setText(curso.getNome());
-                campoDescricion.setText(curso.getDescricion());
-                campoPrezo.setText(curso.getPrezo().toString());
             }
         }
     }
@@ -437,7 +433,7 @@ public class vXestionCursoController extends AbstractController implements Initi
 
     /**
      * Método que representa as accións levadas a cabo ao premer o botón de cancelar.
-     * @param actionEvent
+     * @param actionEvent A acción que tivo lugar
      */
     public void btnCancelarAction(ActionEvent actionEvent) {
         //Tamén poderemos cancelar un curso, sempre e cando fora rexistrado:
@@ -484,23 +480,22 @@ public class vXestionCursoController extends AbstractController implements Initi
         }
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de limpado de campos:
+     * @param actionEvent A acción que tivo lugar
+     */
     public void btnLimparAction(ActionEvent actionEvent) {
         //O que faremos será vaciar automáticamente todos os campos:
         //Se temos un curso rexistrado xa, o que faremos será poñer os campos que lle corresponde:
         if(curso != null && curso.getCodCurso() != 0){
-            campoNome.setText(curso.getNome());
-            campoPrezo.setText(curso.getPrezo()+"");
-            campoDescricion.setText(curso.getDescricion());
+            completarCamposPrincipais();
         } else {
             //Se non, pasamos a vacialos:
-            campoNome.setText("");
-            campoPrezo.setText("");
-            campoDescricion.setText("");
+            AuxGUI.vaciarCamposTexto(campoNome, campoPrezo, campoDescricion);
         }
         //En ambos casos, ocultamos a etiqueta de campos obrigatorios:
-        tagObrigatorios.setVisible(false);
+        AuxGUI.ocultarCampos(tagObrigatorios);
     }
-
 
     /**
      * Setter do curso, co que prepararemos a pantalla para a configuración do curso pasado.
@@ -511,9 +506,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         this.curso = curso;
         //Teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
         campoCodigo.setText(curso.getCodCurso().toString());
-        campoNome.setText(curso.getNome());
-        campoDescricion.setText(curso.getDescricion());
-        campoPrezo.setText(curso.getPrezo().toString());
+        completarCamposPrincipais();
         //Enchemos a táboa de actividades:
         taboaActividades.getItems().removeAll(taboaActividades.getItems());
         taboaActividades.getItems().addAll(curso.getActividades());
@@ -522,19 +515,18 @@ public class vXestionCursoController extends AbstractController implements Initi
         taboaUsuarios.getItems().addAll(curso.getParticipantes());
         if(curso.isAberto()) {
             //Se o curso xa está aberto non damos opción a abrilo:
-            AuxGUI.ocultarCampos(btnActivar);
+            AuxGUI.inhabilitarCampos(btnActivar);
         } else {
-            AuxGUI.amosarCampos(btnActivar);
+            AuxGUI.habilitarCampos(btnActivar);
         }
         //Activamos botóns actividades, cancelación e xeración de informe
-        AuxGUI.amosarCampos(btnBorrarActividade, btnEngadirActividade, btnModificarSeleccion,
+        AuxGUI.habilitarCampos(btnBorrarActividade, btnEngadirActividade, btnModificarSeleccion,
                 btnCancelar);
         //Se o curso está rematado, entón daremos opción a amosar o botón do informe:
         if(curso.getDataFin() != null && curso.getDataFin().before(new Date(System.currentTimeMillis()))){
             AuxGUI.amosarCampos(vBoxBotonInforme);
         }
     }
-
 
     public void btnXerarInformeAction(ActionEvent actionEvent) {
         //O que hai que facer primeiro é comprobar se se está en condicións de recuperar os datos do informe, para o que
@@ -544,12 +536,8 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Comprobamos que se devolvese correctamente o curso:
         if(curso != null) {
             //Neste caso actualizaremos seguro aqueles campos que se amosan sempre nesta pantalla:
-            //O nome do curso:
-            campoNome.setText(curso.getNome());
-            //A descrición
-            campoDescricion.setText(curso.getDescricion());
-            //O prezo do curso:
-            campoPrezo.setText(curso.getPrezo()+"");
+            //Os campos principais:
+            completarCamposPrincipais();
             //Actualizamos as táboas, primeiro eliminando os campos actuais:
             taboaActividades.getItems().removeAll(taboaActividades.getItems());
             taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
@@ -557,21 +545,27 @@ public class vXestionCursoController extends AbstractController implements Initi
             taboaActividades.getItems().addAll(curso.getActividades());
             //Enchemos a táboa de participantes:
             taboaUsuarios.getItems().addAll(curso.getParticipantes());
-            //Comprobamos tamén que rematara:
+            //Comprobamos tamén que o curso rematara:
             if(curso.getDataFin().before(new Date(System.currentTimeMillis()))) {
-                //Imos agora a encher os campos do informe en sí:
-                campoDuracion.setText(curso.getDuracion()+"");
-                campoDataInicio.setText(curso.getDataInicio().toString());
-                campoDataFin.setText(curso.getDataFin().toString());
-                campoNumProfesores.setText(curso.getNumProfesores()+"");
-                campoNumActividades.setText(curso.getNumActividades()+"");
+                //Nesa situación, enchemos os campos do informe:
+                campoDuracion.setText(curso.getDuracion().toString());
+                //As datas, coma sempre, amosámolas nun formato amigable:
+                campoDataInicio.setText(new SimpleDateFormat("dd/MM/yyyy").format(curso.getDataInicio().getTime()));
+                campoDataFin.setText(new SimpleDateFormat("dd/MM/yyyy").format(curso.getDataFin().getTime()));
+                //Número de profesores e de actividades:
+                campoNumProfesores.setText(curso.getNumProfesores().toString());
+                campoNumActividades.setText(curso.getNumActividades().toString());
+                //A valoración media:
                 tagVTM.setText(curso.getValMedia().toString());
+                //En función do valor que teña, pintarémola dunha cor ou da outra:
                 if(curso.getValMedia().compareTo((float)2.5) > 0){
                     tagVTM.setTextFill(Paint.valueOf("Green"));
                 } else {
                     tagVTM.setTextFill(Paint.valueOf("Red"));
                 }
-                //Enchemos as novas táboas:
+                //Enchemos as novas táboas, vaciándoas previamente:
+                taboaActividadesVal.getItems().removeAll(taboaActividadesVal.getItems());
+                taboaProfesores.getItems().removeAll(taboaProfesores.getItems());
                 taboaActividadesVal.getItems().addAll(curso.getActividades());
                 taboaProfesores.getItems().addAll(curso.getProfesores());
 
@@ -583,10 +577,21 @@ public class vXestionCursoController extends AbstractController implements Initi
                         "Non se pode amosar o informe do curso, dado que inda non rematou.");
             }
         } else {
+            //En caso de perderse a información do curso, avísase:
             getFachadaAplicacion().mostrarErro("Administración de Cursos",
                     "Produciuse un erro na busca e perdéronse os datos. Volva a intentalo noutro momento.");
             //Ademais, creo que resulta conveniente neste caso saír desta pantalla e volver ao inicio:
             controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARCURSOS);
         }
+    }
+
+    /**
+     * Método creado co obxectivo de encher os campos de nome, prezo e descrición cos datos do curso que se ten como
+     * atributo directamente. Empregado varias veces ao querer manter os datos ou ao limpar campos e ter curso rexistrado.
+     */
+    private void completarCamposPrincipais(){
+        campoNome.setText(curso.getNome());
+        campoPrezo.setText(curso.getPrezo().toString());
+        campoDescricion.setText(curso.getDescricion());
     }
 }
