@@ -2,6 +2,7 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -88,6 +89,11 @@ public final class DAOCursos extends AbstractDAO{
         }
     }
 
+    /**
+     * Método que nos permite realizar modificacións na información xeral dun curso determinado.
+     * @param curso O curso do que se quere modificar a información, cos datos modificados.
+     * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
+     */
     public void modificarCurso(Curso curso) throws ExcepcionBD {
         //Neste método simplemente recollemos a modificación de datos principais do curso.
         //As actividades poderán ser modificadas nun punto diferente.
@@ -212,11 +218,21 @@ public final class DAOCursos extends AbstractDAO{
         }
     }
 
-    public void cancelarCurso(Curso curso) throws ExcepcionBD {
+    /**
+     * Método que nos permite cancelar un curso, e polo tanto borrar a súa información da base de datos.
+     * @param curso O curso que se quere borrar.
+     * @param mensaxe A mensaxe que se lle envía aos participantes por mor do borrado.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
+     */
+    public void cancelarCurso(Curso curso, Mensaxe mensaxe) throws ExcepcionBD {
         //Haberá que realizar neste caso varias tarefas á vez, pero xa se realizarán por ter cascade:
         //Hai que borrar o curso e con el borraranse actividades e participantes.
+        //O que faremos tamén será neste caso un aviso automático de que o curso se cancelou.
 
         PreparedStatement stmCursos = null;
+        PreparedStatement stmUsuarios = null;
+        PreparedStatement stmMensaxes = null;
+        ResultSet rsUsuarios;
         Connection con;
 
         //Recuperamos a conexión:
@@ -224,11 +240,38 @@ public final class DAOCursos extends AbstractDAO{
 
         //Intentamos levar a cabo o borrado:
         try{
+            //Para comezar, recolleremos todos os participantes que neste momento estaban apuntados no curso:
+            stmUsuarios = con.prepareStatement("SELECT usuario FROM realizarcurso WHERE curso = ?");
+            stmUsuarios.setInt(1, curso.getCodCurso());
+            //Executamos a consulta sobre a base de datos:
+            rsUsuarios = stmUsuarios.executeQuery();
+
+            //Feito isto, agora levamos a cabo o borrado como normal:
             stmCursos = con.prepareStatement("DELETE FROM curso WHERE codCurso = ?");
             stmCursos.setInt(1, curso.getCodCurso());
 
             //Executamos a actualización: borraranse curso, actividades e participacións.
             stmCursos.executeUpdate();
+
+            //O seguinte paso é procesar a consulta dos usuarios. Facémola antes dado que o curso agora estará borrado
+            //e non poderíamos coñecer os seus participantes.
+            stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido)" +
+                    "VALUES(?, ?, ?)");
+            //Cambiamos os campos variables:
+            stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
+            stmMensaxes.setString(3, mensaxe.getContido());
+
+            //Entón agora imos procesando ese resultado:
+            while(rsUsuarios.next()){
+                stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
+                //Agora realizamos o envío:
+                stmMensaxes.executeUpdate();
+            }
+
+            //Feito isto, facemos o commit: teremos feita a actualización sobre a base de datos que queríamos:
+            //o curso borrouse e todos os participantes foron informados.
+            con.commit();
+
         } catch (SQLException e){
             //Lanzaremos unha excepción propia:
             throw new ExcepcionBD(con, e);
@@ -659,10 +702,16 @@ public final class DAOCursos extends AbstractDAO{
         return resultado;
     }
 
+    /**
+     * Método que permite comprobar se un curso ten participantes.
+     * @param curso O curso para o que se quere validar dita información.
+     * @return True se o curso ten participantes, False se non os ten.
+     */
     public boolean tenParticipantes(Curso curso){
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
         Connection con;
+        //O resultado será un booleano que indicará se o curso ten participantes:
         boolean resultado = false;
 
         //Recuperamos a conexión:
@@ -702,7 +751,7 @@ public final class DAOCursos extends AbstractDAO{
                 System.out.println("Imposible pechar os cursores");
             }
         }
-        //Devolvemos o booleano:
+        //Devolvemos o booleano para rematar:
         return resultado;
     }
 

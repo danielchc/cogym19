@@ -329,6 +329,11 @@ public final class FachadaBD {
         daoCursos.rexistrarCurso(curso);
     }
 
+    /**
+     * Método que nos permite realizar modificacións na información xeral dun curso determinado.
+     * @param curso O curso do que se quere modificar a información, cos datos modificados.
+     * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
+     */
     public void modificarCurso(Curso curso) throws ExcepcionBD {
         daoCursos.modificarCurso(curso);
     }
@@ -346,8 +351,14 @@ public final class FachadaBD {
         daoCursos.abrirCurso(curso);
     }
 
-    public void cancelarCurso(Curso curso) throws ExcepcionBD {
-        daoCursos.cancelarCurso(curso);
+    /**
+     * Método que nos permite cancelar un curso, e polo tanto borrar a súa información da base de datos.
+     * @param curso O curso que se quere borrar.
+     * @param mensaxe A mensaxe que se envía aos participantes polo borrado.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
+     */
+    public void cancelarCurso(Curso curso, Mensaxe mensaxe) throws ExcepcionBD {
+        daoCursos.cancelarCurso(curso, mensaxe);
     }
 
     /**
@@ -384,6 +395,11 @@ public final class FachadaBD {
         return daoCursos.comprobarExistencia(curso);
     }
 
+    /**
+     * Método que permite comprobar se un curso ten participantes.
+     * @param curso O curso para o que se quere validar dita información.
+     * @return True se o curso ten participantes, False se non os ten.
+     */
     public boolean tenParticipantes(Curso curso) {
         return daoCursos.tenParticipantes(curso);
     }

@@ -276,7 +276,7 @@ public class vXestionCursoController extends AbstractController implements Initi
 
                                 //Se o quere, elaboraremos unha mensaxe:
                                 Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
-                                        "Abertas as inscricións ao curso '" + curso.getNome() + "'. A que esperas " +
+                                        "Prezado socio,\nAbertas as inscricións ao curso '" + curso.getNome() + "'. A que esperas " +
                                                 "para apuntarte? As prazas voan!!!");
 
                                 //Esa mensaxe mandarémola a todos os socios:
@@ -359,7 +359,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                 Curso cursoModif = new Curso(curso.getCodCurso(), campoNome.getText(),
                         campoDescricion.getText(), Float.parseFloat(campoPrezo.getText()));
                 //Chamamos ao método que realiza a modificación:
-                TipoResultados res = getFachadaAplicacion().modificarCurso(curso);
+                TipoResultados res = getFachadaAplicacion().modificarCurso(cursoModif);
                 //En función do resultado, diferentes alternativas:
                 switch(res){
                     case datoExiste:
@@ -392,7 +392,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                                         "aos socios participantes no curso de que houbo cambios?") == ButtonType.OK) {
                             //Elaboramos unha mensaxe:
                             Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
-                                    "O curso '" + curso.getNome() + "' sufriu certas modificacións. Vaia a " +
+                                    "Estimado socio,\nO curso '" + curso.getNome() + "' sufriu certas modificacións. Vaia a " +
                                             "consultalo para obter maior información.");
 
                             //Enviámola:
@@ -450,7 +450,11 @@ public class vXestionCursoController extends AbstractController implements Initi
             if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
                     "Desexa cancelar o curso?") == ButtonType.OK){
                 try{
-                    TipoResultados res = super.getFachadaAplicacion().cancelarCurso(curso);
+                    //Neste caso o envío da mensaxe vai ser directo. Queremos que cando se cancele un curso se avise.
+                    Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                            "Estimado socio,\nO curso '" + curso.getNome() + "' foi cancelado. Desculpe as molestias");
+                    //Procédese a intentar a cancelación e o aviso simultáneos:
+                    TipoResultados res = super.getFachadaAplicacion().cancelarCurso(curso, mensaxe);
                     //En función do resultado, operamos:
                     switch(res){
                         case incoherenciaBorrado:

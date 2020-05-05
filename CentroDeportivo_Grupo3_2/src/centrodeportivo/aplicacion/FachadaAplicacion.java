@@ -353,12 +353,25 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.rexistrarCurso(curso);
     }
 
+    /**
+     * Método que nos permite realizar modificacións na información xeral dun curso determinado.
+     * @param curso O curso do que se quere modificar a información, cos datos modificados.
+     * @return O resultado da operación realizada.
+     * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
+     */
     public TipoResultados modificarCurso(Curso curso) throws ExcepcionBD {
         return xestionCursos.modificarCurso(curso);
     }
 
-    public TipoResultados cancelarCurso(Curso curso) throws ExcepcionBD {
-        return xestionCursos.cancelarCurso(curso);
+    /**
+     * Método que nos permite cancelar un curso, e polo tanto borrar a súa información da base de datos.
+     * @param curso O curso que se quere borrar.
+     * @param mensaxe A mensaxe que se envía aos participantes polo borrado.
+     * @return O resultado da operación
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
+     */
+    public TipoResultados cancelarCurso(Curso curso, Mensaxe mensaxe) throws ExcepcionBD {
+        return xestionCursos.cancelarCurso(curso, mensaxe);
     }
 
     /**

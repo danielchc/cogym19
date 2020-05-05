@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
@@ -53,10 +54,10 @@ public class XestionCursos {
     }
 
     /**
-     *
-     * @param curso
-     * @return
-     * @throws ExcepcionBD
+     * Método que nos permite realizar modificacións na información xeral dun curso determinado.
+     * @param curso O curso do que se quere modificar a información, cos datos modificados.
+     * @return O resultado da operación realizada.
+     * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
      */
     public TipoResultados modificarCurso(Curso curso) throws ExcepcionBD {
         //Comezamos comprobando se comezou o curso, posto que nese caso xa non deixaremos modificar a información principal:
@@ -77,13 +78,20 @@ public class XestionCursos {
         }
     }
 
-    public TipoResultados cancelarCurso(Curso curso) throws ExcepcionBD {
+    /**
+     * Método que nos permite cancelar un curso, e polo tanto borrar a súa información da base de datos.
+     * @param curso O curso que se quere borrar.
+     * @param mensaxe A mensaxe que se envía aos participantes polo borrado.
+     * @return O resultado da operación
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
+     */
+    public TipoResultados cancelarCurso(Curso curso, Mensaxe mensaxe) throws ExcepcionBD {
         //Para cancelar un curso, hai que comprobar se o curso está xa comezado ou se ten participantes:
         //Non comezado -> Data de inicio maior á data actual
         if(curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis()))
                 || !fachadaBD.tenParticipantes(curso)){
             //Nestes dous casos, poderase proceder ao borrado:
-            fachadaBD.cancelarCurso(curso);
+            fachadaBD.cancelarCurso(curso, mensaxe);
             //Se chegamos a este punto, indicamos que se remata correctamente:
             return TipoResultados.correcto;
         } else {
