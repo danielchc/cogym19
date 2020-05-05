@@ -572,6 +572,8 @@ public class vXestionCursoController extends AbstractController implements Initi
             //Se o curso está rematado, entón daremos opción a amosar o botón do informe:
             if (curso.getDataFin() != null && curso.getDataFin().before(new Date(System.currentTimeMillis()))) {
                 AuxGUI.amosarCampos(vBoxBotonInforme);
+                //Inhabilitaranse tamén todos os botóns relativos ás actividades:
+                AuxGUI.inhabilitarCampos(btnEngadirActividade, btnBorrarActividade, btnModificarSeleccion);
             }
         } else {
             this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
