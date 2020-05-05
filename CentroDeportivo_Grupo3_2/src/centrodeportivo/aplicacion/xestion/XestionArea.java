@@ -89,7 +89,7 @@ public class XestionArea {
      * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
      * noutro caso, listaranse todas as areas.
      */
-    public ObservableList<Area> listarAreasInstalacion(Instalacion instalacion){
-        return fachadaBD.listarAreasInstalacion(instalacion);
+    public ObservableList<Area> listarAreasActivas(Instalacion instalacion){
+        return fachadaBD.listarAreasActivas(instalacion);
     }
 }

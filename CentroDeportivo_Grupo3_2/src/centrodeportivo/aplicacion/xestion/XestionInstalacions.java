@@ -118,13 +118,5 @@ public class XestionInstalacions {
         return fachadaBD.consultarInstalacion(instalacion);
     }
 
-    /**
-     * Método que lista todas as instalacións da base de datos
-     *
-     * @return Devolve un listado cas instalacions
-     */
-    public ObservableList<Instalacion> listarInstalacions() {
-        return fachadaBD.listarInstalacions();
-    }
 
 }

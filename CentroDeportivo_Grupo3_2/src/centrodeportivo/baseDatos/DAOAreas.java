@@ -492,7 +492,7 @@ public final class DAOAreas extends AbstractDAO {
      * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
      * noutro caso, listaranse todas as areas.
      */
-    public ObservableList<Area> listarAreasInstalacion(Instalacion instalacion) {
+    public ObservableList<Area> listarAreasActivas(Instalacion instalacion) {
         ObservableList<Area> areas = FXCollections.observableArrayList();
         PreparedStatement stmArea = null;
         ResultSet rsArea;

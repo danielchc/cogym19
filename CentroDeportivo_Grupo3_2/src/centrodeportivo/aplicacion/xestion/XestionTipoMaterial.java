@@ -55,8 +55,4 @@ public class XestionTipoMaterial {
         return fachadaBD.buscarTipoMaterial(tipoMaterial);
     }
 
-    public ObservableList<TipoMaterial> listarTiposMateriais(){
-        return fachadaBD.lsitarTiposMateriais();
-    }
-
 }

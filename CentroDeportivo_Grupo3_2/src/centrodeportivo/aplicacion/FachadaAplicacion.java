@@ -282,14 +282,6 @@ public class FachadaAplicacion extends Application {
         return xestionInstalacions.consultarInstalacion(instalacion);
     }
 
-    /**
-     * Método que lista todas as instalacións da base de datos
-     *
-     * @return Devolve un listado cas instalacions
-     */
-    public ObservableList<Instalacion> listarInstalacions() {
-        return fachadaBD.listarInstalacions();
-    }
 
     /*
         Xestión TIPOS de actividade
@@ -413,6 +405,7 @@ public class FachadaAplicacion extends Application {
     /**
      * Método que nos permite recuperar información suficiente do curso como para elaborar o informe que ofrecer ao
      * usuario que o consulta.
+     *
      * @param curso Información do curso do que se queren recuperar os datos para o informe.
      * @return Datos completos do curso, incluíndo información adicional necesaria para a elaboración do informe.
      */
@@ -444,10 +437,6 @@ public class FachadaAplicacion extends Application {
 
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return xestionTipoMaterial.buscarTipoMaterial(tipoMaterial);
-    }
-
-    public ObservableList<TipoMaterial> listarTiposMateriais() {
-        return xestionTipoMaterial.listarTiposMateriais();
     }
 
     /*
@@ -487,8 +476,9 @@ public class FachadaAplicacion extends Application {
      * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
      * noutro caso, listaranse todas as areas.
      */
-    public ObservableList<Area> listarAreasInstalacion(Instalacion instalacion){
-        return xestionArea.listarAreasInstalacion(instalacion);
+    public ObservableList<Area> listarAreasActivas(Instalacion instalacion) {
+        return xestionArea.listarAreasActivas(instalacion);
     }
+
 
 }

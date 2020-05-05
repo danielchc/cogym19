@@ -238,15 +238,6 @@ public final class FachadaBD {
     }
 
 
-    /**
-     * Método que lista todas as instalacións da base de datos
-     *
-     * @return Devolve un listado cas instalacions
-     */
-    public ObservableList<Instalacion> listarInstalacions() {
-        return daoInstalacions.listarInstalacions();
-    }
-
     /*
         Funcións DAOTiposActividades
      */
@@ -404,6 +395,7 @@ public final class FachadaBD {
     /**
      * Método que nos permite recuperar información suficiente do curso como para elaborar o informe que ofrecer ao
      * usuario que o consulta.
+     *
      * @param curso Información do curso do que se queren recuperar os datos para o informe.
      * @return Datos completos do curso, incluíndo información adicional necesaria para a elaboración do informe.
      */
@@ -460,10 +452,6 @@ public final class FachadaBD {
 
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return this.daoTipoMaterial.buscarTipoMaterial(tipoMaterial);
-    }
-
-    public ObservableList<TipoMaterial> lsitarTiposMateriais() {
-        return this.daoTipoMaterial.listarTiposMateriais();
     }
 
     public boolean tenMateriais(TipoMaterial tipoMaterial) {
@@ -561,11 +549,11 @@ public final class FachadaBD {
      * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
      * noutro caso, listaranse todas as areas.
      */
-    public ObservableList<Area> listarAreasInstalacion(Instalacion instalacion){
-        return daoareas.listarAreasInstalacion(instalacion);
+    public ObservableList<Area> listarAreasActivas(Instalacion instalacion) {
+        return daoareas.listarAreasActivas(instalacion);
     }
 
-    //Actividades
+    // Actividades
     public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
         daoActividade.EngadirActividade(actividade);
     }
@@ -590,7 +578,7 @@ public final class FachadaBD {
         daoActividade.apuntarseActividade(actividade, usuario);
     }
 
-    //Aleguen apuntado
+    // Alguen apuntado
 
     public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         daoActividade.borrarseDeActividade(actividade, usuario);
