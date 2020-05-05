@@ -478,8 +478,8 @@ public final class FachadaBD {
         return this.daoMaterial.isMaterial(material);
     }
 
-    public ArrayList<Material> listarMateriais() {
-        return this.daoMaterial.listarMateriais();
+    public ArrayList<Material> listarMateriais(Material material) {
+        return this.daoMaterial.listarMateriais(material);
     }
 
 

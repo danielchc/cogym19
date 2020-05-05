@@ -455,8 +455,8 @@ public class FachadaAplicacion extends Application {
         return xestionMaterial.modificarMaterial(material);
     }
 
-    public ArrayList<Material> listarMateriais() {
-        return xestionMaterial.listarMateriais();
+    public ArrayList<Material> listarMateriais(Material material) {
+        return xestionMaterial.listarMateriais(material);
     }
 
       /*

@@ -94,6 +94,17 @@ public class Material {
         return prezoCompra;
     }
 
+    public String getNomeArea(){
+        return area.getNome();
+    }
+
+    public String getNomeTipoMaterial(){
+        return tipoMaterial.getNome();
+    }
+
+    public String getNomeInstalacion(){
+        return area.getInstalacion().getNome();
+    }
 
     // Outros métodos
     public Instalacion getInstalacion() {

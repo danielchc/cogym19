@@ -2,10 +2,12 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import sun.nio.cs.ext.MacArabic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,18 +41,16 @@ public final class DAOMaterial extends AbstractDAO {
 
         // Preparamos a inserción:
         try {
-            stmMaterial = con.prepareStatement("INSERT INTO material (tipoMaterial, area, instalacion, estado, " +
-                    "dataCompra, prezoCompra) VALUES (?, ?, ?, ?, ?, ?)");
+            stmMaterial = con.prepareStatement("INSERT INTO material (tipoMaterial, area, instalacion, estado) " +
+                    "VALUES (?, ?, ?, ?)");
 
             // Establecemos os valores:
             stmMaterial.setInt(1, material.getTipoMaterial().getCodTipoMaterial());
             stmMaterial.setInt(2, material.getArea().getCodArea());
             stmMaterial.setInt(3, material.getInstalacion().getCodInstalacion());
             stmMaterial.setString(4, material.getEstado());
-            stmMaterial.setDate(5, material.getDataCompra());
-            stmMaterial.setFloat(6, material.getPrezoCompra());
 
-            // Realizamos a acutalización:
+            // Realizamos a inserción:
             stmMaterial.executeUpdate();
 
             // Facemos o commit:
@@ -224,57 +224,46 @@ public final class DAOMaterial extends AbstractDAO {
      *
      * @return -> devolve un ArrayList cos materiais da base de datos
      */
-    public ArrayList<Material> listarMateriais() {
+    public ArrayList<Material> listarMateriais(Material material) {
         ArrayList<Material> materiais = new ArrayList<>();
-        PreparedStatement stmMaterial = null, stmTipoMaterial = null, stmArea = null, stmInstalacion = null;
-        ResultSet rsMaterial, rsTipoMaterial, rsArea, rsInstalacion;
+        PreparedStatement stmMaterial = null;
+        ResultSet rsMaterial;
         Connection con;
-        TipoMaterial tipoMaterial = null;
-        Area area = null;
-        Instalacion instalacion = null;
+        TipoMaterial tipoMaterial;
+        Area area;
+        Instalacion instalacion;
 
         // Recuperamos a conexión coa base de datos
         con = super.getConexion();
 
         // Preparamos a consulta
         try {
-            stmMaterial = con.prepareStatement("SELECT * FROM material");
+
+            stmMaterial = con.prepareStatement("SELECT m.codmaterial, m.tipomaterial, m.area, m.instalacion, m.estado, " +
+                    "tm.nome as nometipo, " +
+                    "a.nome as nomearea, a.descricion, " +
+                    "i.nome as nomeinstalacion, i.numtelefono, i.direccion " +
+                    "FROM material as m " +
+                    "INNER JOIN tipomaterial as tm " +
+                    "ON m.tipomaterial = tm.codtipomaterial " +
+                    "INNER JOIN area as a " +
+                    "ON m.area = a.codarea " +
+                    "INNER JOIN instalacion as i " +
+                    "ON a.instalacion = i.codinstalacion AND m.instalacion = i.codinstalacion " +
+                    "ORDER BY m.tipomaterial, m.codmaterial");
+
             // Executamos a consulta
             rsMaterial = stmMaterial.executeQuery();
-
             // Procesamos o ResultSet
             while (rsMaterial.next()) {
-
-                // Recuperamos o tipo de material que é:
-                stmTipoMaterial = con.prepareStatement("SELECT * FROM tipoMaterial WHERE codTipoMaterial = ?");
-                stmTipoMaterial.setInt(1, rsMaterial.getInt(2));
-                rsTipoMaterial = stmTipoMaterial.executeQuery();
-                while (rsTipoMaterial.next()) {  //TODO: poñer un while ou un if
-                    tipoMaterial = new TipoMaterial(rsTipoMaterial.getInt(1), rsTipoMaterial.getString(2));
-                }
-
-                // Recuperamos a instalación na que se atopa:
-                stmInstalacion = con.prepareStatement("SELECT * FROM instalacion WHERE codinstalacion = ?");
-                stmInstalacion.setInt(1, rsMaterial.getInt(4));
-                rsInstalacion = stmInstalacion.executeQuery();
-                while (rsInstalacion.next()) {  //TODO: poñer un while ou un if
-                    instalacion = new Instalacion(rsInstalacion.getInt(1), rsInstalacion.getString(2),
-                            rsInstalacion.getString(3), rsInstalacion.getString(4));
-                }
-
-                // Recuperamos a área na que se atopa:
-                stmArea = con.prepareStatement("select * from area WHERE codarea = ? AND instalacion = ?");
-                stmArea.setInt(1, rsMaterial.getInt(3));
-                stmArea.setInt(2, rsMaterial.getInt(4));
-                rsArea = stmArea.executeQuery();
-                while (rsArea.next()) {  //TODO: poñer un while ou un if
-                    area = new Area(rsArea.getInt(1), instalacion, rsArea.getString(3),
-                            rsArea.getString(4), rsArea.getInt(5), rsArea.getDate(6));
-                }
-
+                tipoMaterial = new TipoMaterial(rsMaterial.getInt("tipomaterial"), rsMaterial.getString("nometipo"));
+                instalacion = new Instalacion(rsMaterial.getInt("instalacion"), rsMaterial.getString("nomeinstalacion"),
+                        rsMaterial.getString("numtelefono"), rsMaterial.getString("direccion"));
+                area = new Area(rsMaterial.getInt("area"), instalacion, rsMaterial.getString("nomearea"),
+                        rsMaterial.getString("descricion"));
                 // Engadimos o material o ArrayList
-                materiais.add(new Material(rsMaterial.getInt(1), tipoMaterial, area,
-                        rsMaterial.getString(4), rsMaterial.getDate(5), rsMaterial.getFloat(6)));
+                materiais.add(new Material(rsMaterial.getInt("codmaterial"), tipoMaterial, area,
+                        rsMaterial.getString("estado")));
             }
             con.commit();
         } catch (SQLException e) {
@@ -289,12 +278,6 @@ public final class DAOMaterial extends AbstractDAO {
             try {
                 assert stmMaterial != null;
                 stmMaterial.close();
-                assert stmTipoMaterial != null;
-                stmTipoMaterial.close();
-                assert stmArea != null;
-                stmArea.close();
-                assert stmInstalacion != null;
-                stmInstalacion.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }

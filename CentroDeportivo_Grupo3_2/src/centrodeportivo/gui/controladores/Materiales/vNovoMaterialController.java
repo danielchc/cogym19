@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.collections.FXCollections;
@@ -129,6 +130,16 @@ public class vNovoMaterialController extends AbstractController implements Initi
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOMATERIAL);
     }
 
+    /**
+     * Método que representa as accións realizadas ao premer o botón de limpado de campos.
+     * @param actionEvent A acción que tivo lugar
+     */
+    public void btnLimparAction(ActionEvent actionEvent) {
+        // Vaciamos os campos de texto
+        AuxGUI.vaciarCamposTexto(campoEstadoMaterial, campoPrezoMaterial);
+        //Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
+        //AuxGUI.ocultarCampos(avisoCampos);
+    }
 }
 
 
