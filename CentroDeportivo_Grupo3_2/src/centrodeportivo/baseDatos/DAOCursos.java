@@ -483,6 +483,12 @@ public final class DAOCursos extends AbstractDAO{
         return resultado; //Pode que sexa null, se a consulta non puido efectuarse.
     }
 
+    /**
+     * Método que nos permite recuperar información suficiente do curso como para elaborar o informe que ofrecer ao
+     * usuario que o consulta.
+     * @param curso Información do curso do que se queren recuperar os datos para o informe.
+     * @return Datos completos do curso, incluíndo información adicional necesaria para a elaboración do informe.
+     */
     public Curso informeCurso(Curso curso){
         //Neste método recuperaranse os datos que xa recuperamos en recuperarDatosCurso, pero inda máis:
         //Dadas as diferenzas co outro, decidín manter este por separado.
@@ -502,8 +508,8 @@ public final class DAOCursos extends AbstractDAO{
 
         //Imos ir agora paso por paso con todas as consultas que hai que ir levando a cabo:
         try{
-            //Comezaremos por recuperar os datos necesarios do propio curso. Agora, ademais, teremos que recuperar a data
-            //de finalización e a media do curso
+            //Comezaremos por recuperar os datos basicos do propio curso. Agora, ademais, teremos que recuperar a data
+            //de finalización e a media do curso, entre outros, o que leva á complexidade amosada:
             stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
                     " count(distinct dataactividade) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion," +
                     " DATE(max(a.dataactividade)) as datafin, " +

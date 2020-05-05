@@ -70,6 +70,8 @@ public class vXestionCursoController extends AbstractController implements Initi
     public TableView taboaActividadesVal;
     public Label tagVTM;
     public TableView taboaProfesores;
+    public Button btnVolver;
+    public Button btnRefrescar;
 
 
     /**
@@ -218,9 +220,9 @@ public class vXestionCursoController extends AbstractController implements Initi
 
         //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
         AuxGUI.inhabilitarCampos(btnActivar,btnBorrarActividade,btnEngadirActividade,btnModificarSeleccion,
-                btnCancelar);
-        //Deshabilitamos os vbox:
-        AuxGUI.ocultarCampos(vBoxBotonInforme, vBoxDetalleInforme);
+                btnCancelar, btnRefrescar);
+        //Deshabilitamos os vbox e o botón de retorno:
+        AuxGUI.ocultarCampos(vBoxBotonInforme, vBoxDetalleInforme, btnVolver);
 
         //Engadimos un listener no campo do prezo para controlar os valores introducidos:
         campoPrezo.textProperty().addListener(new ChangeListener<String>() {
@@ -234,7 +236,6 @@ public class vXestionCursoController extends AbstractController implements Initi
             }
         });
     }
-
 
     /**
      * Método que se executa tras amosar a pantalla, para reiniciar aqueles atributos que sexa preciso.
@@ -342,7 +343,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                         //En caso de que se teña resultado correcto, habilitaranse outras modificacións da pantalla e avisarase
                         //da correcta inserción:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
-                                "Curso " + c.getNome() + " insertado correctamente." +
+                                "Curso " + c.getNome() + " insertado correctamente. " +
                                 "O seu ID é " + c.getCodCurso() + ".");
                         //Asignamos o curso e así poderemos xa facer outro tipo de edicións:
                         this.setCurso(c);
@@ -498,39 +499,92 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     /**
+     * Método que representa as accións levadas a cabo ao premer o botón de xeración do informe.
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnXerarInformeAction(ActionEvent actionEvent) {
+        //O que hai que facer primeiro é comprobar se se está en condicións de recuperar os datos do informe, para o que
+        //haberá que saber se o curso xa rematou.
+        if(curso != null && curso.getDataFin() != null &&
+                curso.getDataFin().before(new Date(System.currentTimeMillis()))){
+            montarInforme();
+        } else {
+            //En caso de que non se cumpra a condición, avísase:
+            getFachadaAplicacion().mostrarErro("Administración de cursos",
+                    "Para poder elaborar un informe do curso, este debe ter rematado!");
+        }
+    }
+
+    /**
+     * Acción que ten lugar ao premer o botón de regreso á pantalla de administración.
+     * @param actionEvent A acción que tivo lugar
+     */
+    public void btnVolverAction(ActionEvent actionEvent) {
+        //Saímos á ventá de administración de cursos:
+        controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARCURSOS);
+    }
+
+    /**
+     * Acción que ten lugar ao premer o botón para refrescar a información:
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnRefrescarAction(ActionEvent actionEvent) {
+        //Inda que esté o botón inhabilitado nese caso, comprobamos que o curso non sexa null:
+        if(curso != null){
+            //Agora pode haber dúas situacións, que o Vbox do informe esté visible ou non:
+            if(vBoxDetalleInforme.isVisible()){
+                //Se se pode ver, buscaremos o curso pero co método do informe:
+                montarInforme();
+            } else {
+                //Noutro caso buscamos o curso de novo (normal):
+                this.setCurso(getFachadaAplicacion().recuperarDatosCurso(curso));
+            }
+        }
+    }
+
+    /**
      * Setter do curso, co que prepararemos a pantalla para a configuración do curso pasado.
      * @param curso O curso do que se vai amosar a información.
      */
     public void setCurso(Curso curso){
-        //Asignamos o curso:
-        this.curso = curso;
-        //Teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
-        campoCodigo.setText(curso.getCodCurso().toString());
-        completarCamposPrincipais();
-        //Enchemos a táboa de actividades:
-        taboaActividades.getItems().removeAll(taboaActividades.getItems());
-        taboaActividades.getItems().addAll(curso.getActividades());
-        //Enchemos a táboa de participantes:
-        taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
-        taboaUsuarios.getItems().addAll(curso.getParticipantes());
-        if(curso.isAberto()) {
-            //Se o curso xa está aberto non damos opción a abrilo:
-            AuxGUI.inhabilitarCampos(btnActivar);
+        //Asignamos o curso, comprobando antes que non veña a null:
+        if(curso != null) {
+            this.curso = curso;
+            //Teremos que encher os campos co que corresponde do curso que está apuntado, e encher as táboas:
+            campoCodigo.setText(curso.getCodCurso().toString());
+            completarCamposPrincipais();
+            //Enchemos a táboa de actividades:
+            taboaActividades.getItems().removeAll(taboaActividades.getItems());
+            taboaActividades.getItems().addAll(curso.getActividades());
+            //Enchemos a táboa de participantes:
+            taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
+            taboaUsuarios.getItems().addAll(curso.getParticipantes());
+            if (curso.isAberto()) {
+                //Se o curso xa está aberto non damos opción a abrilo:
+                AuxGUI.inhabilitarCampos(btnActivar);
+            } else {
+                AuxGUI.habilitarCampos(btnActivar);
+            }
+            //Activamos botóns actividades, cancelación e xeración de informe
+            AuxGUI.habilitarCampos(btnBorrarActividade, btnEngadirActividade, btnModificarSeleccion,
+                    btnCancelar, btnRefrescar);
+            AuxGUI.amosarCampos(btnVolver);
+            //Se o curso está rematado, entón daremos opción a amosar o botón do informe:
+            if (curso.getDataFin() != null && curso.getDataFin().before(new Date(System.currentTimeMillis()))) {
+                AuxGUI.amosarCampos(vBoxBotonInforme);
+            }
         } else {
-            AuxGUI.habilitarCampos(btnActivar);
-        }
-        //Activamos botóns actividades, cancelación e xeración de informe
-        AuxGUI.habilitarCampos(btnBorrarActividade, btnEngadirActividade, btnModificarSeleccion,
-                btnCancelar);
-        //Se o curso está rematado, entón daremos opción a amosar o botón do informe:
-        if(curso.getDataFin() != null && curso.getDataFin().before(new Date(System.currentTimeMillis()))){
-            AuxGUI.amosarCampos(vBoxBotonInforme);
+            this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                    "Erro na busca, perdeuse o curso. Saíndo á pantalla principal...");
+            //Volveríamos, en caso de que o curso fose null, á pantalla principal:
+            controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
         }
     }
 
-    public void btnXerarInformeAction(ActionEvent actionEvent) {
-        //O que hai que facer primeiro é comprobar se se está en condicións de recuperar os datos do informe, para o que
-        //haberá que saber se o curso xa rematou.
+    /**
+     * Método que nos permite colocar na ventá correspondente todos os campos do informe do curso:
+     */
+    public void montarInforme(){
         //Iremos a recuperar a información do curso:
         curso = getFachadaAplicacion().informeCurso(curso);
         //Comprobamos que se devolvese correctamente o curso:

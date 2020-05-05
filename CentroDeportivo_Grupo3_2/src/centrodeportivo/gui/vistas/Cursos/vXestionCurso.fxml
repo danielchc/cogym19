@@ -476,6 +476,39 @@
                         </TabPane>
                      </children>
                   </HBox>
+                  <HBox prefHeight="50.0" prefWidth="600.0" VBox.vgrow="NEVER">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" text="Volver">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin></Button>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="btnRefrescar" mnemonicParsing="false" onAction="#btnRefrescarAction" text="Refrescar Información">
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin></Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children></HBox>
                </children>
             </VBox>
          </children></AnchorPane>

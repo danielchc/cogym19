@@ -138,6 +138,13 @@ public class XestionCursos {
         return fachadaBD.recuperarDatosCurso(curso);
     }
 
+
+    /**
+     * Método que nos permite recuperar información suficiente do curso como para elaborar o informe que ofrecer ao
+     * usuario que o consulta.
+     * @param curso Información do curso do que se queren recuperar os datos para o informe.
+     * @return Datos completos do curso, incluíndo información adicional necesaria para a elaboración do informe.
+     */
     public Curso informeCurso(Curso curso){
         return fachadaBD.informeCurso(curso);
     }
