@@ -88,8 +88,7 @@
                     <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                         <Button fx:id="btnXestionar" alignment="CENTER" mnemonicParsing="false"
                                 prefHeight="26.0" prefWidth="127.0" text="Xestionar"
-                                HBox.hgrow="ALWAYS"/>
-                        <!--onAction="#btnXestionarAction" -->
+                                HBox.hgrow="ALWAYS" onAction="#btnXestionarAction"/>
                     </HBox>
                 </VBox>
             </HBox>

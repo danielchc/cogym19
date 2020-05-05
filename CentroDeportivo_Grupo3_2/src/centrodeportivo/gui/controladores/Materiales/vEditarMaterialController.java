@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.Materiales;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
@@ -28,8 +29,9 @@ public class vEditarMaterialController extends AbstractController implements Ini
     public Button btnGardarMaterial;
     public Button btnLimparMaterial;
 
-    // Atributos privados: matenmos o controlador da ventá de procedencia
+    // Atributos privados: matenmos o controlador da ventá de procedencia e o material a xestionar
     private vPrincipalController controllerPrincipal;
+    private Material material;
 
     // Constructor:
     public vEditarMaterialController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -114,5 +116,15 @@ public class vEditarMaterialController extends AbstractController implements Ini
             }
         });
     }
+
+    /**
+     * Setter do material a editar
+     *
+     * @param material A instalación que se vai a querer asociar á pantalla.
+     */
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
 
 }

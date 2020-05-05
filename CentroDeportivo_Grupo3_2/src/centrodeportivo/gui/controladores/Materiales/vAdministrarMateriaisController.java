@@ -8,6 +8,8 @@ import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
+import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -158,5 +160,28 @@ public class vAdministrarMateriaisController extends AbstractController implemen
         comboTipoMaterial.setValue(null);
         // Aproveitamos entón para actualizar a táboa:
         actualizarTaboaMateriais(super.getFachadaAplicacion().listarMateriais(null));
+    }
+
+    /**
+     * Método que se executa cando se preme o botón asociado a xestionar un material
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+
+    public void btnXestionarAction(ActionEvent actionEvent) {
+        //Recuperamos primeiro a instalación seleccionada:
+        Material material = (Material) taboaMateriais.getSelectionModel().getSelectedItem();
+        //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
+        if(material != null){
+            //Se non é null seguimos adiante.
+            //Accedemos ao controlador da ventá de edición dunha instalación:
+            ((vEditarMaterialController)this.controllerPrincipal.getControlador(IdPantalla.EDITARMATERIAL)).setMaterial(material);
+            //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.EDITARMATERIAL);
+        } else {
+            //En caso de que o item si sexa nulo, haberá que mostrar un erro pedindo unha selección:
+            this.getFachadaAplicacion().mostrarErro("Administración de materiais", "Non hai ningún material seleccionado!");
+        }
+
     }
 }

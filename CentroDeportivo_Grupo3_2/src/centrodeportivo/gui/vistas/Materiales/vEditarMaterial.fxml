@@ -85,7 +85,7 @@
                         <Font name="System Bold" size="14.0"/>
                     </font>
                 </Label>
-                <DatePicker prefHeight="26.0" prefWidth="174.0" promptText="DD/MM/AAAA"/>
+                <DatePicker fx:id="campoDataCompraMaterial" prefHeight="26.0" prefWidth="174.0" promptText="DD/MM/AAAA"/>
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="96.0" text="Prezo:">
                     <font>
                         <Font name="System Bold" size="14.0"/>
