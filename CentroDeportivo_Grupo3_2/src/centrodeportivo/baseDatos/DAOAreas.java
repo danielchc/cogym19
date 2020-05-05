@@ -504,12 +504,12 @@ public final class DAOAreas extends AbstractDAO {
         // Preparamos a consulta:
         try {
             String consultaArea = "SELECT codarea, instalacion, nome, descricion, aforomaximo, databaixa " +
-                    "FROM area";
+                    "FROM area WHERE databaixa is null";
 
 
             // Comprobaremos se estamos a pasar un tipo nulo e xestionaremolo en función do caso:
             if (instalacion != null) {
-                consultaArea += " WHERE instalacion = ? ";
+                consultaArea += " AND instalacion = ? ";
             }
 
             // Ordenaremos o resultado en función do codigo
