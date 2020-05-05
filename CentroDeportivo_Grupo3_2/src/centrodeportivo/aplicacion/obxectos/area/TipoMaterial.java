@@ -1,6 +1,11 @@
 package centrodeportivo.aplicacion.obxectos.area;
 
-// Clase que almacenará información sobre tipos de material
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Victor Barreiro
+ * Clase que almacenará información sobre os tipos de material
+ */
 public class TipoMaterial {
 
 
@@ -36,7 +41,6 @@ public class TipoMaterial {
     public String getNome() {
         return nome;
     }
-
 
 }
 
