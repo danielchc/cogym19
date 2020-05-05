@@ -7,8 +7,10 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -94,6 +96,9 @@ public class vAdministrarMateriaisController extends AbstractController implemen
                         ap.getNome().equals(string)).findFirst().orElse(null);
             }
         });
+        // Desactivamos a función de seleccionar unha area ata que se seleccione unha instalacion
+        comboArea.setDisable(true);
+
 
         // Inicializamos o comboBox das instalacions
         comboInstalacion.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarInstalacions(null)));
@@ -131,12 +136,27 @@ public class vAdministrarMateriaisController extends AbstractController implemen
 
     /**
      * Método para actualizar a taboa de materiais
+     *
      * @param materiaisArrayList Lista dos materiais cos que temos que acutalizar a táboa
      */
-    private void actualizarTaboaMateriais(ArrayList<Material> materiaisArrayList){
+    private void actualizarTaboaMateriais(ArrayList<Material> materiaisArrayList) {
         // Valeiramos a taboa e engadimos os novos valores
         taboaMateriais.getItems().setAll(materiaisArrayList);
         // Establecemos unha selección sobre a táboa (se hai resultados):
         taboaMateriais.getSelectionModel().selectFirst();
+    }
+
+    /**
+     * Acción efectuada ao premer o botón para limpar unha búsqueda.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnLimparAction(ActionEvent actionEvent) {
+        // Valeiramos as seleccions do comboBox
+        comboInstalacion.setValue(null);
+        comboArea.setValue(null);
+        comboTipoMaterial.setValue(null);
+        // Aproveitamos entón para actualizar a táboa:
+        actualizarTaboaMateriais(super.getFachadaAplicacion().listarMateriais(null));
     }
 }

@@ -81,8 +81,7 @@
                 <VBox alignment="BOTTOM_LEFT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                     <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                         <Button fx:id="btnLimpar" mnemonicParsing="false" prefHeight="26.0"
-                                prefWidth="127.0" text="Limpar campos" HBox.hgrow="ALWAYS"/>
-                        <!--onAction="#btnLimparAction" -->
+                                prefWidth="127.0" text="Limpar campos" HBox.hgrow="ALWAYS" onAction="#btnLimparAction" />
                     </HBox>
                 </VBox>
                 <VBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
