@@ -47,6 +47,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      */
     private vPrincipalController controllerPrincipal; //Referencia ao controlador da ventá principal.
     private Instalacion instalacion;
+    private Area area;
 
     /**
      * Constructor do controlador da pantalla de nova area:
@@ -79,6 +80,14 @@ public class vXestionAreaController extends AbstractController implements Initia
 
     public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
+    }
+
+    public void setArea(Area area){
+        this.area = area;
+
+        this.campoNome.setText(area.getNome());
+        this.campoAforoMax.setText(Integer.toString(area.getAforoMaximo()));
+        this.campoDescricion.setText(area.getDescricion());
     }
 
     /**

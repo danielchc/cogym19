@@ -307,7 +307,7 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a modificación:
         try {
-            stmAreas = con.prepareStatement("SELECT codarea , instalacion" +
+            stmAreas = con.prepareStatement("SELECT codarea, instalacion" +
                     " FROM area " +
                     " WHERE codarea = ? and codinstalacion = ?");
 
@@ -364,7 +364,7 @@ public final class DAOAreas extends AbstractDAO {
         try {
             stmAreas = con.prepareStatement("SELECT instalacion, codarea " +
                     " FROM area " +
-                    " WHERE codarea = ? and codinstalacion = ? and databaixa is null");
+                    " WHERE codarea = ? and instalacion = ? and databaixa is null");
 
             stmAreas.setInt(1, area.getCodArea());
             stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
