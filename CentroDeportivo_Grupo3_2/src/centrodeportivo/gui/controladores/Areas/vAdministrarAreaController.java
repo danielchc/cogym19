@@ -121,7 +121,7 @@ public class vAdministrarAreaController extends AbstractController implements In
         if(instalacion != null){
             //Se non é null seguimos adiante.
             //Accedemos ao controlador de creación dun area:
-            ((vNovaArea1Controller)this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA1)).setInstalacion((Instalacion)taboaAreas.getSelectionModel().getSelectedItem());
+            ((vNovaAreaController)this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA1)).setInstalacion((Instalacion)taboaAreas.getSelectionModel().getSelectedItem());
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.NOVAAREA1);
         } else {
