@@ -55,10 +55,10 @@ public class vAdministrarAreaController extends AbstractController implements In
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         //A terceira columna corresponderase co aforomaximo:
         TableColumn<Area, Integer> colAforo = new TableColumn<>("Aforo Máximo");
-        colAforo.setCellValueFactory(new PropertyValueFactory<>("aforomaximo"));
+        colAforo.setCellValueFactory(new PropertyValueFactory<>("aforoMaximo"));
         //A cuarta columna corresponderase coa data de baixa:
         TableColumn<Area, Date> coldata = new TableColumn<>("Data de Baixa");
-        coldata.setCellValueFactory(new PropertyValueFactory<>("databaixa"));
+        coldata.setCellValueFactory(new PropertyValueFactory<>("dataBaixa"));
         //A cuarta columna corresponderase coa desciricon da Area:
         TableColumn<Area, String> colDes = new TableColumn<>("Descricion");
         colDes.setCellValueFactory(new PropertyValueFactory<>("descricion"));
