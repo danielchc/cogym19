@@ -74,6 +74,15 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getSelectionModel().selectFirst();
     }
 
+    public void actualizarTaboa()
+    {
+        //Agora engadimos items:
+        taboaAreas.getItems().setAll(super.getFachadaAplicacion().buscarArea(null));
+        //Establecemos unha selección sobre a táboa (se hai resultados):
+        taboaAreas.getSelectionModel().selectFirst();
+    }
+
+
     public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
     }
@@ -110,30 +119,57 @@ public class vAdministrarAreaController extends AbstractController implements In
     }
 
     public void btnModificarAreaAction(ActionEvent actionEvent) {
-        //Recuperamos primeiro a instalación seleccionada:
-        Instalacion instalacion = (Instalacion) taboaAreas.getSelectionModel().getSelectedItem();
-        if(instalacion != null){
+        //Recuperamos primeiro a area seleccionada:
+        Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
+        if(area != null){
             //Se non é null seguimos adiante.
-            //Accedemos ao controlador de creación dun area:
-            ((vXestionAreaController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONAREA)).setInstalacion((Instalacion)taboaAreas.getSelectionModel().getSelectedItem());
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONAREA);
+            //Accedemos ao controlador de creación dun area:
+            ((vXestionAreaController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONAREA)).setArea((Area) taboaAreas.getSelectionModel().getSelectedItem());
+
         } else {
-            this.getFachadaAplicacion().mostrarErro("Administración de instalacións", "Non hai celda seleccionada!");
+            this.getFachadaAplicacion().mostrarErro("Administración de areas", "Non hai celda seleccionada!");
         }
     }
 
-    public void btnDarBaixaAction(ActionEvent actionEvent) {
+    public void btnDarBaixaAction(ActionEvent actionEvent) throws ExcepcionBD {
+        System.out.println("proba");
+        Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
+        if (area != null)
+        {
+            this.getFachadaAplicacion().darDeBaixaArea(area);
+            this.actualizarTaboa();
+        }
     }
 
-    public void btnDarAltaAction(ActionEvent actionEvent) {
+    public void btnDarAltaAction(ActionEvent actionEvent) throws ExcepcionBD {
+        System.out.println("proba");
+
+        Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
+        if (area != null)
+        {
+            this.getFachadaAplicacion().darDeAltaArea(area);
+            this.actualizarTaboa();
+        }
     }
 
-    public void btnEliminarAreaAction(ActionEvent actionEvent) {
+    public void btnEliminarAreaAction(ActionEvent actionEvent) throws ExcepcionBD {
+        System.out.println("proba");
+
+        Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
+
+        if (area != null)
+        {
+            this.getFachadaAplicacion().borrarArea(area);
+            this.actualizarTaboa();
+        }
     }
 
     public void btnVolverAction(ActionEvent actionEvent){
         //Regresamos á pantalla anterior e amosámola:
         controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
     }
+
+
 }
