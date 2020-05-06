@@ -312,7 +312,7 @@ public final class DAOUsuarios extends AbstractDAO {
         PreparedStatement stmUsuario = null;
 
         try {
-            stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET LOWER(login)=LOWER(?),contrasinal=?,numTelefono=?,correoElectronico=?,IBAN=?,dataBaixa=NULL WHERE LOWER(login)=LOWER(?);");
+            stmUsuario = super.getConexion().prepareStatement("UPDATE usuario SET login=?,contrasinal=?,numTelefono=?,correoElectronico=?,IBAN=?,dataBaixa=NULL WHERE LOWER(login)=LOWER(?);");
             stmUsuario.setString(1, usuario.getLogin());
             stmUsuario.setString(2, usuario.getContrasinal());
             stmUsuario.setString(3, usuario.getNumTelefono());
