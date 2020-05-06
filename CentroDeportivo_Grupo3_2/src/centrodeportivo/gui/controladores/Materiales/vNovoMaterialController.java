@@ -34,6 +34,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
     public TextField campoPrezoMaterial;
     public Button btnGardarMaterial;
     public Button btnLimparMaterial;
+    public Label avisoCampos;
 
 
     // Atributos privados: correspóndense con cuestións necesarias para realizar as diferentes xestións.
@@ -153,8 +154,13 @@ public class vNovoMaterialController extends AbstractController implements Initi
     public void btnLimparAction(ActionEvent actionEvent) {
         // Vaciamos os campos de texto
         AuxGUI.vaciarCamposTexto(campoEstadoMaterial, campoPrezoMaterial);
-        //Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
-        //AuxGUI.ocultarCampos(avisoCampos);
+        // Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
+        AuxGUI.ocultarCampos(avisoCampos);
+        // E por ultimo, vaciamos os comboBox e o dataPicker
+        comboArea.setValue(null);
+        comboInstalacion.setValue(null);
+        comboTipoMaterial.setValue(null);
+        campoDataCompraMaterial.setValue(null);
     }
 }
 
