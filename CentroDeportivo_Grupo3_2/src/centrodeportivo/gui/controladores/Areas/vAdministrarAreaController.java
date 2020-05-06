@@ -28,8 +28,12 @@ public class vAdministrarAreaController extends AbstractController implements In
     public Button btnBuscar;
     public Button btnLimpar;
     public TextField campoNomeArea;
-    public TextField campoaforom;
-    public Button btnXestionar;
+    public TextField campoAforo;
+    public Button btnVolver;
+    public Button btnDarBaixa;
+    public Button btnDarDeAlta;
+    public Button btnEliminarArea;
+    public Button btnModificarArea;
 
 
     public Instalacion instalacion;
@@ -75,10 +79,6 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getSelectionModel().selectFirst();
     }
 
-    public Instalacion getInstalacion() {
-        return instalacion;
-    }
-
     public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
     }
@@ -89,12 +89,12 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Se non se cubriu ningún campo, o que faremos será listar todas as instalacións.
         //Inda que poida parecer redundante, é un xeito de actualizar a información:
-        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea) && ! ValidacionDatos.estanCubertosCampos(campoaforom)){
+        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea) && ! ValidacionDatos.estanCubertosCampos(campoAforo)){
             taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
             //Creamos unha instalación co que se ten:
-            Area area = new Area(campoNomeArea.getText(), Integer.parseInt(campoaforom.getText()));
+            Area area = new Area(campoNomeArea.getText(), Integer.parseInt(campoAforo.getText()));
             taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(area));
         }
         //Establecemos unha selección sobre a táboa (se hai resultados):
@@ -104,7 +104,7 @@ public class vAdministrarAreaController extends AbstractController implements In
     public void btnLimparAction(ActionEvent actionEvent) {
         //Vaciaranse os campos e, depaso, listaranse todas as instalacións dispoñibeis de novo:
         campoNomeArea.setText("");
-        campoaforom.setText("");
+        campoAforo.setText("");
 
         //Aproveitamos entón para actualizar a táboa:
         //Eliminamos os items:
@@ -115,7 +115,7 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getSelectionModel().selectFirst();
     }
 
-    public void btnModificarArea(ActionEvent actionEvent) {
+    public void btnModificarAreaAction(ActionEvent actionEvent) {
         //Recuperamos primeiro a instalación seleccionada:
         Instalacion instalacion = (Instalacion) taboaAreas.getSelectionModel().getSelectedItem();
         if(instalacion != null){
@@ -129,9 +129,12 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
     }
 
-    public void metodoDeProba()
-    {
-        System.out.println("HOLA");
+    public void btnDarBaixaAction(ActionEvent actionEvent) {
     }
 
+    public void btnDarAltaAction(ActionEvent actionEvent) {
+    }
+
+    public void btnEliminarAreaAction(ActionEvent actionEvent) {
+    }
 }

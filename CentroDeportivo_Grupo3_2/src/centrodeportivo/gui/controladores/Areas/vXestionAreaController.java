@@ -149,7 +149,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnVolverAction(ActionEvent actionEvent) {
-        //Volvemos á ventá da área correspondente.
+        //Volvemos á ventá da edición da instalación.
         controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
     }
 }
