@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.Areas.vAdministrarAreaController;
 import centrodeportivo.gui.controladores.Areas.vNovaAreaController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -190,6 +191,10 @@ public class vEditarInstalacionController extends AbstractController implements 
      * @param actionEvent O evento que tivo lugar.
      */
     public void btnAdministrarAreasAction(ActionEvent actionEvent) {
+        //Poderemos abrir a pantalla onde amosamos as distintas areas:
+        ((vAdministrarAreaController) controllerPrincipal.getControlador(IdPantalla.ADMINAREA)).setInstalacion(this.instalacion);
+        //Abrimos a ventá das areas:
+        controllerPrincipal.mostrarPantalla(IdPantalla.ADMINAREA);
     }
 
     /**
