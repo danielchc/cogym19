@@ -55,4 +55,8 @@ public class XestionMaterial {
     public ArrayList<Material> listarMateriais(Material material) {
         return fachadaBD.listarMateriais(material);
     }
+
+    public Material consultarMaterial(Material material) {
+        return fachadaBD.consultarMaterial(material);
+    }
 }

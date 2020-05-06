@@ -482,6 +482,10 @@ public final class FachadaBD {
         return this.daoMaterial.listarMateriais(material);
     }
 
+    public Material consultarMaterial(Material material) {
+        return daoMaterial.consultarMaterial(material);
+    }
+
 
     //Funcións propias:
 
@@ -538,7 +542,7 @@ public final class FachadaBD {
         return daoareas.darDeAltaArea(area);
     }
 
-    public ArrayList<Area> buscarArea(Area area){
+    public ArrayList<Area> buscarArea(Area area) {
         return daoareas.buscarArea(area);
     }
 
