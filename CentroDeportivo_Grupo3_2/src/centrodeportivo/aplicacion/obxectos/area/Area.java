@@ -29,6 +29,11 @@ public class Area {
         this.instalacion = instalacion;
     }
 
+    public Area(String nome, int aforoMaximo) {
+        this.nome = nome;
+        this.aforoMaximo = aforoMaximo;
+    }
+
     public Area(int codArea, Instalacion instalacion, String nome) {
         this.codArea = codArea;
         this.nome = nome;

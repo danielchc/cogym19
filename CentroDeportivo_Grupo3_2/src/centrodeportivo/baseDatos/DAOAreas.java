@@ -436,7 +436,7 @@ public final class DAOAreas extends AbstractDAO {
         return areas;
     }
 
-    public ArrayList<Area> buscarAreas(Area area) {
+    public ArrayList<Area> buscarArea(Area area) {
         //Usaremos un ArrayList para almacenar unha nova area:
         ArrayList<Area> areas = new ArrayList<>();
 
@@ -449,12 +449,27 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            stmAreas = con.prepareStatement("SELECT codArea, instalacion, nome, describn, aforomaxiom, databaixa" +
-                    " FROM area " +
-                    " WHERE nome like ? ");
+            String consulta = "SELECT codArea, instalacion, nome, describn, aforomaxiom, databaixa" +
+                    " FROM area ";
 
-            //Establecemos os valores da consulta segundo a instancia de area pasada:
-            stmAreas.setString(1, "%" + area.getNome() + "%");
+            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
+            //argumento:
+            if (area != null) {
+                consulta += " WHERE nome like ? " +
+                        "   and aforomaximo = ? " ;
+            }
+
+            //Ordenaremos o resultado polo código da instalación (para que saian así ordenadas)
+            consulta += " ORDER BY codarea";
+
+            stmAreas = con.prepareStatement(consulta);
+
+            //Tamén se se pasa argumento haberá que completar a consulta:
+            if (area != null) {
+                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
+                stmAreas.setString(1, "%" + area.getNome() + "%");
+                stmAreas.setInt(2,  area.getAforoMaximo());
+            }
 
             //Realizamos a consulta:
             rsAreas = stmAreas.executeQuery();
@@ -504,7 +519,8 @@ public final class DAOAreas extends AbstractDAO {
         // Preparamos a consulta:
         try {
             String consultaArea = "SELECT codarea, instalacion, nome, descricion, aforomaximo, databaixa " +
-                    "FROM area WHERE databaixa is null";
+                    "FROM area " +
+                    "WHERE databaixa is null";
 
 
             // Comprobaremos se estamos a pasar un tipo nulo e xestionaremolo en función do caso:

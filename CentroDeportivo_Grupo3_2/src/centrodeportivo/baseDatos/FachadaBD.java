@@ -538,6 +538,10 @@ public final class FachadaBD {
         return daoareas.darDeAltaArea(area);
     }
 
+    public ArrayList<Area> buscarArea(Area area) throws ExcepcionBD {
+        return daoareas.buscarArea(area);
+    }
+
     public ArrayList<Area> listarAreas() throws ExcepcionBD {
         return daoareas.listarAreas();
     }

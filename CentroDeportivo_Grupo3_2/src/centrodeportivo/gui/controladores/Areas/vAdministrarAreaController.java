@@ -1,5 +1,7 @@
 package centrodeportivo.gui.controladores.Areas;
 
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.aplicacion.FachadaAplicacion;
@@ -15,28 +17,28 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 
 
-public class vNovaAreaController  extends AbstractController implements Initializable {
+public class vAdministrarAreaController extends AbstractController implements Initializable {
     //Atributos públicos: correspóndense con cuestións da ventá correspondente
-    public TableView taboaInstalacions;
+    public TableView taboaAreas;
     public Button btnBuscar;
     public Button btnLimpar;
-    public TextField campoNomeInstalacion;
-    public TextField campoDireccion;
+    public TextField campoNomeArea;
+    public TextField campoaforom;
     public Button btnXestionar;
-    public TextField campoTelefono;
 
 
-
+    public Instalacion instalacion;
 
 
     //Atributos privados: manteremos o controlador da ventá de procedencia:
     private vPrincipalController controllerPrincipal;
 
-    public vNovaAreaController (FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+    public vAdministrarAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }
@@ -45,69 +47,81 @@ public class vNovaAreaController  extends AbstractController implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Neste caso temos que colocar todos os campos na táboa:
-        //A primeira columna terá o código da Instalación:
-        TableColumn<Integer, Instalacion> colCodigo = new TableColumn<>("Código");
-        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codInstalacion"));
+        //A primeira columna terá o código da Area:
+        TableColumn<Integer, Area> colCodigo = new TableColumn<>("Código");
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codArea"));
         //A segunda columna terá o seu nome:
-        TableColumn<String, Instalacion> colNome = new TableColumn<>("Nome");
+        TableColumn<String, Area> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        //A terceira columna corresponderase co número de teléfono:
-        TableColumn<String, Instalacion> colTelf = new TableColumn<>("Teléfono");
-        colTelf.setCellValueFactory(new PropertyValueFactory<>("numTelefono"));
-        //A cuarta columna corresponderase coa dirección da Instalación:
-        TableColumn<String, Instalacion> colDir = new TableColumn<>("Dirección");
-        colDir.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        //A terceira columna corresponderase co aforomaximo:
+        TableColumn<Integer, Area> colAforo = new TableColumn<>("Aforo Máximo");
+        colAforo.setCellValueFactory(new PropertyValueFactory<>("aforomaximo"));
+        //A cuarta columna corresponderase coa data de baixa:
+        TableColumn<Date, Area> coldata = new TableColumn<>("Data de Baixa");
+        coldata.setCellValueFactory(new PropertyValueFactory<>("databaixa"));
+        //A cuarta columna corresponderase coa desciricon da Area:
+        TableColumn<String, Area> colDes = new TableColumn<>("Descricion");
+        colDes.setCellValueFactory(new PropertyValueFactory<>("descricion"));
 
         //Feito isto, engadimos as columnas:
-        taboaInstalacions.getColumns().addAll(colCodigo, colNome, colTelf, colDir);
+        taboaAreas.getColumns().addAll(colCodigo, colNome, colAforo, coldata, colDes);
         //Agora engadimos items:
-        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        try {
+            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(null));
+        } catch (ExcepcionBD excepcionBD) {
+            excepcionBD.printStackTrace();
+        }
         //Establecemos unha selección sobre a táboa (se hai resultados):
-        taboaInstalacions.getSelectionModel().selectFirst();
+        taboaAreas.getSelectionModel().selectFirst();
     }
 
+    public Instalacion getInstalacion() {
+        return instalacion;
+    }
 
+    public void setInstalacion(Instalacion instalacion) {
+        this.instalacion = instalacion;
+    }
 
-    public void btnBuscarAction(ActionEvent actionEvent) {
+    public void btnBuscarAction(ActionEvent actionEvent) throws ExcepcionBD {
         //Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
         //Vaciamos a táboa:
-        taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
+        taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Se non se cubriu ningún campo, o que faremos será listar todas as instalacións.
         //Inda que poida parecer redundante, é un xeito de actualizar a información:
-        if(!ValidacionDatos.estanCubertosCampos(campoNomeInstalacion) && ! ValidacionDatos.estanCubertosCampos(campoTelefono)
-                && !ValidacionDatos.estanCubertosCampos(campoDireccion)){
-            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea) && ! ValidacionDatos.estanCubertosCampos(campoaforom)){
+            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
             //Creamos unha instalación co que se ten:
-            Instalacion instalacion = new Instalacion(campoNomeInstalacion.getText(), campoTelefono.getText(), campoDireccion.getText());
-            taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(instalacion));
+            Area area = new Area(campoNomeArea.getText(), Integer.parseInt(campoaforom.getText()));
+            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(area));
         }
         //Establecemos unha selección sobre a táboa (se hai resultados):
-        taboaInstalacions.getSelectionModel().selectFirst();
+        taboaAreas.getSelectionModel().selectFirst();
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
         //Vaciaranse os campos e, depaso, listaranse todas as instalacións dispoñibeis de novo:
-        campoNomeInstalacion.setText("");
-        campoTelefono.setText("");
-        campoDireccion.setText("");
+        campoNomeArea.setText("");
+        campoaforom.setText("");
+
         //Aproveitamos entón para actualizar a táboa:
         //Eliminamos os items:
-        taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
+        taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Engadimos todas as instalacións tras consultalas (así actualizamos):
-        taboaInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
-        taboaInstalacions.getSelectionModel().selectFirst();
+        taboaAreas.getSelectionModel().selectFirst();
     }
 
-    public void btnNovaArea(ActionEvent actionEvent) {
+    public void btnModificarArea(ActionEvent actionEvent) {
         //Recuperamos primeiro a instalación seleccionada:
-        Instalacion instalacion = (Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem();
+        Instalacion instalacion = (Instalacion) taboaAreas.getSelectionModel().getSelectedItem();
         if(instalacion != null){
             //Se non é null seguimos adiante.
             //Accedemos ao controlador de creación dun area:
-            ((vNovaArea1Controller)this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA1)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
+            ((vNovaArea1Controller)this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA1)).setInstalacion((Instalacion)taboaAreas.getSelectionModel().getSelectedItem());
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.NOVAAREA1);
         } else {

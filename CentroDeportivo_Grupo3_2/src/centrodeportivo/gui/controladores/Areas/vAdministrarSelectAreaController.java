@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 
 
-public class vNovaAreaController  extends AbstractController implements Initializable {
+public class vAdministrarSelectAreaController extends AbstractController implements Initializable {
     //Atributos públicos: correspóndense con cuestións da ventá correspondente
     public TableView taboaInstalacions;
     public Button btnBuscar;
@@ -31,12 +31,10 @@ public class vNovaAreaController  extends AbstractController implements Initiali
 
 
 
-
-
     //Atributos privados: manteremos o controlador da ventá de procedencia:
     private vPrincipalController controllerPrincipal;
 
-    public vNovaAreaController (FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+    public vAdministrarSelectAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }
@@ -101,15 +99,15 @@ public class vNovaAreaController  extends AbstractController implements Initiali
         taboaInstalacions.getSelectionModel().selectFirst();
     }
 
-    public void btnNovaArea(ActionEvent actionEvent) {
+    public void btnModificarAreas(ActionEvent actionEvent) {
         //Recuperamos primeiro a instalación seleccionada:
         Instalacion instalacion = (Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem();
         if(instalacion != null){
             //Se non é null seguimos adiante.
             //Accedemos ao controlador de creación dun area:
-            ((vNovaArea1Controller)this.controllerPrincipal.getControlador(IdPantalla.NOVAAREA1)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
+            ((vNovaArea1Controller)this.controllerPrincipal.getControlador(IdPantalla.ADMINSELECTAREA)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
-            this.controllerPrincipal.mostrarPantalla(IdPantalla.NOVAAREA1);
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINSELECTAREA);
         } else {
             this.getFachadaAplicacion().mostrarErro("Administración de instalacións", "Non hai celda seleccionada!");
         }

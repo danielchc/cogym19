@@ -464,10 +464,34 @@ public class FachadaAplicacion extends Application {
      */
 
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
-        System.out.println("en fachada aplicacion " + area.getNome());
-        System.out.println(xestionArea == null);
         return xestionArea.EngadirArea(area);
     }
+
+    public TipoResultados borrarArea(Area area) throws ExcepcionBD {
+        return xestionArea.borrarArea(area);
+    }
+
+    public TipoResultados modificarArea(Area area) throws ExcepcionBD {
+        return xestionArea.modificarArea(area);
+    }
+
+    public TipoResultados darDeAltaArea(Area area) throws ExcepcionBD {
+        return xestionArea.darDeAltaAreaa(area);
+    }
+
+    public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {
+        return xestionArea.darDeBaixaArea(area);
+    }
+
+    public ArrayList<Area> buscarArea(Area area) throws ExcepcionBD {
+        return xestionArea.buscarArea(area);
+    }
+
+    public Boolean EBaixaArea(Area area) throws ExcepcionBD {
+        return xestionArea.EBaixaArea(area);
+    }
+
+
 
     /**
      * Método que nos permite buscar areas na base de datos en función dunha instalación.
