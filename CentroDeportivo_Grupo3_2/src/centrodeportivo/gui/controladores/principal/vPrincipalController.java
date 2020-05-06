@@ -6,7 +6,7 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.Actividades.vAdministrarTiposActividadesController;
 import centrodeportivo.gui.controladores.Actividades.vInsercionTipoActividadeController;
 import centrodeportivo.gui.controladores.Areas.vAdministrarAreaController;
-import centrodeportivo.gui.controladores.Areas.vNovaAreaController;
+import centrodeportivo.gui.controladores.Areas.vXestionAreaController;
 import centrodeportivo.gui.controladores.Cursos.vAdministrarCursosController;
 import centrodeportivo.gui.controladores.Cursos.vXestionCursoController;
 import centrodeportivo.gui.controladores.DatosVista;
@@ -136,7 +136,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.EDITARMATERIAL, new DatosVista("../../vistas/Materiales/vEditarMaterial.fxml", new vEditarMaterialController(super.getFachadaAplicacion(), this)));
 
         //Pantallas para crear unha nova area
-        this.pantallas.put(IdPantalla.NOVAAREA, new DatosVista("../../vistas/Areas/vNovaArea.fxml", new vNovaAreaController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.XESTIONAREA, new DatosVista("../../vistas/Areas/vNovaArea.fxml", new vXestionAreaController(super.getFachadaAplicacion(), this)));
 
         //Pantallas para modificar unha area e eliminala
         this.pantallas.put(IdPantalla.ADMINAREA, new DatosVista("../../vistas/Areas/vAdministrarArea.fxml", new vAdministrarAreaController(super.getFachadaAplicacion(), this)));

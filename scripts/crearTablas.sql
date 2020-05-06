@@ -102,7 +102,7 @@ CREATE TABLE tipoActividade(
 
 CREATE TABLE curso(
 	codCurso	SERIAL NOT NULL,
-	nome		VARCHAR(50),
+	nome		VARCHAR(50) NOT NULL,
 	descricion	VARCHAR(200),
 	prezo		DECIMAL	NOT NULL CHECK (prezo>=0),
 	aberto		BOOLEAN NOT NULL DEFAULT false,
@@ -166,9 +166,9 @@ CREATE TABLE incidenciaArea(
 
 CREATE TABLE rexistroFisioloxico(
 	socio			VARCHAR(25) NOT NULL,
-	dataMarca 		TIMESTAMP NOT NULL,
-	peso			DECIMAL CHECK (peso>=0),
-	altura			DECIMAL CHECK (altura>=0),
+	dataMarca 		TIMESTAMP NOT NULL DEFAULT NOW(),
+	peso			DECIMAL CHECK (peso>=0) NOT NULL,
+	altura			DECIMAL CHECK (altura>=0) NOT NULL,
 	bfp				DECIMAL CHECK (bfp>=0),
 	tensionAlta		INT CHECK (tensionAlta>=0),
 	tensionBaixa	INT CHECK (tensionBaixa>=0),
