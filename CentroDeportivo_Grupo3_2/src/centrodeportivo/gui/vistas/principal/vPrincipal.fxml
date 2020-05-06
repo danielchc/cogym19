@@ -54,6 +54,18 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button id="INSERCIONACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Tipos de Actividades" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../imaxes/editar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
                 <Button id="XESTIONCURSO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Curso" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />

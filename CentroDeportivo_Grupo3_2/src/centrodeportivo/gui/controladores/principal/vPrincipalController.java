@@ -4,6 +4,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.Actividades.vAdministrarTiposActividadesController;
+import centrodeportivo.gui.controladores.Actividades.vInsercionActividadeController;
 import centrodeportivo.gui.controladores.Actividades.vInsercionTipoActividadeController;
 import centrodeportivo.gui.controladores.Areas.vAdministrarAreaController;
 import centrodeportivo.gui.controladores.Areas.vXestionAreaController;
@@ -134,12 +135,12 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARMATERIAIS, new DatosVista("../../vistas/Materiales/vAdministrarMaterial.fxml", new vAdministrarMateriaisController(super.getFachadaAplicacion(), this)));
         // Pantalla editar material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.EDITARMATERIAL, new DatosVista("../../vistas/Materiales/vEditarMaterial.fxml", new vEditarMaterialController(super.getFachadaAplicacion(), this)));
-
-        //Pantallas para crear unha nova area
+        //Pantalla para crear unha nova area
         this.pantallas.put(IdPantalla.XESTIONAREA, new DatosVista("../../vistas/Areas/vXestionArea.fxml", new vXestionAreaController(super.getFachadaAplicacion(), this)));
-
-        //Pantallas para modificar unha area e eliminala
+        //Pantalla para modificar unha area e eliminala
         this.pantallas.put(IdPantalla.ADMINAREA, new DatosVista("../../vistas/Areas/vAdministrarArea.fxml", new vAdministrarAreaController(super.getFachadaAplicacion(), this)));
+        //Pantalla para crear unha nova actividade:
+        this.pantallas.put(IdPantalla.INSERCIONACTIVIDADE, new DatosVista("../../vistas/Actividades/vInsercionActividade.fxml", new vInsercionActividadeController(super.getFachadaAplicacion(), this)));
     }
 
     /**
