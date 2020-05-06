@@ -6,8 +6,10 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
@@ -126,5 +128,14 @@ public class vEditarMaterialController extends AbstractController implements Ini
         this.material = material;
     }
 
+
+    /**
+     * Acción efectuada ao premer o botón volver.
+     * @param actionEvent Evento que tivo lugar.
+     */
+    public void btnVolverAction(ActionEvent actionEvent) {
+        // Volvemos a pantalla de administrar materiais:
+        this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARMATERIAIS);
+    }
 
 }
