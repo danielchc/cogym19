@@ -40,7 +40,7 @@
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font></Label>
-                        <TextField disable="true" prefHeight="26.0" prefWidth="48.0" promptText="Código..." HBox.hgrow="NEVER">
+                        <TextField fx:id="campoCodigo" disable="true" prefHeight="26.0" prefWidth="48.0" promptText="Código..." HBox.hgrow="NEVER">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin></TextField>
@@ -62,7 +62,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                        <TextArea prefHeight="67.0" prefWidth="328.0" />
+                        <TextArea fx:id="campoDescricion" prefHeight="67.0" prefWidth="328.0" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="342.0" VBox.vgrow="NEVER">
@@ -72,7 +72,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="aforomaximo" prefHeight="26.0" prefWidth="98.0" promptText="Aforo Máximo..." HBox.hgrow="NEVER" />
+                                <TextField fx:id="campoAforoMax" prefHeight="26.0" prefWidth="98.0" promptText="Aforo Máximo..." HBox.hgrow="NEVER" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="41.0" prefWidth="342.0" VBox.vgrow="NEVER">
@@ -86,7 +86,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="342.0" VBox.vgrow="NEVER">
                             <children>
-                                <Button fx:id="btnGardarAction" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="160.0" text="Gardar Area" />
+                                <Button fx:id="btnGardar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="160.0" text="Gardar Area" />
                                 <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="26.0" prefWidth="160.0" text="Limpar Campos">
                            <HBox.margin>
                               <Insets left="20.0" />
@@ -95,7 +95,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="414.0" VBox.vgrow="NEVER">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" text="Volver" />
+                        <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="160.0" text="Volver" />
                      </children></HBox>
                     </children>
                 </VBox>

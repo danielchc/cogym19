@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 
@@ -34,17 +35,18 @@ public class vXestionAreaController extends AbstractController implements Initia
      */
     public Button btnGardar;
     public Button btnLimpar;
+    public Button btnVolver;
     public TextField campoNome;
-    public TextField campoDescricion;
-    public TextField aforomaximo;
+    public TextArea campoDescricion;
     public Label avisoCampos;
-    public Instalacion instalacion;
-
+    public TextField campoCodigo;
+    public TextField campoAforoMax;
 
     /**
      * Atributos privados: correspóndense con outras cuestións necesarias para certas xestións.
      */
     private vPrincipalController controllerPrincipal; //Referencia ao controlador da ventá principal.
+    private Instalacion instalacion;
 
     /**
      * Constructor do controlador da pantalla de nova area:
@@ -65,18 +67,14 @@ public class vXestionAreaController extends AbstractController implements Initia
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Neste caso non é necesario facer nada na inicialización.
         //Polo tanto, deixámolo oculto.
-        aforomaximo.textProperty().addListener(new ChangeListener<String>() {
+        campoAforoMax.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if (!t1.matches("\\d{0,4}")) {
-                    aforomaximo.setText(s);
+                    campoAforoMax.setText(s);
                 }
             }
         });
-    }
-
-    public Instalacion getInstalacion() {
-        return instalacion;
     }
 
     public void setInstalacion(Instalacion instalacion) {
@@ -89,7 +87,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      */
     public void btnGardarAction(ActionEvent actionEvent) {
         //Primeiro imos comprobar que os campos non están vacíos:
-        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoDescricion, aforomaximo)) {
+        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoDescricion, campoAforoMax)) {
             //Se hai campos non cubertos amósase unha mensaxe e non se fai nada máis.
             //Amosamos a mensaxe de erro:
             AuxGUI.amosarCampos(avisoCampos);
@@ -97,14 +95,14 @@ public class vXestionAreaController extends AbstractController implements Initia
         }
 
         //Agora imos validar que o teléfono introducido se corresponda con algo correcto:
-        if (Integer.parseInt(aforomaximo.getText()) < 1) {
+        if (Integer.parseInt(campoAforoMax.getText()) < 1) {
             //O mesmo que no caso dos campos vacíos: avisamos do erro e non se fai nada máis:
             this.getFachadaAplicacion().mostrarErro("Area", "O valor de aforomáximo é incorrecto!");
             return;
         }
 
         //Creamos un obxecto Area con todos os datos facilitados
-        Area area = new Area(instalacion, campoNome.getText(), campoDescricion.getText(), Integer.parseInt(aforomaximo.getText()));
+        Area area = new Area(instalacion, campoNome.getText(), campoDescricion.getText(), Integer.parseInt(campoAforoMax.getText()));
 
         //Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso.
         try {
@@ -114,9 +112,9 @@ public class vXestionAreaController extends AbstractController implements Initia
             switch (res) {
                 case correcto:
                     //Correcto -> Imprimimos mensaxe de éxito co ID da instalación insertada:
-                    this.getFachadaAplicacion().mostrarInformacion("Area",
+                    this.getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
                             "Creada a Area " + area.getNome() +
-                                    ". O seu id de Area  é: " + area.getCodArea() + "." +
+                                    ". O seu id de Area  é: " + area.getCodArea() +
                                     ". O seu id de Instalación  é: " + area.getInstalacion().getCodInstalacion() + ".");
                     //Volvemos á pantalla principal:
                     this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
@@ -141,9 +139,17 @@ public class vXestionAreaController extends AbstractController implements Initia
      */
     public void btnLimparAction(ActionEvent actionEvent) {
         //O que imos a facer e limpar os tres campos, vaciar o que teñan:
-        AuxGUI.vaciarCamposTexto(campoNome, campoDescricion, aforomaximo);
+        AuxGUI.vaciarCamposTexto(campoNome, campoDescricion, campoAforoMax);
         //Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
         AuxGUI.ocultarCampos(avisoCampos);
     }
 
+    /**
+     * Método que representa as accións realizadas ao premer o botón de retorno.
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnVolverAction(ActionEvent actionEvent) {
+        //Volvemos á ventá da área correspondente.
+        controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
+    }
 }

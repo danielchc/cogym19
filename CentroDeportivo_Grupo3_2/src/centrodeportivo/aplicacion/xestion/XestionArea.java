@@ -21,9 +21,7 @@ public class XestionArea {
 
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
         //Se a area non existe, dase de alta:
-        System.out.println("dentro de Engadir area");
         if(!fachadaBD.ExisteArea(area)) {
-            System.out.println("Engadir area");
             fachadaBD.EngadirArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
