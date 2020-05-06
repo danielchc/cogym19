@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class vNovaActividadeController extends AbstractController implements Initializable {
+public class vInsercionActividadeController extends AbstractController implements Initializable {
     public Button btnGardar;
     public Button btnLimpar;
     public TextField campoNome;
@@ -20,7 +20,7 @@ public class vNovaActividadeController extends AbstractController implements Ini
 
     private vPrincipalController controllerPrincipal;
 
-    public vNovaActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+    public vInsercionActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }
