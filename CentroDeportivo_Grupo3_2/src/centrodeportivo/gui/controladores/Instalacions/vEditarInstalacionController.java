@@ -6,7 +6,7 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.Areas.vNovaAreaController;
+import centrodeportivo.gui.controladores.Areas.vXestionAreaController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
@@ -180,9 +180,9 @@ public class vEditarInstalacionController extends AbstractController implements 
      */
     public void btnEngadirAreaAction(ActionEvent actionEvent) {
         //Poderemos abrir a pantalla de engadido dunha area:
-        ((vNovaAreaController) controllerPrincipal.getControlador(IdPantalla.NOVAAREA)).setInstalacion(this.instalacion);
+        ((vXestionAreaController) controllerPrincipal.getControlador(IdPantalla.XESTIONAREA)).setInstalacion(this.instalacion);
         //Abrimos a ventá de nova área:
-        controllerPrincipal.mostrarPantalla(IdPantalla.NOVAAREA);
+        controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONAREA);
     }
 
     /**

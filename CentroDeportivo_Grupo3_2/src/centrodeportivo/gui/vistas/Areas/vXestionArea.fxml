@@ -55,7 +55,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="342.0">
                             <children>
-                                <Label alignment="TOP_CENTER" prefHeight="0.0" prefWidth="167.0" text="Aforo Maximo">
+                                <Label alignment="TOP_CENTER" prefHeight="0.0" prefWidth="167.0" text="Aforo Maximo*">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>

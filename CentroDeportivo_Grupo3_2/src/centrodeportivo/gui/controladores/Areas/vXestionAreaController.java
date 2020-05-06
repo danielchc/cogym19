@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * @author Víctor Barreiro
  * Esta clase funcionará como controlador da ventá de inserción dos datos dunha nova area.
  */
-public class vNovaAreaController extends AbstractController implements Initializable {
+public class vXestionAreaController extends AbstractController implements Initializable {
     /**
      * Atributos públicos - trátase dos campos da interface aos que queremos acceder:
      */
@@ -51,7 +51,7 @@ public class vNovaAreaController extends AbstractController implements Initializ
      * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
-    public vNovaAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+    public vXestionAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }
