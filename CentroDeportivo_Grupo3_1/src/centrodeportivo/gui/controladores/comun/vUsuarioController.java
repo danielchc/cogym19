@@ -5,6 +5,7 @@ import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
 import centrodeportivo.aplicacion.obxectos.tipos.ContasPersoa;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoUsuario;
+import centrodeportivo.aplicacion.obxectos.usuarios.PersoaFisica;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -249,6 +250,23 @@ public class vUsuarioController extends AbstractController implements Initializa
                 mostrarCamposSocio();
                 break;
         }
+        if(contasP!=ContasPersoa.Ningunha){
+            PersoaFisica persoaFisica=super.getFachadaAplicacion().consultarPersoaFisica(campoDNI.getText());
+
+            this.campoNome.setText(persoaFisica.getNome());
+            this.campoData.setValue(persoaFisica.getDataNacemento().toLocalDate());
+            this.campoDificultades.setText(persoaFisica.getDificultades());
+            this.campoNome.setEditable(false);
+            this.campoData.setEditable(false);
+            this.campoDificultades.setEditable(false);
+        }else{
+            this.campoNome.setText("");
+            this.campoDificultades.setText("");
+            this.campoNome.setEditable(true);
+            this.campoData.setEditable(true);
+            this.campoDificultades.setEditable(true);
+        }
+
     }
 
     /**
