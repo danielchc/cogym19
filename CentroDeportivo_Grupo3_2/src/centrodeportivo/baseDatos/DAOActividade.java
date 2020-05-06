@@ -144,7 +144,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public void modificarActividade(Actividade actividade) throws ExcepcionBD {
+    public void modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -159,17 +159,19 @@ public class DAOActividade extends AbstractDAO {
                     "     profesor = ?," +
                     "     nome = ? " +
                     "     duracion = ? " +
+                    "     data = ? " +
                     " WHERE dataactividade = ? and area = ? and instalacion = ? ");
 
             //Establecemos os valores:
-            stmActivide.setInt(1, actividade.getTipoActividade().getCodTipoActividade());
-            stmActivide.setInt(2, actividade.getCurso().getCodCurso());
-            stmActivide.setString(3, actividade.getProfesor().getLogin());
-            stmActivide.setString(4, actividade.getNome());
-            stmActivide.setFloat(5, actividade.getDuracion());
-            stmActivide.setTimestamp(6, actividade.getData());
-            stmActivide.setInt(7, actividade.getArea().getCodArea());
-            stmActivide.setInt(8, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setInt(1, actNova.getTipoActividade().getCodTipoActividade());
+            stmActivide.setInt(2, actNova.getCurso().getCodCurso());
+            stmActivide.setString(3, actNova.getProfesor().getLogin());
+            stmActivide.setString(4, actNova.getNome());
+            stmActivide.setFloat(5, actNova.getDuracion());
+            stmActivide.setTimestamp(6, actNova.getData());
+            stmActivide.setTimestamp(7, actVella.getData());
+            stmActivide.setInt(8, actVella.getArea().getCodArea());
+            stmActivide.setInt(9, actVella.getArea().getInstalacion().getCodInstalacion());
 
 
             //Realizamos a actualización:

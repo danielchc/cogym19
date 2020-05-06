@@ -570,8 +570,8 @@ public final class FachadaBD {
         return daoActividade.horarioOcupadoActividade(actividade);
     }
 
-    public void modificarActividade(Actividade actividade) throws ExcepcionBD {
-        daoActividade.modificarActividade(actividade);
+    public void modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
+        daoActividade.modificarActividade(actVella, actNova);
     }
 
     public void borrarActividade(Actividade actividade) throws ExcepcionBD {
