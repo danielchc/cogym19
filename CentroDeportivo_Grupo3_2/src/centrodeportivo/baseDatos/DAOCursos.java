@@ -359,7 +359,7 @@ public final class DAOCursos extends AbstractDAO{
         //Devolvemos os cursos consultados:
         return resultado;
     }
-
+ 
     /**
      * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
      * máis información todavía.
