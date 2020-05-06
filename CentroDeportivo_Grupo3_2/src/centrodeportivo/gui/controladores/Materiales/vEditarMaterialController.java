@@ -10,6 +10,8 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -123,6 +125,18 @@ public class vEditarMaterialController extends AbstractController implements Ini
                 }
             });
 
+            //Engadimos un listener no campo do prezo para controlar os valores introducidos:
+            campoPrezoMaterial.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    //Se o novo valor que se quere introducir non concorda co formato de tres dixitos na parte enteira
+                    //e dous na decimal, entón poñemos o valor antigo:
+                    if (!newValue.matches("\\d{0,3}([\\.]\\d{0,2})?")) {
+                        campoPrezoMaterial.setText(oldValue);
+                    }
+                }
+            });
+
             // Actualizamos os campos ca información do material pasado
             actualizarCamposMaterial();
 
@@ -133,6 +147,8 @@ public class vEditarMaterialController extends AbstractController implements Ini
                     "Non se detectou ningún material... Saíndo.");
             this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARMATERIAIS);
         }
+
+
     }
 
     /**
@@ -193,6 +209,8 @@ public class vEditarMaterialController extends AbstractController implements Ini
                 super.getFachadaAplicacion().mostrarErro("Administración de Materiais", e.getMessage());
             }
         }
+
+
     }
 
     /**
