@@ -8,7 +8,7 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-import centrodeportivo.gui.controladores.vLoginController;
+import centrodeportivo.gui.controladores.comun.vLoginController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -134,7 +134,7 @@ public class FachadaGUI {
     }
 
     public void mostrarLogin(FachadaAplicacion fachadaAplicacion, Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/centrodeportivo/gui/vistas/vLogin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/centrodeportivo/gui/vistas/comun/vLogin.fxml"));
         loader.setController(new vLoginController(fachadaAplicacion));
         Parent root = loader.load();
 
