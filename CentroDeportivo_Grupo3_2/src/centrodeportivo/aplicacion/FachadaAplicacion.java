@@ -465,6 +465,10 @@ public class FachadaAplicacion extends Application {
         return xestionMaterial.listarMateriais(material);
     }
 
+    public Material consultarMaterial(Material material) {
+        return xestionMaterial.consultarMaterial(material);
+    }
+
       /*
         Xestión areas
      */
@@ -496,7 +500,6 @@ public class FachadaAplicacion extends Application {
     public Boolean EBaixaArea(Area area) throws ExcepcionBD {
         return xestionArea.EBaixaArea(area);
     }
-
 
 
     /**

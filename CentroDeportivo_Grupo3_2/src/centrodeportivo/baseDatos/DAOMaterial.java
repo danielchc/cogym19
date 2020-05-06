@@ -9,11 +9,13 @@ import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 
 public final class DAOMaterial extends AbstractDAO {
 
@@ -87,8 +89,9 @@ public final class DAOMaterial extends AbstractDAO {
         // Preparamos o borrado:
         try {
             stmMaterial = con.prepareStatement("DELETE FROM material " +
-                    " WHERE codMaterial = ?");
+                    " WHERE codMaterial = ? and tipomaterial =  ? ");
             stmMaterial.setInt(1, material.getCodMaterial());
+            stmMaterial.setInt(2, material.getTipoMaterial().getCodTipoMaterial());
 
             // Realizamos a actualización:
             stmMaterial.executeUpdate();
@@ -218,6 +221,98 @@ public final class DAOMaterial extends AbstractDAO {
         return resultado;
     }
 
+    /**
+     * ConsultarMaterial -> comproba se certo material existe na base de datos e devolve os datos actualizados
+     *
+     * @param material -> datos do material que se quere consultar
+     * @return -> devolve os datos do material actualizado
+     */
+    public Material consultarMaterial(Material material) {
+
+        PreparedStatement stmMaterial = null;
+        ResultSet rsMaterial;
+        Material resultado = null;
+        TipoMaterial tipoMaterial;
+        Instalacion instalacion;
+        Area area;
+        Connection con;
+
+
+        // Recuperamos a conexión coa base de datos
+        con = super.getConexion();
+
+        // Preparamos a consulta
+        try {
+            stmMaterial = con.prepareStatement("SELECT m.*, " +
+                    "tm.nome as nometipo, " +
+                    "a.nome as nomearea, a.descricion, " +
+                    "i.nome as nomeinstalacion, i.numtelefono, i.direccion " +
+                    "FROM material as m " +
+                    "INNER JOIN tipomaterial as tm " +
+                    "ON m.tipomaterial = tm.codtipomaterial " +
+                    "INNER JOIN area as a " +
+                    "ON m.area = a.codarea " +
+                    "INNER JOIN instalacion as i " +
+                    "ON a.instalacion = i.codinstalacion AND m.instalacion = i.codinstalacion " +
+                    "WHERE m.codmaterial = ? and m.tipomaterial = ? " +
+                    "ORDER BY m.tipomaterial, m.codmaterial ");
+
+            // Asignamos os valores que corresponden:
+            stmMaterial.setInt(1, material.getCodMaterial());
+            stmMaterial.setInt(2, material.getTipoMaterial().getCodTipoMaterial());
+
+            // Executamos a consulta
+            rsMaterial = stmMaterial.executeQuery();
+            // Procesamos o ResultSet
+            if (rsMaterial.next()) {
+                // Creamos o tipo de material
+                tipoMaterial = new TipoMaterial(rsMaterial.getInt("tipomaterial"), rsMaterial.getString("nometipo"));
+
+                // Creamos a instalacion
+                instalacion = new Instalacion(rsMaterial.getInt("instalacion"), rsMaterial.getString("nomeinstalacion"),
+                        rsMaterial.getString("numtelefono"), rsMaterial.getString("direccion"));
+
+                // Creamos a area
+                area = new Area(rsMaterial.getInt("area"), instalacion, rsMaterial.getString("nomearea"),
+                        rsMaterial.getString("descricion"));
+
+                // Creamos o material
+                resultado = new Material(rsMaterial.getInt("codmaterial"), tipoMaterial, area,
+                        rsMaterial.getString("estado"));
+
+                // Se a data da compra non e nula, engadimoslla:
+                if (rsMaterial.getObject("datacompra") != null) {
+                    resultado.setDataCompra((Date) rsMaterial.getObject("datacompra"));
+                }
+
+                // Se o prezo da compra non e nulo, engadimosllo:
+                if (rsMaterial.getObject("prezocompra") != null) {
+                    Float prezocompra = ((BigDecimal) rsMaterial.getObject("prezocompra")).floatValue();
+                    resultado.setPrezoCompra(prezocompra);
+                }
+            }
+            con.commit();
+
+            // Facemos o commit
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                assert stmMaterial != null;
+                stmMaterial.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
+    }
+
 
     /**
      * ListarMateriais -> obten todos os materiais almacenados na base de datos
@@ -232,6 +327,7 @@ public final class DAOMaterial extends AbstractDAO {
         TipoMaterial tipoMaterial;
         Area area;
         Instalacion instalacion;
+        Material resultado;
 
         // Recuperamos a conexión coa base de datos
         con = super.getConexion();
@@ -239,7 +335,7 @@ public final class DAOMaterial extends AbstractDAO {
         // Preparamos a consulta
         try {
 
-            stmMaterial = con.prepareStatement("SELECT m.codmaterial, m.tipomaterial, m.area, m.instalacion, m.estado, " +
+            stmMaterial = con.prepareStatement("SELECT m.*, " +
                     "tm.nome as nometipo, " +
                     "a.nome as nomearea, a.descricion, " +
                     "i.nome as nomeinstalacion, i.numtelefono, i.direccion " +
@@ -262,8 +358,21 @@ public final class DAOMaterial extends AbstractDAO {
                 area = new Area(rsMaterial.getInt("area"), instalacion, rsMaterial.getString("nomearea"),
                         rsMaterial.getString("descricion"));
                 // Engadimos o material o ArrayList
-                materiais.add(new Material(rsMaterial.getInt("codmaterial"), tipoMaterial, area,
-                        rsMaterial.getString("estado")));
+                resultado = new Material(rsMaterial.getInt("codmaterial"), tipoMaterial, area,
+                        rsMaterial.getString("estado"));
+
+                // Se a data da compra non e nula, engadimoslla:
+                if (rsMaterial.getObject("datacompra") != null) {
+                    resultado.setDataCompra((Date) rsMaterial.getObject("datacompra"));
+                }
+
+                // Se o prezo da compra non e nulo, engadimosllo:
+                if (rsMaterial.getObject("prezocompra") != null) {
+                    Float prezocompra = ((BigDecimal) rsMaterial.getObject("prezocompra")).floatValue();
+                    resultado.setPrezoCompra(prezocompra);
+                }
+
+                materiais.add(resultado);
             }
             con.commit();
         } catch (SQLException e) {
