@@ -48,19 +48,19 @@ public class vAdministrarAreaController extends AbstractController implements In
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Neste caso temos que colocar todos os campos na táboa:
         //A primeira columna terá o código da Area:
-        TableColumn<Integer, Area> colCodigo = new TableColumn<>("Código");
+        TableColumn<Area, Integer> colCodigo = new TableColumn<>("Código");
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codArea"));
         //A segunda columna terá o seu nome:
-        TableColumn<String, Area> colNome = new TableColumn<>("Nome");
+        TableColumn<Area, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         //A terceira columna corresponderase co aforomaximo:
-        TableColumn<Integer, Area> colAforo = new TableColumn<>("Aforo Máximo");
+        TableColumn<Area, Integer> colAforo = new TableColumn<>("Aforo Máximo");
         colAforo.setCellValueFactory(new PropertyValueFactory<>("aforomaximo"));
         //A cuarta columna corresponderase coa data de baixa:
-        TableColumn<Date, Area> coldata = new TableColumn<>("Data de Baixa");
+        TableColumn<Area, Date> coldata = new TableColumn<>("Data de Baixa");
         coldata.setCellValueFactory(new PropertyValueFactory<>("databaixa"));
         //A cuarta columna corresponderase coa desciricon da Area:
-        TableColumn<String, Area> colDes = new TableColumn<>("Descricion");
+        TableColumn<Area, String> colDes = new TableColumn<>("Descricion");
         colDes.setCellValueFactory(new PropertyValueFactory<>("descricion"));
 
         //Feito isto, engadimos as columnas:

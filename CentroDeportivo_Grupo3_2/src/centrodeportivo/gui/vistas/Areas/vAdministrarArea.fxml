@@ -102,7 +102,7 @@
                             </children></HBox>
                         <HBox prefHeight="186.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <TableView fx:id="taboaInstalacions" prefHeight="163.0" prefWidth="551.0" HBox.hgrow="ALWAYS">
+                                <TableView fx:id="taboaAreas" prefHeight="163.0" prefWidth="551.0" HBox.hgrow="ALWAYS">
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>

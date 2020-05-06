@@ -168,7 +168,7 @@ public class vPrincipalController extends AbstractController implements Initiali
             this.transicions.put(btnsMenu.get(i), new Transicion(sliders.get(i)));
         }
 
-        //Mediantea seguinte chamada poderemos ir facendo actualizacións sobre os sliders:
+        //Mediante a seguinte chamada poderemos ir facendo actualizacións sobre os sliders:
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

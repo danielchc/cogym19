@@ -449,7 +449,7 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            String consulta = "SELECT codArea, instalacion, nome, describn, aforomaxiom, databaixa" +
+            String consulta = "SELECT codArea, instalacion, nome, descricion, aforomaximo, databaixa" +
                     " FROM area ";
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
