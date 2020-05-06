@@ -49,8 +49,8 @@ public final class DAOMensaxes extends AbstractDAO{
 
         //Comezaremos a intentar o envío da mensaxe:
         try {
-            //Primeiro consultamos os login de todos os socios:
-            stmUsuarios = con.prepareStatement("SELECT login FROM socio");
+            //Primeiro consultamos os login de todos os socios (que non estivesen dados de baixa!):
+            stmUsuarios = con.prepareStatement("SELECT login FROM vistasocio WHERE dataBaixa IS NULL");
             //Non precisamos pasarlle nada, posto que simplemente queremos recuperar os socios todos:
             rsUsuarios = stmUsuarios.executeQuery();
 
