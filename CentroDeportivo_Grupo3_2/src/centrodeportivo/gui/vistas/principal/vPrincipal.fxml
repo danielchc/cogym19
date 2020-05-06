@@ -38,42 +38,6 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button id="NOVAAREA" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Área" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/novo.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button id="ADMINAREA" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Modificar Área" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/editar.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Borrar Área" textFill="WHITE">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../imaxes/borrar.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
         </VBox>
 
         <VBox id="vb-sidebar" fx:id="sideBarActividadesPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
@@ -117,30 +81,24 @@
             </children>
         </VBox>
 
-        <VBox id="vb-sidebar" fx:id="sideBarMaterialPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
-              style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
-              AnchorPane.topAnchor="0.0">
-            <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
-                    text="Novo material" textFill="WHITE">
+        <VBox id="vb-sidebar" fx:id="sideBarMaterialPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
+            <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo material" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0"/>
+                    <Font name="System Bold" size="12.0" />
                 </font>
                 <graphic>
                     <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../imaxes/novo.png"/>
+                        <Image url="@../../imaxes/novo.png" />
                     </ImageView>
                 </graphic>
             </Button>
-            <Button id="ADMINISTRARMATERIAIS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
-                    text="Administrar materiais" textFill="WHITE">
+            <Button id="ADMINISTRARMATERIAIS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Administrar materiais" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0"/>
+                    <Font name="System Bold" size="12.0" />
                 </font>
                 <graphic>
                     <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../imaxes/editar.png"/>
+                        <Image url="@../../imaxes/editar.png" />
                     </ImageView>
                 </graphic>
             </Button>
