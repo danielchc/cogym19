@@ -63,7 +63,7 @@ public class Area {
         this.nome = nome;
     }
 
-    //TODO: Constructor palero helena
+    //TODO: Constructor helena
     public Area(int codArea, Instalacion instalacion, String nome, String descricion) {
         this.codArea = codArea;
         this.instalacion = instalacion;

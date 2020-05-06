@@ -6,6 +6,7 @@ import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 
 
 public class vAdministrarAreaController extends AbstractController implements Initializable {
-    //Atributos públicos: correspóndense con cuestións da ventá correspondente
+    //Atributos públicos: correspóndense con cuestións da ventá correspondente:
     public TableView taboaAreas;
     public Button btnBuscar;
     public Button btnLimpar;
@@ -35,9 +36,7 @@ public class vAdministrarAreaController extends AbstractController implements In
     public Button btnEliminarArea;
     public Button btnModificarArea;
 
-
     public Instalacion instalacion;
-
 
     //Atributos privados: manteremos o controlador da ventá de procedencia:
     private vPrincipalController controllerPrincipal;
@@ -70,11 +69,7 @@ public class vAdministrarAreaController extends AbstractController implements In
         //Feito isto, engadimos as columnas:
         taboaAreas.getColumns().addAll(colCodigo, colNome, colAforo, coldata, colDes);
         //Agora engadimos items:
-        try {
-            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(null));
-        } catch (ExcepcionBD excepcionBD) {
-            excepcionBD.printStackTrace();
-        }
+        taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
     }
@@ -83,35 +78,34 @@ public class vAdministrarAreaController extends AbstractController implements In
         this.instalacion = instalacion;
     }
 
-    public void btnBuscarAction(ActionEvent actionEvent) throws ExcepcionBD {
+    public void btnBuscarAction(ActionEvent actionEvent) {
         //Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
-        //Vaciamos a táboa:
+        //Borramos primeiro todas as áreas da táboa:
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
-        //Se non se cubriu ningún campo, o que faremos será listar todas as instalacións.
-        //Inda que poida parecer redundante, é un xeito de actualizar a información:
-        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea) && ! ValidacionDatos.estanCubertosCampos(campoAforo)){
-            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        //Se non se cubriu ningún campo, o que faremos será listar todas as áreas.
+        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea, campoAforo)){
+            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
-            //Creamos unha instalación co que se ten:
+            //Creamos unha area cos datos recollidos:
             Area area = new Area(campoNomeArea.getText(), Integer.parseInt(campoAforo.getText()));
+            System.out.println(area);
             taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(area));
         }
-        //Establecemos unha selección sobre a táboa (se hai resultados):
+        //Selecciónase o primeiro item da táboa:
         taboaAreas.getSelectionModel().selectFirst();
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
-        //Vaciaranse os campos e, depaso, listaranse todas as instalacións dispoñibeis de novo:
-        campoNomeArea.setText("");
-        campoAforo.setText("");
+        //Vaciaranse os campos e, depaso, listaranse todas as áreas dispoñibeis de novo:
+        AuxGUI.vaciarCamposTexto(campoAforo,campoNomeArea);
 
         //Aproveitamos entón para actualizar a táboa:
         //Eliminamos os items:
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
-        //Engadimos todas as instalacións tras consultalas (así actualizamos):
+        //Engadimos todas as areas tras consultalas:
         taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
-        //Establecemos unha selección sobre a táboa (se hai resultados):
+        //Seleccionamos o primeiro:
         taboaAreas.getSelectionModel().selectFirst();
     }
 
@@ -136,5 +130,10 @@ public class vAdministrarAreaController extends AbstractController implements In
     }
 
     public void btnEliminarAreaAction(ActionEvent actionEvent) {
+    }
+
+    public void btnVolverAction(ActionEvent actionEvent){
+        //Regresamos á pantalla anterior e amosámola:
+        controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
     }
 }

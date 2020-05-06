@@ -75,7 +75,7 @@ public class XestionArea {
         return fachadaBD.EBaixaArea(area);
     }
 
-    public ArrayList<Area> buscarArea(Area area) throws ExcepcionBD {
+    public ArrayList<Area> buscarArea(Area area) {
         return fachadaBD.buscarArea(area);
     }
 

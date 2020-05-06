@@ -538,7 +538,7 @@ public final class FachadaBD {
         return daoareas.darDeAltaArea(area);
     }
 
-    public ArrayList<Area> buscarArea(Area area) throws ExcepcionBD {
+    public ArrayList<Area> buscarArea(Area area){
         return daoareas.buscarArea(area);
     }
 

@@ -114,8 +114,8 @@ public class vXestionAreaController extends AbstractController implements Initia
                     //Correcto -> Imprimimos mensaxe de éxito co ID da instalación insertada:
                     this.getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
                             "Creada a Area " + area.getNome() +
-                                    ". O seu id de Area  é: " + area.getCodArea() +
-                                    ". O seu id de Instalación  é: " + area.getInstalacion().getCodInstalacion() + ".");
+                                    ". O seu id de Area é: " + area.getCodArea() +
+                                    ". O seu id de Instalación é: " + area.getInstalacion().getCodInstalacion() + ".");
                     //Volvemos á pantalla principal:
                     this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
                     break;

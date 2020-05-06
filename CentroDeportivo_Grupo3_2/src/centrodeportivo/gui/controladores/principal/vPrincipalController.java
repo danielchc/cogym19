@@ -269,7 +269,7 @@ public class vPrincipalController extends AbstractController implements Initiali
             //de comezar.
             this.pantallas.get(idPantalla).getControlador().reiniciarForm();
         } catch (Exception e) {
-            //En caso de excepción, pintamos o stack trace:
+            //En caso de excepción, pintamos o stack trace correspondente:
             e.printStackTrace();
         }
     }

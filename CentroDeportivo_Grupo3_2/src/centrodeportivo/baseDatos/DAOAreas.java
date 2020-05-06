@@ -441,7 +441,7 @@ public final class DAOAreas extends AbstractDAO {
         ArrayList<Area> areas = new ArrayList<>();
 
         PreparedStatement stmAreas = null;
-        ResultSet rsAreas = null;
+        ResultSet rsAreas;
         Connection con;
 
         //Recuperamos a conexión:
@@ -454,17 +454,18 @@ public final class DAOAreas extends AbstractDAO {
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
+
             if (area != null) {
                 consulta += " WHERE nome like ? " +
                         "   and aforomaximo = ? " ;
             }
 
-            //Ordenaremos o resultado polo código da instalación (para que saian así ordenadas)
+            //Ordenaremos o resultado polo código da área para ordenalas
             consulta += " ORDER BY codarea";
 
             stmAreas = con.prepareStatement(consulta);
 
-            //Tamén se se pasa argumento haberá que completar a consulta:
+            //Pasando area non nula completase a consulta.
             if (area != null) {
                 //Establecemos os valores da consulta segundo a instancia de instalación pasada:
                 stmAreas.setString(1, "%" + area.getNome() + "%");

@@ -38,7 +38,7 @@ public class vEditarAreaController extends AbstractController implements Initial
 
     //Constructor:
     public vEditarAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal){
-        //Asignamos os atributos pasados:
+        //Asignamos os atributos pasados ao constructor:
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }
