@@ -8,10 +8,7 @@ import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public final class DAOAreas extends AbstractDAO {
@@ -29,7 +26,7 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmAreas = con.prepareStatement("SELECT codarea, instalacion " +
+            stmAreas = con.prepareStatement("SELECT  * " +
                     " FROM area " +
                     " WHERE instalacion = ? and codarea = ?");
 
@@ -40,8 +37,7 @@ public final class DAOAreas extends AbstractDAO {
             rsAreas = stmAreas.executeQuery();
 
             if (rsAreas.next()) {
-                if ((rsAreas.getInt(1) == area.getInstalacion().getCodInstalacion()) && (rsAreas.getInt(2) == area.getCodArea()))
-                    return true;
+                return true;
             }
             return false; //Dado que non existe dita area na base de datos
 
@@ -112,7 +108,7 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public int borrarArea(Area area) throws ExcepcionBD {
+    public boolean tenActividadeArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -132,32 +128,10 @@ public final class DAOAreas extends AbstractDAO {
             //Facemos a consulta:
             rsAux = stmAreas.executeQuery();
 
-            if (!rsAux.next()) {
-                stmAreas = con.prepareStatement("SELECT area " +
-                        " FROM material " +
-                        " WHERE area = ? and instalacion = ? ");
-
-                stmAreas.setInt(1, area.getCodArea());
-                stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
-
-                //Facemos a consulta:
-                rsAux = stmAreas.executeQuery();
-
-                if (!rsAux.next()) {
-                    stmAreas = con.prepareStatement("DELETE FROM area " +
-                            " WHERE codarea = ? and codinstalacion = ?");
-                    stmAreas.setInt(1, area.getCodArea());
-                    stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
-
-                    //Realizamos a actualización:
-                    stmAreas.executeUpdate();
-                    //Facemos o commit:
-                    con.commit();
-                    return 0;
-                }
-                return 2; //Devolvemos un 2 dado que existen materiais asociados a este area
+            if (rsAux.next()) {
+                return true;
             }
-            return 1; //Devolvemos un 1 dado que hai algunha actividade neste area
+            return false;
 
         } catch (SQLException e) {
             //Lanzamos unha das nosas excepcións propias:
@@ -172,7 +146,80 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public int modificarArea(Area area) throws ExcepcionBD {
+    public boolean tenMateriaisArea(Area area) throws ExcepcionBD {
+        PreparedStatement stmAreas = null;
+        Connection con;
+        ResultSet rsAux = null;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos o borrado:
+        try {
+            stmAreas = con.prepareStatement("SELECT area " +
+                    " FROM material " +
+                    " WHERE area = ? and instalacion = ? ");
+
+            stmAreas.setInt(1, area.getCodArea());
+            stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+
+            //Facemos a consulta:
+            rsAux = stmAreas.executeQuery();
+
+            if (rsAux.next()) {
+                return true;
+            }
+            return false;
+
+        } catch (SQLException e) {
+            //Lanzamos unha das nosas excepcións propias:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //Pechamos o statement para rematar.
+            try {
+                stmAreas.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
+
+    public void borrarArea(Area area) throws ExcepcionBD {
+        PreparedStatement stmAreas = null;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        System.out.println(area.getCodArea());
+
+        //Preparamos o borrado:
+        try {
+            stmAreas = con.prepareStatement("DELETE FROM area " +
+                    " WHERE codarea = ? and instalacion = ?");
+            stmAreas.setInt(1, area.getCodArea());
+            stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+
+            //Realizamos a actualización:
+            stmAreas.executeUpdate();
+            //Facemos o commit:
+            con.commit();
+
+        } catch (SQLException e) {
+            //Lanzamos unha das nosas excepcións propias:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //Pechamos o statement para rematar.
+            try {
+                stmAreas.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
+
+
+    public void modificarArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -182,17 +229,6 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a modificación:
         try {
-            stmAreas = con.prepareStatement("SELECT codinstalacion " +
-                    " FROM instalacion " +
-                    " WHERE codinstalacion = ? ");
-
-            stmAreas.setInt(1, area.getInstalacion().getCodInstalacion());
-
-            //Facemos a consulta:
-            rsAux = stmAreas.executeQuery();
-
-            if (rsAux.next()) {
-                if (rsAux.getInt(1) == area.getInstalacion().getCodInstalacion()) {
                     stmAreas = con.prepareStatement("UPDATE area " +
                             " SET nome = ?, " +
                             "     descricion = ?, " +
@@ -212,10 +248,6 @@ public final class DAOAreas extends AbstractDAO {
                     stmAreas.executeUpdate();
                     //Facemos un commit, dado que se rematou a actualización:
                     con.commit();
-                    return 0;
-                }
-            }
-            return 1; //Non existe a instalacion na base de datos
 
         } catch (SQLException e) {
             //Lanzamos a nosa excepción de base de datos.
@@ -230,57 +262,29 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public int darDeBaixaArea(Area area) throws ExcepcionBD {
+    public void darDeBaixaArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
-
-        int result;
 
         //Recuperamos a conexión:
         con = super.getConexion();
 
         //Preparamos a modificación:
         try {
-            stmAreas = con.prepareStatement("SELECT area " +
-                    " FROM actividade " +
-                    " WHERE area = ? and instalacion = ? ");
+            stmAreas = con.prepareStatement("UPDATE area " +
+                    " SET databaixa = ? " +
+                    " WHERE codarea = ? and instalacion = ? ");
 
-            stmAreas.setInt(1, area.getCodArea());
-            stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
-            //Facemos a consulta:
-            rsAux = stmAreas.executeQuery();
+            //Asignamos os valores que corresponden:
+            stmAreas.setDate(1, new Date(System.currentTimeMillis()));
+            stmAreas.setInt(2, area.getCodArea());
+            stmAreas.setInt(3, area.getInstalacion().getCodInstalacion());
 
-            if (!rsAux.next()) {
-                stmAreas = con.prepareStatement("SELECT area " +
-                        " FROM material " +
-                        " WHERE area = ? and instalacion = ? ");
-
-                stmAreas.setInt(1, area.getCodArea());
-                stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
-
-                //Facemos a consulta:
-                rsAux = stmAreas.executeQuery();
-
-                if (!rsAux.next()) {
-                    stmAreas = con.prepareStatement("UPDATE area " +
-                            " SET databaixa = ? " +
-                            " WHERE codarea = ? and instalacion = ? ");
-
-                    //Asignamos os valores que corresponden:
-                    stmAreas.setDate(1, area.getDataBaixa());
-                    stmAreas.setInt(2, area.getCodArea());
-                    stmAreas.setInt(3, area.getInstalacion().getCodInstalacion());
-
-                    //Executamos a actualización:
-                    stmAreas.executeUpdate();
-                    //Facemos un commit, dado que se rematou a actualización:
-                    con.commit();
-                    return 0;
-                }
-                return 2; //Devolvemos un 2 dado que existen materiais asociados a este area
-            }
-            return 1; //Devolvemos un 1 dado que hai algunha actividade neste area
+            //Executamos a actualización:
+            stmAreas.executeUpdate();
+            //Facemos un commit, dado que se rematou a actualización:
+            con.commit();
 
         } catch (SQLException e) {
             //Lanzamos a nosa excepción de base de datos.
@@ -295,47 +299,28 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public int darDeAltaArea(Area area) throws ExcepcionBD {
+    public void darDeAltaArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
-
-        int result;
 
         //Recuperamos a conexión:
         con = super.getConexion();
 
         //Preparamos a modificación:
         try {
-            stmAreas = con.prepareStatement("SELECT codarea, instalacion" +
-                    " FROM area " +
-                    " WHERE codarea = ? and codinstalacion = ?");
+            stmAreas = con.prepareStatement("UPDATE area " +
+                    " SET databaixa = null " +
+                    " WHERE codarea = ? and instalacion = ? ");
 
+            //Asignamos os valores que corresponden:
             stmAreas.setInt(1, area.getCodArea());
             stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
 
-            //Facemos a consulta:
-            rsAux = stmAreas.executeQuery();
-
-            if (rsAux.next()) {
-                if (rsAux.getInt(1) == area.getCodArea() && rsAux.getInt(2) == area.getInstalacion().getCodInstalacion()) {
-                    stmAreas = con.prepareStatement("UPDATE area " +
-                            " SET databaixa = ? " +
-                            " WHERE codarea = ? and instalacion = ? ");
-
-                    //Asignamos os valores que corresponden:
-                    stmAreas.setDate(1, area.getDataBaixa());
-                    stmAreas.setInt(2, area.getCodArea());
-                    stmAreas.setInt(3, area.getInstalacion().getCodInstalacion());
-
-                    //Executamos a actualización:
-                    stmAreas.executeUpdate();
-                    //Facemos un commit, dado que se rematou a actualización:
-                    con.commit();
-                    return 0;
-                }
-            }
-            return 1; //Non existe a area na base de datos
+            //Executamos a actualización:
+            stmAreas.executeUpdate();
+            //Facemos un commit, dado que se rematou a actualización:
+            con.commit();
 
         } catch (SQLException e) {
             //Lanzamos a nosa excepción de base de datos.
@@ -364,7 +349,7 @@ public final class DAOAreas extends AbstractDAO {
         try {
             stmAreas = con.prepareStatement("SELECT instalacion, codarea " +
                     " FROM area " +
-                    " WHERE codarea = ? and instalacion = ? and databaixa is null");
+                    " WHERE codarea = ? and instalacion = ? and not databaixa is null");
 
             stmAreas.setInt(1, area.getCodArea());
             stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
@@ -373,9 +358,7 @@ public final class DAOAreas extends AbstractDAO {
             rsAux = stmAreas.executeQuery();
 
             if (rsAux.next()) {
-                if (rsAux.getInt(1) == area.getInstalacion().getCodInstalacion() && rsAux.getInt(2) == area.getCodArea()) {
-                    return true;
-                }
+                return true;
             }
             return false; //Non existe a area na base de datos
 
@@ -436,7 +419,7 @@ public final class DAOAreas extends AbstractDAO {
         return areas;
     }
 
-    public ArrayList<Area> buscarArea(Area area) {
+    public ArrayList<Area> buscarArea(Instalacion instalacion, Area area) {
         //Usaremos un ArrayList para almacenar unha nova area:
         ArrayList<Area> areas = new ArrayList<>();
 
@@ -450,14 +433,15 @@ public final class DAOAreas extends AbstractDAO {
         //Preparamos a consulta:
         try {
             String consulta = "SELECT codArea, instalacion, nome, descricion, aforomaximo, databaixa" +
-                    " FROM area ";
+                    " FROM area " +
+                    " WHERE instalacion = ?";
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
 
             if (area != null) {
                 consulta += " WHERE nome like ? " +
-                        "   and aforomaximo = ? " ;
+                        "   and aforomaximo = ? ";
             }
 
             //Ordenaremos o resultado polo código da área para ordenalas
@@ -465,11 +449,13 @@ public final class DAOAreas extends AbstractDAO {
 
             stmAreas = con.prepareStatement(consulta);
 
+            stmAreas.setInt(1, instalacion.getCodInstalacion());
+
             //Pasando area non nula completase a consulta.
             if (area != null) {
                 //Establecemos os valores da consulta segundo a instancia de instalación pasada:
-                stmAreas.setString(1, "%" + area.getNome() + "%");
-                stmAreas.setInt(2,  area.getAforoMaximo());
+                stmAreas.setString(2, "%" + area.getNome() + "%");
+                stmAreas.setInt(3, area.getAforoMaximo());
             }
 
             //Realizamos a consulta:
@@ -478,8 +464,8 @@ public final class DAOAreas extends AbstractDAO {
             //Recibida a consulta, procesámola:
             while (rsAreas.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
-                areas.add(new Area(rsAreas.getInt(2), new Instalacion(rsAreas.getInt(1)),
-                        rsAreas.getString(3), rsAreas.getString(4), rsAreas.getInt(5), rsAreas.getDate(6)));
+                areas.add(new Area(rsAreas.getInt("codarea"), new Instalacion(rsAreas.getInt("instalacion")),
+                        rsAreas.getString("nome"), rsAreas.getString("descricion"), rsAreas.getInt("aforomaximo"), rsAreas.getDate("databaixa")));
             }
             con.commit();
         } catch (SQLException e) {

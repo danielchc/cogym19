@@ -103,7 +103,6 @@ public class vXestionAreaController extends AbstractController implements Initia
             return;
         }
 
-        //Agora imos validar que o teléfono introducido se corresponda con algo correcto:
         if (Integer.parseInt(campoAforoMax.getText()) < 1) {
             //O mesmo que no caso dos campos vacíos: avisamos do erro e non se fai nada máis:
             this.getFachadaAplicacion().mostrarErro("Area", "O valor de aforomáximo é incorrecto!");
@@ -111,12 +110,22 @@ public class vXestionAreaController extends AbstractController implements Initia
         }
 
         //Creamos un obxecto Area con todos os datos facilitados
-        Area area = new Area(instalacion, campoNome.getText(), campoDescricion.getText(), Integer.parseInt(campoAforoMax.getText()));
+        Area area1 = new Area(instalacion, campoNome.getText(), campoDescricion.getText(), Integer.parseInt(campoAforoMax.getText()));
 
         //Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso.
         try {
             //A consulta pódenos devolver varios resultados en función da situación. Avaliámolos:
-            TipoResultados res = this.getFachadaAplicacion().EngadirArea(area);
+            TipoResultados res;
+            if (area == null)
+                res = this.getFachadaAplicacion().EngadirArea(area1);
+            else
+            {
+                area1.setCodArea(area.getCodArea());
+                area1.setInstalacion(area.getInstalacion());
+                area1.setDataBaixa(area.getDataBaixa());
+                res = this.getFachadaAplicacion().modificarArea(area1);
+            }
+
             //En función do resultado, mostraremos unha mensaxe ou outra:
             switch (res) {
                 case correcto:

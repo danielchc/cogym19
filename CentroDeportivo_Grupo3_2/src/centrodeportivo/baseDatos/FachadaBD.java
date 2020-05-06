@@ -518,28 +518,36 @@ public final class FachadaBD {
         return daoareas.EngadirArea(area);
     }
 
-    public int borrarArea(Area area) throws ExcepcionBD {
-        return daoareas.borrarArea(area);
+    public void borrarArea(Area area) throws ExcepcionBD {
+        daoareas.borrarArea(area);
     }
 
-    public int modificarArea(Area area) throws ExcepcionBD {
-        return daoareas.modificarArea(area);
+    public boolean tenActividadesArea(Area area) throws ExcepcionBD {
+        return daoareas.tenActividadeArea(area);
     }
 
-    public int darDeBaixaArea(Area area) throws ExcepcionBD {
-        return daoareas.darDeBaixaArea(area);
+    public boolean tenMateriaisArea(Area area) throws ExcepcionBD {
+        return daoareas.tenMateriaisArea(area);
+    }
+
+    public void modificarArea(Area area) throws ExcepcionBD {
+        daoareas.modificarArea(area);
+    }
+
+    public void darDeBaixaArea(Area area) throws ExcepcionBD {
+        daoareas.darDeBaixaArea(area);
     }
 
     public boolean EBaixaArea(Area area) throws ExcepcionBD {
         return daoareas.EBaixaArea(area);
     }
 
-    public int darDeAltaArea(Area area) throws ExcepcionBD {
-        return daoareas.darDeAltaArea(area);
+    public void darDeAltaArea(Area area) throws ExcepcionBD {
+        daoareas.darDeAltaArea(area);
     }
 
-    public ArrayList<Area> buscarArea(Area area){
-        return daoareas.buscarArea(area);
+    public ArrayList<Area> buscarArea(Instalacion instalacion, Area area){
+        return daoareas.buscarArea(instalacion, area);
     }
 
     public ArrayList<Area> listarAreas() throws ExcepcionBD {

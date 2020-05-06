@@ -489,8 +489,8 @@ public class FachadaAplicacion extends Application {
         return xestionArea.darDeBaixaArea(area);
     }
 
-    public ArrayList<Area> buscarArea(Area area) {
-        return xestionArea.buscarArea(area);
+    public ArrayList<Area> buscarArea(Instalacion instalacion, Area area) {
+        return xestionArea.buscarArea(instalacion, area);
     }
 
     public Boolean EBaixaArea(Area area) throws ExcepcionBD {

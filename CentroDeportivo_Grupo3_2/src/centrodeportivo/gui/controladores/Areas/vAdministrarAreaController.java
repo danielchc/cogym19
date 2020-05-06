@@ -69,7 +69,7 @@ public class vAdministrarAreaController extends AbstractController implements In
         //Feito isto, engadimos as columnas:
         taboaAreas.getColumns().addAll(colCodigo, colNome, colAforo, coldata, colDes);
         //Agora engadimos items:
-        taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(null));
+        taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
     }
@@ -77,7 +77,7 @@ public class vAdministrarAreaController extends AbstractController implements In
     public void actualizarTaboa()
     {
         //Agora engadimos items:
-        taboaAreas.getItems().setAll(super.getFachadaAplicacion().buscarArea(null));
+        taboaAreas.getItems().setAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
     }
@@ -93,13 +93,13 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Se non se cubriu ningún campo, o que faremos será listar todas as áreas.
         if(!ValidacionDatos.estanCubertosCampos(campoNomeArea, campoAforo)){
-            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(null));
+            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
             //Creamos unha area cos datos recollidos:
             Area area = new Area(campoNomeArea.getText(), Integer.parseInt(campoAforo.getText()));
             System.out.println(area);
-            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(area));
+            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         }
         //Selecciónase o primeiro item da táboa:
         taboaAreas.getSelectionModel().selectFirst();
@@ -134,7 +134,6 @@ public class vAdministrarAreaController extends AbstractController implements In
     }
 
     public void btnDarBaixaAction(ActionEvent actionEvent) throws ExcepcionBD {
-        System.out.println("proba");
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null)
         {
@@ -144,8 +143,6 @@ public class vAdministrarAreaController extends AbstractController implements In
     }
 
     public void btnDarAltaAction(ActionEvent actionEvent) throws ExcepcionBD {
-        System.out.println("proba");
-
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null)
         {
@@ -155,8 +152,6 @@ public class vAdministrarAreaController extends AbstractController implements In
     }
 
     public void btnEliminarAreaAction(ActionEvent actionEvent) throws ExcepcionBD {
-        System.out.println("proba");
-
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
 
         if (area != null)

@@ -31,7 +31,8 @@ public class XestionArea {
     }
 
     public TipoResultados borrarArea(Area area) throws ExcepcionBD {
-        if(fachadaBD.ExisteArea(area)){
+
+        if(fachadaBD.ExisteArea(area) && !fachadaBD.tenActividadesArea(area) && !fachadaBD.tenMateriaisArea(area)){
             fachadaBD.borrarArea(area);
             //Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
@@ -75,8 +76,8 @@ public class XestionArea {
         return fachadaBD.EBaixaArea(area);
     }
 
-    public ArrayList<Area> buscarArea(Area area) {
-        return fachadaBD.buscarArea(area);
+    public ArrayList<Area> buscarArea(Instalacion instalacion, Area area) {
+        return fachadaBD.buscarArea(instalacion, area);
     }
 
     public ArrayList<Area> listarAreas() throws ExcepcionBD {
