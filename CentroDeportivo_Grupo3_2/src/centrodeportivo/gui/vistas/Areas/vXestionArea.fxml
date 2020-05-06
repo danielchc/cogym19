@@ -14,7 +14,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="46.0" prefWidth="326.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="46.0" prefWidth="211.0" text="Nova Area" textFill="WHITE">
+                                <Label alignment="CENTER" prefHeight="46.0" prefWidth="211.0" text="Xestión de Áreas" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
