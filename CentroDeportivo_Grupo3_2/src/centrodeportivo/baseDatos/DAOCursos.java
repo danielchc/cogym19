@@ -471,9 +471,15 @@ public final class DAOCursos extends AbstractDAO{
         } finally {
             //Tentamos pechar os statements:
             try {
-                stmActividades.close();
+                if(stmActividades != null){
+                    stmActividades.close();
+
+                }
+                if(stmSocios != null){
+                    stmSocios.close();
+                }
+                //O de cursos é o único que sabemos certamente que non é null.
                 stmCursos.close();
-                stmSocios.close();
             } catch (SQLException e) {
                 //Imprimiríamos o stack trace se houbo problemas.
                 e.printStackTrace();
@@ -633,10 +639,17 @@ public final class DAOCursos extends AbstractDAO{
         } finally {
             //Tentamos pechar os statements:
             try {
-                stmActividades.close();
+                if(stmActividades != null){
+                    stmActividades.close();
+                }
+                if(stmSocios != null){
+                    stmSocios.close();
+                }
+                if(stmPersoal != null){
+                    stmPersoal.close();
+                }
+                //O de cursos é o único que sabemos certamente que non é null.
                 stmCursos.close();
-                stmSocios.close();
-                stmPersoal.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
