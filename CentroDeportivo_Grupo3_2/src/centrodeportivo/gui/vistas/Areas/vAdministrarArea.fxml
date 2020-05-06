@@ -54,28 +54,19 @@
                                             </children>
                                         </HBox>
                                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <Label alignment="CENTER" prefWidth="80.0" text="Dirección" HBox.hgrow="ALWAYS">
+                                 <children>
+                                                <Label alignment="CENTER" prefWidth="80.0" text="Aforo Maximo" HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="System Bold" size="14.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextField fx:id="campoDireccion" prefHeight="26.0" prefWidth="180.0" promptText="Introduce dirección a buscar..." HBox.hgrow="ALWAYS" />
-                                            </children>
+                                                    </font></Label>
+                                                <TextField fx:id="campoTelefono" promptText="Introduce número de teléfono a buscar..." HBox.hgrow="ALWAYS" />
+                                 </children>
                                         </HBox>
                                     </children>
                                 </VBox>
                                 <VBox prefHeight="50.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <Label alignment="CENTER" prefWidth="80.0" text="Teléfono" HBox.hgrow="ALWAYS">
-                                                    <font>
-                                                        <Font name="System Bold" size="14.0" />
-                                                    </font></Label>
-                                                <TextField fx:id="campoTelefono" prefWidth="180.0" promptText="Introduce número de teléfono a buscar..." HBox.hgrow="ALWAYS" />
-                                            </children>
-                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                             <children>
                                                 <VBox prefHeight="200.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
@@ -102,7 +93,7 @@
                             </children></HBox>
                         <HBox prefHeight="186.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <TableView fx:id="taboaAreas" prefHeight="163.0" prefWidth="551.0" HBox.hgrow="ALWAYS">
+                                <TableView fx:id="taboaInstalacions" prefHeight="163.0" prefWidth="551.0" HBox.hgrow="ALWAYS">
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
@@ -110,7 +101,10 @@
                             </children></HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Button fx:id="btnModificarAreas" alignment="CENTER" mnemonicParsing="false" onAction="#btnModificarArea" prefHeight="26.0" prefWidth="127.0" text="Modificar Areas" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnNovaArea2" alignment="CENTER" mnemonicParsing="false" onAction="#btnModificarArea" prefHeight="26.0" prefWidth="127.0" text="Dar de baixa" />
+                        <Button fx:id="btnNovaArea1" alignment="CENTER" mnemonicParsing="false" onAction="#btnModificarArea" prefHeight="26.0" prefWidth="127.0" text="Dar de alta" />
+                                <Button fx:id="btnNovaArea" alignment="CENTER" mnemonicParsing="false" onAction="#btnModificarArea" prefHeight="26.0" prefWidth="127.0" text="Eliminar Area" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnNovaArea3" alignment="CENTER" mnemonicParsing="false" onAction="#btnModificarArea" prefHeight="26.0" prefWidth="127.0" text="Modificar Area" />
                             </children>
                         </HBox>
                     </children>
