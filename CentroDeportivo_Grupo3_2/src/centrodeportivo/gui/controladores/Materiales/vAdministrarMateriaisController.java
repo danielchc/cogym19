@@ -172,10 +172,10 @@ public class vAdministrarMateriaisController extends AbstractController implemen
         //Recuperamos primeiro a instalación seleccionada:
         Material material = (Material) taboaMateriais.getSelectionModel().getSelectedItem();
         //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
-        if(material != null){
+        if (material != null) {
             //Se non é null seguimos adiante.
             //Accedemos ao controlador da ventá de edición dunha instalación:
-            ((vEditarMaterialController)this.controllerPrincipal.getControlador(IdPantalla.EDITARMATERIAL)).setMaterial(material);
+            ((vEditarMaterialController) this.controllerPrincipal.getControlador(IdPantalla.EDITARMATERIAL)).setMaterial(material);
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.EDITARMATERIAL);
         } else {

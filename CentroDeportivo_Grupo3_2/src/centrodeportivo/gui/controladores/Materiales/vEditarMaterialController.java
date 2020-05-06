@@ -1,13 +1,17 @@
 package centrodeportivo.gui.controladores.Materiales;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -121,6 +125,18 @@ public class vEditarMaterialController extends AbstractController implements Ini
                 }
             });
 
+            //Engadimos un listener no campo do prezo para controlar os valores introducidos:
+            campoPrezoMaterial.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    //Se o novo valor que se quere introducir non concorda co formato de tres dixitos na parte enteira
+                    //e dous na decimal, entón poñemos o valor antigo:
+                    if (!newValue.matches("\\d{0,3}([\\.]\\d{0,2})?")) {
+                        campoPrezoMaterial.setText(oldValue);
+                    }
+                }
+            });
+
             // Actualizamos os campos ca información do material pasado
             actualizarCamposMaterial();
 
@@ -131,6 +147,8 @@ public class vEditarMaterialController extends AbstractController implements Ini
                     "Non se detectou ningún material... Saíndo.");
             this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARMATERIAIS);
         }
+
+
     }
 
     /**
@@ -166,6 +184,34 @@ public class vEditarMaterialController extends AbstractController implements Ini
         }
     }
 
+    /**
+     * Acción efectuada o
+     *
+     * @param actionEvent O evento que tivo lugar.
+     */
+    public void btnBorrarAction(ActionEvent actionEvent) {
+        // Cando se pide borrar, primeiro solicitase a confirmación por parte do usuario:
+        if (super.getFachadaAplicacion().mostrarConfirmacion("Administración de Materiais",
+                "Desexa eliminar o material seleccionado?") == ButtonType.OK) {
+            // Intentamos levar a cabo o borrado de dito material:
+            try {
+                TipoResultados res = super.getFachadaAplicacion().borrarMaterial(material);
+                // En función do resultado, actuamos:
+                if (res == TipoResultados.correcto) {
+                    // En caso de borrado correcto, confírmase o resultado:
+                    super.getFachadaAplicacion().mostrarInformacion("Administración de Materiais",
+                            "Material borrado correctamente.");
+                    // Unha vez rematado o borrado, voltamos a pantalla anterior:
+                    controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARMATERIAIS);
+                }
+            } catch (ExcepcionBD e) {
+                // No caso de ter un erro, amosamos unha mensaxe por pantalla co mesmo:
+                super.getFachadaAplicacion().mostrarErro("Administración de Materiais", e.getMessage());
+            }
+        }
+
+
+    }
 
     /**
      * Acción efectuada ao premer o botón volver.

@@ -8,6 +8,8 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -32,6 +34,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
     public TextField campoPrezoMaterial;
     public Button btnGardarMaterial;
     public Button btnLimparMaterial;
+    public Label avisoCampos;
 
 
     // Atributos privados: correspóndense con cuestións necesarias para realizar as diferentes xestións.
@@ -117,6 +120,19 @@ public class vNovoMaterialController extends AbstractController implements Initi
                 setDisable(empty || date.compareTo(today) > 0);
             }
         });
+
+        //Engadimos un listener no campo do prezo para controlar os valores introducidos:
+        campoPrezoMaterial.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                //Se o novo valor que se quere introducir non concorda co formato de tres dixitos na parte enteira
+                //e dous na decimal, entón poñemos o valor antigo:
+                if (!newValue.matches("\\d{0,3}([\\.]\\d{0,2})?")) {
+                    campoPrezoMaterial.setText(oldValue);
+                }
+            }
+        });
+
     }
 
     /**
@@ -132,13 +148,19 @@ public class vNovoMaterialController extends AbstractController implements Initi
 
     /**
      * Método que representa as accións realizadas ao premer o botón de limpado de campos.
+     *
      * @param actionEvent A acción que tivo lugar
      */
     public void btnLimparAction(ActionEvent actionEvent) {
         // Vaciamos os campos de texto
         AuxGUI.vaciarCamposTexto(campoEstadoMaterial, campoPrezoMaterial);
-        //Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
-        //AuxGUI.ocultarCampos(avisoCampos);
+        // Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
+        AuxGUI.ocultarCampos(avisoCampos);
+        // E por ultimo, vaciamos os comboBox e o dataPicker
+        comboArea.setValue(null);
+        comboInstalacion.setValue(null);
+        comboTipoMaterial.setValue(null);
+        campoDataCompraMaterial.setValue(null);
     }
 }
 
