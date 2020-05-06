@@ -38,9 +38,9 @@ public class XestionActividade {
         }
     }
 
-    public TipoResultados modificarArea(Actividade actividade) throws ExcepcionBD {
-        if(fachadaBD.existeActividade(actividade)) {
-            fachadaBD.modificarActividade(actividade);
+    public TipoResultados modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
+        if(fachadaBD.existeActividade(actVella)) {
+            fachadaBD.modificarActividade(actVella, actNova);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {

@@ -2,6 +2,7 @@ package centrodeportivo.aplicacion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
@@ -46,6 +47,7 @@ public class FachadaAplicacion extends Application {
     private XestionMaterial xestionMaterial;
     private XestionArea xestionArea;
     private XestionMensaxes xestionMensaxes;
+    private XestionActividade xestionActividade;
 
     /**
      * Constructor da clase, onde se inicializan todos os atributos comentados antes (fachadas e ventás ded xestión).
@@ -72,6 +74,7 @@ public class FachadaAplicacion extends Application {
         this.xestionMaterial = new XestionMaterial(fachadaGUI, fachadaBD);
         this.xestionMensaxes = new XestionMensaxes(fachadaGUI, fachadaBD);
         this.xestionArea = new XestionArea(fachadaGUI, fachadaBD);
+        this.xestionActividade = new XestionActividade(fachadaGUI, fachadaBD);
     }
 
     /**
@@ -281,6 +284,9 @@ public class FachadaAplicacion extends Application {
     public Instalacion consultarInstalacion(Instalacion instalacion) {
         return xestionInstalacions.consultarInstalacion(instalacion);
     }
+
+
+
 
 
     /*
@@ -502,6 +508,30 @@ public class FachadaAplicacion extends Application {
      */
     public ObservableList<Area> listarAreasActivas(Instalacion instalacion) {
         return xestionArea.listarAreasActivas(instalacion);
+    }
+
+    /*
+    Xestion Actividades
+     */
+
+    public TipoResultados EngadirActiviade(Actividade actividade) throws ExcepcionBD {
+        return xestionActividade.EngadirActividade(actividade);
+    }
+
+    public TipoResultados modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
+        return xestionActividade.modificarActividade(actVella, actNova);
+    }
+
+    public TipoResultados borraractividade(Actividade actividade) throws ExcepcionBD {
+        return xestionActividade.borrarActividade(actividade);
+    }
+
+    public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        return xestionActividade.apuntarseActividade(actividade, usuario);
+    }
+
+    public TipoResultados borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        return xestionActividade.borrarseDeActividade(actividade, usuario);
     }
 
 
