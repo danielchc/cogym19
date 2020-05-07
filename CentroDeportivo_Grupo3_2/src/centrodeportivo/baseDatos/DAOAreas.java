@@ -4,7 +4,6 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
-import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,33 +16,51 @@ public final class DAOAreas extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
-    public boolean ExisteArea(Area area) throws ExcepcionBD {
+    public boolean ExisteArea(Area area) {
         PreparedStatement stmAreas = null;
         ResultSet rsAreas;
         Connection con;
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
+        boolean existe = false;
 
-        //Preparamos a inserción:
+        //Preparamos a busca:
         try {
-            stmAreas = con.prepareStatement("SELECT  * " +
-                    " FROM area " +
-                    " WHERE instalacion = ? and codarea = ?");
+            String consulta = "SELECT  * " +
+                    " FROM area" +
+                    " WHERE nome = ? and instalacion = ?";
 
-            stmAreas.setInt(1, area.getInstalacion().getCodInstalacion());
-            stmAreas.setInt(2, area.getCodArea());
+            //Se a área xa está rexistrada, verificaremos que o código de área sexa distinto.
+            //Buscamos áreas DISTINTAS co mesmo nome que o que se lle quere dar á pasada como argumento.
+            if(area.getCodArea() != 0) {
+                consulta += " and codArea != ?";
+            }
+
+            stmAreas = con.prepareStatement(consulta);
+
+            stmAreas.setString(1, area.getNome());
+            stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
+
+            if(area.getCodArea() != 0){
+                stmAreas.setInt(3, area.getCodArea());
+            }
 
             //Facemos a consulta:
             rsAreas = stmAreas.executeQuery();
 
             if (rsAreas.next()) {
-                return true;
+                //Se hai resultado, poñeremos o booleano a true: existe outra área co mesmo nome na instalación.
+                existe = true;
             }
-            return false; //Dado que non existe dita area na base de datos
 
         } catch (SQLException e) {
-            //Lanzamos neste caso unha excepción cara a aplicación:
-            throw new ExcepcionBD(con, e);
+            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
@@ -52,7 +69,7 @@ public final class DAOAreas extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
-
+        return existe;
     }
 
     public int EngadirArea(Area area) throws ExcepcionBD {
@@ -190,8 +207,6 @@ public final class DAOAreas extends AbstractDAO {
 
         //Recuperamos a conexión:
         con = super.getConexion();
-
-        System.out.println(area.getCodArea());
 
         //Preparamos o borrado:
         try {

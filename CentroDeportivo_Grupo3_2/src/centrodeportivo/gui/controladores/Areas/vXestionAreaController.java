@@ -149,7 +149,7 @@ public class vXestionAreaController extends AbstractController implements Initia
                     case datoExiste:
                         //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
                         this.getFachadaAplicacion().mostrarErro("Administración de Areas",
-                                "Xa hai unha area co nome '" + area1.getNome() +" na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
+                                "Xa hai unha area co nome '" + area1.getNome() +"' na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
                         break;
                         //Neste outro caso, mantémonos nesta pantalla.
                 }
@@ -171,7 +171,7 @@ public class vXestionAreaController extends AbstractController implements Initia
                     case datoExiste:
                         //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
                         this.getFachadaAplicacion().mostrarErro("Administración de Areas",
-                                "Xa hai unha area co nome '" + area1.getNome() +" na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
+                                "Xa hai unha area co nome '" + area1.getNome() + "' na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
                         break;
                 }
             }
