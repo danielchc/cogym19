@@ -3,9 +3,14 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
+import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class DAOActividade extends AbstractDAO {
@@ -54,7 +59,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public boolean existeActividade(Actividade actividade) throws ExcepcionBD {
+    public boolean existeActividade(Actividade actividade) {
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -81,8 +86,13 @@ public class DAOActividade extends AbstractDAO {
             return false;
 
         } catch (SQLException e){
-            //Lanzamos neste caso unha excepción cara a aplicación:
-            throw new ExcepcionBD(con, e);
+            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
@@ -90,6 +100,7 @@ public class DAOActividade extends AbstractDAO {
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
+            return false;
         }
     }
 
@@ -338,5 +349,66 @@ public class DAOActividade extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+    }
+
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade)
+    {
+        //Usaremos un ArrayList para almacenar todos os profesores que correspondan:
+        ArrayList<Persoal> profesores = new ArrayList<>();
+
+        PreparedStatement stmAreas = null;
+        ResultSet rsProfes;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a consulta:
+        try {
+            String consulta = "SELECT persoal " +
+                    " FROM estarcapacitado " +;
+
+            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
+            //argumento:
+
+            if (tipoactividade != null) {
+                consulta += " WHERE tipoactividade = ?";
+            }
+
+            //Ordenaremos o resultado polo código da área para ordenalas
+            consulta += " ORDER BY persoal asc";
+
+            stmAreas = con.prepareStatement(consulta);
+
+            //Pasando area non nula completase a consulta.
+            if (profesores != null) {
+                stmAreas.setInt(1, tipoactividade.getCodTipoActividade());
+            }
+
+            //Realizamos a consulta:
+            rsProfes = stmAreas.executeQuery();
+
+            //Recibida a consulta, procesámola:
+            while (rsProfes.next()) {
+                //Imos engadindo ao ArrayList do resultado cada area consultada:
+                profesores.add(new Persoal(rsProfes.getString("persoal"));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            //Peche do statement:
+            try {
+                stmAreas.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return profesores;
     }
 }
