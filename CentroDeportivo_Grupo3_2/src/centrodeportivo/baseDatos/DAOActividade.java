@@ -104,7 +104,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public boolean horarioOcupadoActividade(Actividade actividade) throws ExcepcionBD {
+    public boolean horarioOcupadoActividade(Actividade actividade) {
         /*
         * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
         * na base de datos.
@@ -143,8 +143,12 @@ public class DAOActividade extends AbstractDAO {
             return false;
 
         } catch (SQLException e){
-            //Lanzamos neste caso unha excepción cara a aplicación:
-            throw new ExcepcionBD(con, e);
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
@@ -153,6 +157,7 @@ public class DAOActividade extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+        return false;
     }
 
     public void modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
@@ -311,7 +316,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public boolean estarApuntado(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+    public boolean estarApuntado(Actividade actividade, Usuario usuario) {
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -339,8 +344,12 @@ public class DAOActividade extends AbstractDAO {
             return false;
 
         } catch (SQLException e){
-            //Lanzamos neste caso unha excepción cara a aplicación:
-            throw new ExcepcionBD(con, e);
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
@@ -349,6 +358,7 @@ public class DAOActividade extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+        return false;
     }
 
     public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade)
@@ -366,7 +376,7 @@ public class DAOActividade extends AbstractDAO {
         //Preparamos a consulta:
         try {
             String consulta = "SELECT persoal " +
-                    " FROM estarcapacitado " +;
+                    " FROM estarcapacitado ";
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
@@ -391,7 +401,7 @@ public class DAOActividade extends AbstractDAO {
             //Recibida a consulta, procesámola:
             while (rsProfes.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
-                profesores.add(new Persoal(rsProfes.getString("persoal"));
+                profesores.add(new Persoal(rsProfes.getString("persoal")));
             }
             con.commit();
         } catch (SQLException e) {

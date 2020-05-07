@@ -125,7 +125,7 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public boolean tenActividadeArea(Area area) throws ExcepcionBD {
+    public boolean tenActividadeArea(Area area) {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -151,8 +151,12 @@ public final class DAOAreas extends AbstractDAO {
             return false;
 
         } catch (SQLException e) {
-            //Lanzamos unha das nosas excepcións propias:
-            throw new ExcepcionBD(con, e);
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             //Pechamos o statement para rematar.
             try {
@@ -161,9 +165,10 @@ public final class DAOAreas extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+        return false;
     }
 
-    public boolean tenMateriaisArea(Area area) throws ExcepcionBD {
+    public boolean tenMateriaisArea(Area area) {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -189,8 +194,12 @@ public final class DAOAreas extends AbstractDAO {
             return false;
 
         } catch (SQLException e) {
-            //Lanzamos unha das nosas excepcións propias:
-            throw new ExcepcionBD(con, e);
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             //Pechamos o statement para rematar.
             try {
@@ -199,6 +208,7 @@ public final class DAOAreas extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+        return false;
     }
 
     public void borrarArea(Area area) throws ExcepcionBD {
@@ -350,7 +360,7 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public boolean EBaixaArea(Area area) throws ExcepcionBD {
+    public boolean EBaixaArea(Area area) {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -378,8 +388,12 @@ public final class DAOAreas extends AbstractDAO {
             return false; //Non existe a area na base de datos
 
         } catch (SQLException e) {
-            //Lanzamos a nosa excepción de base de datos.
-            throw new ExcepcionBD(con, e);
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             try {
                 //Tentamos pechar o statement usado nesta actualización:
@@ -388,6 +402,7 @@ public final class DAOAreas extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores");
             }
         }
+        return false;
     }
 
 
