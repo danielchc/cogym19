@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
@@ -33,6 +34,8 @@ public class vInsercionActividadeController extends AbstractController implement
     public DatePicker campoData;
     public ComboBox<TipoActividade> comboTipoactividade = new ComboBox<>();
     public ComboBox<Persoal> comboProfesor = new ComboBox<>();
+
+    private Curso curso;
 
 
     private vPrincipalController controllerPrincipal;
@@ -117,6 +120,14 @@ public class vInsercionActividadeController extends AbstractController implement
                 setDisable(empty || date.compareTo(today) > 0);
             }
         });
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     /**

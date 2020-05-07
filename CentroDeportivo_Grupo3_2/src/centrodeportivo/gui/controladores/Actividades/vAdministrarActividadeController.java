@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -38,6 +39,8 @@ public class vAdministrarActividadeController extends AbstractController impleme
     public Button btnLimpar;
     public TableView taboaActividade;
     public Button btnRexistrar;
+
+    private Curso curso;
 
     /**
      * Atributos privados: somentes temos un que é a referencia ao controlador da ventá principal.
@@ -92,33 +95,11 @@ public class vAdministrarActividadeController extends AbstractController impleme
         taboaActividade.getSelectionModel().selectFirst();
     }
 
-    /**
-     * Método executado cando se pulsa o botón de realizar unha búsqueda
-     * @param actionEvent A acción que tivo lugar.
-     */
-    public void btnBuscarAction(ActionEvent actionEvent) {
-        //A búsqueda pódese realizar polo nome.
-        //Pero realmente, se ese campo está baleiro, resulta máis sinxelo que se faga un simple listado.
-        if(!ValidacionDatos.estanCubertosCampos(campoNome)){
-            //Entón, se non se cubriu filtro de busca, simplemente se fai un listado (pasamos null ao método):
-            this.refrescarTaboaTiposAct(super.getFachadaAplicacion().buscarTiposActividades(null));
-        } else {
-            //Se hai algo no campo, buscamos por el:
-            TipoActividade tipoActividade = new TipoActividade(campoNome.getText());
-            this.refrescarTaboaTiposAct(super.getFachadaAplicacion().buscarTiposActividades(tipoActividade));
-        }
+    public Curso getCurso() {
+        return curso;
     }
 
-    /**
-     * Método executado cando se pulsa o botón de limpar. Basicamente limpanse filtros e deixase a lista de tipos
-     * completa.
-     * @param actionEvent A acción que tivo lugar.
-     */
-    public void btnLimparAction(ActionEvent actionEvent) {
-        //Simplemente vaciamos o campo do nome:
-        AuxGUI.vaciarCamposTexto(campoNome);
-        //Listamos de novo os tipos de actividade:
-        //this.refrescarTaboaTiposAct(super.getFachadaAplicacion().buscarTiposActividades(null));
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
-
 }
