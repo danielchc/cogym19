@@ -44,7 +44,6 @@ public class vAdministrarAreaController extends AbstractController implements In
         this.controllerPrincipal = controllerPrincipal;
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Neste caso temos que colocar todos os campos na táboa:
@@ -93,8 +92,8 @@ public class vAdministrarAreaController extends AbstractController implements In
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
             //Creamos unha area cos datos recollidos:
-            Area area = new Area(campoNomeArea.getText(), Integer.parseInt(campoAforo.getText()));
-            System.out.println(area);
+            System.out.println(campoAforo.getText());
+            Area area = new Area(campoNomeArea.getText(), AuxGUI.pasarEnteiro(campoAforo));
             taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         }
         //Selecciónase o primeiro item da táboa:
@@ -104,12 +103,11 @@ public class vAdministrarAreaController extends AbstractController implements In
     public void btnLimparAction(ActionEvent actionEvent) {
         //Vaciaranse os campos e, depaso, listaranse todas as áreas dispoñibeis de novo:
         AuxGUI.vaciarCamposTexto(campoAforo,campoNomeArea);
-
         //Aproveitamos entón para actualizar a táboa:
         //Eliminamos os items:
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Engadimos todas as areas tras consultalas:
-        taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Seleccionamos o primeiro:
         taboaAreas.getSelectionModel().selectFirst();
     }
