@@ -45,7 +45,7 @@ public class vInsercionActividadeController extends AbstractController implement
         // Inicializamos o comboBox dos tipos de actividade:
         comboTipoactividade.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarTiposActividades(null)));
         // Facemos que se vexa o nome dos tipos no comboBox:
-        comboTipoactividade.setConverter(new StringConverter<>() {
+        /*comboTipoactividade.setConverter(new StringConverter<>() {
             @Override
             public String toString(TipoActividade object) {
                 return object.getNome();
@@ -56,7 +56,7 @@ public class vInsercionActividadeController extends AbstractController implement
                 return comboTipoactividade.getItems().stream().filter(ap ->
                         ap.getNome().equals(string)).findFirst().orElse(null);
             }
-        });
+        });*/
         // Facemos que se vexa o nome das areas no comboBox
         comboArea.setConverter(new StringConverter<Area>() {
             @Override

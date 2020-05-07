@@ -360,20 +360,15 @@ $func$
   FROM actividade WHERE curso = codCurso -- filtramos polo código do curso.
 $func$ LANGUAGE sql STABLE;
 
-
-
---Con esta función compróbase a condicion de que un curso non supere o aforo máximo.
---Suporemos que o aforo máximo é o mínimo dos aforos máximos das áreas nas que teñen lugar as actividades do curso.
-CREATE OR REPLACE FUNCTION comprobarAforoMaximoCurso(codCurso INT) RETURNS boolean AS
+--Con esta función compróbase a condicion de que unha actividade non supere o aforo máximo da área na que se realiza.
+CREATE OR REPLACE FUNCTION comprobarAforoMaximoActividade(dAct TIMESTAMP, codArea INT, codInstalacion INT) RETURNS boolean AS
 $func$
-	--Pasamos o código do curso e comprobamos se o mínimo dos aforos máximos supera ao número de participantes.
-	--Se é así, poderemos insertar un novo participante, se non, non se poderá
-	SELECT MIN(aforomaximo)>(SELECT COUNT(*) FROM realizarcurso WHERE curso=codCurso) AS podese
+	--Pasamos a información suficiente como para ter identificada unha actividade determinada e comprobamos se se cumpre a condición.
+	SELECT aforomaximo >(SELECT COUNT(*) FROM realizarActividade rA 
+						 WHERE rA.dataactividade = dAct and rA.area = codArea and rA.instalacion = codInstalacion) AS podese
 	FROM actividade AS ac JOIN area AS ar ON ac.area=ar.codarea AND ac.instalacion=ar.instalacion 
-	WHERE ac.curso=codCurso;
+	WHERE ac.dataactividade = dAct and ac.area = codArea and ac.instalacion = codInstalacion
 $func$ LANGUAGE sql STABLE;
-
-
 
 --Engado os triggers as funcions previamente declaradas, 
 
@@ -398,6 +393,9 @@ ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(
 --Na táboa de curso engadimos a restricción seguinte: ou o curso non está aberto ou ten máis de dúas actividades:
 ALTER TABLE curso ADD CONSTRAINT activacion CHECK ((aberto = false) or (comprobarCondicionActivacion(codcurso)));
 
+--Na taboa de realización de actividades engadimos a restricción de aforo máximo:
+ALTER TABLE realizaractividade ADD CONSTRAINT checkAforo CHECK (comprobarAforoMaximoActividade(dataActividade, area, instalacion));
+
 
 --Creo os UNIQUE con lower, para asegurarnos que non existen campos que se diferencien na maiusculas, e minusculas
 CREATE UNIQUE INDEX IF NOT EXISTS dni_minusculas ON persoaFisica((LOWER(DNI)));
@@ -411,7 +409,5 @@ CREATE UNIQUE INDEX IF NOT EXISTS curso_minusculas ON curso((LOWER(nome)));
 
 
 
-
-ALTER TABLE realizarcurso ADD CONSTRAINT comprobarAforoCursoMaximo CHECK (comprobarAforoMaximoCurso(curso));
 
 
