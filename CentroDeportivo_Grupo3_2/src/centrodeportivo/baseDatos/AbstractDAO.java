@@ -20,17 +20,19 @@ public abstract class AbstractDAO {
 
     /**
      * Constructor da clase DAO abstracta:
-     * @param conexion A conexión coa base de datos
+     *
+     * @param conexion          A conexión coa base de datos
      * @param fachadaAplicacion A referencia da fachada da parte de aplicación
      */
-    public AbstractDAO(Connection conexion,FachadaAplicacion fachadaAplicacion){
+    public AbstractDAO(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         //Asignamos os parámetros pasados a cada atributo:
-        this.conexion=conexion;
-        this.fachadaAplicacion=fachadaAplicacion;
+        this.conexion = conexion;
+        this.fachadaAplicacion = fachadaAplicacion;
     }
 
     /**
      * Getter da conexión
+     *
      * @return A conexión coa base de datos que está almacenada nesta clase.
      */
     public Connection getConexion() {
@@ -39,6 +41,7 @@ public abstract class AbstractDAO {
 
     /**
      * Setter da conexión
+     *
      * @param conexion A conexión que se lle quere asignar ao atributo correspondente.
      */
     public void setConexion(Connection conexion) {
@@ -47,6 +50,7 @@ public abstract class AbstractDAO {
 
     /**
      * Getter da fachada de aplicación
+     *
      * @return A referencia á fachada de aplicación
      */
     public FachadaAplicacion getFachadaAplicacion() {
@@ -55,6 +59,7 @@ public abstract class AbstractDAO {
 
     /**
      * Setter da fachada de aplicación
+     *
      * @param fachadaAplicacion A referencia á fachada de aplicación que se quere asignar.
      */
     public void setFachadaAplicacion(FachadaAplicacion fachadaAplicacion) {

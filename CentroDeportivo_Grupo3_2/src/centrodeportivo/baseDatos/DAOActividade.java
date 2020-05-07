@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DAOActividade extends AbstractDAO {
 
-    public DAOActividade (Connection conexion, FachadaAplicacion fachadaAplicacion){
+    public DAOActividade(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion, fachadaAplicacion);
     }
 
@@ -29,7 +29,7 @@ public class DAOActividade extends AbstractDAO {
         //Preparamos a inserción:
         try {
             stmActivide = con.prepareStatement("INSERT INTO Actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) " +
-                            " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             //Establecemos os valores:
             stmActivide.setTimestamp(1, actividade.getData());
             stmActivide.setInt(2, actividade.getArea().getCodArea());
@@ -46,7 +46,7 @@ public class DAOActividade extends AbstractDAO {
             //Facemos commit:
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -85,7 +85,7 @@ public class DAOActividade extends AbstractDAO {
                     return true;
             return false;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Imprimimos en caso de excepción o stack trace e facemos o rollback:
             e.printStackTrace();
             try {
@@ -106,9 +106,9 @@ public class DAOActividade extends AbstractDAO {
 
     public boolean horarioOcupadoActividade(Actividade actividade) {
         /*
-        * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
-        * na base de datos.
-        * */
+         * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
+         * na base de datos.
+         * */
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;
@@ -119,7 +119,7 @@ public class DAOActividade extends AbstractDAO {
         try {
             stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion, nome  " +
                     " FROM actividade " +
-                    " WHERE area = ? and instalacion = ? and ("+
+                    " WHERE area = ? and instalacion = ? and (" +
                     "       (dataactividade + (duracion * interval '1 hour') > ? and dataactividade <= ?) or" +
                     "       (dataactividade > ? and dataactividade < ? ))"
             );
@@ -131,7 +131,7 @@ public class DAOActividade extends AbstractDAO {
             stmActivide.setTimestamp(4, actividade.getData());
             stmActivide.setTimestamp(5, actividade.getData());
             //Calculamos o momento no que reamta a actividade
-            stmActivide.setTimestamp(6, new Timestamp(actividade.getData().getTime() + TimeUnit.HOURS.toMillis((long)actividade.getDuracion().floatValue())));
+            stmActivide.setTimestamp(6, new Timestamp(actividade.getData().getTime() + TimeUnit.HOURS.toMillis((long) actividade.getDuracion().floatValue())));
 
 
             //Facemos a consulta:
@@ -142,7 +142,7 @@ public class DAOActividade extends AbstractDAO {
                     return true;
             return false;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             try {
                 con.rollback();
@@ -196,7 +196,7 @@ public class DAOActividade extends AbstractDAO {
             //Facemos commit:
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -231,7 +231,7 @@ public class DAOActividade extends AbstractDAO {
             //Facemos commit:
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -267,7 +267,7 @@ public class DAOActividade extends AbstractDAO {
             //Facemos commit:
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -303,7 +303,7 @@ public class DAOActividade extends AbstractDAO {
             //Facemos commit:
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -343,7 +343,7 @@ public class DAOActividade extends AbstractDAO {
                     return true;
             return false;
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             try {
                 con.rollback();
@@ -361,8 +361,7 @@ public class DAOActividade extends AbstractDAO {
         return false;
     }
 
-    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade)
-    {
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade) {
         //Usaremos un ArrayList para almacenar todos os profesores que correspondan:
         ArrayList<Persoal> profesores = new ArrayList<>();
 

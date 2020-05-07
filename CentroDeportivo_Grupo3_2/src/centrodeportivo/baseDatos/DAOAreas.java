@@ -32,7 +32,7 @@ public final class DAOAreas extends AbstractDAO {
 
             //Se a área xa está rexistrada, verificaremos que o código de área sexa distinto.
             //Buscamos áreas DISTINTAS co mesmo nome que o que se lle quere dar á pasada como argumento.
-            if(area.getCodArea() != 0) {
+            if (area.getCodArea() != 0) {
                 consulta += " and codArea != ?";
             }
 
@@ -41,7 +41,7 @@ public final class DAOAreas extends AbstractDAO {
             stmAreas.setString(1, area.getNome());
             stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
 
-            if(area.getCodArea() != 0){
+            if (area.getCodArea() != 0) {
                 stmAreas.setInt(3, area.getCodArea());
             }
 
@@ -254,25 +254,25 @@ public final class DAOAreas extends AbstractDAO {
 
         //Preparamos a modificación:
         try {
-                    stmAreas = con.prepareStatement("UPDATE area " +
-                            " SET nome = ?, " +
-                            "     descricion = ?, " +
-                            "     aforomaximo = ?," +
-                            "     databaixa = ? " +
-                            " WHERE codarea = ? and instalacion = ? ");
+            stmAreas = con.prepareStatement("UPDATE area " +
+                    " SET nome = ?, " +
+                    "     descricion = ?, " +
+                    "     aforomaximo = ?," +
+                    "     databaixa = ? " +
+                    " WHERE codarea = ? and instalacion = ? ");
 
-                    //Asignamos os valores que corresponden:
-                    stmAreas.setString(1, area.getNome());
-                    stmAreas.setString(2, area.getDescricion());
-                    stmAreas.setInt(3, area.getAforoMaximo());
-                    stmAreas.setDate(4, area.getDataBaixa());
-                    stmAreas.setInt(5, area.getCodArea());
-                    stmAreas.setInt(6, area.getInstalacion().getCodInstalacion());
+            //Asignamos os valores que corresponden:
+            stmAreas.setString(1, area.getNome());
+            stmAreas.setString(2, area.getDescricion());
+            stmAreas.setInt(3, area.getAforoMaximo());
+            stmAreas.setDate(4, area.getDataBaixa());
+            stmAreas.setInt(5, area.getCodArea());
+            stmAreas.setInt(6, area.getInstalacion().getCodInstalacion());
 
-                    //Executamos a actualización:
-                    stmAreas.executeUpdate();
-                    //Facemos un commit, dado que se rematou a actualización:
-                    con.commit();
+            //Executamos a actualización:
+            stmAreas.executeUpdate();
+            //Facemos un commit, dado que se rematou a actualización:
+            con.commit();
 
         } catch (SQLException e) {
             //Lanzamos a nosa excepción de base de datos.
