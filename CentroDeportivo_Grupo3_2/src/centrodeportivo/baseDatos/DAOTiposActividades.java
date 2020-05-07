@@ -196,7 +196,7 @@ public final class DAOTiposActividades extends AbstractDAO {
 
             //Se o tipo de actividade non é null, entón filtramos polo nome:
             if(tipoActividade != null){
-                consulta += "WHERE nome like ? ";
+                consulta += "WHERE lower(nome) like lower(?) ";
             }
 
             //Ordenamos polo código do tipo de actividade para que nos aparezan así en orde:

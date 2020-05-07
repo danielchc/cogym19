@@ -455,7 +455,7 @@ public final class DAOAreas extends AbstractDAO {
             //argumento:
 
             if (area != null) {
-                consulta += " WHERE nome like ? " +
+                consulta += " WHERE lower(nome) like lower(?) " +
                         "   and aforomaximo = ? ";
             }
 

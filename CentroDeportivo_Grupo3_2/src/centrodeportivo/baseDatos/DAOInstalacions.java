@@ -195,9 +195,9 @@ public final class DAOInstalacions extends AbstractDAO {
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha instalación non nula como
             //argumento:
             if (instalacion != null) {
-                consulta += " WHERE nome like ? " +
+                consulta += " WHERE lower(nome) like lower(?) " +
                         "   and numtelefono like ? " +
-                        "   and direccion like ? ";
+                        "   and lower(direccion) like lower(?) ";
             }
 
             //Ordenaremos o resultado polo código da instalación (para que saian así ordenadas)

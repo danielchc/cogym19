@@ -313,7 +313,7 @@ public final class DAOCursos extends AbstractDAO{
             //Pode ser que non pasemos curso (o pasemos como null) ou que pasemos algo.
             //Se non pasamos ningún curso, non engadimos o filtro de busca, se non si:
             if(curso != null){
-                consulta += " WHERE c.nome like ? ";
+                consulta += " WHERE lower(c.nome) like lower(?) ";
             }
 
             //Agrupamos tamén polo código do curso:
