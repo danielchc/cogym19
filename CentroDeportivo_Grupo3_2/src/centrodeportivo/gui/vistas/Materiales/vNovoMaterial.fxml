@@ -108,7 +108,7 @@
                 </Label>
             </HBox>
             <HBox alignment="CENTER" prefHeight="61.0" prefWidth="550.0">
-                <Button fx:id="btnGardarMaterial" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" text="Gardar">
+                <Button fx:id="btnGardarMaterial" alignment="CENTER" onAction="#btnGardarAction" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" text="Gardar">
                     <HBox.margin>
                         <Insets bottom="10.0" />
                     </HBox.margin>

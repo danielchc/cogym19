@@ -43,14 +43,16 @@ public final class DAOMaterial extends AbstractDAO {
 
         // Preparamos a inserción:
         try {
-            stmMaterial = con.prepareStatement("INSERT INTO material (tipoMaterial, area, instalacion, estado) " +
-                    "VALUES (?, ?, ?, ?)");
+            stmMaterial = con.prepareStatement("INSERT INTO material (tipoMaterial, area, instalacion, estado, datacompra, prezocompra) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)");
 
             // Establecemos os valores:
             stmMaterial.setInt(1, material.getTipoMaterial().getCodTipoMaterial());
             stmMaterial.setInt(2, material.getArea().getCodArea());
             stmMaterial.setInt(3, material.getInstalacion().getCodInstalacion());
             stmMaterial.setString(4, material.getEstado());
+            stmMaterial.setDate(5, material.getDataCompra());
+            stmMaterial.setFloat(6, material.getPrezoCompra());
 
             // Realizamos a inserción:
             stmMaterial.executeUpdate();

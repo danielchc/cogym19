@@ -174,8 +174,12 @@ public class vEditarMaterialController extends AbstractController implements Ini
             comboArea.setValue(material.getArea());
             campoCodigo.setText(String.valueOf(material.getCodMaterial()));
             campoEstadoMaterial.setText(material.getEstado());
-            campoDataCompraMaterial.setValue(material.getDataCompra().toLocalDate());
-            campoPrezoMaterial.setText(String.valueOf(material.getPrezoCompra()));
+            if (material.getDataCompra() != null) {
+                campoDataCompraMaterial.setValue(material.getDataCompra().toLocalDate());
+            }
+            if (material.getPrezoCompra() != 0.0f) {
+                campoPrezoMaterial.setText(String.valueOf(material.getPrezoCompra()));
+            }
         } else {
             // Noutro caso amosase un erro e sairíamos tamén:
             this.getFachadaAplicacion().mostrarErro("Administración de Material",
