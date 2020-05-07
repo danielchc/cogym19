@@ -10,6 +10,12 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase na que levaremos a cabo xestións relativas ás áreas.
+ */
 public class XestionArea {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
@@ -20,19 +26,19 @@ public class XestionArea {
     }
 
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
-        //Se a area non existe, dase de alta:
+        //Se non existe outra área co mesmo nome, dase de alta:
         if(!fachadaBD.ExisteArea(area)) {
             fachadaBD.EngadirArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {
+            //Se existise, devolvemos un erro con este tipo:
             return TipoResultados.datoExiste;
         }
     }
 
     public TipoResultados borrarArea(Area area) throws ExcepcionBD {
-
-        if(fachadaBD.ExisteArea(area) && !fachadaBD.tenActividadesArea(area) && !fachadaBD.tenMateriaisArea(area)){
+        if(!fachadaBD.tenActividadesArea(area) && !fachadaBD.tenMateriaisArea(area)){
             fachadaBD.borrarArea(area);
             //Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
@@ -42,17 +48,19 @@ public class XestionArea {
     }
 
     public TipoResultados modificarArea(Area area) throws ExcepcionBD {
-        if(fachadaBD.ExisteArea(area)) {
+        //Comprobamos que non haxa outra area na instalación co mesmo nome que a que se quere meter:
+        if(!fachadaBD.ExisteArea(area)) {
             fachadaBD.modificarArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {
+            //Se non, devolveremos o enumerado que representa que o dato existe:
             return TipoResultados.datoExiste;
         }
     }
 
     public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {
-        if (fachadaBD.ExisteArea(area) && !fachadaBD.EBaixaArea(area)) {
+        if (!fachadaBD.EBaixaArea(area)) {
             fachadaBD.darDeBaixaArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -62,8 +70,8 @@ public class XestionArea {
     }
 
     public TipoResultados darDeAltaAreaa(Area area) throws ExcepcionBD {
-        //Se a area non existe, dase de alta:
-        if (fachadaBD.ExisteArea(area) && fachadaBD.EBaixaArea(area)) {
+        //Se a area está de baixa, dase de alta:
+        if (fachadaBD.EBaixaArea(area)) {
             fachadaBD.darDeAltaArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;

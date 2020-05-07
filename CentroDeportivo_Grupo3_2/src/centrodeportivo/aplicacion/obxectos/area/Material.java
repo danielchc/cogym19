@@ -44,6 +44,7 @@ public class Material {
     }
 
 
+
     // Getters e setters
 
     public void setCodMaterial(int codMaterial) {
@@ -70,6 +71,10 @@ public class Material {
         this.prezoCompra = prezoCompra;
     }
 
+    public void setInstalacion(Instalacion instalacion) {
+        this.getArea().setInstalacion(instalacion);
+    }
+
     public int getCodMaterial() {
         return codMaterial;
     }
@@ -94,15 +99,15 @@ public class Material {
         return prezoCompra;
     }
 
-    public String getNomeArea(){
+    public String getNomeArea() {
         return area.getNome();
     }
 
-    public String getNomeTipoMaterial(){
+    public String getNomeTipoMaterial() {
         return tipoMaterial.getNome();
     }
 
-    public String getNomeInstalacion(){
+    public String getNomeInstalacion() {
         return area.getInstalacion().getNome();
     }
 

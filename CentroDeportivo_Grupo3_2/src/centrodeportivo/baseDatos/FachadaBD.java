@@ -514,7 +514,7 @@ public final class FachadaBD {
     }
 
     //Areas
-    public boolean ExisteArea(Area area) throws ExcepcionBD {
+    public boolean ExisteArea(Area area) {
         return daoareas.ExisteArea(area);
     }
 

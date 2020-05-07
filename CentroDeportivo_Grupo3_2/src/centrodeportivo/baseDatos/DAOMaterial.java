@@ -313,7 +313,6 @@ public final class DAOMaterial extends AbstractDAO {
         return resultado;
     }
 
-
     /**
      * ListarMateriais -> obten todos os materiais almacenados na base de datos
      *
@@ -335,7 +334,7 @@ public final class DAOMaterial extends AbstractDAO {
         // Preparamos a consulta
         try {
 
-            stmMaterial = con.prepareStatement("SELECT m.*, " +
+            String consultaMaterial = "SELECT m.*, " +
                     "tm.nome as nometipo, " +
                     "a.nome as nomearea, a.descricion, " +
                     "i.nome as nomeinstalacion, i.numtelefono, i.direccion " +
@@ -345,18 +344,63 @@ public final class DAOMaterial extends AbstractDAO {
                     "INNER JOIN area as a " +
                     "ON m.area = a.codarea " +
                     "INNER JOIN instalacion as i " +
-                    "ON a.instalacion = i.codinstalacion AND m.instalacion = i.codinstalacion " +
-                    "ORDER BY m.tipomaterial, m.codmaterial");
+                    "ON a.instalacion = i.codinstalacion AND m.instalacion = i.codinstalacion ";
+
+            if (material != null) {
+                if (material.getTipoMaterial() != null) {
+                    consultaMaterial += "WHERE  m.tipomaterial = ?";
+                } else {
+                    consultaMaterial += "WHERE  1 = ?";
+                }
+                if (material.getArea() != null) {
+                    consultaMaterial += "AND  m.area = ?";
+                } else {
+                    consultaMaterial += "AND  1 = ?";
+                }
+                if (material.getInstalacion() != null) {
+                    consultaMaterial += "AND  m.instalacion = ?";
+                } else {
+                    consultaMaterial += "AND  1 = ?";
+                }
+            }
+
+            consultaMaterial += "ORDER BY m.tipomaterial, m.codmaterial ";
+
+            stmMaterial = con.prepareStatement(consultaMaterial);
+
+            if (material != null) {
+                if (material.getTipoMaterial() != null) {
+                    stmMaterial.setInt(1, material.getTipoMaterial().getCodTipoMaterial());
+                } else {
+                    stmMaterial.setInt(1, 1);
+                }
+
+                if (material.getArea() != null) {
+                    stmMaterial.setInt(2, material.getArea().getCodArea());
+                } else {
+                    stmMaterial.setInt(2, 1);
+                }
+
+                if (material.getInstalacion() != null) {
+                    stmMaterial.setInt(3, material.getInstalacion().getCodInstalacion());
+                } else {
+                    stmMaterial.setInt(3, 1);
+                }
+            }
 
             // Executamos a consulta
             rsMaterial = stmMaterial.executeQuery();
             // Procesamos o ResultSet
             while (rsMaterial.next()) {
+
                 tipoMaterial = new TipoMaterial(rsMaterial.getInt("tipomaterial"), rsMaterial.getString("nometipo"));
+
                 instalacion = new Instalacion(rsMaterial.getInt("instalacion"), rsMaterial.getString("nomeinstalacion"),
                         rsMaterial.getString("numtelefono"), rsMaterial.getString("direccion"));
+
                 area = new Area(rsMaterial.getInt("area"), instalacion, rsMaterial.getString("nomearea"),
                         rsMaterial.getString("descricion"));
+
                 // Engadimos o material o ArrayList
                 resultado = new Material(rsMaterial.getInt("codmaterial"), tipoMaterial, area,
                         rsMaterial.getString("estado"));

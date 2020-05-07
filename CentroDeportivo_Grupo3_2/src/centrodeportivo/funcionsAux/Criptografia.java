@@ -3,8 +3,6 @@ package centrodeportivo.funcionsAux;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  * @author Manuel Bendaña
