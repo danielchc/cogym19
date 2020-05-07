@@ -125,8 +125,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="10.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
                     <Button fx:id="btnModificar" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0"
-                            text="Modificar" HBox.hgrow="ALWAYS"/>
-                    <!-- onAction="#btnModificarAction" -->
+                            text="Modificar" HBox.hgrow="ALWAYS" onAction="#btnModificarAction"/>
                 </HBox>
                 <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
                     <Button fx:id="btnBorrar" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0"

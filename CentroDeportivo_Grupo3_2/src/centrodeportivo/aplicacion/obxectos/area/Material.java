@@ -37,8 +37,9 @@ public class Material {
     }
 
     // Atributos not null + atributos que poden ser null con código
-    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado, Date dataCompra, float prezoCompra) {
+    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra, float prezoCompra) {
         this(codMaterial, tipoMaterial, area, estado);
+        area.setInstalacion(instalacion);
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
     }
@@ -54,6 +55,14 @@ public class Material {
     // Atributos sen codigo e sen prezo
     public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra) {
         this(tipoMaterial, area, estado);
+        area.setInstalacion(instalacion);
+        this.dataCompra = dataCompra;
+    }
+
+
+    // Atributos sen codigo e sen prezo
+    public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra) {
+        this(codMaterial, tipoMaterial, area, estado);
         area.setInstalacion(instalacion);
         this.dataCompra = dataCompra;
     }

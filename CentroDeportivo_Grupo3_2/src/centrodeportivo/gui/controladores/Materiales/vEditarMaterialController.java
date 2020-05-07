@@ -7,7 +7,9 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.value.ChangeListener;
@@ -19,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -34,6 +37,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
     public TextField campoPrezoMaterial;
     public Button btnGardarMaterial;
     public Button btnLimparMaterial;
+    public Label avisoCampos;
 
     // Atributos privados: matenmos o controlador da ventá de procedencia e o material a xestionar
     private vPrincipalController controllerPrincipal;
@@ -54,6 +58,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
 
             // Inicializamos o comboBox dos tipos de materiais:
             comboTipoMaterial.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarTipoMaterial(null)));
+            comboTipoMaterial.setDisable(true);
 
             // Facemos que se vexa o nome dos tipos no comboBox:
             comboTipoMaterial.setConverter(new StringConverter<TipoMaterial>() {
@@ -97,6 +102,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
                             ap.getNome().equals(string)).findFirst().orElse(null);
                 }
             });
+
             // Cargamos as areas en funcion da instalacion seleccionada
             comboInstalacion.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue == null) {  // No caso de que non haxa ningunha instalaccion seleccionada
@@ -106,7 +112,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
                     comboArea.setDisable(true);
                 } else {  // En calquer outro caso
                     // Cargamos as areas que se atopen na nova instalación seleccionada
-                    comboArea.getItems().setAll(getFachadaAplicacion().listarAreasActivas(newValue));
+                    comboArea.getItems().setAll(FXCollections.observableArrayList(getFachadaAplicacion().listarAreasActivas(newValue)));
                     // Habilitamos de novo a seleccion
                     comboArea.setDisable(false);
                     // Eliminamos o posible valor que poidese estar seleccionado de antes
@@ -189,7 +195,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
     }
 
     /**
-     * Acción efectuada o
+     * Acción efectuada o premer o boton de borrar un material.
      *
      * @param actionEvent O evento que tivo lugar.
      */
@@ -213,8 +219,65 @@ public class vEditarMaterialController extends AbstractController implements Ini
                 super.getFachadaAplicacion().mostrarErro("Administración de Materiais", e.getMessage());
             }
         }
+    }
 
 
+    /**
+     * Acción efectuada ao premer o botón de modificar un material
+     *
+     * @param actionEvent O evento que tivo lugar.
+     */
+    public void btnModificarAction(ActionEvent actionEvent) {
+        // Primeiro imos comprobar que os campos non están vacíos:
+        if (!ValidacionDatos.estanCubertosCampos(campoEstadoMaterial) || comboTipoMaterial.getValue() == null ||
+                comboInstalacion.getValue() == null || comboArea.getValue() == null) {
+            // Se algún campo obligatorio non esta cuberto, amosamos un mensaxe:
+            AuxGUI.amosarCampos(avisoCampos);
+            return;
+        }
+
+        // Creamos o material que daremos de alta:
+        Material material;
+        // Creamos a fecha que lle pasaremos:
+        Date fechaCompra = null;
+        // Compobamos que o campo non este vacio:
+        if (campoDataCompraMaterial.getValue() != null) {
+            // Se non esta valeiro, asignamosllo:
+            fechaCompra = Date.valueOf(campoDataCompraMaterial.getValue());
+        }
+        // Comprobamos que o campo prezo non esta valeiro
+        if (!campoPrezoMaterial.getText().isEmpty()) {
+            // Se non esta valeiro creamos o material co prezo:
+            material = new Material(Integer.parseInt(campoCodigo.getText()), comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra, Float.parseFloat(campoPrezoMaterial.getText()));
+        } else {
+            // Se esta valeiro, creamos o material sen o prezo:
+            material = new Material(Integer.parseInt(campoCodigo.getText()), comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra);
+        }
+        // Accedemos á base de datos:
+        // Tentaremos realizar o acceso correctamente, xestionando as excepcións:
+        try {
+            TipoResultados res = super.getFachadaAplicacion().modificarMaterial(material);
+            // En función do resultado procedemos:
+            switch (res) {
+                case datoNonExiste:
+                    // Se non existise ningún material con esas condicións porque se borrou mentres o modificabamos
+                    super.getFachadaAplicacion().mostrarErro("Administración de Material",
+                            "Non existe este material! Comproba que non foi borrado...");
+                    // Volvemos a pantalla anterior
+                    this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARMATERIAIS);
+                    break;
+                case correcto:
+                    // Se rematou correctamente, mostramos unha mensaxe de confirmación:
+                    super.getFachadaAplicacion().mostrarInformacion("Administración de Materiais",
+                            "Datos do material do tipo" + material.getTipoMaterial().getNome() + " modificados correctamente.");
+                    break;
+            }
+        } catch (ExcepcionBD e) {
+            // Se hai un erro na base de datos, amósase a mensaxe, que é creada na nosa excepción con getMessage():
+            super.getFachadaAplicacion().mostrarErro("Administración de Instalacións", e.getMessage());
+        }
+        // En calquera caso, tentamos actualizar os campos amosados:
+        actualizarCamposMaterial();
     }
 
     /**

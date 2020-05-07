@@ -108,7 +108,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
                 comboArea.setDisable(true);
             } else {  // En calquer outro caso
                 // Cargamos as areas que se atopen na nova instalación seleccionada
-                comboArea.getItems().setAll(getFachadaAplicacion().listarAreasActivas(newValue));
+                comboArea.getItems().setAll(FXCollections.observableArrayList(getFachadaAplicacion().listarAreasActivas(newValue)));
                 // Habilitamos de novo a seleccion
                 comboArea.setDisable(false);
                 // Eliminamos o posible valor que poidese estar seleccionado de antes
