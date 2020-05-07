@@ -50,7 +50,7 @@ public class XestionActividade {
 
     public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         //Se a instalación non existe, dase de alta:
-        if(fachadaBD.existeActividade(actividade) && !fachadaBD.estarApuntado(actividade, usuario)) {
+        if(fachadaBD.existeActividade(actividade) && !fachadaBD.estarApuntado(actividade, usuario) && fachadaBD.NonEMaximoAforoActividade(actividade)) {
             fachadaBD.apuntarseActividade(actividade, usuario);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -69,4 +69,5 @@ public class XestionActividade {
             return TipoResultados.sitIncoherente;
         }
     }
+
 }

@@ -526,11 +526,11 @@ public final class FachadaBD {
         daoareas.borrarArea(area);
     }
 
-    public boolean tenActividadesArea(Area area) throws ExcepcionBD {
+    public boolean tenActividadesArea(Area area) {
         return daoareas.tenActividadeArea(area);
     }
 
-    public boolean tenMateriaisArea(Area area) throws ExcepcionBD {
+    public boolean tenMateriaisArea(Area area) {
         return daoareas.tenMateriaisArea(area);
     }
 
@@ -542,7 +542,7 @@ public final class FachadaBD {
         daoareas.darDeBaixaArea(area);
     }
 
-    public boolean EBaixaArea(Area area) throws ExcepcionBD {
+    public boolean EBaixaArea(Area area) {
         return daoareas.EBaixaArea(area);
     }
 
@@ -554,7 +554,7 @@ public final class FachadaBD {
         return daoareas.buscarArea(instalacion, area);
     }
 
-    public ArrayList<Area> listarAreas() throws ExcepcionBD {
+    public ArrayList<Area> listarAreas() {
         return daoareas.listarAreas();
     }
 
@@ -574,11 +574,11 @@ public final class FachadaBD {
         daoActividade.EngadirActividade(actividade);
     }
 
-    public boolean existeActividade(Actividade actividade) throws ExcepcionBD {
+    public boolean existeActividade(Actividade actividade) {
         return daoActividade.existeActividade(actividade);
     }
 
-    public boolean horarioOcupadoActividade(Actividade actividade) throws ExcepcionBD {
+    public boolean horarioOcupadoActividade(Actividade actividade) {
         return daoActividade.horarioOcupadoActividade(actividade);
     }
 
@@ -600,8 +600,12 @@ public final class FachadaBD {
         daoActividade.borrarseDeActividade(actividade, usuario);
     }
 
-    public boolean estarApuntado(Actividade actividade, Usuario usuario) throws ExcepcionBD {
+    public boolean estarApuntado(Actividade actividade, Usuario usuario) {
         return daoActividade.estarApuntado(actividade, usuario);
+    }
+
+    public boolean NonEMaximoAforoActividade(Actividade actividade) {
+        return daoActividade.NonEMaximoAforoActividade(actividade);
     }
 
 }

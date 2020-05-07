@@ -9,6 +9,7 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
+import java.rmi.activation.ActivationID;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -66,7 +67,7 @@ public class DAOActividade extends AbstractDAO {
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
 
-        //Preparamos a inserción:
+        //Preparamos a consulta:
         try {
             stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion " +
                     " FROM actividade " +
@@ -115,7 +116,7 @@ public class DAOActividade extends AbstractDAO {
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
 
-        //Preparamos a inserción:
+        //Preparamos a consulta:
         try {
             stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion, nome  " +
                     " FROM actividade " +
@@ -323,7 +324,7 @@ public class DAOActividade extends AbstractDAO {
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
 
-        //Preparamos a inserción:
+        //Preparamos a consulta:
         try {
             stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion, usuario " +
                     " FROM realizaractividade " +
@@ -420,4 +421,58 @@ public class DAOActividade extends AbstractDAO {
         }
         return profesores;
     }
+
+    public boolean NonEMaximoAforoActividade(Actividade actividade)
+    {
+        PreparedStatement stmActivide = null;
+        ResultSet rsActividade;
+        Connection con;
+
+        //Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        //Preparamos a consulta:
+        try {
+            stmActivide = con.prepareStatement(
+                    " SELECT * " +
+                            " FROM area" +
+                            " WHERE codarea=? AND instalacion=? " +
+                                " AND aforomaximo>(select count(*) " +
+                                    " FROM realizaractividade " +
+                                    " WHERE dataactividade=? " +
+                                    " AND area=?" +
+                                    " AND instalacion=?)"
+            );
+
+            //Establecemos os valores:
+            stmActivide.setTimestamp(1, actividade.getData());
+            stmActivide.setInt(2, actividade.getArea().getCodArea());
+            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+
+            //Facemos a consulta:
+            rsActividade = stmActivide.executeQuery();
+
+            if (rsActividade.next())
+                    return true;
+            return false;
+
+        } catch (SQLException e) {
+            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            //En calquera caso, téntase pechar os cursores.
+            try {
+                stmActivide.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+            return false;
+        }
+    }
 }
+
