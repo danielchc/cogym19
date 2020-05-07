@@ -1,10 +1,14 @@
 package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -30,6 +34,8 @@ public class vInsercionActividadeController extends AbstractController implement
     public DatePicker campoData;
     public ComboBox<TipoActividade> comboTipoactividade = new ComboBox<>();
     public ComboBox<Persoal> comboProfesor = new ComboBox<>();
+
+    private Curso curso;
 
 
     private vPrincipalController controllerPrincipal;
@@ -116,6 +122,14 @@ public class vInsercionActividadeController extends AbstractController implement
         });
     }
 
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
     /**
      * Método que se executa cando se preme o botón asociado a xestionar os tipos de materiais
      *
@@ -137,5 +151,14 @@ public class vInsercionActividadeController extends AbstractController implement
         AuxGUI.vaciarCamposTexto(campoNome, campoDuracion);
         //Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
         //AuxGUI.ocultarCampos(avisoCampos);
+    }
+
+    /**
+     * Método que representa as accións realizadas ao premer o botón de limpado de campos.
+     * @param actionEvent A acción que tivo lugar
+     */
+    public void btngardar(ActionEvent actionEvent) {
+
+
     }
 }

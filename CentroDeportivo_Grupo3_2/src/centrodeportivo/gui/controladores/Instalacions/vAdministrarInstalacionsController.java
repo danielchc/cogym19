@@ -94,7 +94,8 @@ public class vAdministrarInstalacionsController extends AbstractController imple
         //Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
         //Se non se cubriu ningún campo, o que faremos será listar todas as instalacións.
         //Inda que poida parecer redundante, é un xeito de actualizar a información:
-        if(!ValidacionDatos.estanCubertosCampos(campoNome, campoTelefono, campoDireccion)){
+        if(!ValidacionDatos.estanCubertosCampos(campoNome) &&  !ValidacionDatos.estanCubertosCampos(campoTelefono)
+                && !ValidacionDatos.estanCubertosCampos(campoDireccion)){
             //Listamos todas as instalacións. Valémonos do auxiliar para reemprazar directamente o contido da táboa:
             actualizarTaboaInstalacions(super.getFachadaAplicacion().buscarInstalacions(null));
         } else {

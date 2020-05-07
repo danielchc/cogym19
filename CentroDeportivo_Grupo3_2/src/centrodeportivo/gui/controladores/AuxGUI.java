@@ -77,4 +77,12 @@ public abstract class AuxGUI {
         }
     }
 
+    public static int pasarEnteiro(TextField campoTexto){
+        try{
+            return Integer.parseInt(campoTexto.getText());
+        } catch(Exception e){
+            return 0;
+        }
+    }
+
 }

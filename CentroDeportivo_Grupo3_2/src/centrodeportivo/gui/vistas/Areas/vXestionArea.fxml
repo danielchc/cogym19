@@ -62,7 +62,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                        <TextArea fx:id="campoDescricion" prefHeight="67.0" prefWidth="328.0" />
+                        <TextArea fx:id="campoDescricion" prefHeight="67.0" prefWidth="328.0" wrapText="true" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="342.0" VBox.vgrow="NEVER">

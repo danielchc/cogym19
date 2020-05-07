@@ -180,7 +180,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
                 switch(res){
                     case correcto:
                         //Amosamos unha mensaxe de confirmación:
-                        this.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
+                        this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
                                 "Eliminación correcta.");
                         //Volvese á ventá anterior:
                         controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOSACTIVIDADES);
