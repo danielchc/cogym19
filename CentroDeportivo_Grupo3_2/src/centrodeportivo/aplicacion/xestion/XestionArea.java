@@ -10,6 +10,12 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase na que levaremos a cabo xestións relativas ás áreas.
+ */
 public class XestionArea {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
