@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- * Esta clase funcionará como controlador da ventá de inserción dos datos dunha nova area.
+ * Esta clase funcionará como controlador da ventá de inserción e modificación dos datos dunha área.
  */
 public class vXestionAreaController extends AbstractController implements Initializable {
     /**
@@ -46,8 +46,8 @@ public class vXestionAreaController extends AbstractController implements Initia
      * Atributos privados: correspóndense con outras cuestións necesarias para certas xestións.
      */
     private vPrincipalController controllerPrincipal; //Referencia ao controlador da ventá principal.
-    private Instalacion instalacion;
-    private Area area;
+    private Instalacion instalacion; //referencia á instalación na que se situará a área
+    private Area area; //A área a editar (en caso de editar información).
 
     /**
      * Constructor do controlador da pantalla de nova area:
@@ -66,8 +66,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Neste caso non é necesario facer nada na inicialización.
-        //Polo tanto, deixámolo oculto.
+        //Neste caso facemos un listener para controlar o valor que se introduce no aforo máximo.
         campoAforoMax.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -76,15 +75,33 @@ public class vXestionAreaController extends AbstractController implements Initia
                 }
             }
         });
+        //Por defecto, deixanse editables todos os campos e abertos:
+        AuxGUI.habilitarCampos(campoAforoMax,campoDescricion,campoNome);
     }
 
+    /**
+     * Setter da instalación á que pertence a área a insertar/modificar:
+     * @param instalacion A instalación a asignar.
+     */
     public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
     }
 
+    /**
+     * Setter da área a editar. A súa execución implica que se acaba de insertar unha nova área
+     * @param area A área a insertar.
+     */
     public void setArea(Area area){
+        //Asignamos a área.
         this.area = area;
-
+        //En función da data de baixa, o que faremos será amosar o campo do aforo editable ou non:
+        if(this.area.getDataBaixa() != null){
+            AuxGUI.habilitarCampos(campoAforoMax);
+        } else {
+            AuxGUI.inhabilitarCampos(campoAforoMax);
+        }
+        //Asignamos os campos:
+        this.campoCodigo.setText(Integer.toString(area.getCodArea()));
         this.campoNome.setText(area.getNome());
         this.campoAforoMax.setText(Integer.toString(area.getAforoMaximo()));
         this.campoDescricion.setText(area.getDescricion());
@@ -103,9 +120,9 @@ public class vXestionAreaController extends AbstractController implements Initia
             return;
         }
 
-        if (Integer.parseInt(campoAforoMax.getText()) < 1) {
+        if (!ValidacionDatos.isNatural(campoAforoMax.getText())) {
             //O mesmo que no caso dos campos vacíos: avisamos do erro e non se fai nada máis:
-            this.getFachadaAplicacion().mostrarErro("Area", "O valor de aforomáximo é incorrecto!");
+            this.getFachadaAplicacion().mostrarErro("Area", "O valor de aforo máximo é incorrecto!");
             return;
         }
 
@@ -116,39 +133,53 @@ public class vXestionAreaController extends AbstractController implements Initia
         try {
             //A consulta pódenos devolver varios resultados en función da situación. Avaliámolos:
             TipoResultados res;
-            if (area == null)
+            if (area == null) {
                 res = this.getFachadaAplicacion().EngadirArea(area1);
-            else
-            {
+                //En función do resultado, mostraremos unha mensaxe ou outra:
+                switch (res) {
+                    case correcto:
+                        //Correcto -> Imprimimos mensaxe de éxito co ID da instalación insertada:
+                        this.getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
+                                "Creada a Area " + area1.getNome() +
+                                        ". O seu id de Area é " + area1.getCodArea() +
+                                        ", e o seu id de Instalación é " + area1.getInstalacion().getCodInstalacion() + ".");
+                        //Volvemos á pantalla de xestión dunha instalación
+                        this.controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
+                        break;
+                    case datoExiste:
+                        //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
+                        this.getFachadaAplicacion().mostrarErro("Administración de Areas",
+                                "Xa hai unha area co nome '" + area1.getNome() +" na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
+                        break;
+                        //Neste outro caso, mantémonos nesta pantalla.
+                }
+            } else {
                 area1.setCodArea(area.getCodArea());
-                area1.setInstalacion(area.getInstalacion());
                 area1.setDataBaixa(area.getDataBaixa());
                 res = this.getFachadaAplicacion().modificarArea(area1);
-            }
-
-            //En función do resultado, mostraremos unha mensaxe ou outra:
-            switch (res) {
-                case correcto:
-                    //Correcto -> Imprimimos mensaxe de éxito co ID da instalación insertada:
-                    this.getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
-                            "Creada a Area " + area.getNome() +
-                                    ". O seu id de Area é: " + area.getCodArea() +
-                                    ". O seu id de Instalación é: " + area.getInstalacion().getCodInstalacion() + ".");
-                    //Volvemos á pantalla principal:
-                    this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
-                    break;
-                case datoExiste:
-                    //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
-                    this.getFachadaAplicacion().mostrarErro("Administración de Areas",
-                            "Xa hai esta area co nome '" + area.getNome() +" na instalación "+ area.getInstalacion().getCodInstalacion()+ "'.");
-                    break;
+                switch (res) {
+                    case correcto:
+                        //Facemos a asignación entre áreas:
+                        area = area1;
+                        //Correcto -> Imprimimos mensaxe de éxito co ID da instalación insertada:
+                        this.getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
+                                "Modificada a Area " + area.getNome() +
+                                        " con id " + area.getCodArea() +
+                                        " e id de Instalación " + area.getInstalacion().getCodInstalacion() + ".");
+                        //Neste caso, mantémonos nesta pantalla para poder seguir editando se se quere.
+                        break;
+                    case datoExiste:
+                        //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
+                        this.getFachadaAplicacion().mostrarErro("Administración de Areas",
+                                "Xa hai unha area co nome '" + area1.getNome() +" na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
+                        break;
+                }
             }
         } catch (ExcepcionBD e) {
             //Se se recibe unha excepción da base de datos, entón imprímese unha mensaxe informando.
             //Esa mensaxe obtense dentro da excepción, co método getMessage():
             this.getFachadaAplicacion().mostrarErro("Administración de Areas", e.getMessage());
         }
-        //Se houbo algún erro, seguirase nesta pantalla.
     }
 
     /**
@@ -156,8 +187,15 @@ public class vXestionAreaController extends AbstractController implements Initia
      * @param actionEvent A acción que tivo lugar
      */
     public void btnLimparAction(ActionEvent actionEvent) {
-        //O que imos a facer e limpar os tres campos, vaciar o que teñan:
-        AuxGUI.vaciarCamposTexto(campoNome, campoDescricion, campoAforoMax);
+        if(area == null){
+            //O que imos a facer e limpar os tres campos, vaciar o que teñan:
+            AuxGUI.vaciarCamposTexto(campoNome, campoDescricion, campoAforoMax);
+        } else {
+            //Reestablecemos os valores dos campos
+            campoNome.setText(area.getNome());
+            campoDescricion.setText(area.getDescricion());
+            campoAforoMax.setText(Integer.toString(area.getAforoMaximo()));
+        }
         //Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
         AuxGUI.ocultarCampos(avisoCampos);
     }
@@ -167,7 +205,12 @@ public class vXestionAreaController extends AbstractController implements Initia
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnVolverAction(ActionEvent actionEvent) {
-        //Volvemos á ventá da edición da instalación.
-        controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
+        //Se se está editando unha área vólvese á pantalla de administración:
+        if(area != null){
+            controllerPrincipal.mostrarPantalla(IdPantalla.ADMINAREA);
+        } else {
+            //Se non, volvemos á de xestión da instalación:
+            controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
+        }
     }
 }

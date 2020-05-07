@@ -74,14 +74,12 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getSelectionModel().selectFirst();
     }
 
-    public void actualizarTaboa()
-    {
+    public void actualizarTaboa() {
         //Agora engadimos items:
         taboaAreas.getItems().setAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
     }
-
 
     public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
@@ -126,7 +124,9 @@ public class vAdministrarAreaController extends AbstractController implements In
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONAREA);
             //Accedemos ao controlador de creación dun area:
-            ((vXestionAreaController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONAREA)).setArea((Area) taboaAreas.getSelectionModel().getSelectedItem());
+            vXestionAreaController cont = ((vXestionAreaController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONAREA));
+            cont.setArea((Area) taboaAreas.getSelectionModel().getSelectedItem());
+            cont.setInstalacion(instalacion);
 
         } else {
             this.getFachadaAplicacion().mostrarErro("Administración de areas", "Non hai celda seleccionada!");

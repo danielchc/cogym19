@@ -24,6 +24,15 @@ public abstract class ValidacionDatos {
     }
 
     /**
+     * Método que nos permite verificar se nun campo de texto se mete un enteiro positivo:
+     * @param num O texto co número a validar
+     * @return Se o número equivalente é enteiro positivo.
+     */
+    public static boolean isNatural(String num){
+        return Integer.parseInt(num) > 0;
+    }
+
+    /**
      * Método que nos permite comprobar se os campos pasados están cubertos.
      * @param nodes Os campos que se quere validar que están cubertos.
      * @return True se todos eles teñen algo cuberto. False en caso contrario.
