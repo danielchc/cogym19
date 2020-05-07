@@ -509,7 +509,7 @@ public class FachadaAplicacion extends Application {
      * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
      * noutro caso, listaranse todas as areas.
      */
-    public ObservableList<Area> listarAreasActivas(Instalacion instalacion) {
+    public ArrayList<Area> listarAreasActivas(Instalacion instalacion) {
         return xestionArea.listarAreasActivas(instalacion);
     }
 

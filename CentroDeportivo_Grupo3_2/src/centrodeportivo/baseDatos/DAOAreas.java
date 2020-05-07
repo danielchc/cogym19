@@ -524,8 +524,8 @@ public final class DAOAreas extends AbstractDAO {
      * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
      * noutro caso, listaranse todas as areas.
      */
-    public ObservableList<Area> listarAreasActivas(Instalacion instalacion) {
-        ObservableList<Area> areas = FXCollections.observableArrayList();
+    public ArrayList<Area> listarAreasActivas(Instalacion instalacion) {
+        ArrayList<Area> areas = new ArrayList<>();
         PreparedStatement stmArea = null;
         ResultSet rsArea;
         Connection con;
@@ -537,7 +537,7 @@ public final class DAOAreas extends AbstractDAO {
         try {
             String consultaArea = "SELECT codarea, instalacion, nome, descricion, aforomaximo, databaixa " +
                     "FROM area " +
-                    "WHERE databaixa is null";
+                    "WHERE databaixa is null ";
 
 
             // Comprobaremos se estamos a pasar un tipo nulo e xestionaremolo en función do caso:
@@ -562,7 +562,7 @@ public final class DAOAreas extends AbstractDAO {
             // Procesamos os datos obtidos da consulta:
             while (rsArea.next()) {
                 // Imos engadindo ao ObservableList do resultado cada area consultada:
-                areas.add(new Area(rsArea.getInt(2), new Instalacion(rsArea.getInt(1)),
+                areas.add(new Area(rsArea.getInt("codarea"), new Instalacion(rsArea.getInt("instalacion")),
                         rsArea.getString(3), rsArea.getString(4), rsArea.getInt(5), rsArea.getDate(6)));
             }
 

@@ -141,7 +141,9 @@ public final class DAOMaterial extends AbstractDAO {
 
             // Asignamos os valores que corresponden:
             stmMaterial.setInt(1, material.getArea().getCodArea());
+            System.out.println("El area que me llega es "+ material.getArea().getNome() +" su codigo-> " + material.getArea().getCodArea());
             stmMaterial.setInt(2, material.getInstalacion().getCodInstalacion());
+            System.out.println("La instalacion que me llega es "+ material.getInstalacion().getNome()+" su codigo-> " + material.getInstalacion().getCodInstalacion());
             stmMaterial.setString(3, material.getEstado());
             stmMaterial.setDate(4, material.getDataCompra());
             stmMaterial.setFloat(5, material.getPrezoCompra());

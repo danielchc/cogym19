@@ -29,10 +29,10 @@ import java.util.ResourceBundle;
 public class vInsercionActividadeController extends AbstractController implements Initializable {
 
 
-    public ComboBox comboTipoactividade;
+    public ComboBox<TipoActividade> comboTipoactividade = new ComboBox<>();
     public TextField campoNome;
-    public ComboBox comboInstalacions;
-    public ComboBox comboArea;
+    public ComboBox<Instalacion> comboInstalacions = new ComboBox<>();
+    public ComboBox<Area> comboArea = new ComboBox<>();
     public ComboBox comboProfesor;
     public DatePicker campoData;
     public TextField campoHoraInicio;
