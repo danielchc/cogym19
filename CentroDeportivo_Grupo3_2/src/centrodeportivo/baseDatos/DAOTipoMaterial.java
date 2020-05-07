@@ -184,11 +184,11 @@ public final class DAOTipoMaterial extends AbstractDAO {
 
         // Preparamos a consulta
         try {
-            String consultaTipoMaterial = "SELECT * FROM tipoMaterial";
+            String consultaTipoMaterial = "SELECT * FROM tipoMaterial ";
 
             // Comprobaremos se estamos a pasar un tipo nulo e xestionaremolo en función do caso:
             if (tipoMaterial != null) {
-                consultaTipoMaterial += " WHERE nome like ? ";
+                consultaTipoMaterial += " WHERE lower(nome) like lower(?) ";
             }
 
             // Ordenaremos o resultado en función do codigo

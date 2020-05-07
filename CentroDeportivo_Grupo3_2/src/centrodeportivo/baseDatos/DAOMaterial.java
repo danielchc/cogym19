@@ -313,7 +313,6 @@ public final class DAOMaterial extends AbstractDAO {
         return resultado;
     }
 
-
     /**
      * ListarMateriais -> obten todos os materiais almacenados na base de datos
      *
