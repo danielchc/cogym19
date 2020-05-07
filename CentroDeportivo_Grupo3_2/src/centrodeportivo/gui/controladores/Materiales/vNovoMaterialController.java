@@ -16,6 +16,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -32,11 +33,11 @@ public class vNovoMaterialController extends AbstractController implements Initi
 
 
     // Atributos públicos - trátase dos campos da interface aos que queremos acceder:
-    public ComboBox<TipoMaterial> comboTipoMaterial = new ComboBox<>();
+    public ComboBox<TipoMaterial> comboTipoMaterial;
     public TextField campoEstadoMaterial;
-    public ComboBox<Instalacion> comboInstalacion = new ComboBox<>();
+    public ComboBox<Instalacion> comboInstalacion;
     public DatePicker campoDataCompraMaterial;
-    public ComboBox<Area> comboArea = new ComboBox<>();
+    public ComboBox<Area> comboArea;
     public TextField campoPrezoMaterial;
     public Button btnGardarMaterial;
     public Button btnLimparMaterial;
@@ -47,11 +48,13 @@ public class vNovoMaterialController extends AbstractController implements Initi
     private vPrincipalController controllerPrincipal;
     private Stage primaryStage;
 
+    // Constructor:
     public vNovoMaterialController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }
 
+    // Outros metodos:
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -70,6 +73,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
                         ap.getNome().equals(string)).findFirst().orElse(null);
             }
         });
+
         // Facemos que se vexa o nome das areas no comboBox
         comboArea.setConverter(new StringConverter<Area>() {
             @Override
@@ -99,6 +103,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
                         ap.getNome().equals(string)).findFirst().orElse(null);
             }
         });
+
         // Cargamos as areas en funcion da instalacion seleccionada
         comboInstalacion.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {  // No caso de que non haxa ningunha instalaccion seleccionada
@@ -126,7 +131,6 @@ public class vNovoMaterialController extends AbstractController implements Initi
                 setDisable(empty || date.compareTo(today) > 0);
             }
         });
-
 
         //Engadimos un listener no campo do prezo para controlar os valores introducidos:
         campoPrezoMaterial.textProperty().addListener(new ChangeListener<String>() {
@@ -195,10 +199,12 @@ public class vNovoMaterialController extends AbstractController implements Initi
         // Comprobamos que o campo prezo non esta valeiro
         if (!campoPrezoMaterial.getText().isEmpty()) {
             // Se non esta valeiro creamos o material co prezo:
-            material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra, Float.parseFloat(campoPrezoMaterial.getText()));
+            material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(),
+                    campoEstadoMaterial.getText(), fechaCompra, Float.parseFloat(campoPrezoMaterial.getText()));
         } else {
             // Se esta valeiro, creamos o material sen o prezo:
-            material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra);
+            material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(),
+                    campoEstadoMaterial.getText(), fechaCompra);
         }
         // Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso:
         try {

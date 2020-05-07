@@ -17,6 +17,7 @@ public class Material {
     private Area area;
     private String estado;
     private Date dataCompra;
+    Instalacion instalacion;
     private float prezoCompra;
 
 
@@ -26,6 +27,12 @@ public class Material {
         this.tipoMaterial = tipoMaterial;
         this.area = area;
         this.estado = estado;
+    }
+
+    public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion) {
+        this.tipoMaterial = tipoMaterial;
+        this.area = area;
+        this.instalacion = instalacion;
     }
 
     // Atributos not null máis o código
@@ -39,7 +46,7 @@ public class Material {
     // Atributos not null + atributos que poden ser null con código
     public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra, float prezoCompra) {
         this(codMaterial, tipoMaterial, area, estado);
-        area.setInstalacion(instalacion);
+        this.instalacion = instalacion;
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
     }
@@ -47,7 +54,7 @@ public class Material {
     // Atributos sen codigo
     public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra, float prezoCompra) {
         this(tipoMaterial, area, estado);
-        area.setInstalacion(instalacion);
+        this.instalacion = instalacion;
         this.dataCompra = dataCompra;
         this.prezoCompra = prezoCompra;
     }
@@ -55,7 +62,7 @@ public class Material {
     // Atributos sen codigo e sen prezo
     public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra) {
         this(tipoMaterial, area, estado);
-        area.setInstalacion(instalacion);
+        this.instalacion = instalacion;
         this.dataCompra = dataCompra;
     }
 
@@ -63,7 +70,7 @@ public class Material {
     // Atributos sen codigo e sen prezo
     public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra) {
         this(codMaterial, tipoMaterial, area, estado);
-        area.setInstalacion(instalacion);
+        this.instalacion = instalacion;
         this.dataCompra = dataCompra;
     }
 
@@ -134,9 +141,10 @@ public class Material {
         return area.getInstalacion().getNome();
     }
 
+    // TODO: REVISAR AS DEPENDENCIAS QUE CREO ENTRE AREA E INSTALACION QUE SON INCOHERENTES CA BASE DE DATOS PORFAVOR HELENA NON ME SEAS ASI
     // Outros métodos
     public Instalacion getInstalacion() {
-        return area.getInstalacion();
+        return instalacion;
     }
 
     /*@Override

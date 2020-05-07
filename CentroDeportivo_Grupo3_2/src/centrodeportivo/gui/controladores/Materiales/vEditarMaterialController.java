@@ -29,11 +29,11 @@ public class vEditarMaterialController extends AbstractController implements Ini
 
     // Atributos públicos: referentes a ventá correspondente
     public TextField campoCodigo;
-    public ComboBox<TipoMaterial> comboTipoMaterial = new ComboBox<>();
+    public ComboBox<TipoMaterial> comboTipoMaterial;
     public TextField campoEstadoMaterial;
-    public ComboBox<Instalacion> comboInstalacion = new ComboBox<>();
+    public ComboBox<Instalacion> comboInstalacion;
     public DatePicker campoDataCompraMaterial;
-    public ComboBox<Area> comboArea = new ComboBox<>();
+    public ComboBox<Area> comboArea;
     public TextField campoPrezoMaterial;
     public Button btnGardarMaterial;
     public Button btnLimparMaterial;
@@ -176,7 +176,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
         if (material != null) {
             // Se o material non e null, cubrimos os campos
             comboTipoMaterial.setValue(material.getTipoMaterial());
-            comboInstalacion.setValue(material.getInstalacion());
+            comboInstalacion.setValue(material.getArea().getInstalacion());
             comboArea.setValue(material.getArea());
             campoCodigo.setText(String.valueOf(material.getCodMaterial()));
             campoEstadoMaterial.setText(material.getEstado());

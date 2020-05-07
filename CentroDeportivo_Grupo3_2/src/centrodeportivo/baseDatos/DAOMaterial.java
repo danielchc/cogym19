@@ -73,7 +73,6 @@ public final class DAOMaterial extends AbstractDAO {
         }
     }
 
-
     /**
      * BorrarMaterial -> elimina a tupla dun material na base de datos
      *
@@ -114,7 +113,6 @@ public final class DAOMaterial extends AbstractDAO {
         }
     }
 
-
     /**
      * ModificarMaterial -> modifica os datos un material na base de datos
      *
@@ -141,15 +139,12 @@ public final class DAOMaterial extends AbstractDAO {
 
             // Asignamos os valores que corresponden:
             stmMaterial.setInt(1, material.getArea().getCodArea());
-            System.out.println("El area que me llega es "+ material.getArea().getNome() +" su codigo-> " + material.getArea().getCodArea());
             stmMaterial.setInt(2, material.getInstalacion().getCodInstalacion());
-            System.out.println("La instalacion que me llega es "+ material.getInstalacion().getNome()+" su codigo-> " + material.getInstalacion().getCodInstalacion());
             stmMaterial.setString(3, material.getEstado());
             stmMaterial.setDate(4, material.getDataCompra());
             stmMaterial.setFloat(5, material.getPrezoCompra());
             stmMaterial.setInt(6, material.getCodMaterial());
             stmMaterial.setInt(7, material.getTipoMaterial().getCodTipoMaterial());
-
 
             // Executamos a actualización
             stmMaterial.executeUpdate();
@@ -169,7 +164,6 @@ public final class DAOMaterial extends AbstractDAO {
             }
         }
     }
-
 
     /**
      * IsMaterial -> comproba se certo material existe na base de datos
@@ -337,7 +331,6 @@ public final class DAOMaterial extends AbstractDAO {
 
         // Preparamos a consulta
         try {
-
             String consultaMaterial = "SELECT m.*, " +
                     "tm.nome as nometipo, " +
                     "a.nome as nomearea, a.descricion, " +
@@ -351,21 +344,7 @@ public final class DAOMaterial extends AbstractDAO {
                     "ON a.instalacion = i.codinstalacion AND m.instalacion = i.codinstalacion ";
 
             if (material != null) {
-                if (material.getTipoMaterial() != null) {
-                    consultaMaterial += "WHERE  m.tipomaterial = ?";
-                } else {
-                    consultaMaterial += "WHERE  1 = ?";
-                }
-                if (material.getArea() != null) {
-                    consultaMaterial += "AND  m.area = ?";
-                } else {
-                    consultaMaterial += "AND  1 = ?";
-                }
-                if (material.getInstalacion() != null) {
-                    consultaMaterial += "AND  m.instalacion = ?";
-                } else {
-                    consultaMaterial += "AND  1 = ?";
-                }
+                consultaMaterial += "WHERE CAST(m.tipomaterial AS TEXT) like ? AND CAST(m.area AS TEXT) LIKE ? AND CAST(m.instalacion AS TEXT) LIKE ? ";
             }
 
             consultaMaterial += "ORDER BY m.tipomaterial, m.codmaterial ";
@@ -374,21 +353,20 @@ public final class DAOMaterial extends AbstractDAO {
 
             if (material != null) {
                 if (material.getTipoMaterial() != null) {
-                    stmMaterial.setInt(1, material.getTipoMaterial().getCodTipoMaterial());
+                    stmMaterial.setString(1, "" + material.getTipoMaterial().getCodTipoMaterial());
                 } else {
-                    stmMaterial.setInt(1, 1);
+                    stmMaterial.setString(1, "%%");
                 }
-
                 if (material.getArea() != null) {
-                    stmMaterial.setInt(2, material.getArea().getCodArea());
-                } else {
-                    stmMaterial.setInt(2, 1);
-                }
+                    stmMaterial.setString(2, "" + material.getArea().getCodArea());
 
-                if (material.getInstalacion() != null) {
-                    stmMaterial.setInt(3, material.getInstalacion().getCodInstalacion());
                 } else {
-                    stmMaterial.setInt(3, 1);
+                    stmMaterial.setString(2, "%%");
+                }
+                if (material.getInstalacion() != null) {
+                    stmMaterial.setString(3, "" + material.getInstalacion().getCodInstalacion());
+                } else {
+                    stmMaterial.setString(3, "%%");
                 }
             }
 

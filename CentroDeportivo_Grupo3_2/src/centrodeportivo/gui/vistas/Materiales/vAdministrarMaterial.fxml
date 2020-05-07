@@ -65,8 +65,7 @@
                     <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
 
                         <Button fx:id="btnBuscar" mnemonicParsing="false" prefHeight="26.0"
-                                prefWidth="95.0" text="Buscar" HBox.hgrow="ALWAYS"/>
-                        <!--onAction="#btnBuscarAction"-->
+                                prefWidth="95.0" text="Buscar" HBox.hgrow="ALWAYS" onAction="#btnBuscarAction"/>
                     </HBox>
                 </VBox>
             </HBox>

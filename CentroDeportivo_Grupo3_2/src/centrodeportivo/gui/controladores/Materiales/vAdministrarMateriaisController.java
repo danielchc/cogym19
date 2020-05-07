@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
@@ -101,7 +102,6 @@ public class vAdministrarMateriaisController extends AbstractController implemen
         // Desactivamos a función de seleccionar unha area ata que se seleccione unha instalacion
         comboArea.setDisable(true);
 
-
         // Inicializamos o comboBox das instalacions
         comboInstalacion.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarInstalacions(null)));
         // Facemos que se vexa o nome das instalacions no comboBox:
@@ -183,5 +183,27 @@ public class vAdministrarMateriaisController extends AbstractController implemen
             this.getFachadaAplicacion().mostrarErro("Administración de materiais", "Non hai ningún material seleccionado!");
         }
 
+    }
+
+
+    /**
+     * Acción efectuada ao premer o botón para realizar a búsqueda.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnBuscarAction(ActionEvent actionEvent) {
+        // Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
+        // Se non se cubriu ningún campo, o que faremos será listar todos os materiais
+        // Inda que poida parecer redundante, é un xeito de actualizar a información:
+        if (comboTipoMaterial.getValue() == null && comboInstalacion.getValue() == null && comboArea.getValue() == null) {
+            // Listamos todas as instalacións. Valémonos do auxiliar para reemprazar directamente o contido da táboa:
+            actualizarTaboaMateriais(super.getFachadaAplicacion().listarMateriais(null));
+        } else {
+            // Noutro caso, buscaremos segundo a información dos campos.
+            // Creamos unha instalación co que se ten:
+            Material material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue());
+            // Reemprazamos o contido da táboa buscando polo material:
+            actualizarTaboaMateriais(super.getFachadaAplicacion().listarMateriais(material));
+        }
     }
 }
