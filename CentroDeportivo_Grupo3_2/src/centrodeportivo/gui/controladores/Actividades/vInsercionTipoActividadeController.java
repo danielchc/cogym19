@@ -38,7 +38,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
     public Button btnVolver;
     public Button btnGardar;
     public Button btnBorrar;
-    public Button btnLimpar;
+    public Button btnRestaurar;
 
     /**
      * Atributos privados: temos dous, por un lado, a referencia ao controlador da ventá principal e, por outro,
@@ -201,7 +201,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
      * Método que se executará ao premer o botón de limpar os campos da pantalla.
      * @param actionEvent A acción que tivo lugar.
      */
-    public void btnLimparAction(ActionEvent actionEvent) {
+    public void btnRestaurarAction(ActionEvent actionEvent) {
         //Dúas opcións, cando estamos insertando un novo tipo de actividade e cando o modificamos:
         if(tipoActividade != null){
             //Se estamos modificando (tipo de actividade non nulo) actualizamos os campos, non os borramos:

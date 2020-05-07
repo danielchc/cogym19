@@ -127,7 +127,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="88.0" prefWidth="80.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="26.0" prefWidth="120.0" text="Limpar Campos" />
+                                    <Button fx:id="btnRestaurar" mnemonicParsing="false" onAction="#btnRestaurarAction" prefHeight="26.0" prefWidth="120.0" text="Restaurar" />
                                  </children>
                               </HBox>
                            </children>

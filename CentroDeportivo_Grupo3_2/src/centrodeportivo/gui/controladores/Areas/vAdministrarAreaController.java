@@ -26,7 +26,7 @@ public class vAdministrarAreaController extends AbstractController implements In
     public TableView taboaAreas;
     public Button btnBuscar;
     public Button btnLimpar;
-    public TextField campoNomeArea;
+    public TextField campoNome;
     public TextField campoAforo;
     public Button btnVolver;
     public Button btnDarBaixa;
@@ -87,14 +87,13 @@ public class vAdministrarAreaController extends AbstractController implements In
         //Borramos primeiro todas as áreas da táboa:
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Se non se cubriu ningún campo, o que faremos será listar todas as áreas.
-        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea) && !ValidacionDatos.estanCubertosCampos(campoAforo)){
+        if(!ValidacionDatos.estanCubertosCampos(campoNome) && !ValidacionDatos.estanCubertosCampos(campoAforo)){
             taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
             //Creamos unha area cos datos recollidos:
-            System.out.println(campoAforo.getText());
-            Area area = new Area(campoNomeArea.getText(), AuxGUI.pasarEnteiro(campoAforo));
-            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
+            Area area = new Area(campoNome.getText(), AuxGUI.pasarEnteiro(campoAforo));
+            taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, area));
         }
         //Selecciónase o primeiro item da táboa:
         taboaAreas.getSelectionModel().selectFirst();
@@ -102,7 +101,7 @@ public class vAdministrarAreaController extends AbstractController implements In
 
     public void btnLimparAction(ActionEvent actionEvent) {
         //Vaciaranse os campos e, depaso, listaranse todas as áreas dispoñibeis de novo:
-        AuxGUI.vaciarCamposTexto(campoAforo,campoNomeArea);
+        AuxGUI.vaciarCamposTexto(campoAforo, campoNome);
         //Aproveitamos entón para actualizar a táboa:
         //Eliminamos os items:
         taboaAreas.getItems().removeAll(taboaAreas.getItems());

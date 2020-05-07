@@ -470,8 +470,10 @@ public final class DAOAreas extends AbstractDAO {
             //argumento:
 
             if (area != null) {
-                consulta += " WHERE lower(nome) like lower(?) " +
-                        "   and aforomaximo = ? ";
+                consulta += " and lower(nome) like lower(?) ";
+                if(area.getAforoMaximo() != 0){
+                    consulta += " and aforomaximo = ? ";
+                }
             }
 
             //Ordenaremos o resultado polo código da área para ordenalas
@@ -485,7 +487,9 @@ public final class DAOAreas extends AbstractDAO {
             if (area != null) {
                 //Establecemos os valores da consulta segundo a instancia de instalación pasada:
                 stmAreas.setString(2, "%" + area.getNome() + "%");
-                stmAreas.setInt(3, area.getAforoMaximo());
+                if(area.getAforoMaximo() != 0) {
+                    stmAreas.setInt(3, area.getAforoMaximo());
+                }
             }
 
             //Realizamos a consulta:

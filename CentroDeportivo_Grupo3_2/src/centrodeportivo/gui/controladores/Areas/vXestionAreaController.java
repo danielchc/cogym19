@@ -34,7 +34,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      * Atributos públicos - trátase dos campos da interface aos que queremos acceder:
      */
     public Button btnGardar;
-    public Button btnLimpar;
+    public Button btnRestaurar;
     public Button btnVolver;
     public TextField campoNome;
     public TextArea campoDescricion;
@@ -77,6 +77,15 @@ public class vXestionAreaController extends AbstractController implements Initia
         });
         //Por defecto, deixanse editables todos os campos e abertos:
         AuxGUI.habilitarCampos(campoAforoMax,campoDescricion,campoNome);
+    }
+
+    /**
+     * Método sobreescrito que se executa tras inicializar a ventá, para aquelas restauracións que se queiran facer.
+     */
+    @Override
+    public void reiniciarForm(){
+        //Reestablecemos a área a null:
+        this.area = null;
     }
 
     /**
@@ -186,7 +195,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      * Método que representa as accións realizadas ao premer o botón de limpado de campos.
      * @param actionEvent A acción que tivo lugar
      */
-    public void btnLimparAction(ActionEvent actionEvent) {
+    public void btnRestaurarAction(ActionEvent actionEvent) {
         if(area == null){
             //O que imos a facer e limpar os tres campos, vaciar o que teñan:
             AuxGUI.vaciarCamposTexto(campoNome, campoDescricion, campoAforoMax);

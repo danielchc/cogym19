@@ -59,7 +59,7 @@ public class vXestionCursoController extends AbstractController implements Initi
     public Button btnModificarSeleccion;
     public TableView taboaUsuarios;
     public Button btnCancelar;
-    public Button btnLimpar;
+    public Button btnRestaurar;
     public Button btnXerarInforme;
     public VBox vBoxBotonInforme;
     public VBox vBoxDetalleInforme;
@@ -491,7 +491,7 @@ public class vXestionCursoController extends AbstractController implements Initi
      * Método que representa as accións levadas a cabo ao premer o botón de limpado de campos:
      * @param actionEvent A acción que tivo lugar
      */
-    public void btnLimparAction(ActionEvent actionEvent) {
+    public void btnRestaurarAction(ActionEvent actionEvent) {
         //O que faremos será vaciar automáticamente todos os campos:
         //Se temos un curso rexistrado xa, o que faremos será poñer os campos que lle corresponde:
         if(curso != null && curso.getCodCurso() != 0){
