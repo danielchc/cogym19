@@ -381,7 +381,7 @@ public class DAOActividade extends AbstractDAO {
             stmAreas = con.prepareStatement(consulta);
 
             //Pasando area non nula completase a consulta.
-            if (profesores != null) {
+            if (tipoactividade != null) {
                 stmAreas.setInt(1, tipoactividade.getCodTipoActividade());
             }
 
