@@ -87,7 +87,7 @@
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="342.0" VBox.vgrow="NEVER">
                             <children>
                                 <Button fx:id="btnGardar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="160.0" text="Gardar Area" />
-                                <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="26.0" prefWidth="160.0" text="Limpar Campos">
+                                <Button fx:id="btnRestaurar" mnemonicParsing="false" onAction="#btnRestaurarAction" prefHeight="26.0" prefWidth="160.0" text="Restaurar Campos">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin></Button>
