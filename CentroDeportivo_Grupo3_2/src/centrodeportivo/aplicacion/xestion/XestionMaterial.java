@@ -42,13 +42,14 @@ public class XestionMaterial {
     }
 
     public TipoResultados modificarMaterial(Material material) throws ExcepcionBD {
-        if (!fachadaBD.isMaterial(material)) {
+        // Comprobamos que o material a modificar existe na base de datos
+        if (fachadaBD.isMaterial(material)) {
             fachadaBD.modificarMaterial(material);
-            // Devolvemos co enum que se fixo a modificación sen problemas chegados a este punto:
+            // Devolvemos un enum que indique que se modificou correctamente:
             return TipoResultados.correcto;
         } else {
-            // Se xa existe outro material do mesmo tipo e co mesmo identificador, devolvemos un enum que indique o propio:
-            return TipoResultados.datoExiste;
+            // Se non existe,  devolvemos  un enum que indique o propio:
+            return TipoResultados.datoNonExiste;
         }
     }
 

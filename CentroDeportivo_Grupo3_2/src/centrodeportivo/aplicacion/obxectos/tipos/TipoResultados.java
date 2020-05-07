@@ -13,6 +13,7 @@ package centrodeportivo.aplicacion.obxectos.tipos;
 public enum TipoResultados {
     correcto,
     datoExiste,
+    datoNonExiste,
     referenciaRestrict,
     incoherenciaBorrado,
     foraTempo,

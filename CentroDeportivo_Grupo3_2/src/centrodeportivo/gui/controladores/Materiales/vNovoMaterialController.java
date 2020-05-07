@@ -177,36 +177,40 @@ public class vNovoMaterialController extends AbstractController implements Initi
      */
     public void btnGardarAction(ActionEvent actionEvent) {
         // Primeiro imos comprobar que os campos non están vacíos:
-        if (!ValidacionDatos.estanCubertosCampos(campoEstadoMaterial)) {
-            // Se algún campo obligatorio non
+        if (!ValidacionDatos.estanCubertosCampos(campoEstadoMaterial) || comboTipoMaterial.getValue() == null ||
+                comboInstalacion.getValue() == null || comboArea.getValue() == null) {
+            // Se algún campo obligatorio non esta cuberto, amosamos un mensaxe:
             AuxGUI.amosarCampos(avisoCampos);
             return;
         }
+        // Creamos o material que daremos de alta:
         Material material;
+        // Creamos a fecha que lle pasaremos:
         Date fechaCompra = null;
+        // Compobamos que o campo non este vacio:
         if (campoDataCompraMaterial.getValue() != null) {
+            // Se non esta valeiro, asignamosllo:
             fechaCompra = Date.valueOf(campoDataCompraMaterial.getValue());
         }
+        // Comprobamos que o campo prezo non esta valeiro
         if (!campoPrezoMaterial.getText().isEmpty()) {
-            // Creamos un obxecto instalación con todos os datos facilitados
+            // Se non esta valeiro creamos o material co prezo:
             material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra, Float.parseFloat(campoPrezoMaterial.getText()));
         } else {
+            // Se esta valeiro, creamos o material sen o prezo:
             material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra);
         }
-
-        // Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso.
+        // Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso:
         try {
-            // A consulta pódenos devolver varios resultados en función da situación
+            // Intentamos efectuar a consulta para dar de alta o material:
             TipoResultados res = this.getFachadaAplicacion().darAltaMaterial(material);
-            //En función do resultado, mostraremos unha mensaxe ou outra:
+            // Comprobamos que o resultado sexa correcto e amosamos un mensaxe por pantalla:
             if (res == TipoResultados.correcto) {
-                // Correcto -> Imprimimos mensaxe de éxito co ID do material insertado:
                 this.getFachadaAplicacion().mostrarInformacion("Materiais",
                         "Creado un material do tipo " + material.getTipoMaterial().getNome() + ".");
-                // Volvemos á pantalla principal:
+                // Despois, volvemos a pantalla principal:
                 this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
             }
-
         } catch (ExcepcionBD e) {
             // Se se recibe unha excepción da base de datos, entón imprímese unha mensaxe informando.
             // Esa mensaxe obtense dentro da excepción, co método getMessage():
