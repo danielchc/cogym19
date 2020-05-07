@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Areas;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Area;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.aplicacion.FachadaAplicacion;
@@ -11,10 +12,7 @@ import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -90,7 +88,7 @@ public class vAdministrarAreaController extends AbstractController implements In
         //Borramos primeiro todas as áreas da táboa:
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Se non se cubriu ningún campo, o que faremos será listar todas as áreas.
-        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea, campoAforo)){
+        if(!ValidacionDatos.estanCubertosCampos(campoNomeArea) && !ValidacionDatos.estanCubertosCampos(campoAforo)){
             taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
@@ -135,29 +133,58 @@ public class vAdministrarAreaController extends AbstractController implements In
 
     public void btnDarBaixaAction(ActionEvent actionEvent) throws ExcepcionBD {
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
-        if (area != null)
-        {
-            this.getFachadaAplicacion().darDeBaixaArea(area);
+        if (area != null) {
+            TipoResultados res = getFachadaAplicacion().darDeBaixaArea(area);
+            switch(res) {
+                case correcto:
+
+                    break;
+            }
             this.actualizarTaboa();
+        } else {
+            getFachadaAplicacion().mostrarErro("Administración de Áreas",
+                    "Debes seleccionar unha das áreas!");
         }
     }
 
     public void btnDarAltaAction(ActionEvent actionEvent) throws ExcepcionBD {
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
-        if (area != null)
-        {
+        if (area != null) {
             this.getFachadaAplicacion().darDeAltaArea(area);
             this.actualizarTaboa();
+        }else {
+            getFachadaAplicacion().mostrarErro("Administración de Áreas",
+                    "Debes seleccionar unha das áreas!");
         }
     }
 
     public void btnEliminarAreaAction(ActionEvent actionEvent) throws ExcepcionBD {
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
-
-        if (area != null)
-        {
-            this.getFachadaAplicacion().borrarArea(area);
-            this.actualizarTaboa();
+        if (area != null) {
+            //Pedimos primeiro unha confirmación por parte do usuario:
+            if(getFachadaAplicacion().mostrarConfirmacion("Administración de Áreas",
+                    "Desexas tentar o borrado da área '" + area.getNome() + "'?")  == ButtonType.OK) {
+                TipoResultados res = getFachadaAplicacion().borrarArea(area);
+                //En función do resultado, avaliamos:
+                switch (res) {
+                    case correcto:
+                        getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
+                                "A área '" + area.getNome() + "' da instalación '" + instalacion.getNome() + "' " +
+                                        "foi borrada satisfactoriamente.");
+                        break;
+                    case referenciaRestrict:
+                        getFachadaAplicacion().mostrarErro("Administración de Áreas",
+                                "Non se pode borrar a área '" + area.getNome() + "'. " +
+                                        "Unha vez que ten material ou actividades rexistradas," +
+                                        " a área non se pode eliminar!");
+                        break;
+                }
+                //En calquera caso, actualizamos a táboa:
+                this.actualizarTaboa();
+            }
+        } else {
+            getFachadaAplicacion().mostrarErro("Administración de Áreas",
+                    "Debes seleccionar unha das áreas!");
         }
     }
 

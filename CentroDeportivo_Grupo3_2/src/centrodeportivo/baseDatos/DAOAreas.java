@@ -28,7 +28,7 @@ public final class DAOAreas extends AbstractDAO {
         try {
             String consulta = "SELECT  * " +
                     " FROM area" +
-                    " WHERE nome = ? and instalacion = ?";
+                    " WHERE lower(nome) = lower(?) and instalacion = ?";
 
             //Se a área xa está rexistrada, verificaremos que o código de área sexa distinto.
             //Buscamos áreas DISTINTAS co mesmo nome que o que se lle quere dar á pasada como argumento.
