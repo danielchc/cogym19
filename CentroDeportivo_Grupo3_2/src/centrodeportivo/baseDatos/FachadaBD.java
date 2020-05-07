@@ -550,7 +550,7 @@ public final class FachadaBD {
         daoareas.darDeAltaArea(area);
     }
 
-    public ArrayList<Area> buscarArea(Instalacion instalacion, Area area){
+    public ArrayList<Area> buscarArea(Instalacion instalacion, Area area) {
         return daoareas.buscarArea(instalacion, area);
     }
 
