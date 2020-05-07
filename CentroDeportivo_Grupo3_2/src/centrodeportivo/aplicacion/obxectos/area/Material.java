@@ -43,6 +43,20 @@ public class Material {
         this.prezoCompra = prezoCompra;
     }
 
+    // Atributos sen codigo
+    public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra, float prezoCompra) {
+        this(tipoMaterial, area, estado);
+        area.setInstalacion(instalacion);
+        this.dataCompra = dataCompra;
+        this.prezoCompra = prezoCompra;
+    }
+
+    // Atributos sen codigo e sen prezo
+    public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra) {
+        this(tipoMaterial, area, estado);
+        area.setInstalacion(instalacion);
+        this.dataCompra = dataCompra;
+    }
 
 
     // Getters e setters

@@ -1,9 +1,13 @@
 package centrodeportivo.gui.controladores.Materiales;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
@@ -19,7 +23,9 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class vNovoMaterialController extends AbstractController implements Initializable {
@@ -121,6 +127,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
             }
         });
 
+
         //Engadimos un listener no campo do prezo para controlar os valores introducidos:
         campoPrezoMaterial.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -161,6 +168,51 @@ public class vNovoMaterialController extends AbstractController implements Initi
         comboInstalacion.setValue(null);
         comboTipoMaterial.setValue(null);
         campoDataCompraMaterial.setValue(null);
+    }
+
+    /**
+     * Método que representa as accións realizadas ao premer o botón de gardado de material
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnGardarAction(ActionEvent actionEvent) {
+        // Primeiro imos comprobar que os campos non están vacíos:
+        if (!ValidacionDatos.estanCubertosCampos(campoEstadoMaterial)) {
+            // Se algún campo obligatorio non
+            AuxGUI.amosarCampos(avisoCampos);
+            return;
+        }
+        Material material;
+        Date fechaCompra = null;
+        if (campoDataCompraMaterial.getValue() != null) {
+            fechaCompra = Date.valueOf(campoDataCompraMaterial.getValue());
+        }
+        if (!campoPrezoMaterial.getText().isEmpty()) {
+            // Creamos un obxecto instalación con todos os datos facilitados
+            material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra, Float.parseFloat(campoPrezoMaterial.getText()));
+        } else {
+            material = new Material(comboTipoMaterial.getValue(), comboArea.getValue(), comboInstalacion.getValue(), campoEstadoMaterial.getText(), fechaCompra);
+        }
+
+        // Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso.
+        try {
+            // A consulta pódenos devolver varios resultados en función da situación
+            TipoResultados res = this.getFachadaAplicacion().darAltaMaterial(material);
+            //En función do resultado, mostraremos unha mensaxe ou outra:
+            if (res == TipoResultados.correcto) {
+                // Correcto -> Imprimimos mensaxe de éxito co ID do material insertado:
+                this.getFachadaAplicacion().mostrarInformacion("Materiais",
+                        "Creado un material do tipo " + material.getTipoMaterial().getNome() + ".");
+                // Volvemos á pantalla principal:
+                this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
+            }
+
+        } catch (ExcepcionBD e) {
+            // Se se recibe unha excepción da base de datos, entón imprímese unha mensaxe informando.
+            // Esa mensaxe obtense dentro da excepción, co método getMessage():
+            this.getFachadaAplicacion().mostrarErro("Administración de materiais", e.getMessage());
+        }
+        // Se houbo algún erro, seguirase nesta pantalla.
     }
 }
 
