@@ -25,7 +25,7 @@ public class vInsercionActividadeController extends AbstractController implement
     public TextField campoNome;
     public TextField campoDuracion;
     public Label avisoCampos;
-    public ComboBox<Instalacion> comboInstalacion = new ComboBox<>();
+    public ComboBox<Instalacion> comboInstalacions = new ComboBox<>();
     public ComboBox<Area> comboArea = new ComboBox<>();
     public DatePicker campoData;
     public ComboBox<TipoActividade> comboTipoactividade = new ComboBox<>();
@@ -45,7 +45,7 @@ public class vInsercionActividadeController extends AbstractController implement
         // Inicializamos o comboBox dos tipos de actividade:
         comboTipoactividade.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarTiposActividades(null)));
         // Facemos que se vexa o nome dos tipos no comboBox:
-        /*comboTipoactividade.setConverter(new StringConverter<>() {
+        comboTipoactividade.setConverter(new StringConverter<TipoActividade>() {
             @Override
             public String toString(TipoActividade object) {
                 return object.getNome();
@@ -56,7 +56,7 @@ public class vInsercionActividadeController extends AbstractController implement
                 return comboTipoactividade.getItems().stream().filter(ap ->
                         ap.getNome().equals(string)).findFirst().orElse(null);
             }
-        });*/
+        });
         // Facemos que se vexa o nome das areas no comboBox
         comboArea.setConverter(new StringConverter<Area>() {
             @Override
@@ -72,9 +72,9 @@ public class vInsercionActividadeController extends AbstractController implement
         });
 
         // Inicializamos o comboBox das instalacions
-        comboInstalacion.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarInstalacions(null)));
+        comboInstalacions.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarInstalacions(null)));
         // Facemos que se vexa o nome das instalacions no comboBox:
-        comboInstalacion.setConverter(new StringConverter<Instalacion>() {
+        comboInstalacions.setConverter(new StringConverter<Instalacion>() {
             @Override
             public String toString(Instalacion object) {
                 return object.getNome();
@@ -82,13 +82,13 @@ public class vInsercionActividadeController extends AbstractController implement
 
             @Override
             public Instalacion fromString(String string) {
-                return comboInstalacion.getItems().stream().filter(ap ->
+                return comboInstalacions.getItems().stream().filter(ap ->
                         ap.getNome().equals(string)).findFirst().orElse(null);
             }
         });
 
         // Cargamos as areas en funcion da instalacion seleccionada
-        comboInstalacion.valueProperty().addListener((observable, oldValue, newValue) -> {
+        comboInstalacions.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {  // No caso de que non haxa ningunha instalaccion seleccionada
                 // Eliminamos as areas que poidesen estar cargadas:
                 comboArea.getItems().clear();
@@ -129,6 +129,7 @@ public class vInsercionActividadeController extends AbstractController implement
 
     /**
      * Método que representa as accións realizadas ao premer o botón de limpado de campos.
+     *
      * @param actionEvent A acción que tivo lugar
      */
     public void btnLimparAction(ActionEvent actionEvent) {
