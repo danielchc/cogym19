@@ -366,7 +366,7 @@ public class DAOActividade extends AbstractDAO {
         //Preparamos a consulta:
         try {
             String consulta = "SELECT persoal " +
-                    " FROM estarcapacitado " +;
+                    " FROM estarcapacitado " ;
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
@@ -391,7 +391,7 @@ public class DAOActividade extends AbstractDAO {
             //Recibida a consulta, procesámola:
             while (rsProfes.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
-                profesores.add(new Persoal(rsProfes.getString("persoal"));
+                profesores.add(new Persoal(rsProfes.getString("persoal")));
             }
             con.commit();
         } catch (SQLException e) {

@@ -10,6 +10,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.Actividades.vInsercionActividadeController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
@@ -430,6 +431,11 @@ public class vXestionCursoController extends AbstractController implements Initi
      * @param actionEvent
      */
     public void btnModificarSeleccionAction(ActionEvent actionEvent) {
+        if (!taboaActividades.getSelectionModel().isEmpty()) {
+            Actividade actividade = ((Actividade) taboaActividades.getSelectionModel().getSelectedItem());
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
+            ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade(actividade);
+        }
     }
 
     /**

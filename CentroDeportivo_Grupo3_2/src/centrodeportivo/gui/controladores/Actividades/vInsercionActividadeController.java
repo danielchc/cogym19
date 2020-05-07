@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
@@ -13,6 +14,8 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -24,20 +27,22 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class vInsercionActividadeController extends AbstractController implements Initializable {
-    public Button btnGardar;
-    public Button btnLimpar;
+
+
+    public ComboBox comboTipoactividade;
     public TextField campoNome;
-    public TextField campoDuracion;
-    public Label avisoCampos;
-    public ComboBox<Instalacion> comboInstalacions = new ComboBox<>();
-    public ComboBox<Area> comboArea = new ComboBox<>();
+    public ComboBox comboInstalacions;
+    public ComboBox comboArea;
+    public ComboBox comboProfesor;
     public DatePicker campoData;
-    public ComboBox<TipoActividade> comboTipoactividade = new ComboBox<>();
-    public ComboBox<Persoal> comboProfesor = new ComboBox<>();
+    public TextField campoHoraInicio;
+    public TextField campoHoraFin;
+    public Label avisoCampos;
+    public Button btnVolver;
+    public Button btnGardar;
 
     private Curso curso;
-
-
+    private Actividade actividadeModificar;
     private vPrincipalController controllerPrincipal;
 
     public vInsercionActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -47,118 +52,90 @@ public class vInsercionActividadeController extends AbstractController implement
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.curso=null;
+        this.actividadeModificar=null;
 
-        // Inicializamos o comboBox dos tipos de actividade:
-        comboTipoactividade.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarTiposActividades(null)));
-        // Facemos que se vexa o nome dos tipos no comboBox:
-        comboTipoactividade.setConverter(new StringConverter<TipoActividade>() {
-            @Override
-            public String toString(TipoActividade object) {
-                return object.getNome();
-            }
+        //combo tipos
+        this.comboTipoactividade.getItems().addAll(super.getFachadaAplicacion().buscarTiposActividades(null));
+        if(!this.comboTipoactividade.getItems().isEmpty()) this.comboTipoactividade.getSelectionModel().selectFirst();
 
-            @Override
-            public TipoActividade fromString(String string) {
-                return comboTipoactividade.getItems().stream().filter(ap ->
-                        ap.getNome().equals(string)).findFirst().orElse(null);
-            }
-        });
-        // Facemos que se vexa o nome das areas no comboBox
-        comboArea.setConverter(new StringConverter<Area>() {
-            @Override
-            public String toString(Area object) {
-                return object.getNome();
-            }
+        //combo instalacions
+        this.comboInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        if(!this.comboInstalacions.getItems().isEmpty()) this.comboInstalacions.getSelectionModel().selectFirst();
 
+
+        this.comboInstalacions.valueProperty().addListener(new ChangeListener() {
             @Override
-            public Area fromString(String string) {
-                return comboArea.getItems().stream().filter(ap ->
-                        ap.getNome().equals(string)).findFirst().orElse(null);
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                Instalacion instalacion=(Instalacion)observableValue.getValue();
+                comboArea.getItems().addAll(getFachadaAplicacion().buscarArea(instalacion,null));
+                if(!comboArea.getItems().isEmpty()) comboArea.getSelectionModel().selectFirst();
             }
         });
 
-        // Inicializamos o comboBox das instalacions
-        comboInstalacions.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarInstalacions(null)));
-        // Facemos que se vexa o nome das instalacions no comboBox:
-        comboInstalacions.setConverter(new StringConverter<Instalacion>() {
+        this.comboTipoactividade.valueProperty().addListener(new ChangeListener() {
             @Override
-            public String toString(Instalacion object) {
-                return object.getNome();
-            }
-
-            @Override
-            public Instalacion fromString(String string) {
-                return comboInstalacions.getItems().stream().filter(ap ->
-                        ap.getNome().equals(string)).findFirst().orElse(null);
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                TipoActividade tipoActividade=(TipoActividade) observableValue.getValue();
+                //comboProfesor.getItems().addAll(getFachadaAplicacion());
+                //if(!comboProfesor.getItems().isEmpty()) comboProfesor.getSelectionModel().selectFirst();
             }
         });
 
-        // Cargamos as areas en funcion da instalacion seleccionada
-        comboInstalacions.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {  // No caso de que non haxa ningunha instalaccion seleccionada
-                // Eliminamos as areas que poidesen estar cargadas:
-                comboArea.getItems().clear();
-                // Deshabilitamos o comboBox:
-                comboArea.setDisable(true);
-            } else {  // En calquer outro caso
-                // Cargamos as areas que se atopen na nova instalación seleccionada
-                comboArea.getItems().setAll(getFachadaAplicacion().listarAreasActivas(newValue));
-                // Habilitamos de novo a seleccion
-                comboArea.setDisable(false);
-                // Eliminamos o posible valor que poidese estar seleccionado de antes
-                comboArea.setValue(null);
+
+        this.campoHoraInicio.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String valorAnterior, String valorNovo) {
+                if(valorNovo==null || valorNovo.isEmpty()) return;
+                if (!valorNovo.matches("\\d{0,2}?:\\d{0,2}")) {
+                    campoHoraInicio.setText(valorAnterior);
+                }
             }
         });
 
-        // Inicializamos o datePicker para que so se poidan escoller datas previas a data actual
-        campoData.setDayCellFactory(picker -> new DateCell() {
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                // Tomamos dereferencia a data actual
-                LocalDate today = LocalDate.now();
-                // Deshabilitanse as datas dos cadros valeiros ou de data superior a actual
-                setDisable(empty || date.compareTo(today) > 0);
+        this.campoHoraFin.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String valorAnterior, String valorNovo) {
+                if(valorNovo==null || valorNovo.isEmpty()) return;
+                if (!valorNovo.matches("\\d{0,2}?:\\d{0,2}")) {
+                    campoHoraFin.setText(valorAnterior);
+                }
             }
         });
     }
 
-    public Curso getCurso() {
-        return curso;
+    private boolean camposCorrectos(){
+        if(campoData.getValue()==null) {
+            avisoCampos.setText("Data incorrecta.");
+            return false;
+        }
+
+        return true;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void btnVolverAction(ActionEvent actionEvent) {
     }
 
-    /**
-     * Método que se executa cando se preme o botón asociado a xestionar os tipos de materiais
-     *
-     * @param actionEvent A acción que tivo lugar.
-     */
-    public void btnXestionarAction(ActionEvent actionEvent) {
-
-        // Facemos que sexa visible a ventá de administrar os tipos de materiais:
-        this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOMATERIAL);
+    public void btnGardarAction(ActionEvent actionEvent) {
+        if(!ValidacionDatos.estanCubertosCampos(campoNome,campoHoraInicio,campoHoraFin)){
+            avisoCampos.setText("Algún campo sen cubrir.");
+            return;
+        }
+        if(!camposCorrectos()) return;
     }
 
-    /**
-     * Método que representa as accións realizadas ao premer o botón de limpado de campos.
-     *
-     * @param actionEvent A acción que tivo lugar
-     */
-    public void btnLimparAction(ActionEvent actionEvent) {
-        // Vaciamos os campos de texto
-        AuxGUI.vaciarCamposTexto(campoNome, campoDuracion);
-        //Ao mesmo tempo, ocultaremos o campo de aviso de incoherencias, por se apareceu:
-        //AuxGUI.ocultarCampos(avisoCampos);
+
+    public void cargarCurso(Curso curso){
+        this.curso=curso;
     }
 
-    /**
-     * Método que representa as accións realizadas ao premer o botón de limpado de campos.
-     * @param actionEvent A acción que tivo lugar
-     */
-    public void btngardar(ActionEvent actionEvent) {
+    public void cargarActividade(Actividade actividade){
+        this.actividadeModificar=actividade;
 
-
+        this.comboTipoactividade.getSelectionModel().select(actividade.getTipoActividade());
+        this.campoNome.setText(actividade.getNome());
+        this.comboInstalacions.getSelectionModel().select(actividade.getArea().getInstalacion());
+        this.comboArea.getSelectionModel().select(actividade.getArea());
+        this.comboProfesor.getSelectionModel().select(actividade.getProfesor());
     }
 }
