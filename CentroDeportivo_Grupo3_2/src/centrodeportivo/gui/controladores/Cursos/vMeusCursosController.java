@@ -41,7 +41,7 @@ public class vMeusCursosController extends AbstractController implements Initial
     public CheckBox checkResaltar;
 
     /**
-     * Atributos privados: neste caso só gardamos a referencia ao controlador da ventá principal:
+     * Atributos privados: gardamos a referencia ó controlador da ventá principal é o usuario que esta loggeado
      */
     private vPrincipalController controllerPrincipal;
     private Usuario usuario;
