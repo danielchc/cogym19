@@ -444,6 +444,49 @@ public final class FachadaBD {
         return daoCursos.listoParaActivar(curso);
     }
 
+    /**
+     * Metodo que permite que un usuario se anote nun curso
+     *
+     * @param curso   Curso o que se vai a apuntar o usuario
+     * @param usuario Usuario que se vai a apuntar o curso
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
+     */
+    public void apuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        daoCursos.apuntarseCurso(curso, usuario);
+    }
+
+    /**
+     * Metodo que permite que un usuario se desapunte dun curso
+     *
+     * @param curso   Curso o que se vai a desapuntar o usuario
+     * @param usuario Usuario que se vai a desapuntar o curso
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
+     */
+    public void desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        daoCursos.desapuntarseCurso(curso, usuario);
+    }
+
+    /**
+     * Metodo para comprobar que un usuario este apuntado nun curso
+     *
+     * @param curso   Curso no que se quer comprobar se esta apuntado
+     * @param usuario Usuario que se quer comprobar se esta apuntado
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
+     */
+    public boolean estarApuntado(Curso curso, Usuario usuario) {
+        return daoCursos.estarApuntado(curso, usuario);
+    }
+
+    /**
+     * Metodo que comproba que se o aforo do curso é o máximo
+     *
+     * @param curso Curso no que se quer comprobar se o aforo e máximo
+     * @return Retorna true no caso de que o aforo non sexa maximo, e false en caso contrario
+     */
+    public boolean NonEMaximoAforo(Curso curso) {
+        return daoCursos.NonEMaximoAforo(curso);
+    }
+
     /*
         Funcións DAOTipoMaterial
      */
@@ -623,7 +666,7 @@ public final class FachadaBD {
         return daoActividade.NonEMaximoAforoActividade(actividade);
     }
 
-    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade){
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade) {
         return daoActividade.buscarProfesores(tipoactividade);
     }
 

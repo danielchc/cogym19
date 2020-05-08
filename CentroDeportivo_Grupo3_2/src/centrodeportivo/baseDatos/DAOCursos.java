@@ -10,6 +10,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -919,6 +920,204 @@ public final class DAOCursos extends AbstractDAO {
             }
         }
         // Devolvemos os cursos consultados:
+        return resultado;
+    }
+
+    /**
+     * Metodo que permite que un usuario se anote nun curso
+     *
+     * @param curso   Curso o que se vai a apuntar o usuario
+     * @param usuario Usuario que se vai a apuntar o curso
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
+     */
+    public void apuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        PreparedStatement stmCurso = null;
+        Connection con;
+
+        // Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        // Preparamos a inserción:
+        try {
+            stmCurso = con.prepareStatement("INSERT INTO realizarcurso (curso, usuario) " +
+                    " VALUES (?, ?)");
+            // Establecemos os valores:
+            stmCurso.setInt(1, curso.getCodCurso());
+            stmCurso.setString(2, usuario.getLogin());
+
+            // Realizamos a actualización:
+            stmCurso.executeUpdate();
+
+            //Facemos commit:
+            con.commit();
+        } catch (SQLException e) {
+            // Lanzamos neste caso unha excepción cara a aplicación:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            // En calquera caso, téntase pechar os cursores.
+            try {
+                assert stmCurso != null;
+                stmCurso.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
+
+    /**
+     * Metodo que permite que un usuario se desapunte dun curso
+     *
+     * @param curso   Curso o que se vai a desapuntar o usuario
+     * @param usuario Usuario que se vai a desapuntar o curso
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
+     */
+    public void desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        PreparedStatement stmCurso = null;
+        Connection con;
+
+        // Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        // Preparamos a inserción:
+        try {
+            stmCurso = con.prepareStatement("DELETE FROM realizarcurso " +
+                    "WHERE curso = ? and usuario = ? ");
+
+            // Establecemos os valores
+            stmCurso.setInt(1, curso.getCodCurso());
+            stmCurso.setNString(2, usuario.getLogin());
+
+            // Realizamos a actualización:
+            stmCurso.executeUpdate();
+
+            // Facemos commit:
+            con.commit();
+        } catch (SQLException e) {
+            // Lanzamos neste caso unha excepción cara a aplicación:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            // En calquera caso, téntase pechar os cursores.
+            try {
+                assert stmCurso != null;
+                stmCurso.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
+
+    /**
+     * Metodo para comprobar que un usuario este apuntado nun curso
+     *
+     * @param curso   Curso no que se quer comprobar se esta apuntado
+     * @param usuario Usuario que se quer comprobar se esta apuntado
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
+     */
+    public boolean estarApuntado(Curso curso, Usuario usuario) {
+        // Comprobamos que o usuario esta apuntado en dito curso
+        PreparedStatement stmCurso = null;
+        ResultSet rsCurso;
+        Connection con;
+        boolean resultado = false;
+
+        // Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        // Preparamos a consulta:
+        try {
+            stmCurso = con.prepareStatement("SELECT curso, usuario " +
+                    "FROM realizarcurso " +
+                    "WHERE curso = ? and usuario = ? ");
+
+            // Establecemos os valores:
+            stmCurso.setInt(1, curso.getCodCurso());
+            stmCurso.setString(2, usuario.getLogin());
+
+            // Facemos a consulta:
+            rsCurso = stmCurso.executeQuery();
+
+            // Devolvemos true se obtemos algun resultado:
+            resultado = rsCurso.next();
+
+            //Feito isto, rematamos co commit:
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // En calquera caso, téntase pechar os cursores:
+            try {
+                assert stmCurso != null;
+                stmCurso.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return resultado;
+    }
+
+    /**
+     * Metodo que comproba que se o aforo do curso é o máximo
+     *
+     * @param curso Curso no que se quer comprobar se o aforo e máximo
+     * @return Retorna true no caso de que o aforo non sexa maximo, e false en caso contrario
+     */
+    public boolean NonEMaximoAforo(Curso curso) {
+
+        PreparedStatement stmCurso = null;
+        ResultSet rsCurso;
+        Connection con;
+        boolean resultado = false;
+
+        // Recuperamos a conexión coa base de datos:
+        con = super.getConexion();
+
+        // Preparamos a consulta:
+        try {
+            stmCurso = con.prepareStatement("SELECT min(aforomaximo) " +
+                    "FROM curso as c " +
+                    "JOIN actividade as a " +
+                    "ON c.codcurso = a.curso " +
+                    "JOIN area ar " +
+                    "ON a.area = ar.codarea AND a.instalacion = ar.instalacion " +
+                    "WHERE c.codcurso = ? )"
+            );
+
+            // Establecemos os valores:
+            stmCurso.setInt(1, curso.getCodCurso());
+
+            // Facemos a consulta:
+            rsCurso = stmCurso.executeQuery();
+
+            // Comprobamos o resultado obtido
+            if (rsCurso.next()) {
+                resultado = rsCurso.getInt(1) > curso.getParticipantes().size();
+            }
+
+            //Feito isto, rematamos co commit:
+            con.commit();
+        } catch (SQLException e) {
+            // Imprimimos en caso de excepción o stack trace:
+            e.printStackTrace();
+            try {
+                // Intentamos facer rollback
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            //En calquera caso, téntase pechar os cursores.
+            try {
+                assert stmCurso != null;
+                stmCurso.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
         return resultado;
     }
 

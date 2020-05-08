@@ -440,6 +440,31 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.consultarCursosAbertos(curso);
     }
 
+    /**
+     * Metodo que nos permite apuntar a un usuario nun curso
+     *
+     * @param curso   Curso ó que se quere apuntar o usuario
+     * @param usuario Usuario que se quer apuntar o curso
+     * @return Un enum que especifica como foi a execución do método
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante as consultas
+     */
+    public TipoResultados apuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        return xestionCursos.apuntarseCurso(curso, usuario);
+    }
+
+    /**
+     * Metodo que nos permite desapuntar a un usuario a un curso
+     *
+     * @param curso   Curso do que se vai desapuntar
+     * @param usuario Usuario que se vai desapuntar
+     * @return Un enum que especifica como foi a execución do método
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante as consultas
+     */
+    public TipoResultados desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        return xestionCursos.desapuntarseCurso(curso, usuario);
+    }
+
+
     /*
         Xestión TIPOS de material
      */
