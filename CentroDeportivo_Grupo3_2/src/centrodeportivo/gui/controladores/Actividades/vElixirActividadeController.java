@@ -9,6 +9,8 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Timestamp;
@@ -79,7 +82,16 @@ public class vElixirActividadeController extends AbstractController implements I
 
         TableColumn<Actividade, String> coltipoactividade = new TableColumn<>("Tipo Actividade");
         coltipoactividade.setCellValueFactory(new PropertyValueFactory<>("tipoactividadenome"));
+        coltipoactividade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Actividade, String>, ObservableValue<String>>() {
 
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Actividade, String> param) {
+                return new SimpleObjectProperty<String>(param.getValue().getTipoActividadenome());
+            }
+        });
+
+
+        System.out.println(super.getFachadaAplicacion().buscarActividade(null));
 
         //Engadimos as columnas á táboa
         taboaActividade.getColumns().addAll(coldata, colNome, colduracion, coltipoactividade);
@@ -87,6 +99,7 @@ public class vElixirActividadeController extends AbstractController implements I
         taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(null));
         //Establecemos unha selección sobre a táboa, se hai resultados:
         taboaActividade.getSelectionModel().selectFirst();
+
     }
 
     public Curso getCurso() {

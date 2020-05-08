@@ -142,7 +142,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         //Pantalla para administrar as actividades:
         this.pantallas.put(IdPantalla.ADIMNACTIVIDADE, new DatosVista("../../vistas/Actividades/vAdministrarActividade.fxml", new vAdministrarActividadeController(super.getFachadaAplicacion(), this)));
         //Pantalla para apuntarse a actividade:
-        this.pantallas.put(IdPantalla.APUNTRSESOCIOM, new DatosVista("../../vistas/Actividades/vElixirActividadeController.fxml", new vElixirActividadeController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.APUNTRSESOCIOM, new DatosVista("../../vistas/Actividades/vElixirActividade.fxml", new vElixirActividadeController(super.getFachadaAplicacion(), this)));
 
     }
 

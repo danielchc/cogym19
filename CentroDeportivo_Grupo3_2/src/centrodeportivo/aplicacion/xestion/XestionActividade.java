@@ -75,12 +75,7 @@ public class XestionActividade {
     }
 
     public ArrayList<Actividade> buscarActividade(Actividade actividade) {
-        //Se a actividade non é nula buscamoola.
-        if(actividade != null) {
             return fachadaBD.buscarActividade(actividade);
-        } else {
-            return null;
-        }
     }
 
     public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade){
