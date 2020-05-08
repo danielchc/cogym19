@@ -63,7 +63,7 @@
                                                          <children>
                                                             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                <children>
-                                                                  <TextField fx:id="campoCodigo" disable="true" editable="false" prefHeight="26.0" prefWidth="110.0" />
+                                                                  <TextField fx:id="campoCodigo" alignment="CENTER" disable="true" editable="false" prefHeight="26.0" prefWidth="110.0" promptText="-" />
                                                                </children>
                                                             </HBox>
                                                          </children>
