@@ -73,6 +73,8 @@ public class vXestionCursoController extends AbstractController implements Initi
     public TableView taboaProfesores;
     public Button btnVolver;
     public Button btnRefrescar;
+    public Tab tabActividades;
+    public TabPane tabPane;
 
 
     /**
@@ -434,6 +436,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         if (!taboaActividades.getSelectionModel().isEmpty()) {
             Actividade actividade = ((Actividade) taboaActividades.getSelectionModel().getSelectedItem());
             this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
+            ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarCurso(curso);
             ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade(actividade);
         }
     }
@@ -655,5 +658,11 @@ public class vXestionCursoController extends AbstractController implements Initi
         campoNome.setText(curso.getNome());
         campoPrezo.setText(curso.getPrezo().toString());
         campoDescricion.setText(curso.getDescricion());
+    }
+
+
+    public void volverPantallaActividades(Curso curso){
+        setCurso(curso);
+        this.tabPane.getSelectionModel().select(tabActividades);
     }
 }

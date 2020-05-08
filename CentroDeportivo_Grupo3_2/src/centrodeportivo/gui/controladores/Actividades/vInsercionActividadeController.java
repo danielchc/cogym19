@@ -12,6 +12,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
+import centrodeportivo.gui.controladores.Cursos.vXestionCursoController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.value.ChangeListener;
@@ -105,9 +106,6 @@ public class vInsercionActividadeController extends AbstractController implement
         return true;
     }
 
-    public void btnVolverAction(ActionEvent actionEvent) {
-    }
-
     public void btnGardarAction(ActionEvent actionEvent) {
         if(!ValidacionDatos.estanCubertosCampos(campoNome,campoHoraInicio,campoHoraFin)){
             avisoCampos.setText("Algún campo sen cubrir.");
@@ -144,6 +142,12 @@ public class vInsercionActividadeController extends AbstractController implement
         }
     }
 
+    public void btnVolverAction(ActionEvent actionEvent) {
+        if(curso!=null){
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONCURSO);
+            ((vXestionCursoController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO)).volverPantallaActividades(curso);
+        }
+    }
 
     public void cargarCurso(Curso curso){
         this.curso=curso;
