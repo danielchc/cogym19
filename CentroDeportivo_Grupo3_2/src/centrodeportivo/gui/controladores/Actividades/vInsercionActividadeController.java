@@ -61,13 +61,15 @@ public class vInsercionActividadeController extends AbstractController implement
         this.curso=null;
         this.actividadeModificar=null;
 
+        //Por defecto habilítanse todos os campos:
+        AuxGUI.habilitarCampos(comboTipoactividade, campoNome, comboInstalacions,comboArea,
+                comboProfesor, campoHoraInicio, campoHoraFin, btnGardar);
+
         //combo tipos
         this.comboTipoactividade.getItems().addAll(super.getFachadaAplicacion().buscarTiposActividades(null));
-        if(!this.comboTipoactividade.getItems().isEmpty()) this.comboTipoactividade.getSelectionModel().selectFirst();
 
         //combo instalacions
         this.comboInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
-        if(!this.comboInstalacions.getItems().isEmpty()) this.comboInstalacions.getSelectionModel().selectFirst();
 
 
         this.comboInstalacions.valueProperty().addListener(new ChangeListener() {
@@ -75,7 +77,6 @@ public class vInsercionActividadeController extends AbstractController implement
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 Instalacion instalacion=(Instalacion)observableValue.getValue();
                 comboArea.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarArea(instalacion,null)));
-                if(!comboArea.getItems().isEmpty()) comboArea.getSelectionModel().selectFirst();
             }
         });
 
@@ -84,7 +85,6 @@ public class vInsercionActividadeController extends AbstractController implement
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 TipoActividade tipoActividade=(TipoActividade) observableValue.getValue();
                 comboProfesor.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarProfesores(tipoActividade)));
-                if(!comboProfesor.getItems().isEmpty()) comboProfesor.getSelectionModel().selectFirst();
             }
         });
 
@@ -172,7 +172,7 @@ public class vInsercionActividadeController extends AbstractController implement
         TipoResultados res;
 
         if(actividadeModificar==null) {
-            //crear activida
+            //crear actividade
             try {
                 res = super.getFachadaAplicacion().EngadirActiviade(actividade);
                 switch (res) {
@@ -193,7 +193,7 @@ public class vInsercionActividadeController extends AbstractController implement
                         e.getMessage());
             }
         }else{
-            //modificala
+            //modificar actividade
             try{
                 res = super.getFachadaAplicacion().modificarActividade(actividadeModificar, actividade);
                 switch (res) {
@@ -244,6 +244,12 @@ public class vInsercionActividadeController extends AbstractController implement
         );
 
         campoData.setValue(actividade.getData().toLocalDateTime().toLocalDate());
+
+        //Se a actividade xa comezou/se levou a cabo, impediremos que se modifiquen os seus campos:
+        if(actividade.getData().before(new Date(System.currentTimeMillis()))){
+            AuxGUI.inhabilitarCampos(comboTipoactividade, campoNome, comboInstalacions,comboArea,
+                    comboProfesor, campoHoraInicio, campoHoraFin, campoData, btnGardar);
+        }
     }
 
     private void accionsVolver(){

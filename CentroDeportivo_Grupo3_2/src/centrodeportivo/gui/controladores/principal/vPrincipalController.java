@@ -300,6 +300,10 @@ public class vPrincipalController extends AbstractController implements Initiali
         mostrarPantalla(IdPantalla.valueOf(((Button) actionEvent.getSource()).getId()));
     }
 
+    /**
+     * Acción levada a cabo cando se escolle a opción de desanotarse dunha actividade.
+     * Como cambia un dos atributos do controlador, vémonos forzados a empregar esta alternativa:
+     */
     public void btnDesapuntareseActividade(){
         esconderTodosSliders();
         mostrarPantalla(IdPantalla.APUNTARSEACTIVIDADE);
