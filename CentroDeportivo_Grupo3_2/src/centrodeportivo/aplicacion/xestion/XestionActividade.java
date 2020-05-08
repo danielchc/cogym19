@@ -24,7 +24,7 @@ public class XestionActividade {
 
     public TipoResultados EngadirActividade(Actividade actividade) throws ExcepcionBD {
         //Se a actividade non existe, dase de engadimola:
-        if (!fachadaBD.horarioOcupadoActividade(null, actividade)) {
+        if (!fachadaBD.horarioOcupadoActividade(actividade)) {
             fachadaBD.EngadirActividade(actividade);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -46,7 +46,7 @@ public class XestionActividade {
     }
 
     public TipoResultados modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
-        if (!fachadaBD.horarioOcupadoActividade(actVella, actNova)) {
+        if (!fachadaBD.horarioOcupadoActividade(actNova)) {
             fachadaBD.modificarActividade(actVella, actNova);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;

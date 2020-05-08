@@ -67,7 +67,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public boolean horarioOcupadoActividade(Actividade actVella, Actividade actNova) {
+    public boolean horarioOcupadoActividade(Actividade actNova) {
         /*
          * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
          * na base de datos, sempre e cando sexa unha actividade con datos cambiados.
@@ -91,12 +91,6 @@ public class DAOActividade extends AbstractDAO {
                     "       ((dataactividade + (duracion * interval '1 hour')) >= ? " +
                     "           and dataactividade < ?)))";
 
-            if(actVella != null){
-                consulta +=     "       and dataactividade != ? " +
-                                "       and area != ? " +
-                                "       and instalacion != ? ";
-            }
-
             stmActivide = con.prepareStatement(consulta);
 
             Timestamp dataFin =  new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue()));
@@ -113,12 +107,6 @@ public class DAOActividade extends AbstractDAO {
             stmActivide.setTimestamp(9, actNova.getData());
             stmActivide.setTimestamp(10, dataFin);
             stmActivide.setTimestamp(11, dataFin);
-
-            if(actVella != null){
-                stmActivide.setTimestamp(12, actVella.getData());
-                stmActivide.setInt(13, actVella.getArea().getCodArea());
-                stmActivide.setInt(14, actVella.getArea().getInstalacion().getCodInstalacion());
-            }
 
             //Facemos a consulta:
             rsActividade = stmActivide.executeQuery();

@@ -639,8 +639,8 @@ public final class FachadaBD {
         daoActividade.EngadirActividade(actividade);
     }
 
-    public boolean horarioOcupadoActividade(Actividade actVella, Actividade actNova) {
-        return daoActividade.horarioOcupadoActividade(actVella, actNova);
+    public boolean horarioOcupadoActividade(Actividade actNova) {
+        return daoActividade.horarioOcupadoActividade(actNova);
     }
 
     public void modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
