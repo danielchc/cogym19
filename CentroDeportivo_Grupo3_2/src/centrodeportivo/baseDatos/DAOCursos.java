@@ -20,19 +20,21 @@ import java.util.ArrayList;
  * @author Víctor Barreiro
  * Clase que conterá todos os métodos DAO relacionados na súa maioría con xestións dos cursos.
  */
-public final class DAOCursos extends AbstractDAO{
+public final class DAOCursos extends AbstractDAO {
     /**
      * Constructor do DAO de cursos
-     * @param conexion Referencia á conexión coa base de datos.
+     *
+     * @param conexion          Referencia á conexión coa base de datos.
      * @param fachadaAplicacion Referencia á fachada da parte de aplicación.
      */
-    public DAOCursos (Connection conexion, FachadaAplicacion fachadaAplicacion){
+    public DAOCursos(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         //Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 
     /**
      * Método que nos permite introducir os datos dun novo curso na base de datos.
+     *
      * @param curso O curso a insertar
      * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
      */
@@ -46,7 +48,7 @@ public final class DAOCursos extends AbstractDAO{
         con = super.getConexion();
 
         //Comezamos coa parte de SQL.
-        try{
+        try {
             //Intentaremos, en primeira instancia, rexistrar o curso:
             stmCursos = con.prepareStatement("INSERT INTO curso (nome, descricion, prezo, aberto) " +
                     "VALUES (?, ?, ?, ?) ");
@@ -68,14 +70,14 @@ public final class DAOCursos extends AbstractDAO{
             rsCursos = stmCursos.executeQuery();
 
             //Comprobamos se hai resultado: tería que haber un: o código do curso insertado.
-            if(rsCursos.next()){
+            if (rsCursos.next()) {
                 curso.setCodCurso(rsCursos.getInt("codCurso"));
             }
 
             //Se logramos acadar este punto, teremos toda a actualización feita: facemos o commit.
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzaremos a nosa propia excepción dende este punto:
             //Aquí farase o rollback se é necesario.
             throw new ExcepcionBD(con, e);
@@ -83,7 +85,7 @@ public final class DAOCursos extends AbstractDAO{
             //Peche dos statement:
             try {
                 stmCursos.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
@@ -91,6 +93,7 @@ public final class DAOCursos extends AbstractDAO{
 
     /**
      * Método que nos permite realizar modificacións na información xeral dun curso determinado.
+     *
      * @param curso O curso do que se quere modificar a información, cos datos modificados.
      * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
      */
@@ -103,7 +106,7 @@ public final class DAOCursos extends AbstractDAO{
         //Recuperamos a conexión:
         con = super.getConexion();
 
-        try{
+        try {
             //Intentamos levar a cabo a actualización: modificación do curso:
             stmCursos = con.prepareStatement("UPDATE curso " +
                     " SET nome = ?, " +
@@ -122,14 +125,14 @@ public final class DAOCursos extends AbstractDAO{
 
             //Unha vez feita, teremos rematado. Facemos o commit:
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos a excepción que se obteña:
             throw new ExcepcionBD(con, e);
         } finally {
             //Pechamos os statement.
-            try{
+            try {
                 stmCursos.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
@@ -144,7 +147,7 @@ public final class DAOCursos extends AbstractDAO{
         con = super.getConexion();
 
         //Intentamos facer a inserción da nova actividade
-        try{
+        try {
             //Preparamos a sentenza:
             stmActividades = con.prepareStatement("INSERT INTO actividade " +
                     "(data, area, instalacion, tipoactividade, curso, profesor, nome, duracion) " +
@@ -164,7 +167,7 @@ public final class DAOCursos extends AbstractDAO{
 
             //Unha vez feita, teremos rematado: facemos o commit.
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //En caso de excepción SQL ao insertar, lanzaremos a nosa propia excepción cara arriba:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -179,6 +182,7 @@ public final class DAOCursos extends AbstractDAO{
 
     /**
      * Método que nos permite levar a cabo a activación dun curso:
+     *
      * @param curso Os datos do curso que se quere activar.
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
@@ -197,7 +201,7 @@ public final class DAOCursos extends AbstractDAO{
                     " SET aberto = ?" +
                     " WHERE codcurso = ?");
             //Establecemos os valores dos campos con ?:
-            stmCursos.setBoolean(1,true);
+            stmCursos.setBoolean(1, true);
             stmCursos.setInt(2, curso.getCodCurso());
 
             //Intentase realizar a actualización:
@@ -205,9 +209,9 @@ public final class DAOCursos extends AbstractDAO{
 
             //Rematado isto, podemos poñer o commit:
             con.commit();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             //Lanzamos a nosa propia excepción:
-            throw new ExcepcionBD(con,e);
+            throw new ExcepcionBD(con, e);
         } finally {
             //Intentamos pechar o statement:
             try {
@@ -220,7 +224,8 @@ public final class DAOCursos extends AbstractDAO{
 
     /**
      * Método que nos permite cancelar un curso, e polo tanto borrar a súa información da base de datos.
-     * @param curso O curso que se quere borrar.
+     *
+     * @param curso   O curso que se quere borrar.
      * @param mensaxe A mensaxe que se lle envía aos participantes por mor do borrado.
      * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
      */
@@ -239,7 +244,7 @@ public final class DAOCursos extends AbstractDAO{
         con = super.getConexion();
 
         //Intentamos levar a cabo o borrado:
-        try{
+        try {
             //Para comezar, recolleremos todos os participantes que neste momento estaban apuntados no curso:
             stmUsuarios = con.prepareStatement("SELECT usuario FROM realizarcurso WHERE curso = ?");
             stmUsuarios.setInt(1, curso.getCodCurso());
@@ -262,7 +267,7 @@ public final class DAOCursos extends AbstractDAO{
             stmMensaxes.setString(3, mensaxe.getContido());
 
             //Entón agora imos procesando ese resultado:
-            while(rsUsuarios.next()){
+            while (rsUsuarios.next()) {
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
                 //Agora realizamos o envío:
                 stmMensaxes.executeUpdate();
@@ -272,7 +277,7 @@ public final class DAOCursos extends AbstractDAO{
             //o curso borrouse e todos os participantes foron informados.
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzaremos unha excepción propia:
             throw new ExcepcionBD(con, e);
         } finally {
@@ -287,10 +292,11 @@ public final class DAOCursos extends AbstractDAO{
 
     /**
      * Método que nos permite consultar os cursos que hai almacenados na base de datos.
+     *
      * @param curso Curso polo que se realiza a busca.
      * @return Se curso vale null, devolveranse todos os cursos, noutro caso, filtraranse polo nome do curso pasado.
      */
-    public ArrayList<Curso> consultarCursos(Curso curso){
+    public ArrayList<Curso> consultarCursos(Curso curso) {
         //Esta é a consulta que se usará dende a parte de persoal:
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
@@ -301,7 +307,7 @@ public final class DAOCursos extends AbstractDAO{
         Connection con = super.getConexion();
 
         //Intentamos levar a cabo a consulta dos cursos. O resultado que se vai a ofrecer combina diferentes cuestións.
-        try{
+        try {
             //A búsqueda que poderá facer o persoal non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
             //No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
             consulta = "SELECT c.codcurso, c.nome, c.aberto," +
@@ -312,7 +318,7 @@ public final class DAOCursos extends AbstractDAO{
 
             //Pode ser que non pasemos curso (o pasemos como null) ou que pasemos algo.
             //Se non pasamos ningún curso, non engadimos o filtro de busca, se non si:
-            if(curso != null){
+            if (curso != null) {
                 consulta += " WHERE lower(c.nome) like lower(?) ";
             }
 
@@ -323,7 +329,7 @@ public final class DAOCursos extends AbstractDAO{
             stmCursos = con.prepareStatement(consulta);
 
             //Completamos a consulta (se procede):
-            if(curso != null){
+            if (curso != null) {
                 stmCursos.setString(1, "%" + curso.getNome() + "%");
             }
 
@@ -331,7 +337,7 @@ public final class DAOCursos extends AbstractDAO{
             rsCursos = stmCursos.executeQuery();
 
             //Unha vez feita a consulta, tentamos recuperar os resultados:
-            while(rsCursos.next()){
+            while (rsCursos.next()) {
                 //Imos creando instancias de cursos cos datos recuperados:
                 resultado.add(new Curso(rsCursos.getInt("codcurso"), rsCursos.getString("nome"),
                         rsCursos.getBoolean("aberto"), rsCursos.getFloat("duracion"),
@@ -340,12 +346,12 @@ public final class DAOCursos extends AbstractDAO{
             }
             //Rematado isto, facemos o commit:
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Tentamos facer rollback:
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } finally {
@@ -363,10 +369,11 @@ public final class DAOCursos extends AbstractDAO{
     /**
      * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
      * máis información todavía.
+     *
      * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
      * @return Datos completos do curso procurado.
      */
-    public Curso recuperarDatosCurso(Curso curso){
+    public Curso recuperarDatosCurso(Curso curso) {
         //Neste método recuperaremos todas as actividades do curso, os datos da consulta e os participantes:
         PreparedStatement stmCursos = null;
         PreparedStatement stmSocios = null;
@@ -381,7 +388,7 @@ public final class DAOCursos extends AbstractDAO{
         con = super.getConexion();
 
         //Comezaremos recuperando todos os datos do curso:
-        try{
+        try {
             stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
                     " DATE(min(a.dataactividade)) as datainicio, DATE(max(a.dataactividade)) as datafin" +
                     " FROM curso as c LEFT JOIN actividade as a " +
@@ -397,7 +404,7 @@ public final class DAOCursos extends AbstractDAO{
             rsCursos = stmCursos.executeQuery();
 
             //Debería haber un resultado, caso no que será o curso que usaremos:
-            if(rsCursos.next()){
+            if (rsCursos.next()) {
                 resultado = new Curso(rsCursos.getInt("codcurso"),
                         rsCursos.getString("nome"),
                         rsCursos.getString("descricion"),
@@ -420,7 +427,7 @@ public final class DAOCursos extends AbstractDAO{
                 rsActividades = stmActividades.executeQuery();
 
                 //O seguinte paso é procesar o resultado:
-                while(rsActividades.next()){
+                while (rsActividades.next()) {
                     //Imos engadindo as actividades unha a unha, de momento non nos interesa recuperar moita máis información sobre a actividade.
                     resultado.getActividades().add(new Actividade(rsActividades.getTimestamp("dataactividade"),
                             rsActividades.getString("nomeactividade"),
@@ -447,7 +454,7 @@ public final class DAOCursos extends AbstractDAO{
                 rsSocios = stmSocios.executeQuery();
 
                 //Procesamos o resultado:
-                while(rsSocios.next()){
+                while (rsSocios.next()) {
                     //Imos engadindo os participantes:
                     resultado.getParticipantes().add(new Socio(rsSocios.getString("login"),
                             rsSocios.getString("nome"),
@@ -460,10 +467,10 @@ public final class DAOCursos extends AbstractDAO{
                 //Con isto teremos buscado o necesario sobre o curso, polo que temos rematada a consulta.
                 con.commit();
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //En caso de excepción, imprimiríamos o stack trace e faríamos o rollback:
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -471,11 +478,11 @@ public final class DAOCursos extends AbstractDAO{
         } finally {
             //Tentamos pechar os statements:
             try {
-                if(stmActividades != null){
+                if (stmActividades != null) {
                     stmActividades.close();
 
                 }
-                if(stmSocios != null){
+                if (stmSocios != null) {
                     stmSocios.close();
                 }
                 //O de cursos é o único que sabemos certamente que non é null.
@@ -492,10 +499,11 @@ public final class DAOCursos extends AbstractDAO{
     /**
      * Método que nos permite recuperar información suficiente do curso como para elaborar o informe que ofrecer ao
      * usuario que o consulta.
+     *
      * @param curso Información do curso do que se queren recuperar os datos para o informe.
      * @return Datos completos do curso, incluíndo información adicional necesaria para a elaboración do informe.
      */
-    public Curso informeCurso(Curso curso){
+    public Curso informeCurso(Curso curso) {
         //Neste método recuperaranse os datos que xa recuperamos en recuperarDatosCurso, pero inda máis:
         //Dadas as diferenzas co outro, decidín manter este por separado.
         PreparedStatement stmCursos = null;
@@ -513,7 +521,7 @@ public final class DAOCursos extends AbstractDAO{
         con = super.getConexion();
 
         //Imos ir agora paso por paso con todas as consultas que hai que ir levando a cabo:
-        try{
+        try {
             //Comezaremos por recuperar os datos basicos do propio curso. Agora, ademais, teremos que recuperar a data
             //de finalización e a media do curso, entre outros, o que leva á complexidade amosada:
             stmCursos = con.prepareStatement("SELECT c.codcurso, c.nome, c.descricion, c.prezo, c.aberto," +
@@ -534,7 +542,7 @@ public final class DAOCursos extends AbstractDAO{
             rsCursos = stmCursos.executeQuery();
 
             //Procesamos o resultado:
-            if(rsCursos.next()){
+            if (rsCursos.next()) {
                 //Se hai resultado, poderemos seguir co resto de consultas.
                 //En primeiro lugar, montamos o curso:
                 resultado = new Curso(rsCursos.getInt("codcurso"),
@@ -567,7 +575,7 @@ public final class DAOCursos extends AbstractDAO{
                 rsActividades = stmActividades.executeQuery();
 
                 //Recuperamos os resultados:
-                while(rsActividades.next()){
+                while (rsActividades.next()) {
                     //Imos engadindo actividade a actividade:
                     resultado.getActividades().add(new Actividade(rsActividades.getTimestamp("dataactividade"),
                             rsActividades.getString("nomeactividade"),
@@ -596,7 +604,7 @@ public final class DAOCursos extends AbstractDAO{
                 rsSocios = stmSocios.executeQuery();
 
                 //Procesamos o resultado:
-                while(rsSocios.next()){
+                while (rsSocios.next()) {
                     //Imos engadindo participante a participante:
                     resultado.getParticipantes().add(new Socio(rsSocios.getString("login"),
                             rsSocios.getString("nome"),
@@ -620,7 +628,7 @@ public final class DAOCursos extends AbstractDAO{
                 rsPersoal = stmPersoal.executeQuery();
 
                 //Procesamos o resultado:
-                while(rsPersoal.next()){
+                while (rsPersoal.next()) {
                     resultado.getProfesores().add(new Persoal(rsPersoal.getString("login"),
                             rsPersoal.getFloat("valoracion")));
                 }
@@ -629,9 +637,9 @@ public final class DAOCursos extends AbstractDAO{
                 con.commit();
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -639,13 +647,13 @@ public final class DAOCursos extends AbstractDAO{
         } finally {
             //Tentamos pechar os statements:
             try {
-                if(stmActividades != null){
+                if (stmActividades != null) {
                     stmActividades.close();
                 }
-                if(stmSocios != null){
+                if (stmSocios != null) {
                     stmSocios.close();
                 }
-                if(stmPersoal != null){
+                if (stmPersoal != null) {
                     stmPersoal.close();
                 }
                 //O de cursos é o único que sabemos certamente que non é null.
@@ -660,10 +668,11 @@ public final class DAOCursos extends AbstractDAO{
 
     /**
      * Método que nos permite comprobar que non existe un curso rexistrado co mesmo nome
+     *
      * @param curso O curso que se quere validar
      * @return True se non existe outro curso diferente que teña o mesmo nome ca este, False noutro caso.
      */
-    public boolean comprobarExistencia(Curso curso){
+    public boolean comprobarExistencia(Curso curso) {
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
         Connection con;
@@ -673,14 +682,14 @@ public final class DAOCursos extends AbstractDAO{
         con = super.getConexion();
 
         //Intentamos facer a consulta:
-        try{
+        try {
             //Controlamos que o curso está creado ou non a través do código do curso, polo que a veces teremos que
             //incluílo e a veces non:
             String consulta = "SELECT * FROM curso" +
                     " WHERE lower(nome) = lower(?) ";
 
             //Introducimos o código do curso se non é null
-            if(curso.getCodCurso()!=null){
+            if (curso.getCodCurso() != null) {
                 consulta += "   and codCurso != ? ";
             }
 
@@ -689,24 +698,24 @@ public final class DAOCursos extends AbstractDAO{
 
             //Completamos a consulta co campo do nome e do código do curso se é necesario:
             stmCursos.setString(1, curso.getNome());
-            if(curso.getCodCurso()!=null){
+            if (curso.getCodCurso() != null) {
                 stmCursos.setInt(2, curso.getCodCurso());
             }
             //Realizamos a consulta.
             rsCursos = stmCursos.executeQuery();
             //Comprobamos se houbo resultados: se é así, existe un curso na base de datos (que non é o pasado) co mesmo nome.
-            if(rsCursos.next()){
+            if (rsCursos.next()) {
                 resultado = true;
             }
 
             //Feita a consulta, facemos o commit:
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Tentamos facer rollback en caso de excepción:
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } finally {
@@ -723,10 +732,11 @@ public final class DAOCursos extends AbstractDAO{
 
     /**
      * Método que permite comprobar se un curso ten participantes.
+     *
      * @param curso O curso para o que se quere validar dita información.
      * @return True se o curso ten participantes, False se non os ten.
      */
-    public boolean tenParticipantes(Curso curso){
+    public boolean tenParticipantes(Curso curso) {
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
         Connection con;
@@ -748,18 +758,18 @@ public final class DAOCursos extends AbstractDAO{
             rsCursos = stmCursos.executeQuery();
 
             //Se hai resultados, o curso terá participantes:
-            if(rsCursos.next()){
+            if (rsCursos.next()) {
                 resultado = true;
             }
 
             //Completada a consulta, faise commit:
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Tentamos facer rollback en caso de excepción:
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } finally {
@@ -776,10 +786,11 @@ public final class DAOCursos extends AbstractDAO{
 
     /**
      * Método que leva a cabo as comprobacións de se un curso está preparado para ser activado:
+     *
      * @param curso O curso a activar.
      * @return True se o curso se pode activar, False en caso contrario.
      */
-    public boolean listoParaActivar(Curso curso){
+    public boolean listoParaActivar(Curso curso) {
         //Consultaremos se hai neste curso, como mínimo, dúas actividades, para poder abrilo ao público:
         //Ademais, comprobaremos se se cumpren as restriccións de data (que non comezara).
         PreparedStatement stmCursos = null;
@@ -792,7 +803,7 @@ public final class DAOCursos extends AbstractDAO{
         con = super.getConexion();
 
         //Intentamos levar a cabo a consulta:
-        try{
+        try {
             //Buscamos o número de actividades que ten o curso preparadas:
             stmCursos = con.prepareStatement("SELECT count(*) as numAct, " +
                     " DATE(min(dataActividade)) > (current_date + interval '2 days') as inTime" +
@@ -805,31 +816,109 @@ public final class DAOCursos extends AbstractDAO{
             rsCursos = stmCursos.executeQuery();
 
             //O seguinte paso é comprobar o resultado:
-            if(rsCursos.next()){
-                if(rsCursos.getInt(1) >= 2 && rsCursos.getBoolean(2) == true){
+            if (rsCursos.next()) {
+                if (rsCursos.getInt(1) >= 2 && rsCursos.getBoolean(2) == true) {
                     resultado = true; //Devolveremos true se hai dúas actividades e inda non debería ter comezado o curso.
                 }
             }
 
             //Feito isto, rematamos co commit:
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Faríamos rollback e amosaríamos un erro:
             e.printStackTrace();
-            try{
+            try {
                 con.rollback();
-            } catch(SQLException ex) {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } finally {
             //Pechamos o statement:
-            try{
+            try {
                 stmCursos.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
         //Devolvemos o resultado:
+        return resultado;
+    }
+
+
+    /**
+     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos.
+     *
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
+     */
+    public ArrayList<Curso> consultarCursosAbertos(Curso curso) {
+        // Esta é a consulta que se usará dende a parte de socio:
+        PreparedStatement stmCursos = null;
+        ResultSet rsCursos;
+        ArrayList<Curso> resultado = new ArrayList<>();
+        String consulta;
+
+        // Recuperamos a conexión:
+        Connection con = super.getConexion();
+
+        // Intentamos levar a cabo a consulta dos cursos. O resultado que se vai a ofrecer combina diferentes cuestións.
+        try {
+            // TODO: Xestionar distintas formas de buscar en funcion do tipo de actividades etc
+            // A búsqueda que poderá facer o socio non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
+            // No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
+            consulta = "SELECT c.codcurso, c.nome, c.aberto, " +
+                    "count(distinct dataactividade) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion, " +
+                    "DATE(max(a.dataactividade)) as datafin " +
+                    "FROM curso as c LEFT JOIN actividade as a " +
+                    "ON (c.codcurso = a.curso) " +
+                    "WHERE c.aberto = true ";
+
+            // No caso de que pasemos o curso co nome,
+            if (curso != null) {
+                consulta += "AND lower(c.nome) like lower(?) ";
+            }
+
+            // Agrupamos tamén polo código do curso:
+            consulta += "GROUP BY c.codcurso ";
+
+            // Preparamos entón o statement de cursos para levar a cabo a consulta:
+            stmCursos = con.prepareStatement(consulta);
+
+            // Completamos a consulta (se procede):
+            if (curso != null) {
+                stmCursos.setString(1, "%" + curso.getNome() + "%");
+            }
+
+            // Intentamos levala a cabo:
+            rsCursos = stmCursos.executeQuery();
+
+            // Unha vez feita a consulta, xestionamos o resultado:
+            while (rsCursos.next()) {
+                // Imos creando instancias de cursos cos datos recuperados:
+                resultado.add(new Curso(rsCursos.getInt("codcurso"), rsCursos.getString("nome"),
+                        rsCursos.getBoolean("aberto"), rsCursos.getFloat("duracion"),
+                        rsCursos.getInt("numactividades"), rsCursos.getDate("datainicio"),
+                        rsCursos.getDate("datafin")));
+            }
+            // Rematado isto, facemos o commit:
+            con.commit();
+        } catch (SQLException e) {
+            // Intentase facer rollback:
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Pechamos o statement:
+            try {
+                stmCursos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        // Devolvemos os cursos consultados:
         return resultado;
     }
 
