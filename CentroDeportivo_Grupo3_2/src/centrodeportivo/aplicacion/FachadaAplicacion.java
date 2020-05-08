@@ -16,7 +16,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
@@ -487,7 +486,7 @@ public class FachadaAplicacion extends Application {
     }
 
     public TipoResultados darDeAltaArea(Area area) throws ExcepcionBD {
-        return xestionArea.darDeAltaAreaa(area);
+        return xestionArea.darDeAltaArea(area);
     }
 
     public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {

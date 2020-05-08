@@ -128,16 +128,32 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
     }
 
-    public void btnDarBaixaAction(ActionEvent actionEvent) throws ExcepcionBD {
+    public void btnDarBaixaAction(ActionEvent actionEvent)  {
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
-            TipoResultados res = getFachadaAplicacion().darDeBaixaArea(area);
-            switch(res) {
-                case correcto:
-
-                    break;
+            try {
+                TipoResultados res = getFachadaAplicacion().darDeBaixaArea(area);
+                switch(res) {
+                    case correcto:
+                        //En caso de que se conseguira a baixa, avísase de que se fixo correctamente:
+                        getFachadaAplicacion().mostrarInformacion("Administración de áreas",
+                                "Baixa da área lograda correctamente. Agora podes modificar o aforo.");
+                        break;
+                    case referenciaRestrict:
+                        //Nese caso, avisaremos que ten actividades sen rematar nesa área:
+                        getFachadaAplicacion().mostrarInformacion("Administración de áreas",
+                                "Non se pode dar de baixa esta área, hai actividades sen comezar planificadas nela.");
+                        break;
+                    case sitIncoherente:
+                        //Nese caso, avisaremos que xa está dada de baixa:
+                        getFachadaAplicacion().mostrarInformacion("Administración de áreas",
+                                "Non se pode dar de baixa esta área, pois xa está dada de baixa.");
+                        break;
+                }
+                this.actualizarTaboa();
+            } catch (ExcepcionBD excepcionBD) {
+                excepcionBD.printStackTrace();
             }
-            this.actualizarTaboa();
         } else {
             getFachadaAplicacion().mostrarErro("Administración de Áreas",
                     "Debes seleccionar unha das áreas!");

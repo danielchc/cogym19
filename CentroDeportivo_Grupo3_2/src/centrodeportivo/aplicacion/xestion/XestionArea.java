@@ -38,7 +38,7 @@ public class XestionArea {
     }
 
     public TipoResultados borrarArea(Area area) throws ExcepcionBD {
-        if(!fachadaBD.tenActividadesArea(area) && !fachadaBD.tenMateriaisArea(area)){
+        if(!fachadaBD.tenActividadesArea(area, false) && !fachadaBD.tenMateriaisArea(area)){
             fachadaBD.borrarArea(area);
             //Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
@@ -60,16 +60,23 @@ public class XestionArea {
     }
 
     public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {
-        if (!fachadaBD.EBaixaArea(area)) {
-            fachadaBD.darDeBaixaArea(area);
-            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
-            return TipoResultados.correcto;
-        } else {
+        //A área non pode estar xa dada de baixa nin ter actividades sen comezar:
+        if (!fachadaBD.EBaixaArea(area)){
+            if(!fachadaBD.tenActividadesArea(area, true)){
+                fachadaBD.darDeBaixaArea(area);
+                //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+                return TipoResultados.correcto;
+            } else {
+                //Se ten actividades sen comezar, non se pode levar a cabo a baixa:
+                return TipoResultados.referenciaRestrict;
+            }
+        }  else {
+            //Se a área xa está dada de baixa, estaremos nunha situacion incorrecta na que non se pode facer o borrado:
             return TipoResultados.sitIncoherente;
         }
     }
 
-    public TipoResultados darDeAltaAreaa(Area area) throws ExcepcionBD {
+    public TipoResultados darDeAltaArea(Area area) throws ExcepcionBD {
         //Se a area está de baixa, dase de alta:
         if (fachadaBD.EBaixaArea(area)) {
             fachadaBD.darDeAltaArea(area);
