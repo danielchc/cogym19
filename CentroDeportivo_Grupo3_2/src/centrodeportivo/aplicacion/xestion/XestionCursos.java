@@ -176,7 +176,7 @@ public class XestionCursos {
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
     public ArrayList<Curso> consultarCursosUsuario(Curso curso, Usuario usuario) {
-        return fachadaBD.consultarCursosUsuario(curso,usuario);
+        return fachadaBD.consultarCursosUsuario(curso, usuario);
     }
 
     /**
@@ -189,13 +189,23 @@ public class XestionCursos {
      */
     public TipoResultados apuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
         // Se o curso existe, o usuario non esta apuntado e o aforo non é o máximo, podese apuntar o curso:
-        if (fachadaBD.comprobarExistencia(curso) && !fachadaBD.estarApuntado(curso, usuario) && fachadaBD.NonEMaximoAforo(curso)) {
+        if (fachadaBD.isCurso(curso) && !fachadaBD.estarApuntado(curso, usuario) && fachadaBD.NonEMaximoAforo(curso)) {
             fachadaBD.apuntarseCurso(curso, usuario);
             // Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {
             return TipoResultados.sitIncoherente;
         }
+    }
+
+    /**
+     * Metodo para comprobar se un curso esta almaceado na base de datos
+     *
+     * @param curso Curso que se quer comprobar
+     * @return Retorna true se o curso se atopa almaceado na base de datos e false en caso contrario
+     */
+    public boolean isCurso(Curso curso) {
+        return fachadaBD.isCurso(curso);
     }
 
     /**
@@ -208,12 +218,23 @@ public class XestionCursos {
      */
     public TipoResultados desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
         // Se xa esta apuntado e o curso existe, desapuntase:
-        if (fachadaBD.comprobarExistencia(curso) && fachadaBD.estarApuntado(curso, usuario) && (curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis())))) {
+        if (fachadaBD.isCurso(curso) && fachadaBD.estarApuntado(curso, usuario) && (curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis())))) {
             fachadaBD.desapuntarseCurso(curso, usuario);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {
             return TipoResultados.sitIncoherente;
         }
+    }
+
+    /**
+     * Método que nos permite saber se un usuario esta apuntado nun curso
+     *
+     * @param curso   Curso no que queremos saber se esta apuntado
+     * @param usuario Usuario que queremos saber se esta apuntado
+     * @return Retorna true cando o usuario xa se atope apuntado no curso e false cando non.
+     */
+    public boolean estarApuntado(Curso curso, Usuario usuario) {
+        return fachadaBD.estarApuntado(curso, usuario);
     }
 }

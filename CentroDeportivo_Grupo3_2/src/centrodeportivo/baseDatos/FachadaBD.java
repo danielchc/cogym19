@@ -497,6 +497,15 @@ public final class FachadaBD {
         return daoCursos.consultarCursosUsuario(curso, usuario);
     }
 
+    /**
+     * Metodo para comprobar se un curso esta almaceado na base de datos
+     *
+     * @param curso Curso que se quer comprobar
+     * @return Retorna true se o curso se atopa almaceado na base de datos e false en caso contrario
+     */
+    public boolean isCurso(Curso curso){
+        return daoCursos.isCurso(curso);
+    }
 
     /*
         Funcións DAOTipoMaterial

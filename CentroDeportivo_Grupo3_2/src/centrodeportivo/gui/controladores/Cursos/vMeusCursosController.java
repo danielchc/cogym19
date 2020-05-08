@@ -53,10 +53,11 @@ public class vMeusCursosController extends AbstractController implements Initial
      * @param controllerPrincipal Referencia ao controlador da ventá principal.
      */
     public vMeusCursosController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal, Usuario usuario) {
-        //Chamamos ao constructor da clase pai.
+        // Chamamos ao constructor da clase pai:
         super(fachadaAplicacion);
-        //Asignamos o parámetro pasado de controlador da ventá principal ao atributo correspondente.
+        // Asignamos o parámetro pasado de controlador da ventá principal ao atributo correspondente:
         this.controllerPrincipal = controllerPrincipal;
+        // Asignamos o usuario que esta loggeado
         this.usuario = usuario;
 
     }
@@ -147,7 +148,7 @@ public class vMeusCursosController extends AbstractController implements Initial
     }
 
     /**
-     * Método que representa as accións que teñen lugar ao premer o botón de apuntarse a un curso:
+     * Método que representa as accións que teñen lugar ao premer o botón de desapuntarse a un curso:
      *
      * @param actionEvent A acción que tivo lugar
      */
@@ -157,10 +158,10 @@ public class vMeusCursosController extends AbstractController implements Initial
         Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();
         if (selected != null) {
             // Gardamos o resultado noutra variable para refrescar toda a información
-            // Iso será o que se lle pase ó método de apuntarse
+            // Iso será o que se lle pase ó método de desapuntarse
             Curso res = getFachadaAplicacion().recuperarDatosCurso(selected);
             if (res != null) {
-                // Anotamolo no curso
+                // Tentamos desanotar o usuario do curso
                 try {
                     // TODO: Non te podes desapuntar dun curso que xa comezou
                     TipoResultados resultado = getFachadaAplicacion().desapuntarseCurso(res, usuario);
@@ -192,7 +193,7 @@ public class vMeusCursosController extends AbstractController implements Initial
         } else {
             // Se non se ten selección, indícase que hai que facela primeiro (podería ser que a lista estivese vacía):
             this.getFachadaAplicacion().mostrarErro("Cursos",
-                    "Selecciona un curso no que apuntarte!");
+                    "Selecciona un curso do que desapuntarte!");
         }
     }
 
