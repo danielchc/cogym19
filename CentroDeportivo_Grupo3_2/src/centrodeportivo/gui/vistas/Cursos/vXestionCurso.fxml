@@ -446,7 +446,7 @@
                                                                   </HBox>
                                                                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="558.0" VBox.vgrow="ALWAYS">
                                                                      <children>
-                                                                        <Label text="~Valoracións dos profesores~" HBox.hgrow="ALWAYS">
+                                                                        <Label text="~Valoracións por profesores~" HBox.hgrow="ALWAYS">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
                                                                            </font>
