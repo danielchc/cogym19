@@ -610,33 +610,32 @@ public class DAOActividade extends AbstractDAO {
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
-
-            if (actividade != null) {
-                consulta += " AND lower(actividade.nome) like lower(?)  ";
+            if (actividade!= null){
+                if (actividade.getNome() != null)
+                    consulta += " AND lower(actividade.nome) like lower(?)  ";
 
                 if (actividade.getArea()!=null)
-                    consulta += " AND area=? AND instalacion=? ";
+                    consulta += " AND actividade.area=? AND actividade.instalacion=? ";
+
             }
 
+
             //Ordenaremos o resultado polo código da área para ordenalas
-            consulta += " ORDER BY nome asc";
+            consulta += " ORDER BY actividade.nome asc";
 
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
-
-            //Pasando area non nula completase a consulta.
-            if (actividade != null) {
-                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
-                stmActividades.setTimestamp(2, actividade.getData());
-                if (actividade.getArea() != null)
-                {
+            if (actividade!= null) {
+                if (actividade.getNome() != null) stmActividades.setString(2, "%" + actividade.getNome() + "%");
+                //Pasando area non nula completase a consulta.
+                if (actividade.getArea() != null) {
                     stmActividades.setInt(3, actividade.getArea().getCodArea());
                     stmActividades.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
                 }
-
             }
 
+            System.out.println(stmActividades);
             //Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
 
@@ -657,7 +656,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //Peche do statement:
             try {
-                stmActividades.close();
+                if(stmActividades!=null)stmActividades.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
