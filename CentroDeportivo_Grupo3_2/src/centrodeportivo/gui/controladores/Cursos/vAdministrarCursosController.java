@@ -48,10 +48,11 @@ public class vAdministrarCursosController extends AbstractController implements 
 
     /**
      * Constructor do controlador da ventá de administración de cursos.
-     * @param fachadaAplicacion Referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   Referencia á fachada da parte de aplicación.
      * @param controllerPrincipal Referencia ao controlador da ventá principal.
      */
-    public vAdministrarCursosController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal){
+    public vAdministrarCursosController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         //Chamamos ao constructor da clase pai.
         super(fachadaAplicacion);
         //Asignamos o parámetro pasado de controlador da ventá principal ao atributo correspondente.
@@ -60,6 +61,7 @@ public class vAdministrarCursosController extends AbstractController implements 
 
     /**
      * Método co que se inicializan as compoñentes desta ventá:
+     *
      * @param location
      * @param resources
      */
@@ -92,7 +94,7 @@ public class vAdministrarCursosController extends AbstractController implements 
         duracionColumn.setCellValueFactory(c -> new SimpleStringProperty(
                 //Basicamente collo a parte enteira e logo a decimal multiplicada por 60:
                 c.getValue().getDuracion().intValue() + "h, " +
-                        (int) ((c.getValue().getDuracion().floatValue()-c.getValue().getDuracion().intValue())*60) + "m"
+                        (int) ((c.getValue().getDuracion().floatValue() - c.getValue().getDuracion().intValue()) * 60) + "m"
         ));
 
         //O booleano aberto: facemos que en función do seu valor se imprima un si ou un non (en lugar de ter "true" ou
@@ -109,17 +111,17 @@ public class vAdministrarCursosController extends AbstractController implements 
             }
         });
 
-        //Engadimos o seguinte para poder resaltar dunha cor diferente os cursos finalizados:
+        // Engadimos o seguinte para poder resaltar dunha cor diferente os cursos finalizados:
         taboaCursos.setRowFactory(tv -> new TableRow<Curso>() {
             @Override
             public void updateItem(Curso item, boolean empty) {
                 super.updateItem(item, empty);
-                if ((item != null) &&  (item.getDataFin()!=null) &&
+                if ((item != null) && (item.getDataFin() != null) &&
                         (item.getDataFin().before(new Date(System.currentTimeMillis()))) &&
-                        checkResaltar.isSelected()){
-                    //Temos asociada unha folla de estilo, de xeito que se engadirá a opción "resaltar" para que se
-                    //resalten as filas que cumpran a condición de ter un curso rematado tendo o checkbox de resaltar
-                    //activado:
+                        checkResaltar.isSelected()) {
+                    // Temos asociada unha folla de estilo, de xeito que se engadirá a opción "resaltar" para que se
+                    // resalten as filas que cumpran a condición de ter un curso rematado tendo o checkbox de resaltar
+                    // activado:
                     getStyleClass().add("resaltar");
                 } else {
                     //Se non se cumpren as condicións anteriores, eliminamos esa condición da fila.
@@ -137,11 +139,12 @@ public class vAdministrarCursosController extends AbstractController implements 
 
     /**
      * Método que representa as accións que se levan a cabo ao premer o botón de busca dun curso.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnBuscarAction(ActionEvent actionEvent) {
         //Se o campo de nome non se cubre, o que faremos será listar todos os cursos, se non, faremos búsqueda por nome:
-        if(!ValidacionDatos.estanCubertosCampos(campoNome)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
             //Listar todos os cursos -> Pasamos a consultarCursos parámetro null:
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursos(null));
         } else {
@@ -152,6 +155,7 @@ public class vAdministrarCursosController extends AbstractController implements 
 
     /**
      * Método que representa as accións que teñen lugar ao premer o botón de limpar información
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnLimparAction(ActionEvent actionEvent) {
@@ -163,17 +167,18 @@ public class vAdministrarCursosController extends AbstractController implements 
 
     /**
      * Método que representa as accións que teñen lugar ao premer o botón de xestión dun curso:
+     *
      * @param actionEvent A acción que tivo lugar
      */
     public void btnXestionarAction(ActionEvent actionEvent) {
         //Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
         //Para iso, empezamos mirando se hai unha selección feita:
         Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();
-        if(selected != null){
+        if (selected != null) {
             //Gardamos o resultado noutra variable para refrescar toda a información
             //Iso será o que se lle pase á ventá de xestión dun curso:
             Curso res = getFachadaAplicacion().recuperarDatosCurso(selected);
-            if(res != null){
+            if (res != null) {
                 //Se houbo resultado, procedemos a pasar á ventá de xestión de cursos este curso:
                 //Chamamos á ventá.
                 controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONCURSO);
@@ -198,18 +203,20 @@ public class vAdministrarCursosController extends AbstractController implements 
 
     /**
      * Método que se executa cando se pulsa o checkbox para resaltar os cursos que xa remataron.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
-    public void checkResaltarAction(ActionEvent actionEvent){
+    public void checkResaltarAction(ActionEvent actionEvent) {
         //Únicamente se refresca a táboa:
         taboaCursos.refresh();
     }
 
     /**
      * Método que nos permite actualizar a táboa de cursos (vaciándoa e reenchéndoa):
+     *
      * @param cursos Os cursos que se van a introducir na táboa
      */
-    private void actualizarTaboaCursos(ArrayList<Curso> cursos){
+    private void actualizarTaboaCursos(ArrayList<Curso> cursos) {
         //Primeiro borramos todos os items que hai amosados na táboa:
         taboaCursos.getItems().removeAll(taboaCursos.getItems());
         //Engadimos os cursos pasados:
