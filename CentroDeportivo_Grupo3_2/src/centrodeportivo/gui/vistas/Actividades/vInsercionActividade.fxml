@@ -25,80 +25,80 @@
     <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
         <VBox layoutX="25.0" layoutY="23.0" prefHeight="298.0" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
 
-            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
-                <Label prefHeight="20.0" prefWidth="102.0" text="Tipo: ">
+            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                <Label prefHeight="20.0" prefWidth="102.0" text="Tipo: " HBox.hgrow="ALWAYS">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="comboTipoactividade" prefHeight="26.0" prefWidth="156.0" />
-                <Label prefHeight="18.0" prefWidth="71.0" text="Nome:">
+                <ComboBox fx:id="comboTipoactividade" prefHeight="26.0" prefWidth="156.0" HBox.hgrow="ALWAYS" />
+                <Label prefHeight="18.0" prefWidth="71.0" text="Nome:" HBox.hgrow="ALWAYS">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="198.0" />
+                <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="198.0" HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
             <children>
-                   <Label prefHeight="20.0" prefWidth="100.0" text="Instalación: ">
+                   <Label prefHeight="20.0" prefWidth="100.0" text="Instalación: " HBox.hgrow="ALWAYS">
                        <font>
                            <Font name="System Bold" size="14.0" />
                        </font>
                    </Label>
-                   <ComboBox fx:id="comboInstalacions" prefHeight="26.0" prefWidth="152.0" />
-                   <Label prefHeight="20.0" prefWidth="71.0" text="Área: ">
+                   <ComboBox fx:id="comboInstalacions" prefHeight="26.0" prefWidth="152.0" HBox.hgrow="ALWAYS" />
+                   <Label prefHeight="20.0" prefWidth="71.0" text="Área: " HBox.hgrow="ALWAYS">
                        <font>
                            <Font name="System Bold" size="14.0" />
                        </font>
                    </Label>
-                   <ComboBox fx:id="comboArea" prefHeight="26.0" prefWidth="194.0" />
+                   <ComboBox fx:id="comboArea" prefHeight="26.0" prefWidth="194.0" HBox.hgrow="ALWAYS" />
             </children>
             </HBox>
 
-            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
             <children>
-               <Label prefHeight="20.0" prefWidth="139.0" text="Profesor:">
+               <Label prefHeight="20.0" prefWidth="139.0" text="Profesor:" HBox.hgrow="ALWAYS">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <ComboBox fx:id="comboProfesor" prefHeight="26.0" prefWidth="476.0" />
+               <ComboBox fx:id="comboProfesor" prefHeight="26.0" prefWidth="476.0" HBox.hgrow="ALWAYS" />
             </children>
             </HBox>
 
-            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
-                <Label prefHeight="18.0" prefWidth="53.0" text="Data:">
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                <Label prefHeight="18.0" prefWidth="53.0" text="Data:" HBox.hgrow="ALWAYS">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <DatePicker fx:id="campoData" prefHeight="26.0" prefWidth="138.0" promptText="DD/MM/AAAA" />
-            <Label prefHeight="20.0" prefWidth="76.0" text="Hora inicio">
+                <DatePicker fx:id="campoData" prefHeight="26.0" prefWidth="138.0" promptText="DD/MM/AAAA" HBox.hgrow="ALWAYS" />
+            <Label prefHeight="20.0" prefWidth="76.0" text="Hora inicio" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="campoHoraInicio" alignment="CENTER" prefHeight="26.0" prefWidth="82.0" />
-            <Label layoutX="324.0" layoutY="28.0" prefHeight="18.0" prefWidth="71.0" text="Hora fin">
+            <TextField fx:id="campoHoraInicio" alignment="CENTER" prefHeight="26.0" prefWidth="82.0" HBox.hgrow="ALWAYS" />
+            <Label layoutX="324.0" layoutY="28.0" prefHeight="18.0" prefWidth="71.0" text="Hora fin" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="campoHoraFin" alignment="CENTER" layoutX="405.0" layoutY="25.0" prefHeight="26.0" prefWidth="82.0" />
+            <TextField fx:id="campoHoraFin" alignment="CENTER" layoutX="405.0" layoutY="25.0" prefHeight="26.0" prefWidth="82.0" HBox.hgrow="ALWAYS" />
             </HBox>
 
             <HBox prefHeight="43.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
-                <HBox alignment="CENTER_LEFT" prefWidth="275.0" VBox.vgrow="ALWAYS">
-                    <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="160.0" text="Volver" />
+                <HBox alignment="CENTER_LEFT" prefWidth="275.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="160.0" text="Volver" HBox.hgrow="ALWAYS" />
                     <!-- onAction="#btnVolverAction" -->
                 </HBox>
-                <HBox alignment="CENTER" prefHeight="10.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER" prefHeight="10.0" prefWidth="275.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="avisoCampos" prefHeight="18.0" prefWidth="264.0" />
+                  <Label fx:id="avisoCampos" prefHeight="18.0" prefWidth="264.0" HBox.hgrow="ALWAYS" />
                </children></HBox>
-                <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="275.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                <children>
                        <Button fx:id="btnGardar" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="160.0" text="Gardar" HBox.hgrow="ALWAYS" />
                </children>
