@@ -10,6 +10,7 @@ import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import javafx.beans.binding.ObjectExpression;
 import javafx.collections.ObservableList;
@@ -526,8 +527,8 @@ public final class FachadaBD {
         daoareas.borrarArea(area);
     }
 
-    public boolean tenActividadesArea(Area area) {
-        return daoareas.tenActividadeArea(area);
+    public boolean tenActividadesArea(Area area, boolean senComezar) {
+        return daoareas.tenActividadeArea(area, senComezar);
     }
 
     public boolean tenMateriaisArea(Area area) {
@@ -610,6 +611,10 @@ public final class FachadaBD {
 
     public boolean NonEMaximoAforoActividade(Actividade actividade) {
         return daoActividade.NonEMaximoAforoActividade(actividade);
+    }
+
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade){
+        return daoActividade.buscarProfesores(tipoactividade);
     }
 
 }

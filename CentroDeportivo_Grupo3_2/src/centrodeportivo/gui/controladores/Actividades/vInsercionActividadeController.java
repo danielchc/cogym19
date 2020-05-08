@@ -21,9 +21,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import javafx.util.converter.DateTimeStringConverter;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class vInsercionActividadeController extends AbstractController implements Initializable {
@@ -77,31 +82,19 @@ public class vInsercionActividadeController extends AbstractController implement
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 TipoActividade tipoActividade=(TipoActividade) observableValue.getValue();
-                //comboProfesor.getItems().addAll(getFachadaAplicacion());
-                //if(!comboProfesor.getItems().isEmpty()) comboProfesor.getSelectionModel().selectFirst();
+                comboProfesor.getItems().addAll(getFachadaAplicacion().buscarProfesores(tipoActividade));
+                if(!comboProfesor.getItems().isEmpty()) comboProfesor.getSelectionModel().selectFirst();
             }
         });
 
 
-        this.campoHoraInicio.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String valorAnterior, String valorNovo) {
-                if(valorNovo==null || valorNovo.isEmpty()) return;
-                if (!valorNovo.matches("\\d{0,2}?:\\d{0,2}")) {
-                    campoHoraInicio.setText(valorAnterior);
-                }
-            }
-        });
-
-        this.campoHoraFin.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String valorAnterior, String valorNovo) {
-                if(valorNovo==null || valorNovo.isEmpty()) return;
-                if (!valorNovo.matches("\\d{0,2}?:\\d{0,2}")) {
-                    campoHoraFin.setText(valorAnterior);
-                }
-            }
-        });
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        try {
+            this.campoHoraInicio.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00:00")));
+            this.campoHoraFin.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00:00")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean camposCorrectos(){
@@ -109,7 +102,6 @@ public class vInsercionActividadeController extends AbstractController implement
             avisoCampos.setText("Data incorrecta.");
             return false;
         }
-
         return true;
     }
 
@@ -122,6 +114,34 @@ public class vInsercionActividadeController extends AbstractController implement
             return;
         }
         if(!camposCorrectos()) return;
+
+        int horasToSegInici=Integer.parseInt(campoHoraInicio.getText().split(":")[0])*3600;
+        int minutosToSegInici=Integer.parseInt(campoHoraInicio.getText().split(":")[1])*60;
+        int horasToSegFin=Integer.parseInt(campoHoraFin.getText().split(":")[0])*3600;
+        int minutosToSegFin=Integer.parseInt(campoHoraFin.getText().split(":")[1])*60;
+        int duracion=(horasToSegFin+minutosToSegFin)-(horasToSegInici+minutosToSegInici);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(Timestamp.valueOf(campoData.getValue().atStartOfDay()).getTime());
+        cal.add(Calendar.SECOND, horasToSegInici+minutosToSegInici);
+        Timestamp data=new Timestamp(cal.getTime().getTime());
+
+        Actividade actividade=new Actividade(
+                data,
+                campoNome.getText(),
+                duracion/3600f,
+                comboArea.getSelectionModel().getSelectedItem(),
+                comboTipoactividade.getSelectionModel().getSelectedItem(),
+                this.curso,
+                (Persoal)comboProfesor.getSelectionModel().getSelectedItem()
+        );
+
+
+        if(actividadeModificar==null){
+            //crear activida
+        }else{
+            //modificala
+        }
     }
 
 

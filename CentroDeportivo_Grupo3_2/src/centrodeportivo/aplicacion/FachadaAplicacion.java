@@ -10,12 +10,12 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
@@ -486,7 +486,7 @@ public class FachadaAplicacion extends Application {
     }
 
     public TipoResultados darDeAltaArea(Area area) throws ExcepcionBD {
-        return xestionArea.darDeAltaAreaa(area);
+        return xestionArea.darDeAltaArea(area);
     }
 
     public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {
@@ -541,5 +541,8 @@ public class FachadaAplicacion extends Application {
         return xestionActividade.buscarActividade(actividade);
     }
 
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoActividade){
+        return xestionActividade.buscarProfesores(tipoActividade);
+    }
 
 }

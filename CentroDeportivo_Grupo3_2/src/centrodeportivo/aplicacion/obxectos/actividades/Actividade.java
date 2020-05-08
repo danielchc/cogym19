@@ -128,4 +128,18 @@ public class Actividade {
     public void setValMedia(Float valMedia) {
         this.valMedia = valMedia;
     }
+
+    @Override
+    public String toString() {
+        return "Actividade{" +
+                "data=" + data +
+                ", curso=" + curso +
+                ", nome='" + nome + '\'' +
+                ", duracion=" + duracion +
+                ", area=" + area +
+                ", tipoActividade=" + tipoActividade +
+                ", profesor=" + profesor +
+                ", valMedia=" + valMedia +
+                '}';
+    }
 }

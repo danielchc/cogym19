@@ -125,7 +125,7 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public boolean tenActividadeArea(Area area) {
+    public boolean tenActividadeArea(Area area, boolean senComezar) {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -133,12 +133,21 @@ public final class DAOAreas extends AbstractDAO {
         //Recuperamos a conexión:
         con = super.getConexion();
 
-        //Preparamos o borrado:
+        //Preparamos a consulta:
         try {
-            stmAreas = con.prepareStatement("SELECT area " +
+            //Como temos un booleano que nos permitirá variar un pouco a consulta, faremos un string previo:
+            String busca = "SELECT * " +
                     " FROM actividade " +
-                    " WHERE area = ? and instalacion = ? ");
+                    " WHERE area = ? and instalacion = ? ";
 
+            //Se se pideu buscar as actividades desa área non comezadas, entón engadimos outro filtro
+            if(senComezar){
+                busca += " and dataactividade > NOW()";
+            }
+
+            stmAreas = con.prepareStatement(busca);
+
+            //Neste caso, non hai parámetros distintos que engadir aos statements en función da consulta feita.
             stmAreas.setInt(1, area.getCodArea());
             stmAreas.setInt(2, area.getInstalacion().getCodInstalacion());
 
