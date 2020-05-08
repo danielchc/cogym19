@@ -148,4 +148,14 @@ public class XestionCursos {
     public Curso informeCurso(Curso curso){
         return fachadaBD.informeCurso(curso);
     }
+
+    /**
+     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos.
+     *
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
+     */
+    public ArrayList<Curso> consultarCursosAbertos(Curso curso) {
+        return fachadaBD.consultarCursosAbertos(curso);
+    }
 }

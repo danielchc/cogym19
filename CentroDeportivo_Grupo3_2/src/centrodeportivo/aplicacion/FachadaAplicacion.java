@@ -430,6 +430,16 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.activarCurso(curso);
     }
 
+    /**
+     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos.
+     *
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
+     */
+    public ArrayList<Curso> consultarCursosAbertos(Curso curso) {
+        return xestionCursos.consultarCursosAbertos(curso);
+    }
+
     /*
         Xestión TIPOS de material
      */
@@ -541,7 +551,7 @@ public class FachadaAplicacion extends Application {
         return xestionActividade.buscarActividade(actividade);
     }
 
-    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoActividade){
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoActividade) {
         return xestionActividade.buscarProfesores(tipoActividade);
     }
 
