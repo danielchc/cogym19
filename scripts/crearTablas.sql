@@ -117,7 +117,7 @@ CREATE TABLE actividade(
 	curso			INT,
 	profesor		VARCHAR(25),
 	nome 			VARCHAR(50) NOT NULL,
-	duracion 		DECIMAL NOT NULL CHECK (duracion>=0),
+	duracion 		DECIMAL NOT NULL CHECK (duracion>0),
 	PRIMARY KEY (dataActividade,area,instalacion),
 	
 	FOREIGN KEY (tipoActividade) REFERENCES tipoActividade(codTipoActividade)

@@ -569,20 +569,20 @@ public class vXestionCursoController extends AbstractController implements Initi
             //Enchemos a táboa de participantes:
             actualizarTaboaUsuarios(curso.getParticipantes());
             if (curso.isAberto()) {
-                //Se o curso xa está aberto non damos opción a abrilo:
-                AuxGUI.inhabilitarCampos(btnActivar);
+                //Se o curso xa está aberto non damos opción a abrilo, nin a engadir novas actividades:
+                AuxGUI.inhabilitarCampos(btnActivar, btnEngadirActividade);
             } else {
-                AuxGUI.habilitarCampos(btnActivar);
+                //Senon si que deixaremos:
+                AuxGUI.habilitarCampos(btnActivar, btnEngadirActividade);
             }
             //Activamos botóns actividades, cancelación e xeración de informe
-            AuxGUI.habilitarCampos(btnBorrarActividade, btnEngadirActividade, btnXestionarSeleccion,
-                    btnCancelar, btnRefrescar);
+            AuxGUI.habilitarCampos(btnCancelar, btnRefrescar, btnXestionarSeleccion);
             AuxGUI.amosarCampos(btnVolver);
             //Se o curso está rematado, entón daremos opción a amosar o botón do informe:
             if (curso.getDataFin() != null && curso.getDataFin().before(new Date(System.currentTimeMillis()))) {
                 AuxGUI.amosarCampos(vBoxBotonInforme);
-                //Inhabilitaranse tamén todos os botóns relativos ás actividades:
-                AuxGUI.inhabilitarCampos(btnEngadirActividade, btnBorrarActividade, btnXestionarSeleccion);
+                //Inhabilitaranse tamén todos os botóns relativos ás actividades (menos o de xestionar):
+                AuxGUI.inhabilitarCampos(btnBorrarActividade);
             }
         } else {
             this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
@@ -681,10 +681,10 @@ public class vXestionCursoController extends AbstractController implements Initi
             //Se non está baleira seleccionamos o primeiro:
             taboaActividades.getSelectionModel().selectFirst();
             //O que tamén faremos será activar o botón para xestionar unha selección:
-            AuxGUI.habilitarCampos(btnXestionarSeleccion);
+            AuxGUI.habilitarCampos(btnXestionarSeleccion, btnBorrarActividade);
         } else {
-            //Noutro caso:
-            AuxGUI.inhabilitarCampos(btnXestionarSeleccion);
+            //Noutro caso deshabilitamos ese botón e o de eliminar:
+            AuxGUI.inhabilitarCampos(btnXestionarSeleccion, btnBorrarActividade);
         }
     }
 
