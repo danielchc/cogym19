@@ -421,6 +421,16 @@ public class vXestionCursoController extends AbstractController implements Initi
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnEngadirActividadeAction(ActionEvent actionEvent) {
+        //Para poder engadir unha actividade, o curso non pode estar activo:
+        if(!curso.isAberto()){
+            //Cargamos a pantalla correspondente á inserción dunha actividade:
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
+            //Cargamos na pantalla o noso curso:
+            ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarCurso(curso);
+        } else {
+            getFachadaAplicacion().mostrarErro("Administración de Cursos",
+                    "Ollo! Non se poden engadir actividades a un curso XA ABERTO!");
+        }
     }
 
     /**
@@ -428,6 +438,22 @@ public class vXestionCursoController extends AbstractController implements Initi
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnBorrarActividadeAction(ActionEvent actionEvent) {
+        //Somentes se pode borrar unha actividade se o curso inda non rematou:
+        if(curso.getDataFin() != null && curso.getDataFin().after(new Date(System.currentTimeMillis()))){
+            //Tomamos a selección da táboa (se é posíbel):
+            if(!taboaActividades.getSelectionModel().isEmpty()){
+                Actividade actividade = ((Actividade) taboaActividades.getSelectionModel().getSelectedItem());
+                //Entón tentaremos o borrado:
+                try{
+                    TipoResultados res = getFachadaAplicacion().borrarActividade(actividade);
+                } catch(ExcepcionBD e){
+                    //Se se producise unha excepción amosaríase o erro asociado:
+                    getFachadaAplicacion().mostrarErro("Administración de cursos",
+                            e.getMessage());
+                }
+            }
+
+        }
     }
 
     /**
