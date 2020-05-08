@@ -526,8 +526,8 @@ public final class FachadaBD {
         daoareas.borrarArea(area);
     }
 
-    public boolean tenActividadesArea(Area area) {
-        return daoareas.tenActividadeArea(area);
+    public boolean tenActividadesArea(Area area, boolean senComezar) {
+        return daoareas.tenActividadeArea(area, senComezar);
     }
 
     public boolean tenMateriaisArea(Area area) {

@@ -125,7 +125,7 @@ public final class DAOAreas extends AbstractDAO {
         }
     }
 
-    public boolean tenActividadeArea(Area area) {
+    public boolean tenActividadeArea(Area area, boolean senComezar) {
         PreparedStatement stmAreas = null;
         Connection con;
         ResultSet rsAux = null;
@@ -133,9 +133,9 @@ public final class DAOAreas extends AbstractDAO {
         //Recuperamos a conexión:
         con = super.getConexion();
 
-        //Preparamos o borrado:
+        //Preparamos a consulta:
         try {
-            stmAreas = con.prepareStatement("SELECT area " +
+            stmAreas = con.prepareStatement("SELECT * " +
                     " FROM actividade " +
                     " WHERE area = ? and instalacion = ? ");
 
