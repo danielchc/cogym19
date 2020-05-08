@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
@@ -109,6 +110,7 @@ public class vElixirActividadeController extends AbstractController implements I
         String nome=campoNome.getText();
         Instalacion instalacion=(Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
         Area area=(Area)comboArea.getSelectionModel().getSelectedItem();
+        Usuario usuario=this.controllerPrincipal.getUsuario();
 
         //buscar segundo os parametros anteriores
         taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(null));
