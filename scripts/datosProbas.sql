@@ -504,8 +504,6 @@ INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Futbol avanzado', '
 INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Baloncesto para todos', 'Este curso servirá para introducir este deporte aos novos pero tamén para todos os demais', 25, false);
 INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Movemento', 'Actividades variadas para exercitarse', 30, false);
 INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de natación introductorio', 'Neste curso introduciremos ideas basicas da natación.', 30, false);
-INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso iniciación Padel', 'Neste curso introduciremos ideas basicas do padel.', 30, false);
-INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso avanzado Frontón', 'Curso avanzado de frontón para semiprofesionais.', 30, false);
 
 ------------------ACTIVIDADE (PARA OS CURSOS ANTERIORES)-------------------
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) VALUES ('2019-10-02 10:00:00.00', 1, 1, 1, 1, 'manuelPersoal', 'Introdución ás carreiras', 2);
@@ -577,27 +575,6 @@ INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profe
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-23 17:00:00.00', 1, 5, 17, 'sofiaPersoal', 'Fundamentos da natación, clase práctica', 3);
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-30 18:00:00.00', 2, 5, 17, 'soniaPersoal', 'Demostración e iniciación a saltos', 3);
 
-
-
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-10-01 16:00:00.00',	1, 1, 1,  1,'manuelPersoal', 'Entrenamento adaptado para correr', 1.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-10-06 18:00:00.00',	1, 1, 1,  1,'manuelPersoal', 'Obradoiro de carreiras', 1.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-11-14 19:00:00.00',	2, 1, 6,  3,'luciaPersoal', 'Básicos de Baloncesto', 1.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-11-18 19:00:00.00',	2, 1, 6,  3,'soniaPersoal', 'Básicos de Baloncesto', 1.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-11-18 19:00:00.00',	3, 1, 7,  5,'manuelPersoal', 'Iniciación a pádel', 2.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-11-21 17:00:00.00',	3, 1, 7,  5,'manuelPersoal', 'Iniciación a pádel', 2.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-11-22 11:00:00.00',	3, 3, 7,  4,'manuelPersoal', 'Charla sobre aspectos técnicos', 1);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-11-28 11:00:00.00',	3, 3, 8,  4,'soniaPersoal', 'Charla sobre meditación', 1);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-12-11 17:00:00.00',	1, 3, 9,  6,'manuelPersoal', 'Iniciación no frontón', 2.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-12-15 18:00:00.00',	1, 3, 9,  6,'manuelPersoal', 'Iniciación no frontón', 2.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-12-29 9:00:00.00',	2, 2, 10, 2, 'sofiaPersoal', 'Entrenamento de fútbol semiprofesional', 2.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-12-30 9:00:00.00', 	2, 2, 10, 2, 'sofiaPersoal', 'Entrenamento de fútbol semiprofesional', 2.5);
-INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade,curso, profesor, nome, duracion) VALUES ('2018-12-31 9:00:00.00', 	2, 2, 10, 2, 'sofiaPersoal', 'Entrenamento de fútbol semiprofesional', 2.5);
-
-
-
-
-
-
 --Actividades para que aparezan na cuota
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:00:00.00', 1, 1, 1, 'manuelPersoal', 'Lorem', 0.1);
 INSERT INTO actividade (dataactividade, area, instalacion, tipoactividade, profesor, nome, duracion) VALUES ('2020-05-01 18:10:00.00', 1, 2, 2, 'manuelPersoal', 'ipsum ', 0.1);
@@ -666,14 +643,4 @@ INSERT INTO realizaractividade VALUES ('2020-05-05 17:20:00.00',1,1,'sergioSocio
 INSERT INTO realizaractividade VALUES ('2020-05-05 17:30:00.00',1,2,'sergioSocio',NULL);
 INSERT INTO realizaractividade VALUES ('2020-05-06 17:40:00.00',1,3,'sergioSocio',NULL);
 INSERT INTO realizaractividade VALUES ('2020-05-06 17:50:00.00',1,4,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-06 17:50:00.00',1,4,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-06 17:50:00.00',1,4,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2019-11-21 17:00:00.00',3,1,'mariaSocio',5);
-INSERT INTO realizaractividade VALUES ('2019-11-21 17:00:00.00',3,1,'lauraSocio',3);
-INSERT INTO realizaractividade VALUES ('2019-11-21 17:00:00.00',3,1,'danielSocio',4);
-INSERT INTO realizaractividade VALUES ('2019-11-21 17:00:00.00',3,1,'andreaSocio',2);
-INSERT INTO realizaractividade VALUES ('2019-11-21 17:00:00.00',3,1,'raulSocio',1);
-INSERT INTO realizaractividade VALUES ('2018-12-31 9:00:00.00', 2, 2,'raulSocio',4);
-INSERT INTO realizaractividade VALUES ('2018-11-22 11:00:00.00',3, 3,'raulSocio',4);
-INSERT INTO realizaractividade VALUES ('2018-11-21 17:00:00.00',3, 1,'raulSocio',4);
-INSERT INTO realizaractividade VALUES ('2018-11-21 17:00:00.00',3, 1,'lauraSocio',4);
+
