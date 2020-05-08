@@ -290,6 +290,12 @@ public class vPrincipalController extends AbstractController implements Initiali
         mostrarPantalla(IdPantalla.valueOf(((Button) actionEvent.getSource()).getId()));
     }
 
+    public void btnDesapuntareseActividade(){
+        esconderTodosSliders();
+        mostrarPantalla(IdPantalla.APUNTRSESOCIOM);
+        ((vElixirActividadeController)getControlador(IdPantalla.APUNTRSESOCIOM)).abrirPantallaDesapuntarse();
+    }
+
     /**
      * Método que nos permite recuperar o controlador de calquera das pantallas vinculadas á ventá principal:
      *

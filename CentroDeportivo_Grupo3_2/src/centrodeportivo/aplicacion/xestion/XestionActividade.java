@@ -8,7 +8,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
+import com.sun.xml.internal.ws.addressing.WsaActionUtil;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class XestionActividade {
@@ -33,12 +36,19 @@ public class XestionActividade {
     }
 
     public TipoResultados borrarActividade(Actividade actividade) throws ExcepcionBD {
-        if(fachadaBD.existeActividade(actividade)){ //Comprobar eliminable
-            fachadaBD.borrarActividade(actividade);
-            //Se se completou o método correctamente, devolvemos o enum que indica corrección:
-            return TipoResultados.correcto;
+        if(fachadaBD.existeActividade(actividade)) {
+            //Só se pode borrar unha actividade se inda non comezou
+            if(actividade.getData().after(new Timestamp(System.currentTimeMillis()))){ //Comprobar eliminable
+                fachadaBD.borrarActividade(actividade);
+                //Se se completou o método correctamente, devolvemos o enum que indica corrección:
+                return TipoResultados.correcto;
+            } else {
+                //Se a actividade se realizou xa, ou se está niso, tense unha situación incoherente:
+                return TipoResultados.sitIncoherente;
+            }
         } else {
-            return TipoResultados.referenciaRestrict;
+            //Se o dato non existe, devolvemos o enum axeitado:
+            return TipoResultados.datoNonExiste;
         }
     }
 
