@@ -123,31 +123,32 @@ public class vAdministrarActividadeController extends AbstractController impleme
     }
 
     public void btnBuscarAction(ActionEvent actionEvent){
-
         actualizarTabla();
     }
 
     public void btnXestionarAction(ActionEvent actionEvent){
-        //Recuperamos primeiro a actividade seleccionada:
-        Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
-        //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
-        if(act != null){
-            //Se non é null seguimos adiante.
-            //Feito iso, facemos que a ventá visíbel sexa a de edición dunha actividade:
-            this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
-            //Accedemos ao controlador da ventá de edición dunha actividade:
-            ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
+        if(!taboaActividade.getSelectionModel().isEmpty()) {
+            //Recuperamos primeiro a actividade seleccionada:
+            Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+            //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
+            if(act != null){
+                //Se non é null seguimos adiante.
+                //Feito iso, facemos que a ventá visíbel sexa a de edición dunha actividade:
+                this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
+                //Accedemos ao controlador da ventá de edición dunha actividade:
+                ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
 
-        } else {
-            //En caso de que o item si sexa nulo, haberá que mostrar un erro pedindo unha selección:
-            this.getFachadaAplicacion().mostrarErro("Administración de actividades", "Non hai celda seleccionada!");
+            } else {
+                //En caso de que o item si sexa nulo, haberá que mostrar un erro pedindo unha selección:
+                this.getFachadaAplicacion().mostrarErro("Administración de actividades", "Non hai celda seleccionada!");
+            }
         }
     }
 
-    public void btnLimparAction(ActionEvent actionEvent){
-    }
+    public void btnBorrarAction(){
+        if(!taboaActividade.getSelectionModel().isEmpty()){
 
-    public void btnRexistrarAction(ActionEvent actionEvent){
+        }
     }
 
 }

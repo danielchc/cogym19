@@ -58,23 +58,11 @@
                                     <children>
                                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
-                                                    <children>
-                                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                            <children>
-                                                                <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#btnBuscarAction" prefHeight="26.0" prefWidth="95.0" text="Buscar" HBox.hgrow="ALWAYS" />
-                                                            </children>
-                                                        </HBox>
-                                                    </children>
-                                                </VBox>
-                                                <VBox prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
-                                                    <children>
-                                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                                            <children>
-                                                                <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="26.0" prefWidth="127.0" text="Limpar" HBox.hgrow="ALWAYS" />
-                                                            </children>
-                                                        </HBox>
-                                                    </children>
+                                                <VBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+                                                <VBox alignment="CENTER" prefHeight="40.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
+                                       <children>
+                                                          <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#btnBuscarAction" prefHeight="26.0" prefWidth="95.0" text="Buscar" />
+                                       </children>
                                                 </VBox>
                                             </children></HBox>
                                     </children>
@@ -91,9 +79,9 @@
                         <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="550.0" VBox.vgrow="NEVER">
                             <children>
                                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Button fx:id="btnRexistrar" mnemonicParsing="false" onAction="#btnRexistrarAction" prefHeight="26.0" prefWidth="146.0" text="Rexistrar Tipo" />
-                                    </children>
+                           <children>
+                              <Button fx:id="btnXestionar1" alignment="CENTER" mnemonicParsing="false" onAction="#btnBorrarAction" prefHeight="26.0" prefWidth="185.0" text="Eliminar Selección" />
+                           </children>
                                 </VBox>
                                 <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                     <children>
