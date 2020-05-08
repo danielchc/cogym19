@@ -22,7 +22,7 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
         //Recuperamos a conexión coa base de datos.
@@ -31,25 +31,25 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmActivide = con.prepareStatement("INSERT INTO Actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) " +
+            stmActividade = con.prepareStatement("INSERT INTO Actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) " +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             //Establecemos os valores:
-            stmActivide.setTimestamp(1, actividade.getData());
-            stmActivide.setInt(2, actividade.getArea().getCodArea());
-            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setInt(4, actividade.getTipoActividade().getCodTipoActividade());
+            stmActividade.setTimestamp(1, actividade.getData());
+            stmActividade.setInt(2, actividade.getArea().getCodArea());
+            stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setInt(4, actividade.getTipoActividade().getCodTipoActividade());
 
             if (actividade.getCurso()!=null)
-                stmActivide.setInt(5, actividade.getCurso().getCodCurso());
+                stmActividade.setInt(5, actividade.getCurso().getCodCurso());
             else
-                stmActivide.setNull(5, Types.INTEGER);
+                stmActividade.setNull(5, Types.INTEGER);
 
-            stmActivide.setString(6, actividade.getProfesor().getLogin());
-            stmActivide.setString(7, actividade.getNome());
-            stmActivide.setFloat(8, actividade.getDuracion());
+            stmActividade.setString(6, actividade.getProfesor().getLogin());
+            stmActividade.setString(7, actividade.getNome());
+            stmActividade.setFloat(8, actividade.getDuracion());
 
             //Realizamos a actualización:
-            stmActivide.executeUpdate();
+            stmActividade.executeUpdate();
 
             //Facemos commit:
             con.commit();
@@ -60,7 +60,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -72,7 +72,7 @@ public class DAOActividade extends AbstractDAO {
          * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
          * na base de datos, sempre e cando sexa unha actividade con datos cambiados.
          * */
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
         //Recuperamos a conexión coa base de datos.
@@ -97,32 +97,32 @@ public class DAOActividade extends AbstractDAO {
                                 "       or instalacion != ?)";
             }
 
-            stmActivide = con.prepareStatement(consulta);
+            stmActividade = con.prepareStatement(consulta);
 
             Timestamp dataFin =  new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue()));
 
             //Establecemos os valores:
-            stmActivide.setInt(1, actNova.getArea().getCodArea());
-            stmActivide.setInt(2, actNova.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setTimestamp(3, actNova.getData());
-            stmActivide.setTimestamp(4, actNova.getData());
-            stmActivide.setTimestamp(5, dataFin);
-            stmActivide.setTimestamp(6, dataFin);
-            stmActivide.setString(7, actNova.getProfesor().getLogin());
-            stmActivide.setTimestamp(8, actNova.getData());
-            stmActivide.setTimestamp(9, actNova.getData());
-            stmActivide.setTimestamp(10, dataFin);
-            stmActivide.setTimestamp(11, dataFin);
+            stmActividade.setInt(1, actNova.getArea().getCodArea());
+            stmActividade.setInt(2, actNova.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setTimestamp(3, actNova.getData());
+            stmActividade.setTimestamp(4, actNova.getData());
+            stmActividade.setTimestamp(5, dataFin);
+            stmActividade.setTimestamp(6, dataFin);
+            stmActividade.setString(7, actNova.getProfesor().getLogin());
+            stmActividade.setTimestamp(8, actNova.getData());
+            stmActividade.setTimestamp(9, actNova.getData());
+            stmActividade.setTimestamp(10, dataFin);
+            stmActividade.setTimestamp(11, dataFin);
 
             if(actVella != null){
-                stmActivide.setTimestamp(12, actVella.getData());
-                stmActivide.setInt(13, actVella.getArea().getCodArea());
-                stmActivide.setInt(14, actVella.getArea().getInstalacion().getCodInstalacion());
+                stmActividade.setTimestamp(12, actVella.getData());
+                stmActividade.setInt(13, actVella.getArea().getCodArea());
+                stmActividade.setInt(14, actVella.getArea().getInstalacion().getCodInstalacion());
             }
 
             //Facemos a consulta:
-            System.out.println(stmActivide);
-            rsActividade = stmActivide.executeQuery();
+            System.out.println(stmActividade);
+            rsActividade = stmActividade.executeQuery();
 
             if (rsActividade.next()) {
                 System.out.println(rsActividade.getTimestamp("dataactividade") + " " + rsActividade.getInt("area"));
@@ -141,7 +141,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -150,7 +150,7 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public void modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
         //Recuperamos a conexión coa base de datos.
@@ -169,28 +169,28 @@ public class DAOActividade extends AbstractDAO {
                     "     instalacion = ? " +
                     " WHERE dataactividade = ? and area = ? and instalacion = ? ";
 
-            stmActivide = con.prepareStatement(consulta);
+            stmActividade = con.prepareStatement(consulta);
 
             //Establecemos os valores:
-            stmActivide.setInt(1, actNova.getTipoActividade().getCodTipoActividade());
+            stmActividade.setInt(1, actNova.getTipoActividade().getCodTipoActividade());
             if (actNova.getCurso()!=null) {
-                stmActivide.setInt(2, actNova.getCurso().getCodCurso());
+                stmActividade.setInt(2, actNova.getCurso().getCodCurso());
             } else {
-                stmActivide.setNull(2, Types.INTEGER);
+                stmActividade.setNull(2, Types.INTEGER);
             }
-            stmActivide.setString(3, actNova.getProfesor().getLogin());
-            stmActivide.setString(4, actNova.getNome());
-            stmActivide.setFloat(5, actNova.getDuracion());
-            stmActivide.setTimestamp(6, actNova.getData());
-            stmActivide.setInt(7, actNova.getArea().getCodArea());
-            stmActivide.setInt(8, actNova.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setTimestamp(9, actVella.getData());
-            stmActivide.setInt(10, actVella.getArea().getCodArea());
-            stmActivide.setInt(11, actVella.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setString(3, actNova.getProfesor().getLogin());
+            stmActividade.setString(4, actNova.getNome());
+            stmActividade.setFloat(5, actNova.getDuracion());
+            stmActividade.setTimestamp(6, actNova.getData());
+            stmActividade.setInt(7, actNova.getArea().getCodArea());
+            stmActividade.setInt(8, actNova.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setTimestamp(9, actVella.getData());
+            stmActividade.setInt(10, actVella.getArea().getCodArea());
+            stmActividade.setInt(11, actVella.getArea().getInstalacion().getCodInstalacion());
 
 
             //Realizamos a actualización:
-            stmActivide.executeUpdate();
+            stmActividade.executeUpdate();
 
             //Facemos commit:
             con.commit();
@@ -201,7 +201,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -209,7 +209,7 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public void borrarActividade(Actividade actividade) throws ExcepcionBD {
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
         //Recuperamos a conexión coa base de datos.
@@ -217,15 +217,15 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmActivide = con.prepareStatement("DELETE FROM actividade " +
+            stmActividade = con.prepareStatement("DELETE FROM actividade " +
                     " WHERE dataactividade = ? and instalacion = ? and area = ?");
 
-            stmActivide.setTimestamp(1, actividade.getData());
-            stmActivide.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setInt(3, actividade.getArea().getCodArea());
+            stmActividade.setTimestamp(1, actividade.getData());
+            stmActividade.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setInt(3, actividade.getArea().getCodArea());
 
             //Realizamos a actualización:
-            stmActivide.executeUpdate();
+            stmActividade.executeUpdate();
 
             //Facemos commit:
             con.commit();
@@ -236,7 +236,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -244,7 +244,7 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public void apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
         //Recuperamos a conexión coa base de datos.
@@ -252,16 +252,16 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmActivide = con.prepareStatement("INSERT INTO realizaractividade (dataactividade, area, instalacion, usuario) " +
+            stmActividade = con.prepareStatement("INSERT INTO realizaractividade (dataactividade, area, instalacion, usuario) " +
                     " VALUES (?, ?, ?, ?)");
             //Establecemos os valores:
-            stmActivide.setTimestamp(1, actividade.getData());
-            stmActivide.setInt(2, actividade.getArea().getCodArea());
-            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setString(4, usuario.getLogin());
+            stmActividade.setTimestamp(1, actividade.getData());
+            stmActividade.setInt(2, actividade.getArea().getCodArea());
+            stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setString(4, usuario.getLogin());
 
             //Realizamos a actualización:
-            stmActivide.executeUpdate();
+            stmActividade.executeUpdate();
 
             //Facemos commit:
             con.commit();
@@ -272,7 +272,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -280,7 +280,7 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
         //Recuperamos a conexión coa base de datos.
@@ -288,16 +288,16 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmActivide = con.prepareStatement("DELETE FROM realizaractividade " +
+            stmActividade = con.prepareStatement("DELETE FROM realizaractividade " +
                     " WHERE dataactividade = ? and instalacion = ? and area = ? and usuario = ?");
             //Establecemos os valores
-            stmActivide.setTimestamp(1, actividade.getData());
-            stmActivide.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setInt(3, actividade.getArea().getCodArea());
-            stmActivide.setString(4, usuario.getLogin());
+            stmActividade.setTimestamp(1, actividade.getData());
+            stmActividade.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setInt(3, actividade.getArea().getCodArea());
+            stmActividade.setString(4, usuario.getLogin());
 
             //Realizamos a actualización:
-            stmActivide.executeUpdate();
+            stmActividade.executeUpdate();
 
             //Facemos commit:
             con.commit();
@@ -308,7 +308,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -316,7 +316,7 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public boolean estarApuntado(Actividade actividade, Usuario usuario) {
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
         //Recuperamos a conexión coa base de datos.
@@ -324,18 +324,18 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion, usuario " +
+            stmActividade = con.prepareStatement("SELECT dataactividade, area, instalacion, usuario " +
                     " FROM realizaractividade " +
                     " WHERE dataactividade = ? and area = ? and instalacion = ? and usuario = ?");
 
             //Establecemos os valores:
-            stmActivide.setTimestamp(1, actividade.getData());
-            stmActivide.setInt(2, actividade.getArea().getCodArea());
-            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setString(4, usuario.getLogin());
+            stmActividade.setTimestamp(1, actividade.getData());
+            stmActividade.setInt(2, actividade.getArea().getCodArea());
+            stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setString(4, usuario.getLogin());
 
             //Facemos a consulta:
-            rsActividade = stmActivide.executeQuery();
+            rsActividade = stmActividade.executeQuery();
 
             if (rsActividade.next())
                 if ((rsActividade.getTimestamp(1) == actividade.getData()) && (rsActividade.getInt(2) == actividade.getArea().getCodArea()) && (rsActividade.getInt(3) == actividade.getArea().getInstalacion().getCodInstalacion()) && (rsActividade.getString(4).equals(usuario.getLogin())))
@@ -352,7 +352,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
@@ -421,7 +421,7 @@ public class DAOActividade extends AbstractDAO {
     }
 
     public boolean NonEMaximoAforoActividade(Actividade actividade) {
-        PreparedStatement stmActivide = null;
+        PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
 
@@ -430,7 +430,7 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            stmActivide = con.prepareStatement(
+            stmActividade = con.prepareStatement(
                     " SELECT * " +
                             " FROM area" +
                             " WHERE codarea=? AND instalacion=? " +
@@ -442,12 +442,12 @@ public class DAOActividade extends AbstractDAO {
             );
 
             //Establecemos os valores:
-            stmActivide.setTimestamp(1, actividade.getData());
-            stmActivide.setInt(2, actividade.getArea().getCodArea());
-            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setTimestamp(1, actividade.getData());
+            stmActividade.setInt(2, actividade.getArea().getCodArea());
+            stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
 
             //Facemos a consulta:
-            rsActividade = stmActivide.executeQuery();
+            rsActividade = stmActividade.executeQuery();
 
             if (rsActividade.next())
                     return true;
@@ -464,7 +464,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //En calquera caso, téntase pechar os cursores.
             try {
-                stmActivide.close();
+                stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
