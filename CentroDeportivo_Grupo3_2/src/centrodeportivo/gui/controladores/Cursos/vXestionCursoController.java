@@ -732,7 +732,7 @@ public class vXestionCursoController extends AbstractController implements Initi
      */
     public void volverPantallaActividades(Curso curso){
         //Establecemos o curso que se está xestionando.
-        setCurso(curso);
+        setCurso(getFachadaAplicacion().recuperarDatosCurso(curso));
         //Tomamos do tabpane seleccionando a táboa de actividades:
         this.tabPane.getSelectionModel().select(tabActividades);
     }

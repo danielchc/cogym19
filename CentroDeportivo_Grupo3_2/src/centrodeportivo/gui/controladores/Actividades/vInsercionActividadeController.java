@@ -129,7 +129,7 @@ public class vInsercionActividadeController extends AbstractController implement
             return false;
         }
 
-        if (campoData.getValue().isAfter(LocalDate.now()))
+        if (campoData.getValue().isBefore(LocalDate.now()))
         {
             avisoCampos.setText("Data incorrecta. ");
             return false;

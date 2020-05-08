@@ -114,7 +114,6 @@ public class vAdministrarActividadeController extends AbstractController impleme
         else
             actividade = null;
 
-
         //buscar segundo os parametros anteriores
         taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(actividade));
         if(taboaActividade.getItems().size()!=0){
