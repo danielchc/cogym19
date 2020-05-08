@@ -93,7 +93,7 @@ public class vElixirCursoController extends AbstractController implements Initia
         duracionColumn.setCellValueFactory(c -> new SimpleStringProperty(
                 //Basicamente collo a parte enteira e logo a decimal multiplicada por 60:
                 c.getValue().getDuracion().intValue() + "h, " +
-                        (int) ((c.getValue().getDuracion() - c.getValue().getDuracion().intValue()) * 60) + "m"
+                        (int) ((c.getValue().getDuracion().floatValue() - c.getValue().getDuracion().intValue()) * 60) + "m"
         ));
 
         // O booleano aberto: facemos que en función do seu valor se imprima un si ou un non (en lugar de ter "true" ou

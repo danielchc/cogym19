@@ -470,8 +470,8 @@ public class FachadaAplicacion extends Application {
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
-        return xestionCursos.consultarCursosUsuario(usuario);
+    public ArrayList<Curso> consultarCursosUsuario(Curso curso, Usuario usuario) {
+        return xestionCursos.consultarCursosUsuario(curso, usuario);
     }
 
 

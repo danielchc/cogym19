@@ -46,7 +46,7 @@ public class XestionActividade {
     }
 
     public TipoResultados modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
-        if (fachadaBD.horarioOcupadoActividade(actVella, actNova)) {
+        if (!fachadaBD.horarioOcupadoActividade(actVella, actNova)) {
             fachadaBD.modificarActividade(actVella, actNova);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;

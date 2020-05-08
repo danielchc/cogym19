@@ -82,37 +82,50 @@ public class DAOActividade extends AbstractDAO {
         try {
             String consulta = "SELECT dataactividade, area, instalacion, nome  " +
                     " FROM actividade " +
-                    " WHERE area = ? and instalacion = ? and (" +
-                    "       (dataactividade + (duracion * interval '1 hour') > ? and dataactividade <= ?) or" +
-                    "       (dataactividade > ? and dataactividade < ? ))";
+                    " WHERE ((area = ? and instalacion = ? and (" +
+                    "       ((dataactividade + (duracion * interval '1 hour')) > ? and dataactividade <= ?) or" +
+                    "       ((dataactividade + (duracion * interval '1 hour')) >= ? " +
+                    "           and dataactividade < ?)))" +
+                    "   or (profesor = ? and (" +
+                    "       ((dataactividade + (duracion * interval '1 hour')) > ? and dataactividade <= ?) or" +
+                    "       ((dataactividade + (duracion * interval '1 hour')) >= ? " +
+                    "           and dataactividade < ?))))";
 
             if(actVella != null){
-                consulta +=     "       and dataactividade != ? " +
-                                "       and area != ? " +
-                                "       and instalacion != ? ";
+                consulta +=     "       and (dataactividade != ? " +
+                                "       or area != ? " +
+                                "       or instalacion != ?)";
             }
 
             stmActivide = con.prepareStatement(consulta);
+
+            Timestamp dataFin =  new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue()));
 
             //Establecemos os valores:
             stmActivide.setInt(1, actNova.getArea().getCodArea());
             stmActivide.setInt(2, actNova.getArea().getInstalacion().getCodInstalacion());
             stmActivide.setTimestamp(3, actNova.getData());
             stmActivide.setTimestamp(4, actNova.getData());
-            stmActivide.setTimestamp(5, actNova.getData());
-            //Calculamos o momento no que reamta a actividade
-            stmActivide.setTimestamp(6, new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue())));
+            stmActivide.setTimestamp(5, dataFin);
+            stmActivide.setTimestamp(6, dataFin);
+            stmActivide.setString(7, actNova.getProfesor().getLogin());
+            stmActivide.setTimestamp(8, actNova.getData());
+            stmActivide.setTimestamp(9, actNova.getData());
+            stmActivide.setTimestamp(10, dataFin);
+            stmActivide.setTimestamp(11, dataFin);
 
             if(actVella != null){
-                stmActivide.setTimestamp(7, actVella.getData());
-                stmActivide.setInt(8, actVella.getArea().getCodArea());
-                stmActivide.setInt(9, actVella.getArea().getInstalacion().getCodInstalacion());
+                stmActivide.setTimestamp(12, actVella.getData());
+                stmActivide.setInt(13, actVella.getArea().getCodArea());
+                stmActivide.setInt(14, actVella.getArea().getInstalacion().getCodInstalacion());
             }
 
             //Facemos a consulta:
+            System.out.println(stmActivide);
             rsActividade = stmActivide.executeQuery();
 
             if (rsActividade.next()) {
+                System.out.println(rsActividade.getTimestamp("dataactividade") + " " + rsActividade.getInt("area"));
                 return true;
             }
 
@@ -145,25 +158,35 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmActivide = con.prepareStatement("UPDATE actividade " +
-                    " SET tipoactividade = ?, " +
+            String consulta =" UPDATE actividade " +
+            " SET tipoactividade = ?, " +
                     "     curso = ?, " +
                     "     profesor = ?," +
-                    "     nome = ? " +
-                    "     duracion = ? " +
-                    "     data = ? " +
-                    " WHERE dataactividade = ? and area = ? and instalacion = ? ");
+                    "     nome = ?, " +
+                    "     duracion = ?, " +
+                    "     dataactividade = ?, " +
+                    "     area = ?, " +
+                    "     instalacion = ? " +
+                    " WHERE dataactividade = ? and area = ? and instalacion = ? ";
+
+            stmActivide = con.prepareStatement(consulta);
 
             //Establecemos os valores:
             stmActivide.setInt(1, actNova.getTipoActividade().getCodTipoActividade());
-            stmActivide.setInt(2, actNova.getCurso().getCodCurso());
+            if (actNova.getCurso()!=null) {
+                stmActivide.setInt(2, actNova.getCurso().getCodCurso());
+            } else {
+                stmActivide.setNull(2, Types.INTEGER);
+            }
             stmActivide.setString(3, actNova.getProfesor().getLogin());
             stmActivide.setString(4, actNova.getNome());
             stmActivide.setFloat(5, actNova.getDuracion());
             stmActivide.setTimestamp(6, actNova.getData());
-            stmActivide.setTimestamp(7, actVella.getData());
-            stmActivide.setInt(8, actVella.getArea().getCodArea());
-            stmActivide.setInt(9, actVella.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setInt(7, actNova.getArea().getCodArea());
+            stmActivide.setInt(8, actNova.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setTimestamp(9, actVella.getData());
+            stmActivide.setInt(10, actVella.getArea().getCodArea());
+            stmActivide.setInt(11, actVella.getArea().getInstalacion().getCodInstalacion());
 
 
             //Realizamos a actualización:
