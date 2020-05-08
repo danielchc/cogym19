@@ -568,9 +568,8 @@ public class DAOActividade extends AbstractDAO {
         //Preparamos a consulta:
         try {
             String consulta = "SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
-                    " FROM actividade, area, instalacion " +
-                    " WHERE actividade.area=area.codarea " +
-                    "   AND actividade.instalacion=instalacion.codinstalacion ";
+                    " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
+                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion ";
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
@@ -599,6 +598,7 @@ public class DAOActividade extends AbstractDAO {
             }
 
             //Realizamos a consulta:
+            System.out.println(stmActividades);
             rsActividades = stmActividades.executeQuery();
 
             //Recibida a consulta, procesámola:
