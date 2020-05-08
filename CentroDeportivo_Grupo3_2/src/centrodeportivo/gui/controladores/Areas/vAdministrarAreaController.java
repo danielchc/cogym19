@@ -69,6 +69,22 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
+        enSeleccion();
+    }
+
+    public void enSeleccion(){
+        Area area = ((Area) taboaAreas.getSelectionModel().getSelectedItem());
+        if(area != null){
+            //Se a data de baixa está rexistrada a área estará de baixa, polo que habilitaremos a opción de dala de alta.
+            if(area.getDataBaixa() != null){
+                AuxGUI.habilitarCampos(btnDarDeAlta);
+                AuxGUI.inhabilitarCampos(btnDarBaixa);
+            } else {
+                //Noutro caso, se a data de baixa é null, daremos só a opción de dar a área de baixa (estará de alta):
+                AuxGUI.inhabilitarCampos(btnDarDeAlta);
+                AuxGUI.habilitarCampos(btnDarBaixa);
+            }
+        }
     }
 
     public void actualizarTaboa() {
@@ -76,6 +92,8 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getItems().setAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
+        //Facemos que se actúe cando se fai unha selección:
+        enSeleccion();
     }
 
     public void setInstalacion(Instalacion instalacion) {
@@ -97,6 +115,7 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
         //Selecciónase o primeiro item da táboa:
         taboaAreas.getSelectionModel().selectFirst();
+        enSeleccion();
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
@@ -137,17 +156,18 @@ public class vAdministrarAreaController extends AbstractController implements In
                     case correcto:
                         //En caso de que se conseguira a baixa, avísase de que se fixo correctamente:
                         getFachadaAplicacion().mostrarInformacion("Administración de áreas",
-                                "Baixa da área lograda correctamente. Agora podes modificar o aforo.");
+                                "Baixa da área '" + area.getNome() + "' lograda correctamente. Agora podes modificar o aforo.");
                         break;
                     case referenciaRestrict:
                         //Nese caso, avisaremos que ten actividades sen rematar nesa área:
                         getFachadaAplicacion().mostrarInformacion("Administración de áreas",
-                                "Non se pode dar de baixa esta área, hai actividades sen comezar planificadas nela.");
+                                "Non se pode dar de baixa a área '" + area.getNome() + "' , hai actividades " +
+                                        "sen comezar planificadas nela.");
                         break;
                     case sitIncoherente:
                         //Nese caso, avisaremos que xa está dada de baixa:
                         getFachadaAplicacion().mostrarInformacion("Administración de áreas",
-                                "Non se pode dar de baixa esta área, pois xa está dada de baixa.");
+                                "Non se pode dar de baixa a área '" + area.getNome() + "' , pois xa está dada de baixa.");
                         break;
                 }
                 this.actualizarTaboa();
@@ -160,10 +180,26 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
     }
 
-    public void btnDarAltaAction(ActionEvent actionEvent) throws ExcepcionBD {
+    public void btnDarAltaAction(ActionEvent actionEvent) {
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
-            this.getFachadaAplicacion().darDeAltaArea(area);
+            try {
+                TipoResultados res = this.getFachadaAplicacion().darDeAltaArea(area);
+                switch (res){
+                    case correcto:
+                        //Se rematou ben, avisamos desa situación:
+                        getFachadaAplicacion().mostrarInformacion("Administración de áreas",
+                                "Alta da área '" + area.getNome() + "' levada a cabo satisfactoriamente. Pódese usar de novo a área para novas" +
+                                        " actividades.");
+                        break;
+                    case sitIncoherente:
+                        //Se houbo problemas porque a área xa está dada de alta, avisamos tamén:
+                        getFachadaAplicacion().mostrarInformacion("Administración de áreas",
+                                "Non se pode realizar a alta da área '" + area.getNome() + "' de novo, dado que a xa está dada de alta.");
+                }
+            } catch (ExcepcionBD excepcionBD) {
+                excepcionBD.printStackTrace();
+            }
             this.actualizarTaboa();
         }else {
             getFachadaAplicacion().mostrarErro("Administración de Áreas",
@@ -205,6 +241,4 @@ public class vAdministrarAreaController extends AbstractController implements In
         //Regresamos á pantalla anterior e amosámola:
         controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
     }
-
-
 }
