@@ -69,6 +69,8 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
+        //Controlamos tamaño das columnas:
+        taboaAreas.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         //Engadimos un listener para cando se seleccione unha actividade:
         taboaAreas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) enSeleccion();
