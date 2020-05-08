@@ -150,7 +150,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         //Pantalla para administrar as actividades:
         this.pantallas.put(IdPantalla.ADMINACTIVIDADE, new DatosVista("../../vistas/Actividades/vAdministrarActividade.fxml", new vAdministrarActividadeController(super.getFachadaAplicacion(), this)));
         //Pantalla para apuntarse a actividade:
-        this.pantallas.put(IdPantalla.APUNTRSESOCIOM, new DatosVista("../../vistas/Actividades/vElixirActividade.fxml", new vElixirActividadeController(super.getFachadaAplicacion(), this)));
+        this.pantallas.put(IdPantalla.APUNTARSEACTIVIDADE, new DatosVista("../../vistas/Actividades/vElixirActividade.fxml", new vElixirActividadeController(super.getFachadaAplicacion(), this)));
 
     }
 
@@ -302,8 +302,8 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     public void btnDesapuntareseActividade(){
         esconderTodosSliders();
-        mostrarPantalla(IdPantalla.APUNTRSESOCIOM);
-        ((vElixirActividadeController)getControlador(IdPantalla.APUNTRSESOCIOM)).abrirPantallaDesapuntarse();
+        mostrarPantalla(IdPantalla.APUNTARSEACTIVIDADE);
+        ((vElixirActividadeController)getControlador(IdPantalla.APUNTARSEACTIVIDADE)).abrirPantallaDesapuntarse();
     }
 
     /**
