@@ -3,16 +3,12 @@ package centrodeportivo.gui.controladores.Actividades;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
-import centrodeportivo.aplicacion.obxectos.actividades.Curso;
-import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.AuxGUI;
-import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -110,18 +106,25 @@ public class vElixirActividadeController extends AbstractController implements I
     private void actualizarTabla(){
         taboaActividade.getItems().removeAll(taboaActividade.getItems());
         String nome=campoNome.getText();
-        Instalacion instalacion=(Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
         Area area=(Area)comboArea.getSelectionModel().getSelectedItem();
+        area.setInstalacion((Instalacion) comboInstalacion.getSelectionModel().getSelectedItem());
         Usuario usuario=this.controllerPrincipal.getUsuario();
+
+        Actividade actividade;
+
+        if(ValidacionDatos.estanCubertosCampos(campoNome) || comboInstalacion.getSelectionModel().isEmpty() || comboArea.getSelectionModel().isEmpty())
+            actividade = new Actividade(nome, area);
+
 
         //buscar segundo os parametros anteriores
         if(isPantallaApuntarse){
             //apuntarse
+            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(null, usuario));
         }else{
             //eliminar
         }
 
-        taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(null));
+
         if(taboaActividade.getItems().size()!=0){
             taboaActividade.getSelectionModel().selectFirst();
             btnXestionar.setDisable(false);

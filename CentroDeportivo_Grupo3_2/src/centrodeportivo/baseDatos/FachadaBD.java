@@ -670,4 +670,9 @@ public final class FachadaBD {
         return daoActividade.buscarProfesores(tipoactividade);
     }
 
+    public ArrayList<Actividade> buscarActividadeparticipa(Actividade actividade, Usuario usuario)
+    {
+        return daoActividade.buscarActividadeParticipa(actividade,usuario);
+    }
+
 }

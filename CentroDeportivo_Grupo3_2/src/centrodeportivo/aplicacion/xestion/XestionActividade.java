@@ -8,6 +8,8 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
+
+import javax.swing.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -87,6 +89,14 @@ public class XestionActividade {
 
     public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade){
         return fachadaBD.buscarProfesores(tipoactividade);
+    }
+
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario)
+    {
+        if(usuario != null)
+            return fachadaBD.buscarActividadeparticipa(actividade, usuario);
+        else
+            return null;
     }
 
 }

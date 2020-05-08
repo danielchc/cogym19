@@ -625,5 +625,83 @@ public class DAOActividade extends AbstractDAO {
         }
         return actividades;
     }
+
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
+        //Usaremos un ArrayList para almacenar unha nova actividade:
+        ArrayList<Actividade> actividades = new ArrayList<>();
+
+        PreparedStatement stmActividades = null;
+        ResultSet rsActividades;
+        Connection con;
+
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Preparamos a consulta:
+        try {
+            String consulta = "SELECT dataactividade, area, instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade " +
+                    " FROM actividade, tipoactividade, realizaractividade " +
+                    " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade "+
+                    "   AND realizaractividade.dataactividade=actividade.dataactividade " +
+                    "   AND realizaractividade.area=actividade.area " +
+                    "   AND realizaractividade.instalacion=actividade.instalacion " +
+                    "   AND usuario=? ";
+
+            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
+            //argumento:
+
+            if (actividade != null) {
+                consulta += " AND lower(nome) like lower(?)  ";
+
+                if (actividade.getArea()!=null)
+                    consulta += " AND area=? AND instalacion=? ";
+            }
+
+            //Ordenaremos o resultado polo código da área para ordenalas
+            consulta += " ORDER BY nome asc";
+
+            stmActividades = con.prepareStatement(consulta);
+
+            stmActividades.setString(1, usuario.getLogin());
+
+            //Pasando area non nula completase a consulta.
+            if (actividade != null) {
+                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
+                stmActividades.setTimestamp(2, actividade.getData());
+                if (actividade.getArea() != null)
+                {
+                    stmActividades.setInt(3, actividade.getArea().getCodArea());
+                    stmActividades.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
+                }
+
+            }
+
+            //Realizamos a consulta:
+            rsActividades = stmActividades.executeQuery();
+
+            //Recibida a consulta, procesámola:
+            while (rsActividades.next()) {
+                //Imos engadindo ao ArrayList do resultado cada area consultada:
+                actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"))) ,new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            //Peche do statement:
+            try {
+                stmActividades.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return actividades;
+    }
 }
 
