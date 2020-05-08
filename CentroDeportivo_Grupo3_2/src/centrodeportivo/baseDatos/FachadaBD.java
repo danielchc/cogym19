@@ -682,4 +682,9 @@ public final class FachadaBD {
         return daoActividade.buscarActividadeParticipa(actividade,usuario);
     }
 
+    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario)
+    {
+        return daoActividade.buscarActividadeNONParticipa(actividade,usuario);
+    }
+
 }
