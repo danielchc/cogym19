@@ -225,6 +225,15 @@ public class FachadaAplicacion extends Application {
         xestionMensaxes.enviarAvisoSociosCurso(mensaxe, curso);
     }
 
+    /**
+     * Método que nos permite realizar o envío dun aviso aos socios dunha actividade.
+     * @param mensaxe A mensaxe a enviar a eses socios.
+     * @param actividade A actividade de referencia da que se collerán os participantes aos que enviar as mensaxes.
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD{
+        xestionMensaxes.enviarAvisoSociosAct(mensaxe, actividade);
+    }
 
     /*
         Xestion instalacións

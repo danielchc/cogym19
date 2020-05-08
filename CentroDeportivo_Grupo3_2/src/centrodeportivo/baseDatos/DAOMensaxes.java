@@ -3,6 +3,7 @@ package centrodeportivo.baseDatos;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
+import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 
 import java.sql.Connection;
@@ -144,6 +145,71 @@ public final class DAOMensaxes extends AbstractDAO{
                 stmMensaxes.close();
                 stmUsuarios.close();
             } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+    }
+
+    /**
+     * Método que nos permite realizar o envío dun aviso aos socios dunha actividade.
+     * @param mensaxe A mensaxe a enviar a eses socios.
+     * @param actividade A actividade de referencia da que se collerán os participantes aos que enviar as mensaxes.
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD{
+        //O que faremos será recoller primeiro os participantes da actividade e logo mandarlles a mensaxe:
+        PreparedStatement stmUsuarios = null;
+        PreparedStatement stmMensaxes = null;
+        ResultSet rsUsuarios;
+
+        Connection con;
+        //Recuperamos a conexión:
+        con = super.getConexion();
+
+        //Intentamos levar a cabo todas as accións:
+        try{
+            stmUsuarios = con.prepareStatement("SELECT * FROM realizaractividade " +
+                    " WHERE dataactividade = ? " +
+                    "   AND area = ? " +
+                    "   AND instalacion = ?");
+
+            //Completamos a consulta:
+            stmUsuarios.setTimestamp(1, actividade.getData());
+            stmUsuarios.setInt(2, actividade.getArea().getCodArea());
+            stmUsuarios.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+
+            //Realizamos a consulta sobre a base de datos:
+            rsUsuarios = stmUsuarios.executeQuery();
+
+            //Imos preparando xa a inserción para o envío dos avisos:
+            stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido) " +
+                    " VALUES(?, ?, ?, ?) ");
+
+            //Completamos os campos invariantes da consulta:
+            stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
+            stmMensaxes.setString(3, mensaxe.getContido());
+            stmMensaxes.setBoolean(4, false);
+
+            //Imos procesando o resultado e facendo os envíos que sexan precisos:
+            while(rsUsuarios.next()){
+                //Completamos co que falta a inserción:
+                stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
+                //Facemos a actualización:
+                stmMensaxes.executeUpdate();
+            }
+
+            //Feito isto, levamos a cabo o commit:
+            con.commit();
+
+        } catch(SQLException e){
+            //O que facemos é lanzar para arriba a nosa propia excepción:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            //Tratamos de pechar os statements usados nesta consulta:
+            try{
+                stmMensaxes.close();
+                stmUsuarios.close();
+            } catch(SQLException e){
                 System.out.println("Imposible pechar os cursores");
             }
         }
