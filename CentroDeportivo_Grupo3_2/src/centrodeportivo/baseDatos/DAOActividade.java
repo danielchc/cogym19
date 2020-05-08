@@ -67,55 +67,10 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public boolean existeActividade(Actividade actividade) {
-        PreparedStatement stmActivide = null;
-        ResultSet rsActividade;
-        Connection con;
-        //Recuperamos a conexión coa base de datos.
-        con = super.getConexion();
-
-        //Preparamos a consulta:
-        try {
-            stmActivide = con.prepareStatement("SELECT * " +
-                    " FROM actividade " +
-                    " WHERE dataactividade = ? and area = ? and instalacion = ? ");
-
-            //Establecemos os valores:
-            stmActivide.setTimestamp(1, actividade.getData());
-            stmActivide.setInt(2, actividade.getArea().getCodArea());
-            stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-
-            //Facemos a consulta:
-            rsActividade = stmActivide.executeQuery();
-
-            if (rsActividade.next()) {
-                return true;
-            }
-            return false;
-
-        } catch (SQLException e) {
-            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
-            e.printStackTrace();
-            try {
-                con.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        } finally {
-            //En calquera caso, téntase pechar os cursores.
-            try {
-                stmActivide.close();
-            } catch (SQLException e) {
-                System.out.println("Imposible pechar os cursores.");
-            }
-        }
-        return false;
-    }
-
-    public boolean horarioOcupadoActividade(Actividade actividade) {
+    public boolean horarioOcupadoActividade(Actividade actVella, Actividade actNova) {
         /*
          * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
-         * na base de datos.
+         * na base de datos, sempre e cando sexa unha actividade con datos cambiados.
          * */
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
@@ -125,29 +80,42 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion, nome  " +
+            String consulta = "SELECT dataactividade, area, instalacion, nome  " +
                     " FROM actividade " +
                     " WHERE area = ? and instalacion = ? and (" +
                     "       (dataactividade + (duracion * interval '1 hour') > ? and dataactividade <= ?) or" +
-                    "       (dataactividade > ? and dataactividade < ? ))"
-            );
+                    "       (dataactividade > ? and dataactividade < ? ))";
+
+            if(actVella != null){
+                consulta +=     "       and dataactividade != ? " +
+                                "       and area != ? " +
+                                "       and instalacion != ? ";
+            }
+
+            stmActivide = con.prepareStatement(consulta);
 
             //Establecemos os valores:
-            stmActivide.setInt(1, actividade.getArea().getCodArea());
-            stmActivide.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
-            stmActivide.setTimestamp(3, actividade.getData());
-            stmActivide.setTimestamp(4, actividade.getData());
-            stmActivide.setTimestamp(5, actividade.getData());
+            stmActivide.setInt(1, actNova.getArea().getCodArea());
+            stmActivide.setInt(2, actNova.getArea().getInstalacion().getCodInstalacion());
+            stmActivide.setTimestamp(3, actNova.getData());
+            stmActivide.setTimestamp(4, actNova.getData());
+            stmActivide.setTimestamp(5, actNova.getData());
             //Calculamos o momento no que reamta a actividade
-            stmActivide.setTimestamp(6, new Timestamp(actividade.getData().getTime() + TimeUnit.HOURS.toMillis((long) actividade.getDuracion().floatValue())));
+            stmActivide.setTimestamp(6, new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue())));
 
+            if(actVella != null){
+                stmActivide.setTimestamp(7, actVella.getData());
+                stmActivide.setInt(8, actVella.getArea().getCodArea());
+                stmActivide.setInt(9, actVella.getArea().getInstalacion().getCodInstalacion());
+            }
 
             //Facemos a consulta:
             rsActividade = stmActivide.executeQuery();
 
-            if (rsActividade.next())
-                if ((rsActividade.getTimestamp(1) == actividade.getData()) && (rsActividade.getInt(2) == actividade.getArea().getCodArea()) && (rsActividade.getInt(3) == actividade.getArea().getInstalacion().getCodInstalacion()))
-                    return true;
+            if (rsActividade.next()) {
+                return true;
+            }
+
             return false;
 
         } catch (SQLException e) {
@@ -429,8 +397,7 @@ public class DAOActividade extends AbstractDAO {
         return profesores;
     }
 
-    public boolean NonEMaximoAforoActividade(Actividade actividade)
-    {
+    public boolean NonEMaximoAforoActividade(Actividade actividade) {
         PreparedStatement stmActivide = null;
         ResultSet rsActividade;
         Connection con;

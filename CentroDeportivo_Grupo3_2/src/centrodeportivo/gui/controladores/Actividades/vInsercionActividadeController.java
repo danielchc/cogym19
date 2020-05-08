@@ -136,7 +136,7 @@ public class vInsercionActividadeController extends AbstractController implement
         return true;
     }
 
-    public void btnGardarAction(ActionEvent actionEvent) throws ExcepcionBD {
+    public void btnGardarAction(ActionEvent actionEvent) {
         if(!ValidacionDatos.estanCubertosCampos(campoNome,campoHoraInicio,campoHoraFin)){
             avisoCampos.setText("Algún campo sen cubrir.");
             return;
@@ -173,31 +173,41 @@ public class vInsercionActividadeController extends AbstractController implement
 
         if(actividadeModificar==null) {
             //crear activida
-            res = super.getFachadaAplicacion().EngadirActiviade(actividade);
-            switch (res) {
-                case correcto:
-                    super.getFachadaAplicacion().mostrarInformacion("Actividade gardada",
-                        "Actividade " + actividade.getNome() + " gardada correctamente.");
-                    //Cando se garda a actividade, pódese volver:
-                    accionsVolver();
-                    break;
-                case datoExiste:
-                    super.getFachadaAplicacion().mostrarErro("Actividade NON gardada",
-                        "Actividade " + actividade.getNome() + " non se puido gardar, dado que hai incompatibilidades " +
-                                "cos horarios doutras actividades.");
-                    break;
+            try {
+                res = super.getFachadaAplicacion().EngadirActiviade(actividade);
+                switch (res) {
+                    case correcto:
+                        super.getFachadaAplicacion().mostrarInformacion("Actividade gardada",
+                                "Actividade " + actividade.getNome() + " gardada correctamente.");
+                        //Cando se garda a actividade, pódese volver:
+                        accionsVolver();
+                        break;
+                    case datoExiste:
+                        super.getFachadaAplicacion().mostrarErro("Actividade NON gardada",
+                                "Actividade " + actividade.getNome() + " non se puido gardar, dado que hai incompatibilidades " +
+                                        "cos horarios doutras actividades.");
+                        break;
+                }
+            } catch(ExcepcionBD e) {
+                getFachadaAplicacion().mostrarErro("Administración de actividades",
+                        e.getMessage());
             }
         }else{
             //modificala
-            res = super.getFachadaAplicacion().modificarActividade(actividadeModificar, actividade);
-            switch (res) {
-                case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade modificada",
-                        "Actividade " + actividade.getNome() + " modificada correctamente.");
-                    break;
-                case datoExiste:super.getFachadaAplicacion().mostrarErro("Actividade NON modificada",
-                        "Actividade " + actividade.getNome() + " non se puido modificar, dado que hai incompatibilidades" +
-                                " cos horarios doutras actividades.");
-                    break;
+            try{
+                res = super.getFachadaAplicacion().modificarActividade(actividadeModificar, actividade);
+                switch (res) {
+                    case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade modificada",
+                            "Actividade " + actividade.getNome() + " modificada correctamente.");
+                        break;
+                    case datoExiste:super.getFachadaAplicacion().mostrarErro("Actividade NON modificada",
+                            "Actividade " + actividade.getNome() + " non se puido modificar, dado que hai incompatibilidades" +
+                                    " cos horarios doutras actividades.");
+                        break;
+                }
+            } catch (ExcepcionBD e){
+                getFachadaAplicacion().mostrarErro("Administración de actividades",
+                        e.getMessage());
             }
         }
 

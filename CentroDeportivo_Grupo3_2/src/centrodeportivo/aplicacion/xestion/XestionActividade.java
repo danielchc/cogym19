@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -16,14 +17,14 @@ public class XestionActividade {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
-    public XestionActividade(FachadaGUI fachadaGUI, FachadaBD fachadaBD){
+    public XestionActividade(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
     public TipoResultados EngadirActividade(Actividade actividade) throws ExcepcionBD {
         //Se a actividade non existe, dase de engadimola:
-        if(!fachadaBD.existeActividade(actividade) && !fachadaBD.horarioOcupadoActividade(actividade)) {
+        if (!fachadaBD.horarioOcupadoActividade(null, actividade)) {
             fachadaBD.EngadirActividade(actividade);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -33,24 +34,19 @@ public class XestionActividade {
     }
 
     public TipoResultados borrarActividade(Actividade actividade) throws ExcepcionBD {
-        if(fachadaBD.existeActividade(actividade)) {
-            //Só se pode borrar unha actividade se inda non comezou
-            if(actividade.getData().after(new Timestamp(System.currentTimeMillis()))){ //Comprobar eliminable
-                fachadaBD.borrarActividade(actividade);
-                //Se se completou o método correctamente, devolvemos o enum que indica corrección:
-                return TipoResultados.correcto;
-            } else {
-                //Se a actividade se realizou xa, ou se está niso, tense unha situación incoherente:
-                return TipoResultados.sitIncoherente;
-            }
+        //Só se pode borrar unha actividade se inda non comezou
+        if (actividade.getData().after(new Timestamp(System.currentTimeMillis()))) { //Comprobar eliminable
+            fachadaBD.borrarActividade(actividade);
+            //Se se completou o método correctamente, devolvemos o enum que indica corrección:
+            return TipoResultados.correcto;
         } else {
-            //Se o dato non existe, devolvemos o enum axeitado:
-            return TipoResultados.datoNonExiste;
+            //Se a actividade se realizou xa, ou se está niso, tense unha situación incoherente:
+            return TipoResultados.sitIncoherente;
         }
     }
 
     public TipoResultados modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
-        if(fachadaBD.existeActividade(actVella)) {
+        if (fachadaBD.horarioOcupadoActividade(actVella, actNova)) {
             fachadaBD.modificarActividade(actVella, actNova);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -61,7 +57,7 @@ public class XestionActividade {
 
     public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         //Se a actividade non existe, non estas apuntado e non é maxio o aforo podese apuntar, apuntamos o usuario na actividade::
-        if(fachadaBD.existeActividade(actividade) && !fachadaBD.estarApuntado(actividade, usuario) && fachadaBD.NonEMaximoAforoActividade(actividade)) {
+        if (!fachadaBD.estarApuntado(actividade, usuario) && fachadaBD.NonEMaximoAforoActividade(actividade)) {
             fachadaBD.apuntarseActividade(actividade, usuario);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -72,7 +68,7 @@ public class XestionActividade {
 
     public TipoResultados borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         //Se a Actividade existe, borramola:
-        if(fachadaBD.existeActividade(actividade) && fachadaBD.estarApuntado(actividade, usuario)) {
+        if (fachadaBD.estarApuntado(actividade, usuario)) {
             fachadaBD.borrarseDeActividade(actividade, usuario);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -82,10 +78,10 @@ public class XestionActividade {
     }
 
     public ArrayList<Actividade> buscarActividade(Actividade actividade) {
-            return fachadaBD.buscarActividade(actividade);
+        return fachadaBD.buscarActividade(actividade);
     }
 
-    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade){
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade) {
         return fachadaBD.buscarProfesores(tipoactividade);
     }
 
