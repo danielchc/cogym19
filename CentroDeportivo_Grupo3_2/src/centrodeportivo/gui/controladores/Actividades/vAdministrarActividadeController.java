@@ -43,8 +43,6 @@ public class vAdministrarActividadeController extends AbstractController impleme
     public TableView taboaActividade;
     public Button btnRexistrar;
 
-    private Actividade actividade;
-
     /**
      * Atributos privados: somentes temos un que é a referencia ao controlador da ventá principal.
      */
@@ -109,11 +107,10 @@ public class vAdministrarActividadeController extends AbstractController impleme
 
     private void actualizarTabla(){
         taboaActividade.getItems().removeAll(taboaActividade.getItems());
-        if (ValidacionDatos.estanCubertosCampos(campoNome))
-            actividade.setNome(campoNome.getText());
-        else
-            actividade = null;
-
+        Actividade actividade = null;
+        if (ValidacionDatos.estanCubertosCampos(campoNome)) {
+            actividade = new Actividade(campoNome.getText());
+        }
         //buscar segundo os parametros anteriores
         taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(actividade));
         if(taboaActividade.getItems().size()!=0){

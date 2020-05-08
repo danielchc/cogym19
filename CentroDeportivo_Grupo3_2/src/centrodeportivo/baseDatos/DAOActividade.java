@@ -575,7 +575,7 @@ public class DAOActividade extends AbstractDAO {
             //argumento:
 
             if (actividade != null) {
-                consulta += " AND lower(nome) like lower(?)  ";
+                consulta += " AND lower(actividade.nome) like lower(?)  ";
 
                 if (actividade.getCurso() == null)
                     consulta += " AND curso is null ";
@@ -598,7 +598,6 @@ public class DAOActividade extends AbstractDAO {
             }
 
             //Realizamos a consulta:
-            System.out.println(stmActividades);
             rsActividades = stmActividades.executeQuery();
 
             //Recibida a consulta, procesámola:

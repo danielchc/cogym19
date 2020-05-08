@@ -35,7 +35,6 @@ import java.util.ResourceBundle;
 
 public class vInsercionActividadeController extends AbstractController implements Initializable {
 
-
     public ComboBox<TipoActividade> comboTipoactividade = new ComboBox<>();
     public TextField campoNome;
     public ComboBox<Instalacion> comboInstalacions = new ComboBox<>();
@@ -172,24 +171,32 @@ public class vInsercionActividadeController extends AbstractController implement
 
         TipoResultados res;
 
-        if(actividadeModificar==null){
+        if(actividadeModificar==null) {
             //crear activida
             res = super.getFachadaAplicacion().EngadirActiviade(actividade);
-            switch (res)
-            {
-                case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade gardada", "Activade " + actividade.getNome() + " gardada correctamente.");
+            switch (res) {
+                case correcto:
+                    super.getFachadaAplicacion().mostrarInformacion("Actividade gardada",
+                        "Actividade " + actividade.getNome() + " gardada correctamente.");
+                    //Cando se garda a actividade, pódese volver:
+                    accionsVolver();
                     break;
-                case datoExiste:super.getFachadaAplicacion().mostrarInformacion("Actividade NON gardada", "Activade " + actividade.getNome() + " non se puido gardar.");
+                case datoExiste:
+                    super.getFachadaAplicacion().mostrarErro("Actividade NON gardada",
+                        "Actividade " + actividade.getNome() + " non se puido gardar, dado que hai incompatibilidades " +
+                                "cos horarios doutras actividades.");
                     break;
             }
         }else{
             //modificala
             res = super.getFachadaAplicacion().modificarActividade(actividadeModificar, actividade);
-            switch (res)
-            {
-                case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade modificada", "Activade " + actividade.getNome() + " modificada correctamente.");
+            switch (res) {
+                case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade modificada",
+                        "Actividade " + actividade.getNome() + " modificada correctamente.");
                     break;
-                case datoExiste:super.getFachadaAplicacion().mostrarInformacion("Actividade NON modificada", "Activade " + actividade.getNome() + " non se puido modificar.");
+                case datoExiste:super.getFachadaAplicacion().mostrarErro("Actividade NON modificada",
+                        "Actividade " + actividade.getNome() + " non se puido modificar, dado que hai incompatibilidades" +
+                                " cos horarios doutras actividades.");
                     break;
             }
         }
@@ -197,10 +204,7 @@ public class vInsercionActividadeController extends AbstractController implement
     }
 
     public void btnVolverAction(ActionEvent actionEvent) {
-        if(curso!=null){
-            this.controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONCURSO);
-            ((vXestionCursoController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO)).volverPantallaActividades(curso);
-        }
+        accionsVolver();
     }
 
     public void cargarCurso(Curso curso){
@@ -230,5 +234,20 @@ public class vInsercionActividadeController extends AbstractController implement
         );
 
         campoData.setValue(actividade.getData().toLocalDateTime().toLocalDate());
+    }
+
+    private void accionsVolver(){
+        if (curso != null) {
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONCURSO);
+            ((vXestionCursoController) this.controllerPrincipal.getControlador(IdPantalla.XESTIONCURSO)).volverPantallaActividades(curso);
+        } else {
+            //Se o curso fose null, entón podemos volver á pantalla de administración de actividades (se a actividade se está a modificar) ou
+            //á de inicio (noutro caso).
+            if(actividadeModificar != null){
+                this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINACTIVIDADE);
+            } else {
+                this.controllerPrincipal.mostrarPantalla(IdPantalla.INICIO);
+            }
+        }
     }
 }

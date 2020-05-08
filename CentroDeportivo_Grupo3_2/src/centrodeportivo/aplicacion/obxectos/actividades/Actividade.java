@@ -27,6 +27,10 @@ public class Actividade {
     private Float valMedia;
 
     //Constructor
+    public Actividade(String nome){
+        this.nome = nome;
+    }
+
     public Actividade(Timestamp data, Area area){
         this.data = data;
         this.area = area;
