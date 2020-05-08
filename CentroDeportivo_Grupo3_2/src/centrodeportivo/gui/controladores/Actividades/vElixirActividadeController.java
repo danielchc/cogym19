@@ -128,10 +128,11 @@ public class vElixirActividadeController extends AbstractController implements I
         //buscar segundo os parametros anteriores
         if(isPantallaApuntarse){
             //apuntarse
-            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
+            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeNONParticipa(actividade, usuario));
         }else{
             //eliminar
-            //1taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeNONParticipa(actividade, usuario));
+            System.out.println("Prenon participa");
+            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
         }
 
 
