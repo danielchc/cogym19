@@ -67,7 +67,7 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public boolean horarioOcupadoActividade(Actividade actNova) {
+    public boolean horarioOcupadoActividade(Actividade actVella, Actividade actNova) {
         /*
          * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
          * na base de datos, sempre e cando sexa unha actividade con datos cambiados.
@@ -82,14 +82,20 @@ public class DAOActividade extends AbstractDAO {
         try {
             String consulta = "SELECT dataactividade, area, instalacion, nome  " +
                     " FROM actividade " +
-                    " WHERE (area = ? and instalacion = ? and (" +
+                    " WHERE ((area = ? and instalacion = ? and (" +
                     "       ((dataactividade + (duracion * interval '1 hour')) > ? and dataactividade <= ?) or" +
                     "       ((dataactividade + (duracion * interval '1 hour')) >= ? " +
                     "           and dataactividade < ?)))" +
                     "   or (profesor = ? and (" +
                     "       ((dataactividade + (duracion * interval '1 hour')) > ? and dataactividade <= ?) or" +
                     "       ((dataactividade + (duracion * interval '1 hour')) >= ? " +
-                    "           and dataactividade < ?)))";
+                    "           and dataactividade < ?))))";
+
+            if(actVella != null){
+                consulta +=     "       and (dataactividade != ? " +
+                                "       or area != ? " +
+                                "       or instalacion != ?)";
+            }
 
             stmActivide = con.prepareStatement(consulta);
 
@@ -108,10 +114,18 @@ public class DAOActividade extends AbstractDAO {
             stmActivide.setTimestamp(10, dataFin);
             stmActivide.setTimestamp(11, dataFin);
 
+            if(actVella != null){
+                stmActivide.setTimestamp(12, actVella.getData());
+                stmActivide.setInt(13, actVella.getArea().getCodArea());
+                stmActivide.setInt(14, actVella.getArea().getInstalacion().getCodInstalacion());
+            }
+
             //Facemos a consulta:
+            System.out.println(stmActivide);
             rsActividade = stmActivide.executeQuery();
 
             if (rsActividade.next()) {
+                System.out.println(rsActividade.getTimestamp("dataactividade") + " " + rsActividade.getInt("area"));
                 return true;
             }
 
@@ -144,8 +158,8 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            stmActivide = con.prepareStatement("UPDATE actividade " +
-                    " SET tipoactividade = ?, " +
+            String consulta =" UPDATE actividade " +
+            " SET tipoactividade = ?, " +
                     "     curso = ?, " +
                     "     profesor = ?," +
                     "     nome = ?, " +
@@ -153,7 +167,9 @@ public class DAOActividade extends AbstractDAO {
                     "     dataactividade = ?, " +
                     "     area = ?, " +
                     "     instalacion = ? " +
-                    " WHERE dataactividade = ? and area = ? and instalacion = ? ");
+                    " WHERE dataactividade = ? and area = ? and instalacion = ? ";
+
+            stmActivide = con.prepareStatement(consulta);
 
             //Establecemos os valores:
             stmActivide.setInt(1, actNova.getTipoActividade().getCodTipoActividade());
