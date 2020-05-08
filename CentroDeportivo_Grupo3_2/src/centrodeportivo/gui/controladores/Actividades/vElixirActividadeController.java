@@ -4,19 +4,20 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Area;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
@@ -33,22 +34,15 @@ import java.util.ResourceBundle;
  */
 public class vElixirActividadeController extends AbstractController implements Initializable {
 
-    /**
-     * Atributos públicos: correspóndense con elementos que se atopan na ventá de administración de tipos de
-     * actividades.
-     */
+
     public TextField campoNome;
-    public Button btnBuscar;
-    public Button btnLimpar;
+    public ComboBox comboInstalacion;
+    public ComboBox comboArea;
     public TableView taboaActividade;
-    public Button btnRexistrar;
+    public Button btnXestionar;
 
-    private Curso curso;
-
-    /**
-     * Atributos privados: somentes temos un que é a referencia ao controlador da ventá principal.
-     */
     private vPrincipalController controllerPrincipal;
+    private boolean isPantallaApuntarse;
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
@@ -69,11 +63,24 @@ public class vElixirActividadeController extends AbstractController implements I
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Haberá que colocar todos os campos na táboa correspondente:
-        //A primeira terá a data
+        this.isPantallaApuntarse=true;
+
+        this.comboInstalacion.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
+        if(!this.comboInstalacion.getItems().isEmpty()) this.comboInstalacion.getSelectionModel().selectFirst();
+
+        this.comboInstalacion.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                Instalacion instalacion=(Instalacion)observableValue.getValue();
+                comboArea.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarArea(instalacion,null)));
+                if(!comboArea.getItems().isEmpty()) comboArea.getSelectionModel().selectFirst();
+            }
+        });
+
+
         TableColumn<Actividade, Timestamp> coldata = new TableColumn<>("Data");
         coldata.setCellValueFactory(new PropertyValueFactory<>("Data"));
-        //A segunda terá o nome da actividade
+
         TableColumn<Actividade, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
@@ -83,38 +90,49 @@ public class vElixirActividadeController extends AbstractController implements I
         TableColumn<Actividade, String> coltipoactividade = new TableColumn<>("Tipo Actividade");
         coltipoactividade.setCellValueFactory(new PropertyValueFactory<>("tipoactividadenome"));
         coltipoactividade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Actividade, String>, ObservableValue<String>>() {
-
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Actividade, String> param) {
                 return new SimpleObjectProperty<String>(param.getValue().getTipoActividadenome());
             }
         });
-
-
-        System.out.println(super.getFachadaAplicacion().buscarActividade(null));
-
         //Engadimos as columnas á táboa
         taboaActividade.getColumns().addAll(coldata, colNome, colduracion, coltipoactividade);
-        //Engadimos os items dispoñíbeis no momento:
+
+        btnXestionar.setText("Apuntarse");
+        btnXestionar.setDisable(true);
+
+        actualizarTabla();
+    }
+
+    private void actualizarTabla(){
+        taboaActividade.getItems().removeAll(taboaActividade.getItems());
+        String nome=campoNome.getText();
+        Instalacion instalacion=(Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
+        Area area=(Area)comboArea.getSelectionModel().getSelectedItem();
+
+        //buscar segundo os parametros anteriores
         taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(null));
-        //Establecemos unha selección sobre a táboa, se hai resultados:
-        taboaActividade.getSelectionModel().selectFirst();
-
+        if(taboaActividade.getItems().size()!=0){
+            taboaActividade.getSelectionModel().selectFirst();
+            btnXestionar.setDisable(false);
+        }
     }
 
-    public Curso getCurso() {
-        return curso;
+    public void btnBuscarAction(ActionEvent actionEvent){
+        actualizarTabla();
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void btnXestionarAction(ActionEvent actionEvent){
+        if(isPantallaApuntarse){
+            //se se esta apuntando
+        }else{
+            //se esta para borrarse
+        }
     }
 
-    public void btnBuscarAction(ActionEvent actionEvent){}
-
-    public void btnLimparAction(ActionEvent actionEvent){}
-
-    public void btnRexistrarAction(ActionEvent actionEvent){}
-
-    public void btnXestionarAction(ActionEvent actionEvent){}
+    public void abrirPantallaDesapuntarse(){
+        this.isPantallaApuntarse=false;
+        btnXestionar.setText("Desapuntarse");
+        btnXestionar.setDisable(true);
+    }
 }
