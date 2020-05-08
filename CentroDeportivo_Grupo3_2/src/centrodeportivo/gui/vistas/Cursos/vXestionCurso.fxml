@@ -228,7 +228,7 @@
                                                       </VBox>
                                                       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Button fx:id="btnModificarSeleccion" mnemonicParsing="false" onAction="#btnModificarSeleccionAction" text="Modificar selección" />
+                                                            <Button fx:id="btnXestionarSeleccion" mnemonicParsing="false" onAction="#btnXestionarSeleccionAction" text="Xestionar Selección" />
                                                          </children>
                                                       </VBox>
                                                    </children>

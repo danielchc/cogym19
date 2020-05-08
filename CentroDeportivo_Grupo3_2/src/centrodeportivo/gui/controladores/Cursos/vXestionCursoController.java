@@ -24,10 +24,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
+import javax.swing.plaf.ActionMapUIResource;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -56,7 +58,7 @@ public class vXestionCursoController extends AbstractController implements Initi
     public TableView taboaActividades;
     public Button btnEngadirActividade;
     public Button btnBorrarActividade;
-    public Button btnModificarSeleccion;
+    public Button btnXestionarSeleccion;
     public TableView taboaUsuarios;
     public Button btnCancelar;
     public Button btnRestaurar;
@@ -222,7 +224,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         taboaProfesores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //En primeira instancia, inhabilitamos TODOS os botóns salvo o de gardar curso.
-        AuxGUI.inhabilitarCampos(btnActivar,btnBorrarActividade,btnEngadirActividade,btnModificarSeleccion,
+        AuxGUI.inhabilitarCampos(btnActivar,btnBorrarActividade,btnEngadirActividade, btnXestionarSeleccion,
                 btnCancelar, btnRefrescar);
         //Deshabilitamos os vbox e o botón de retorno:
         AuxGUI.ocultarCampos(vBoxBotonInforme, vBoxDetalleInforme, btnVolver);
@@ -429,10 +431,10 @@ public class vXestionCursoController extends AbstractController implements Initi
     }
 
     /**
-     * Método que representa as accións levadas a cabo ao premer o botón de modificado dunha selección.
+     * Método que representa as accións levadas a cabo ao premer o botón de xestión dunha selección.
      * @param actionEvent
      */
-    public void btnModificarSeleccionAction(ActionEvent actionEvent) {
+    public void btnXestionarSeleccionAction(ActionEvent actionEvent) {
         if (!taboaActividades.getSelectionModel().isEmpty()) {
             Actividade actividade = ((Actividade) taboaActividades.getSelectionModel().getSelectedItem());
             this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
@@ -563,11 +565,9 @@ public class vXestionCursoController extends AbstractController implements Initi
             campoCodigo.setText(curso.getCodCurso().toString());
             completarCamposPrincipais();
             //Enchemos a táboa de actividades:
-            taboaActividades.getItems().removeAll(taboaActividades.getItems());
-            taboaActividades.getItems().addAll(curso.getActividades());
+            actualizarTaboaActividades(curso.getActividades());
             //Enchemos a táboa de participantes:
-            taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
-            taboaUsuarios.getItems().addAll(curso.getParticipantes());
+            actualizarTaboaUsuarios(curso.getParticipantes());
             if (curso.isAberto()) {
                 //Se o curso xa está aberto non damos opción a abrilo:
                 AuxGUI.inhabilitarCampos(btnActivar);
@@ -575,14 +575,14 @@ public class vXestionCursoController extends AbstractController implements Initi
                 AuxGUI.habilitarCampos(btnActivar);
             }
             //Activamos botóns actividades, cancelación e xeración de informe
-            AuxGUI.habilitarCampos(btnBorrarActividade, btnEngadirActividade, btnModificarSeleccion,
+            AuxGUI.habilitarCampos(btnBorrarActividade, btnEngadirActividade, btnXestionarSeleccion,
                     btnCancelar, btnRefrescar);
             AuxGUI.amosarCampos(btnVolver);
             //Se o curso está rematado, entón daremos opción a amosar o botón do informe:
             if (curso.getDataFin() != null && curso.getDataFin().before(new Date(System.currentTimeMillis()))) {
                 AuxGUI.amosarCampos(vBoxBotonInforme);
                 //Inhabilitaranse tamén todos os botóns relativos ás actividades:
-                AuxGUI.inhabilitarCampos(btnEngadirActividade, btnBorrarActividade, btnModificarSeleccion);
+                AuxGUI.inhabilitarCampos(btnEngadirActividade, btnBorrarActividade, btnXestionarSeleccion);
             }
         } else {
             this.getFachadaAplicacion().mostrarErro("Administración de Cursos",
@@ -603,13 +603,11 @@ public class vXestionCursoController extends AbstractController implements Initi
             //Neste caso actualizaremos seguro aqueles campos que se amosan sempre nesta pantalla:
             //Os campos principais:
             completarCamposPrincipais();
-            //Actualizamos as táboas, primeiro eliminando os campos actuais:
-            taboaActividades.getItems().removeAll(taboaActividades.getItems());
-            taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
+            //Actualizamos as táboas:
             //Enchemos a táboa de actividades:
-            taboaActividades.getItems().addAll(curso.getActividades());
+            actualizarTaboaActividades(curso.getActividades());
             //Enchemos a táboa de participantes:
-            taboaUsuarios.getItems().addAll(curso.getParticipantes());
+            actualizarTaboaUsuarios(curso.getParticipantes());
             //Comprobamos tamén que o curso rematara:
             if(curso.getDataFin().before(new Date(System.currentTimeMillis()))) {
                 //Nesa situación, enchemos os campos do informe:
@@ -629,11 +627,8 @@ public class vXestionCursoController extends AbstractController implements Initi
                     tagVTM.setTextFill(Paint.valueOf("Red"));
                 }
                 //Enchemos as novas táboas, vaciándoas previamente:
-                taboaActividadesVal.getItems().removeAll(taboaActividadesVal.getItems());
-                taboaProfesores.getItems().removeAll(taboaProfesores.getItems());
-                taboaActividadesVal.getItems().addAll(curso.getActividades());
-                taboaProfesores.getItems().addAll(curso.getProfesores());
-
+                actualizarTaboaActividadesVal(curso.getActividades());
+                actualizarTaboaProfesores(curso.getProfesores());
                 //Cambiamos a VBox visible:
                 vBoxDetalleInforme.setVisible(true);
                 vBoxBotonInforme.setVisible(false);
@@ -660,9 +655,75 @@ public class vXestionCursoController extends AbstractController implements Initi
         campoDescricion.setText(curso.getDescricion());
     }
 
-
+    /**
+     * Método que nos permite regresar, cando cerramos a pantalla de actividade, á pantalla de actividades dentro
+     * desta interface
+     * @param curso O curso a establecer.
+     */
     public void volverPantallaActividades(Curso curso){
+        //Establecemos o curso que se está xestionando.
         setCurso(curso);
+        //Tomamos do tabpane seleccionando a táboa de actividades:
         this.tabPane.getSelectionModel().select(tabActividades);
+    }
+
+    /**
+     * Método que nos permite actualizar a táboa de actividades.
+     * @param actividadeArrayList A lista de actividades que se quere introducir na táboa.
+     */
+    private void actualizarTaboaActividades(ArrayList<Actividade> actividadeArrayList){
+        //O primeiro que faremos será vaciar a táboa de actividades:
+        taboaActividades.getItems().removeAll(taboaActividades.getItems());
+        //Agora, insertaremos todos os items que se pasen como argumento:
+        taboaActividades.getItems().addAll(actividadeArrayList);
+        //Establecemos unha selección sobre a táboa (se hai resultados), e segundo iso activaremos o botón de xestionar:
+        if(!taboaActividades.getItems().isEmpty()) {
+            //Se non está baleira seleccionamos o primeiro:
+            taboaActividades.getSelectionModel().selectFirst();
+            //O que tamén faremos será activar o botón para xestionar unha selección:
+            AuxGUI.habilitarCampos(btnXestionarSeleccion);
+        } else {
+            //Noutro caso:
+            AuxGUI.inhabilitarCampos(btnXestionarSeleccion);
+        }
+    }
+
+    /**
+     * Método que nos permite actualizar a táboa de usuarios.
+     * @param usuarioArrayList A lista de usuarios que se quere introducir na táboa.
+     */
+    private void actualizarTaboaUsuarios(ArrayList<Usuario> usuarioArrayList){
+        //O primeiro que faremos será vaciar a táboa de usuarios:
+        taboaUsuarios.getItems().removeAll(taboaUsuarios.getItems());
+        //Agora, insertaremos todos os items que se pasen:
+        taboaUsuarios.getItems().addAll(usuarioArrayList);
+        //Establecemos unha selección sobre a táboa con resultados:
+        taboaUsuarios.getSelectionModel().selectFirst();
+    }
+
+    /**
+     * Método que nos permite actualizar a táboa de actividades con valoracións.
+     * @param actividadeArrayList A lista de actividades que se quere introducir na táboa.
+     */
+    private void actualizarTaboaActividadesVal(ArrayList<Actividade> actividadeArrayList){
+        //O primeiro que faremos será vaciar a táboa de actividades con valoracións:
+        taboaActividadesVal.getItems().removeAll(taboaActividadesVal.getItems());
+        //Agora, insertaremos items pasados:
+        taboaActividadesVal.getItems().addAll(actividadeArrayList);
+        //Establecemos unha selección:
+        taboaActividadesVal.getSelectionModel().selectFirst();
+    }
+
+    /**
+     * Método que nos permite actualizar a táboa de profesores
+     * @param persoalArrayList A lista de profesores que se quere introducir na táboa.
+     */
+    private void actualizarTaboaProfesores(ArrayList<Persoal> persoalArrayList){
+        //O primeiro que faremos será vaciar a táboa de profesores:
+        taboaProfesores.getItems().removeAll(taboaProfesores.getItems());
+        //Agora, insertaremos items pasados:
+        taboaProfesores.getItems().addAll(persoalArrayList);
+        //Establecemos unha selección:
+        taboaProfesores.getSelectionModel().selectFirst();
     }
 }

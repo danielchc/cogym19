@@ -129,6 +129,11 @@
                                                 <Button fx:id="btnAdministrarAreasAction" mnemonicParsing="false" onAction="#btnAdministrarAreasAction" prefHeight="40.0" prefWidth="175.0" text="Administrar Áreas" HBox.hgrow="ALWAYS" />
                                              </children>
                                           </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Button fx:id="btnRestaurar" mnemonicParsing="false" onAction="#btnRestaurarAction" prefHeight="40.0" prefWidth="175.0" text="Restaurar Campos" />
+                                             </children>
+                                          </HBox>
                                           <HBox prefHeight="75.0" prefWidth="275.0" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
