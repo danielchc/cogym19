@@ -25,6 +25,11 @@ public class Instalacion {
         this.codInstalacion = codInstalacion;
     }
 
+    public Instalacion(Integer codInstalacion, String nome) {
+        this.codInstalacion = codInstalacion;
+        this.nome = nome;
+    }
+
     /**
      * Constructor con tres argumentos: usarase cando un usuario queira introducir unha nova instalación, dado que
      * inicialmente non se coñecerá o seu código (ata que se inserte).

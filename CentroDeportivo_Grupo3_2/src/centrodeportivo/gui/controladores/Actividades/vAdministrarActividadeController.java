@@ -3,12 +3,14 @@ package centrodeportivo.gui.controladores.Actividades;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
-import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
+import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.AuxGUI;
+import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,10 +18,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
+import javax.swing.*;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -40,7 +43,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
     public TableView taboaActividade;
     public Button btnRexistrar;
 
-    private Curso curso;
+    private Actividade actividade;
 
     /**
      * Atributos privados: somentes temos un que é a referencia ao controlador da ventá principal.
@@ -66,40 +69,85 @@ public class vAdministrarActividadeController extends AbstractController impleme
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Haberá que colocar todos os campos na táboa correspondente:
-        //A primeira terá a data
+
         TableColumn<Actividade, Timestamp> coldata = new TableColumn<>("Data");
-        coldata.setCellValueFactory(new PropertyValueFactory<>("data"));
-        //A segunda terá o nome da actividade
+        coldata.setCellValueFactory(new PropertyValueFactory<>("Data"));
+
         TableColumn<Actividade, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        //A terceira terá o curso
-        TableColumn<Actividade, String> colcurso = new TableColumn<>("Curso");
-        colcurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
 
         TableColumn<Actividade, Timestamp> colduracion = new TableColumn<>("Duracion");
         colduracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
 
-        TableColumn<Actividade, String> coltipoactividade = new TableColumn<>("Tipo Actividade");
-        coltipoactividade.setCellValueFactory(new PropertyValueFactory<>("tipoactividade"));
+        TableColumn<Actividade, String> colarea = new TableColumn<>("Area");
+        colarea.setCellValueFactory(new PropertyValueFactory<>("areanome"));
+        colarea.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Actividade, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Actividade, String> param) {
+                return new SimpleObjectProperty<String>(param.getValue().getArea().getNome());
+            }
+        });
 
-        TableColumn<Actividade, String> colprofesor = new TableColumn<>("Profesor");
+        TableColumn<Actividade, String> colinstalacion = new TableColumn<>("Instalacion");
+        colinstalacion.setCellValueFactory(new PropertyValueFactory<>("instalacion"));
+        colinstalacion.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Actividade, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Actividade, String> param) {
+                return new SimpleObjectProperty<String>(param.getValue().getArea().getInstalacion().getNome());
+            }
+        });
+
+        TableColumn<Actividade, Timestamp> colprofesor = new TableColumn<>("Profesor");
         colprofesor.setCellValueFactory(new PropertyValueFactory<>("profesor"));
 
-
         //Engadimos as columnas á táboa
-        taboaActividade.getColumns().addAll(coldata, colNome, colcurso, colduracion, coltipoactividade, colprofesor);
-        //Engadimos os items dispoñíbeis no momento:
-        taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarTiposActividades(null));
-        //Establecemos unha selección sobre a táboa, se hai resultados:
-        taboaActividade.getSelectionModel().selectFirst();
+        taboaActividade.getColumns().addAll(coldata, colNome, colduracion, colarea, colinstalacion, colprofesor);
+
+        actualizarTabla();
     }
 
-    public Curso getCurso() {
-        return curso;
+
+    private void actualizarTabla(){
+        taboaActividade.getItems().removeAll(taboaActividade.getItems());
+        if (ValidacionDatos.estanCubertosCampos(campoNome))
+            actividade.setNome(campoNome.getText());
+        else
+            actividade = null;
+
+
+        //buscar segundo os parametros anteriores
+        taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(actividade));
+        if(taboaActividade.getItems().size()!=0){
+            taboaActividade.getSelectionModel().selectFirst();
+        }
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void btnBuscarAction(ActionEvent actionEvent){
+
+        actualizarTabla();
     }
+
+    public void btnXestionarAction(ActionEvent actionEvent){
+        //Recuperamos primeiro a actividade seleccionada:
+        Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+        //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
+        if(act != null){
+            //Se non é null seguimos adiante.
+            //Feito iso, facemos que a ventá visíbel sexa a de edición dunha actividade:
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
+            //Accedemos ao controlador da ventá de edición dunha actividade:
+            ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
+
+        } else {
+            //En caso de que o item si sexa nulo, haberá que mostrar un erro pedindo unha selección:
+            this.getFachadaAplicacion().mostrarErro("Administración de actividades", "Non hai celda seleccionada!");
+        }
+    }
+
+    public void btnLimparAction(ActionEvent actionEvent){
+    }
+
+    public void btnRexistrarAction(ActionEvent actionEvent){
+    }
+
 }
