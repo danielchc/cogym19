@@ -643,16 +643,16 @@ INSERT INTO realizaractividade VALUES ('2020-05-05 17:20:00.00',1,1,'sergioSocio
 INSERT INTO realizaractividade VALUES ('2020-05-05 17:30:00.00',1,2,'sergioSocio',NULL);
 INSERT INTO realizaractividade VALUES ('2020-05-06 17:40:00.00',1,3,'sergioSocio',NULL);
 INSERT INTO realizaractividade VALUES ('2020-05-06 17:50:00.00',1,4,'sergioSocio',NULL);
-INSERT INTO realizaractividade VALUES ('2020-05-04 20:20:00.00',1,3,'sergioSocio',1);
-INSERT INTO realizaractividade VALUES ('2020-05-04 20:30:00.00',1,4,'sergioSocio',1);
-INSERT INTO realizaractividade VALUES ('2020-05-04 20:40:00.00',1,1,'sergioSocio',2);
-INSERT INTO realizaractividade VALUES ('2020-05-05 20:50:00.00',1,2,'sergioSocio',2);
-INSERT INTO realizaractividade VALUES ('2020-05-05 17:00:00.00',1,3,'sergioSocio',3);
-INSERT INTO realizaractividade VALUES ('2020-05-05 17:10:00.00',1,4,'sergioSocio',3);
-INSERT INTO realizaractividade VALUES ('2020-05-05 17:20:00.00',1,1,'sergioSocio',4);
-INSERT INTO realizaractividade VALUES ('2020-05-05 17:30:00.00',1,2,'sergioSocio',4);
-INSERT INTO realizaractividade VALUES ('2020-05-06 17:40:00.00',1,3,'sergioSocio',5);
-INSERT INTO realizaractividade VALUES ('2020-05-06 17:50:00.00',1,4,'sergioSocio',5);
+INSERT INTO realizaractividade VALUES ('2020-05-04 20:20:00.00',1,3,'soniaSocio',1);
+INSERT INTO realizaractividade VALUES ('2020-05-04 20:30:00.00',1,4,'lauraSocio',1);
+INSERT INTO realizaractividade VALUES ('2020-05-04 20:40:00.00',1,1,'raulSocio',2);
+INSERT INTO realizaractividade VALUES ('2020-05-05 20:50:00.00',1,2,'soniaSocio',2);
+INSERT INTO realizaractividade VALUES ('2020-05-05 17:00:00.00',1,3,'martaSocio',3);
+INSERT INTO realizaractividade VALUES ('2020-05-05 17:10:00.00',1,4,'martaSocio',3);
+INSERT INTO realizaractividade VALUES ('2020-05-05 17:20:00.00',1,1,'soniaSocio',4);
+INSERT INTO realizaractividade VALUES ('2020-05-05 17:30:00.00',1,2,'sofiaPersoal',4);
+INSERT INTO realizaractividade VALUES ('2020-05-06 17:40:00.00',1,3,'nataliaSocio',5);
+INSERT INTO realizaractividade VALUES ('2020-05-06 17:50:00.00',1,4,'martaSocio',5);
 
 
 
@@ -677,3 +677,5 @@ UPDATE realizaractividade SET valoracion=3 WHERE dataActividade='2019-11-30 18:0
 UPDATE realizaractividade SET valoracion=3 WHERE dataActividade='2019-12-09 18:00:00' AND area = 1 AND instalacion= 3;
 UPDATE realizaractividade SET valoracion=3 WHERE dataActividade='2019-12-12 20:00:00' AND area = 1 AND instalacion= 3;
 UPDATE realizaractividade SET valoracion=3 WHERE dataActividade='2019-12-15 15:00:00' AND area = 1 AND instalacion= 3;
+
+
