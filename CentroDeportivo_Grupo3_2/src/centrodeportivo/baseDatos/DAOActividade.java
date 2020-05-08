@@ -28,6 +28,7 @@ public class DAOActividade extends AbstractDAO {
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
 
+
         //Preparamos a inserción:
         try {
             stmActivide = con.prepareStatement("INSERT INTO Actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) " +
@@ -37,7 +38,12 @@ public class DAOActividade extends AbstractDAO {
             stmActivide.setInt(2, actividade.getArea().getCodArea());
             stmActivide.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
             stmActivide.setInt(4, actividade.getTipoActividade().getCodTipoActividade());
-            stmActivide.setInt(5, actividade.getCurso().getCodCurso());
+
+            if (actividade.getCurso()!=null)
+                stmActivide.setInt(5, actividade.getCurso().getCodCurso());
+            else
+                stmActivide.setNull(5, Types.INTEGER);
+
             stmActivide.setString(6, actividade.getProfesor().getLogin());
             stmActivide.setString(7, actividade.getNome());
             stmActivide.setFloat(8, actividade.getDuracion());

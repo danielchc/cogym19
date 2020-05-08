@@ -104,10 +104,40 @@ public class vInsercionActividadeController extends AbstractController implement
             avisoCampos.setText("Data incorrecta.");
             return false;
         }
+
+        if (comboInstalacions.getValue()==null)
+        {
+            avisoCampos.setText("Instalacion non selecionada.");
+            return false;
+        }
+
+        if (comboArea.getValue()==null)
+        {
+            avisoCampos.setText("Area non selecionada.");
+            return false;
+        }
+
+        if (comboProfesor.getValue()==null)
+        {
+            avisoCampos.setText("Profesor non selecionado.");
+            return false;
+        }
+
+        if (comboTipoactividade.getValue()==null)
+        {
+            avisoCampos.setText("Tipo de Actividade non selecionado.");
+            return false;
+        }
+
+        if (campoData.getValue().isAfter(LocalDate.now()))
+        {
+            avisoCampos.setText("Data incorrecta. ");
+            return false;
+        }
         return true;
     }
 
-    public void btnGardarAction(ActionEvent actionEvent) {
+    public void btnGardarAction(ActionEvent actionEvent) throws ExcepcionBD {
         if(!ValidacionDatos.estanCubertosCampos(campoNome,campoHoraInicio,campoHoraFin)){
             avisoCampos.setText("Algún campo sen cubrir.");
             return;
@@ -119,6 +149,11 @@ public class vInsercionActividadeController extends AbstractController implement
         int horasToSegFin=Integer.parseInt(campoHoraFin.getText().split(":")[0])*3600;
         int minutosToSegFin=Integer.parseInt(campoHoraFin.getText().split(":")[1])*60;
         int duracion=(horasToSegFin+minutosToSegFin)-(horasToSegInici+minutosToSegInici);
+
+        if(duracion<=0){
+            avisoCampos.setText("Duración invalida.");
+            return;
+        }
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(Timestamp.valueOf(campoData.getValue().atStartOfDay()).getTime());
@@ -135,12 +170,30 @@ public class vInsercionActividadeController extends AbstractController implement
                 (Persoal)comboProfesor.getSelectionModel().getSelectedItem()
         );
 
+        TipoResultados res;
 
         if(actividadeModificar==null){
             //crear activida
+            res = super.getFachadaAplicacion().EngadirActiviade(actividade);
+            switch (res)
+            {
+                case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade gardada", "Activade " + actividade.getNome() + " gardada correctamente.");
+                    break;
+                case datoExiste:super.getFachadaAplicacion().mostrarInformacion("Actividade NON gardada", "Activade " + actividade.getNome() + " non se puido gardar.");
+                    break;
+            }
         }else{
             //modificala
+            res = super.getFachadaAplicacion().modificarActividade(actividadeModificar, actividade);
+            switch (res)
+            {
+                case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade modificada", "Activade " + actividade.getNome() + " modificada correctamente.");
+                    break;
+                case datoExiste:super.getFachadaAplicacion().mostrarInformacion("Actividade NON modificada", "Activade " + actividade.getNome() + " non se puido modificar.");
+                    break;
+            }
         }
+
     }
 
     public void btnVolverAction(ActionEvent actionEvent) {
