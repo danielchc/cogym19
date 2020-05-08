@@ -3,6 +3,7 @@ package centrodeportivo.gui.controladores.persoal.tarifas;
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.tarifas.Tarifa;
+import centrodeportivo.auxiliar.IdPantalla;
 import centrodeportivo.auxiliar.ListenerMaxLogitud;
 import centrodeportivo.auxiliar.ListenerTextFieldNumeros;
 import centrodeportivo.auxiliar.ValidacionDatos;
@@ -102,7 +103,11 @@ public class vXestionTarifaController extends AbstractController implements Init
                 fachadaAplicacion.mostrarErro("Tarifas", excepcionBD.getMessage());
             }
         }
-        this.vPrincipal.volverAtras();
+        if(tarifaModificar!=null){
+            this.vPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTARIFAS);
+        }else{
+            this.vPrincipal.mostrarMenu(IdPantalla.INICIO);
+        }
 
     }
 
