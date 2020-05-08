@@ -175,8 +175,8 @@ public class XestionCursos {
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
-        return fachadaBD.consultarCursosUsuario(usuario);
+    public ArrayList<Curso> consultarCursosUsuario(Curso curso, Usuario usuario) {
+        return fachadaBD.consultarCursosUsuario(curso,usuario);
     }
 
     /**
@@ -208,7 +208,7 @@ public class XestionCursos {
      */
     public TipoResultados desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
         // Se xa esta apuntado e o curso existe, desapuntase:
-        if (fachadaBD.comprobarExistencia(curso) && fachadaBD.estarApuntado(curso, usuario)) {
+        if (fachadaBD.comprobarExistencia(curso) && fachadaBD.estarApuntado(curso, usuario) && (curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis())))) {
             fachadaBD.desapuntarseCurso(curso, usuario);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;

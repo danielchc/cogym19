@@ -928,7 +928,7 @@ public final class DAOCursos extends AbstractDAO {
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
+    public ArrayList<Curso> consultarCursosUsuario(Curso curso, Usuario usuario) {
         // Esta é a consulta que se usará dende a parte de socio:
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
@@ -942,22 +942,36 @@ public final class DAOCursos extends AbstractDAO {
         try {
             // A búsqueda que poderá facer o socio non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
             // No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
-            consulta = "SELECT c.* " +
+            consulta = "SELECT c.*," +
+                    "count(distinct dataactividade) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion, " +
+                    "DATE(max(a.dataactividade)) as datafin " +
                     "FROM curso as c " +
                     "JOIN realizarcurso r " +
-                    "on c.codcurso = r.curso ";
+                    "on c.codcurso = r.curso " +
+                    "JOIN actividade as a " +
+                    "on c.codcurso = a.curso " +
+                    "WHERE lower(c.nome) like lower(?) ";
+
 
             // No caso de que pasemos o curso co nome,
             if (usuario != null) {
-                consulta += "WHERE usuario = ? ";
+                consulta += "AND usuario = ? ";
             }
+
+            //Agrupamos tamén polo código do curso:
+            consulta += "GROUP BY c.codcurso ";
 
             // Preparamos entón o statement de cursos para levar a cabo a consulta:
             stmCursos = con.prepareStatement(consulta);
 
             // Completamos a consulta (se procede):
+            if (curso != null) {
+                stmCursos.setString(1, "%" + curso.getNome() + "%");
+            } else {
+                stmCursos.setString(1, "%%");
+            }
             if (usuario != null) {
-                stmCursos.setString(1, usuario.getLogin());
+                stmCursos.setString(2, usuario.getLogin());
             }
 
             // Intentamos levala a cabo:
