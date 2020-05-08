@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 public class vInsercionActividadeController extends AbstractController implements Initializable {
@@ -161,5 +162,20 @@ public class vInsercionActividadeController extends AbstractController implement
         this.comboInstalacions.getSelectionModel().select(actividade.getArea().getInstalacion());
         this.comboArea.getSelectionModel().select(actividade.getArea());
         this.comboProfesor.getSelectionModel().select(actividade.getProfesor());
+
+        this.campoHoraInicio.setText(
+                new SimpleDateFormat("HH:mm").format(new Date(actividade.getData().getTime()))
+        );
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(actividade.getData().getTime());
+        cal.add(Calendar.SECOND, (int)(actividade.getDuracion()*3600));
+        Timestamp data=new Timestamp(cal.getTime().getTime());
+
+        this.campoHoraFin.setText(
+                new SimpleDateFormat("HH:mm").format(new Date(data.getTime()))
+        );
+
+        campoData.setValue(actividade.getData().toLocalDateTime().toLocalDate());
     }
 }
