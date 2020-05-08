@@ -567,24 +567,22 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            String consulta = "SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
+            String consulta = "SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, " +
+                    " actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
                     " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
-                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion ";
+                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
+                    " WHERE curso is NULL";
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
 
-            if (actividade != null) {
-                consulta += " AND lower(actividade.nome) like lower(?)  ";
 
-                if (actividade.getCurso() == null)
-                    consulta += " AND curso is null ";
-                else
-                    consulta += " AND curso=? ";
+            if (actividade != null) {
+                consulta += " AND LOWER(actividade.nome) LIKE LOWER(?)  ";
             }
 
             //Ordenaremos o resultado polo código da área para ordenalas
-            consulta += " ORDER BY nome asc";
+            consulta += " ORDER BY dataactividade asc";
 
             stmActividades = con.prepareStatement(consulta);
 
@@ -592,9 +590,6 @@ public class DAOActividade extends AbstractDAO {
             if (actividade != null) {
                 //Establecemos os valores da consulta segundo a instancia de instalación pasada:
                 stmActividades.setString(1, "%" + actividade.getNome() + "%");
-
-                if (actividade.getCurso()!=null)
-                    stmActividades.setInt(2, actividade.getCurso().getCodCurso());
             }
 
             //Realizamos a consulta:
