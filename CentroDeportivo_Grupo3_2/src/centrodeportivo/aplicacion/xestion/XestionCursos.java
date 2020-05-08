@@ -2,7 +2,6 @@ package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.Mensaxe;
-import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
@@ -19,12 +18,14 @@ import java.util.ArrayList;
  * Clase na que se levarán a cabo todas as xestións que teñan que ver cos cursos do centro deportivo.
  */
 public class XestionCursos {
+
     /**
      * Coma en todas as clases de xestión, gardamos como atributos referencias ás outras fachadas da aplicación: a da
      * base de datos e á da GUI.
      */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
+
 
     /**
      * Constructor da clase de xestión de cursos:
@@ -36,6 +37,7 @@ public class XestionCursos {
         this.fachadaBD = fachadaBD;
         this.fachadaGUI = fachadaGUI;
     }
+
 
     /**
      * Método que nos permite introducir os datos dun novo curso na base de datos.
@@ -146,7 +148,6 @@ public class XestionCursos {
     public Curso recuperarDatosCurso(Curso curso) {
         return fachadaBD.recuperarDatosCurso(curso);
     }
-
 
     /**
      * Método que nos permite recuperar información suficiente do curso como para elaborar o informe que ofrecer ao
