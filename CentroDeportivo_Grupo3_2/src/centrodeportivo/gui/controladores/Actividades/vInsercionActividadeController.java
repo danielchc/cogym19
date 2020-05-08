@@ -77,8 +77,8 @@ public class vInsercionActividadeController extends AbstractController implement
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 TipoActividade tipoActividade=(TipoActividade) observableValue.getValue();
-                //comboProfesor.getItems().addAll(getFachadaAplicacion());
-                //if(!comboProfesor.getItems().isEmpty()) comboProfesor.getSelectionModel().selectFirst();
+                comboProfesor.getItems().addAll(getFachadaAplicacion());
+                if(!comboProfesor.getItems().isEmpty()) comboProfesor.getSelectionModel().selectFirst();
             }
         });
 
