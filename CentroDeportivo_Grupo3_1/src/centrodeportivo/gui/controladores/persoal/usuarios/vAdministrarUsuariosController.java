@@ -99,6 +99,11 @@ public class vAdministrarUsuariosController extends AbstractController implement
         if (listaUsuarios.getItems().size() > 0) {
             listenerTabla();
         }
+
+        listaUsuarios.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) listenerTabla();
+        });
+
         campoTipoUsuario.getItems().addAll(TipoUsuario.values());
         campoTipoUsuario.getSelectionModel().selectFirst();
         listaUsuarios.setPlaceholder(new Label("Non se atoparon usuarios"));
