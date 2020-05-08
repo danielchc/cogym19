@@ -587,7 +587,7 @@ public class DAOActividade extends AbstractDAO {
         return actividades;
     }
 
-    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
+    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
         //Usaremos un ArrayList para almacenar unha nova actividade:
         ArrayList<Actividade> actividades = new ArrayList<>();
 
@@ -601,17 +601,13 @@ public class DAOActividade extends AbstractDAO {
         //Preparamos a consulta:
         try {
             String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade " +
-                    " FROM actividade, tipoactividade, realizaractividade " +
-                    " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade "+
-                    "   AND realizaractividade.dataactividade=actividade.dataactividade " +
-                    "   AND realizaractividade.area=actividade.area " +
-                    "   AND realizaractividade.instalacion=actividade.instalacion " +
-                    "   AND usuario=? ";
+                    " FROM actividade, tipoactividade" +
+                    " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade ";
+
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
             if (actividade!= null){
-                if (actividade.getNome() != null)
                     consulta += " AND lower(actividade.nome) like lower(?)  ";
 
                 if (actividade.getArea()!=null)
@@ -619,15 +615,20 @@ public class DAOActividade extends AbstractDAO {
 
             }
 
-
-            //Ordenaremos o resultado polo código da área para ordenalas
-            consulta += " ORDER BY actividade.nome asc";
+            consulta += "AND (actividade.dataactividade, actividade.area, actividade.instalacion) NOT IN  " +
+                            " SELECT actividade.dataactividade, actividade.area, actividade.instalacion" +
+                            " FROM actividade, realizaractividade " +
+                            " WHERE realizaractividade.dataactividade=actividade.dataactividade " +
+                                "   AND realizaractividade.area=actividade.area " +
+                                "   AND realizaractividade.instalacion=actividade.instalacion " +
+                                "   AND usuario=? "+
+                            " ORDER BY actividade.nome asc";
 
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
             if (actividade!= null) {
-                if (actividade.getNome() != null) stmActividades.setString(2, "%" + actividade.getNome() + "%");
+                stmActividades.setString(2, "%" + actividade.getNome() + "%");
                 //Pasando area non nula completase a consulta.
                 if (actividade.getArea() != null) {
                     stmActividades.setInt(3, actividade.getArea().getCodArea());
@@ -664,7 +665,7 @@ public class DAOActividade extends AbstractDAO {
         return actividades;
     }
 
-    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
         //Usaremos un ArrayList para almacenar unha nova actividade:
         ArrayList<Actividade> actividades = new ArrayList<>();
 
@@ -683,37 +684,35 @@ public class DAOActividade extends AbstractDAO {
                     "   AND realizaractividade.dataactividade=actividade.dataactividade " +
                     "   AND realizaractividade.area=actividade.area " +
                     "   AND realizaractividade.instalacion=actividade.instalacion " +
-                    "   AND usuario=? ";
+                    "   AND usuario!=? ";
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
-
-            if (actividade != null) {
+            if (actividade!= null){
                 consulta += " AND lower(actividade.nome) like lower(?)  ";
 
                 if (actividade.getArea()!=null)
-                    consulta += " AND area=? AND instalacion=? ";
+                    consulta += " AND actividade.area=? AND actividade.instalacion=? ";
+
             }
 
+
             //Ordenaremos o resultado polo código da área para ordenalas
-            consulta += " ORDER BY nome asc";
+            consulta += " ORDER BY actividade.nome asc";
 
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
-
-            //Pasando area non nula completase a consulta.
-            if (actividade != null) {
-                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
-                stmActividades.setTimestamp(2, actividade.getData());
-                if (actividade.getArea() != null)
-                {
+            if (actividade!= null) {
+                stmActividades.setString(2, "%" + actividade.getNome() + "%");
+                //Pasando area non nula completase a consulta.
+                if (actividade.getArea() != null) {
                     stmActividades.setInt(3, actividade.getArea().getCodArea());
                     stmActividades.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
                 }
-
             }
 
+            System.out.println(stmActividades);
             //Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
 
@@ -734,7 +733,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //Peche do statement:
             try {
-                stmActividades.close();
+                if(stmActividades!=null)stmActividades.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }

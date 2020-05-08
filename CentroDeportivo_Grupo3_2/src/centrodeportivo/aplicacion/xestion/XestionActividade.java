@@ -93,4 +93,12 @@ public class XestionActividade {
             return null;
     }
 
+    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario)
+    {
+        if(usuario != null)
+            return fachadaBD.buscarActividadeNONParticipa(actividade, usuario);
+        else
+            return null;
+    }
+
 }

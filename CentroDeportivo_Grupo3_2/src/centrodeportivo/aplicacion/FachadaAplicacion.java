@@ -594,4 +594,9 @@ public class FachadaAplicacion extends Application {
     {
         return xestionActividade.buscarActividadeParticipa(actividade, usuario);
     }
+
+    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario)
+    {
+        return xestionActividade.buscarActividadeNONParticipa(actividade, usuario);
+    }
 }
