@@ -69,10 +69,13 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
-        enSeleccion();
+        //Engadimos un listener para cando se seleccione unha actividade:
+        taboaAreas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) enSeleccion();
+        });
     }
 
-    public void enSeleccion(){
+    public void enSeleccion() {
         Area area = ((Area) taboaAreas.getSelectionModel().getSelectedItem());
         if(area != null){
             //Se a data de baixa está rexistrada a área estará de baixa, polo que habilitaremos a opción de dala de alta.
@@ -93,7 +96,6 @@ public class vAdministrarAreaController extends AbstractController implements In
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
         //Facemos que se actúe cando se fai unha selección:
-        enSeleccion();
     }
 
     public void setInstalacion(Instalacion instalacion) {
@@ -115,7 +117,6 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
         //Selecciónase o primeiro item da táboa:
         taboaAreas.getSelectionModel().selectFirst();
-        enSeleccion();
     }
 
     public void btnLimparAction(ActionEvent actionEvent) {
