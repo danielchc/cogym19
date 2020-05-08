@@ -41,6 +41,7 @@ public class vEditarInstalacionController extends AbstractController implements 
     public Button btnAdministrarAreas;
     public Button btnVolver;
     public Label etiquetaAviso;
+    public Button btnRestaurar;
 
     /**
      * Atributos privados: neste caso teremos un máis ca o controlador da ventá principal.
@@ -204,6 +205,15 @@ public class vEditarInstalacionController extends AbstractController implements 
     public void btnVolverAction(ActionEvent actionEvent) {
         //Se se pulsa o botón volver, amosarase de novo a pantalla de administrar instalacións:
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARINSTALACIONS);
+    }
+
+    /**
+     * Acción efectuada ao premer o botón de restaurar os campos:
+     * @param actionEvent O evento que tivo lugar.
+     */
+    public void btnRestaurarAction(ActionEvent actionEvent) {
+        //Actualizamos os campos chamando ao método privado:
+        actualizarCamposInstalacion();
     }
 
     /**
