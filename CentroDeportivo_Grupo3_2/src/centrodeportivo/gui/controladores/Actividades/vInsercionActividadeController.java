@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -177,8 +178,28 @@ public class vInsercionActividadeController extends AbstractController implement
                 res = super.getFachadaAplicacion().EngadirActiviade(actividade);
                 switch (res) {
                     case correcto:
-                        super.getFachadaAplicacion().mostrarInformacion("Actividade gardada",
-                                "Actividade " + actividade.getNome() + " gardada correctamente.");
+                        if(curso == null) {
+                            if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade gardada",
+                                    "Actividade '" + actividade.getNome() + "' gardada correctamente. Queres" +
+                                            " avisar aos socios do centro da creación?") == ButtonType.OK){
+                                //Entón crearemos unha mensaxe deste usuario para todos os socios:
+                                Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                                        "Prezado socio\nEstá dispoñible xa a nova actividade '" +
+                                        actividade.getNome() + "'. A que esperas para apuntarte?");
+
+                                //Procedemos ao envío da mensaxe:
+                                super.getFachadaAplicacion().enviarAvisoSocios(mensaxe);
+                                //Se se chega aqui é porque se realizou o envío da mensaxe:
+                                super.getFachadaAplicacion().mostrarInformacion("Administración de actividades",
+                                        "Mensaxe enviada a todos os socios correctamente");
+                            }
+
+                        } else {
+                            //Se é a actividade dun curso, simplemente se amosará unha confirmación do resultado:
+                            super.getFachadaAplicacion().mostrarInformacion("Actividade gardada",
+                                    "Actividade '" + actividade.getNome() + "' gardada correctamente no curso '"
+                                        + curso.getNome() + "'.");
+                        }
                         //Cando se garda a actividade, pódese volver:
                         accionsVolver();
                         break;
