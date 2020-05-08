@@ -33,9 +33,9 @@ public class vAdministrarMateriaisController extends AbstractController implemen
     public Button btnBuscar;
     public Button btnLimpar;
     public Button btnXestionar;
-    public ComboBox<TipoMaterial> comboTipoMaterial = new ComboBox<>();
-    public ComboBox<Instalacion> comboInstalacion = new ComboBox<>();
-    public ComboBox<Area> comboArea = new ComboBox<>();
+    public ComboBox<TipoMaterial> comboTipoMaterial;
+    public ComboBox<Instalacion> comboInstalacion;
+    public ComboBox<Area> comboArea;
 
 
     // Atributos privados: manteremos o controlador da ventá de procedencia:
@@ -74,10 +74,12 @@ public class vAdministrarMateriaisController extends AbstractController implemen
         // Inicializamos o comboBox dos tipos de materiais:
         comboTipoMaterial.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarTipoMaterial(null)));
         // Facemos que se vexa o nome dos tipos no comboBox:
+
+        comboTipoMaterial.getSelectionModel().selectFirst();
         comboTipoMaterial.setConverter(new StringConverter<TipoMaterial>() {
             @Override
             public String toString(TipoMaterial object) {
-                return object.getNome();
+                return object==null?"":object.getNome();
             }
 
             @Override
@@ -87,10 +89,11 @@ public class vAdministrarMateriaisController extends AbstractController implemen
             }
         });
         // Facemos que se vexa o nome das areas no comboBox
+        comboArea.getSelectionModel().selectFirst();
         comboArea.setConverter(new StringConverter<Area>() {
             @Override
             public String toString(Area object) {
-                return object.getNome();
+                return object==null?"":object.getNome();
             }
 
             @Override
@@ -108,7 +111,7 @@ public class vAdministrarMateriaisController extends AbstractController implemen
         comboInstalacion.setConverter(new StringConverter<Instalacion>() {
             @Override
             public String toString(Instalacion object) {
-                return object.getNome();
+                return object==null?"":object.getNome();
             }
 
             @Override
