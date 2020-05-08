@@ -537,5 +537,9 @@ public class FachadaAplicacion extends Application {
         return xestionActividade.borrarseDeActividade(actividade, usuario);
     }
 
+    public ArrayList<Actividade> buscarActividade(Actividade actividade) {
+        return xestionActividade.buscarActividade(actividade);
+    }
+
 
 }

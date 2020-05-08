@@ -594,6 +594,10 @@ public final class FachadaBD {
         daoActividade.apuntarseActividade(actividade, usuario);
     }
 
+    public ArrayList<Actividade> buscarActividade(Actividade actividade) {
+        return daoActividade.buscarActividade(actividade);
+    }
+
     // Alguen apuntado
 
     public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {

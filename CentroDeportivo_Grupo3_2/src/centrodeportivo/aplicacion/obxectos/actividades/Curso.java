@@ -117,6 +117,10 @@ public class Curso {
         this.valMedia = valMedia;
     }
 
+    public Curso(int codCurso){
+        this.codCurso = codCurso;
+    }
+
     //Getters e setters:
     public void setCodCurso(Integer codCurso){
         this.codCurso = codCurso;

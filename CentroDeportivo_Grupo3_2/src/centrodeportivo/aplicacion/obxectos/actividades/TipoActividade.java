@@ -28,6 +28,11 @@ public class TipoActividade {
         this.descricion = descricion;
     }
 
+    public TipoActividade(Integer codTipoActividade, String nome) {
+        this.codTipoActividade = codTipoActividade;
+        this.nome = nome;
+    }
+
     /**
      * Constructor que involucra sómentes o nome e a descrición, que son os atributos que pode introducir o usuario.
      * Usarémolo precisamente cando se queira insertar un novo tipo de actividade na base de datos (e aínda non se coñeza

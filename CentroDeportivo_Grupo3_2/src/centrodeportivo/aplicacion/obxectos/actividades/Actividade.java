@@ -86,6 +86,11 @@ public class Actividade {
         return tipoActividade;
     }
 
+    //Necesario para a implementación das taboas en javafc
+    public String getTipoActividadenome() {
+        return tipoActividade.getNome();
+    }
+
     public void setTipoActividade(TipoActividade tipoActividade) {
         this.tipoActividade = tipoActividade;
     }
@@ -94,12 +99,22 @@ public class Actividade {
         return profesor;
     }
 
+    //Necesario para a implementación das taboas en javafc
+    public String getProfesornome() {
+        return profesor.getNome();
+    }
+
     public void setProfesor(Persoal profesor) {
         this.profesor = profesor;
     }
 
     public Curso getCurso() {
         return curso;
+    }
+
+    //Método necesario para a implementacion da taboa de actividades en javafx
+    public String getCursonome() {
+        return curso.getNome();
     }
 
     public void setCurso(Curso curso) {

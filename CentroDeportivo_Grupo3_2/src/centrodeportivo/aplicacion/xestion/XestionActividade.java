@@ -7,6 +7,8 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
+import java.util.ArrayList;
+
 public class XestionActividade {
 
     private FachadaGUI fachadaGUI;
@@ -18,7 +20,7 @@ public class XestionActividade {
     }
 
     public TipoResultados EngadirActividade(Actividade actividade) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
+        //Se a actividade non existe, dase de engadimola:
         if(!fachadaBD.existeActividade(actividade) && !fachadaBD.horarioOcupadoActividade(actividade)) {
             fachadaBD.EngadirActividade(actividade);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
@@ -49,7 +51,7 @@ public class XestionActividade {
     }
 
     public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
+        //Se a actividade non existe, non estas apuntado e non é maxio o aforo podese apuntar, apuntamos o usuario na actividade::
         if(fachadaBD.existeActividade(actividade) && !fachadaBD.estarApuntado(actividade, usuario) && fachadaBD.NonEMaximoAforoActividade(actividade)) {
             fachadaBD.apuntarseActividade(actividade, usuario);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
@@ -60,7 +62,7 @@ public class XestionActividade {
     }
 
     public TipoResultados borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        //Se a instalación non existe, dase de alta:
+        //Se a Actividade existe, borramola:
         if(fachadaBD.existeActividade(actividade) && fachadaBD.estarApuntado(actividade, usuario)) {
             fachadaBD.borrarseDeActividade(actividade, usuario);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
@@ -69,5 +71,15 @@ public class XestionActividade {
             return TipoResultados.sitIncoherente;
         }
     }
+
+    public ArrayList<Actividade> buscarActividade(Actividade actividade) {
+        //Se a actividade non é nula buscamoola.
+        if(actividade != null) {
+            return fachadaBD.buscarActividade(actividade);
+        } else {
+            return null;
+        }
+    }
+
 
 }
