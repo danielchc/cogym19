@@ -70,7 +70,7 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            stmActivide = con.prepareStatement("SELECT dataactividade, area, instalacion " +
+            stmActivide = con.prepareStatement("SELECT * " +
                     " FROM actividade " +
                     " WHERE dataactividade = ? and area = ? and instalacion = ? ");
 
@@ -82,9 +82,9 @@ public class DAOActividade extends AbstractDAO {
             //Facemos a consulta:
             rsActividade = stmActivide.executeQuery();
 
-            if (rsActividade.next())
-                if ((rsActividade.getTimestamp(1) == actividade.getData()) && (rsActividade.getInt(2) == actividade.getArea().getCodArea()) && (rsActividade.getInt(3) == actividade.getArea().getInstalacion().getCodInstalacion()))
-                    return true;
+            if (rsActividade.next()) {
+                return true;
+            }
             return false;
 
         } catch (SQLException e) {
@@ -102,8 +102,8 @@ public class DAOActividade extends AbstractDAO {
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }
-            return false;
         }
+        return false;
     }
 
     public boolean horarioOcupadoActividade(Actividade actividade) {

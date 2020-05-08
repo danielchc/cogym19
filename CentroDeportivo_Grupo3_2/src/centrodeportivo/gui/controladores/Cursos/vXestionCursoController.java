@@ -24,7 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
-import javax.swing.plaf.ActionMapUIResource;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
@@ -97,7 +96,6 @@ public class vXestionCursoController extends AbstractController implements Initi
         //Asignamos o atributo do controlador da ventá principal:
         this.controllerPrincipal = controllerPrincipal;
     }
-
 
     /**
      * Método executado para inicializar a pantalla.
@@ -446,13 +444,55 @@ public class vXestionCursoController extends AbstractController implements Initi
                 //Entón tentaremos o borrado:
                 try{
                     TipoResultados res = getFachadaAplicacion().borrarActividade(actividade);
+                    switch(res){
+                        case correcto:
+                            if(curso.isAberto()){
+                                //Imprimimos para comezar unha mensaxe de confirmación e indicamoslle se quere notificar
+                                //aos socios disto automáticamente:
+                                if(getFachadaAplicacion().mostrarConfirmacion("Administración de cursos",
+                                        "Borrada a actividade planificada para o " +
+                                                new SimpleDateFormat("dd/MM/yyyy").format(actividade.getData().getTime())
+                                                + ". ¿Quere notificar aos participantes da ocorrencia?") == ButtonType.OK){
+                                    Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                                            "Prezado socio,\nBorrouse a actividade '" + actividade.getNome() + "', " +
+                                                    "do curso '" + curso.getNome() + "', planificada orixinalmente para o " +
+                                                    new SimpleDateFormat("dd/MM/yyyy").format(actividade.getData().getTime()) +
+                                                    ".\nDesculpe as molestias e un saúdo.");
+                                    //Agora tentaremos proceder ao envío da mensaxe:
+                                    getFachadaAplicacion().enviarAvisoSociosCurso(mensaxe, curso);
+                                    //Se se chega a este punto, é que se conseguiu facer o aviso:
+                                    getFachadaAplicacion().mostrarInformacion("Administración de cursos",
+                                            "Avisados os participantes do curso.");
+                                }
+                            } else {
+                                //Simplemente informamos dos campos:
+                                getFachadaAplicacion().mostrarInformacion("Administración de cursos",
+                                        "Borrada a actividade planificada para o " +
+                                                new SimpleDateFormat("dd/MM/yyyy").format(actividade.getData().getTime())
+                                                + ".");
+                            }
+                        case sitIncoherente:
+                            //Amosamos un erro personalizado:
+                            getFachadaAplicacion().mostrarErro("Administración de cursos",
+                                    "Non se pode borrar esta actividade, dado que xa foi realizada.");
+                            break;
+                        case datoNonExiste:
+                            getFachadaAplicacion().mostrarErro("Administración de cursos",
+                                    "Erro! A actividade seleccionada non existe! Por favor, refresca a información.");
+                            break;
+                    }
                 } catch(ExcepcionBD e){
                     //Se se producise unha excepción amosaríase o erro asociado:
                     getFachadaAplicacion().mostrarErro("Administración de cursos",
                             e.getMessage());
                 }
+            } else {
+                getFachadaAplicacion().mostrarErro("Administración de cursos",
+                        "Debes seleccionar antes unha actividade!");
             }
-
+        } else {
+            getFachadaAplicacion().mostrarErro("Administración de cursos",
+                    "Só se pode borrar un curso se inda non rematou!");
         }
     }
 
@@ -461,9 +501,13 @@ public class vXestionCursoController extends AbstractController implements Initi
      * @param actionEvent
      */
     public void btnXestionarSeleccionAction(ActionEvent actionEvent) {
+        //Se hai unha selección feita na táboa de actividades é a que se escollerá para amosar a súa información na nova ventá:
         if (!taboaActividades.getSelectionModel().isEmpty()) {
+            //Creamos a nova actividade a ser xestionada:
             Actividade actividade = ((Actividade) taboaActividades.getSelectionModel().getSelectedItem());
+            //Amosamos a pantalla de datos dunha actividade:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
+            //Como imos a modificala, asociamos curso e actividade:
             ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarCurso(curso);
             ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade(actividade);
         }
