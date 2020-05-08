@@ -120,11 +120,7 @@ public class TipoActividade {
      */
     @Override
     public String toString(){
-        return "TipoActividade{" +
-                "codTipoActividade= " + codTipoActividade +
-                ", nome= '" + nome + "\'" +
-                ", descrición= '" + descricion + "\'" +
-                "}";
+        return nome;
     }
 
     /**
