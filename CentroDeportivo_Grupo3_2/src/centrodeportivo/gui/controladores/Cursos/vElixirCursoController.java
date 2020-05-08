@@ -1,7 +1,9 @@
 package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -15,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -73,17 +76,16 @@ public class vElixirCursoController extends AbstractController implements Initia
         TableColumn<Curso, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        // Á data de inicio dámoslle un formato que sexa cómodo para nós (día/mes/ano):
-        TableColumn<Curso, String> dataInicioColumn = new TableColumn<>("Data Inicio");
-        dataInicioColumn.setCellValueFactory(p -> {
-            // Haberá que comprobar que a data de inicio non teña nulos (podería ser!)
-            if (p.getValue().getDataInicio() != null) {
-                return new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(p.getValue().getDataInicio()));
+        // Ca data de inicio comprobamos cales estan sen comezar:
+        TableColumn<Curso, String> iniciadoColum = new TableColumn<>("Iniciado");
+        iniciadoColum.setCellValueFactory(p -> {
+            if (p.getValue().getDataInicio() != null && p.getValue().getDataInicio().toLocalDate().isBefore(LocalDate.now())) {
+                return new SimpleStringProperty("Si");
             } else {
-                //En caso de que teña nulos, será porque o curso inda non ten fixada a data de inicio:
-                return new SimpleStringProperty("Sen inicio fixado");
+                return new SimpleStringProperty("Non");
             }
         });
+
         //Número de actividades:
         TableColumn<Curso, Integer> numActividadesColumn = new TableColumn<>("Numero de Actividades");
         numActividadesColumn.setCellValueFactory(new PropertyValueFactory<>("numActividades"));
@@ -96,23 +98,26 @@ public class vElixirCursoController extends AbstractController implements Initia
                         (int) ((c.getValue().getDuracion().floatValue() - c.getValue().getDuracion().intValue()) * 60) + "m"
         ));
 
-        // O booleano aberto: facemos que en función do seu valor se imprima un si ou un non (en lugar de ter "true" ou
-        //"false").
-        TableColumn<Curso, String> abertoColumn = new TableColumn<>("Aberto");
-        abertoColumn.setCellValueFactory(p -> {
-            if (p.getValue().isAberto()) {
-                return new SimpleStringProperty("Si");
-            } else {
-                return new SimpleStringProperty("Non");
+
+        // Engadimos o seguinte para poder resaltar dunha cor diferente os cursos que xa comezaron
+        taboaCursos.setRowFactory(tv -> new TableRow<Curso>() {
+            @Override
+            public void updateItem(Curso item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && getFachadaAplicacion().estarApuntado(item, usuario)) {
+                    getStyleClass().add("resaltar");
+                } else {
+                    getStyleClass().remove("resaltar");
+                }
+
             }
         });
 
-
-        //Metemos as columnas creadas na táboa:
-        taboaCursos.getColumns().addAll(nomeColumn, dataInicioColumn, numActividadesColumn, duracionColumn, abertoColumn);
-        //Buscamos os datos dos cursos e engadímolos.
+        // Metemos as columnas creadas na táboa:
+        taboaCursos.getColumns().addAll(nomeColumn, numActividadesColumn, duracionColumn, iniciadoColum);
+        // Buscamos os datos dos cursos abertos e engadímolos:
         taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursosAbertos(null));
-        //Modelo de selección:
+        // Modelo de selección:
         taboaCursos.getSelectionModel().selectFirst();
     }
 
@@ -122,12 +127,12 @@ public class vElixirCursoController extends AbstractController implements Initia
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnBuscarAction(ActionEvent actionEvent) {
-        //Se o campo de nome non se cubre, o que faremos será listar todos os cursos, se non, faremos búsqueda por nome:
+        // Se o campo de nome non se cubre, o que faremos será listar todos os cursos, se non, faremos búsqueda por nome:
         if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
-            //Listar todos os cursos -> Pasamos a consultarCursos parámetro null:
+            // Listar todos os cursos -> Pasamos a consultarCursosAbertos parámetro null:
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
         } else {
-            //Buscar por un curso: pasamos un curso co campo de busca: o nome:
+            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(new Curso(campoNome.getText())));
         }
     }
@@ -138,29 +143,48 @@ public class vElixirCursoController extends AbstractController implements Initia
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnLimparAction(ActionEvent actionEvent) {
-        //Ao limpar os campos, o que facemos será poñer o campo de búsqueda baleiro e refrescar a táboa sen filtros.
+        // Ó limpar os campos, o que facemos será poñer o campo de búsqueda baleiro e refrescar a táboa sen filtros:
         AuxGUI.vaciarCamposTexto(campoNome);
-        //Listar todos os cursos -> Pasamos a consultarCursos parámetro null:
+        // Listar todos os cursos -> Pasamos a consultarCursosAbertos parámetro null:
         this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
     }
 
     /**
-     * Método que representa as accións que teñen lugar ao premer o botón de xestión dun curso:
+     * Método que representa as accións que teñen lugar ao premer o botón de apuntarse nun curso:
      *
      * @param actionEvent A acción que tivo lugar
      */
     public void btnApuntarseAction(ActionEvent actionEvent) {
-        //Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
-        //Para iso, empezamos mirando se hai unha selección feita:
+        // Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
+        // Para iso, empezamos mirando se hai unha selección feita:
         Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            //Gardamos o resultado noutra variable para refrescar toda a información
-            //Iso será o que se lle pase á ventá de xestión dun curso:
+            // Gardamos o resultado noutra variable para refrescar toda a información
+            // Iso será o que se lle pase ó método de apuntarse
             Curso res = getFachadaAplicacion().recuperarDatosCurso(selected);
             if (res != null) {
-                // Amosamos unha mensaxe por pantalla en como esta anotado no curso
-                getFachadaAplicacion().mostrarInformacion("Cursos", "Boas, " + usuario.getNome()
-                        + " agora estás apuntado no curso " + selected.getNome() + "!");
+                // Anotamolo no curso
+                try {
+                    // TODO: Non te podes apuntar nun curso que non comezou
+                    TipoResultados resultado = getFachadaAplicacion().apuntarseCurso(res, usuario);
+                    switch (resultado) {
+                        case correcto:
+                            // Amosamos unha mensaxe por pantalla en como xa esta anotado no curso
+                            getFachadaAplicacion().mostrarInformacion("Cursos", "Boas, " + usuario.getNome()
+                                    + ". Agora estas apuntado no curso " + res.getNome() + "!");
+                            // Actualizamos a taboa porque desaparecerá o curso mudará de color o curso:
+                            actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
+                            break;
+                        case sitIncoherente:
+                            // Amosamos unha mensaxe por pantalla en como esta anotado no curso
+                            getFachadaAplicacion().mostrarErro("Cursos", "Boas, " + usuario.getNome()
+                                    + ". Non te podes apuntar no curso " + res.getNome() + "!");
+                            break;
+                    }
+                } catch (ExcepcionBD e) {
+                    // Se houbese algun erro, mostrase unha mensaxe por pantalla
+                    getFachadaAplicacion().mostrarErro("Cursos", e.getMessage());
+                }
             } else {
                 // Se houbo problemas ao recuperar a información, avisamos do erro:
                 getFachadaAplicacion().mostrarErro("Cursos",
@@ -171,19 +195,10 @@ public class vElixirCursoController extends AbstractController implements Initia
         } else {
             // Se non se ten selección, indícase que hai que facela primeiro (podería ser que a lista estivese vacía):
             this.getFachadaAplicacion().mostrarErro("Cursos",
-                    "Selecciona un curso primeiro!");
+                    "Selecciona un curso no que apuntarte!");
         }
     }
 
-    /**
-     * Método que se executa cando se pulsa o checkbox para resaltar os cursos que xa remataron.
-     *
-     * @param actionEvent A acción que tivo lugar.
-     */
-    public void checkResaltarAction(ActionEvent actionEvent) {
-        // Únicamente se refresca a táboa:
-        taboaCursos.refresh();
-    }
 
     /**
      * Método que nos permite actualizar a táboa de cursos (vaciándoa e reenchéndoa):

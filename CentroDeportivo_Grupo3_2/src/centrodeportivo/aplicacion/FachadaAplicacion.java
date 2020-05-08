@@ -475,6 +475,18 @@ public class FachadaAplicacion extends Application {
     }
 
 
+    /**
+     * Método que nos permite saber se un usuario esta apuntado nun curso
+     *
+     * @param curso   Curso no que queremos saber se esta apuntado
+     * @param usuario Usuario que queremos saber se esta apuntado
+     * @return Retorna true cando o usuario xa se atope apuntado no curso e false cando non.
+     */
+    public boolean estarApuntado(Curso curso, Usuario usuario) {
+        return xestionCursos.estarApuntado(curso, usuario);
+    }
+
+
     /*
         Xestión TIPOS de material
      */
