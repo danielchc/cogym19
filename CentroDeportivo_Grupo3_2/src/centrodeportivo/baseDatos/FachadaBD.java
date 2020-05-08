@@ -487,6 +487,17 @@ public final class FachadaBD {
         return daoCursos.NonEMaximoAforo(curso);
     }
 
+    /**
+     * Método que nos permite consultar os que esta apuntado un usuario
+     *
+     * @param usuario Usuario co que se realiza a busqueda
+     * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
+     */
+    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
+        return daoCursos.consultarCursosUsuario(usuario);
+    }
+
+
     /*
         Funcións DAOTipoMaterial
      */

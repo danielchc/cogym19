@@ -568,15 +568,14 @@ public class DAOActividade extends AbstractDAO {
         //Preparamos a consulta:
         try {
             String consulta = "SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
-                    " FROM actividade, area, instalacion " +
-                    " WHERE actividade.area=area.codarea " +
-                    "   AND actividade.instalacion=instalacion.codinstalacion ";
+                    " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
+                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion ";
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
 
             if (actividade != null) {
-                consulta += " AND lower(nome) like lower(?)  ";
+                consulta += " AND lower(actividade.nome) like lower(?)  ";
 
                 if (actividade.getCurso() == null)
                     consulta += " AND curso is null ";

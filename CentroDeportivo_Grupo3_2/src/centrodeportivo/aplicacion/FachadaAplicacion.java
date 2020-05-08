@@ -464,6 +464,16 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.desapuntarseCurso(curso, usuario);
     }
 
+    /**
+     * Método que nos permite consultar os que esta apuntado un usuario
+     *
+     * @param usuario Usuario co que se realiza a busqueda
+     * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
+     */
+    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
+        return xestionCursos.consultarCursosUsuario(usuario);
+    }
+
 
     /*
         Xestión TIPOS de material

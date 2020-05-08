@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <!-- fx:controller="centrodeportivo.gui.controladores.Actividades.vInsercionActividadeController" -->
 
-<AnchorPane prefHeight="461.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="461.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <AnchorPane prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: #005bbd;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox layoutY="5.0" prefHeight="46.0" prefWidth="600.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="326.0">
@@ -34,7 +27,7 @@
             <children>
                 <VBox alignment="CENTER" fillWidth="false" prefHeight="317.0" prefWidth="550.0">
 
-                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
+                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
                         <Label prefHeight="20.0" prefWidth="102.0" text="Tipo: ">
                             <font>
                                 <Font name="System Bold" size="14.0" />
@@ -46,10 +39,10 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="198.0" />
+                        <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="198.0" promptText="Introduza un nome..." />
                     </HBox>
 
-                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
+                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
                         <children>
                             <Label prefHeight="20.0" prefWidth="100.0" text="Instalación: ">
                                 <font>
@@ -66,7 +59,7 @@
                         </children>
                     </HBox>
 
-                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
+                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
                         <children>
                             <Label prefHeight="20.0" prefWidth="139.0" text="Profesor:">
                                 <font>
@@ -77,7 +70,7 @@
                         </children>
                     </HBox>
 
-                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0">
+                    <HBox alignment="CENTER" prefHeight="56.0" prefWidth="550.0" spacing="10.0" VBox.vgrow="ALWAYS">
                         <Label prefHeight="18.0" prefWidth="53.0" text="Data:">
                             <font>
                                 <Font name="System Bold" size="14.0" />
@@ -89,26 +82,29 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="campoHoraInicio" alignment="CENTER" prefHeight="26.0" prefWidth="82.0" />
+                        <TextField fx:id="campoHoraInicio" alignment="CENTER" prefHeight="26.0" prefWidth="82.0" promptText="XX:XX" />
                         <Label layoutX="324.0" layoutY="28.0" prefHeight="18.0" prefWidth="71.0" text="Hora fin">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="campoHoraFin" alignment="CENTER" layoutX="405.0" layoutY="25.0" prefHeight="26.0" prefWidth="82.0" />
+                        <TextField fx:id="campoHoraFin" alignment="CENTER" layoutX="405.0" layoutY="25.0" prefHeight="26.0" prefWidth="82.0" promptText="XX:XX" />
                     </HBox>
 
                     <HBox alignment="CENTER" fillHeight="false" prefHeight="147.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
-                        <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="167.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="170.0" VBox.vgrow="ALWAYS">
                             <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="160.0" text="Volver" />
                             <!-- onAction="#btnVolverAction" -->
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="58.0" prefWidth="152.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label fx:id="avisoCampos" prefHeight="18.0" prefWidth="264.0" />
+                                <Label fx:id="avisoCampos" prefHeight="18.0" prefWidth="264.0" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font></Label>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="84.0" prefWidth="252.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="170.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <Button fx:id="btnGardar" mnemonicParsing="false" onAction="#btnGardarAction" prefHeight="26.0" prefWidth="160.0" text="Gardar" HBox.hgrow="ALWAYS" />
                             </children>
