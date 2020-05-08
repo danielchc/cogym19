@@ -36,7 +36,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TabPane prefHeight="344.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+                        <TabPane fx:id="tabPane" prefHeight="344.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
                           <tabs>
                             <Tab text="Datos do Curso">
                               <content>
@@ -203,7 +203,7 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Actividades">
+                            <Tab fx:id="tabActividades" text="Actividades">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
