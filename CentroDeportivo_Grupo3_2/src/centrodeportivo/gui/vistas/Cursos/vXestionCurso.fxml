@@ -63,7 +63,7 @@
                                                          <children>
                                                             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                <children>
-                                                                  <TextField fx:id="campoCodigo" disable="true" editable="false" prefHeight="26.0" prefWidth="110.0" />
+                                                                  <TextField fx:id="campoCodigo" alignment="CENTER" disable="true" editable="false" prefHeight="26.0" prefWidth="110.0" promptText="-" />
                                                                </children>
                                                             </HBox>
                                                          </children>
@@ -446,7 +446,7 @@
                                                                   </HBox>
                                                                   <HBox alignment="CENTER" prefHeight="35.0" prefWidth="558.0" VBox.vgrow="ALWAYS">
                                                                      <children>
-                                                                        <Label text="~Valoracións dos profesores~" HBox.hgrow="ALWAYS">
+                                                                        <Label text="~Valoracións por profesores~" HBox.hgrow="ALWAYS">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
                                                                            </font>

@@ -1,11 +1,14 @@
 package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
@@ -109,8 +112,15 @@ public class vElixirActividadeController extends AbstractController implements I
         String nome=campoNome.getText();
         Instalacion instalacion=(Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
         Area area=(Area)comboArea.getSelectionModel().getSelectedItem();
+        Usuario usuario=this.controllerPrincipal.getUsuario();
 
         //buscar segundo os parametros anteriores
+        if(isPantallaApuntarse){
+            //apuntarse
+        }else{
+            //eliminar
+        }
+
         taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(null));
         if(taboaActividade.getItems().size()!=0){
             taboaActividade.getSelectionModel().selectFirst();
@@ -125,8 +135,34 @@ public class vElixirActividadeController extends AbstractController implements I
     public void btnXestionarAction(ActionEvent actionEvent){
         if(isPantallaApuntarse){
             //se se esta apuntando
+            if(!taboaActividade.getSelectionModel().isEmpty()){
+                Actividade actividade=(Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+                if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade","Quereste apuntar a "+actividade.getNome())==ButtonType.OK){
+                    //apuntar
+                    try{
+                        TipoResultados tipoResultados=super.getFachadaAplicacion().apuntarseActividade(actividade,controllerPrincipal.getUsuario());
+                        super.getFachadaAplicacion().mostrarInformacion("Actividade","Apuntacheste á actividade "+actividade.getNome());
+                        //resultado
+                    }catch (ExcepcionBD e){
+                        getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
+                    }
+                }
+            }
         }else{
             //se esta para borrarse
+            if(!taboaActividade.getSelectionModel().isEmpty()){
+                Actividade actividade=(Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+                if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade","Quereste desapuntar da actividade "+actividade.getNome())==ButtonType.OK){
+                    //desapuntr
+                    try{
+                        TipoResultados tipoResultados=super.getFachadaAplicacion().borrarseDeActividade(actividade,controllerPrincipal.getUsuario());
+                        super.getFachadaAplicacion().mostrarInformacion("Actividade","Desapuntacheste da actividade "+actividade.getNome());
+
+                    }catch (ExcepcionBD e){
+                        getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
+                    }
+                }
+            }
         }
     }
 

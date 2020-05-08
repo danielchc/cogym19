@@ -8,9 +8,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
-
-
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 

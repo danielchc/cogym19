@@ -40,10 +40,23 @@
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font></Label>
-                        <TextField fx:id="campoCodigo" disable="true" prefHeight="26.0" prefWidth="48.0" promptText="Código..." HBox.hgrow="NEVER">
+                        <TextField fx:id="campoCodigo" alignment="CENTER" disable="true" prefHeight="26.0" prefWidth="48.0" promptText="-" HBox.hgrow="NEVER">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin></TextField>
+                        <Label text="Instalación:">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="campoInstalacion" alignment="CENTER" disable="true" editable="false" prefHeight="26.0" prefWidth="200.0" text="Instalacion...">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </TextField>
                      </children></HBox>
                         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" VBox.vgrow="NEVER">
                             <children>

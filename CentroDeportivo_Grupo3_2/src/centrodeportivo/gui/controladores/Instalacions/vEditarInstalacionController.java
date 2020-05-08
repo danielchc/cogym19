@@ -182,9 +182,9 @@ public class vEditarInstalacionController extends AbstractController implements 
      */
     public void btnEngadirAreaAction(ActionEvent actionEvent) {
         //Poderemos abrir a pantalla de engadido dunha area:
-        ((vXestionAreaController) controllerPrincipal.getControlador(IdPantalla.XESTIONAREA)).setInstalacion(this.instalacion);
-        //Abrimos a ventá de nova área:
         controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONAREA);
+        //Asignamos unha instalación:
+        ((vXestionAreaController) controllerPrincipal.getControlador(IdPantalla.XESTIONAREA)).setInstalacion(this.instalacion);
     }
 
     /**

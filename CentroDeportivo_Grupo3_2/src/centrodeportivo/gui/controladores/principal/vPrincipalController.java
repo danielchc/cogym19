@@ -7,6 +7,8 @@ import centrodeportivo.gui.controladores.Actividades.*;
 import centrodeportivo.gui.controladores.Areas.vAdministrarAreaController;
 import centrodeportivo.gui.controladores.Areas.vXestionAreaController;
 import centrodeportivo.gui.controladores.Cursos.vAdministrarCursosController;
+import centrodeportivo.gui.controladores.Cursos.vElixirCursoController;
+import centrodeportivo.gui.controladores.Cursos.vMeusCursosController;
 import centrodeportivo.gui.controladores.Cursos.vXestionCursoController;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Instalacions.vAdministrarInstalacionsController;
@@ -55,6 +57,8 @@ public class vPrincipalController extends AbstractController implements Initiali
     public VBox sideBarActividadesPersoal;
     public VBox sideBarMaterialPersoal;
     public VBox sideBarActividadesSocios;
+    public VBox sideBarCursosSocios;
+    public Button btnCursosSocios;
 
     /**
      * Atributos privados: outras compoñentes necesarias dende o controlador:
@@ -126,6 +130,10 @@ public class vPrincipalController extends AbstractController implements Initiali
         //Pantalla de administración de cursos:
         this.pantallas.put(IdPantalla.ADMINISTRARCURSOS, new DatosVista("../../vistas/Cursos/vAdministrarCursos.fxml", new vAdministrarCursosController(super.getFachadaAplicacion(), this)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.ELIXIRCURSO, new DatosVista("../../vistas/Cursos/vElixirCurso.fxml", new vElixirCursoController(super.getFachadaAplicacion(), this, this.usuario)));
+        // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.OSMEUSCURSOS, new DatosVista("../../vistas/Cursos/vMeusCursos.fxml", new vMeusCursosController(super.getFachadaAplicacion(), this, this.usuario)));
+        // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.NOVOMATERIAL, new DatosVista("../../vistas/Materiales/vNovoMaterial.fxml", new vNovoMaterialController(super.getFachadaAplicacion(), this)));
         // Pantalla administrar tipos de materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ADMINISTRARTIPOMATERIAL, new DatosVista("../../vistas/Materiales/vAdministrarTipoMaterial.fxml", new vAdministrarTipoMaterialController(super.getFachadaAplicacion(), this)));
@@ -157,12 +165,14 @@ public class vPrincipalController extends AbstractController implements Initiali
         sliders.add(sideBarActividadesPersoal);
         sliders.add(sideBarMaterialPersoal);
         sliders.add(sideBarActividadesSocios);
+        sliders.add(sideBarCursosSocios);
 
         //Engadimos os botóns de cada un:
         btnsMenu.add(btnAreasPersoal);
         btnsMenu.add(btnActividadesPersoal);
         btnsMenu.add(btnMaterialPersoal);
         btnsMenu.add(btnActividadesSocios);
+        btnsMenu.add(btnCursosSocios);
 
         //Imos engadindo as transicións para cada un dos botóns:
         for (int i = 0; i < btnsMenu.size(); i++) {

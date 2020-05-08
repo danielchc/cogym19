@@ -41,6 +41,7 @@ public class vXestionAreaController extends AbstractController implements Initia
     public Label avisoCampos;
     public TextField campoCodigo;
     public TextField campoAforoMax;
+    public TextField campoInstalacion;
 
     /**
      * Atributos privados: correspóndense con outras cuestións necesarias para certas xestións.
@@ -94,6 +95,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      */
     public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
+        this.campoInstalacion.setText(instalacion.getNome());
     }
 
     /**

@@ -430,6 +430,41 @@ public class FachadaAplicacion extends Application {
         return xestionCursos.activarCurso(curso);
     }
 
+    /**
+     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos.
+     *
+     * @param curso Curso polo que se realiza a busca.
+     * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
+     */
+    public ArrayList<Curso> consultarCursosAbertos(Curso curso) {
+        return xestionCursos.consultarCursosAbertos(curso);
+    }
+
+    /**
+     * Metodo que nos permite apuntar a un usuario nun curso
+     *
+     * @param curso   Curso ó que se quere apuntar o usuario
+     * @param usuario Usuario que se quer apuntar o curso
+     * @return Un enum que especifica como foi a execución do método
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante as consultas
+     */
+    public TipoResultados apuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        return xestionCursos.apuntarseCurso(curso, usuario);
+    }
+
+    /**
+     * Metodo que nos permite desapuntar a un usuario a un curso
+     *
+     * @param curso   Curso do que se vai desapuntar
+     * @param usuario Usuario que se vai desapuntar
+     * @return Un enum que especifica como foi a execución do método
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante as consultas
+     */
+    public TipoResultados desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        return xestionCursos.desapuntarseCurso(curso, usuario);
+    }
+
+
     /*
         Xestión TIPOS de material
      */
@@ -541,7 +576,7 @@ public class FachadaAplicacion extends Application {
         return xestionActividade.buscarActividade(actividade);
     }
 
-    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoActividade){
+    public ArrayList<Persoal> buscarProfesores(TipoActividade tipoActividade) {
         return xestionActividade.buscarProfesores(tipoActividade);
     }
 
