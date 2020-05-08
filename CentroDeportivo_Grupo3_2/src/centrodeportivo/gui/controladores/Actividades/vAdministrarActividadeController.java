@@ -1,6 +1,7 @@
 package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
@@ -141,10 +142,12 @@ public class vAdministrarActividadeController extends AbstractController impleme
         }
     }
 
-    public void btnBorrarAction(){
-        if(!taboaActividade.getSelectionModel().isEmpty()){
-
+    public void btnBorrarAction() throws ExcepcionBD {
+        if(taboaActividade.getSelectionModel().isEmpty()){
+            this.getFachadaAplicacion().mostrarErro("Error Elimnar", "Debe selectionar unha acticidade para ser borrada.");
         }
+        else
+            this.getFachadaAplicacion().borrarActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
     }
 
 }

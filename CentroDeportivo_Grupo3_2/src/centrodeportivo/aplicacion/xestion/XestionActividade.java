@@ -85,4 +85,12 @@ public class XestionActividade {
         return fachadaBD.buscarProfesores(tipoactividade);
     }
 
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario)
+    {
+        if(usuario != null)
+            return fachadaBD.buscarActividadeparticipa(actividade, usuario);
+        else
+            return null;
+    }
+
 }

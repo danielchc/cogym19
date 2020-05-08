@@ -590,4 +590,8 @@ public class FachadaAplicacion extends Application {
         return xestionActividade.buscarProfesores(tipoActividade);
     }
 
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario)
+    {
+        return xestionActividade.buscarActividadeParticipa(actividade, usuario);
+    }
 }
