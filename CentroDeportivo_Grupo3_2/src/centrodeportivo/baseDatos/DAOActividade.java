@@ -638,7 +638,7 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            String consulta = "SELECT dataactividade, area, instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade " +
+            String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade " +
                     " FROM actividade, tipoactividade, realizaractividade " +
                     " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade "+
                     "   AND realizaractividade.dataactividade=actividade.dataactividade " +
@@ -650,7 +650,7 @@ public class DAOActividade extends AbstractDAO {
             //argumento:
 
             if (actividade != null) {
-                consulta += " AND lower(nome) like lower(?)  ";
+                consulta += " AND lower(actividade.nome) like lower(?)  ";
 
                 if (actividade.getArea()!=null)
                     consulta += " AND area=? AND instalacion=? ";

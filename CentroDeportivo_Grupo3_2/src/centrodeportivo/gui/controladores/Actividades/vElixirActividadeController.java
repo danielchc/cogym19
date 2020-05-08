@@ -107,10 +107,12 @@ public class vElixirActividadeController extends AbstractController implements I
         taboaActividade.getItems().removeAll(taboaActividade.getItems());
         String nome=campoNome.getText();
         Area area=(Area)comboArea.getSelectionModel().getSelectedItem();
-        area.setInstalacion((Instalacion) comboInstalacion.getSelectionModel().getSelectedItem());
+        Instalacion instalcion = (Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
+        if (area !=  null)
+            area.setInstalacion(instalcion);
         Usuario usuario=this.controllerPrincipal.getUsuario();
 
-        Actividade actividade;
+        Actividade actividade =  null;
 
         if(ValidacionDatos.estanCubertosCampos(campoNome) || comboInstalacion.getSelectionModel().isEmpty() || comboArea.getSelectionModel().isEmpty())
             actividade = new Actividade(nome, area);
@@ -119,7 +121,7 @@ public class vElixirActividadeController extends AbstractController implements I
         //buscar segundo os parametros anteriores
         if(isPantallaApuntarse){
             //apuntarse
-            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(null, usuario));
+            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
         }else{
             //eliminar
         }

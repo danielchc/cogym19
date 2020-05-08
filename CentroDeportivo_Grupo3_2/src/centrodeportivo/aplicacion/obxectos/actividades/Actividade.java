@@ -53,6 +53,12 @@ public class Actividade {
         this.valMedia = valMedia;
     }
 
+    public Actividade(String nome, Area area)
+    {
+        this.nome = nome;
+        this.area = area;
+    }
+
     //Getters e setters:
     public Timestamp getData() {
         return data;

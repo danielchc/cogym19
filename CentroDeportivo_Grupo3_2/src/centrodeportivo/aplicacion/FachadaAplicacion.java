@@ -592,6 +592,6 @@ public class FachadaAplicacion extends Application {
 
     public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario)
     {
-        return buscarActividadeParticipa(actividade, usuario);
+        return xestionActividade.buscarActividadeParticipa(actividade, usuario);
     }
 }
