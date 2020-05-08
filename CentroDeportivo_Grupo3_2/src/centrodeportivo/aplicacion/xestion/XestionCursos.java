@@ -175,8 +175,8 @@ public class XestionCursos {
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursos(Usuario usuario) {
-        return fachadaBD.consultarCursos(usuario);
+    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
+        return fachadaBD.consultarCursosUsuario(usuario);
     }
 
     /**

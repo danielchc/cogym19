@@ -928,7 +928,7 @@ public final class DAOCursos extends AbstractDAO {
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursos(Usuario usuario) {
+    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
         // Esta é a consulta que se usará dende a parte de socio:
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;

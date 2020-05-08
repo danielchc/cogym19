@@ -493,8 +493,8 @@ public final class FachadaBD {
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursos(Usuario usuario) {
-        return daoCursos.consultarCursos(usuario);
+    public ArrayList<Curso> consultarCursosUsuario(Usuario usuario) {
+        return daoCursos.consultarCursosUsuario(usuario);
     }
 
 
