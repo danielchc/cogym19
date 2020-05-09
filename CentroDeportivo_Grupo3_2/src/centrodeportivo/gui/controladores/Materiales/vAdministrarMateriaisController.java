@@ -72,7 +72,6 @@ public class vAdministrarMateriaisController extends AbstractController implemen
         comboTipoMaterial.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarTipoMaterial(null)));
         // Facemos que se vexa o nome dos tipos no comboBox:
 
-        comboTipoMaterial.getSelectionModel().selectFirst();
         comboTipoMaterial.setConverter(new StringConverter<TipoMaterial>() {
             @Override
             public String toString(TipoMaterial object) {

@@ -28,7 +28,9 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAmount;
 import java.util.Calendar;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -46,6 +48,7 @@ public class vInsercionActividadeController extends AbstractController implement
     public Label avisoCampos;
     public Button btnVolver;
     public Button btnGardar;
+    public Button btnRestaurar;
 
     private Curso curso;
     private Actividade actividadeModificar;
@@ -60,7 +63,6 @@ public class vInsercionActividadeController extends AbstractController implement
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.curso=null;
         this.actividadeModificar=null;
-
         //Por defecto habilítanse todos os campos:
         AuxGUI.habilitarCampos(comboTipoactividade, campoNome, comboInstalacions,comboArea,
                 comboProfesor, campoHoraInicio, campoHoraFin, btnGardar);
@@ -128,7 +130,7 @@ public class vInsercionActividadeController extends AbstractController implement
             return false;
         }
 
-        if (campoData.getValue().isBefore(LocalDate.now()))
+        if (campoData.getValue().isBefore(LocalDate.now().plusDays(2)))
         {
             avisoCampos.setText("Data incorrecta. ");
             return false;
@@ -308,7 +310,7 @@ public class vInsercionActividadeController extends AbstractController implement
         //Se a actividade xa comezou/se levou a cabo, impediremos que se modifiquen os seus campos:
         if(actividade.getData().before(new Date(System.currentTimeMillis()))){
             AuxGUI.inhabilitarCampos(comboTipoactividade, campoNome, comboInstalacions,comboArea,
-                    comboProfesor, campoHoraInicio, campoHoraFin, campoData, btnGardar);
+                    comboProfesor, campoHoraInicio, campoHoraFin, campoData, btnGardar,btnRestaurar);
         }
     }
 
