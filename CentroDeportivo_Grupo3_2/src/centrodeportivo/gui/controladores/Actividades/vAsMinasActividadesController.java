@@ -152,9 +152,9 @@ public class vAsMinasActividadesController extends AbstractController implements
 
             boolean estaAcabada=(new Timestamp(System.currentTimeMillis())).after(new Timestamp(cal.getTime().getTime()));
 
-            btnValorar.setDisable(estaAcabada && !checkApuntado.isSelected());
-            btnDesapuntarse.setDisable(!estaAcabada && !checkApuntado.isSelected());
-            btnApuntarse.setDisable(!checkApuntado.isSelected());
+            btnValorar.setDisable(!(estaAcabada && checkApuntado.isSelected()));
+            btnDesapuntarse.setDisable(!(!estaAcabada && checkApuntado.isSelected()));
+            btnApuntarse.setDisable(checkApuntado.isSelected());
 
             String infoActividade=String.format(
                     "Nome: %s\nData: %s\nHora: %s\nDuración: %s\nInstalación: %s\nÁrea: %s\nTipo: %s",
@@ -168,6 +168,10 @@ public class vAsMinasActividadesController extends AbstractController implements
             );
             campoInfo.setText(infoActividade);
         }
+    }
+
+    public void listenerCheckBox(){
+        actualizarTabla();
     }
 
     public void btnBuscarAction(ActionEvent actionEvent) {

@@ -617,7 +617,7 @@ public class DAOActividade extends AbstractDAO {
                     }
                 }
             }
-            consulta += " ORDER BY actividade.dataactividade desc ";
+            consulta += " ORDER BY actividade.dataactividade asc ";
 
             stmActividades = con.prepareStatement(consulta);
 
