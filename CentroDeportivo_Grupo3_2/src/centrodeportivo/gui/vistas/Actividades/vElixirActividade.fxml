@@ -38,14 +38,14 @@
                             <children>
                                 <VBox prefHeight="50.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="211.0" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <Label prefHeight="20.0" prefWidth="54.0" text="Nome" HBox.hgrow="ALWAYS">
+                                                <Label prefHeight="20.0" prefWidth="61.0" text="Nome" HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="System Bold" size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="243.0" promptText="Introduce nome a buscar..." HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="campoNome" prefHeight="26.0" prefWidth="4.0" promptText="Introduce nome a buscar..." HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -56,10 +56,10 @@
                                             <children>
                                                 <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="137.5" HBox.hgrow="ALWAYS">
                                                     <children>
-                                                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="169.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                                                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="331.0" spacing="5.0" VBox.vgrow="ALWAYS">
                                                             <children>
-                                                <ComboBox fx:id="comboInstalacion" prefWidth="150.0" />
-                                                <ComboBox fx:id="comboArea" prefWidth="150.0" />
+                                                <ComboBox fx:id="comboInstalacion" prefWidth="150.0" promptText="Instalación..." />
+                                                <ComboBox fx:id="comboArea" prefWidth="150.0" promptText="Área..." />
                                                                 <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#btnBuscarAction" prefHeight="26.0" prefWidth="95.0" text="Buscar" HBox.hgrow="ALWAYS" />
                                                             </children>
                                              <VBox.margin>

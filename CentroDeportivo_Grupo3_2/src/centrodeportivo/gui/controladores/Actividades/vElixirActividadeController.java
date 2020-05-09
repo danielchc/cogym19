@@ -61,14 +61,12 @@ public class vElixirActividadeController extends AbstractController implements I
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.comboInstalacion.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
-        if(!this.comboInstalacion.getItems().isEmpty()) this.comboInstalacion.getSelectionModel().selectFirst();
 
         this.comboInstalacion.valueProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 Instalacion instalacion=(Instalacion)observableValue.getValue();
                 comboArea.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarArea(instalacion,null)));
-                if(!comboArea.getItems().isEmpty()) comboArea.getSelectionModel().selectFirst();
             }
         });
 
