@@ -12,8 +12,6 @@ import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
-import javafx.beans.binding.ObjectExpression;
-import javafx.collections.ObservableList;
 
 import java.io.FileInputStream;
 import java.sql.*;

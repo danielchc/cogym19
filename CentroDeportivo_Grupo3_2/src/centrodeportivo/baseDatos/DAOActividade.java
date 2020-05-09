@@ -11,7 +11,6 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
-import java.rmi.activation.ActivationID;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;

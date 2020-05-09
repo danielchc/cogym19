@@ -5,9 +5,6 @@ import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.funcionsAux.Criptografia;
 import centrodeportivo.gui.FachadaGUI;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 /**
  * @author Manuel Bendaña
  * @author Helena Castro

@@ -5,7 +5,6 @@ import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
