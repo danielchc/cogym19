@@ -109,7 +109,7 @@ public class XestionActividade {
     }
 
     public TipoResultados valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        if (valoracion != null && actividade != null && usuario != null) {
+        if ( actividade != null && usuario != null) {
             if ((actividade.getData()).before(new Timestamp(System.currentTimeMillis()))) {
                 fachadaBD.valorarActividade(valoracion, actividade, usuario);
                 return TipoResultados.correcto;
@@ -118,6 +118,10 @@ public class XestionActividade {
         } else {
             return TipoResultados.sitIncoherente;
         }
+    }
+
+    public boolean isValorada(Actividade actividade, Usuario usuario) {
+        return fachadaBD.isValorada(actividade, usuario);
     }
 
 }

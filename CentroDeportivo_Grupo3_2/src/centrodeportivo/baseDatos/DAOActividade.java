@@ -634,8 +634,6 @@ public class DAOActividade extends AbstractDAO {
                 }
             }
 
-            System.out.println(stmActividades);
-
             //Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
 
@@ -767,7 +765,7 @@ public class DAOActividade extends AbstractDAO {
         try {
             // Intentamos levar a cabo a actualización: modificacion na taboa realizar actividade
             stmActividade = con.prepareStatement("UPDATE realizaractividade " +
-                    "SET valoracion = ?, " +
+                    "SET valoracion = ? " +
                     "WHERE dataactividade = ? " +
                     "AND area = ? " +
                     "AND instalacion = ? " +
@@ -843,6 +841,64 @@ public class DAOActividade extends AbstractDAO {
             }
         }
         return false;
+    }
+
+
+    /**
+     * Metodo que comproba se unha actividade foi valorada por un usuario
+     *
+     * @param actividade Actividade que se comproba se foi valorada
+     * @param usuario    Usuario que se comproba se a valorou
+     * @return Devolve true se a actividade xa foi valorada
+     * @throws ExcepcionBD
+     */
+    public boolean isValorada(Actividade actividade, Usuario usuario) {
+        // Neste metodo comprobamos se a actividade foi valorada
+        PreparedStatement stmActividade = null;
+        ResultSet rsActividade;
+        Connection con;
+        boolean resultado = true;
+
+        // Recuperamos a conexión coa base de datos
+        con = super.getConexion();
+
+        try {
+            // Intentamos levar a cabo a consulta
+            stmActividade = con.prepareStatement("SELECT * " +
+                    "FROM realizaractividade " +
+                    "WHERE dataactividade = ? " +
+                    "AND area = ? " +
+                    "AND instalacion = ? " +
+                    "AND usuario = ? AND valoracion IS NULL ");
+
+            // Completamos a sentenza anterior cos ?:
+            stmActividade.setTimestamp(1, actividade.getData());
+            stmActividade.setInt(2, actividade.getArea().getCodArea());
+            stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setString(4, usuario.getLogin());
+
+            // Realizamos a consulta:
+            rsActividade = stmActividade.executeQuery();
+            resultado = !rsActividade.next();
+
+            // Unha vez feita, teremos rematado. Facemos o commit:
+            con.commit();
+        } catch (SQLException e) {
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Pechamos os statement.
+            try {
+                assert stmActividade != null;
+                stmActividade.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return resultado;
     }
 
 }

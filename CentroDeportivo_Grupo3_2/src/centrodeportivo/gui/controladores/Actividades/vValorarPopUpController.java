@@ -22,27 +22,21 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- * Clase que servirá de controlador da pantalla de administración de tipos de actividades.
+ * Clase que servirá de controlador da pantalla de valorar actividades
  */
 public class vValorarPopUpController
         extends AbstractController implements Initializable {
 
-
-    public TextField campoNome;
-    public ComboBox comboInstalacion;
-    public ComboBox comboArea;
-    public TableView taboaActividade;
     public Button btnVolver;
 
-    private vPrincipalController controllerPrincipal;
-    private Usuario usuario;
-    private Integer valoracion;
-    private Actividade actividade;
     @FXML
     private Rating rate;
     @FXML
     private Label msg;
-
+    private vPrincipalController controllerPrincipal;
+    private Usuario usuario;
+    private Integer valoracion;
+    private Actividade actividade;
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
@@ -85,35 +79,38 @@ public class vValorarPopUpController
     public void btnVolverAction(ActionEvent actionEvent) {
         // Engadimos a valoracion a actividade:
         try {
-            TipoResultados res = super.getFachadaAplicacion().valorarActividade(valoracion, actividade, usuario);
-            // En función do resultado, actuamos:
-            switch (res) {
-                case correcto:
-                    // Se sae correcto saímos á ventá das miñas actividades
-                    controllerPrincipal.mostrarPantalla(IdPantalla.APUNTARSEACTIVIDADE);
-                    break;
-                case foraTempo:
-                    // Amosamos unha mensaxe que clarifique o usuario a situación especificando o erro:
-                    super.getFachadaAplicacion().mostrarErro("Valorar Actividades",
-                            "Non podes valorar unha actividade que ainda non comezou!");
-                    // Saímos á ventá das miñas actividades
-                    controllerPrincipal.mostrarPantalla(IdPantalla.APUNTARSEACTIVIDADE);
-                    break;
-                case sitIncoherente:
-                    // Amosamos unha mensaxe que clarifique o usuario a situación:
-                    super.getFachadaAplicacion().mostrarErro("Valorar actividades",
-                            "Non se pode valorar esta actividade, comproba a valoración!");
-                    // Saímos á ventá das miñas actividades
-                    controllerPrincipal.mostrarPantalla(IdPantalla.APUNTARSEACTIVIDADE);
-                    break;
+            if (valoracion != null) {
+                TipoResultados res = super.getFachadaAplicacion().valorarActividade(valoracion, actividade, usuario);
+                // En función do resultado, actuamos:
+                switch (res) {
+                    case correcto:
+                        // Se sae correcto saímos á ventá das miñas actividades
+                        controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
+                        break;
+                    case foraTempo:
+                        // Amosamos unha mensaxe que clarifique o usuario a situación especificando o erro:
+                        super.getFachadaAplicacion().mostrarErro("Valorar Actividades",
+                                "Non podes valorar unha actividade que ainda non comezou!");
+                        // Saímos á ventá das miñas actividades
+                        controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
+                        break;
+                    case sitIncoherente:
+                        // Amosamos unha mensaxe que clarifique o usuario a situación:
+                        super.getFachadaAplicacion().mostrarErro("Valorar actividades",
+                                "Non se pode valorar esta actividade, comproba a valoración!");
+                        // Saímos á ventá das miñas actividades
+                        controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
+                        break;
+                }
             }
         } catch (ExcepcionBD e) {
             // No caso de termos outra excepción da base de datos, amosase:
-            super.getFachadaAplicacion().mostrarErro("Administración de Instalacións", e.getMessage());
+            super.getFachadaAplicacion().mostrarErro("Valorar actividades", e.getMessage());
+        } finally {
+            // Saímos á ventá das miñas actividades
+            controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
         }
 
-        // Saímos á ventá das miñas actividades
-        controllerPrincipal.mostrarPantalla(IdPantalla.APUNTARSEACTIVIDADE);
     }
 
 

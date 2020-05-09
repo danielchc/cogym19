@@ -154,6 +154,9 @@ public class vAsMinasActividadesController extends AbstractController implements
             boolean estaAcabada = (new Timestamp(System.currentTimeMillis())).after(new Timestamp(cal.getTime().getTime()));
 
             btnValorar.setDisable(!(estaAcabada && checkApuntado.isSelected()));
+            if (getFachadaAplicacion().isValorada(actividade, usuario)) {
+                btnValorar.setDisable(true);
+            }
             btnDesapuntarse.setDisable(!(!estaAcabada && checkApuntado.isSelected()));
             btnApuntarse.setDisable(checkApuntado.isSelected());
 
@@ -183,6 +186,7 @@ public class vAsMinasActividadesController extends AbstractController implements
         this.comboInstalacion.getSelectionModel().clearSelection();
         this.comboArea.getSelectionModel().clearSelection();
         this.campoNome.clear();
+        actualizarTabla();
     }
 
     public void onActionValorar() {
@@ -240,7 +244,6 @@ public class vAsMinasActividadesController extends AbstractController implements
                             super.getFachadaAplicacion().mostrarErro("Actividade", "Non está apuntado a esta actividade.");
                             break;
                     }
-
                 } catch (ExcepcionBD e) {
                     getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
                 }

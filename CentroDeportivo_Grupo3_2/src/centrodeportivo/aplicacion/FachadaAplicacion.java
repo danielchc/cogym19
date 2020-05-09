@@ -228,11 +228,12 @@ public class FachadaAplicacion extends Application {
 
     /**
      * Método que nos permite realizar o envío dun aviso aos socios dunha actividade.
-     * @param mensaxe A mensaxe a enviar a eses socios.
+     *
+     * @param mensaxe    A mensaxe a enviar a eses socios.
      * @param actividade A actividade de referencia da que se collerán os participantes aos que enviar as mensaxes.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD{
+    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD {
         xestionMensaxes.enviarAvisoSociosAct(mensaxe, actividade);
     }
 
@@ -612,17 +613,19 @@ public class FachadaAplicacion extends Application {
         return xestionActividade.buscarProfesores(tipoActividade);
     }
 
-    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario)
-    {
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
         return xestionActividade.buscarActividadeParticipa(actividade, usuario);
     }
 
-    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario)
-    {
+    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
         return xestionActividade.buscarActividadeNONParticipa(actividade, usuario);
     }
 
     public TipoResultados valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
-      return xestionActividade.valorarActividade(valoracion,actividade,usuario);
+        return xestionActividade.valorarActividade(valoracion, actividade, usuario);
+    }
+
+    public boolean isValorada(Actividade actividade, Usuario usuario) {
+        return xestionActividade.isValorada(actividade, usuario);
     }
 }

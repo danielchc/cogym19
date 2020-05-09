@@ -709,8 +709,11 @@ public final class FachadaBD {
         daoActividade.valorarActividade(valoracion, actividade, usuario);
     }
 
-    public boolean EProfesorActivo(Persoal profesor)
-    {
+    public boolean EProfesorActivo(Persoal profesor) {
         return daoActividade.EProfesorActivo(profesor);
+    }
+
+    public boolean isValorada(Actividade actividade, Usuario usuario) {
+        return daoActividade.isValorada(actividade, usuario);
     }
 }

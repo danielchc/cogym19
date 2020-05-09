@@ -34,10 +34,12 @@
                 <Font name="System Bold" size="14.0"/>
             </font>
         </Label>
-        <Button fx:id="btnVolver" layoutX="22.0" layoutY="304.0" mnemonicParsing="false" prefHeight="26.0"
-                prefWidth="74.0" text="Volver" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="22.0" onAction="btnVolverAction"/>
+        <Button fx:id="btnVolver" onAction="#btnVolverAction" layoutX="22.0" layoutY="304.0" mnemonicParsing="false"
+                prefHeight="26.0" prefWidth="74.0" text="Volver" AnchorPane.bottomAnchor="14.0"
+                AnchorPane.leftAnchor="22.0"/>
         <VBox layoutX="170.0" layoutY="139.0" prefHeight="88.0" prefWidth="261.0" AnchorPane.bottomAnchor="117.0"
-              AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="139.0" alignment="CENTER">
+              AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="139.0"
+              alignment="CENTER">
             <Rating fx:id="rate" layoutX="12.0" layoutY="54.0"/>
         </VBox>
     </AnchorPane>
