@@ -213,13 +213,17 @@ public class vXestionCursoController extends AbstractController implements Initi
 
         //Táboa de valoracións aos profesores:
         //Hai columnas similares coas de usuario:
+
+        TableColumn<String, Usuario> nomeProfColumn = new TableColumn<>("Nome");
+        nomeProfColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+
         TableColumn<String, Usuario> loginProfColumn = new TableColumn<>("Login");
         loginProfColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
 
         TableColumn<Float, Persoal> valoracionPersoalColumn = new TableColumn<>("Valoración");
         valoracionPersoalColumn.setCellValueFactory(new PropertyValueFactory<>("valoracion"));
         //Engadimos columnas:
-        taboaProfesores.getColumns().addAll(loginProfColumn, valoracionPersoalColumn);
+        taboaProfesores.getColumns().addAll(nomeProfColumn, loginProfColumn, valoracionPersoalColumn);
         //Controlamos o tamaño das columnas:
         taboaProfesores.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 

@@ -616,11 +616,11 @@ public final class DAOCursos extends AbstractDAO {
                 }
 
                 //Quédanos unha última consulta para recuperar ao persoal e as súas valoracións medias.
-                stmPersoal = con.prepareStatement("SELECT vp.login, avg(ra.valoracion) as valoracion " +
+                stmPersoal = con.prepareStatement("SELECT vp.nome, vp.login, avg(ra.valoracion) as valoracion " +
                         " FROM vistapersoal as vp, actividade as ac NATURAL JOIN realizaractividade as ra" +
                         " WHERE vp.login = ac.profesor" +
                         "   and ac.curso = ?" +
-                        " GROUP BY vp.login");
+                        " GROUP BY vp.login, vp.nome");
 
                 //Completamos a consulta:
                 stmPersoal.setInt(1, curso.getCodCurso());
@@ -631,6 +631,7 @@ public final class DAOCursos extends AbstractDAO {
                 //Procesamos o resultado:
                 while (rsPersoal.next()) {
                     resultado.getProfesores().add(new Persoal(rsPersoal.getString("login"),
+                            rsPersoal.getString("nome"),
                             rsPersoal.getFloat("valoracion")));
                 }
 
