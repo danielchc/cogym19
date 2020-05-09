@@ -80,6 +80,7 @@ public class vAsMinasActividadesController extends AbstractController implements
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 Instalacion instalacion = (Instalacion) observableValue.getValue();
+                if(instalacion==null) return;
                 comboArea.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarArea(instalacion, null)));
             }
         });
@@ -176,6 +177,12 @@ public class vAsMinasActividadesController extends AbstractController implements
 
     public void btnBuscarAction(ActionEvent actionEvent) {
         actualizarTabla();
+    }
+
+    public void onActionLimpar(){
+        this.comboInstalacion.getSelectionModel().clearSelection();
+        this.comboArea.getSelectionModel().clearSelection();
+        this.campoNome.clear();
     }
 
     public void onActionValorar(){
