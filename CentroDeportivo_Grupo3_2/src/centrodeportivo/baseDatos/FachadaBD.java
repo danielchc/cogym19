@@ -11,6 +11,7 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.io.FileInputStream;
@@ -715,5 +716,9 @@ public final class FachadaBD {
 
     public boolean isValorada(Actividade actividade, Usuario usuario) {
         return daoActividade.isValorada(actividade, usuario);
+    }
+
+    public ArrayList<Socio> listarParticipantes(Actividade actividade) {
+        return daoActividade.listarParticipantes(actividade);
     }
 }

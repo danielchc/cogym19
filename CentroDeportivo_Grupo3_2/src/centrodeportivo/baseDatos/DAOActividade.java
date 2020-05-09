@@ -843,7 +843,6 @@ public class DAOActividade extends AbstractDAO {
         return false;
     }
 
-
     /**
      * Metodo que comproba se unha actividade foi valorada por un usuario
      *
@@ -899,6 +898,66 @@ public class DAOActividade extends AbstractDAO {
             }
         }
         return resultado;
+    }
+
+    /**
+     * Met
+     *
+     * @param actividade
+     * @return
+     */
+    public ArrayList<Socio> listarParticipantes(Actividade actividade) {
+        // Usaremos un ArrayList para gardar os Socios:
+        ArrayList<Socio> usuarios = new ArrayList<>();
+        PreparedStatement stmActividades = null;
+        ResultSet rsUsuario;
+        Connection con;
+
+        // Recuperamos a conexión coa base de datos:
+        con = super.getConexion();
+
+        // Preparamos a consulta:
+        try {
+            stmActividades = con.prepareStatement("SELECT vs.login as login," +
+                    "vs.nome as nome, " +
+                    "vs.dificultades as dificultades, " +
+                    "date_part('year', age(vs.datanacemento)) as idade " +
+                    "FROM vistasocio as vs " +
+                    "JOIN realizaractividade r on vs.login = r.usuario " +
+                    "WHERE r.dataactividade = ? AND r.area = ? AND r.instalacion = ? ");
+
+            stmActividades.setTimestamp(1, actividade.getData());
+            stmActividades.setInt(2, actividade.getArea().getCodArea());
+            stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+
+            // Realizamos a consulta:
+            rsUsuario = stmActividades.executeQuery();
+
+            // Recibida a consulta, procesámola:
+            while (rsUsuario.next()) {
+                // Imos engadindo ao ArrayList todoos os Socios que nos son devoltos:
+                usuarios.add(new Socio(rsUsuario.getString("login"), rsUsuario.getString("nome"),
+                        rsUsuario.getString("dificultades"), rsUsuario.getInt("idade")));
+            }
+            // Facemos commit:
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Tentamos pechar os cursores:
+            try {
+                assert stmActividades != null;
+                stmActividades.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return usuarios;
     }
 
 }

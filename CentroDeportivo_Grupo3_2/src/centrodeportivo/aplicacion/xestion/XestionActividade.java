@@ -6,6 +6,7 @@ import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
@@ -122,6 +123,10 @@ public class XestionActividade {
 
     public boolean isValorada(Actividade actividade, Usuario usuario) {
         return fachadaBD.isValorada(actividade, usuario);
+    }
+
+    public ArrayList<Socio> listarParticipantes(Actividade actividade) {
+        return fachadaBD.listarParticipantes(actividade);
     }
 
 }

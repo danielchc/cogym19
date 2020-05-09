@@ -11,6 +11,7 @@ import centrodeportivo.aplicacion.obxectos.area.Material;
 import centrodeportivo.aplicacion.obxectos.area.TipoMaterial;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.xestion.*;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
@@ -627,5 +628,9 @@ public class FachadaAplicacion extends Application {
 
     public boolean isValorada(Actividade actividade, Usuario usuario) {
         return xestionActividade.isValorada(actividade, usuario);
+    }
+
+    public ArrayList<Socio> listarParticipantes(Actividade actividade) {
+        return xestionActividade.listarParticipantes(actividade);
     }
 }

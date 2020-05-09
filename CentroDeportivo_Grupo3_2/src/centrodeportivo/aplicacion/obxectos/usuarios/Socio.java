@@ -57,4 +57,30 @@ public final class Socio extends Usuario {
         super.setTipoUsuario(TipoUsuario.Socio);
     }
 
+    public Socio(String login, String nome, String dificultades, Integer idade) {
+        // Chamamos ao constructor da clase pai:
+        super(login, nome, dificultades, idade);
+        // Establecemos o tipo de usuario, coma no outro constructor.
+        super.setTipoUsuario(TipoUsuario.Socio);
+    }
+
+    @Override
+    public Integer getIdade() {
+        return super.getIdade();
+    }
+
+    @Override
+    public String getNome() {
+        return super.getNome();
+    }
+
+    @Override
+    public String getLogin() {
+        return super.getLogin();
+    }
+
+    @Override
+    public String getDificultades() {
+        return super.getDificultades();
+    }
 }

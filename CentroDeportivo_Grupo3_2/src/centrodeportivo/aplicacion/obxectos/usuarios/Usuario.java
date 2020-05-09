@@ -99,6 +99,12 @@ public class Usuario {
         this.IBANconta = IBANconta;
     }
 
+    public Usuario(String nome, String login, String dificultades, Integer idade) {
+        this.nome = nome;
+        this.login = login;
+        this.dificultades = dificultades;
+        this.idade = idade;
+    }
 
     /**
      * Getter do login do usuario.
