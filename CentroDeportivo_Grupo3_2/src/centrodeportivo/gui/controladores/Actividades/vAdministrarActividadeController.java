@@ -38,6 +38,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
     public Button btnLimpar;
     public TableView taboaActividade;
     public Button btnRexistrar;
+    public Button btnXerarInforme;
 
     /**
      * Atributos privados: somentes temos un que é a referencia ao controlador da ventá principal.
@@ -170,6 +171,10 @@ public class vAdministrarActividadeController extends AbstractController impleme
             //En calquera caso refréscase a táboa:
             actualizarTaboa();
         }
+    }
+
+    public void btnInformeAction(ActionEvent actionEvent){
+        this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMEACTIVIDADE);
     }
 
 }

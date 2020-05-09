@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import org.controlsfx.control.Rating?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../cssTaboas.css"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: #005bbd;" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutY="5.0" prefHeight="46.0" prefWidth="600.0" AnchorPane.bottomAnchor="5.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+            <HBox alignment="CENTER" prefHeight="46.0" prefWidth="326.0">
+                <Label alignment="CENTER" prefHeight="46.0" prefWidth="311.0" text="Informe Actividade"
+                       textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+                <ImageView fitHeight="43.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../imaxes/actividades.png"/>
+                </ImageView>
+            </HBox>
+        </VBox>
+    </AnchorPane>
+    <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+        <VBox alignment="CENTER" prefHeight="344.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="795.0">
+                    <VBox fx:id="vBoxBotonInforme" alignment="CENTER" layoutX="14.0" layoutY="14.0"
+                          prefHeight="287.0" prefWidth="572.0" visible="false"
+                          AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0"
+                          AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                        <Button fx:id="btnXerarInforme" mnemonicParsing="false"
+                                onAction="#btnXerarInformeAction" prefHeight="74.0"
+                                prefWidth="216.0" text="Xenerar Informe do curso"
+                                VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                    <VBox fx:id="vBoxDetalleInforme" layoutX="-50.0" prefHeight="200.0"
+                          prefWidth="100.0" AnchorPane.bottomAnchor="14.0"
+                          AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="196.0" prefWidth="572.0"
+                                    VBox.vgrow="ALWAYS">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="571.0">
+                                <HBox.margin>
+                                    <Insets/>
+                                </HBox.margin>
+                                <padding>
+                                    <Insets right="10.0"/>
+                                </padding>
+                                <VBox alignment="CENTER" layoutY="3.0" prefHeight="620.0" prefWidth="537.0"
+                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0"
+                                      AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                    <HBox alignment="CENTER" prefHeight="35.0" prefWidth="558.0" VBox.vgrow="ALWAYS">
+                                        <Label text="~Información adicional da Actividade~" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
+                                    </HBox>
+                                    <HBox prefHeight="56.0" prefWidth="558.0" VBox.vgrow="ALWAYS">
+                                        <VBox alignment="CENTER" prefHeight="50.0" prefWidth="279.0"
+                                              HBox.hgrow="ALWAYS">
+                                            <Label text="Duración da actividade" VBox.vgrow="ALWAYS">
+                                                <font>
+                                                    <Font name="System Bold" size="14.0"/>
+                                                </font>
+                                            </Label>
+                                        </VBox>
+                                        <VBox alignment="CENTER" prefHeight="50.0"
+                                              prefWidth="279.0" HBox.hgrow="ALWAYS">
+                                            <TextField fx:id="campoDuracion" editable="false" maxWidth="129.0"
+                                                       prefHeight="26.0" prefWidth="129.0" promptText="Duración..."
+                                                       VBox.vgrow="ALWAYS"/>
+                                        </VBox>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <VBox prefHeight="47.0" prefWidth="20.0" HBox.hgrow="ALWAYS">
+                                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0"
+                                                          VBox.vgrow="ALWAYS">
+                                                        <Label text="Data inicio" HBox.hgrow="ALWAYS">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </HBox>
+                                                </VBox>
+                                                <VBox prefHeight="47.0" prefWidth="12.0" HBox.hgrow="ALWAYS">
+                                                    <HBox alignment="CENTER_LEFT"
+                                                          prefHeight="100.0"
+                                                          prefWidth="200.0"
+                                                          VBox.vgrow="ALWAYS">
+                                                        <TextField
+                                                                fx:id="campoDataInicio"
+                                                                editable="false"
+                                                                promptText="Data de inicio..."
+                                                                HBox.hgrow="NEVER"/>
+                                                    </HBox>
+                                                </VBox>
+                                            </HBox>
+                                            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <VBox prefHeight="47.0" prefWidth="177.0" HBox.hgrow="ALWAYS">
+                                                    <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="70.0"
+                                                          VBox.vgrow="ALWAYS">
+                                                        <Label text="Profesor" HBox.hgrow="ALWAYS">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </HBox>
+                                                </VBox>
+                                                <VBox prefHeight="49.0" prefWidth="127.0" HBox.hgrow="ALWAYS">
+                                                    <HBox alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="80.0"
+                                                          VBox.vgrow="NEVER">
+                                                        <TextField fx:id="campoNombreProfesor" editable="false"
+                                                                   prefHeight="26.0" prefWidth="127.0"
+                                                                   promptText="Nome..." HBox.hgrow="NEVER"/>
+                                                    </HBox>
+                                                </VBox>
+                                            </HBox>
+                                        </VBox>
+                                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <VBox prefHeight="40.0" prefWidth="20.0" HBox.hgrow="ALWAYS">
+                                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+                                                          VBox.vgrow="NEVER">
+                                                        <Label text="Data fin"
+                                                               HBox.hgrow="ALWAYS">
+                                                            <font>
+                                                                <Font name="System Bold"
+                                                                      size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </HBox>
+                                                </VBox>
+                                                <VBox prefHeight="47.0" prefWidth="12.0" HBox.hgrow="ALWAYS">
+                                                    <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="103.0"
+                                                          VBox.vgrow="ALWAYS">
+                                                        <TextField fx:id="campoDataFin" editable="false"
+                                                                   promptText="Data de fin..." HBox.hgrow="NEVER"/>
+                                                    </HBox>
+                                                </VBox>
+                                            </HBox>
+                                            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                <VBox prefHeight="47.0" prefWidth="215.0" HBox.hgrow="ALWAYS">
+                                                    <HBox alignment="CENTER" prefHeight="47.0" prefWidth="142.0"
+                                                          VBox.vgrow="ALWAYS">
+                                                        <Label text="Valoración" HBox.hgrow="ALWAYS">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <Rating fx:id="rate" layoutX="8.0" layoutY="54.0"/>
+                                                    </HBox>
+                                                </VBox>
+                                            </HBox>
+                                        </VBox>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="33.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                                        <Label text="~Participantes da Actividade~" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
+                                    </HBox>
+                                    <HBox prefHeight="259.0" prefWidth="537.0" VBox.vgrow="ALWAYS">
+                                        <TableView fx:id="taboaActividadesVal" prefHeight="211.0" prefWidth="524.0"
+                                                   HBox.hgrow="ALWAYS"/>
+                                    </HBox>
+                                </VBox>
+                            </AnchorPane>
+                        </ScrollPane>
+                    </VBox>
+                </AnchorPane>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="600.0" VBox.vgrow="NEVER">
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <opaqueInsets>
+                            <Insets/>
+                        </opaqueInsets>
+                        <padding>
+                            <Insets right="20.0"/>
+                        </padding>
+                        <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" text="Volver">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </HBox>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <Button fx:id="btnRefrescar" mnemonicParsing="false" onAction="#btnRefrescarAction"
+                                text="Refrescar Información">
+                            <HBox.margin>
+                                <Insets right="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </HBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </AnchorPane>
+</AnchorPane>
