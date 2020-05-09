@@ -1069,7 +1069,7 @@ public final class DAOCursos extends AbstractDAO {
 
             // Establecemos os valores
             stmCurso.setInt(1, curso.getCodCurso());
-            stmCurso.setNString(2, usuario.getLogin());
+            stmCurso.setString(2, usuario.getLogin());
 
             // Realizamos a actualización:
             stmCurso.executeUpdate();
@@ -1168,7 +1168,7 @@ public final class DAOCursos extends AbstractDAO {
                     "ON c.codcurso = a.curso " +
                     "JOIN area ar " +
                     "ON a.area = ar.codarea AND a.instalacion = ar.instalacion " +
-                    "WHERE c.codcurso = ? )"
+                    "WHERE c.codcurso = ? "
             );
 
             // Establecemos os valores:
@@ -1202,6 +1202,62 @@ public final class DAOCursos extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+        return resultado;
+    }
+
+    /**
+     * Metodo para comprobar se un curso esta almaceado na base de datos
+     *
+     * @param curso Curso que se quer comprobar
+     * @return Retorna true se o curso se atopa almaceado na base de datos e false en caso contrario
+     */
+    public boolean isCurso(Curso curso) {
+        PreparedStatement stmCursos = null;
+        ResultSet rsCursos;
+        Connection con;
+        boolean resultado = false;
+
+        // Recuperamos a conexión coa base de datos:
+        con = super.getConexion();
+
+        // Intentamos facer a consulta:
+        try {
+            // Comprobamos se existe un curso con ese código e ese nome:
+            stmCursos = con.prepareStatement("SELECT * FROM curso " +
+                    "WHERE lower(nome) = lower(?) " +
+                    "AND codcurso = ?");
+
+
+            // Completamos a consulta co campo do nome e do código do curso:
+            stmCursos.setString(1, curso.getNome());
+            stmCursos.setInt(2, curso.getCodCurso());
+
+            // Realizamos a consulta:
+            rsCursos = stmCursos.executeQuery();
+            // Comprobamos se houbo resultados: se é así, existe o curso na base de datos:
+            if (rsCursos.next()) {
+                resultado = true;
+            }
+
+            // Feita a consulta, facemos o commit:
+            con.commit();
+        } catch (SQLException e) {
+            // Tentamos facer rollback en caso de excepción:
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Pechamos o statement de cursos:
+            try {
+                stmCursos.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        // Devolvemos o booleano:
         return resultado;
     }
 

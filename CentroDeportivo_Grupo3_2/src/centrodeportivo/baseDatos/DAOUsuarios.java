@@ -99,9 +99,9 @@ public final class DAOUsuarios extends AbstractDAO {
         try {
             //Intentamos consultar en primeiro lugar o tipo de usuario:
             stmUsuarios = con.prepareStatement("SELECT CASE" +
-                    " WHEN EXISTS(SELECT * FROM socio as s WHERE s.login = ?) THEN 'socio'" +
-                    " WHEN EXISTS(SELECT * FROM persoal as pe WHERE pe.login = ? and pe.profesorActivo = false) THEN 'persoal'" +
-                    " WHEN EXISTS(SELECT * FROM persoal as pe WHERE pe.login = ? and pe.profesorActivo = true) THEN 'profesor' " +
+                    " WHEN EXISTS(SELECT * FROM socio as s WHERE lower(s.login) = lower(?)) THEN 'socio'" +
+                    " WHEN EXISTS(SELECT * FROM persoal as pe WHERE lower(pe.login) = lower(?) and pe.profesorActivo = false) THEN 'persoal'" +
+                    " WHEN EXISTS(SELECT * FROM persoal as pe WHERE lower(pe.login) = lower(?) and pe.profesorActivo = true) THEN 'profesor' " +
                     " ELSE 'erro'" +
                     " END as tipoUsuario"
             );
@@ -128,7 +128,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 //Neste caso consultaremos un socio, accedendo á vista de socios:
                 stmUsuarios = con.prepareStatement("SELECT nome, dni, login " +
                         " FROM vistasocio " +
-                        " WHERE login = ? " +
+                        " WHERE lower(login) = lower(?) " +
                         "   AND dataBaixa IS NULL");
                 //Completamos a consulta:
                 stmUsuarios.setString(1, login);
@@ -144,7 +144,7 @@ public final class DAOUsuarios extends AbstractDAO {
                 //Noutro caso (profesor/persoal): consultamos un membro do persoal.
                 stmUsuarios = con.prepareStatement("SELECT nome, dni, login, profesorActivo " +
                         " FROM vistapersoal " +
-                        " WHERE login = ? " +
+                        " WHERE lower(login) = lower(?) " +
                         "   AND dataBaixa IS NULL");
                 //Complétase a consula introducindo o login:
                 stmUsuarios.setString(1, login);

@@ -225,6 +225,15 @@ public class FachadaAplicacion extends Application {
         xestionMensaxes.enviarAvisoSociosCurso(mensaxe, curso);
     }
 
+    /**
+     * Método que nos permite realizar o envío dun aviso aos socios dunha actividade.
+     * @param mensaxe A mensaxe a enviar a eses socios.
+     * @param actividade A actividade de referencia da que se collerán os participantes aos que enviar as mensaxes.
+     * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
+     */
+    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD{
+        xestionMensaxes.enviarAvisoSociosAct(mensaxe, actividade);
+    }
 
     /*
         Xestion instalacións
@@ -472,6 +481,18 @@ public class FachadaAplicacion extends Application {
      */
     public ArrayList<Curso> consultarCursosUsuario(Curso curso, Usuario usuario) {
         return xestionCursos.consultarCursosUsuario(curso, usuario);
+    }
+
+
+    /**
+     * Método que nos permite saber se un usuario esta apuntado nun curso
+     *
+     * @param curso   Curso no que queremos saber se esta apuntado
+     * @param usuario Usuario que queremos saber se esta apuntado
+     * @return Retorna true cando o usuario xa se atope apuntado no curso e false cando non.
+     */
+    public boolean estarApuntado(Curso curso, Usuario usuario) {
+        return xestionCursos.estarApuntado(curso, usuario);
     }
 
 

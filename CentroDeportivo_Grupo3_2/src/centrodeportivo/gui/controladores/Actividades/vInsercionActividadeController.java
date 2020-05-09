@@ -2,6 +2,7 @@ package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -61,13 +62,15 @@ public class vInsercionActividadeController extends AbstractController implement
         this.curso=null;
         this.actividadeModificar=null;
 
+        //Por defecto habilítanse todos os campos:
+        AuxGUI.habilitarCampos(comboTipoactividade, campoNome, comboInstalacions,comboArea,
+                comboProfesor, campoHoraInicio, campoHoraFin, btnGardar);
+
         //combo tipos
         this.comboTipoactividade.getItems().addAll(super.getFachadaAplicacion().buscarTiposActividades(null));
-        if(!this.comboTipoactividade.getItems().isEmpty()) this.comboTipoactividade.getSelectionModel().selectFirst();
 
         //combo instalacions
         this.comboInstalacions.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
-        if(!this.comboInstalacions.getItems().isEmpty()) this.comboInstalacions.getSelectionModel().selectFirst();
 
 
         this.comboInstalacions.valueProperty().addListener(new ChangeListener() {
@@ -75,7 +78,6 @@ public class vInsercionActividadeController extends AbstractController implement
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 Instalacion instalacion=(Instalacion)observableValue.getValue();
                 comboArea.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarArea(instalacion,null)));
-                if(!comboArea.getItems().isEmpty()) comboArea.getSelectionModel().selectFirst();
             }
         });
 
@@ -84,7 +86,6 @@ public class vInsercionActividadeController extends AbstractController implement
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 TipoActividade tipoActividade=(TipoActividade) observableValue.getValue();
                 comboProfesor.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarProfesores(tipoActividade)));
-                if(!comboProfesor.getItems().isEmpty()) comboProfesor.getSelectionModel().selectFirst();
             }
         });
 
@@ -172,13 +173,33 @@ public class vInsercionActividadeController extends AbstractController implement
         TipoResultados res;
 
         if(actividadeModificar==null) {
-            //crear activida
+            //crear actividade
             try {
                 res = super.getFachadaAplicacion().EngadirActiviade(actividade);
                 switch (res) {
                     case correcto:
-                        super.getFachadaAplicacion().mostrarInformacion("Actividade gardada",
-                                "Actividade " + actividade.getNome() + " gardada correctamente.");
+                        if(curso == null) {
+                            if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade gardada",
+                                    "Actividade '" + actividade.getNome() + "' gardada correctamente. Queres" +
+                                            " avisar aos socios do centro da creación?") == ButtonType.OK){
+                                //Entón crearemos unha mensaxe deste usuario para todos os socios:
+                                Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                                        "Prezado socio\nEstá dispoñible xa a nova actividade '" +
+                                        actividade.getNome() + "'. A que esperas para apuntarte?");
+
+                                //Procedemos ao envío da mensaxe:
+                                super.getFachadaAplicacion().enviarAvisoSocios(mensaxe);
+                                //Se se chega aqui é porque se realizou o envío da mensaxe:
+                                super.getFachadaAplicacion().mostrarInformacion("Administración de actividades",
+                                        "Mensaxe enviada a todos os socios correctamente");
+                            }
+
+                        } else {
+                            //Se é a actividade dun curso, simplemente se amosará unha confirmación do resultado:
+                            super.getFachadaAplicacion().mostrarInformacion("Actividade gardada",
+                                    "Actividade '" + actividade.getNome() + "' gardada correctamente no curso '"
+                                        + curso.getNome() + "'.");
+                        }
                         //Cando se garda a actividade, pódese volver:
                         accionsVolver();
                         break;
@@ -193,12 +214,28 @@ public class vInsercionActividadeController extends AbstractController implement
                         e.getMessage());
             }
         }else{
-            //modificala
+            //modificar actividade
             try{
                 res = super.getFachadaAplicacion().modificarActividade(actividadeModificar, actividade);
                 switch (res) {
-                    case correcto: super.getFachadaAplicacion().mostrarInformacion("Actividade modificada",
-                            "Actividade " + actividade.getNome() + " modificada correctamente.");
+                    case correcto:
+                        //Sexa a actividade ou non dun curso, o que se pedirá e se se quere notificar aos participantes
+                        //da actividade:
+                        if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade modificada",
+                            "Actividade " + actividade.getNome() + " modificada correctamente.") == ButtonType.OK){
+                            Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                                    "Prezado socio\nA actividade '" + actividadeModificar.getNome() + "' sufriu" +
+                                    " certos cambios. Desculpe as molestias.");
+                            if(curso != null){
+                                //No caso do curso a mensaxe será algo diferente:
+                                mensaxe.setContido("Prezado socio\nA actividade '" + actividadeModificar.getNome() + "'" +
+                                        " do curso '" + curso.getNome() + "' sufriu certos cambios. Desculpe as molestias");
+                            }
+                            //Escollido isto enviarase a mensaxe aos socios da actividade:
+                            super.getFachadaAplicacion().enviarAvisoSociosAct(mensaxe, actividadeModificar);
+                        }
+                        //Recargamos a actividade
+                        this.cargarActividade(actividade);
                         break;
                     case datoExiste:super.getFachadaAplicacion().mostrarErro("Actividade NON modificada",
                             "Actividade " + actividade.getNome() + " non se puido modificar, dado que hai incompatibilidades" +
@@ -244,6 +281,12 @@ public class vInsercionActividadeController extends AbstractController implement
         );
 
         campoData.setValue(actividade.getData().toLocalDateTime().toLocalDate());
+
+        //Se a actividade xa comezou/se levou a cabo, impediremos que se modifiquen os seus campos:
+        if(actividade.getData().before(new Date(System.currentTimeMillis()))){
+            AuxGUI.inhabilitarCampos(comboTipoactividade, campoNome, comboInstalacions,comboArea,
+                    comboProfesor, campoHoraInicio, campoHoraFin, campoData, btnGardar);
+        }
     }
 
     private void accionsVolver(){

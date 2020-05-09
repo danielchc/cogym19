@@ -77,6 +77,12 @@ public abstract class AuxGUI {
         }
     }
 
+
+    /**
+     * Método que nos permite convertir un campo de texto a enteiro se é posible, se non, devolve un 0.
+     * @param campoTexto O campo de texto a convertir.
+     * @return O enteiro derivado (o que corresponda ou cero).
+     */
     public static int pasarEnteiro(TextField campoTexto){
         try{
             return Integer.parseInt(campoTexto.getText());
