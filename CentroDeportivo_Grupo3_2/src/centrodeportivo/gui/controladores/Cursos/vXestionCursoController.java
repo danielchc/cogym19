@@ -276,7 +276,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                             //No caso de devolver este valor, indicará que o curso non estaba preparado para ser activado:
                             getFachadaAplicacion().mostrarErro("Administración de Cursos",
                                     "O curso non está todavía preparado para ser activado. Lembra, debe de ter" +
-                                            " como mínimo dúas actividades e non poden quedar menos de dous días para o seu comezo!");
+                                            " como mínimo dúas actividades e non poden quedar menos de tres días para o seu comezo!");
                             //Non faríamos ningunha modificación.
                             break;
                         case correcto:
