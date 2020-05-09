@@ -295,12 +295,12 @@ $func$
 		OR
 		(pdataactividade + (pduracion * interval '1 hour'))>dataactividade AND (pdataactividade + (pduracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
 	)
-	AND (area=parea AND instalacion=pinstalacion)
+	AND (area=parea AND instalacion=pinstalacion) AND NOT(area=parea AND instalacion=pinstalacion AND dataactividade=pdataactividade AND duracion=pduracion)
 	)
 $func$ LANGUAGE sql STABLE;
 
 
---Funcion que comproba que o profesor está libre para que non solapen clases do profesor
+--Función que comproba que o profesor está libre para que non solapen clases do profesor
 CREATE OR REPLACE FUNCTION comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) RETURNS boolean AS
 $func$
 SELECT NOT EXISTS (
@@ -311,11 +311,11 @@ SELECT NOT EXISTS (
 		OR
 		(pdataactividade + (pduracion * interval '1 hour'))>dataactividade AND (pdataactividade + (pduracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
 	)
-	AND (profesor=pprofesor)
+	AND (profesor=pprofesor) AND NOT(profesor=pprofesor AND  dataactividade=pdataactividade AND duracion=pduracion)
 )
 $func$ LANGUAGE sql STABLE;
 
---Funcion que crea unha secuencia distinta para cada instalacion
+--Función que crea unha secuencia distinta para cada instalacion
 CREATE OR REPLACE  FUNCTION crearSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -324,7 +324,7 @@ BEGIN
 END
 $$;
 
---Ao engadir un area, asignalle un codigo da secuencia creada anteriormente
+--Ao engadir un área, asignalle un codigo da secuencia creada anteriormente
 CREATE OR REPLACE FUNCTION engadirSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -333,7 +333,7 @@ BEGIN
 END
 $$;
 
---Funcion que crea unha secuencia distinta para cada tipo de material
+--Función que crea unha secuencia distinta para cada tipo de material
 CREATE OR REPLACE  FUNCTION crearSecuenciaMaterial() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
