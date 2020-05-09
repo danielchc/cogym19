@@ -23,7 +23,6 @@ public class vInformeActividadeController extends AbstractController implements 
     private vPrincipalController controllerPrincipal;
     private Actividade actividade;
 
-
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
      *
@@ -48,11 +47,17 @@ public class vInformeActividadeController extends AbstractController implements 
 
     }
 
-    public void btnXerarInformeAction(ActionEvent actionEvent){
+    public void btnXerarInformeAction(ActionEvent actionEvent) {
     }
-    public void btnRefrescarAction(ActionEvent actionEvent){
+
+    public void btnRefrescarAction(ActionEvent actionEvent) {
     }
-    public void btnVolverAction(ActionEvent actionEvent){
+
+    public void setActividade(Actividade actividade) {
+        this.actividade = actividade;
+    }
+
+    public void btnVolverAction(ActionEvent actionEvent) {
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINACTIVIDADE);
     }
 

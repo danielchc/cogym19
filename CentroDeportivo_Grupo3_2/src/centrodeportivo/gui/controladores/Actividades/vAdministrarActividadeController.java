@@ -49,7 +49,8 @@ public class vAdministrarActividadeController extends AbstractController impleme
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vAdministrarActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -61,6 +62,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
 
     /**
      * Método que nos permite inicializar a pantalla ao abrila.
+     *
      * @param location
      * @param resources
      */
@@ -104,7 +106,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
     }
 
 
-    private void actualizarTaboa(){
+    private void actualizarTaboa() {
         taboaActividade.getItems().removeAll(taboaActividade.getItems());
         Actividade actividade = null;
         if (ValidacionDatos.estanCubertosCampos(campoNome)) {
@@ -112,23 +114,23 @@ public class vAdministrarActividadeController extends AbstractController impleme
         }
         //buscar segundo os parametros anteriores
         taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividade(actividade));
-        if(taboaActividade.getItems().size()!=0){
+        if (taboaActividade.getItems().size() != 0) {
             taboaActividade.getSelectionModel().selectFirst();
         }
         listenerTabla();
     }
 
-    public void btnBuscarAction(ActionEvent actionEvent){
+    public void btnBuscarAction(ActionEvent actionEvent) {
         actualizarTaboa();
     }
 
-    public void btnLimparAction(ActionEvent actionEvent){
+    public void btnLimparAction(ActionEvent actionEvent) {
         campoNome.clear();
         actualizarTaboa();
     }
 
-    public void listenerTabla(){
-        if(!taboaActividade.getSelectionModel().isEmpty()){
+    public void listenerTabla() {
+        if (!taboaActividade.getSelectionModel().isEmpty()) {
             Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(actividade.getData().getTime());
@@ -140,17 +142,17 @@ public class vAdministrarActividadeController extends AbstractController impleme
         }
     }
 
-    public void btnXestionarAction(ActionEvent actionEvent){
-        if(!taboaActividade.getSelectionModel().isEmpty()) {
+    public void btnXestionarAction(ActionEvent actionEvent) {
+        if (!taboaActividade.getSelectionModel().isEmpty()) {
             //Recuperamos primeiro a actividade seleccionada:
             Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
             //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
-            if(act != null){
+            if (act != null) {
                 //Se non é null seguimos adiante.
                 //Feito iso, facemos que a ventá visíbel sexa a de edición dunha actividade:
                 this.controllerPrincipal.mostrarPantalla(IdPantalla.INSERCIONACTIVIDADE);
                 //Accedemos ao controlador da ventá de edición dunha actividade:
-                ((vInsercionActividadeController)this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
+                ((vInsercionActividadeController) this.controllerPrincipal.getControlador(IdPantalla.INSERCIONACTIVIDADE)).cargarActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
 
             } else {
                 //En caso de que o item si sexa nulo, haberá que mostrar un erro pedindo unha selección:
@@ -160,18 +162,17 @@ public class vAdministrarActividadeController extends AbstractController impleme
     }
 
     public void btnCancelarAction() {
-        if(taboaActividade.getSelectionModel().isEmpty()){
+        if (taboaActividade.getSelectionModel().isEmpty()) {
             this.getFachadaAplicacion().mostrarErro("Administración de Actividades", "Debe selectionar unha actividade para ser borrada.");
-        }
-        else{
-            if(getFachadaAplicacion().mostrarConfirmacion("Administración de actividades",
+        } else {
+            if (getFachadaAplicacion().mostrarConfirmacion("Administración de actividades",
                     "Desexa cancelar a actividade seleccionada?") == ButtonType.OK) {
                 try {
                     Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
                     Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
                             "Prezado socio\nA actividade '" + act.getNome() + "' foi cancelada. Desculpe as molestias.");
                     TipoResultados res = this.getFachadaAplicacion().borrarActividade(act, mensaxe);
-                    switch(res){
+                    switch (res) {
                         case correcto:
                             //Avísase de que o borrado se fixo correctamente:
                             super.getFachadaAplicacion().mostrarInformacion("Administración de actividades",
@@ -180,7 +181,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
                         case sitIncoherente:
                             //Se non se puidese borrar a actividade, avisaríase do problema:
                             super.getFachadaAplicacion().mostrarErro("Administración de actividades",
-                                    "Non se pode cancelar a actividade '" + act.getNome() +"', pois xa foi" +
+                                    "Non se pode cancelar a actividade '" + act.getNome() + "', pois xa foi" +
                                             " realizada!");
                             break;
                     }
@@ -194,8 +195,15 @@ public class vAdministrarActividadeController extends AbstractController impleme
         }
     }
 
-    public void btnInformeAction(ActionEvent actionEvent){
-        this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMEACTIVIDADE);
+    public void btnInformeAction(ActionEvent actionEvent) {
+        // Pasamoslle a actividade se non e nula
+        if (taboaActividade.getSelectionModel().getSelectedItem() != null) {
+            vInformeActividadeController cont = (vInformeActividadeController) controllerPrincipal.getControlador(IdPantalla.INFORMEACTIVIDADE);
+            cont.setActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
+            controllerPrincipal.mostrarPantalla(IdPantalla.INFORMEACTIVIDADE);
+        } else {
+            getFachadaAplicacion().mostrarErro("Informe de Actividades", "Selecciona a actividade da que queiras ver o informe!");
+        }
     }
 
 }
