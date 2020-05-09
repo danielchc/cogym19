@@ -587,11 +587,11 @@ public class DAOActividade extends AbstractDAO {
         //Preparamos a consulta:
         try {
             String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade, area.nome as nomearea, instalacion.nome as nomeinstalacion  " +
-                    " FROM actividade, tipoactividade, area, instalacion" +
+                    " FROM actividade, tipoactividade, area, instalacion " +
                     " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade " +
                     "   AND area.instalacion=instalacion.codinstalacion " +
                     "   AND area.codarea=actividade.area " +
-                    "   AND area.instalacion=actividade.instalacion" +
+                    "   AND area.instalacion=actividade.instalacion " +
                     "   AND curso is null" +
                     "   AND (actividade.dataactividade, actividade.area, actividade.instalacion) NOT IN " +
                     "                            (SELECT actividade.dataactividade, actividade.area, actividade.instalacion " +
@@ -670,7 +670,7 @@ public class DAOActividade extends AbstractDAO {
             String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade, area.nome as nomearea, instalacion.nome as nomeinstalacion " +
                     " FROM actividade, tipoactividade, realizaractividade, instalacion, area " +
                     " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade " +
-                    "   AND area.instalacion=instalacion.codinstalacion " +
+                    "   AND area.instalacion=instalacion.codinstalacion 1" +
                     "   AND area.codarea=actividade.area " +
                     "   AND area.instalacion=actividade.instalacion"+
                     "   AND curso is null " +

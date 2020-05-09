@@ -48,9 +48,9 @@ public final class Persoal extends Usuario {
      * @param login      O login do usuario
      * @param valoracion Valoración dada a ese persoal nalgunha actividade na que foi profesor.
      */
-    public Persoal(String login, Float valoracion) {
+    public Persoal(String login, String nome, Float valoracion) {
         //Chamamos ao construtor da clase pai:
-        super(login);
+        super(login, nome);
         //Asignamos o atributo correspondente a esta clase.
         this.valoracion = valoracion;
     }
