@@ -158,6 +158,17 @@
                     </ImageView>
                 </graphic>
                 </Button>
+                <Button id="VALORARACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Valorar actividade" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../../imaxes/actividades.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
             </children>
         </VBox>
         <VBox id="vb-sidebar" fx:id="sideBarCursosSocios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">

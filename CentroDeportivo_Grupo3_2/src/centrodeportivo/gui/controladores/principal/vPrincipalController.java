@@ -133,8 +133,12 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ELIXIRCURSO, new DatosVista("../../vistas/Cursos/vElixirCurso.fxml", new vElixirCursoController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.OSMEUSCURSOS, new DatosVista("../../vistas/Cursos/vMeusCursos.fxml", new vMeusCursosController(super.getFachadaAplicacion(), this, this.usuario)));
+        // Pantalla de valorar actividades en xeral: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.VALORARACTIVIDADE, new DatosVista("../../vistas/Actividades/vValorarActividade.fxml", new vValorarActividadeController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.NOVOMATERIAL, new DatosVista("../../vistas/Materiales/vNovoMaterial.fxml", new vNovoMaterialController(super.getFachadaAplicacion(), this)));
+        // Pantalla valorar unha actividade: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.VALORARACTIVIDADEPOPUP, new DatosVista("../../vistas/Actividades/vValorarPopUp.fxml", new vValorarPopUpController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla administrar tipos de materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ADMINISTRARTIPOMATERIAL, new DatosVista("../../vistas/Materiales/vAdministrarTipoMaterial.fxml", new vAdministrarTipoMaterialController(super.getFachadaAplicacion(), this)));
         // Pantalla administrar materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.

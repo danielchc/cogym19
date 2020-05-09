@@ -958,13 +958,13 @@ public final class DAOCursos extends AbstractDAO {
                 consulta += "AND usuario = ? ";
             }
 
-            //Agrupamos tamén polo código do curso:
+            // Agrupamos tamén polo código do curso:
             consulta += "GROUP BY c.codcurso ";
 
             // Preparamos entón o statement de cursos para levar a cabo a consulta:
             stmCursos = con.prepareStatement(consulta);
 
-            // Completamos a consulta (se procede):
+            // Completamos a consulta:
             if (curso != null) {
                 stmCursos.setString(1, "%" + curso.getNome() + "%");
             } else {
@@ -1032,7 +1032,7 @@ public final class DAOCursos extends AbstractDAO {
             // Realizamos a actualización:
             stmCurso.executeUpdate();
 
-            //Facemos commit:
+            // Facemos commit:
             con.commit();
         } catch (SQLException e) {
             // Lanzamos neste caso unha excepción cara a aplicación:

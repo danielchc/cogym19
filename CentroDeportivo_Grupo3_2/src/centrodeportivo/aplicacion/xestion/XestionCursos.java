@@ -9,6 +9,7 @@ import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -219,9 +220,9 @@ public class XestionCursos {
      */
     public TipoResultados desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
         // Se xa esta apuntado e o curso existe, desapuntase:
-        if (fachadaBD.isCurso(curso) && fachadaBD.estarApuntado(curso, usuario) && (curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis())))) {
+        if (fachadaBD.isCurso(curso) && fachadaBD.estarApuntado(curso, usuario) && curso.getDataInicio().toLocalDate().isAfter(LocalDate.now())) {
             fachadaBD.desapuntarseCurso(curso, usuario);
-            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+            // Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
         } else {
             return TipoResultados.sitIncoherente;
