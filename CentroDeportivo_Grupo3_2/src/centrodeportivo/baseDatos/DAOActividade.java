@@ -584,6 +584,7 @@ public class DAOActividade extends AbstractDAO {
         //Recuperamos a conexión:
         con = super.getConexion();
 
+
         //Preparamos a consulta:
         try {
             String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade, area.nome as nomearea, instalacion.nome as nomeinstalacion  " +
@@ -599,13 +600,15 @@ public class DAOActividade extends AbstractDAO {
                     "                            WHERE realizaractividade.dataactividade=actividade.dataactividade " +
                     "                            AND realizaractividade.area=actividade.area " +
                     "                            AND realizaractividade.instalacion=actividade.instalacion " +
-                    "                            AND usuario=? ) AND actividade.dataactividade>NOW()";
+                    "                            AND usuario=? )" +
+                    "   AND actividade.dataactividade>NOW()";
 
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
             if (actividade!= null){
-                    consulta += " AND lower(actividade.nome) like lower(?)  ";
+                System.out.println(actividade.getNome());
+                consulta += " AND lower(actividade.nome) like lower(?)  ";
 
                 if (actividade.getArea()!=null)
                     consulta += " AND actividade.area=? AND actividade.instalacion=? ";

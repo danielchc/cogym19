@@ -23,7 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 import java.net.URL;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -41,7 +43,10 @@ public class vAsMinasActividadesController extends AbstractController implements
     public ComboBox comboArea;
     public TableView taboaActividade;
     public Button btnDesapuntarse;
+    public Button btnApuntarse;
     public Button btnValorar;
+    public CheckBox checkApuntado;
+    public TextArea campoInfo;
 
     private vPrincipalController controllerPrincipal;
     private Usuario usuario;
@@ -70,14 +75,12 @@ public class vAsMinasActividadesController extends AbstractController implements
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.comboInstalacion.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
-        if (!this.comboInstalacion.getItems().isEmpty()) this.comboInstalacion.getSelectionModel().selectFirst();
 
         this.comboInstalacion.valueProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 Instalacion instalacion = (Instalacion) observableValue.getValue();
                 comboArea.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarArea(instalacion, null)));
-                if (!comboArea.getItems().isEmpty()) comboArea.getSelectionModel().selectFirst();
             }
         });
 
@@ -100,17 +103,6 @@ public class vAsMinasActividadesController extends AbstractController implements
             }
         });
 
-
-        taboaActividade.setRowFactory(tv -> {
-            TableRow<Actividade> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    Actividade rowData = row.getItem();
-                    abrirPopUpInformacion(rowData);
-                }
-            });
-            return row;
-        });
         //Engadimos as columnas á táboa
         taboaActividade.getColumns().addAll(coldata, colNome, colduracion, coltipoactividade);
 
@@ -120,12 +112,13 @@ public class vAsMinasActividadesController extends AbstractController implements
     private void actualizarTabla() {
         //REVISAR
         taboaActividade.getItems().removeAll(taboaActividade.getItems());
+
         String nome = campoNome.getText();
-
+        Usuario usuario = this.controllerPrincipal.getUsuario();
         Actividade actividade = null;
+        Area area = null;
 
-        if (ValidacionDatos.estanCubertosCampos(campoNome) || !comboInstalacion.getSelectionModel().isEmpty() || !comboArea.getSelectionModel().isEmpty()) {
-            Area area = null;
+        if(ValidacionDatos.estanCubertosCampos(campoNome) || !comboInstalacion.getSelectionModel().isEmpty() || !comboArea.getSelectionModel().isEmpty()) {
             if (!comboArea.getSelectionModel().isEmpty()) {
                 area = (Area) comboArea.getSelectionModel().getSelectedItem();
                 Instalacion instalcion = (Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
@@ -135,11 +128,42 @@ public class vAsMinasActividadesController extends AbstractController implements
             actividade = new Actividade(nome, area);
         }
 
-        taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
-
+        if(checkApuntado.isSelected()){
+            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
+        }else{
+            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeNONParticipa(actividade, usuario));
+        }
 
         if (taboaActividade.getItems().size() != 0) {
             taboaActividade.getSelectionModel().selectFirst();
+        }
+        listenerTabla();
+    }
+
+    public void listenerTabla(){
+        if(!taboaActividade.getSelectionModel().isEmpty()){
+            Actividade actividade=(Actividade)taboaActividade.getSelectionModel().getSelectedItem();
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(actividade.getData().getTime());
+            cal.add(Calendar.SECOND, (int)(actividade.getDuracion()*3600));
+
+            boolean estaAcabada=(new Timestamp(System.currentTimeMillis())).after(new Timestamp(cal.getTime().getTime()));
+
+            btnValorar.setDisable(estaAcabada && !checkApuntado.isSelected());
+            btnDesapuntarse.setDisable(!estaAcabada && !checkApuntado.isSelected());
+            btnApuntarse.setDisable(!checkApuntado.isSelected());
+
+            String infoActividade=String.format(
+                    "Nome: %s\nData: %s\nHora: %s\nDuración: %s\nInstalación: %s\nÁrea: %s\nTipo: %s",
+                    actividade.getNome(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(new Date(actividade.getData().getTime())),
+                    new SimpleDateFormat("HH:mm").format(new Date(actividade.getData().getTime())),
+                    (actividade.getDuracion()*60)+" minutos",
+                    actividade.getArea().getInstalacion().getNome(),
+                    actividade.getArea().getNome(),
+                    actividade.getTipoActividadenome()
+            );
+            campoInfo.setText(infoActividade);
         }
     }
 
@@ -147,29 +171,56 @@ public class vAsMinasActividadesController extends AbstractController implements
         actualizarTabla();
     }
 
-    private void abrirPopUpInformacion(Actividade actividade) {
-
-    }
-
-    private void onActionValorar(){
+    public void onActionValorar(){
         this.controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADEPOPUP);
     }
 
-    private void onActionDesapuntarse(){
-        if(!taboaActividade.getSelectionModel().isEmpty()){
-            Actividade actividade=(Actividade) taboaActividade.getSelectionModel().getSelectedItem();
-            if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade","Quereste desapuntar da actividade "+actividade.getNome())==ButtonType.OK){
+    public void onActionApuntarse(){
+        if (!taboaActividade.getSelectionModel().isEmpty()) {
+            Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+            if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste apuntar a " + actividade.getNome()) == ButtonType.OK) {
+                //apuntar
+                try {
+                    TipoResultados tipoResultados = super.getFachadaAplicacion().apuntarseActividade(actividade, controllerPrincipal.getUsuario());
+
+                    //resultado
+                    switch (tipoResultados) {
+                        case correcto:
+                            super.getFachadaAplicacion().mostrarInformacion("Actividade", "Apuntacheste á actividade " + actividade.getNome());
+                            break;
+                        case sitIncoherente:
+                            super.getFachadaAplicacion().mostrarErro("Actividade", "Non hai prazas dispoñibles. O aforo é máximo.");
+                            break;
+                        case datoExiste:
+                            super.getFachadaAplicacion().mostrarErro("Actividade", "Xa está apuntado nesta actividade, non se pode volver a pauntar.");
+                            break;
+                    }
+
+                    actualizarTabla();
+                } catch (ExcepcionBD e) {
+                    getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
+                }
+            }
+        }
+    }
+
+    public void onActionDesapuntarse(){
+        if (!taboaActividade.getSelectionModel().isEmpty()) {
+            Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+            if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste desapuntar da actividade " + actividade.getNome()) == ButtonType.OK) {
                 //desapuntrarse
-                try{
-                    TipoResultados tipoResultados=super.getFachadaAplicacion().borrarseDeActividade(actividade,controllerPrincipal.getUsuario());
-                    super.getFachadaAplicacion().mostrarInformacion("Actividade","Desapuntacheste da actividade "+actividade.getNome());
-                    /*
+                try {
+                    TipoResultados tipoResultados = super.getFachadaAplicacion().borrarseDeActividade(actividade, controllerPrincipal.getUsuario());
+                    switch (tipoResultados) {
+                        case correcto:
+                            super.getFachadaAplicacion().mostrarInformacion("Actividade", "Desapuntacheste da actividade " + actividade.getNome());
+                            break;
+                        case sitIncoherente:
+                            super.getFachadaAplicacion().mostrarErro("Actividade", "Non está apuntado a esta actividade.");
+                            break;
+                    }
 
-                        COMPROBAR OS RESULTADOS
-
-
-                     */
-                }catch (ExcepcionBD e){
+                } catch (ExcepcionBD e) {
                     getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
                 }
             }
