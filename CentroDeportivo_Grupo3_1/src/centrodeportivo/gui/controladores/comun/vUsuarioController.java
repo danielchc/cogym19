@@ -201,7 +201,7 @@ public class vUsuarioController extends AbstractController implements Initializa
                 super.getFachadaAplicacion().mostrarErro("Usuario", excepcionBD.getMessage());
             }
         }
-        if(usuarioModificar!=null){
+        if((usuarioModificar!=null) && (this.controllerPrincipal.obterUsuarioLogeado().getTipoUsuario()!=TipoUsuario.Socio)){
             this.controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARUSUARIOS);
         }else{
             this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
