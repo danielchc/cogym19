@@ -80,7 +80,7 @@ public class vAsMinasActividadesController extends AbstractController implements
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 Instalacion instalacion = (Instalacion) observableValue.getValue();
-                if(instalacion==null) return;
+                if (instalacion == null) return;
                 comboArea.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarArea(instalacion, null)));
             }
         });
@@ -118,13 +118,13 @@ public class vAsMinasActividadesController extends AbstractController implements
         Usuario usuario = this.controllerPrincipal.getUsuario();
         Actividade actividade = null;
         Area area = null;
-        Instalacion instalacion=null;
+        Instalacion instalacion = null;
 
-        if(ValidacionDatos.estanCubertosCampos(campoNome) || !comboInstalacion.getSelectionModel().isEmpty() || !comboArea.getSelectionModel().isEmpty()) {
-            if(!comboInstalacion.getSelectionModel().isEmpty()){
+        if (ValidacionDatos.estanCubertosCampos(campoNome) || !comboInstalacion.getSelectionModel().isEmpty() || !comboArea.getSelectionModel().isEmpty()) {
+            if (!comboInstalacion.getSelectionModel().isEmpty()) {
                 instalacion = (Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
 
-                area=new Area(-1,instalacion);
+                area = new Area(-1, instalacion);
                 if (!comboArea.getSelectionModel().isEmpty()) {
                     area = (Area) comboArea.getSelectionModel().getSelectedItem();
                 }
@@ -132,9 +132,9 @@ public class vAsMinasActividadesController extends AbstractController implements
             actividade = new Actividade(nome, area);
         }
 
-        if(checkApuntado.isSelected()){
+        if (checkApuntado.isSelected()) {
             taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
-        }else{
+        } else {
             taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeNONParticipa(actividade, usuario));
         }
 
@@ -144,25 +144,25 @@ public class vAsMinasActividadesController extends AbstractController implements
         listenerTabla();
     }
 
-    public void listenerTabla(){
-        if(!taboaActividade.getSelectionModel().isEmpty()){
-            Actividade actividade=(Actividade)taboaActividade.getSelectionModel().getSelectedItem();
+    public void listenerTabla() {
+        if (!taboaActividade.getSelectionModel().isEmpty()) {
+            Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(actividade.getData().getTime());
-            cal.add(Calendar.SECOND, (int)(actividade.getDuracion()*3600));
+            cal.add(Calendar.SECOND, (int) (actividade.getDuracion() * 3600));
 
-            boolean estaAcabada=(new Timestamp(System.currentTimeMillis())).after(new Timestamp(cal.getTime().getTime()));
+            boolean estaAcabada = (new Timestamp(System.currentTimeMillis())).after(new Timestamp(cal.getTime().getTime()));
 
             btnValorar.setDisable(!(estaAcabada && checkApuntado.isSelected()));
             btnDesapuntarse.setDisable(!(!estaAcabada && checkApuntado.isSelected()));
             btnApuntarse.setDisable(checkApuntado.isSelected());
 
-            String infoActividade=String.format(
+            String infoActividade = String.format(
                     "Nome: %s\nData: %s\nHora: %s\nDuración: %s\nInstalación: %s\nÁrea: %s\nTipo: %s",
                     actividade.getNome(),
                     new SimpleDateFormat("dd/MM/yyyy").format(new Date(actividade.getData().getTime())),
                     new SimpleDateFormat("HH:mm").format(new Date(actividade.getData().getTime())),
-                    (actividade.getDuracion()*60)+" minutos",
+                    (actividade.getDuracion() * 60) + " minutos",
                     actividade.getArea().getInstalacion().getNome(),
                     actividade.getArea().getNome(),
                     actividade.getTipoActividadenome()
@@ -171,7 +171,7 @@ public class vAsMinasActividadesController extends AbstractController implements
         }
     }
 
-    public void listenerCheckBox(){
+    public void listenerCheckBox() {
         actualizarTabla();
     }
 
@@ -179,14 +179,12 @@ public class vAsMinasActividadesController extends AbstractController implements
         actualizarTabla();
     }
 
-    public void onActionLimpar(){
+    public void onActionLimpar() {
         this.comboInstalacion.getSelectionModel().clearSelection();
         this.comboArea.getSelectionModel().clearSelection();
         this.campoNome.clear();
     }
 
-    public void onActionValorar(){
-        this.controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADEPOPUP);
     public void onActionValorar() {
         // Pasamoslle a actividade se non e nula
         if ((Actividade) taboaActividade.getSelectionModel().getSelectedItem() != null) {
@@ -194,11 +192,11 @@ public class vAsMinasActividadesController extends AbstractController implements
             cont.setActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
             controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADEPOPUP);
         } else {
-            getFachadaAplicacion().mostrarErro("Valorar Actividades", "Debes ter unha actividade seleccionada!");
+            getFachadaAplicacion().mostrarErro("Valorar Actividades", "Selecciona a actividade que queres valorar!");
         }
     }
 
-    public void onActionApuntarse(){
+    public void onActionApuntarse() {
         if (!taboaActividade.getSelectionModel().isEmpty()) {
             Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
             if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste apuntar a " + actividade.getNome()) == ButtonType.OK) {
@@ -227,7 +225,7 @@ public class vAsMinasActividadesController extends AbstractController implements
         }
     }
 
-    public void onActionDesapuntarse(){
+    public void onActionDesapuntarse() {
         if (!taboaActividade.getSelectionModel().isEmpty()) {
             Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
             if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste desapuntar da actividade " + actividade.getNome()) == ButtonType.OK) {
