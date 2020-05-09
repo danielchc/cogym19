@@ -9,6 +9,7 @@ import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
+import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
 import java.sql.*;
@@ -39,7 +40,7 @@ public class DAOActividade extends AbstractDAO {
             stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
             stmActividade.setInt(4, actividade.getTipoActividade().getCodTipoActividade());
 
-            if (actividade.getCurso()!=null)
+            if (actividade.getCurso() != null)
                 stmActividade.setInt(5, actividade.getCurso().getCodCurso());
             else
                 stmActividade.setNull(5, Types.INTEGER);
@@ -91,15 +92,15 @@ public class DAOActividade extends AbstractDAO {
                     "       ((dataactividade + (duracion * interval '1 hour')) >= ? " +
                     "           and dataactividade < ?))))";
 
-            if(actVella != null){
-                consulta +=     "       and (dataactividade != ? " +
-                                "       or area != ? " +
-                                "       or instalacion != ?)";
+            if (actVella != null) {
+                consulta += "       and (dataactividade != ? " +
+                        "       or area != ? " +
+                        "       or instalacion != ?)";
             }
 
             stmActividade = con.prepareStatement(consulta);
 
-            Timestamp dataFin =  new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue()));
+            Timestamp dataFin = new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue()));
 
             //Establecemos os valores:
             stmActividade.setInt(1, actNova.getArea().getCodArea());
@@ -114,7 +115,7 @@ public class DAOActividade extends AbstractDAO {
             stmActividade.setTimestamp(10, dataFin);
             stmActividade.setTimestamp(11, dataFin);
 
-            if(actVella != null){
+            if (actVella != null) {
                 stmActividade.setTimestamp(12, actVella.getData());
                 stmActividade.setInt(13, actVella.getArea().getCodArea());
                 stmActividade.setInt(14, actVella.getArea().getInstalacion().getCodInstalacion());
@@ -156,8 +157,8 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a inserción:
         try {
-            String consulta =" UPDATE actividade " +
-            " SET tipoactividade = ?, " +
+            String consulta = " UPDATE actividade " +
+                    " SET tipoactividade = ?, " +
                     "     curso = ?, " +
                     "     profesor = ?," +
                     "     nome = ?, " +
@@ -171,7 +172,7 @@ public class DAOActividade extends AbstractDAO {
 
             //Establecemos os valores:
             stmActividade.setInt(1, actNova.getTipoActividade().getCodTipoActividade());
-            if (actNova.getCurso()!=null) {
+            if (actNova.getCurso() != null) {
                 stmActividade.setInt(2, actNova.getCurso().getCodCurso());
             } else {
                 stmActividade.setNull(2, Types.INTEGER);
@@ -252,7 +253,7 @@ public class DAOActividade extends AbstractDAO {
             stmMensaxes.setBoolean(4, false);
 
             //Procesamos os usuarios participantes da actividade obtidos antes e imos engadíndoos:
-            while(rsUsuarios.next()){
+            while (rsUsuarios.next()) {
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
                 //Facemos a actualización:
                 stmMensaxes.executeUpdate();
@@ -371,7 +372,7 @@ public class DAOActividade extends AbstractDAO {
             rsActividade = stmActividade.executeQuery();
 
             if (rsActividade.next())
-                    return true;
+                return true;
             return false;
 
         } catch (SQLException e) {
@@ -466,11 +467,11 @@ public class DAOActividade extends AbstractDAO {
                     " SELECT * " +
                             " FROM area" +
                             " WHERE codarea=? AND instalacion=? " +
-                                " AND aforomaximo>(select count(*) " +
-                                    " FROM realizaractividade " +
-                                    " WHERE dataactividade=? " +
-                                    " AND area=?" +
-                                    " AND instalacion=?)"
+                            " AND aforomaximo>(select count(*) " +
+                            " FROM realizaractividade " +
+                            " WHERE dataactividade=? " +
+                            " AND area=?" +
+                            " AND instalacion=?)"
             );
 
             //Establecemos os valores:
@@ -485,7 +486,7 @@ public class DAOActividade extends AbstractDAO {
 
 
             if (rsActividade.next())
-                    return true;
+                return true;
             return false;
 
         } catch (SQLException e) {
@@ -552,7 +553,7 @@ public class DAOActividade extends AbstractDAO {
             while (rsActividades.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
                 actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")), rsActividades.getString("areanome")) ,new TipoActividade(rsActividades.getInt("tipoactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")), rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
             }
             con.commit();
         } catch (SQLException e) {
@@ -606,33 +607,39 @@ public class DAOActividade extends AbstractDAO {
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
-            if (actividade!= null){
-                consulta += " AND lower(actividade.nome) like lower(?)  ";
+            if (actividade != null) {
+                System.out.println(actividade.getNome());
+                if (actividade != null) {
+                    consulta += " AND lower(actividade.nome) like lower(?)  ";
 
-                if(actividade.getArea()!=null){
-                    consulta += " AND actividade.instalacion=? ";
-                    if(actividade.getArea().getCodArea()>=0){
-                        consulta += " AND actividade.area=? ";
+                    if (actividade.getArea() != null)
+                        consulta += " AND actividade.area=? AND actividade.instalacion=? ";
+
+                    if (actividade.getArea() != null) {
+                        consulta += " AND actividade.instalacion=? ";
+                        if (actividade.getArea().getCodArea() >= 0) {
+                            consulta += " AND actividade.area=? ";
+                        }
                     }
                 }
             }
-
-            consulta+=" ORDER BY actividade.nome ";
+            consulta += " ORDER BY actividade.nome ";
 
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
+            if (actividade != null) {
 
-            if (actividade!= null){
-                stmActividades.setString(2, "%" + actividade.getNome() + "%");
+                if (actividade != null) {
+                    stmActividades.setString(2, "%" + actividade.getNome() + "%");
 
-                if(actividade.getArea()!=null){
-                    stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-                    if(actividade.getArea().getCodArea()>=0){
-                        stmActividades.setInt(4, actividade.getArea().getCodArea());
+                    if (actividade.getArea() != null) {
+                        stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+                        if (actividade.getArea().getCodArea() >= 0) {
+                            stmActividades.setInt(4, actividade.getArea().getCodArea());
+                        }
                     }
                 }
-            }
 
 
             /*
@@ -642,8 +649,8 @@ public class DAOActividade extends AbstractDAO {
                 if (actividade.getArea() != null) {
                     stmActividades.setInt(3, actividade.getArea().getCodArea());
                     stmActividades.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
-                }
-            }*/
+                }*/
+            }
 
             //Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
@@ -652,7 +659,7 @@ public class DAOActividade extends AbstractDAO {
             while (rsActividades.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
                 actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")) ,new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")), new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
             }
             con.commit();
         } catch (SQLException e) {
@@ -665,7 +672,7 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //Peche do statement:
             try {
-                if(stmActividades!=null)stmActividades.close();
+                if (stmActividades != null) stmActividades.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
@@ -691,7 +698,7 @@ public class DAOActividade extends AbstractDAO {
                     " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade " +
                     "   AND area.instalacion=instalacion.codinstalacion 1" +
                     "   AND area.codarea=actividade.area " +
-                    "   AND area.instalacion=actividade.instalacion"+
+                    "   AND area.instalacion=actividade.instalacion" +
                     "   AND curso is null " +
                     "   AND realizaractividade.dataactividade=actividade.dataactividade " +
                     "   AND realizaractividade.area=actividade.area " +
@@ -700,10 +707,10 @@ public class DAOActividade extends AbstractDAO {
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
-            if (actividade!= null){
+            if (actividade != null) {
                 consulta += " AND lower(actividade.nome) like lower(?)  ";
 
-                if (actividade.getArea()!=null)
+                if (actividade.getArea() != null)
                     consulta += " AND actividade.area=? AND actividade.instalacion=? ";
 
             }
@@ -715,7 +722,7 @@ public class DAOActividade extends AbstractDAO {
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
-            if (actividade!= null) {
+            if (actividade != null) {
                 stmActividades.setString(2, "%" + actividade.getNome() + "%");
                 //Pasando area non nula completase a consulta.
                 if (actividade.getArea() != null) {
@@ -731,7 +738,7 @@ public class DAOActividade extends AbstractDAO {
             while (rsActividades.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
                 actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")) ,new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")), new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
             }
             con.commit();
         } catch (SQLException e) {
@@ -744,12 +751,56 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             //Peche do statement:
             try {
-                if(stmActividades!=null)stmActividades.close();
+                if (stmActividades != null) stmActividades.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
         return actividades;
     }
-}
 
+    public void ValorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        // Neste metodo actualizamos a taboa realizar actividade para realizar unha valoración da mesma
+        PreparedStatement stmActividade = null;
+        Connection con;
+
+        // Recuperamos a conexión coa base de datos
+        con = super.getConexion();
+
+        try {
+            // Intentamos levar a cabo a actualización: modificacion na taboa realizar actividade
+            stmActividade = con.prepareStatement("UPDATE realizaractividade " +
+                    "SET valoracion = ?, " +
+                    "WHERE dataactividade = ? " +
+                    "AND area = ? " +
+                    "AND instalacion = ? " +
+                    "AND usuario = ? ");
+
+            // Completamos a sentenza anterior cos ?:
+            stmActividade.setInt(1, valoracion);
+            stmActividade.setTimestamp(2, actividade.getData());
+            stmActividade.setInt(3, actividade.getArea().getCodArea());
+            stmActividade.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
+            stmActividade.setString(5, usuario.getLogin());
+
+            // Realizamos a actualización:
+            stmActividade.executeUpdate();
+
+            // Unha vez feita, teremos rematado. Facemos o commit:
+            con.commit();
+        } catch (SQLException e) {
+            // Lanzamos a excepción que se obteña:
+            throw new ExcepcionBD(con, e);
+        } finally {
+            // Pechamos os statement.
+            try {
+                assert stmActividade != null;
+                stmActividade.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+    }
+
+
+}
