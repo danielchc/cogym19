@@ -153,6 +153,14 @@ public class vInsercionActividadeController extends AbstractController implement
             avisoCampos.setText("Duración invalida.");
             return;
         }
+        if(horasToSegInici+minutosToSegInici<=6*3600){
+            avisoCampos.setText("Hora de inicio debe ser maior que 06:00.");
+            return;
+        }
+        if(horasToSegFin+minutosToSegFin<=23*3600){
+            avisoCampos.setText("Hora de fin debe ser menor que 23:00.");
+            return;
+        }
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(Timestamp.valueOf(campoData.getValue().atStartOfDay()).getTime());
