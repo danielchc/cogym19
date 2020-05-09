@@ -667,8 +667,8 @@ public final class FachadaBD {
         daoActividade.modificarActividade(actVella, actNova);
     }
 
-    public void borrarActividade(Actividade actividade) throws ExcepcionBD {
-        daoActividade.borrarActividade(actividade);
+    public void borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {
+        daoActividade.borrarActividade(actividade, mensaxe);
     }
 
     public void apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {

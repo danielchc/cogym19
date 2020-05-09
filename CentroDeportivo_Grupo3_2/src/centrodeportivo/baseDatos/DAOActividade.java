@@ -2,6 +2,7 @@ package centrodeportivo.baseDatos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
@@ -208,15 +209,34 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
-    public void borrarActividade(Actividade actividade) throws ExcepcionBD {
+    public void borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {
         PreparedStatement stmActividade = null;
-        ResultSet rsActividade;
+        //Ao cancelar a actividade, envíase unha mensaxe si ou si a todos os socios da actividade:
+        PreparedStatement stmUsuarios = null;
+        PreparedStatement stmMensaxes = null;
+        ResultSet rsUsuarios;
         Connection con;
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
 
         //Preparamos a inserción:
         try {
+            //Comezaremos buscando os participantes da actividade borrada:
+            stmUsuarios = con.prepareStatement("SELECT * FROM realizaractividade " +
+                    " WHERE dataactividade = ? " +
+                    "   AND area = ? " +
+                    "   AND instalacion = ?");
+
+            //Completamos esta primeira consulta:
+            stmUsuarios.setTimestamp(1, actividade.getData());
+            stmUsuarios.setInt(2, actividade.getArea().getCodArea());
+            stmUsuarios.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+
+            //Agora realizamos a consulta: é necesario facela aquí porque despois estará borrada a actividade e perderemos aos participantes:
+            rsUsuarios = stmUsuarios.executeQuery();
+
+            //O seguinte que faremos será o borrado da actividade:
+
             stmActividade = con.prepareStatement("DELETE FROM actividade " +
                     " WHERE dataactividade = ? and instalacion = ? and area = ?");
 
@@ -226,6 +246,20 @@ public class DAOActividade extends AbstractDAO {
 
             //Realizamos a actualización:
             stmActividade.executeUpdate();
+
+            //Para rematar, garantiremos que todos os usuarios anotados se enteren do borrado:
+            stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido) " +
+                    " VALUES (?, ?, ?, ?)");
+            stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
+            stmMensaxes.setString(3, mensaxe.getContido());
+            stmMensaxes.setBoolean(4, false);
+
+            //Procesamos os usuarios participantes da actividade obtidos antes e imos engadíndoos:
+            while(rsUsuarios.next()){
+                stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
+                //Facemos a actualización:
+                stmMensaxes.executeUpdate();
+            }
 
             //Facemos commit:
             con.commit();
@@ -237,6 +271,8 @@ public class DAOActividade extends AbstractDAO {
             //En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
+                stmUsuarios.close();
+                stmMensaxes.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
             }

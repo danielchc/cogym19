@@ -80,7 +80,7 @@
                             <children>
                                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="btnXestionar1" alignment="CENTER" mnemonicParsing="false" onAction="#btnBorrarAction" prefHeight="26.0" prefWidth="185.0" text="Eliminar Selección" />
+                              <Button fx:id="btnXestionar1" alignment="CENTER" mnemonicParsing="false" onAction="#btnCancelarAction" prefHeight="26.0" prefWidth="185.0" text="Cancelar Actividade" />
                            </children>
                                 </VBox>
                                 <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">

@@ -2,26 +2,21 @@ package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
-import centrodeportivo.aplicacion.obxectos.actividades.Curso;
-import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-import javax.swing.*;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -102,11 +97,11 @@ public class vAdministrarActividadeController extends AbstractController impleme
         //Engadimos as columnas á táboa
         taboaActividade.getColumns().addAll(coldata, colNome, colduracion, colarea, colinstalacion, colprofesor);
 
-        actualizarTabla();
+        actualizarTaboa();
     }
 
 
-    private void actualizarTabla(){
+    private void actualizarTaboa(){
         taboaActividade.getItems().removeAll(taboaActividade.getItems());
         Actividade actividade = null;
         if (ValidacionDatos.estanCubertosCampos(campoNome)) {
@@ -120,7 +115,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
     }
 
     public void btnBuscarAction(ActionEvent actionEvent){
-        actualizarTabla();
+        actualizarTaboa();
     }
 
     public void btnXestionarAction(ActionEvent actionEvent){
@@ -142,12 +137,39 @@ public class vAdministrarActividadeController extends AbstractController impleme
         }
     }
 
-    public void btnBorrarAction() throws ExcepcionBD {
+    public void btnCancelarAction() {
         if(taboaActividade.getSelectionModel().isEmpty()){
-            this.getFachadaAplicacion().mostrarErro("Error Elimnar", "Debe selectionar unha acticidade para ser borrada.");
+            this.getFachadaAplicacion().mostrarErro("Administración de Actividades", "Debe selectionar unha actividade para ser borrada.");
         }
-        else
-            this.getFachadaAplicacion().borrarActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
+        else{
+            if(getFachadaAplicacion().mostrarConfirmacion("Administración de actividades",
+                    "Desexa cancelar a actividade seleccionada?") == ButtonType.OK) {
+                try {
+                    Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+                    Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                            "Prezado socio\nA actividade '" + act.getNome() + "' foi cancelada. Desculpe as molestias.");
+                    TipoResultados res = this.getFachadaAplicacion().borrarActividade(act, mensaxe);
+                    switch(res){
+                        case correcto:
+                            //Avísase de que o borrado se fixo correctamente:
+                            super.getFachadaAplicacion().mostrarInformacion("Administración de actividades",
+                                    "A actividade '" + act.getNome() + "' foi borrada correctamente.");
+                            break;
+                        case sitIncoherente:
+                            //Se non se puidese borrar a actividade, avisaríase do problema:
+                            super.getFachadaAplicacion().mostrarErro("Administración de actividades",
+                                    "Non se pode cancelar a actividade '" + act.getNome() +"', pois xa foi" +
+                                            " realizada!");
+                            break;
+                    }
+                } catch (ExcepcionBD e) {
+                    super.getFachadaAplicacion().mostrarErro("Administración de actividades",
+                            e.getMessage());
+                }
+            }
+            //En calquera caso refréscase a táboa:
+            actualizarTaboa();
+        }
     }
 
 }

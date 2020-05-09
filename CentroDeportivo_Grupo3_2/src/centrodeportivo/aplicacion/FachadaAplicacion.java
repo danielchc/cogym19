@@ -591,8 +591,8 @@ public class FachadaAplicacion extends Application {
         return xestionActividade.modificarActividade(actVella, actNova);
     }
 
-    public TipoResultados borrarActividade(Actividade actividade) throws ExcepcionBD {
-        return xestionActividade.borrarActividade(actividade);
+    public TipoResultados borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {
+        return xestionActividade.borrarActividade(actividade, mensaxe);
     }
 
     public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {

@@ -1,6 +1,7 @@
 package centrodeportivo.aplicacion.xestion;
 
 import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
+import centrodeportivo.aplicacion.obxectos.Mensaxe;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.TipoActividade;
 import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
@@ -33,10 +34,10 @@ public class XestionActividade {
         }
     }
 
-    public TipoResultados borrarActividade(Actividade actividade) throws ExcepcionBD {
+    public TipoResultados borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {
         //Só se pode borrar unha actividade se inda non comezou
         if (actividade.getData().after(new Timestamp(System.currentTimeMillis()))) { //Comprobar eliminable
-            fachadaBD.borrarActividade(actividade);
+            fachadaBD.borrarActividade(actividade, mensaxe);
             //Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
         } else {
