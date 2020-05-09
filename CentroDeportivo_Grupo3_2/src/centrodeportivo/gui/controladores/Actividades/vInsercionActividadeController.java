@@ -150,19 +150,16 @@ public class vInsercionActividadeController extends AbstractController implement
         int duracion=(horasToSegFin+minutosToSegFin)-(horasToSegInici+minutosToSegInici);
 
 
-        System.out.println(6*3600);
-        System.out.println(23*3600);
-        System.out.println(horasToSegInici+minutosToSegInici);
-        System.out.println(horasToSegFin+minutosToSegFin);
+
         if(duracion<=0){
             avisoCampos.setText("Duración invalida.");
             return;
         }
-        if(horasToSegInici+minutosToSegInici<=6*3600){
+        if(horasToSegInici+minutosToSegInici<6*3600){
             avisoCampos.setText("Hora de inicio debe ser maior que 06:00.");
             return;
         }
-        if(horasToSegFin+minutosToSegFin>=23*3600){
+        if(horasToSegFin+minutosToSegFin>23*3600){
             avisoCampos.setText("Hora de fin debe ser menor que 23:00.");
             return;
         }
