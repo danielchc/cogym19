@@ -607,12 +607,14 @@ public class DAOActividade extends AbstractDAO {
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
             if (actividade!= null){
-                System.out.println(actividade.getNome());
                 consulta += " AND lower(actividade.nome) like lower(?)  ";
 
-                if (actividade.getArea()!=null)
-                    consulta += " AND actividade.area=? AND actividade.instalacion=? ";
-
+                if(actividade.getArea()!=null){
+                    consulta += " AND actividade.instalacion=? ";
+                    if(actividade.getArea().getCodArea()>=0){
+                        consulta += " AND actividade.area=? ";
+                    }
+                }
             }
 
             consulta+=" ORDER BY actividade.nome ";
@@ -620,6 +622,20 @@ public class DAOActividade extends AbstractDAO {
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
+
+            if (actividade!= null){
+                stmActividades.setString(2, "%" + actividade.getNome() + "%");
+
+                if(actividade.getArea()!=null){
+                    stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+                    if(actividade.getArea().getCodArea()>=0){
+                        stmActividades.setInt(4, actividade.getArea().getCodArea());
+                    }
+                }
+            }
+
+
+            /*
             if (actividade!= null) {
                 stmActividades.setString(2, "%" + actividade.getNome() + "%");
                 //Pasando area non nula completase a consulta.
@@ -627,7 +643,7 @@ public class DAOActividade extends AbstractDAO {
                     stmActividades.setInt(3, actividade.getArea().getCodArea());
                     stmActividades.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
                 }
-            }
+            }*/
 
             //Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
