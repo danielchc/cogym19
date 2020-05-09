@@ -142,6 +142,8 @@ public class vElixirActividadeController extends AbstractController implements I
                         TipoResultados tipoResultados=super.getFachadaAplicacion().apuntarseActividade(actividade,controllerPrincipal.getUsuario());
                         super.getFachadaAplicacion().mostrarInformacion("Actividade","Apuntacheste á actividade "+actividade.getNome());
                         //resultado
+
+                        actualizarTabla();
                     }catch (ExcepcionBD e){
                         getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
                     }

@@ -121,11 +121,9 @@ public class DAOActividade extends AbstractDAO {
             }
 
             //Facemos a consulta:
-            System.out.println(stmActividade);
             rsActividade = stmActividade.executeQuery();
 
             if (rsActividade.next()) {
-                System.out.println(rsActividade.getTimestamp("dataactividade") + " " + rsActividade.getInt("area"));
                 return true;
             }
 
@@ -356,10 +354,6 @@ public class DAOActividade extends AbstractDAO {
         Connection con;
         //Recuperamos a conexión coa base de datos.
         con = super.getConexion();
-
-        System.out.println(actividade.getArea().getCodArea());
-        System.out.println(actividade.getArea().getInstalacion().getCodInstalacion());
-        System.out.println(usuario.getLogin());
 
         //Preparamos a consulta:
         try {
@@ -602,7 +596,7 @@ public class DAOActividade extends AbstractDAO {
                     "                            WHERE realizaractividade.dataactividade=actividade.dataactividade " +
                     "                            AND realizaractividade.area=actividade.area " +
                     "                            AND realizaractividade.instalacion=actividade.instalacion " +
-                    "                            AND usuario=? )";
+                    "                            AND usuario=? ) AND actividade.dataactividade>NOW()";
 
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
