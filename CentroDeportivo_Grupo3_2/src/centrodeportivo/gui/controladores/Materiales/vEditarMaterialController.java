@@ -269,7 +269,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
                 case correcto:
                     // Se rematou correctamente, mostramos unha mensaxe de confirmación:
                     super.getFachadaAplicacion().mostrarInformacion("Administración de Materiais",
-                            "Datos do material do tipo" + material.getTipoMaterial().getNome() + " modificados correctamente.");
+                            "Datos do material do tipo " + material.getTipoMaterial().getNome() + " modificados correctamente.");
                     break;
             }
         } catch (ExcepcionBD e) {
