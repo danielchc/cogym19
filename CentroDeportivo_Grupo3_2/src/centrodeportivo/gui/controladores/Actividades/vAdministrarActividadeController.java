@@ -196,14 +196,23 @@ public class vAdministrarActividadeController extends AbstractController impleme
     }
 
     public void btnInformeAction(ActionEvent actionEvent) {
-        // Pasamoslle a actividade se non e nula
-        if (taboaActividade.getSelectionModel().getSelectedItem() != null) {
-            vInformeActividadeController cont = (vInformeActividadeController) controllerPrincipal.getControlador(IdPantalla.INFORMEACTIVIDADE);
-            cont.setActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
-            controllerPrincipal.mostrarPantalla(IdPantalla.INFORMEACTIVIDADE);
-        } else {
-            getFachadaAplicacion().mostrarErro("Informe de Actividades", "Selecciona a actividade da que queiras ver o informe!");
+
+        if (!taboaActividade.getSelectionModel().isEmpty()) {
+            //Recuperamos primeiro a actividade seleccionada:
+            Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+            //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
+            if (act != null) {
+                // Se non é null seguimos adiante.
+                // Feito iso, facemos que a ventá visíbel sexa a de edición dunha actividade:
+                this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMEACTIVIDADE);
+                // Accedemos ao controlador da ventá de edición dunha actividade:
+                ((vInformeActividadeController) this.controllerPrincipal.getControlador(IdPantalla.INFORMEACTIVIDADE)).setActividade(act);
+
+            } else {
+                getFachadaAplicacion().mostrarErro("Informe de Actividades", "Selecciona a actividade da que queiras ver o informe!");
+            }
         }
+
     }
 
 }

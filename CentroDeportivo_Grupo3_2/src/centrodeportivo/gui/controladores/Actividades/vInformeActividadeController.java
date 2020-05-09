@@ -8,6 +8,8 @@ import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
+import javax.swing.text.TableView;
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,6 +21,15 @@ import java.util.ResourceBundle;
  */
 public class vInformeActividadeController extends AbstractController implements Initializable {
 
+
+    public TextField campoNomeActividade;
+    public TextField campoArea;
+    public TextField campoInstalacion;
+    public TextField campoDataInicio;
+    public TextField campoDuracion;
+    public TextField campoNomeProfesor;
+    public TextField campoValoracion;
+    public TableView taboaPersonal;
 
     private vPrincipalController controllerPrincipal;
     private Actividade actividade;
@@ -44,6 +55,7 @@ public class vInformeActividadeController extends AbstractController implements 
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //ampoActividadeNome.setText(actividade.getNome());
 
     }
 
