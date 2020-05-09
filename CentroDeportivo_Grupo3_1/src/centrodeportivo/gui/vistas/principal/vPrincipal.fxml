@@ -396,6 +396,18 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Cursos" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                            <image>
+                                <Image url="@../../imaxes/curso.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
                 <Button fx:id="btnIncidenciaS" contentDisplay="TOP" layoutX="10.0" layoutY="412.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Incidencias" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="15.0" />
