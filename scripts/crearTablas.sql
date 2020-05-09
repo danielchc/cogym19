@@ -301,7 +301,7 @@ $func$ LANGUAGE sql STABLE;
 
 
 --Función que comproba que o profesor está libre para que non solapen clases do profesor
-CREATE OR REPLACE FUNCTION comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) RETURNS boolean AS
+CREATE OR REPLACE FUNCTION comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20),parea INT,pinstalacion INT) RETURNS boolean AS
 $func$
 SELECT NOT EXISTS (
    	SELECT 1 FROM actividade 
@@ -311,9 +311,10 @@ SELECT NOT EXISTS (
 		OR
 		(pdataactividade + (pduracion * interval '1 hour'))>dataactividade AND (pdataactividade + (pduracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
 	)
-	AND (profesor=pprofesor) AND NOT(profesor=pprofesor AND  dataactividade=pdataactividade AND duracion=pduracion)
+	AND (profesor=pprofesor) AND NOT(profesor=pprofesor AND  dataactividade=pdataactividade AND duracion=pduracion AND area=parea AND instalacion=pinstalacion)
 )
 $func$ LANGUAGE sql STABLE;
+
 
 --Función que crea unha secuencia distinta para cada instalacion
 CREATE OR REPLACE  FUNCTION crearSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
@@ -388,7 +389,7 @@ CREATE TRIGGER engadir_secuencia_material BEFORE INSERT ON material FOR EACH ROW
 CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
 
 --Engadolle o CHECK, para comprobar que cando se engada unha actividade non esté ocupada nin a area nin o profesor
-ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor));
+ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor,area,instalacion));
 
 --Na táboa de curso engadimos a restricción seguinte: ou o curso non está aberto ou ten máis de dúas actividades:
 ALTER TABLE curso ADD CONSTRAINT activacion CHECK ((aberto = false) or (comprobarCondicionActivacion(codcurso)));
