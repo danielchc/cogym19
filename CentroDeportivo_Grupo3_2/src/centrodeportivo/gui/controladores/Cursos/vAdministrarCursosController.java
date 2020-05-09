@@ -133,6 +133,8 @@ public class vAdministrarCursosController extends AbstractController implements 
         taboaCursos.getColumns().addAll(nomeColumn, dataInicioColumn, numActividadesColumn, duracionColumn, abertoColumn);
         //Buscamos os datos dos cursos e engadímolos.
         taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursos(null));
+        //Columnas repartidas:
+        taboaCursos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         //Modelo de selección:
         taboaCursos.getSelectionModel().selectFirst();
     }
