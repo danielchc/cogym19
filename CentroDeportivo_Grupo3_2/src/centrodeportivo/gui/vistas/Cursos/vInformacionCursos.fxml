@@ -6,81 +6,94 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../cssTaboas.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <AnchorPane prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: #005bbd;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <VBox layoutY="5.0" prefHeight="46.0" prefWidth="600.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../cssTaboas.css"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane prefHeight="56.0" prefWidth="600.0" style="-fx-background-color: #005bbd;" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutY="5.0" prefHeight="46.0" prefWidth="600.0" AnchorPane.bottomAnchor="5.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="326.0">
-                <Label alignment="CENTER" prefHeight="46.0" prefWidth="311.0" text="Informacion do curso" textFill="WHITE">
+                <Label alignment="CENTER" prefHeight="46.0" prefWidth="311.0" text="Informacion do curso"
+                       textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="20.0"/>
                     </font>
                 </Label>
                 <ImageView fitHeight="43.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../../imaxes/curso.png" />
+                    <Image url="@../../imaxes/curso.png"/>
                 </ImageView>
             </HBox>
         </VBox>
     </AnchorPane>
-    <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
-        <VBox alignment="CENTER" prefHeight="344.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane layoutY="56.0" prefHeight="345.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+        <VBox alignment="CENTER" prefHeight="344.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="795.0">
-                    <VBox fx:id="vBoxBotonInforme" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="287.0" prefWidth="572.0" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                        <Button fx:id="btnXerarInforme" mnemonicParsing="false" onAction="#btnXerarInformeAction" prefHeight="74.0" prefWidth="216.0" text="Xenerar Informe do curso" VBox.vgrow="ALWAYS" />
+                    <VBox fx:id="vBoxBotonInforme" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="287.0"
+                          prefWidth="572.0" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0"
+                          AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                        <Button fx:id="btnXerarInforme" mnemonicParsing="false" onAction="#btnXerarInformeAction"
+                                prefHeight="74.0" prefWidth="216.0" text="Xenerar Informe do curso"
+                                VBox.vgrow="ALWAYS"/>
                     </VBox>
-                    <VBox fx:id="vBoxDetalleInforme" layoutX="-50.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="382.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="vBoxDetalleInforme" layoutX="-50.0" prefHeight="200.0" prefWidth="100.0"
+                          AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
+                          AnchorPane.topAnchor="14.0">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="382.0" prefWidth="572.0"
+                                    VBox.vgrow="ALWAYS">
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="571.0">
                                 <HBox.margin>
-                                    <Insets />
+                                    <Insets/>
                                 </HBox.margin>
                                 <padding>
-                                    <Insets right="10.0" />
+                                    <Insets right="10.0"/>
                                 </padding>
-                                <VBox alignment="CENTER" layoutY="3.0" prefHeight="750.0" prefWidth="544.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <HBox alignment="CENTER" prefHeight="60.0" prefWidth="524.0" spacing="10.0">
-                              <children>
-                                 <Label text="Nome">
-                                    <font>
-                                       <Font name="System Bold" size="14.0" />
-                                    </font>
-                                 </Label>
-                                 <TextField prefHeight="26.0" prefWidth="238.0" promptText="Nome do curso..." />
-                                            <Label text="Duracion">
-                                                <font>
-                                                    <Font name="System Bold" size="14.0" />
-                                                </font>
-                                            </Label>
-                                            <TextField fx:id="campoDuracion" editable="false" maxWidth="217.0" prefHeight="26.0" prefWidth="121.0" promptText="Duración..." />
-                              </children>
-                           </HBox>
-                           <HBox alignment="CENTER" prefHeight="60.0" prefWidth="524.0" spacing="10.0">
-                              <children>
-                                               <Label text="Data inicio" HBox.hgrow="ALWAYS">
-                                                   <font>
-                                                       <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                               </Label>
-                                               <TextField fx:id="campoDataInicio" editable="false" prefHeight="26.0" prefWidth="174.0" promptText="Data de inicio..." HBox.hgrow="NEVER" />
-                                               <Label text="Data fin">
-                                                   <font>
-                                                       <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                               </Label>
-                                               <TextField fx:id="campoDataFin" editable="false" prefHeight="26.0" prefWidth="168.0" promptText="Data de fin..." HBox.hgrow="NEVER" />
-                              </children>
-                           </HBox>
-                           <HBox alignment="CENTER" prefHeight="50.0" prefWidth="524.0">
-                              <children>
-                                           <Label text="~Actividades do curso~" HBox.hgrow="ALWAYS">
-                                               <font>
-                                                   <Font name="System Bold" size="14.0" />
-                                               </font>
-                                           </Label>
-                              </children>
-                           </HBox>
+                                <VBox alignment="CENTER" layoutY="3.0" prefHeight="750.0" prefWidth="544.0"
+                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0"
+                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <HBox alignment="CENTER" prefHeight="60.0" prefWidth="524.0" spacing="10.0">
+                                        <Label text="Nome">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField prefHeight="26.0" prefWidth="238.0" promptText="Nome do curso..."/>
+                                        <Label text="Duracion">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="campoDuracion" editable="false" maxWidth="217.0"
+                                                   prefHeight="26.0" prefWidth="121.0" promptText="Duración..."/>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="60.0" prefWidth="524.0" spacing="10.0">
+                                        <Label text="Data inicio" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="campoDataInicio" editable="false" prefHeight="26.0"
+                                                   prefWidth="174.0" promptText="Data de inicio..." HBox.hgrow="NEVER"/>
+                                        <Label text="Data fin">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="campoDataFin" editable="false" prefHeight="26.0"
+                                                   prefWidth="168.0" promptText="Data de fin..." HBox.hgrow="NEVER"/>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="524.0">
+                                        <Label text="~Actividades do curso~" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Label>
+                                    </HBox>
                                     <HBox prefHeight="259.0" prefWidth="537.0" VBox.vgrow="ALWAYS">
-                                        <TableView fx:id="taboaActividadesVal" prefHeight="211.0" prefWidth="524.0" HBox.hgrow="ALWAYS" />
+                                        <TableView fx:id="taboaActividadesVal" prefHeight="211.0" prefWidth="524.0"
+                                                   HBox.hgrow="ALWAYS"/>
                                     </HBox>
                                 </VBox>
                             </AnchorPane>
@@ -89,26 +102,23 @@
                 </AnchorPane>
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" VBox.vgrow="NEVER">
-            <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="544.0" spacing="20.0">
-               <children>
-                        <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="97.0" text="Volver" />
-               </children>
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-            </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="548.0">
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="252.0" spacing="10.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Xestionar" />
-                              <Button fx:id="btnRefrescar" mnemonicParsing="false" onAction="#btnRefrescarAction" text="Refrescar Información" />
-                     </children></HBox>
-               </children>
-               <padding>
-                  <Insets right="15.0" />
-               </padding>
-            </VBox>
+                <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="544.0" spacing="20.0">
+                    <padding>
+                        <Insets left="15.0"/>
+                    </padding>
+                    <Button fx:id="btnVolver" mnemonicParsing="false" prefHeight="26.0"
+                            prefWidth="97.0" text="Volver"/>
+                </VBox>
+                <VBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="548.0">
+                    <padding>
+                        <Insets right="15.0"/>
+                    </padding>
+                    <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="252.0" spacing="10.0">
+                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Xestionar"/>
+                        <Button fx:id="btnRefrescar" mnemonicParsing="false"
+                                text="Refrescar Información"/>
+                    </HBox>
+                </VBox>
             </HBox>
         </VBox>
     </AnchorPane>
