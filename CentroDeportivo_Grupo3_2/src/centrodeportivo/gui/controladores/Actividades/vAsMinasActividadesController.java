@@ -117,13 +117,17 @@ public class vAsMinasActividadesController extends AbstractController implements
         Usuario usuario = this.controllerPrincipal.getUsuario();
         Actividade actividade = null;
         Area area = null;
+        Instalacion instalacion=null;
 
         if(ValidacionDatos.estanCubertosCampos(campoNome) || !comboInstalacion.getSelectionModel().isEmpty() || !comboArea.getSelectionModel().isEmpty()) {
-            if (!comboArea.getSelectionModel().isEmpty()) {
-                area = (Area) comboArea.getSelectionModel().getSelectedItem();
-                Instalacion instalcion = (Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
-                if (area != null)
-                    area.setInstalacion(instalcion);
+            if(!comboInstalacion.getSelectionModel().isEmpty()){
+                instalacion = (Instalacion) comboInstalacion.getSelectionModel().getSelectedItem();
+
+                area=new Area(-1,instalacion);
+                if (!comboArea.getSelectionModel().isEmpty()) {
+                    area = (Area) comboArea.getSelectionModel().getSelectedItem();
+                }
+
             }
             actividade = new Actividade(nome, area);
         }
