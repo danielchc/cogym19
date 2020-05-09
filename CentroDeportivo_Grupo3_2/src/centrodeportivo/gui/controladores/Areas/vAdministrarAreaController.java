@@ -210,29 +210,34 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
     }
 
-    public void btnEliminarAreaAction(ActionEvent actionEvent) throws ExcepcionBD {
+    public void btnEliminarAreaAction(ActionEvent actionEvent) {
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
             //Pedimos primeiro unha confirmación por parte do usuario:
             if(getFachadaAplicacion().mostrarConfirmacion("Administración de Áreas",
-                    "Desexas tentar o borrado da área '" + area.getNome() + "'?")  == ButtonType.OK) {
-                TipoResultados res = getFachadaAplicacion().borrarArea(area);
-                //En función do resultado, avaliamos:
-                switch (res) {
-                    case correcto:
-                        getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
-                                "A área '" + area.getNome() + "' da instalación '" + instalacion.getNome() + "' " +
-                                        "foi borrada satisfactoriamente.");
-                        break;
-                    case referenciaRestrict:
-                        getFachadaAplicacion().mostrarErro("Administración de Áreas",
-                                "Non se pode borrar a área '" + area.getNome() + "'. " +
-                                        "Unha vez que ten material ou actividades rexistradas," +
-                                        " a área non se pode eliminar!");
-                        break;
+                    "Desexas borrar a área '" + area.getNome() + "'?")  == ButtonType.OK) {
+                try {
+                    TipoResultados res = getFachadaAplicacion().borrarArea(area);
+                    //En función do resultado, avaliamos:
+                    switch (res) {
+                        case correcto:
+                            getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
+                                    "A área '" + area.getNome() + "' da instalación '" + instalacion.getNome() + "' " +
+                                            "foi borrada satisfactoriamente.");
+                            break;
+                        case referenciaRestrict:
+                            getFachadaAplicacion().mostrarErro("Administración de Áreas",
+                                    "Non se pode borrar a área '" + area.getNome() + "'. " +
+                                            "Unha vez que ten material ou actividades rexistradas," +
+                                            " a área non se pode eliminar!");
+                            break;
+                    }
+                    //En calquera caso, actualizamos a táboa:
+                    this.actualizarTaboa();
+                } catch(ExcepcionBD e) {
+                    getFachadaAplicacion().mostrarErro("Administración de Áreas",
+                            e.getMessage());
                 }
-                //En calquera caso, actualizamos a táboa:
-                this.actualizarTaboa();
             }
         } else {
             getFachadaAplicacion().mostrarErro("Administración de Áreas",

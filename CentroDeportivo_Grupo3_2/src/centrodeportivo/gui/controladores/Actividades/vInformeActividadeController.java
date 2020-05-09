@@ -7,8 +7,11 @@ import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 /**
@@ -20,9 +23,17 @@ import java.util.ResourceBundle;
 public class vInformeActividadeController extends AbstractController implements Initializable {
 
 
+    public TextField campoNomeActividade;
+    public TextField campoArea;
+    public TextField campoInstalacion;
+    public TextField campoDataInicio;
+    public TextField campoDuracion;
+    public TextField campoNomeProfesor;
+    public TextField campoValoracion;
+    public TableView taboaPersonal;
+
     private vPrincipalController controllerPrincipal;
     private Actividade actividade;
-
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
@@ -45,14 +56,33 @@ public class vInformeActividadeController extends AbstractController implements 
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        campoNomeActividade.setDisable(true);
+        campoNomeActividade.setText(actividade.getNome());
+        campoArea.setDisable(true);
+        campoArea.setText(actividade.getArea().getNome());
+        campoInstalacion.setDisable(true);
+        campoInstalacion.setText(actividade.getArea().getInstalacion().getNome());
+        campoDataInicio.setDisable(true);
+        campoDataInicio.setText(new SimpleDateFormat("dd/MM/yyyy").format(actividade.getData().getTime()));
+        campoDuracion.setDisable(true);
+        campoDuracion.setText(actividade.getDuracion().intValue() + "h, " +
+                (int) ((actividade.getDuracion().floatValue() - actividade.getDuracion().intValue()) * 60) + "m");
+        campoNomeProfesor.setDisable(true);
+        campoNomeProfesor.setText(actividade.getProfesor().getNome());
+        campoValoracion.setDisable(true);
     }
 
-    public void btnXerarInformeAction(ActionEvent actionEvent){
+    public void btnXerarInformeAction(ActionEvent actionEvent) {
     }
-    public void btnRefrescarAction(ActionEvent actionEvent){
+
+    public void btnRefrescarAction(ActionEvent actionEvent) {
     }
-    public void btnVolverAction(ActionEvent actionEvent){
+
+    public void setActividade(Actividade actividade) {
+        this.actividade = actividade;
+    }
+
+    public void btnVolverAction(ActionEvent actionEvent) {
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINACTIVIDADE);
     }
 
