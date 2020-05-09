@@ -7,9 +7,9 @@ import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-import javax.swing.text.TableView;
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
