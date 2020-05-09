@@ -90,9 +90,13 @@
                         </Label>
                         <TextField fx:id="campoHoraFin" alignment="CENTER" layoutX="405.0" layoutY="25.0" prefHeight="26.0" prefWidth="82.0" promptText="XX:XX" />
                     </HBox>
-               <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="550.0">
+               <HBox alignment="CENTER" prefHeight="42.0" prefWidth="550.0">
                   <children>
-                     <Button mnemonicParsing="false" onAction="#btnRestaurarCampos" prefHeight="26.0" prefWidth="124.0" text="Restaurar Campos" />
+                             <Label fx:id="avisoCampos" prefHeight="20.0" prefWidth="497.0" textFill="RED">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
                   </children>
                </HBox>
 
@@ -102,12 +106,9 @@
                             <!-- onAction="#btnVolverAction" -->
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="58.0" prefWidth="152.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <Label fx:id="avisoCampos" prefHeight="18.0" prefWidth="264.0" textFill="RED">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font></Label>
-                            </children>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnRestaurarCampos" prefHeight="26.0" prefWidth="124.0" text="Restaurar Campos" />
+                     </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="170.0" VBox.vgrow="ALWAYS">
                             <children>
