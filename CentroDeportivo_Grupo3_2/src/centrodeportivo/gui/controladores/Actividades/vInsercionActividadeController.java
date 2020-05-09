@@ -253,13 +253,22 @@ public class vInsercionActividadeController extends AbstractController implement
         accionsVolver();
     }
 
+    public void btnRestaurarCampos(){
+        if(actividadeModificar!=null){
+            completarCampos(actividadeModificar);
+        }else{
+            AuxGUI.vaciarCamposTexto(campoNome);
+            campoData.setValue(null);
+            campoHoraFin.setText("00:00");
+            campoHoraInicio.setText("00:00");
+        }
+    }
+
     public void cargarCurso(Curso curso){
         this.curso=curso;
     }
 
-    public void cargarActividade(Actividade actividade){
-        this.actividadeModificar=actividade;
-
+    private void completarCampos(Actividade actividade){
         this.comboTipoactividade.getSelectionModel().select(actividade.getTipoActividade());
         this.campoNome.setText(actividade.getNome());
         this.comboInstalacions.getSelectionModel().select(actividade.getArea().getInstalacion());
@@ -286,6 +295,12 @@ public class vInsercionActividadeController extends AbstractController implement
             AuxGUI.inhabilitarCampos(comboTipoactividade, campoNome, comboInstalacions,comboArea,
                     comboProfesor, campoHoraInicio, campoHoraFin, campoData, btnGardar);
         }
+    }
+
+    public void cargarActividade(Actividade actividade){
+        this.actividadeModificar=actividade;
+
+        completarCampos(actividade);
     }
 
     private void accionsVolver(){
