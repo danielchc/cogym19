@@ -586,9 +586,12 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade " +
-                    " FROM actividade, tipoactividade" +
+            String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade, area.nome as nomearea, instalacion.nome as nomeinstalacion  " +
+                    " FROM actividade, tipoactividade, area, instalacion" +
                     " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade " +
+                    "   AND area.instalacion=instalacion.codinstalacion " +
+                    "   AND area.codarea=actividade.area " +
+                    "   AND area.instalacion=actividade.instalacion" +
                     "   AND curso is null" +
                     "   AND (actividade.dataactividade, actividade.area, actividade.instalacion) NOT IN " +
                     "                            (SELECT actividade.dataactividade, actividade.area, actividade.instalacion " +
@@ -630,7 +633,7 @@ public class DAOActividade extends AbstractDAO {
             while (rsActividades.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
                 actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"))) ,new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")) ,new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
             }
             con.commit();
         } catch (SQLException e) {
@@ -664,10 +667,13 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade " +
-                    " FROM actividade, tipoactividade, realizaractividade " +
-                    " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade "+
-                    "   AND curso is null" +
+            String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade, area.nome as nomearea, instalacion.nome as nomeinstalacion " +
+                    " FROM actividade, tipoactividade, realizaractividade, instalacion, area " +
+                    " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade " +
+                    "   AND area.instalacion=instalacion.codinstalacion " +
+                    "   AND area.codarea=actividade.area " +
+                    "   AND area.instalacion=actividade.instalacion"+
+                    "   AND curso is null " +
                     "   AND realizaractividade.dataactividade=actividade.dataactividade " +
                     "   AND realizaractividade.area=actividade.area " +
                     "   AND realizaractividade.instalacion=actividade.instalacion " +
@@ -706,7 +712,7 @@ public class DAOActividade extends AbstractDAO {
             while (rsActividades.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
                 actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"))) ,new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")) ,new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),new Persoal(rsActividades.getString("profesor")) ));
             }
             con.commit();
         } catch (SQLException e) {
