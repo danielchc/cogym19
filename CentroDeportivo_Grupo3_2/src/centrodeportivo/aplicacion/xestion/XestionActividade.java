@@ -58,12 +58,17 @@ public class XestionActividade {
 
     public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         //Se a actividade non existe, non estas apuntado e non é maxio o aforo podese apuntar, apuntamos o usuario na actividade::
-        if (!fachadaBD.estarApuntado(actividade, usuario) && fachadaBD.NonEMaximoAforoActividade(actividade)) {
-            fachadaBD.apuntarseActividade(actividade, usuario);
-            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
-            return TipoResultados.correcto;
+        if (!fachadaBD.estarApuntado(actividade, usuario)) {
+            if (fachadaBD.NonEMaximoAforoActividade(actividade))
+            {
+                fachadaBD.apuntarseActividade(actividade, usuario);
+                //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+                return TipoResultados.correcto;
+            }
+            else
+                return TipoResultados.sitIncoherente;
         } else {
-            return TipoResultados.sitIncoherente;
+            return TipoResultados.datoExiste;
         }
     }
 
