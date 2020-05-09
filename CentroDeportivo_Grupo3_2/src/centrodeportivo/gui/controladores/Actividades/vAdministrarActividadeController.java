@@ -97,7 +97,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
 
         //Engadimos as columnas á táboa
         taboaActividade.getColumns().addAll(coldata, colNome, colduracion, colarea, colinstalacion, colprofesor);
-
+        taboaActividade.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         actualizarTaboa();
     }
 

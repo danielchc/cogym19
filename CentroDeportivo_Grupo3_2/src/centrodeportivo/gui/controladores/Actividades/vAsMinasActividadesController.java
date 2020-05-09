@@ -1,9 +1,11 @@
 package centrodeportivo.gui.controladores.Actividades;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.area.Area;
 import centrodeportivo.aplicacion.obxectos.area.Instalacion;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -17,10 +19,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 /**
@@ -36,7 +40,8 @@ public class vAsMinasActividadesController extends AbstractController implements
     public ComboBox comboInstalacion;
     public ComboBox comboArea;
     public TableView taboaActividade;
-    public Button btnVolver;
+    public Button btnDesapuntarse;
+    public Button btnValorar;
 
     private vPrincipalController controllerPrincipal;
     private Usuario usuario;
@@ -101,8 +106,7 @@ public class vAsMinasActividadesController extends AbstractController implements
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Actividade rowData = row.getItem();
-                    // Facemos que sexa visible a ventá de administrar os tipos de materiais:
-                    this.controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADEPOPUP);
+                    abrirPopUpInformacion(rowData);
                 }
             });
             return row;
@@ -143,4 +147,32 @@ public class vAsMinasActividadesController extends AbstractController implements
         actualizarTabla();
     }
 
+    private void abrirPopUpInformacion(Actividade actividade) {
+
+    }
+
+    private void onActionValorar(){
+        this.controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADEPOPUP);
+    }
+
+    private void onActionDesapuntarse(){
+        if(!taboaActividade.getSelectionModel().isEmpty()){
+            Actividade actividade=(Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+            if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade","Quereste desapuntar da actividade "+actividade.getNome())==ButtonType.OK){
+                //desapuntrarse
+                try{
+                    TipoResultados tipoResultados=super.getFachadaAplicacion().borrarseDeActividade(actividade,controllerPrincipal.getUsuario());
+                    super.getFachadaAplicacion().mostrarInformacion("Actividade","Desapuntacheste da actividade "+actividade.getNome());
+                    /*
+
+                        COMPROBAR OS RESULTADOS
+
+
+                     */
+                }catch (ExcepcionBD e){
+                    getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
+                }
+            }
+        }
+    }
 }

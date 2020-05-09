@@ -90,8 +90,13 @@
                         </Label>
                         <TextField fx:id="campoHoraFin" alignment="CENTER" layoutX="405.0" layoutY="25.0" prefHeight="26.0" prefWidth="82.0" promptText="XX:XX" />
                     </HBox>
+               <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="550.0">
+                  <children>
+                     <Button mnemonicParsing="false" onAction="#btnRestaurarCampos" prefHeight="26.0" prefWidth="124.0" text="Restaurar Campos" />
+                  </children>
+               </HBox>
 
-                    <HBox alignment="CENTER" fillHeight="false" prefHeight="147.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER" fillHeight="false" prefHeight="95.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="170.0" VBox.vgrow="ALWAYS">
                             <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="160.0" text="Volver" />
                             <!-- onAction="#btnVolverAction" -->
