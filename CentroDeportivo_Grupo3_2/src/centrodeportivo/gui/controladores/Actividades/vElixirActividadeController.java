@@ -123,15 +123,12 @@ public class vElixirActividadeController extends AbstractController implements I
             actividade = new Actividade(nome, area);
         }
 
-
-
         //buscar segundo os parametros anteriores
         if(isPantallaApuntarse){
             //apuntarse
             taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeNONParticipa(actividade, usuario));
         }else{
             //eliminar
-            System.out.println("Prenon participa");
             taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
         }
 
@@ -167,7 +164,7 @@ public class vElixirActividadeController extends AbstractController implements I
             if(!taboaActividade.getSelectionModel().isEmpty()){
                 Actividade actividade=(Actividade) taboaActividade.getSelectionModel().getSelectedItem();
                 if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade","Quereste desapuntar da actividade "+actividade.getNome())==ButtonType.OK){
-                    //desapuntr
+                    //desapuntrarse
                     try{
                         TipoResultados tipoResultados=super.getFachadaAplicacion().borrarseDeActividade(actividade,controllerPrincipal.getUsuario());
                         super.getFachadaAplicacion().mostrarInformacion("Actividade","Desapuntacheste da actividade "+actividade.getNome());
@@ -184,5 +181,6 @@ public class vElixirActividadeController extends AbstractController implements I
         this.isPantallaApuntarse=false;
         btnXestionar.setText("Desapuntarse");
         btnXestionar.setDisable(true);
+        this.actualizarTabla();
     }
 }
