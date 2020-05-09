@@ -1687,7 +1687,7 @@ de Areas
 <XPD:OBJ name="OwnedViews[37]" type="UMLAssociationView" guid="WzqQ90iXYU6xKPP2tgGIvwAA">
 <XPD:ATTR name="FillColor" type="string">$00FCEABA</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">222,218;968,218</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">222,220;968,220</XPD:ATTR>
 <XPD:REF name="Model">X63KuToBfEOKpcvMLjXYkQAA</XPD:REF>
 <XPD:REF name="Head">FGGtXtuZx0i9Xl0m/cYapwAA</XPD:REF>
 <XPD:REF name="Tail">zKlVXixDlU6zabWQaAc4RAAA</XPD:REF>
