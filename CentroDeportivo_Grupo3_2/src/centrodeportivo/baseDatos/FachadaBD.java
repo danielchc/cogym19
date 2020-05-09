@@ -160,11 +160,12 @@ public final class FachadaBD {
 
     /**
      * Método que nos permite realizar o envío dun aviso aos socios dunha actividade.
-     * @param mensaxe A mensaxe a enviar a eses socios.
+     *
+     * @param mensaxe    A mensaxe a enviar a eses socios.
      * @param actividade A actividade de referencia da que se collerán os participantes aos que enviar as mensaxes.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD{
+    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD {
         daoMensaxes.enviarAvisoSociosAct(mensaxe, actividade);
     }
 
@@ -330,6 +331,7 @@ public final class FachadaBD {
         //Accedemos ao método correspondente do dao de tipos de actividades
         return this.daoTiposActividades.tenActividades(tipoActividade);
     }
+
 
     /*
         Funcións DAOCursos
@@ -512,7 +514,7 @@ public final class FachadaBD {
      * @param curso Curso que se quer comprobar
      * @return Retorna true se o curso se atopa almaceado na base de datos e false en caso contrario
      */
-    public boolean isCurso(Curso curso){
+    public boolean isCurso(Curso curso) {
         return daoCursos.isCurso(curso);
     }
 
@@ -695,14 +697,15 @@ public final class FachadaBD {
         return daoActividade.buscarProfesores(tipoactividade);
     }
 
-    public ArrayList<Actividade> buscarActividadeparticipa(Actividade actividade, Usuario usuario)
-    {
-        return daoActividade.buscarActividadeParticipa(actividade,usuario);
+    public ArrayList<Actividade> buscarActividadeparticipa(Actividade actividade, Usuario usuario) {
+        return daoActividade.buscarActividadeParticipa(actividade, usuario);
     }
 
-    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario)
-    {
-        return daoActividade.buscarActividadeNONParticipa(actividade,usuario);
+    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
+        return daoActividade.buscarActividadeNONParticipa(actividade, usuario);
     }
 
+    public void valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        daoActividade.valorarActividade(valoracion, actividade, usuario);
+    }
 }

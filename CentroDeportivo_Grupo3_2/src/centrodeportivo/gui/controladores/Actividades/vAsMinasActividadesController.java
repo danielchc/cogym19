@@ -187,6 +187,15 @@ public class vAsMinasActividadesController extends AbstractController implements
 
     public void onActionValorar(){
         this.controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADEPOPUP);
+    public void onActionValorar() {
+        // Pasamoslle a actividade se non e nula
+        if ((Actividade) taboaActividade.getSelectionModel().getSelectedItem() != null) {
+            vValorarPopUpController cont = (vValorarPopUpController) controllerPrincipal.getControlador(IdPantalla.VALORARACTIVIDADEPOPUP);
+            cont.setActividade((Actividade) taboaActividade.getSelectionModel().getSelectedItem());
+            controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADEPOPUP);
+        } else {
+            getFachadaAplicacion().mostrarErro("Valorar Actividades", "Debes ter unha actividade seleccionada!");
+        }
     }
 
     public void onActionApuntarse(){

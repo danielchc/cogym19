@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -619,5 +620,9 @@ public class FachadaAplicacion extends Application {
     public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario)
     {
         return xestionActividade.buscarActividadeNONParticipa(actividade, usuario);
+    }
+
+    public TipoResultados valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
+      return xestionActividade.valorarActividade(valoracion,actividade,usuario);
     }
 }

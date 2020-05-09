@@ -756,7 +756,7 @@ public class DAOActividade extends AbstractDAO {
         return actividades;
     }
 
-    public void ValorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
+    public void valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
         // Neste metodo actualizamos a taboa realizar actividade para realizar unha valoración da mesma
         PreparedStatement stmActividade = null;
         Connection con;

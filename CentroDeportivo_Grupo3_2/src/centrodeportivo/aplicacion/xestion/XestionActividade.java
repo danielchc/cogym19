@@ -59,13 +59,11 @@ public class XestionActividade {
     public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         //Se a actividade non existe, non estas apuntado e non é maxio o aforo podese apuntar, apuntamos o usuario na actividade::
         if (!fachadaBD.estarApuntado(actividade, usuario)) {
-            if (fachadaBD.NonEMaximoAforoActividade(actividade))
-            {
+            if (fachadaBD.NonEMaximoAforoActividade(actividade)) {
                 fachadaBD.apuntarseActividade(actividade, usuario);
                 //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
                 return TipoResultados.correcto;
-            }
-            else
+            } else
                 return TipoResultados.sitIncoherente;
         } else {
             return TipoResultados.datoExiste;
@@ -91,20 +89,30 @@ public class XestionActividade {
         return fachadaBD.buscarProfesores(tipoactividade);
     }
 
-    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario)
-    {
-        if(usuario != null)
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
+        if (usuario != null)
             return fachadaBD.buscarActividadeparticipa(actividade, usuario);
         else
             return null;
     }
 
-    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario)
-    {
-        if(usuario != null)
+    public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
+        if (usuario != null)
             return fachadaBD.buscarActividadeNONParticipa(actividade, usuario);
         else
             return null;
+    }
+
+    public TipoResultados valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
+        if (valoracion != null && actividade != null && usuario != null) {
+            if ((actividade.getData()).before(new Timestamp(System.currentTimeMillis()))) {
+                fachadaBD.valorarActividade(valoracion, actividade, usuario);
+                return TipoResultados.correcto;
+            }
+            return TipoResultados.foraTempo;
+        } else {
+            return TipoResultados.sitIncoherente;
+        }
     }
 
 }
