@@ -244,6 +244,7 @@ public class vAsMinasActividadesController extends AbstractController implements
                             super.getFachadaAplicacion().mostrarErro("Actividade", "Non está apuntado a esta actividade.");
                             break;
                     }
+                    actualizarTabla();
                 } catch (ExcepcionBD e) {
                     getFachadaAplicacion().mostrarErro("Actividade", e.getMessage());
                 }
