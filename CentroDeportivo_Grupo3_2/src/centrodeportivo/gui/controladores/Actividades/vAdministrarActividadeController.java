@@ -196,18 +196,24 @@ public class vAdministrarActividadeController extends AbstractController impleme
     }
 
     public void btnInformeAction(ActionEvent actionEvent) {
-
         if (!taboaActividade.getSelectionModel().isEmpty()) {
-            //Recuperamos primeiro a actividade seleccionada:
+            // Recuperamos primeiro a actividade seleccionada:
             Actividade act = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
-            //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
+            // Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
             if (act != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(act.getData().getTime());
+                cal.add(Calendar.SECOND, (int) (act.getDuracion() * 3600));
+                boolean estaAcabada = (new Timestamp(System.currentTimeMillis())).after(new Timestamp(cal.getTime().getTime()));
                 // Se non é null seguimos adiante.
-                // Feito iso, facemos que a ventá visíbel sexa a de edición dunha actividade:
-                this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMEACTIVIDADE);
-                // Accedemos ao controlador da ventá de edición dunha actividade:
-                ((vInformeActividadeController) this.controllerPrincipal.getControlador(IdPantalla.INFORMEACTIVIDADE)).setActividade(act);
-
+                if(estaAcabada) {
+                    // Accedemos ao controlador da ventá de edición dunha actividade:
+                    ((vInformeActividadeController) this.controllerPrincipal.getControlador(IdPantalla.INFORMEACTIVIDADE)).setActividade(act);
+                    // Feito iso, facemos que a ventá visíbel sexa a de edición dunha actividade:
+                    this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMEACTIVIDADE);
+                }else{
+                    getFachadaAplicacion().mostrarErro("Informe de Actividades", "A actividade ainda non rematou!");
+                }
             } else {
                 getFachadaAplicacion().mostrarErro("Informe de Actividades", "Selecciona a actividade da que queiras ver o informe!");
             }

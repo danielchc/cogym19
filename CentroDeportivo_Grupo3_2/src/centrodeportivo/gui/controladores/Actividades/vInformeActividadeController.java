@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 /**
@@ -55,8 +56,20 @@ public class vInformeActividadeController extends AbstractController implements 
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //ampoActividadeNome.setText(actividade.getNome());
-
+        campoNomeActividade.setDisable(true);
+        campoNomeActividade.setText(actividade.getNome());
+        campoArea.setDisable(true);
+        campoArea.setText(actividade.getArea().getNome());
+        campoInstalacion.setDisable(true);
+        campoInstalacion.setText(actividade.getArea().getInstalacion().getNome());
+        campoDataInicio.setDisable(true);
+        campoDataInicio.setText(new SimpleDateFormat("dd/MM/yyyy").format(actividade.getData().getTime()));
+        campoDuracion.setDisable(true);
+        campoDuracion.setText(actividade.getDuracion().intValue() + "h, " +
+                (int) ((actividade.getDuracion().floatValue() - actividade.getDuracion().intValue()) * 60) + "m");
+        campoNomeProfesor.setDisable(true);
+        campoNomeProfesor.setText(actividade.getProfesor().getNome());
+        campoValoracion.setDisable(true);
     }
 
     public void btnXerarInformeAction(ActionEvent actionEvent) {
