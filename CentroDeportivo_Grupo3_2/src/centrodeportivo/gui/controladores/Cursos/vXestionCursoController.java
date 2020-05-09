@@ -276,7 +276,7 @@ public class vXestionCursoController extends AbstractController implements Initi
                             //No caso de devolver este valor, indicará que o curso non estaba preparado para ser activado:
                             getFachadaAplicacion().mostrarErro("Administración de Cursos",
                                     "O curso non está todavía preparado para ser activado. Lembra, debe de ter" +
-                                            " como mínimo dúas actividades e non pode ter comezado!");
+                                            " como mínimo dúas actividades e non poden quedar menos de dous días para o seu comezo!");
                             //Non faríamos ningunha modificación.
                             break;
                         case correcto:
@@ -297,7 +297,7 @@ public class vXestionCursoController extends AbstractController implements Initi
 
                                 //Se se chega aquí sen lanzar unha excepción, será porque se logrou avisar a todos
                                 //os socios. Avísase:
-                                getFachadaAplicacion().mostrarConfirmacion("Administración de Cursos",
+                                getFachadaAplicacion().mostrarInformacion("Administración de Cursos",
                                         "Avisado a TODOS os socios");
                             }
                             //Desaactivamos o botón de activación do curso:
@@ -483,6 +483,8 @@ public class vXestionCursoController extends AbstractController implements Initi
                                         "Non se pode borrar esta actividade, dado que xa foi realizada.");
                                 break;
                         }
+                        //en calquera caso, recuperaranse os datos do curso:
+                        this.setCurso(getFachadaAplicacion().recuperarDatosCurso(curso));
                     } catch (ExcepcionBD e) {
                         //Se se producise unha excepción amosaríase o erro asociado:
                         getFachadaAplicacion().mostrarErro("Administración de cursos",
