@@ -186,6 +186,7 @@ public class vAsMinasActividadesController extends AbstractController implements
         this.comboInstalacion.getSelectionModel().clearSelection();
         this.comboArea.getSelectionModel().clearSelection();
         this.campoNome.clear();
+        actualizarTabla();
     }
 
     public void onActionValorar() {

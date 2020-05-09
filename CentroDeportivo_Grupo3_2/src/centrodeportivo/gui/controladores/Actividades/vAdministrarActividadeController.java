@@ -19,6 +19,7 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 /**
@@ -39,6 +40,7 @@ public class vAdministrarActividadeController extends AbstractController impleme
     public TableView taboaActividade;
     public Button btnRexistrar;
     public Button btnXerarInforme;
+    public Button btnXestionar1;
 
     /**
      * Atributos privados: somentes temos un que é a referencia ao controlador da ventá principal.
@@ -113,10 +115,29 @@ public class vAdministrarActividadeController extends AbstractController impleme
         if(taboaActividade.getItems().size()!=0){
             taboaActividade.getSelectionModel().selectFirst();
         }
+        listenerTabla();
     }
 
     public void btnBuscarAction(ActionEvent actionEvent){
         actualizarTaboa();
+    }
+
+    public void btnLimparAction(ActionEvent actionEvent){
+        campoNome.clear();
+        actualizarTaboa();
+    }
+
+    public void listenerTabla(){
+        if(!taboaActividade.getSelectionModel().isEmpty()){
+            Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(actividade.getData().getTime());
+            cal.add(Calendar.SECOND, (int) (actividade.getDuracion() * 3600));
+
+            boolean estaAcabada = (new Timestamp(System.currentTimeMillis())).after(new Timestamp(cal.getTime().getTime()));
+            btnXerarInforme.setDisable(!estaAcabada);
+            btnXestionar1.setDisable(estaAcabada);
+        }
     }
 
     public void btnXestionarAction(ActionEvent actionEvent){
