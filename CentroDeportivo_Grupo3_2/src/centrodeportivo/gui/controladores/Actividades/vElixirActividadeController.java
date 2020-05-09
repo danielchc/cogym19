@@ -40,7 +40,6 @@ public class vElixirActividadeController extends AbstractController implements I
     public Button btnXestionar;
 
     private vPrincipalController controllerPrincipal;
-    private boolean isPantallaApuntarse;
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
@@ -61,8 +60,6 @@ public class vElixirActividadeController extends AbstractController implements I
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.isPantallaApuntarse=true;
-
         this.comboInstalacion.getItems().addAll(super.getFachadaAplicacion().buscarInstalacions(null));
         if(!this.comboInstalacion.getItems().isEmpty()) this.comboInstalacion.getSelectionModel().selectFirst();
 
@@ -122,15 +119,7 @@ public class vElixirActividadeController extends AbstractController implements I
             actividade = new Actividade(nome, area);
         }
 
-        //buscar segundo os parametros anteriores
-        if(isPantallaApuntarse){
-            //apuntarse
-            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeNONParticipa(actividade, usuario));
-        }else{
-            //eliminar
-            taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeParticipa(actividade, usuario));
-        }
-
+        taboaActividade.getItems().addAll(super.getFachadaAplicacion().buscarActividadeNONParticipa(actividade, usuario));
 
         if(taboaActividade.getItems().size()!=0){
             taboaActividade.getSelectionModel().selectFirst();
@@ -143,7 +132,7 @@ public class vElixirActividadeController extends AbstractController implements I
     }
 
     public void btnXestionarAction(ActionEvent actionEvent){
-        if(isPantallaApuntarse){
+        //if(isPantallaApuntarse){
             //se se esta apuntando
             if(!taboaActividade.getSelectionModel().isEmpty()){
                 Actividade actividade=(Actividade) taboaActividade.getSelectionModel().getSelectedItem();
@@ -158,7 +147,7 @@ public class vElixirActividadeController extends AbstractController implements I
                     }
                 }
             }
-        }else{
+        /*}else{
             //se esta para borrarse
             if(!taboaActividade.getSelectionModel().isEmpty()){
                 Actividade actividade=(Actividade) taboaActividade.getSelectionModel().getSelectedItem();
@@ -173,13 +162,6 @@ public class vElixirActividadeController extends AbstractController implements I
                     }
                 }
             }
-        }
-    }
-
-    public void abrirPantallaDesapuntarse(){
-        this.isPantallaApuntarse=false;
-        btnXestionar.setText("Desapuntarse");
-        btnXestionar.setDisable(true);
-        this.actualizarTabla();
+        }*/
     }
 }

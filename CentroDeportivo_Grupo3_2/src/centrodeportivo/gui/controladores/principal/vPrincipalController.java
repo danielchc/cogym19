@@ -134,7 +134,7 @@ public class vPrincipalController extends AbstractController implements Initiali
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.OSMEUSCURSOS, new DatosVista("../../vistas/Cursos/vMeusCursos.fxml", new vMeusCursosController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla de valorar actividades en xeral: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
-        this.pantallas.put(IdPantalla.VALORARACTIVIDADE, new DatosVista("../../vistas/Actividades/vValorarActividade.fxml", new vValorarActividadeController(super.getFachadaAplicacion(), this, this.usuario)));
+        this.pantallas.put(IdPantalla.VALORARACTIVIDADE, new DatosVista("../../vistas/Actividades/vAsMinasActividades.fxml", new vAsMinasActividadesController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.NOVOMATERIAL, new DatosVista("../../vistas/Materiales/vNovoMaterial.fxml", new vNovoMaterialController(super.getFachadaAplicacion(), this)));
         // Pantalla valorar unha actividade: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
@@ -306,15 +306,6 @@ public class vPrincipalController extends AbstractController implements Initiali
         mostrarPantalla(IdPantalla.valueOf(((Button) actionEvent.getSource()).getId()));
     }
 
-    /**
-     * Acción levada a cabo cando se escolle a opción de desanotarse dunha actividade.
-     * Como cambia un dos atributos do controlador, vémonos forzados a empregar esta alternativa:
-     */
-    public void btnDesapuntareseActividade(){
-        esconderTodosSliders();
-        mostrarPantalla(IdPantalla.APUNTARSEACTIVIDADE);
-        ((vElixirActividadeController)getControlador(IdPantalla.APUNTARSEACTIVIDADE)).abrirPantallaDesapuntarse();
-    }
 
     /**
      * Método que nos permite recuperar o controlador de calquera das pantallas vinculadas á ventá principal:

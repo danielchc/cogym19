@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * @author Víctor Barreiro
  * Clase que servirá de controlador da pantalla de administración de tipos de actividades.
  */
-public class vValorarActividadeController extends AbstractController implements Initializable {
+public class vAsMinasActividadesController extends AbstractController implements Initializable {
 
 
     public TextField campoNome;
@@ -47,7 +47,7 @@ public class vValorarActividadeController extends AbstractController implements 
      * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
-    public vValorarActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal, Usuario usuario) {
+    public vAsMinasActividadesController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal, Usuario usuario) {
         // Chamamos ao constructor da clase pai:
         super(fachadaAplicacion);
         // Asignamos o parámetro pasado de controlador da ventá principal ao atributo correspondente:
