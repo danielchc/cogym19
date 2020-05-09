@@ -43,6 +43,11 @@ public class Usuario {
         this.login = login;
     }
 
+    public Usuario(String login, String nome) {
+        this(login);
+        this.nome = nome;
+    }
+
     public Usuario(String nome, String DNI, String login) {
         this.nome = nome;
         this.DNI = DNI;
