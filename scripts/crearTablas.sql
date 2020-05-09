@@ -119,7 +119,6 @@ CREATE TABLE actividade(
 	nome 			VARCHAR(50) NOT NULL,
 	duracion 		DECIMAL NOT NULL CHECK (duracion>0),
 	PRIMARY KEY (dataActividade,area,instalacion),
-	
 	FOREIGN KEY (tipoActividade) REFERENCES tipoActividade(codTipoActividade)
 	ON UPDATE CASCADE ON DELETE RESTRICT,
 	FOREIGN KEY (curso) REFERENCES curso(codCurso) 
@@ -127,7 +126,8 @@ CREATE TABLE actividade(
 	FOREIGN KEY (area,instalacion) REFERENCES area(codArea,instalacion) 
 	ON UPDATE CASCADE ON DELETE RESTRICT,
 	FOREIGN KEY (profesor) REFERENCES persoal(login) 
-	ON UPDATE CASCADE ON DELETE RESTRICT
+	ON UPDATE CASCADE ON DELETE RESTRICT,
+	CHECK ((EXTRACT(HOUR FROM dataActividade) BETWEEN 6 AND 23) AND (EXTRACT(HOUR FROM dataActividade+INTERVAL '1 hour'*duracion) BETWEEN 6 AND 23))
 );
 
 CREATE TABLE incidenciaMaterial(
