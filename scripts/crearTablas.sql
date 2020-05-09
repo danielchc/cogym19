@@ -265,9 +265,9 @@ JOIN persoaFisica AS pf ON so.login=pf.usuariosocio
 JOIN usuario AS us ON us.login=so.login;
 
 
---Funcion que cando un socio se apunta nun curso, apunta o socio nas actividades de ese curso
+--Función que cando un socio se apunta nun curso, apunta o socio nas actividades de ese curso
 
-CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION insertarSocioCursoActividades() RETURNS TRIGGER AS $$
 	DECLARE
 		tr RECORD;
 	BEGIN
@@ -277,6 +277,22 @@ CREATE OR REPLACE FUNCTION insertarActividades() RETURNS TRIGGER AS $$
 		LOOP
 			--Inserto en realizar actividade a o usuario
 			INSERT INTO realizarActividade(dataActividade,area,instalacion,usuario) VALUES(tr.dataActividade,tr.area,tr.instalacion,NEW.usuario);
+		END LOOP;
+		RETURN NEW;
+	END;
+$$ LANGUAGE plpgsql;
+
+--Función que cando un socio se desapunta nun curso, desapunta o socio nas actividades de ese curso
+CREATE OR REPLACE FUNCTION borrarActividadesSocioCurso() RETURNS TRIGGER AS $$
+	DECLARE
+		tr RECORD;
+	BEGIN
+		FOR tr IN
+			--Recorremos as actividades
+			SELECT * FROM actividade WHERE curso=OLD.curso
+		LOOP
+			--Borrar en realizar actividade a actividade
+			DELETE FROM realizarActividade WHERE dataActividade=tr.dataActividade AND area=tr.area AND instalacion=tr.instalacion AND usuario=OLD.usuario;
 		END LOOP;
 		RETURN NEW;
 	END;
@@ -385,8 +401,11 @@ CREATE TRIGGER crear_secuencia_material AFTER INSERT ON tipoMaterial FOR EACH RO
 --Antes de insertar unha material, facemos que lle añada un valor da secuencia das tipo material
 CREATE TRIGGER engadir_secuencia_material BEFORE INSERT ON material FOR EACH ROW EXECUTE PROCEDURE engadirSecuenciaMaterial();
 
---Creo o trigger para apuntar automaticamente as persoas no curso
-CREATE TRIGGER insertarActividadesCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarActividades();
+--Creo o trigger para apuntar automaticamente as persoas no curso, cando se apunta nun
+CREATE TRIGGER insertarActividadesSocioCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarSocioCursoActividades();
+--Creo o trigger para desapuntar automaticamente as persoas no curso, cando se desapunta de un
+CREATE TRIGGER borrarActividadesSocioCurso AFTER DELETE ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE borrarActividadesSocioCurso();
+
 
 --Engadolle o CHECK, para comprobar que cando se engada unha actividade non esté ocupada nin a area nin o profesor
 ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor,area,instalacion));
