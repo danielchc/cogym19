@@ -595,62 +595,46 @@ public class DAOActividade extends AbstractDAO {
                     "   AND area.codarea=actividade.area " +
                     "   AND area.instalacion=actividade.instalacion " +
                     "   AND curso is null" +
+                    "   AND actividade.dataactividade>NOW()" +
                     "   AND (actividade.dataactividade, actividade.area, actividade.instalacion) NOT IN " +
-                    "                            (SELECT actividade.dataactividade, actividade.area, actividade.instalacion " +
-                    "                            FROM actividade, realizaractividade " +
-                    "                            WHERE realizaractividade.dataactividade=actividade.dataactividade " +
-                    "                            AND realizaractividade.area=actividade.area " +
-                    "                            AND realizaractividade.instalacion=actividade.instalacion " +
-                    "                            AND usuario=? )" +
-                    "   AND actividade.dataactividade>NOW()";
+                    "                           (SELECT dataactividade, area, instalacion " +
+                    "                            FROM realizaractividade " +
+                    "                            WHERE dataactividade=actividade.dataactividade " +
+                    "                            AND area=actividade.area " +
+                    "                            AND instalacion=actividade.instalacion " +
+                    "                            AND usuario=? )";
 
 
             //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
             //argumento:
             if (actividade != null) {
-                System.out.println(actividade.getNome());
-                if (actividade != null) {
-                    consulta += " AND lower(actividade.nome) like lower(?)  ";
+                consulta += " AND lower(actividade.nome) like lower(?)  ";
 
-                    if (actividade.getArea() != null)
-                        consulta += " AND actividade.area=? AND actividade.instalacion=? ";
-
-                    if (actividade.getArea() != null) {
-                        consulta += " AND actividade.instalacion=? ";
-                        if (actividade.getArea().getCodArea() >= 0) {
-                            consulta += " AND actividade.area=? ";
-                        }
+                if (actividade.getArea() != null) {
+                    consulta += " AND actividade.instalacion=? ";
+                    if (actividade.getArea().getCodArea() >= 0) {
+                        consulta += " AND actividade.area=? ";
                     }
                 }
             }
-            consulta += " ORDER BY actividade.nome ";
+            consulta += " ORDER BY actividade.dataactividade desc ";
 
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
+
             if (actividade != null) {
+                stmActividades.setString(2, "%" + actividade.getNome() + "%");
 
-                if (actividade != null) {
-                    stmActividades.setString(2, "%" + actividade.getNome() + "%");
-
-                    if (actividade.getArea() != null) {
-                        stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-                        if (actividade.getArea().getCodArea() >= 0) {
-                            stmActividades.setInt(4, actividade.getArea().getCodArea());
-                        }
+                if (actividade.getArea() != null) {
+                    stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+                    if (actividade.getArea().getCodArea() >= 0) {
+                        stmActividades.setInt(4, actividade.getArea().getCodArea());
                     }
                 }
-
-
-            /*
-            if (actividade!= null) {
-                stmActividades.setString(2, "%" + actividade.getNome() + "%");
-                //Pasando area non nula completase a consulta.
-                if (actividade.getArea() != null) {
-                    stmActividades.setInt(3, actividade.getArea().getCodArea());
-                    stmActividades.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
-                }*/
             }
+
+            System.out.println(stmActividades);
 
             //Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
@@ -693,41 +677,54 @@ public class DAOActividade extends AbstractDAO {
 
         //Preparamos a consulta:
         try {
-            String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade, area.nome as nomearea, instalacion.nome as nomeinstalacion " +
+            String consulta =
+                    "SELECT " +
+                            "actividade.dataactividade, " +
+                            "actividade.area, actividade.instalacion, " +
+                            "actividade.tipoactividade as tipoactividade, " +
+                            "curso, " +
+                            "profesor, " +
+                            "actividade.nome as nome, " +
+                            "duracion, " +
+                            "tipoactividade.nome as nomeactividade, " +
+                            "area.nome as nomearea, " +
+                            "instalacion.nome as nomeinstalacion " +
                     " FROM actividade, tipoactividade, realizaractividade, instalacion, area " +
-                    " WHERE actividade.tipoactividade=tipoactividade.codtipoactividade " +
-                    "   AND area.instalacion=instalacion.codinstalacion 1" +
-                    "   AND area.codarea=actividade.area " +
-                    "   AND area.instalacion=actividade.instalacion" +
-                    "   AND curso is null " +
-                    "   AND realizaractividade.dataactividade=actividade.dataactividade " +
-                    "   AND realizaractividade.area=actividade.area " +
-                    "   AND realizaractividade.instalacion=actividade.instalacion " +
-                    "   AND usuario=? ";
+                    " WHERE " +
+                            "actividade.tipoactividade=tipoactividade.codtipoactividade " +
+                            "   AND area.instalacion=instalacion.codinstalacion " +
+                            "   AND area.codarea=actividade.area " +
+                            "   AND area.instalacion=actividade.instalacion" +
+                            "   AND curso is null " +
+                            "   AND realizaractividade.dataactividade=actividade.dataactividade " +
+                            "   AND realizaractividade.area=actividade.area " +
+                            "   AND realizaractividade.instalacion=actividade.instalacion " +
+                            "   AND usuario=? ";
 
-            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
-            //argumento:
             if (actividade != null) {
                 consulta += " AND lower(actividade.nome) like lower(?)  ";
 
-                if (actividade.getArea() != null)
-                    consulta += " AND actividade.area=? AND actividade.instalacion=? ";
-
+                if (actividade.getArea() != null) {
+                    consulta += " AND actividade.instalacion=? ";
+                    if (actividade.getArea().getCodArea() >= 0) {
+                        consulta += " AND actividade.area=? ";
+                    }
+                }
             }
-
-
-            //Ordenaremos o resultado polo código da área para ordenalas
-            consulta += " ORDER BY actividade.nome asc";
+            consulta += " ORDER BY actividade.dataactividade desc ";
 
             stmActividades = con.prepareStatement(consulta);
 
             stmActividades.setString(1, usuario.getLogin());
+
             if (actividade != null) {
                 stmActividades.setString(2, "%" + actividade.getNome() + "%");
-                //Pasando area non nula completase a consulta.
+
                 if (actividade.getArea() != null) {
-                    stmActividades.setInt(3, actividade.getArea().getCodArea());
-                    stmActividades.setInt(4, actividade.getArea().getInstalacion().getCodInstalacion());
+                    stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+                    if (actividade.getArea().getCodArea() >= 0) {
+                        stmActividades.setInt(4, actividade.getArea().getCodArea());
+                    }
                 }
             }
 

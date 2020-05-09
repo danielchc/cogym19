@@ -127,7 +127,6 @@ public class vAsMinasActividadesController extends AbstractController implements
                 if (!comboArea.getSelectionModel().isEmpty()) {
                     area = (Area) comboArea.getSelectionModel().getSelectedItem();
                 }
-
             }
             actividade = new Actividade(nome, area);
         }
