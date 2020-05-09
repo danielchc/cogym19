@@ -708,4 +708,9 @@ public final class FachadaBD {
     public void valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
         daoActividade.valorarActividade(valoracion, actividade, usuario);
     }
+
+    public boolean EProfesorActivo(Persoal profesor)
+    {
+        return daoActividade.EProfesorActivo(profesor);
+    }
 }

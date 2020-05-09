@@ -689,8 +689,8 @@ public class DAOActividade extends AbstractDAO {
                             "tipoactividade.nome as nomeactividade, " +
                             "area.nome as nomearea, " +
                             "instalacion.nome as nomeinstalacion " +
-                    " FROM actividade, tipoactividade, realizaractividade, instalacion, area " +
-                    " WHERE " +
+                            " FROM actividade, tipoactividade, realizaractividade, instalacion, area " +
+                            " WHERE " +
                             "actividade.tipoactividade=tipoactividade.codtipoactividade " +
                             "   AND area.instalacion=instalacion.codinstalacion " +
                             "   AND area.codarea=actividade.area " +
@@ -799,5 +799,50 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    public boolean EProfesorActivo(Persoal profesor) {
+        PreparedStatement stmActividade = null;
+        ResultSet rsActividade;
+        Connection con;
+
+        //Recuperamos a conexión coa base de datos.
+        con = super.getConexion();
+
+        //Preparamos a consulta:
+        try {
+            stmActividade = con.prepareStatement(
+                    " SELECT profesoractivo " +
+                            " FROM persoal " +
+                            " WHERE profesoractivo=TRUE AND login=? "
+            );
+
+            //Establecemos os valores:
+            stmActividade.setString(1, profesor.getLogin());
+
+            //Facemos a consulta:
+            rsActividade = stmActividade.executeQuery();
+
+
+            if (rsActividade.next())
+                return true;
+            return false;
+
+        } catch (SQLException e) {
+            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            //En calquera caso, téntase pechar os cursores.
+            try {
+                stmActividade.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores.");
+            }
+        }
+        return false;
+    }
 
 }

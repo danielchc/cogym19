@@ -10,6 +10,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.baseDatos.FachadaBD;
 import centrodeportivo.gui.FachadaGUI;
 
+import javax.swing.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -25,13 +26,17 @@ public class XestionActividade {
 
     public TipoResultados EngadirActividade(Actividade actividade) throws ExcepcionBD {
         //Se a actividade non existe, dase de engadimola:
-        if (!fachadaBD.horarioOcupadoActividade(null, actividade)) {
-            fachadaBD.EngadirActividade(actividade);
-            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
-            return TipoResultados.correcto;
-        } else {
-            return TipoResultados.datoExiste;
+        if (fachadaBD.EProfesorActivo(actividade.getProfesor())) {
+            if (!fachadaBD.horarioOcupadoActividade(null, actividade)) {
+                fachadaBD.EngadirActividade(actividade);
+                //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+                return TipoResultados.correcto;
+            } else {
+                return TipoResultados.foraTempo;
+            }
         }
+        else
+            return TipoResultados.sitIncoherente;
     }
 
     public TipoResultados borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {

@@ -210,10 +210,15 @@ public class vInsercionActividadeController extends AbstractController implement
                         //Cando se garda a actividade, pódese volver:
                         accionsVolver();
                         break;
-                    case datoExiste:
+                    case foraTempo:
                         super.getFachadaAplicacion().mostrarErro("Actividade NON gardada",
                                 "Actividade " + actividade.getNome() + " non se puido gardar, dado que hai incompatibilidades " +
                                         "cos horarios doutras actividades.");
+                        break;
+                    case sitIncoherente:
+                        super.getFachadaAplicacion().mostrarErro("Actividade NON gardada",
+                                "Actividade " + actividade.getNome() + " non se puido gardar, dado que hai incompatibilidades " +
+                                        "o usuario non é un Profesor en activo. .");
                         break;
                 }
             } catch(ExcepcionBD e) {
