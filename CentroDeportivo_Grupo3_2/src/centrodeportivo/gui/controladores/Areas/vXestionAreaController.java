@@ -124,7 +124,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      */
     public void btnGardarAction(ActionEvent actionEvent) {
         //Primeiro imos comprobar que os campos non están vacíos:
-        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoDescricion, campoAforoMax)) {
+        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoAforoMax)) {
             //Se hai campos non cubertos amósase unha mensaxe e non se fai nada máis.
             //Amosamos a mensaxe de erro:
             AuxGUI.amosarCampos(avisoCampos);
