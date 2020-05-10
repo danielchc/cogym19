@@ -141,9 +141,19 @@ public class vNovoMaterialController extends AbstractController implements Initi
         if (!ValidacionDatos.estanCubertosCampos(campoEstadoMaterial) || comboTipoMaterial.getValue() == null ||
                 comboInstalacion.getValue() == null || comboArea.getValue() == null) {
             // Se algún campo obligatorio non esta cuberto, amosamos un mensaxe:
+            avisoCampos.setText("Campos Obrigatorios*!!!");
             AuxGUI.amosarCampos(avisoCampos);
             return;
         }
+
+        //Comprobamos a lonxitude:
+        if(campoEstadoMaterial.getText().length() > 50){
+            avisoCampos.setText("Lonxitudes incorrectas!");
+            AuxGUI.amosarCampos(avisoCampos);
+            return;
+        }
+
+
         // Creamos o material que daremos de alta:
         Material material;
         // Creamos a fecha que lle pasaremos:

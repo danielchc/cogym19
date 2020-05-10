@@ -51,7 +51,7 @@ public class vXestionCursoController extends AbstractController implements Initi
     public TextField campoNome;
     public TextArea campoDescricion;
     public TextField campoPrezo;
-    public Label tagObrigatorios;
+    public Label tagAviso;
     public Button btnActivar;
     public Button btnGardar;
     public TableView taboaActividades;
@@ -329,22 +329,22 @@ public class vXestionCursoController extends AbstractController implements Initi
         //No caso de gardar, hai que verificar que o nome e o ID estén cubertos.
         if (!ValidacionDatos.estanCubertosCampos(campoNome, campoPrezo)) {
             //Se non se cubriron, habilítase a etiqueta que indica campos obrigatorios:
-            tagObrigatorios.setText("Campos Obrigatorios*!!!");
-            AuxGUI.amosarCampos(tagObrigatorios);
+            tagAviso.setText("Campos Obrigatorios*!!!");
+            AuxGUI.amosarCampos(tagAviso);
             return; //Non seguimos adiante.
         } else {
             //Se non, ocultamos esa etiqueta dado que non queremos que apareza
-            AuxGUI.ocultarCampos(tagObrigatorios);
+            AuxGUI.ocultarCampos(tagAviso);
         }
 
         //Comprobamos a lonxitude dos campos:
         if(campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200){
-            tagObrigatorios.setText("Lonxitudes incorrectas!!");
-            AuxGUI.amosarCampos(tagObrigatorios);
+            tagAviso.setText("Lonxitudes incorrectas!!");
+            AuxGUI.amosarCampos(tagAviso);
             return; //Non seguimos adiante.
         } else {
             //Se non, ocultamos esa etiqueta dado que non queremos que apareza
-            AuxGUI.ocultarCampos(tagObrigatorios);
+            AuxGUI.ocultarCampos(tagAviso);
         }
 
         //Chegados aquí, intentamos facer a actualización. Podería ser inserción de datos ou modificación, dependendo
@@ -595,7 +595,7 @@ public class vXestionCursoController extends AbstractController implements Initi
             AuxGUI.vaciarCamposTexto(campoNome, campoPrezo, campoDescricion);
         }
         //En ambos casos, ocultamos a etiqueta de campos obrigatorios:
-        AuxGUI.ocultarCampos(tagObrigatorios);
+        AuxGUI.ocultarCampos(tagAviso);
     }
 
     /**

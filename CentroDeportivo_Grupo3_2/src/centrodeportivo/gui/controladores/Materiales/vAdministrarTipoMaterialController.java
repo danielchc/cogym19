@@ -139,6 +139,13 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
             return;
         }
 
+        //Comprobar lonxitude do tipo de material:
+        if(campoTipoMaterial.getText().length() > 100){
+            getFachadaAplicacion().mostrarErro("Engadir novo Tipo de Material",
+                    "O nome non pode sobrepasar os 100 caracteres!");
+            return;
+        }
+
         // Creamos un tipo de material co nome facilitado
         TipoMaterial tipoMaterial = new TipoMaterial(campoTipoMaterial.getText());
         // Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso.

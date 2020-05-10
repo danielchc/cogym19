@@ -189,6 +189,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
     public void btnRestaurarAction(ActionEvent actionEvent) {
         // Cando se pide borrar, primeiro solicitase a confirmación por parte do usuario:
       actualizarCamposMaterial();
+      AuxGUI.ocultarCampos(avisoCampos);
     }
 
 
@@ -202,6 +203,14 @@ public class vEditarMaterialController extends AbstractController implements Ini
         if (!ValidacionDatos.estanCubertosCampos(campoEstadoMaterial) || comboTipoMaterial.getValue() == null ||
                 comboInstalacion.getValue() == null || comboArea.getValue() == null) {
             // Se algún campo obligatorio non esta cuberto, amosamos un mensaxe:
+            avisoCampos.setText("Campos Obrigatorios*!!!");
+            AuxGUI.amosarCampos(avisoCampos);
+            return;
+        }
+
+        //Comprobamos a lonxitude do campo variable do estado:
+        if(campoEstadoMaterial.getText().length() > 50){
+            avisoCampos.setText("Lonxitudes incorrectas!");
             AuxGUI.amosarCampos(avisoCampos);
             return;
         }
@@ -242,6 +251,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
                             "Datos do material do tipo " + material.getTipoMaterial().getNome() + " modificados correctamente.");
                     break;
             }
+            AuxGUI.ocultarCampos(avisoCampos);
         } catch (ExcepcionBD e) {
             // Se hai un erro na base de datos, amósase a mensaxe, que é creada na nosa excepción con getMessage():
             super.getFachadaAplicacion().mostrarErro("Administración de Instalacións", e.getMessage());

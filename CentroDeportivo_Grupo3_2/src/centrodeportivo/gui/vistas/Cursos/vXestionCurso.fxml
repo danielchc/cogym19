@@ -149,7 +149,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="59.0" prefWidth="572.0" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <Label fx:id="tagObrigatorios" text="*Campos obrigatorios!!" textFill="RED" visible="false">
+                                                      <Label fx:id="tagAviso" text="*Campos obrigatorios!!" textFill="RED" visible="false">
                                                          <font>
                                                             <Font name="System Bold" size="14.0" />
                                                          </font>
