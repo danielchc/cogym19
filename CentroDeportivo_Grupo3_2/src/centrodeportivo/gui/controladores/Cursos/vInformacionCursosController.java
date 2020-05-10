@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -77,10 +78,16 @@ public class vInformacionCursosController extends AbstractController implements 
         campoDescricion.setDisable(true);
         campoDescricion.setText(curso.getDescricion());
 
+        // Cambiamos o texto do botón apuntarse/desapuntarse en función de si o usuario esta apuntado ou non:
         if (estaApuntado) {
             btnXestionar.setText("Desapuntarse");
         } else {
             btnXestionar.setText("Apuntarse");
+        }
+
+        // Desabilitamos o botón de apuntarse desapuntarse se o curso xa se inicio:
+        if (curso.getDataInicio() != null && curso.getDataInicio().toLocalDate().isBefore(LocalDate.now())) {
+            btnXestionar.setDisable(true);
         }
 
         TableColumn<Actividade, String> nomeColumn = new TableColumn<>("Nome");
@@ -107,12 +114,18 @@ public class vInformacionCursosController extends AbstractController implements 
 
         // Metemos as columnas creadas na táboa:
         taboaActividades.getColumns().addAll(nomeColumn, dataActividadeColumn, duracionColumn, areaInstalacionColumn);
-        // Buscamos os datos dos participantes da actividade:
-        // taboaActividades.getItems().addAll(getFachadaAplicacion().);
-        //TODO: Listar as actividades dun curso ¿? Hai metodo
-        //Controlamos tamaño das columnas:
+
+        // Recuperamos a información dun curso
+        curso = getFachadaAplicacion().recuperarDatosCurso(curso);
+        // De non estar valeira, engadimos a sua descrición no campo:
+        if (!curso.getDescricion().isEmpty()) {
+            campoDescricion.setText(curso.getDescricion());
+        }
+        // Recuperamos as actividadaes do curso para engadilas a taboa
+        taboaActividades.getItems().addAll(curso.getActividades());
+        // Controlamos tamaño das columnas:
         taboaActividades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        // Modelo de selección:
+        //  Modelo de selección:
         taboaActividades.getSelectionModel().selectFirst();
 
     }
@@ -234,7 +247,14 @@ public class vInformacionCursosController extends AbstractController implements 
     }
 
     public void btnRefrescarAction(ActionEvent actionEvent) {
-        // TODO: Volver a listar a información, recuperar de novo o curso e actualizar a taboa; un novo inicializar
+        // Actualizamos a información do curso
+        curso = getFachadaAplicacion().recuperarDatosCurso(curso);
+        // Recuperamos as actividadaes do curso para engadilas a taboa
+        taboaActividades.getItems().addAll(curso.getActividades());
+        // Controlamos tamaño das columnas:
+        taboaActividades.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        //  Modelo de selección:
+        taboaActividades.getSelectionModel().selectFirst();
     }
 
 }
