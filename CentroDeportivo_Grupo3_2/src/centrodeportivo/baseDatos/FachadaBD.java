@@ -678,60 +678,122 @@ public final class FachadaBD {
         Funcións DAOMaterial
      */
 
+    /**
+     * Método que comproba se existe algunha área co mesmo nome nunha instalación.
+     *
+     * @param area Área que se busca comprobar se é única ou non.
+     * @return Retorna true se existe outra area na mesma instalación con ese nome e false en caso contrario.
+     */
     public boolean ExisteArea(Area area) {
         return daoareas.ExisteArea(area);
     }
 
+    /**
+     * Método que permite engadir unha nova área na base de datos.
+     *
+     * @param area Información da área a engadir na base de datos
+     * @return Retorna un enteiro, neste caso, o código da área.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na inserción.
+     */
     public int EngadirArea(Area area) throws ExcepcionBD {
         return daoareas.EngadirArea(area);
     }
 
-    public void borrarArea(Area area) throws ExcepcionBD {
-        daoareas.borrarArea(area);
-    }
-
+    /**
+     * Método que permite consultar se a área ten actividades ou non. A maiores, posibilitamos realizar
+     * a consulta sobre actividades, ou actividades sen comezar.
+     *
+     * @param area       Datos da área onde se desexa facer a busca.
+     * @param senComezar Booleano empregado para filtrar a consulta.
+     * @return Retorna true se a area ten actividades e false en calquer outro caso.
+     */
     public boolean tenActividadesArea(Area area, boolean senComezar) {
         return daoareas.tenActividadeArea(area, senComezar);
     }
 
+    /**
+     * Método que permite comprobar se a área ten materiais asociados.
+     *
+     * @param area Información da área sobre a que se quere realizar a busca.
+     * @return Devolve true se a área ten materiais asociados e false en calquer outro caso.
+     */
     public boolean tenMateriaisArea(Area area) {
         return daoareas.tenMateriaisArea(area);
     }
 
+    /**
+     * Método que permite borrar unha área da base de datos.
+     *
+     * @param area Área que se desexa eliminar da base de datos.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas no borrado.
+     */
+    public void borrarArea(Area area) throws ExcepcionBD {
+        daoareas.borrarArea(area);
+    }
+
+    /**
+     * Método que permite modificar os datos dunha área na base de datos.
+     *
+     * @param area Área cos datos modificados para realizar ditos cambios na base de datos.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na modificación.
+     */
     public void modificarArea(Area area) throws ExcepcionBD {
         daoareas.modificarArea(area);
     }
 
+    /**
+     * Método que permite dar de baixa un área, é dicir, non se elimina da base de datos pero,
+     * deixará de estar dispoñible para realizar actividades.
+     *
+     * @param area Área que se quere dar de baixa.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na actualización.
+     */
     public void darDeBaixaArea(Area area) throws ExcepcionBD {
         daoareas.darDeBaixaArea(area);
     }
 
-    public boolean EBaixaArea(Area area) {
-        return daoareas.EBaixaArea(area);
-    }
-
+    /**
+     * Método que permite dar de alta unha área que xa exisita na base de datos pero, agora estará
+     * dispoñible para a realización de actividades.
+     *
+     * @param area Área que se procura dar de alta.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na actualización.
+     */
     public void darDeAltaArea(Area area) throws ExcepcionBD {
         daoareas.darDeAltaArea(area);
     }
 
+    /**
+     * Método que permite consultar se un área esta dada de baixa ou non.
+     *
+     * @param area Área que se quere comprobar se esta dada de baixa ou non.
+     * @return Retorna true se a área esta dada de baixa e false en caso contrario.
+     */
+    public boolean EBaixaArea(Area area) {
+        return daoareas.EBaixaArea(area);
+    }
+
+    /**
+     * Método que permite realizar a busca de áreas en función dos datos dunha instalación e seguindo un modelo de área.
+     *
+     * @param instalacion Instalación que empregaremos para filtrar.
+     * @param area        Área modelo que empregaremos para filtrar.
+     * @return Retorna un ArrayList de áreas que cumpran ditas condicións de filtrado.
+     */
     public ArrayList<Area> buscarArea(Instalacion instalacion, Area area) {
         return daoareas.buscarArea(instalacion, area);
     }
 
-    public ArrayList<Area> listarAreas() {
-        return daoareas.listarAreas();
-    }
-
     /**
-     * Método que nos permite buscar areas na base de datos en función dunha instalación.
+     * Método que permite listar todas as áreas activas dunha instalación.
      *
-     * @param instalacion Se non é null, a consulta realizase en base o codigo da area.
-     * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
-     * noutro caso, listaranse todas as areas.
+     * @param instalacion Datos da instalación na que se realiza a procura das áreas activas.
+     * @return Retorna un ArrayList cas áreas activas de dita instalación.
      */
     public ArrayList<Area> listarAreasActivas(Instalacion instalacion) {
         return daoareas.listarAreasActivas(instalacion);
     }
+
 
     // Actividades
 

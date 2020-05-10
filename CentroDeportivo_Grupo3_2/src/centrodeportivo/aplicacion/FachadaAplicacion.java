@@ -576,9 +576,6 @@ public class FachadaAplicacion extends Application {
         return xestionArea.buscarArea(instalacion, area);
     }
 
-    public Boolean EBaixaArea(Area area) throws ExcepcionBD {
-        return xestionArea.EBaixaArea(area);
-    }
 
 
     /**

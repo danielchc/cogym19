@@ -40,7 +40,7 @@ public final class DAOMaterial extends AbstractDAO {
      * Método que crea unha nova tupla insertando un material na base de datos.
      *
      * @param material Datos do material que se engadirá a base de datos.
-     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na inserción.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na inserción.
      */
     public void darAltaMaterial(Material material) throws ExcepcionBD {
 
@@ -85,7 +85,7 @@ public final class DAOMaterial extends AbstractDAO {
      * Método que elimina a tupla dun material na base de datos.
      *
      * @param material Datos do material que se eliminará.
-     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas no borrado.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas no borrado.
      */
     public void borrarMaterial(Material material) throws ExcepcionBD {
         PreparedStatement stmMaterial = null;
@@ -123,7 +123,7 @@ public final class DAOMaterial extends AbstractDAO {
      * Método que modifica os datos un material na base de datos
      *
      * @param material Datos do material que se modificará.
-     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na modificación.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na modificación.
      */
     public void modificarMaterial(Material material) throws ExcepcionBD {
         PreparedStatement stmMaterial = null;
