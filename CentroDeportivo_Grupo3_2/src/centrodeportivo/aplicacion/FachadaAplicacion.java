@@ -440,7 +440,15 @@ public class FachadaAplicacion extends Application {
     public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
         return xestionCursos.activarCurso(curso);
     }
-
+    /**
+     * Método que nos permite consultar os que esta apuntado un usuario
+     *
+     * @param usuario Usuario co que se realiza a busqueda
+     * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
+     */
+    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario){
+        return xestionCursos.consultarCursosDisponhibles(curso, usuario);
+    }
     /**
      * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos e que todavia non comezaran.
      *

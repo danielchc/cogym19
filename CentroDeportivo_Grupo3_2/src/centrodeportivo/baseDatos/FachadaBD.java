@@ -404,6 +404,16 @@ public final class FachadaBD {
     }
 
     /**
+     * Método que nos permite consultar os que esta apuntado un usuario
+     *
+     * @param usuario Usuario co que se realiza a busqueda
+     * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
+     */
+    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario){
+        return daoCursos.consultarCursosDisponhibles(curso, usuario);
+    }
+
+    /**
      * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
      * máis información todavía.
      *

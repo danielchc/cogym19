@@ -119,7 +119,7 @@ public class vElixirCursoController extends AbstractController implements Initia
         // Metemos as columnas creadas na táboa:
         taboaCursos.getColumns().addAll(nomeColumn, numActividadesColumn, duracionColumn, dataColumn);
         // Buscamos os datos dos cursos abertos e engadímolos:
-        taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursosAbertosSocios(null));
+        taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursosDisponhibles(null, usuario));
         // Modelo de selección:
         taboaCursos.getSelectionModel().selectFirst();
     }
@@ -133,14 +133,14 @@ public class vElixirCursoController extends AbstractController implements Initia
         // Se o campo de nome non se cubre, o que faremos será listar todos os cursos, se non, faremos búsqueda por nome:
         if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
             // Listar todos os cursos -> Pasamos a consultarCursosAbertos parámetro null:
-            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(null));
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosDisponhibles(null, usuario));
         } else {
             if (checkAnotado.isSelected()) {
                 // Buscar por un curso: pasamos un curso co campo de busca: o nome:
                 this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(new Curso(campoNome.getText()), usuario));
             } else {
                 // Buscar por un curso: pasamos un curso co campo de busca: o nome:
-                this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(new Curso(campoNome.getText())));
+                this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosDisponhibles(new Curso(campoNome.getText()), usuario));
             }
         }
     }
@@ -159,7 +159,7 @@ public class vElixirCursoController extends AbstractController implements Initia
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(new Curso(campoNome.getText()), usuario));
         } else {
             // Buscar por un curso: pasamos un curso co campo de busca, o nome do mesmo:
-            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(new Curso(campoNome.getText())));
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosDisponhibles(new Curso(campoNome.getText()), usuario));
         }
     }
 
@@ -173,15 +173,15 @@ public class vElixirCursoController extends AbstractController implements Initia
         if (checkAnotado.isSelected()) {
             // Buscar por un curso: pasamos un curso co campo de busca, o nome do mesmo:
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(null, usuario));
-            // Refrescamos a taboa de cursos:
-            taboaCursos.refresh();
             // Poñemos a etiqueta visible:
             etiquetaRematados.setVisible(true);
             // Valeiramos os campos de busqueda:
             AuxGUI.vaciarCamposTexto(campoNome);
+            // Refrescamos a taboa de cursos:
+            taboaCursos.refresh();
         } else {
             // Buscar por un curso: pasamos un curso co campo de busca, o nome do mesmo:
-            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(null));
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosDisponhibles(null, usuario));
             // Valeiramos os campos de busqueda
             AuxGUI.vaciarCamposTexto(campoNome);
             // Refrescamos a taboa de cursos:
@@ -218,8 +218,9 @@ public class vElixirCursoController extends AbstractController implements Initia
      * @param cursos Os cursos que se van a introducir na táboa
      */
     private void actualizarTaboaCursos(ArrayList<Curso> cursos) {
+        taboaCursos.getItems().removeAll(taboaCursos.getItems());
         // Retiramos o anterior e engadimos novos items na taboa
-        taboaCursos.getItems().setAll(cursos);
+        taboaCursos.getItems().addAll(cursos);
         // Por defecto, seleccionarase o primeiro:
         taboaCursos.getSelectionModel().selectFirst();
     }

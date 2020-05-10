@@ -200,7 +200,6 @@ public class vInformacionCursosController extends AbstractController implements 
                 if (res != null) {
                     // Anotamolo no curso
                     try {
-                        // TODO: Non te podes apuntar nun curso que non comezou
                         TipoResultados resultado = getFachadaAplicacion().apuntarseCurso(res, usuario);
                         switch (resultado) {
                             case correcto:
