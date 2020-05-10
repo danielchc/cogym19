@@ -1,24 +1,34 @@
---Borro o check que comproba que hai actividades
-ALTER TABLE actividade  DROP CONSTRAINT comprobar_libre;
 --Borramos o check que comproba a activación do curso
 ALTER TABLE curso DROP CONSTRAINT activacion;
 
 --Borramos os triggers
-DROP TRIGGER IF EXISTS insertarActividadesCurso ON realizarcurso CASCADE;
+DROP TRIGGER IF EXISTS insertarActividadesSocioCurso ON realizarcurso CASCADE;
+DROP TRIGGER IF EXISTS borrarActividadesSocioCurso ON realizarcurso CASCADE;
+
 DROP TRIGGER IF EXISTS crear_secuencia_area ON instalacion CASCADE;
 DROP TRIGGER IF EXISTS engadir_secuencia_area ON area CASCADE;
 DROP TRIGGER IF EXISTS crear_secuencia_material ON tipoMaterial CASCADE;
 DROP TRIGGER IF EXISTS engadir_secuencia_material ON material CASCADE;
 
+--Borro o check que comproba que hai actividades solapadas
+DROP TRIGGER IF EXISTS profesor_ocupado_insert ON actividade CASCADE;
+DROP TRIGGER IF EXISTS profesor_ocupado_update ON actividade CASCADE;
+DROP TRIGGER IF EXISTS area_ocupada_insert ON actividade CASCADE;
+DROP TRIGGER IF EXISTS area_ocupada_update ON actividade CASCADE;
+
 --Borramos as funcions
+
+DROP FUNCTION IF EXISTS insertarSocioCursoActividades();
+DROP FUNCTION IF EXISTS borrarSocioCursoActividades();
 DROP FUNCTION IF EXISTS comprobarCondicionActivacion(codCurso INT);
-DROP FUNCTION IF EXISTS comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20)) ;
-DROP FUNCTION IF EXISTS comprobarAreaLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,parea INT,pinstalacion INT);
-DROP FUNCTION IF EXISTS insertarActividades();
 DROP FUNCTION IF EXISTS crearSecuenciaArea();
 DROP FUNCTION IF EXISTS engadirSecuenciaArea();
 DROP FUNCTION IF EXISTS crearSecuenciaMaterial();
 DROP FUNCTION IF EXISTS engadirSecuenciaMaterial();
+DROP FUNCTION IF EXISTS comprobarAreaLibreInsert();
+DROP FUNCTION IF EXISTS comprobarAreaLibreUpdate();
+DROP FUNCTION IF EXISTS comprobarProfesorLibreInsert();
+DROP FUNCTION IF EXISTS comprobarProfesorLibreUpdate();
 
 --Borramos as vistas
 DROP VIEW IF EXISTS vistapersoal;

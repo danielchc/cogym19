@@ -283,7 +283,7 @@ CREATE OR REPLACE FUNCTION insertarSocioCursoActividades() RETURNS TRIGGER AS $$
 $$ LANGUAGE plpgsql;
 
 --Función que cando un socio se desapunta nun curso, desapunta o socio nas actividades de ese curso
-CREATE OR REPLACE FUNCTION borrarActividadesSocioCurso() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION borrarSocioCursoActividades() RETURNS TRIGGER AS $$
 	DECLARE
 		tr RECORD;
 	BEGIN
@@ -301,36 +301,89 @@ $$ LANGUAGE plpgsql;
 
 --Funcion que comproba que a area está libre para que non se solapen actividades
 
-CREATE OR REPLACE FUNCTION comprobarAreaLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,parea INT,pinstalacion INT) RETURNS boolean AS
+CREATE OR REPLACE FUNCTION comprobarAreaLibreInsert() RETURNS TRIGGER AS
 $func$
-  SELECT NOT EXISTS (
-   	SELECT 1 FROM actividade 
+BEGIN
+	IF EXISTS (
+	SELECT 1 FROM actividade WHERE 
+		(
+			NEW.dataActividade>=dataactividade AND NEW.dataActividade <(dataactividade + (duracion * interval '1 hour'))
+			OR
+			(NEW.dataActividade + (NEW.duracion * interval '1 hour'))>dataactividade AND (NEW.dataactividade + (NEW.duracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
+		)
+	AND (area=NEW.area AND instalacion=NEW.instalacion)
+	)THEN
+		RAISE EXCEPTION 'Area ocupada';
+		RETURN NULL;
+	END IF;
+	RETURN NEW;
+END
+$func$  LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION comprobarAreaLibreUpdate() RETURNS TRIGGER AS
+$func$
+BEGIN
+   IF EXISTS (
+		SELECT 1 FROM actividade 
+		WHERE 
+		(
+			NEW.dataActividade>=dataactividade AND NEW.dataActividade <(dataactividade + (duracion * interval '1 hour'))
+			OR
+			(NEW.dataActividade + (NEW.duracion * interval '1 hour'))>dataactividade AND (NEW.dataactividade + (NEW.duracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
+		)
+		AND (area=NEW.area AND instalacion=NEW.instalacion) AND NOT(area=OLD.area AND instalacion=OLD.instalacion AND dataactividade=OLD.dataactividade)
+		)
+	THEN
+			RAISE EXCEPTION 'Area ocupada';
+			RETURN NULL;
+	END IF;
+   RETURN NEW;
+END
+$func$  LANGUAGE plpgsql;
+
+
+--Funcion que comproba que o profesor está libre para que non se solapen actividades
+CREATE OR REPLACE FUNCTION comprobarProfesorLibreInsert() RETURNS TRIGGER AS
+$func$
+BEGIN
+   IF EXISTS (
+    SELECT 1 FROM actividade 
 	WHERE 
 	(
-		pdataActividade>=dataactividade AND pdataActividade <(dataactividade + (duracion * interval '1 hour'))
+		NEW.dataActividade>=dataactividade AND NEW.dataActividade <(dataactividade + (duracion * interval '1 hour'))
 		OR
-		(pdataactividade + (pduracion * interval '1 hour'))>dataactividade AND (pdataactividade + (pduracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
+		(NEW.dataActividade + (NEW.duracion * interval '1 hour'))>dataactividade AND (NEW.dataactividade + (NEW.duracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
 	)
-	AND (area=parea AND instalacion=pinstalacion) AND NOT(area=parea AND instalacion=pinstalacion AND dataactividade=pdataactividade AND duracion=pduracion)
-	)
-$func$ LANGUAGE sql STABLE;
+	AND (profesor=NEW.profesor)
+	) THEN
+		RAISE EXCEPTION 'Profesor ocupado';
+	RETURN NULL;
+   END IF;
+   RETURN NEW;
+END
+$func$  LANGUAGE plpgsql;
 
 
---Función que comproba que o profesor está libre para que non solapen clases do profesor
-CREATE OR REPLACE FUNCTION comprobarProfesorLibre(pdataActividade TIMESTAMP,pduracion DECIMAL,pprofesor VARCHAR(20),parea INT,pinstalacion INT) RETURNS boolean AS
+CREATE OR REPLACE FUNCTION comprobarProfesorLibreUpdate() RETURNS TRIGGER AS
 $func$
-SELECT NOT EXISTS (
-   	SELECT 1 FROM actividade 
+BEGIN
+   IF EXISTS (
+    SELECT 1 FROM actividade 
 	WHERE 
 	(
-		pdataActividade>=dataactividade AND pdataActividade <(dataactividade + (duracion * interval '1 hour'))
+		NEW.dataActividade>=dataactividade AND NEW.dataActividade <(dataactividade + (duracion * interval '1 hour'))
 		OR
-		(pdataactividade + (pduracion * interval '1 hour'))>dataactividade AND (pdataactividade + (pduracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
+		(NEW.dataActividade + (NEW.duracion * interval '1 hour'))>dataactividade AND (NEW.dataactividade + (NEW.duracion * interval '1 hour')) <=(dataactividade + (duracion * interval '1 hour'))
 	)
-	AND (profesor=pprofesor) AND NOT(profesor=pprofesor AND  dataactividade=pdataactividade AND duracion=pduracion AND area=parea AND instalacion=pinstalacion)
-)
-$func$ LANGUAGE sql STABLE;
-
+	AND (profesor=NEW.profesor) AND NOT(area=OLD.area AND instalacion=OLD.instalacion AND dataactividade=OLD.dataactividade AND duracion=OLD.duracion)
+	)THEN
+		RAISE EXCEPTION 'Profesor ocupado';
+	RETURN NULL;
+   END IF;
+   RETURN NEW;
+END
+$func$ LANGUAGE plpgsql;
 
 --Función que crea unha secuencia distinta para cada instalacion
 CREATE OR REPLACE  FUNCTION crearSecuenciaArea() RETURNS TRIGGER LANGUAGE plpgsql
@@ -404,11 +457,15 @@ CREATE TRIGGER engadir_secuencia_material BEFORE INSERT ON material FOR EACH ROW
 --Creo o trigger para apuntar automaticamente as persoas no curso, cando se apunta nun
 CREATE TRIGGER insertarActividadesSocioCurso AFTER INSERT ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE insertarSocioCursoActividades();
 --Creo o trigger para desapuntar automaticamente as persoas no curso, cando se desapunta de un
-CREATE TRIGGER borrarActividadesSocioCurso AFTER DELETE ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE borrarActividadesSocioCurso();
+CREATE TRIGGER borrarActividadesSocioCurso AFTER DELETE ON realizarcurso FOR EACH ROW EXECUTE PROCEDURE borrarSocioCursoActividades();
 
 
---Engadolle o CHECK, para comprobar que cando se engada unha actividade non esté ocupada nin a area nin o profesor
-ALTER TABLE actividade ADD CONSTRAINT comprobar_libre CHECK (comprobarAreaLibre(dataactividade,duracion,area,instalacion) AND comprobarProfesorLibre(dataactividade,duracion,profesor,area,instalacion));
+--Creo os triggers para comprobar que cando se engada unha actividade non esté ocupada nin a area nin o profesor
+CREATE TRIGGER area_ocupada_insert BEFORE INSERT ON actividade FOR EACH ROW EXECUTE PROCEDURE comprobarAreaLibreInsert();
+CREATE TRIGGER area_ocupada_update BEFORE UPDATE ON actividade FOR EACH ROW EXECUTE PROCEDURE comprobarAreaLibreUpdate();
+CREATE TRIGGER profesor_ocupado_insert BEFORE INSERT ON actividade FOR EACH ROW EXECUTE PROCEDURE comprobarProfesorLibreInsert();
+CREATE TRIGGER profesor_ocupado_update BEFORE UPDATE ON actividade FOR EACH ROW EXECUTE PROCEDURE comprobarProfesorLibreUpdate();
+
 
 --Na táboa de curso engadimos a restricción seguinte: ou o curso non está aberto ou ten máis de dúas actividades:
 ALTER TABLE curso ADD CONSTRAINT activacion CHECK ((aberto = false) or (comprobarCondicionActivacion(codcurso)));
