@@ -9,7 +9,7 @@ import java.sql.Timestamp;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Victor Barreiro
- *
+ * <p>
  * Clase que almacenará a información recuperada da base de datos sobre as actividades.
  */
 public class Actividade {
@@ -26,18 +26,23 @@ public class Actividade {
 
     private Float valMedia;
 
-    //Constructor
-    public Actividade(String nome){
+    // Constructor
+    public Actividade(String nome) {
         this.nome = nome;
     }
 
-    public Actividade(Timestamp data, Area area){
+    public Actividade(Timestamp data, Area area) {
         this.data = data;
         this.area = area;
     }
 
+    public Actividade(String nome, Area area) {
+        this.nome = nome;
+        this.area = area;
+    }
+
     public Actividade(Timestamp data, String nome, Float duracion, Area area, TipoActividade tipoActividade,
-                      Curso curso, Persoal profesor){
+                      Curso curso, Persoal profesor) {
         this.data = data;
         this.nome = nome;
         this.duracion = duracion;
@@ -48,18 +53,14 @@ public class Actividade {
     }
 
     public Actividade(Timestamp data, String nome, Float duracion, Area area, TipoActividade tipoActividade,
-                      Curso curso, Persoal profesor, Float valMedia){
+                      Curso curso, Persoal profesor, Float valMedia) {
         this(data, nome, duracion, area, tipoActividade, curso, profesor);
         this.valMedia = valMedia;
     }
 
-    public Actividade(String nome, Area area)
-    {
-        this.nome = nome;
-        this.area = area;
-    }
 
-    //Getters e setters:
+    // Getters e setters:
+
     public Timestamp getData() {
         return data;
     }
@@ -96,7 +97,7 @@ public class Actividade {
         return tipoActividade;
     }
 
-    //Necesario para a implementación das taboas en javafc
+    // Método necesario para a implementación das taboas en javafx
     public String getTipoActividadenome() {
         return tipoActividade.getNome();
     }
@@ -109,7 +110,7 @@ public class Actividade {
         return profesor;
     }
 
-    //Necesario para a implementación das taboas en javafc
+    // Método necesario para a implementación das taboas en javafx
     public String getProfesornome() {
         return profesor.getNome();
     }
@@ -122,7 +123,7 @@ public class Actividade {
         return curso;
     }
 
-    //Método necesario para a implementacion da taboa de actividades en javafx
+    // Método necesario para a implementacion da taboa de actividades en javafx
     public String getCursonome() {
         return curso.getNome();
     }
