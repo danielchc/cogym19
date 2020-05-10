@@ -162,13 +162,13 @@ public class XestionCursos {
     }
 
     /**
-     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos.
+     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos e que todavia non comezaran.
      *
      * @param curso Curso polo que se realiza a busca.
      * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
      */
-    public ArrayList<Curso> consultarCursosAbertos(Curso curso) {
-        return fachadaBD.consultarCursosAbertos(curso);
+    public ArrayList<Curso> consultarCursosAbertosSocios(Curso curso) {
+        return fachadaBD.consultarCursosAbertosSocios(curso);
     }
 
     /**

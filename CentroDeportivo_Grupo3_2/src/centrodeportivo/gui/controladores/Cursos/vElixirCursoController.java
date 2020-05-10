@@ -1,23 +1,18 @@
 package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
-import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
-import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
-import centrodeportivo.gui.controladores.Actividades.vInformeActividadeController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -44,6 +39,7 @@ public class vElixirCursoController extends AbstractController implements Initia
     public TableView taboaCursos;
     public Button btnXestionar;
     public CheckBox checkAnotado;
+    public Label etiquetaRematados;
 
     /**
      * Atributos privados: gardamos a referencia ó controlador da ventá principal é o usuario que esta loggeado
@@ -76,6 +72,9 @@ public class vElixirCursoController extends AbstractController implements Initia
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Poñemos a etiqueta non visible:
+        etiquetaRematados.setVisible(false);
+
         // O primeiro paso será inicializar a táboa na que se amosan os cursos abertos
         TableColumn<Curso, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -120,7 +119,7 @@ public class vElixirCursoController extends AbstractController implements Initia
         // Metemos as columnas creadas na táboa:
         taboaCursos.getColumns().addAll(nomeColumn, numActividadesColumn, duracionColumn, dataColumn);
         // Buscamos os datos dos cursos abertos e engadímolos:
-        taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursosAbertos(null));
+        taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursosAbertosSocios(null));
         // Modelo de selección:
         taboaCursos.getSelectionModel().selectFirst();
     }
@@ -134,14 +133,14 @@ public class vElixirCursoController extends AbstractController implements Initia
         // Se o campo de nome non se cubre, o que faremos será listar todos os cursos, se non, faremos búsqueda por nome:
         if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
             // Listar todos os cursos -> Pasamos a consultarCursosAbertos parámetro null:
-            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(null));
         } else {
             if (checkAnotado.isSelected()) {
                 // Buscar por un curso: pasamos un curso co campo de busca: o nome:
                 this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(new Curso(campoNome.getText()), usuario));
             } else {
                 // Buscar por un curso: pasamos un curso co campo de busca: o nome:
-                this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(new Curso(campoNome.getText())));
+                this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(new Curso(campoNome.getText())));
             }
         }
     }
@@ -156,11 +155,11 @@ public class vElixirCursoController extends AbstractController implements Initia
         AuxGUI.vaciarCamposTexto(campoNome);
         // Listar todos os cursos -> Pasamos a consultarCursosAbertos parámetro null:
         if (checkAnotado.isSelected()) {
-            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+            // Buscar por un curso: pasamos un curso co campo de busca, o nome do mesmo:
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(new Curso(campoNome.getText()), usuario));
         } else {
-            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
-            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(new Curso(campoNome.getText())));
+            // Buscar por un curso: pasamos un curso co campo de busca, o nome do mesmo:
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(new Curso(campoNome.getText())));
         }
     }
 
@@ -172,15 +171,23 @@ public class vElixirCursoController extends AbstractController implements Initia
     public void checkResaltarAction(ActionEvent actionEvent) {
         // Únicamente se refresca a táboa:
         if (checkAnotado.isSelected()) {
-            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+            // Buscar por un curso: pasamos un curso co campo de busca, o nome do mesmo:
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(null, usuario));
+            // Refrescamos a taboa de cursos:
             taboaCursos.refresh();
+            // Poñemos a etiqueta visible:
+            etiquetaRematados.setVisible(true);
+            // Valeiramos os campos de busqueda:
             AuxGUI.vaciarCamposTexto(campoNome);
         } else {
-            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
-            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
+            // Buscar por un curso: pasamos un curso co campo de busca, o nome do mesmo:
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertosSocios(null));
+            // Valeiramos os campos de busqueda
             AuxGUI.vaciarCamposTexto(campoNome);
+            // Refrescamos a taboa de cursos:
             taboaCursos.refresh();
+            // Poñemos a etiqueta non visible:
+            etiquetaRematados.setVisible(false);
         }
     }
 

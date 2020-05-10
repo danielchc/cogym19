@@ -854,12 +854,12 @@ public final class DAOCursos extends AbstractDAO {
     }
 
     /**
-     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos.
+     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos e que todavia non comezaran.
      *
      * @param curso Curso polo que se realiza a busca.
      * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
      */
-    public ArrayList<Curso> consultarCursosAbertos(Curso curso) {
+    public ArrayList<Curso> consultarCursosAbertosSocios(Curso curso) {
         // Esta é a consulta que se usará dende a parte de socio:
         PreparedStatement stmCursos = null;
         ResultSet rsCursos;
@@ -879,7 +879,7 @@ public final class DAOCursos extends AbstractDAO {
                     "DATE(max(a.dataactividade)) as datafin " +
                     "FROM curso as c LEFT JOIN actividade as a " +
                     "ON (c.codcurso = a.curso) " +
-                    "WHERE c.aberto = true ";
+                    "WHERE c.aberto = true AND a.dataactividade > NOW() ";
 
             // No caso de que pasemos o curso co nome,
             if (curso != null) {
