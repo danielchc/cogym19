@@ -157,18 +157,19 @@ public class vAsMinasActividadesController extends AbstractController implements
             if (getFachadaAplicacion().isValorada(actividade, usuario)) {
                 btnValorar.setDisable(true);
             }
-            btnDesapuntarse.setDisable(!(!estaAcabada && checkApuntado.isSelected()));
+            btnDesapuntarse.setDisable(!(!estaAcabada && checkApuntado.isSelected() && actividade.getCurso().getCodCurso()==0));
             btnApuntarse.setDisable(checkApuntado.isSelected());
 
             String infoActividade = String.format(
-                    "Nome: %s\nData: %s\nHora: %s\nDuración: %s\nInstalación: %s\nÁrea: %s\nTipo: %s",
+                    "Nome: %s\nData: %s\nHora: %s\nDuración: %s\nInstalación: %s\nÁrea: %s\nTipo: %s\nCurso: %s",
                     actividade.getNome(),
                     new SimpleDateFormat("dd/MM/yyyy").format(new Date(actividade.getData().getTime())),
                     new SimpleDateFormat("HH:mm").format(new Date(actividade.getData().getTime())),
                     (actividade.getDuracion() * 60) + " minutos",
                     actividade.getArea().getInstalacion().getNome(),
                     actividade.getArea().getNome(),
-                    actividade.getTipoActividadenome()
+                    actividade.getTipoActividadenome(),
+                    actividade.getCurso().getCodCurso()!=0?actividade.getCurso().getCodCurso():"-"
             );
             campoInfo.setText(infoActividade);
         }

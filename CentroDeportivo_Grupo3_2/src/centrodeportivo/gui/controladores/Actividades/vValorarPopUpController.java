@@ -13,9 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.Rating;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -28,11 +30,18 @@ public class vValorarPopUpController
         extends AbstractController implements Initializable {
 
     public Button btnVolver;
+    public Label msg;
+    public RadioButton radio0;
+    public RadioButton radio1;
+    public RadioButton radio2;
+    public RadioButton radio3;
+    public RadioButton radio4;
+    public RadioButton radio5;
 
-    @FXML
-    private Rating rate;
-    @FXML
-    private Label msg;
+    private ToggleGroup toggleGroup;
+    private ArrayList<RadioButton> radioButtons;
+
+
     private vPrincipalController controllerPrincipal;
     private Usuario usuario;
     private Integer valoracion;
@@ -61,10 +70,27 @@ public class vValorarPopUpController
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rate.ratingProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+        /*rate.ratingProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             msg.setText("Puntuación : " + newValue + "/5");
             valoracion = newValue.intValue();
-        });
+        });*/
+        this.toggleGroup=new ToggleGroup();
+        this.radioButtons=new ArrayList<>();
+
+        this.radioButtons.add(radio0);
+        this.radioButtons.add(radio1);
+        this.radioButtons.add(radio2);
+        this.radioButtons.add(radio3);
+        this.radioButtons.add(radio4);
+        this.radioButtons.add(radio5);
+
+        for(RadioButton r:this.radioButtons){
+            r.setToggleGroup(this.toggleGroup);
+        }
+    }
+
+    public void listenerRadioButton(MouseEvent event){
+        this.valoracion=this.radioButtons.indexOf((RadioButton) event.getSource());
     }
 
     public void setActividade(Actividade actividade) {

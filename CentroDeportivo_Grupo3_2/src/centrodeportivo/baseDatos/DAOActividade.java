@@ -699,7 +699,6 @@ public class DAOActividade extends AbstractDAO {
                             "   AND area.instalacion=instalacion.codinstalacion " +
                             "   AND area.codarea=actividade.area " +
                             "   AND area.instalacion=actividade.instalacion" +
-                            "   AND curso is null " +
                             "   AND realizaractividade.dataactividade=actividade.dataactividade " +
                             "   AND realizaractividade.area=actividade.area " +
                             "   AND realizaractividade.instalacion=actividade.instalacion " +
@@ -738,8 +737,24 @@ public class DAOActividade extends AbstractDAO {
             //Recibida a consulta, procesámola:
             while (rsActividades.next()) {
                 //Imos engadindo ao ArrayList do resultado cada area consultada:
-                actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")), new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
+                actividades.add(new Actividade(
+                        rsActividades.getTimestamp(1),
+                        rsActividades.getString("nome"),
+                        rsActividades.getFloat("duracion"),
+                        new Area(
+                                rsActividades.getInt("area"),
+                                new Instalacion(
+                                        rsActividades.getInt("instalacion"),
+                                        rsActividades.getString("nomeinstalacion")
+                                ),
+                                rsActividades.getString("nomearea")
+                        ),
+                        new TipoActividade(
+                                rsActividades.getInt("tipoactividade"),
+                                rsActividades.getString("nomeactividade")
+                        ),
+                        new Curso(rsActividades.getInt("curso")),
+                        new Persoal(rsActividades.getString("profesor"))));
             }
             con.commit();
         } catch (SQLException e) {
