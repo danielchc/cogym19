@@ -19,9 +19,10 @@ public final class Persoal extends Usuario {
 
     /**
      * Constructor coa clave primaria
+     *
      * @param login login do persoal
      */
-    public Persoal(String login){
+    public Persoal(String login) {
         super(login);
         super.setTipoUsuario(TipoUsuario.Persoal);
     }
@@ -31,19 +32,19 @@ public final class Persoal extends Usuario {
      *
      * @param login             login do Usuario
      * @param contrasinal       contrasinal
-     * @param DNI dni da persoa.
-     * @param nome nome da persoa
-     * @param dificultades dificultades físicas
-     * @param dataNacemento data de nacemento
+     * @param DNI               dni da persoa.
+     * @param nome              nome da persoa
+     * @param dificultades      dificultades físicas
+     * @param dataNacemento     data de nacemento
      * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta         IBAN do usuario
      * @param dataAlta          data de alta no sistema
      */
-    public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta,Date dataBaixa, String NUSS, boolean profesorActivo) {
-        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta,dataBaixa);
+    public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, Date dataAlta, Date dataBaixa, String NUSS, boolean profesorActivo) {
+        super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta, dataAlta, dataBaixa);
         this.NUSS = NUSS;
-        super.setTipoUsuario((profesorActivo)?TipoUsuario.Profesor:TipoUsuario.Persoal);
+        super.setTipoUsuario((profesorActivo) ? TipoUsuario.Profesor : TipoUsuario.Persoal);
     }
 
     /**
@@ -52,10 +53,10 @@ public final class Persoal extends Usuario {
      *
      * @param login             login do Usuario
      * @param contrasinal       contrasinal
-     * @param DNI dni da persoa.
-     * @param nome nome da persoa
-     * @param dificultades dificultades físicas
-     * @param dataNacemento data de nacemento
+     * @param DNI               dni da persoa.
+     * @param nome              nome da persoa
+     * @param dificultades      dificultades físicas
+     * @param dataNacemento     data de nacemento
      * @param numTelefono       número de teléfono
      * @param correoElectronico correo electrónico
      * @param IBANconta         IBAN do usuario
@@ -63,7 +64,7 @@ public final class Persoal extends Usuario {
     public Persoal(String login, String contrasinal, String DNI, String nome, String dificultades, Date dataNacemento, String numTelefono, String correoElectronico, String IBANconta, String NUSS, boolean profesorActivo) {
         super(login, contrasinal, DNI, nome, dificultades, dataNacemento, numTelefono, correoElectronico, IBANconta);
         this.NUSS = NUSS;
-        super.setTipoUsuario((profesorActivo)?TipoUsuario.Profesor:TipoUsuario.Persoal);
+        super.setTipoUsuario((profesorActivo) ? TipoUsuario.Profesor : TipoUsuario.Persoal);
     }
 
     /**

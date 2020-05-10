@@ -29,7 +29,7 @@ public class ExcepcionBD extends Exception {
         this.codigoError = excepcion.getSQLState();
         this.exceptionSQL = excepcion;
         try {
-            if(conexion!=null)conexion.rollback();
+            if (conexion != null) conexion.rollback();
         } catch (SQLException e) {
             e.printStackTrace();
         }

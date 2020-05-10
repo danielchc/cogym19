@@ -22,7 +22,7 @@ public class XestionMensaxes {
 
     /**
      * @param fachadaGUI Fachada da gui.
-     * @param fachadaBD Fachada da base de datos.
+     * @param fachadaBD  Fachada da base de datos.
      */
     public XestionMensaxes(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;

@@ -375,11 +375,23 @@ public final class DAOCursos extends AbstractDAO {
                         rsCursos.getDate("dataFin"));
 
                 // Tendo o curso creado, procuraremos as súas actividades
-                stmActividades = con.prepareStatement("SELECT ac.dataactividade, ac.tipoactividade, ac.area, " +
-                        " ac.instalacion, ac.profesor, ac.nome as nomeactividade, ac.duracion, ar.nome as nomearea " +
-                        " FROM actividade as ac, area as ar" +
-                        " WHERE ac.area = ar.codarea and ac.instalacion = ar.instalacion" +
-                        "  and curso = ? ");
+                stmActividades = con.prepareStatement(
+                        "SELECT " +
+                                "ac.dataactividade, " +
+                                "ac.tipoactividade, " +
+                                "ac.area, " +
+                                " ac.instalacion, " +
+                                "ac.profesor, " +
+                                "ac.nome as nomeactividade, " +
+                                "ac.duracion, " +
+                                "ar.nome as nomearea, " +
+                                "inst.nome as nomeInstalacion" +
+                        " FROM actividade as ac, area as ar, instalacion as inst" +
+                        " WHERE " +
+                                "ac.area = ar.codarea " +
+                                "and ac.instalacion = ar.instalacion " +
+                                "and ar.instalacion=inst.codInstalacion " +
+                                "and curso = ? ");
 
                 // Completamos a consulta:
                 stmActividades.setInt(1, resultado.getCodCurso());
@@ -394,7 +406,7 @@ public final class DAOCursos extends AbstractDAO {
                             rsActividades.getString("nomeactividade"),
                             rsActividades.getFloat("duracion"),
                             new Area(rsActividades.getInt("area"),
-                                    new Instalacion(rsActividades.getInt("instalacion")),
+                                    new Instalacion(rsActividades.getInt("instalacion"),rsActividades.getString("nomeInstalacion")),
                                     rsActividades.getString("nomearea")),
                             new TipoActividade(rsActividades.getInt("tipoactividade")),
                             resultado,

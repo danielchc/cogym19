@@ -108,7 +108,7 @@ public class vInformacionCursosController extends AbstractController implements 
         TableColumn<Actividade, String> areaInstalacionColumn = new TableColumn<>("Area(Instalación)");
         areaInstalacionColumn.setCellValueFactory(c -> new SimpleStringProperty(
                 // Basicamente collo a parte enteira e logo a decimal multiplicada por 60:
-                c.getValue().getArea().getNome() + "(" +
+                c.getValue().getArea().getNome() + " (" +
                         c.getValue().getArea().getInstalacion().getNome() + ")"
         ));
 

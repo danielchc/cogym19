@@ -10,7 +10,7 @@ import java.sql.Date;
  * @author David Carracedo
  * @author Daniel Chenel
  */
-public class IncidenciaMaterial extends Incidencia{
+public class IncidenciaMaterial extends Incidencia {
 
     /**
      * Atributos da clase Incidencia de Material.
@@ -19,6 +19,7 @@ public class IncidenciaMaterial extends Incidencia{
 
     /**
      * Constructor coa clave primaria
+     *
      * @param numero número da incidencia
      */
     public IncidenciaMaterial(int numero) {
@@ -26,8 +27,8 @@ public class IncidenciaMaterial extends Incidencia{
     }
 
     public IncidenciaMaterial(int numero, Usuario usuario, String descricionIncidencia, Material material) {
-        super(numero,usuario,descricionIncidencia);
-        this.material=material;
+        super(numero, usuario, descricionIncidencia);
+        this.material = material;
     }
 
     /**
