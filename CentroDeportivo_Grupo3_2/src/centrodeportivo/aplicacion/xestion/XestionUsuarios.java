@@ -12,6 +12,7 @@ import centrodeportivo.gui.FachadaGUI;
  * Clase na que se abordarán todas as xestións a nivel de aplicación asociadas aos Usuarios. No noso caso, moi pouco deles.
  */
 public class XestionUsuarios {
+
     /**
      * Atributos da clase: son as fachadas da GUI e da parte da base de datos.
      */
@@ -25,7 +26,7 @@ public class XestionUsuarios {
      * @param fachadaBD  A fachada da base de datos.
      */
     public XestionUsuarios(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
-        //Asignamos as fachadas pasadas como argumento aos atributos correspondentes da clase.
+        // Asignamos as fachadas pasadas como argumento aos atributos correspondentes da clase.
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
@@ -38,8 +39,8 @@ public class XestionUsuarios {
      * @return booleano que nos indica se a validación foi correcta ou non.
      */
     public boolean validarUsuario(String login, String contrasinal) {
-        //Chamaremos á fachada da base de datos para resolver a consulta.
-        //Ciframos neste paso a clave para ser almacenada na base de datos mediante sha256:
+        // Chamaremos á fachada da base de datos para resolver a consulta.
+        // Ciframos neste paso a clave para ser almacenada na base de datos mediante sha256:
         return fachadaBD.validarUsuario(login, Criptografia.hashSHA256(contrasinal));
     }
 
@@ -50,7 +51,7 @@ public class XestionUsuarios {
      * @return Usuario con algúns datos asociados na base de datos ao login pasado como argumento.
      */
     public Usuario consultarUsuario(String login) {
-        //Chamamos ao método correspondente da fachada da base de datos.
+        // Chamamos ao método correspondente da fachada da base de datos.
         return fachadaBD.consultarUsuario(login);
     }
 
