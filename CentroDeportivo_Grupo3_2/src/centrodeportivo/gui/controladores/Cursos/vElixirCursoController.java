@@ -8,6 +8,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -153,10 +154,13 @@ public class vElixirCursoController extends AbstractController implements Initia
      *
      * @param actionEvent A acción que tivo lugar
      */
-    public void btnApuntarseAction(ActionEvent actionEvent) {
+    public void btnXestionar(ActionEvent actionEvent) {
+
+        // Volvemos a pantalla de administrar materiais:
+        this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMECURSO);
         // Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
         // Para iso, empezamos mirando se hai unha selección feita:
-        Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();
+        /*Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();
         if (selected != null) {
             // Gardamos o resultado noutra variable para refrescar toda a información
             // Iso será o que se lle pase ó método de apuntarse
@@ -195,7 +199,7 @@ public class vElixirCursoController extends AbstractController implements Initia
             // Se non se ten selección, indícase que hai que facela primeiro (podería ser que a lista estivese vacía):
             this.getFachadaAplicacion().mostrarErro("Cursos",
                     "Selecciona un curso no que apuntarte!");
-        }
+        }*/
     }
 
 
