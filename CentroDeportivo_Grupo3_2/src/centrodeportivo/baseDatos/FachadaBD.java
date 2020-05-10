@@ -937,7 +937,7 @@ public final class FachadaBD {
      * @param usuario    Usuario que se desexa asegurar que participa nas actividades.
      * @return Devolve un ArrayList que compre cas condicións de filtrado en función do usuario pasado.
      */
-    public ArrayList<Actividade> buscarActividadeparticipa(Actividade actividade, Usuario usuario) {
+    public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
         return daoActividade.buscarActividadeParticipa(actividade, usuario);
     }
 
