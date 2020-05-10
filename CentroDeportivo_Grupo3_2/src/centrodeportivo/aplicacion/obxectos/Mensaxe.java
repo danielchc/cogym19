@@ -65,7 +65,7 @@ public class Mensaxe {
     public void setLido(boolean lido) {
         this.lido = lido;
     }
-    
+
     @Override
     public String toString() {
         return "'" + emisor + '\'' +

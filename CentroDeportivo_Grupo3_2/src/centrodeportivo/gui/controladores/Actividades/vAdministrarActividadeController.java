@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- * Clase que servirá de controlador da pantalla de administración de tipos de actividades.
+ * Clase que servirá de controlador da pantalla de as miñas actividades actividades.
  */
 public class vAdministrarActividadeController extends AbstractController implements Initializable {
 
@@ -50,10 +50,10 @@ public class vAdministrarActividadeController extends AbstractController impleme
     private vPrincipalController controllerPrincipal;
 
     /**
-     * Constructor do controlador da pantalla de administración de tipos de actividades.
+     * Constructor don controlador pantlla de as miñas actividades
      *
-     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
-     * @param controllerPrincipal A referencia ao controlador da ventá principal.
+     * @param fachadaAplicacion
+     * @param controllerPrincipal
      */
     public vAdministrarActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         //Chamamos ao constructor da clase pai coa fachada da aplicación.
@@ -115,7 +115,9 @@ public class vAdministrarActividadeController extends AbstractController impleme
         actualizarTaboa();
     }
 
-
+    /**
+     * Método para caragar a información da taboaActividade
+     */
     private void actualizarTaboa() {
         taboaActividade.getItems().removeAll(taboaActividade.getItems());
         Actividade actividade = null;
