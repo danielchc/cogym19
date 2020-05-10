@@ -404,7 +404,7 @@ END
 $$;
 
 --Función que crea unha secuencia distinta para cada tipo de material
-CREATE OR REPLACE  FUNCTION crearSecuenciaMaterial() RETURNS TRIGGER LANGUAGE plpgsql
+CREATE OR REPLACE FUNCTION crearSecuenciaMaterial() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
 BEGIN
   EXECUTE format('CREATE SEQUENCE secuencia_material_%s', NEW.codTipoMaterial);

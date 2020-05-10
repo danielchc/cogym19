@@ -10,6 +10,7 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -69,8 +71,11 @@ public class vAdministrarActividadeController extends AbstractController impleme
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        TableColumn<Actividade, Timestamp> coldata = new TableColumn<>("Data");
-        coldata.setCellValueFactory(new PropertyValueFactory<>("Data"));
+        TableColumn<Actividade, String> coldata = new TableColumn<>("Data");
+
+        coldata.setCellValueFactory(c -> new SimpleStringProperty(
+                new SimpleDateFormat("dd/MM/yyyy kk:mm").format(((Actividade)c.getValue()).getData())
+        ));
 
         TableColumn<Actividade, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
