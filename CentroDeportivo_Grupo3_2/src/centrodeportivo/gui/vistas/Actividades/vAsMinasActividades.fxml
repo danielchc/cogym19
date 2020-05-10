@@ -35,7 +35,7 @@
                     <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#btnBuscarAction" prefHeight="26.0" prefWidth="109.0" text="Buscar" HBox.hgrow="ALWAYS" />
                 </HBox>
             </HBox>
-         <HBox alignment="CENTER" prefHeight="34.0" prefWidth="550.0">
+         <HBox alignment="CENTER" prefHeight="34.0" prefWidth="550.0" VBox.vgrow="NEVER">
             <children>
                <VBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="274.0">
                   <children>
@@ -49,12 +49,12 @@
                </VBox>
             </children>
          </HBox>
-            <TableView fx:id="taboaActividade" onMouseClicked="#listenerTabla" prefHeight="210.0" prefWidth="550.0">
+            <TableView fx:id="taboaActividade" onMouseClicked="#listenerTabla" prefHeight="210.0" prefWidth="550.0" VBox.vgrow="ALWAYS">
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                 </columnResizePolicy>
             </TableView>
-            <HBox prefHeight="121.0" prefWidth="550.0">
+            <HBox prefHeight="121.0" prefWidth="550.0" VBox.vgrow="NEVER">
             <VBox prefHeight="122.0" prefWidth="293.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="264.0" text="Actividade seleccionada:">
