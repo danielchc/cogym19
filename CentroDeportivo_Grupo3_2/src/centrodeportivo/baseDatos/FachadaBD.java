@@ -718,9 +718,6 @@ public final class FachadaBD {
         return daoareas.buscarArea(instalacion, area);
     }
 
-    public ArrayList<Area> listarAreas() {
-        return daoareas.listarAreas();
-    }
 
     /**
      * Método que nos permite buscar areas na base de datos en función dunha instalación.
