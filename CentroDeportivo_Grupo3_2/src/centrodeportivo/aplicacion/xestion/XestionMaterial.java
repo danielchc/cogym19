@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class XestionMaterial {
     /**
-     * Atributos da xestión de instalacións: basicamente son referencias ás demáis fachadas.
+     * Atributos da xestión de materiais: basicamente son referencias ás demáis fachadas.
      */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
