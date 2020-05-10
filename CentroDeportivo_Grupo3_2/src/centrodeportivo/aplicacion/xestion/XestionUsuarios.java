@@ -14,7 +14,7 @@ import centrodeportivo.gui.FachadaGUI;
 public class XestionUsuarios {
 
     /**
-     * Atributos da clase: son as fachadas da GUI e da parte da base de datos.
+     * Atributos da clase de xestion de usuarios: son as fachadas da GUI e da parte da base de datos.
      */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
