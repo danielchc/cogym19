@@ -22,6 +22,7 @@ public class XestionMensaxes {
     private FachadaBD fachadaBD;
     private FachadaGUI fachadaGUI;
 
+
     /**
      * Constructor da clase de xestión de mensaxes
      *
@@ -32,6 +33,7 @@ public class XestionMensaxes {
         this.fachadaBD = fachadaBD;
         this.fachadaGUI = fachadaGUI;
     }
+
 
     /**
      * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
