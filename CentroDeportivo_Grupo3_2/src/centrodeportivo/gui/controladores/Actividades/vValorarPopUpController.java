@@ -70,10 +70,6 @@ public class vValorarPopUpController
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*rate.ratingProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-            msg.setText("Puntuación : " + newValue + "/5");
-            valoracion = newValue.intValue();
-        });*/
         this.toggleGroup=new ToggleGroup();
         this.radioButtons=new ArrayList<>();
 
@@ -91,6 +87,7 @@ public class vValorarPopUpController
 
     public void listenerRadioButton(MouseEvent event){
         this.valoracion=this.radioButtons.indexOf((RadioButton) event.getSource());
+        msg.setText("Puntuación : " + this.valoracion + "/5");
     }
 
     public void setActividade(Actividade actividade) {
