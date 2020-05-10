@@ -103,9 +103,9 @@ public class vXestionTarifaController extends AbstractController implements Init
                 fachadaAplicacion.mostrarErro("Tarifas", excepcionBD.getMessage());
             }
         }
-        if(tarifaModificar!=null){
+        if (tarifaModificar != null) {
             this.vPrincipal.mostrarMenu(IdPantalla.ADMINISTRARTARIFAS);
-        }else{
+        } else {
             this.vPrincipal.mostrarMenu(IdPantalla.INICIO);
         }
 

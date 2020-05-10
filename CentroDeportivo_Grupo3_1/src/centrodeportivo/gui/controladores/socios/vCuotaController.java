@@ -104,7 +104,7 @@ public class vCuotaController extends AbstractController implements Initializabl
         TableColumn<Actividade, String> dataColum = new TableColumn<>("Data");
         dataColum.setCellValueFactory(
                 c -> new SimpleStringProperty(
-                        new SimpleDateFormat("dd/MM/yyyy").format(((Actividade)c.getValue()).getData())
+                        new SimpleDateFormat("dd/MM/yyyy").format(((Actividade) c.getValue()).getData())
                 )
         );
 

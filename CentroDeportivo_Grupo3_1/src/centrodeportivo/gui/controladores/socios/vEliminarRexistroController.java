@@ -59,10 +59,10 @@ public class vEliminarRexistroController extends AbstractController implements I
 
         this.tablaRexistros.setPlaceholder(new Label("Non hai rexistros dispoñibles."));
 
-        TableColumn<RexistroFisioloxico , String> columna1 = new TableColumn<>("Data");
+        TableColumn<RexistroFisioloxico, String> columna1 = new TableColumn<>("Data");
         columna1.setCellValueFactory(
                 c -> new SimpleStringProperty(
-                        new SimpleDateFormat("dd/MM/yyyy kk:mm").format(((RexistroFisioloxico)c.getValue()).getData())
+                        new SimpleDateFormat("dd/MM/yyyy kk:mm").format(((RexistroFisioloxico) c.getValue()).getData())
                 )
         );
         TableColumn<Float, RexistroFisioloxico> columna2 = new TableColumn<>("Peso");

@@ -201,9 +201,9 @@ public class vUsuarioController extends AbstractController implements Initializa
                 super.getFachadaAplicacion().mostrarErro("Usuario", excepcionBD.getMessage());
             }
         }
-        if((usuarioModificar!=null) && (this.controllerPrincipal.obterUsuarioLogeado().getTipoUsuario()!=TipoUsuario.Socio)){
+        if ((usuarioModificar != null) && (this.controllerPrincipal.obterUsuarioLogeado().getTipoUsuario() != TipoUsuario.Socio)) {
             this.controllerPrincipal.mostrarMenu(IdPantalla.ADMINISTRARUSUARIOS);
-        }else{
+        } else {
             this.controllerPrincipal.mostrarMenu(IdPantalla.INICIO);
         }
     }
@@ -223,7 +223,6 @@ public class vUsuarioController extends AbstractController implements Initializa
      * Método executado cando se escribe algo no campo do dni.
      * Comproba se existe xa a persoa asociada ao dni escrito e en caso correcto mostra os campos adecuados
      * á situción de dita persoa.
-     *
      */
     public void dniCambiadoAction() {
         if (usuarioModificar != null) return;
@@ -253,8 +252,8 @@ public class vUsuarioController extends AbstractController implements Initializa
                 mostrarCamposSocio();
                 break;
         }
-        if(contasP!=ContasPersoa.Ningunha){
-            PersoaFisica persoaFisica=super.getFachadaAplicacion().consultarPersoaFisica(campoDNI.getText());
+        if (contasP != ContasPersoa.Ningunha) {
+            PersoaFisica persoaFisica = super.getFachadaAplicacion().consultarPersoaFisica(campoDNI.getText());
 
             this.campoNome.setText(persoaFisica.getNome());
             this.campoData.setValue(persoaFisica.getDataNacemento().toLocalDate());
@@ -262,7 +261,7 @@ public class vUsuarioController extends AbstractController implements Initializa
             this.campoNome.setEditable(false);
             this.campoData.setEditable(false);
             this.campoDificultades.setEditable(false);
-        }else{
+        } else {
             this.campoNome.setText("");
             this.campoDificultades.setText("");
             this.campoNome.setEditable(true);
