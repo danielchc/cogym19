@@ -62,7 +62,7 @@ public class vEliminarRexistroController extends AbstractController implements I
         TableColumn<RexistroFisioloxico , String> columna1 = new TableColumn<>("Data");
         columna1.setCellValueFactory(
                 c -> new SimpleStringProperty(
-                        new SimpleDateFormat("MM/dd/yyyy kk:mm").format(((RexistroFisioloxico)c.getValue()).getData())
+                        new SimpleDateFormat("dd/MM/yyyy kk:mm").format(((RexistroFisioloxico)c.getValue()).getData())
                 )
         );
         TableColumn<Float, RexistroFisioloxico> columna2 = new TableColumn<>("Peso");

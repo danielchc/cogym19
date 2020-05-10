@@ -39,7 +39,7 @@
                                        <Font name="System Bold" size="14.0" />
                                    </font>
                                </Label>
-                               <TextField fx:id="campoDNI" onKeyTyped="#dniCambiadoAction" prefHeight="25.0" prefWidth="250.0" promptText="Introduce un DNI..." />
+                               <TextField fx:id="campoDNI" prefHeight="25.0" prefWidth="250.0" promptText="Introduce un DNI..." />
                            </children>
                        </HBox>
                        <HBox fillHeight="false" prefHeight="100.0">
@@ -149,7 +149,7 @@
                                        <Font name="System Bold" size="14.0" />
                                    </font>
                                </Label>
-                               <TextField fx:id="campoNUSS" prefHeight="25.0" prefWidth="250.0" />
+                               <TextField fx:id="campoNUSS" prefHeight="25.0" prefWidth="250.0" promptText="XXXXXXXXXXXX" />
                            </children>
                        </HBox>
                        <HBox fx:id="profesorBox" fillHeight="false" layoutX="10.0" layoutY="357.0" prefHeight="100.0">

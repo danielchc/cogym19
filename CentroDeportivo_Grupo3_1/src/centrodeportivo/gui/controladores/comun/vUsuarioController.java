@@ -224,9 +224,8 @@ public class vUsuarioController extends AbstractController implements Initializa
      * Comproba se existe xa a persoa asociada ao dni escrito e en caso correcto mostra os campos adecuados
      * á situción de dita persoa.
      *
-     * @param keyEvent evento
      */
-    public void dniCambiadoAction(KeyEvent keyEvent) {
+    public void dniCambiadoAction() {
         if (usuarioModificar != null) return;
         this.labelError.setText("");
         ContasPersoa contasP = super.getFachadaAplicacion().contasPersoaFisica(campoDNI.getText());
@@ -417,6 +416,10 @@ public class vUsuarioController extends AbstractController implements Initializa
         campoIBAN.setOnKeyPressed(handler);
         campoDificultades.setOnKeyPressed(handler);
         campoNUSS.setOnKeyPressed(handler);
+
+        campoDNI.textProperty().addListener((observable, oldValue, newValue) -> {
+            dniCambiadoAction();
+        });
     }
 
 
