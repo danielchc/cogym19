@@ -386,8 +386,8 @@ public final class DAOCursos extends AbstractDAO {
                                 "ac.duracion, " +
                                 "ar.nome as nomearea, " +
                                 "inst.nome as nomeInstalacion" +
-                        " FROM actividade as ac, area as ar, instalacion as inst" +
-                        " WHERE " +
+                                " FROM actividade as ac, area as ar, instalacion as inst" +
+                                " WHERE " +
                                 "ac.area = ar.codarea " +
                                 "and ac.instalacion = ar.instalacion " +
                                 "and ar.instalacion=inst.codInstalacion " +
@@ -406,7 +406,7 @@ public final class DAOCursos extends AbstractDAO {
                             rsActividades.getString("nomeactividade"),
                             rsActividades.getFloat("duracion"),
                             new Area(rsActividades.getInt("area"),
-                                    new Instalacion(rsActividades.getInt("instalacion"),rsActividades.getString("nomeInstalacion")),
+                                    new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeInstalacion")),
                                     rsActividades.getString("nomearea")),
                             new TipoActividade(rsActividades.getInt("tipoactividade")),
                             resultado,
@@ -905,7 +905,7 @@ public final class DAOCursos extends AbstractDAO {
      * Método que nos permite consultar os cursos ós que está apuntado un usuario. Permitese unha busca filtrando polo
      * nome do curso.
      *
-     * @param curso Curso co que se filtra, no caso de que non sexa null, mediante o nome.
+     * @param curso   Curso co que se filtra, no caso de que non sexa null, mediante o nome.
      * @param usuario Usuario co que se realiza a busca.
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario e, se non é null,
      * coincidan co nome do curso pasado.
