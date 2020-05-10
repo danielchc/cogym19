@@ -497,6 +497,7 @@ INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (16, 'luciaPersoal'
 INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (17, 'martaPersoal');
 INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (17, 'sofiaPersoal');
 INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (18, 'soniaPersoal');
+INSERT INTO estarcapacitado (tipoactividade, persoal) VALUES (17, 'soniaPersoal');
 
 ------------------CURSO-------------------
 INSERT INTO curso (nome, descricion, prezo, aberto) VALUES ('Curso de atletismo variado', 'Practicaremos diferentes modalidades desta disciplina.', 25, false);

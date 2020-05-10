@@ -237,19 +237,20 @@ public class vInsercionActividadeController extends AbstractController implement
                     case correcto:
                         //Sexa a actividade ou non dun curso, o que se pedirá e se se quere notificar aos participantes
                         //da actividade:
-                        if(super.getFachadaAplicacion().mostrarConfirmacion("Actividade modificada",
-                            "Actividade " + actividade.getNome() + " modificada correctamente.") == ButtonType.OK){
-                            Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
-                                    "Prezado socio\nA actividade '" + actividadeModificar.getNome() + "' sufriu" +
-                                    " certos cambios. Desculpe as molestias.");
-                            if(curso != null){
-                                //No caso do curso a mensaxe será algo diferente:
-                                mensaxe.setContido("Prezado socio\nA actividade '" + actividadeModificar.getNome() + "'" +
-                                        " do curso '" + curso.getNome() + "' sufriu certos cambios. Desculpe as molestias");
-                            }
-                            //Escollido isto enviarase a mensaxe aos socios da actividade:
-                            super.getFachadaAplicacion().enviarAvisoSociosAct(mensaxe, actividadeModificar);
+                        super.getFachadaAplicacion().mostrarInformacion("Actividade modificada",
+                                "Actividade " + actividade.getNome() + " modificada correctamente.");
+
+                        Mensaxe mensaxe = new Mensaxe(controllerPrincipal.getUsuario(),
+                                "Prezado socio\nA actividade '" + actividadeModificar.getNome() + "' sufriu" +
+                                " certos cambios. Desculpe as molestias.");
+                        if(curso != null){
+                            //No caso do curso a mensaxe será algo diferente:
+                            mensaxe.setContido("Prezado socio\nA actividade '" + actividadeModificar.getNome() + "'" +
+                                    " do curso '" + curso.getNome() + "' sufriu certos cambios. Desculpe as molestias");
                         }
+                        //Escollido isto enviarase a mensaxe aos socios da actividade:
+                        super.getFachadaAplicacion().enviarAvisoSociosAct(mensaxe, actividadeModificar);
+
                         //Recargamos a actividade
                         this.cargarActividade(actividade);
                         break;
