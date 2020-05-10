@@ -675,7 +675,7 @@ public final class FachadaBD {
 
 
     /*
-        Funcións DAOMaterial
+        Funcións DAOArea
      */
 
     /**
@@ -795,7 +795,9 @@ public final class FachadaBD {
     }
 
 
-    // Actividades
+    /*
+        Funcións DAOActividade
+     */
 
     /**
      * Método que nos permite insertar unha actividade na base de datos

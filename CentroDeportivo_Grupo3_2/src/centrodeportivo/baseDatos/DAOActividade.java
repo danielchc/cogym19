@@ -37,16 +37,16 @@ public class DAOActividade extends AbstractDAO {
 
 
     /**
-     * Método que nos permite insertar unha actividade na base de datos
+     * Método que permite engadir unha actividade na base de datos.
      *
-     * @param actividade A actividade que se quer insertar na base de datos
-     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     * @param actividade Actividade que se desexa engadir na base de datos.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a inserción sobre a base de datos.
      */
     public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
         PreparedStatement stmActividade = null;
         Connection con;
 
-        // Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
 
@@ -89,18 +89,22 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que permite avaliar se a actividade pasada se superporía con algunha das existentes
+     * na base de datos, sempre e cando sexa unha actividade con datos cambiados.
+     *
+     * @param actVella Datos da actividade antiga.
+     * @param actNova  Datos da actividade que se desexa.
+     * @return Devolve True cando hai incompatibilidades co horario ou ben da área ou do persoal.
+     */
     public boolean horarioOcupadoActividade(Actividade actVella, Actividade actNova) {
-        /*
-         * Esta función permite avaliar se a actividade pasada se superporia con algunha das existentes
-         * na base de datos, sempre e cando sexa unha actividade con datos cambiados.
-         * */
         PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
-        //Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             String consulta = "SELECT dataactividade, area, instalacion, nome  " +
                     " FROM actividade " +
@@ -123,7 +127,7 @@ public class DAOActividade extends AbstractDAO {
 
             Timestamp dataFin = new Timestamp(actNova.getData().getTime() + TimeUnit.HOURS.toMillis((long) actNova.getDuracion().floatValue()));
 
-            //Establecemos os valores:
+            // Establecemos os valores:
             stmActividade.setInt(1, actNova.getArea().getCodArea());
             stmActividade.setInt(2, actNova.getArea().getInstalacion().getCodInstalacion());
             stmActividade.setTimestamp(3, actNova.getData());
@@ -142,7 +146,7 @@ public class DAOActividade extends AbstractDAO {
                 stmActividade.setInt(14, actVella.getArea().getInstalacion().getCodInstalacion());
             }
 
-            //Facemos a consulta:
+            // Facemos a consulta:
             rsActividade = stmActividade.executeQuery();
 
             if (rsActividade.next()) {
@@ -159,7 +163,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores:
             try {
                 stmActividade.close();
             } catch (SQLException e) {
@@ -169,14 +173,21 @@ public class DAOActividade extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método que permite modificar os datos dunha actividade.
+     *
+     * @param actVella Datos da actividade actualmente.
+     * @param actNova  Datos da actividade polos que se desexan cambiar os actuais.
+     * @throws ExcepcionBD Excepción asociada a problemas ó tentar facer a modificación na base de datos.
+     */
     public void modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
         PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
-        //Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Preparamos a inserción:
+        // Preparamos a inserción:
         try {
             String consulta = " UPDATE actividade " +
                     " SET tipoactividade = ?, " +
@@ -191,7 +202,7 @@ public class DAOActividade extends AbstractDAO {
 
             stmActividade = con.prepareStatement(consulta);
 
-            //Establecemos os valores:
+            // Establecemos os valores:
             stmActividade.setInt(1, actNova.getTipoActividade().getCodTipoActividade());
             if (actNova.getCurso() != null) {
                 stmActividade.setInt(2, actNova.getCurso().getCodCurso());
@@ -209,17 +220,17 @@ public class DAOActividade extends AbstractDAO {
             stmActividade.setInt(11, actVella.getArea().getInstalacion().getCodInstalacion());
 
 
-            //Realizamos a actualización:
+            // Realizamos a actualización:
             stmActividade.executeUpdate();
 
-            //Facemos commit:
+            // Facemos commit:
             con.commit();
 
         } catch (SQLException e) {
-            //Lanzamos neste caso unha excepción cara a aplicación:
+            // Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
             } catch (SQLException e) {
@@ -228,33 +239,40 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que permite eliminar os datos dunha actividade da base de datos.
+     *
+     * @param actividade Actividade que se desexa eliminar da base de datos.
+     * @param mensaxe    Mensaxe que se enviara os usuarios que estaban apuntados a dita actividade.
+     * @throws ExcepcionBD Excepción asociada a problemas ó tentar borrar a actividade da base de datos.
+     */
     public void borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {
         PreparedStatement stmActividade = null;
-        //Ao cancelar a actividade, envíase unha mensaxe si ou si a todos os socios da actividade:
+        // Ao cancelar a actividade, envíase unha mensaxe si ou si a todos os socios da actividade:
         PreparedStatement stmUsuarios = null;
         PreparedStatement stmMensaxes = null;
         ResultSet rsUsuarios;
         Connection con;
-        //Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Preparamos a inserción:
+        // Preparamos a inserción:
         try {
-            //Comezaremos buscando os participantes da actividade borrada:
+            // Comezaremos buscando os participantes da actividade borrada:
             stmUsuarios = con.prepareStatement("SELECT * FROM realizaractividade " +
                     " WHERE dataactividade = ? " +
                     "   AND area = ? " +
                     "   AND instalacion = ?");
 
-            //Completamos esta primeira consulta:
+            // Completamos esta primeira consulta:
             stmUsuarios.setTimestamp(1, actividade.getData());
             stmUsuarios.setInt(2, actividade.getArea().getCodArea());
             stmUsuarios.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
 
-            //Agora realizamos a consulta: é necesario facela aquí porque despois estará borrada a actividade e perderemos aos participantes:
+            // Agora realizamos a consulta: é necesario facela aquí porque despois estará borrada a actividade e perderemos aos participantes:
             rsUsuarios = stmUsuarios.executeQuery();
 
-            //O seguinte que faremos será o borrado da actividade:
+            // O seguinte que faremos será o borrado da actividade:
 
             stmActividade = con.prepareStatement("DELETE FROM actividade " +
                     " WHERE dataactividade = ? and instalacion = ? and area = ?");
@@ -263,31 +281,30 @@ public class DAOActividade extends AbstractDAO {
             stmActividade.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
             stmActividade.setInt(3, actividade.getArea().getCodArea());
 
-            //Realizamos a actualización:
+            // Realizamos a actualización:
             stmActividade.executeUpdate();
 
-            //Para rematar, garantiremos que todos os usuarios anotados se enteren do borrado:
+            // Para rematar, garantiremos que todos os usuarios anotados se enteren do borrado:
             stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido) " +
                     " VALUES (?, ?, ?, ?)");
             stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
             stmMensaxes.setString(3, mensaxe.getContido());
             stmMensaxes.setBoolean(4, false);
 
-            //Procesamos os usuarios participantes da actividade obtidos antes e imos engadíndoos:
+            // Procesamos os usuarios participantes da actividade obtidos antes e imos engadíndoos:
             while (rsUsuarios.next()) {
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
-                //Facemos a actualización:
+                // Facemos a actualización:
                 stmMensaxes.executeUpdate();
             }
 
-            //Facemos commit:
+            // Facemos commit:
             con.commit();
-
         } catch (SQLException e) {
-            //Lanzamos neste caso unha excepción cara a aplicación:
+            // Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
                 stmUsuarios.close();
@@ -298,6 +315,13 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que permite anotar un usuario a unha actividade como participante.
+     *
+     * @param actividade Actividade a que se desexa apuntar o usuario.
+     * @param usuario    Usuario que se quer apuntar a dita actividade.
+     * @throws ExcepcionBD Excepción asociada a inserción dunha nova tupla na táboa de realización de actividade.
+     */
     public void apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmActividade = null;
         ResultSet rsActividade;
@@ -334,14 +358,21 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que permite desapuntar un usuario dunha actividade.
+     *
+     * @param actividade Actividade a que se desexa desapuntar dito usuario.
+     * @param usuario    Usuario que se desexa desapuntar de dita actividade.
+     * @throws ExcepcionBD Excepción asociada o borrado dunha tupla na táboa de datos de realización de actividade.
+     */
     public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
-        //Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Preparamos a inserción:
+        // Preparamos a inserción:
         try {
             stmActividade = con.prepareStatement("DELETE FROM realizaractividade " +
                     " WHERE dataactividade = ? and instalacion = ? and area = ? and usuario = ?");
@@ -351,17 +382,17 @@ public class DAOActividade extends AbstractDAO {
             stmActividade.setInt(3, actividade.getArea().getCodArea());
             stmActividade.setString(4, usuario.getLogin());
 
-            //Realizamos a actualización:
+            // Realizamos a actualización:
             stmActividade.executeUpdate();
 
-            //Facemos commit:
+            // Facemos commit:
             con.commit();
 
         } catch (SQLException e) {
-            //Lanzamos neste caso unha excepción cara a aplicación:
+            // Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
             } catch (SQLException e) {
@@ -370,26 +401,33 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que permite comprobar se un usuario esta apuntado.
+     *
+     * @param actividade Actividade na que se desexa comprobar se esta apuntado.
+     * @param usuario    Usuario que se quere comprobar si esta apuntado.
+     * @return Devolve true se o usuario esta apuntado en dita actividade e false en calquer outro caso.
+     */
     public boolean estarApuntado(Actividade actividade, Usuario usuario) {
         PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
-        //Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             stmActividade = con.prepareStatement("SELECT dataactividade, area, instalacion, usuario " +
                     " FROM realizaractividade " +
                     " WHERE dataactividade = ? and area = ? and instalacion = ? and usuario = ?");
 
-            //Establecemos os valores:
+            // Establecemos os valores:
             stmActividade.setTimestamp(1, actividade.getData());
             stmActividade.setInt(2, actividade.getArea().getCodArea());
             stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
             stmActividade.setString(4, usuario.getLogin());
 
-            //Facemos a consulta:
+            // Facemos a consulta:
             rsActividade = stmActividade.executeQuery();
 
             if (rsActividade.next())
@@ -404,7 +442,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
             } catch (SQLException e) {
@@ -414,45 +452,48 @@ public class DAOActividade extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método que permite listar os profesores ca posibilidade de listar en función dun tipo de actividade.
+     *
+     * @param tipoactividade Tipo de actividade para a que se comprobarán, de non ser nula, os profesores que hai.
+     * @return Devolve un ArrayList cos profesores que cumpran ditas condicións de filtrado.
+     */
     public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade) {
-        //Usaremos un ArrayList para almacenar todos os profesores que correspondan:
-        ArrayList<Persoal> profesores = new ArrayList<>();
-
         PreparedStatement stmAreas = null;
         ResultSet rsProfes;
         Connection con;
+        // Usaremos un ArrayList para almacenar todos os profesores que correspondan:
+        ArrayList<Persoal> profesores = new ArrayList<>();
 
-        //Recuperamos a conexión:
+        // Recuperamos a conexión:
         con = super.getConexion();
 
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             String consulta = "SELECT persoal " +
                     " FROM estarcapacitado ";
 
-            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
-            //argumento:
-
+            // A esta consulta, ademais do anterior, engadiremos os filtros se o tipo de actividade non é nulo:
             if (tipoactividade != null) {
                 consulta += " WHERE tipoactividade = ?";
             }
 
-            //Ordenaremos o resultado polo código da área para ordenalas
+            // Ordenaremos o resultado según o persoal en orde ascendente:
             consulta += " ORDER BY persoal asc";
 
             stmAreas = con.prepareStatement(consulta);
 
-            //Pasando area non nula completase a consulta.
+            // Se o tipo de actividade pasado non é nulo, completase a consulta:
             if (tipoactividade != null) {
                 stmAreas.setInt(1, tipoactividade.getCodTipoActividade());
             }
 
-            //Realizamos a consulta:
+            // Realizamos a consulta:
             rsProfes = stmAreas.executeQuery();
 
-            //Recibida a consulta, procesámola:
+            // Recibida a consulta, procesámola:
             while (rsProfes.next()) {
-                //Imos engadindo ao ArrayList do resultado cada area consultada:
+                // Imos engadindo ao ArrayList do resultado cada profesor consultado:
                 profesores.add(new Persoal(rsProfes.getString("persoal")));
             }
             con.commit();
@@ -464,7 +505,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //Peche do statement:
+            // Peche do statement:
             try {
                 stmAreas.close();
             } catch (SQLException e) {
@@ -474,15 +515,21 @@ public class DAOActividade extends AbstractDAO {
         return profesores;
     }
 
+    /**
+     * Método que comproba se o aforo da actividade é o máximo.
+     *
+     * @param actividade Actividade da que se desexa comprobar o aforo.
+     * @return Retorna true no caso de que o aforo non sexa o máximo e false en caso contrario.
+     */
     public boolean NonEMaximoAforoActividade(Actividade actividade) {
         PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
 
-        //Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             stmActividade = con.prepareStatement(
                     " SELECT * " +
@@ -495,14 +542,14 @@ public class DAOActividade extends AbstractDAO {
                             " AND instalacion=?)"
             );
 
-            //Establecemos os valores:
+            // Establecemos os valores:
             stmActividade.setInt(1, actividade.getArea().getCodArea());
             stmActividade.setInt(2, actividade.getArea().getInstalacion().getCodInstalacion());
             stmActividade.setTimestamp(3, actividade.getData());
             stmActividade.setInt(4, actividade.getArea().getCodArea());
             stmActividade.setInt(5, actividade.getArea().getInstalacion().getCodInstalacion());
 
-            //Facemos a consulta:
+            //F acemos a consulta:
             rsActividade = stmActividade.executeQuery();
 
 
@@ -511,7 +558,7 @@ public class DAOActividade extends AbstractDAO {
             return false;
 
         } catch (SQLException e) {
-            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
+            // Imprimimos en caso de excepción o stack trace e facemos o rollback:
             e.printStackTrace();
             try {
                 con.rollback();
@@ -519,7 +566,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
             } catch (SQLException e) {
@@ -529,18 +576,24 @@ public class DAOActividade extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método que permite listar as actividades filtrándoas a través dunha actividade modelo.
+     *
+     * @param actividade Actividade modelo que se empregará apra dito filtrado.
+     * @return Retorna un ArrayList das actividades que cumpren dita condición ou, no caso de ser null,
+     * un ArrayList con todas as posibles actividades.
+     */
     public ArrayList<Actividade> buscarActividade(Actividade actividade) {
-        //Usaremos un ArrayList para almacenar unha nova actividade:
-        ArrayList<Actividade> actividades = new ArrayList<>();
-
         PreparedStatement stmActividades = null;
         ResultSet rsActividades;
         Connection con;
+        // Usaremos un ArrayList para almacenar as actividades:
+        ArrayList<Actividade> actividades = new ArrayList<>();
 
-        //Recuperamos a conexión:
+        // Recuperamos a conexión:
         con = super.getConexion();
 
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             String consulta = "SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, " +
                     " actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
@@ -548,31 +601,28 @@ public class DAOActividade extends AbstractDAO {
                     " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
                     " WHERE curso is NULL";
 
-            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
-            //argumento:
-
-
+            // Engadimos o filtro de actividade polo que, se non é nula, filtramos polo nome:
             if (actividade != null) {
                 consulta += " AND LOWER(actividade.nome) LIKE LOWER(?)  ";
             }
 
-            //Ordenaremos o resultado polo código da área para ordenalas
+            // Ordenaremos o resultado pola data da actividade:
             consulta += " ORDER BY dataactividade asc";
 
             stmActividades = con.prepareStatement(consulta);
 
-            //Pasando area non nula completase a consulta.
+            // No caso de pasar a actividade non nula, completamos a consulta:
             if (actividade != null) {
-                //Establecemos os valores da consulta segundo a instancia de instalación pasada:
+                // Establecemos os valores da consulta segundo a actividade pasada:
                 stmActividades.setString(1, "%" + actividade.getNome() + "%");
             }
 
-            //Realizamos a consulta:
+            // Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
 
-            //Recibida a consulta, procesámola:
+            // Recibida a consulta, procesámola:
             while (rsActividades.next()) {
-                //Imos engadindo ao ArrayList do resultado cada area consultada:
+                // Imos engadindo ao ArrayList do resultado cada área consultada:
                 actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
                         rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")), rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
             }
@@ -585,7 +635,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //Peche do statement:
+            // Peche do statement:
             try {
                 stmActividades.close();
             } catch (SQLException e) {
@@ -595,19 +645,24 @@ public class DAOActividade extends AbstractDAO {
         return actividades;
     }
 
+    /**
+     * Método que permite listar as actividades onde NON participa certo usuario.
+     *
+     * @param actividade Actividade modelo que se empregará para realizar un filtrado.
+     * @param usuario    Usuario que se desexa asegurar que NON particida nas actividades
+     * @return Devolve un ArrayList que compre cas condicións de filtrado da actividade en función do usuario pasado.
+     */
     public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
-        //Usaremos un ArrayList para almacenar unha nova actividade:
-        ArrayList<Actividade> actividades = new ArrayList<>();
-
         PreparedStatement stmActividades = null;
         ResultSet rsActividades;
         Connection con;
+        // Usaremos un ArrayList para almacenar ditas actividades:
+        ArrayList<Actividade> actividades = new ArrayList<>();
 
-        //Recuperamos a conexión:
+        // Recuperamos a conexión:
         con = super.getConexion();
 
-
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             String consulta = "SELECT actividade.dataactividade, actividade.area, actividade.instalacion, actividade.tipoactividade as tipoactividade, curso, profesor, actividade.nome as nome, duracion, tipoactividade.nome as nomeactividade, area.nome as nomearea, instalacion.nome as nomeinstalacion  " +
                     " FROM actividade, tipoactividade, area, instalacion " +
@@ -626,8 +681,8 @@ public class DAOActividade extends AbstractDAO {
                     "                            AND usuario=? )";
 
 
-            //A esta consulta, ademais do anterior, engadiremos os filtros se se pasa unha area non nula como
-            //argumento:
+            // A esta consulta, ademais do anterior, engadiremos os filtros por se se pasa unha actividade non nula,
+            // filtraremos en función de coincidencias co nome:
             if (actividade != null) {
                 consulta += " AND lower(actividade.nome) like lower(?)  ";
 
@@ -644,6 +699,7 @@ public class DAOActividade extends AbstractDAO {
 
             stmActividades.setString(1, usuario.getLogin());
 
+            // No caso de que a actividade non sexa nula, completamos ditos campos:
             if (actividade != null) {
                 stmActividades.setString(2, "%" + actividade.getNome() + "%");
 
@@ -655,14 +711,19 @@ public class DAOActividade extends AbstractDAO {
                 }
             }
 
-            //Realizamos a consulta:
+            // Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
 
-            //Recibida a consulta, procesámola:
+            // Recibida a consulta, procesámola:
             while (rsActividades.next()) {
-                //Imos engadindo ao ArrayList do resultado cada area consultada:
+                //Imos engadindo ao ArrayList do resultado as actividades que cumplan os criterios aplicados:
                 actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")), new TipoActividade(rsActividades.getInt("tipoactividade"), rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"),
+                        new Instalacion(rsActividades.getInt("instalacion"),
+                                rsActividades.getString("nomeinstalacion")), rsActividades.getString("nomearea")),
+                        new TipoActividade(rsActividades.getInt("tipoactividade"),
+                                rsActividades.getString("nomeactividade")), new Curso(rsActividades.getInt("curso")),
+                        new Persoal(rsActividades.getString("profesor"))));
             }
             con.commit();
         } catch (SQLException e) {
@@ -673,7 +734,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //Peche do statement:
+            // Peche do statement:
             try {
                 if (stmActividades != null) stmActividades.close();
             } catch (SQLException e) {
@@ -683,18 +744,24 @@ public class DAOActividade extends AbstractDAO {
         return actividades;
     }
 
+    /**
+     * Método que permite listar as actividades nas que participa certo usuario.
+     *
+     * @param actividade Actividade modelo que se empregará para realizar un filtrado.
+     * @param usuario    Usuario que se desexa asegurar que participa nas actividades.
+     * @return Devolve un ArrayList que compre cas condicións de filtrado en función do usuario pasado.
+     */
     public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
-        //Usaremos un ArrayList para almacenar unha nova actividade:
-        ArrayList<Actividade> actividades = new ArrayList<>();
-
         PreparedStatement stmActividades = null;
         ResultSet rsActividades;
         Connection con;
+        // Usaremos un ArrayList para almacenar o resultado:
+        ArrayList<Actividade> actividades = new ArrayList<>();
 
-        //Recuperamos a conexión:
+        // Recuperamos a conexión:
         con = super.getConexion();
 
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             String consulta =
                     "SELECT " +
@@ -746,12 +813,12 @@ public class DAOActividade extends AbstractDAO {
                 }
             }
 
-            //Realizamos a consulta:
+            // Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
 
-            //Recibida a consulta, procesámola:
+            // Recibida a consulta, procesámola:
             while (rsActividades.next()) {
-                //Imos engadindo ao ArrayList do resultado cada area consultada:
+                // Imos engadindo ao ArrayList do resultado as actividades devoltas:
                 actividades.add(new Actividade(
                         rsActividades.getTimestamp(1),
                         rsActividades.getString("nome"),
@@ -780,7 +847,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //Peche do statement:
+            // Peche do statement:
             try {
                 if (stmActividades != null) stmActividades.close();
             } catch (SQLException e) {
@@ -790,16 +857,24 @@ public class DAOActividade extends AbstractDAO {
         return actividades;
     }
 
+    /**
+     * Método que permite valorar por certo usuario unha actividade na que participará.
+     *
+     * @param valoracion Puntuación que lle será asignada a dita actividade.
+     * @param actividade Actividade que se desexa valorar.
+     * @param usuario    Usuario que esta a valorar dita actividade.
+     * @throws ExcepcionBD Excepción asociada a actualización na base de datos.
+     */
     public void valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        // Neste metodo actualizamos a taboa realizar actividade para realizar unha valoración da mesma
+        // Neste metodo actualizamos a taboa realizar actividade para realizar unha valoración da mesma:
         PreparedStatement stmActividade = null;
         Connection con;
 
-        // Recuperamos a conexión coa base de datos
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
         try {
-            // Intentamos levar a cabo a actualización: modificacion na taboa realizar actividade
+            // Intentamos levar a cabo a actualización: modificacion na taboa realizar actividade:
             stmActividade = con.prepareStatement("UPDATE realizaractividade " +
                     "SET valoracion = ? " +
                     "WHERE dataactividade = ? " +
@@ -807,7 +882,7 @@ public class DAOActividade extends AbstractDAO {
                     "AND instalacion = ? " +
                     "AND usuario = ? ");
 
-            // Completamos a sentenza anterior cos ?:
+            // Completamos a sentenza anterior cos '?':
             stmActividade.setInt(1, valoracion);
             stmActividade.setTimestamp(2, actividade.getData());
             stmActividade.setInt(3, actividade.getArea().getCodArea());
@@ -825,7 +900,6 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             // Pechamos os statement.
             try {
-                assert stmActividade != null;
                 stmActividade.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores.");
@@ -833,15 +907,21 @@ public class DAOActividade extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que comproba se certo profesor está activo.
+     *
+     * @param profesor Profesor que se desexa comprobar se esta activo.
+     * @return Retorna true se o profesor esta activo e false en caso contrario.
+     */
     public boolean EProfesorActivo(Persoal profesor) {
         PreparedStatement stmActividade = null;
         ResultSet rsActividade;
         Connection con;
 
-        //Recuperamos a conexión coa base de datos.
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Preparamos a consulta:
+        // Preparamos a consulta:
         try {
             stmActividade = con.prepareStatement(
                     " SELECT profesoractivo " +
@@ -849,19 +929,18 @@ public class DAOActividade extends AbstractDAO {
                             " WHERE profesoractivo=TRUE AND login=? "
             );
 
-            //Establecemos os valores:
+            // Establecemos os valores:
             stmActividade.setString(1, profesor.getLogin());
 
-            //Facemos a consulta:
+            // Facemos a consulta:
             rsActividade = stmActividade.executeQuery();
-
 
             if (rsActividade.next())
                 return true;
             return false;
 
         } catch (SQLException e) {
-            //Imprimimos en caso de excepción o stack trace e facemos o rollback:
+            // Imprimimos en caso de excepción o stack trace e facemos o rollback:
             e.printStackTrace();
             try {
                 con.rollback();
@@ -869,7 +948,7 @@ public class DAOActividade extends AbstractDAO {
                 ex.printStackTrace();
             }
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
             } catch (SQLException e) {
@@ -879,12 +958,18 @@ public class DAOActividade extends AbstractDAO {
         return false;
     }
 
+    /**
+     * Método que permite recuperar os datos dunha actividade da base de datos a partir das súas claves primarias.
+     *
+     * @param actividade Actividade da que se obteñen os datos para realizar a consulta en función dos mesmos.
+     * @return Retorna a Actividade cos datos actualizados.
+     */
     public Actividade recuperarActividade(Actividade actividade) {
-        // Usaremos un ArrayList para almacenar unha nova actividade:
-        Actividade resultado = null;
         PreparedStatement stmActividades = null;
         ResultSet rsActividades;
         Connection con;
+        // Devolvemos unha Actividade como resultado:
+        Actividade resultado = null;
 
         // Recuperamos a conexión:
         con = super.getConexion();
@@ -897,23 +982,26 @@ public class DAOActividade extends AbstractDAO {
                     " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
                     " WHERE curso is NULL AND dataactividade = ? AND area = ? AND actividade.instalacion = ? ORDER BY dataactividade asc");
 
+            // Completamos ca información da actividade que, damos por feito que non é null (comprobase antes de tentar
+            // recuperar a información que a actividade pasada non sexa null):
             stmActividades.setTimestamp(1, actividade.getData());
             stmActividades.setInt(2, actividade.getArea().getCodArea());
             stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-
 
             // Realizamos a consulta:
             rsActividades = stmActividades.executeQuery();
 
             // Recibida a consulta, procesámola:
             if (rsActividades.next()) {
-                // Imos engadindo ao ArrayList do resultado cada area consultada:
+                // Creamos a actividade cos datos actualizados:
                 resultado = new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
                         rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"),
                         new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")),
                         rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")),
                         new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor")));
             }
+
+            // Facemos commit:
             con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -925,7 +1013,6 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             // Peche do statement:
             try {
-                assert stmActividades != null;
                 stmActividades.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
@@ -935,12 +1022,11 @@ public class DAOActividade extends AbstractDAO {
     }
 
     /**
-     * Metodo que comproba se unha actividade foi valorada por un usuario
+     * Método que comproba se unha actividade foi valorada por un usuario.
      *
-     * @param actividade Actividade que se comproba se foi valorada
-     * @param usuario    Usuario que se comproba se a valorou
-     * @return Devolve true se a actividade xa foi valorada
-     * @throws ExcepcionBD
+     * @param actividade Actividade que se comproba se foi valorada.
+     * @param usuario    Usuario que se comproba se a valorou.
+     * @return Devolve true se a actividade xa foi valorada.
      */
     public boolean isValorada(Actividade actividade, Usuario usuario) {
         // Neste metodo comprobamos se a actividade foi valorada
@@ -961,7 +1047,7 @@ public class DAOActividade extends AbstractDAO {
                     "AND instalacion = ? " +
                     "AND usuario = ? AND valoracion IS NULL ");
 
-            // Completamos a sentenza anterior cos ?:
+            // Completamos a sentenza anterior cos '?':
             stmActividade.setTimestamp(1, actividade.getData());
             stmActividade.setInt(2, actividade.getArea().getCodArea());
             stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
@@ -992,17 +1078,17 @@ public class DAOActividade extends AbstractDAO {
     }
 
     /**
-     * Met
+     * Método que permite listar todos os participantes dunha actividade.
      *
-     * @param actividade
-     * @return
+     * @param actividade Actividade da que se queren listar os seus participantes.
+     * @return Retorna un ArrayList con todos os participantes que estan apuntados na mesma.
      */
     public ArrayList<Socio> listarParticipantes(Actividade actividade) {
-        // Usaremos un ArrayList para gardar os Socios:
-        ArrayList<Socio> usuarios = new ArrayList<>();
         PreparedStatement stmActividades = null;
         ResultSet rsUsuario;
         Connection con;
+        // Usaremos un ArrayList para gardar os participantes:
+        ArrayList<Socio> usuarios = new ArrayList<>();
 
         // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
@@ -1026,7 +1112,7 @@ public class DAOActividade extends AbstractDAO {
 
             // Recibida a consulta, procesámola:
             while (rsUsuario.next()) {
-                // Imos engadindo ao ArrayList todoos os Socios que nos son devoltos:
+                // Imos engadindo ao ArrayList todos os Socios que nos son devoltos:
                 usuarios.add(new Socio(rsUsuario.getString("login"), rsUsuario.getString("nome"),
                         rsUsuario.getString("dificultades"), rsUsuario.getInt("idade")));
             }
@@ -1042,7 +1128,6 @@ public class DAOActividade extends AbstractDAO {
         } finally {
             // Tentamos pechar os cursores:
             try {
-                assert stmActividades != null;
                 stmActividades.close();
             } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
