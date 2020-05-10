@@ -142,13 +142,23 @@ public class Area {
         this.nome = nome;
     }
 
-
+    /**
+     * Método que permite convertir unha area a cadea de caracteres.
+     *
+     * @return area representada en forma de caracteres polos seus campos.
+     */
     @Override
     public String toString() {
         // Utilidade á hora de mostrar unha área concreta nas táboas.
         return nome + ", inst. " + instalacion.getCodInstalacion();
     }
 
+    /**
+     * Método que comproba se dúas áreas son iguais.
+     *
+     * @param o O obxecto a comparar coa área.
+     * @return booleano que indica se a instalación coincide coa pasada como argumento.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

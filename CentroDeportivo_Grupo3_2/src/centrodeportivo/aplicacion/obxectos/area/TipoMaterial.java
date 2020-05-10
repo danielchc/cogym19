@@ -4,17 +4,22 @@ package centrodeportivo.aplicacion.obxectos.area;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Victor Barreiro
+ * <p>
  * Clase que almacenará información sobre os tipos de material
  */
 public class TipoMaterial {
 
 
-    // Atributos
-    private int codTipoMaterial;
-    private String nome;
+    /**
+     * Atributos da clase
+     */
+    private int codTipoMaterial;  // Código do tipo de material
+    private String nome;  // Nome do tipo de material
 
 
-    // Constructores
+    /**
+     * Constructores
+     */
     public TipoMaterial(int codTipoMaterial, String nome) {
         this.codTipoMaterial = codTipoMaterial;
         this.nome = nome;
@@ -25,7 +30,9 @@ public class TipoMaterial {
     }
 
 
-    // Getters e setters
+    /**
+     * Getters e setters
+     */
     public void setCodTipoMaterial(int codTipoMaterial) {
         this.codTipoMaterial = codTipoMaterial;
     }

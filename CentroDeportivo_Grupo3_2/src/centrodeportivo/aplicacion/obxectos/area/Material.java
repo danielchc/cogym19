@@ -6,36 +6,35 @@ import java.sql.Date;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Victor Barreiro
- * Clase que almacenará información sobre o material
+ * <p>
+ * Clase que representará os materias da base de datos
  */
 public class Material {
 
 
-    // Atributos
-    private int codMaterial;
-    private TipoMaterial tipoMaterial;
-    private Area area;
-    private String estado;
-    private Date dataCompra;
-    Instalacion instalacion;
-    private float prezoCompra;
+    /**
+     * Atributos da clase
+     */
+    private int codMaterial;  // Codigo do material
+    private TipoMaterial tipoMaterial;  // Tipo de material o que pertence
+    private Area area;  // Area na que se atopa
+    private String estado;  // Estado no que se encontra
+    private Date dataCompra;  // Data do día no que se comprou
+    Instalacion instalacion;  // Instalación onde se atopa o material, debe ser a mesma que a da área
+    private float prezoCompra;  // Prezo polo que se comprou dito material
 
 
-    // Constructores:
-    // Atributos not null sen código
+    /**
+     * Constructores
+     */
+    // Atributos non null sen o código
     public Material(TipoMaterial tipoMaterial, Area area, String estado) {
         this.tipoMaterial = tipoMaterial;
         this.area = area;
         this.estado = estado;
     }
 
-    public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion) {
-        this.tipoMaterial = tipoMaterial;
-        this.area = area;
-        this.instalacion = instalacion;
-    }
-
-    // Atributos not null máis o código
+    // Atributos non null máis o código
     public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, String estado) {
         this.codMaterial = codMaterial;
         this.tipoMaterial = tipoMaterial;
@@ -67,16 +66,24 @@ public class Material {
     }
 
 
-    // Atributos sen codigo e sen prezo
+    // Atributos con código e sen prezo
     public Material(int codMaterial, TipoMaterial tipoMaterial, Area area, Instalacion instalacion, String estado, Date dataCompra) {
         this(codMaterial, tipoMaterial, area, estado);
         this.instalacion = instalacion;
         this.dataCompra = dataCompra;
     }
 
+    // Tipo de material o que pertence e ubicación onde se atopa (area e instalación)
+    public Material(TipoMaterial tipoMaterial, Area area, Instalacion instalacion) {
+        this.tipoMaterial = tipoMaterial;
+        this.area = area;
+        this.instalacion = instalacion;
+    }
 
-    // Getters e setters
 
+    /**
+     * Getters e setters
+     */
     public void setCodMaterial(int codMaterial) {
         this.codMaterial = codMaterial;
     }
@@ -141,21 +148,7 @@ public class Material {
         return area.getInstalacion().getNome();
     }
 
-    // TODO: REVISAR AS DEPENDENCIAS QUE CREO ENTRE AREA E INSTALACION QUE SON INCOHERENTES CA BASE DE DATOS PORFAVOR HELENA NON ME SEAS ASI
-    // Outros métodos
     public Instalacion getInstalacion() {
         return instalacion;
     }
-
-    /*@Override
-    public String toString() {
-        return "Material{" +
-                "codMaterial=" + codMaterial +
-                ", area=" + area +
-                ", nome='" + nome + '\'' +
-                ", dataCompra=" + dataCompra +
-                ", prezoCompra=" + prezoCompra +
-                '}';
-    }*/
-
 }
