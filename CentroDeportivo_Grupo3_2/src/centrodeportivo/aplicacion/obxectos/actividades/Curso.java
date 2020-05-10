@@ -111,6 +111,21 @@ public class Curso {
         this.numActividades = numActividades;
     }
 
+
+    /**
+     * Constructor completo de Curso
+     * @param codCurso
+     * @param nome
+     * @param descricion
+     * @param prezo
+     * @param aberto
+     * @param duracion
+     * @param numActividades
+     * @param dataInicio
+     * @param dataFin
+     * @param numProfesores
+     * @param valMedia
+     */
     public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio,
                  Date dataFin, Integer numProfesores, Float valMedia) {
         this(codCurso, nome, descricion, prezo, aberto, duracion, numActividades, dataInicio);
@@ -123,7 +138,9 @@ public class Curso {
         this.codCurso = codCurso;
     }
 
-    //Getters e setters:
+    /**
+     * Getters e setters
+     */
     public void setCodCurso(Integer codCurso) {
         this.codCurso = codCurso;
     }

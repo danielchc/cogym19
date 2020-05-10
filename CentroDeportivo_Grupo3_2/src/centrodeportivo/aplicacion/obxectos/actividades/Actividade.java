@@ -26,21 +26,44 @@ public class Actividade {
 
     private Float valMedia;
 
-    // Constructor
+    /**
+     * Constructor recurperar o nome das activiades
+     * @param nome
+     */
     public Actividade(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Constructor coa clave primaria da activiade
+     * @param data
+     * @param area
+     */
     public Actividade(Timestamp data, Area area) {
         this.data = data;
         this.area = area;
     }
 
+    /**
+     * Contructor Co nome e a clave primaria da activiadede
+     * @param nome
+     * @param area
+     */
     public Actividade(String nome, Area area) {
         this.nome = nome;
         this.area = area;
     }
 
+    /**
+     *  Consutructor completo sen valMedia, atributo calculado
+     * @param data
+     * @param nome
+     * @param duracion
+     * @param area
+     * @param tipoActividade
+     * @param curso
+     * @param profesor
+     */
     public Actividade(Timestamp data, String nome, Float duracion, Area area, TipoActividade tipoActividade,
                       Curso curso, Persoal profesor) {
         this.data = data;
@@ -52,6 +75,17 @@ public class Actividade {
         this.curso = curso;
     }
 
+    /**
+     * Constructor completo de Actividade
+     * @param data
+     * @param nome
+     * @param duracion
+     * @param area
+     * @param tipoActividade
+     * @param curso
+     * @param profesor
+     * @param valMedia
+     */
     public Actividade(Timestamp data, String nome, Float duracion, Area area, TipoActividade tipoActividade,
                       Curso curso, Persoal profesor, Float valMedia) {
         this(data, nome, duracion, area, tipoActividade, curso, profesor);
@@ -59,8 +93,9 @@ public class Actividade {
     }
 
 
-    // Getters e setters:
-
+    /**
+     * Getters e setters
+     */
     public Timestamp getData() {
         return data;
     }
