@@ -18,6 +18,7 @@ public abstract class AbstractDAO {
     private FachadaAplicacion fachadaAplicacion;
     private Connection conexion;
 
+
     /**
      * Constructor da clase DAO abstracta:
      *
@@ -29,6 +30,7 @@ public abstract class AbstractDAO {
         this.conexion = conexion;
         this.fachadaAplicacion = fachadaAplicacion;
     }
+
 
     /**
      * Getter da conexión

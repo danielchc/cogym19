@@ -172,9 +172,12 @@ public class XestionCursos {
     }
 
     /**
-     * Método que nos permite consultar os que esta non esta apuntado un usuario pero estan dispoñibles para apuntarse
+     * Método que nos permite consultar os cursos ós que un usuario se pode apuntar (contemplaranse todos aqueles cursos
+     * que esten abertos, non esté apuntado e a maoires, que ainda non derán comezo). Contémplase a posibilidade de filtrar
+     * os cursos polo nome dos mesmos:
      *
-     * @param usuario Usuario co que se realiza a busqueda
+     * @param curso   Cursos que se empregará para o filtrado.
+     * @param usuario Usuario polo que se realiza a busca.
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
     public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario){
@@ -198,16 +201,6 @@ public class XestionCursos {
         } else {
             return TipoResultados.sitIncoherente;
         }
-    }
-
-    /**
-     * Metodo para comprobar se un curso esta almaceado na base de datos
-     *
-     * @param curso Curso que se quer comprobar
-     * @return Retorna true se o curso se atopa almaceado na base de datos e false en caso contrario
-     */
-    public boolean isCurso(Curso curso) {
-        return fachadaBD.isCurso(curso);
     }
 
     /**

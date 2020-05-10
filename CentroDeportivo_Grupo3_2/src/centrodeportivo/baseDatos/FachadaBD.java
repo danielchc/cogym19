@@ -27,11 +27,12 @@ import java.util.Properties;
  * simplemente terán que ter coñecemento desta fachada, evitando coñecer todos os DAOs.
  */
 public final class FachadaBD {
+
     /**
      * Atributos da clase
      */
-    private FachadaAplicacion fachadaAplicacion; //Fachada de aplicación
-    private Connection conexion; //Conexión coa base de datos.
+    private FachadaAplicacion fachadaAplicacion;  // Fachada de aplicación
+    private Connection conexion;  // Conexión coa base de datos.
     /**
      * Os diferentes DAO (Data Access Object) dende os que faremos os métodos que realmente acceden á base de datos.
      */
@@ -83,17 +84,17 @@ public final class FachadaBD {
         // Creamos o string para poder solicitar a conexión coa base de datos:
         String con = String.format("jdbc:%s://%s:%s/%s", configuracion.getProperty("gestor"), configuracion.getProperty("servidor"), configuracion.getProperty("puerto"), configuracion.getProperty("baseDatos"));
         try {
-            //Tentamos establecer a conexión:
+            // Tentamos establecer a conexión:
             this.conexion = DriverManager.getConnection(con, usuario);
-            //Por convenio global estableceremos o autoCommit a false. POLO TANTO, teremos que facer commit nos métodos
-            //de DAO.
+            // Por convenio global estableceremos o autoCommit a false. POLO TANTO, teremos que facer commit nos métodos
+            // de DAO.
             this.conexion.setAutoCommit(false);
         } catch (SQLException e) {
-            //Se non podemos, lanzaremos a nosa propia excepción asociada á base de datos:
+            // Se non podemos, lanzaremos a nosa propia excepción asociada á base de datos:
             throw new ExcepcionBD(this.conexion, e);
         }
 
-        //Creamos todos os DAOs:
+        // Creamos todos os DAOs:
         this.daoUsuarios = new DAOUsuarios(this.conexion, this.fachadaAplicacion);
         this.daoInstalacions = new DAOInstalacions(this.conexion, this.fachadaAplicacion);
         this.daoActividades = new DAOTiposActividades(this.conexion, this.fachadaAplicacion);
@@ -108,6 +109,35 @@ public final class FachadaBD {
         this.daoareas = new DAOAreas(this.conexion, this.fachadaAplicacion);
     }
 
+    /**
+     * Funcións propias
+     */
+
+    public Connection getConexion() {
+        return conexion;
+    }
+
+    public void setConexion(Connection conexion) {
+        this.conexion = conexion;
+    }
+
+    public DAOUsuarios getDaoUsuarios() {
+        return daoUsuarios;
+    }
+
+    public void setDaoUsuarios(DAOUsuarios daoUsuarios) {
+        this.daoUsuarios = daoUsuarios;
+    }
+
+    public DAOAreas getDaoareas() {
+        return daoareas;
+    }
+
+    public void setDaoareas(DAOAreas daoareas) {
+        this.daoareas = daoareas;
+    }
+
+
     /*
         Funcions DAOUsuarios
      */
@@ -120,19 +150,20 @@ public final class FachadaBD {
      * @return booleano que nos indica se a validación foi correcta ou non.
      */
     public boolean validarUsuario(String login, String contrasinal) {
+        // Chamamos ao método do dao correspondente.
         return daoUsuarios.validarUsuario(login, contrasinal);
     }
 
     /**
      * Método que nos permitirá consultar os datos esenciais dun usuario:
      *
-     * @param login O login do usuario que se quere consultar.
+     * @param login O login do usuario que se quere consultar e co que conseguiremos todos os demais datos.
      * @return Usuario con algúns dos datos asociados na base de datos ao login pasado como argumento.
      */
     public Usuario consultarUsuario(String login) {
-        //Chamamos ao método do dao correspondente.
         return daoUsuarios.consultarUsuario(login);
     }
+
 
     /*
         Funcións DAOMensaxes:
@@ -145,6 +176,7 @@ public final class FachadaBD {
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
     public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD {
+        // Chamamos ó método correspondente do dao mensaxes:
         daoMensaxes.enviarAvisoSocios(mensaxe);
     }
 
@@ -152,7 +184,7 @@ public final class FachadaBD {
      * Método que nos permite enviar un aviso aos socios dun curso determinado.
      *
      * @param mensaxe A mensaxe que se vai a enviar aos socios.
-     * @param curso   O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @param curso   O curso ao que pertencen os socios aos que se lle vai enviar a mensaxe.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
     public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
@@ -182,7 +214,7 @@ public final class FachadaBD {
      * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
      */
     public void darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
-        //Chamamos ao método correspondente do dao de instalacións:
+        // Chamamos ao método correspondente do dao de instalacións:
         daoInstalacions.darAltaInstalacion(instalacion);
     }
 
@@ -227,7 +259,6 @@ public final class FachadaBD {
         return daoInstalacions.consultarInstalacion(instalacion);
     }
 
-
     /**
      * Método que nos permite comprobar se a instalación pasada existe na base de datos, é dicir, se ten o mesmo
      * nome.
@@ -262,6 +293,7 @@ public final class FachadaBD {
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
      */
     public void crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
+        // Chamamos ao método do dao de tipos de actividades:
         this.daoTiposActividades.crearTipoActividade(tipoActividade);
     }
 
@@ -270,10 +302,9 @@ public final class FachadaBD {
      * actividade xa está rexistrado e, polo tanto, ten un código asociado.
      *
      * @param tipoActividade O tipo de actividade cos datos a actualizar.
-     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a inserción na base de datos.
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a modificación na base de datos.
      */
     public void modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
-        //Chamamos ao método do dao de tipos de actividades:
         this.daoTiposActividades.modificarTipoActividade(tipoActividade);
     }
 
@@ -284,7 +315,6 @@ public final class FachadaBD {
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
      */
     public void eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
-        //Chamamos ao método do dao correspondente:
         this.daoTiposActividades.eliminarTipoActividade(tipoActividade);
     }
 
@@ -303,7 +333,7 @@ public final class FachadaBD {
      * Método que nos permite consultar un tipo de actividade a partir do código do tipo pasado como argumento.
      *
      * @param tipoActividade O tipo de actividade do que se collerá o código para a consulta.
-     * @return O tipo de actividade co código buscado (se todavía existe na base de datos).
+     * @return O tipo de actividade co código buscado (se aínda existe na base de datos).
      */
     public TipoActividade consultarTipoActividade(TipoActividade tipoActividade) {
         return this.daoTiposActividades.consultarTipoActividade(tipoActividade);
@@ -318,7 +348,6 @@ public final class FachadaBD {
      * contrario.
      */
     public boolean comprobarExistencia(TipoActividade tipoActividade) {
-        //Chamamos ao dao de tipos de actividades:
         return this.daoTiposActividades.comprobarExistencia(tipoActividade);
     }
 
@@ -329,7 +358,6 @@ public final class FachadaBD {
      * @return True se este tipo de actividade ten actividades asociadas, False noutro caso.
      */
     public boolean tenActividades(TipoActividade tipoActividade) {
-        //Accedemos ao método correspondente do dao de tipos de actividades
         return this.daoTiposActividades.tenActividades(tipoActividade);
     }
 
@@ -345,6 +373,7 @@ public final class FachadaBD {
      * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
      */
     public void rexistrarCurso(Curso curso) throws ExcepcionBD {
+        // Chamamos ao método do dao de cursos:
         daoCursos.rexistrarCurso(curso);
     }
 
@@ -358,12 +387,8 @@ public final class FachadaBD {
         daoCursos.modificarCurso(curso);
     }
 
-    public void engadirActividade(Curso curso, Actividade actividade) throws ExcepcionBD {
-        daoCursos.engadirActividade(curso, actividade);
-    }
-
     /**
-     * Método que nos permite levar a cabo a activación dun curso:
+     * Método que nos permite levar a cabo a activación dun curso.
      *
      * @param curso Os datos do curso que se quere activar.
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
@@ -377,7 +402,7 @@ public final class FachadaBD {
      *
      * @param curso   O curso que se quere borrar.
      * @param mensaxe A mensaxe que se envía aos participantes polo borrado.
-     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado na base de datos.
      */
     public void cancelarCurso(Curso curso, Mensaxe mensaxe) throws ExcepcionBD {
         daoCursos.cancelarCurso(curso, mensaxe);
@@ -394,18 +419,8 @@ public final class FachadaBD {
     }
 
     /**
-     * Método que nos permite consultar os que esta non esta apuntado un usuario pero estan dispoñibles para apuntarse
-     *
-     * @param usuario Usuario co que se realiza a busqueda
-     * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
-     */
-    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario) {
-        return daoCursos.consultarCursosDisponhibles(curso, usuario);
-    }
-
-    /**
      * Método que nos permite recuperar datos máis concretos dun curso. Non só datos contidos na táboa de cursos,
-     * máis información todavía.
+     * máis información aínda.
      *
      * @param curso Información do curso do que se queren recuperar os datos (o atributo importante é o código).
      * @return Datos completos do curso procurado.
@@ -413,7 +428,6 @@ public final class FachadaBD {
     public Curso recuperarDatosCurso(Curso curso) {
         return daoCursos.recuperarDatosCurso(curso);
     }
-
 
     /**
      * Método que nos permite recuperar información suficiente do curso como para elaborar o informe que ofrecer ao
@@ -427,9 +441,9 @@ public final class FachadaBD {
     }
 
     /**
-     * Método que nos permite comprobar que non existe un curso rexistrado co mesmo nome
+     * Método que nos permite comprobar que non existe un curso rexistrado co mesmo nome.
      *
-     * @param curso O curso que se quere validar
+     * @param curso O curso que se quere validar.
      * @return True se non existe outro curso diferente que teña o mesmo nome ca este, False noutro caso.
      */
     public boolean comprobarExistencia(Curso curso) {
@@ -447,7 +461,7 @@ public final class FachadaBD {
     }
 
     /**
-     * Método que leva a cabo as comprobacións de se un curso está preparado para ser activado:
+     * Método que leva a cabo as comprobacións de se un curso está preparado para ser activado.
      *
      * @param curso O curso a activar.
      * @return True se o curso se pode activar, False en caso contrario.
@@ -457,90 +471,125 @@ public final class FachadaBD {
     }
 
     /**
-     * Metodo que permite que un usuario se anote nun curso
+     * Método que nos permite consultar os cursos ós que un usuario se pode apuntar (contemplaranse todos aqueles cursos
+     * que esten abertos, non esté apuntado e a maoires, que ainda non derán comezo). Contémplase a posibilidade de filtrar
+     * os cursos polo nome dos mesmos:
      *
-     * @param curso   Curso o que se vai a apuntar o usuario
-     * @param usuario Usuario que se vai a apuntar o curso
-     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
-     */
-    public void apuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
-        daoCursos.apuntarseCurso(curso, usuario);
-    }
-
-    /**
-     * Metodo que permite que un usuario se desapunte dun curso
-     *
-     * @param curso   Curso o que se vai a desapuntar o usuario
-     * @param usuario Usuario que se vai a desapuntar o curso
-     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
-     */
-    public void desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
-        daoCursos.desapuntarseCurso(curso, usuario);
-    }
-
-    /**
-     * Metodo para comprobar que un usuario este apuntado nun curso
-     *
-     * @param curso   Curso no que se quer comprobar se esta apuntado
-     * @param usuario Usuario que se quer comprobar se esta apuntado
-     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
-     */
-    public boolean estarApuntado(Curso curso, Usuario usuario) {
-        return daoCursos.estarApuntado(curso, usuario);
-    }
-
-    /**
-     * Metodo que comproba que se o aforo do curso é o máximo
-     *
-     * @param curso Curso no que se quer comprobar se o aforo e máximo
-     * @return Retorna true no caso de que o aforo non sexa maximo, e false en caso contrario
-     */
-    public boolean NonEMaximoAforo(Curso curso) {
-        return daoCursos.NonEMaximoAforo(curso);
-    }
-
-    /**
-     * Método que nos permite consultar os que esta apuntado un usuario
-     *
-     * @param usuario Usuario co que se realiza a busqueda
+     * @param curso   Cursos que se empregará para o filtrado.
+     * @param usuario Usuario polo que se realiza a busca.
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
+     */
+    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario) {
+        return daoCursos.consultarCursosDisponhibles(curso, usuario);
+    }
+
+    /**
+     * Método que nos permite consultar os cursos ós que está apuntado un usuario. Permitese unha busca filtrando polo
+     * nome do curso.
+     *
+     * @param curso   Curso co que se filtra, no caso de que non sexa null, mediante o nome.
+     * @param usuario Usuario co que se realiza a busca.
+     * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario e, se non é null,
+     * coincidan co nome do curso pasado.
      */
     public ArrayList<Curso> consultarCursosUsuario(Curso curso, Usuario usuario) {
         return daoCursos.consultarCursosUsuario(curso, usuario);
     }
 
     /**
-     * Metodo para comprobar se un curso esta almaceado na base de datos
+     * Método que permite que un usuario se anote nun curso.
      *
-     * @param curso Curso que se quer comprobar
-     * @return Retorna true se o curso se atopa almaceado na base de datos e false en caso contrario
+     * @param curso   Curso ó que se vai a apuntar o usuario (o importante é o código).
+     * @param usuario Usuario que se vai a apuntar ó curso (o importante é o login).
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta.
+     */
+    public void apuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        daoCursos.apuntarseCurso(curso, usuario);
+    }
+
+    /**
+     * Método que permite que un usuario se desapunte dun curso.
+     *
+     * @param curso   Curso ó que se vai a desapuntar o usuario (o importante é o código).
+     * @param usuario Usuario que se vai a desapuntar ó curso (o importante é o login).
+     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta.
+     */
+    public void desapuntarseCurso(Curso curso, Usuario usuario) throws ExcepcionBD {
+        daoCursos.desapuntarseCurso(curso, usuario);
+    }
+
+    /**
+     * Método para comprobar que se un usuario esta apuntado nun curso.
+     *
+     * @param curso   Curso no que se quer comprobar se esta apuntado (o importante é o código).
+     * @param usuario Usuario que se quer comprobar se esta apuntado (o importante é o login).
+     */
+    public boolean estarApuntado(Curso curso, Usuario usuario) {
+        return daoCursos.estarApuntado(curso, usuario);
+    }
+
+    /**
+     * Método que comproba que se o aforo do curso é o máximo.
+     *
+     * @param curso Curso no que se quer comprobar se o aforo e máximo.
+     * @return Retorna true no caso de que o aforo non sexa o máximo, e false en caso contrario.
+     */
+    public boolean NonEMaximoAforo(Curso curso) {
+        return daoCursos.NonEMaximoAforo(curso);
+    }
+
+    /**
+     * Método para comprobar se un curso esta almaceado na base de datos.
+     *
+     * @param curso Curso que do que se quere comprobar a existencia.
+     * @return Retorna true se o curso se atopa almaceado na base de datos e false en caso contrario.
      */
     public boolean isCurso(Curso curso) {
         return daoCursos.isCurso(curso);
     }
 
+
     /*
         Funcións DAOTipoMaterial
      */
 
+    /**
+     * Método que permite engadir unh nova tupla na base de datos cun novo tipo de material.
+     *
+     * @param tipoMaterial Datos do tipo de material que se creará (en concreto, o nome).
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na inserción.
+     */
     public void darAltaTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         this.daoTipoMaterial.darAltaTipoMaterial(tipoMaterial);
     }
 
+    /**
+     * Método que permite eliminar un tipo de material da base de datos.
+     *
+     * @param tipoMaterial Datos do tipo de material que se eliminará.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas no borrado.
+     */
     public void borrarTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         this.daoTipoMaterial.borrarTipoMaterial(tipoMaterial);
     }
 
+    // Non se contempla a modificación do tipo de material por motivos de deseño
 
+    /**
+     * Método que comproba se certo tipo de material existe na base de datos.
+     *
+     * @param tipoMaterial Datos do tipo de material que se quer validar.
+     * @return Devolve true se o tipo de material se encontra na base de datos.
+     */
     public boolean isTipoMaterial(TipoMaterial tipoMaterial) {
         return this.daoTipoMaterial.isTipoMaterial(tipoMaterial);
     }
 
     /**
-     * BuscarTipoMaterial -> permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
+     * Método que permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
      *
-     * @param tipoMaterial -> se non é null, a consulta realizase en base o nome do tipo de material.
-     * @return -> se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
+     * @param tipoMaterial Se non é null, a consulta realizase en base o nome do tipo de material.
+     * @return Se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
      * noutro caso, listanse todos os tipos de materiais.
      */
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
@@ -548,71 +597,87 @@ public final class FachadaBD {
     }
 
     /**
-     * TenMateriais -> permite comprobar existen materiais vinculados o tipo.
+     * Método que permite comprobar existen materiais vínculados o tipo.
      *
-     * @param tipoMaterial -> o tipo de material do cal queremos comprobar se existen materiais vinculados
-     * @return -> retorna true se o tipo ten materiais vinculados, False en caso contrario.
+     * @param tipoMaterial O tipo de material do cal queremos comprobar se existen materiais vinculados
+     * @return Retorna true se o tipo ten materiais vinculados, False en caso contrario.
      */
     public boolean tenMateriais(TipoMaterial tipoMaterial) {
         return this.daoTipoMaterial.tenMateriais(tipoMaterial);
     }
 
+
     /*
         Funcións DAOMaterial
      */
 
+    /**
+     * Método que crea unha nova tupla insertando un material na base de datos.
+     *
+     * @param material Datos do material que se engadirá a base de datos.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na inserción.
+     */
     public void darAltaMaterial(Material material) throws ExcepcionBD {
         this.daoMaterial.darAltaMaterial(material);
     }
 
+    /**
+     * Método que elimina a tupla dun material na base de datos.
+     *
+     * @param material Datos do material que se eliminará.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas no borrado.
+     */
     public void borrarMaterial(Material material) throws ExcepcionBD {
         this.daoMaterial.borrarMaterial(material);
     }
 
+    /**
+     * Método que modifica os datos un material na base de datos
+     *
+     * @param material Datos do material que se modificará.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na modificación.
+     */
     public void modificarMaterial(Material material) throws ExcepcionBD {
         this.daoMaterial.modificarMaterial(material);
     }
 
+    /**
+     * Método que comproba se certo material existe na base de datos.
+     *
+     * @param material Datos do material que se quer validar.
+     * @return Devolve true se o material se encontra na base de datos e false en caso contrario.
+     */
     public boolean isMaterial(Material material) {
         return this.daoMaterial.isMaterial(material);
     }
 
-    public ArrayList<Material> listarMateriais(Material material) {
-        return this.daoMaterial.listarMateriais(material);
-    }
-
+    /**
+     * Método que comproba se certo material existe na base de datos e devolve os datos actualizados.
+     *
+     * @param material Datos do material que se quere consultar.
+     * @return Devolve os datos do material actualizado.
+     */
     public Material consultarMaterial(Material material) {
         return daoMaterial.consultarMaterial(material);
     }
 
-
-    //Funcións propias:
-
-    public Connection getConexion() {
-        return conexion;
+    /**
+     * Método que obten todos os materiais almacenados na base de datos e permite filtrar en función
+     * da área e instalación na que se atope así como, polo tipo de material.
+     *
+     * @param material Datos do material co que poderemos filtrar en función da instalación e área na que
+     *                 se atope así como, polo seu tipo.
+     * @return Devolve un ArrayList cos materiais da base de datos que cumpran ditas condicións.
+     */
+    public ArrayList<Material> listarMateriais(Material material) {
+        return this.daoMaterial.listarMateriais(material);
     }
 
-    public void setConexion(Connection conexion) {
-        this.conexion = conexion;
-    }
 
-    public DAOUsuarios getDaoUsuarios() {
-        return daoUsuarios;
-    }
+    /*
+        Funcións DAOMaterial
+     */
 
-    public void setDaoUsuarios(DAOUsuarios daoUsuarios) {
-        this.daoUsuarios = daoUsuarios;
-    }
-
-    public DAOAreas getDaoareas() {
-        return daoareas;
-    }
-
-    public void setDaoareas(DAOAreas daoareas) {
-        this.daoareas = daoareas;
-    }
-
-    //Areas
     public boolean ExisteArea(Area area) {
         return daoareas.ExisteArea(area);
     }
@@ -669,6 +734,13 @@ public final class FachadaBD {
     }
 
     // Actividades
+
+    /**
+     * Método que nos permite insertar unha actividade na base de datos
+     *
+     * @param actividade A actividade que se quer insertar na base de datos
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
         daoActividade.EngadirActividade(actividade);
     }
@@ -735,7 +807,7 @@ public final class FachadaBD {
         return daoActividade.listarParticipantes(actividade);
     }
 
-    public Actividade recuperarActividade(Actividade actividade){
+    public Actividade recuperarActividade(Actividade actividade) {
         return daoActividade.recuperarActividade(actividade);
     }
 }

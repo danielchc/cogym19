@@ -12,7 +12,6 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
-import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -36,19 +35,28 @@ public class DAOActividade extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+
+    /**
+     * Método que nos permite insertar unha actividade na base de datos
+     *
+     * @param actividade A actividade que se quer insertar na base de datos
+     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     */
     public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
         PreparedStatement stmActividade = null;
-        ResultSet rsActividade;
         Connection con;
-        //Recuperamos a conexión coa base de datos.
+
+        // Recuperamos a conexión coa base de datos.
         con = super.getConexion();
 
 
-        //Preparamos a inserción:
+        // Preparamos a inserción:
         try {
-            stmActividade = con.prepareStatement("INSERT INTO Actividade (dataactividade, area, instalacion, tipoactividade, curso, profesor, nome, duracion) " +
+            stmActividade = con.prepareStatement("INSERT INTO Actividade (dataactividade, area, instalacion," +
+                    " tipoactividade, curso, profesor, nome, duracion) " +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            //Establecemos os valores:
+
+            // Introducimos os datos da actividade que queremos insertar:
             stmActividade.setTimestamp(1, actividade.getData());
             stmActividade.setInt(2, actividade.getArea().getCodArea());
             stmActividade.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
@@ -63,17 +71,16 @@ public class DAOActividade extends AbstractDAO {
             stmActividade.setString(7, actividade.getNome());
             stmActividade.setFloat(8, actividade.getDuracion());
 
-            //Realizamos a actualización:
+            // Realizamos a actualización:
             stmActividade.executeUpdate();
 
-            //Facemos commit:
+            // Facemos commit:
             con.commit();
-
         } catch (SQLException e) {
-            //Lanzamos neste caso unha excepción cara a aplicación:
+            // Lanzamos neste caso unha excepción cara a aplicación:
             throw new ExcepcionBD(con, e);
         } finally {
-            //En calquera caso, téntase pechar os cursores.
+            // En calquera caso, téntase pechar os cursores.
             try {
                 stmActividade.close();
             } catch (SQLException e) {

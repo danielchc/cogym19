@@ -33,6 +33,7 @@ public final class DAOMensaxes extends AbstractDAO {
         super(conexion, fachadaAplicacion);
     }
 
+
     /**
      * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
      *
@@ -40,48 +41,48 @@ public final class DAOMensaxes extends AbstractDAO {
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
     public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD {
-        //Consultaremos todos os socios que hai rexistrados e enviaremoslles mensaxes:
+        // Consultaremos todos os socios que hai rexistrados e enviaremoslles mensaxes:
         PreparedStatement stmMensaxes = null;
         PreparedStatement stmUsuarios = null;
-        ResultSet rsUsuarios = null;
+        ResultSet rsUsuarios;
 
         Connection con;
 
-        //Recuperamos a conexion:
+        // Recuperamos a conexion:
         con = super.getConexion();
 
-        //Comezaremos a intentar o envío da mensaxe:
+        // Comezaremos a intentar o envío da mensaxe:
         try {
-            //Primeiro consultamos os login de todos os socios (que non estivesen dados de baixa!):
+            // Primeiro consultamos os login de todos os socios (que non estivesen dados de baixa!):
             stmUsuarios = con.prepareStatement("SELECT login FROM vistasocio WHERE dataBaixa IS NULL");
-            //Non precisamos pasarlle nada, posto que simplemente queremos recuperar os socios todos:
+            // Non precisamos pasarlle nada, posto que simplemente queremos recuperar os socios todos:
             rsUsuarios = stmUsuarios.executeQuery();
 
-            //Imos preparando xa a inserción na táboa de mensaxes:
+            // Imos preparando xa a inserción na táboa de mensaxes:
             stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido)" +
                     " VALUES (?, ?, ?, ?)");
 
-            //Establecemos o emisor, o contido e o lido porque non varían.
+            // Establecemos o emisor, o contido e o lido porque non varían.
             stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
             stmMensaxes.setString(3, mensaxe.getContido());
             stmMensaxes.setBoolean(4, false);
 
-            //Imos recuperando todos os resultados e, ao mesmo tempo, enviando as mensaxes:
+            // Imos recuperando todos os resultados e, ao mesmo tempo, enviando as mensaxes:
             while (rsUsuarios.next()) {
-                //Poñemos agora como parámetro da consulta 'receptor' cada un dos logins recibidos:
+                // Poñemos agora como parámetro da consulta 'receptor' cada un dos logins recibidos:
                 stmMensaxes.setString(2, rsUsuarios.getString("login"));
-                //Executamos entón a actualización:
+                // Executamos entón a actualización:
                 stmMensaxes.executeUpdate();
             }
 
-            //Facemos o commit para rematar:
+            // Facemos o commit para rematar:
             con.commit();
 
         } catch (SQLException e) {
-            //Lanzamos a nosa propia excepción:
+            // Lanzamos a nosa propia excepción:
             throw new ExcepcionBD(con, e);
         } finally {
-            //Intentamos pechar os statement:
+            // Intentamos pechar os statement:
             try {
                 stmMensaxes.close();
                 stmUsuarios.close();
@@ -99,51 +100,50 @@ public final class DAOMensaxes extends AbstractDAO {
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
     public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
-        //Primeiro recuperaremos os datos dos socios que están realiando o curso e logo mandaremos a mensaxe:
+        // Primeiro recuperaremos os datos dos socios que están realiando o curso e logo mandaremos a mensaxe:
         PreparedStatement stmUsuarios = null;
         PreparedStatement stmMensaxes = null;
         ResultSet rsUsuarios;
         Connection con;
 
-        //Recuperamos a conexión coa base de datos:
+        // Recuperamos a conexión coa base de datos:
         con = super.getConexion();
 
-        //Tentamos levar a cabo a consulta:
+        // Tentamos levar a cabo a consulta:
         try {
-            //Comezaremos por buscar os participantes no curso:
+            // Comezaremos por buscar os participantes no curso:
             stmUsuarios = con.prepareStatement("SELECT usuario FROM realizarcurso WHERE curso = ?");
-            //Completamos a consulta co código do curso:
+            // Completamos a consulta co código do curso:
             stmUsuarios.setInt(1, curso.getCodCurso());
-            //Agora executamos a consulta:
+            // Agora executamos a consulta:
             rsUsuarios = stmUsuarios.executeQuery();
 
-            //Agora procedemos ao envío das mensaxes:
-            //Preparamos o envío do mensaxe, o que cambia é o destinatario:
+            // Agora procedemos ao envío das mensaxes:
+            // Preparamos o envío do mensaxe, o que cambia é o destinatario:
             stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido) " +
                     "VALUES (?, ?, ?, ?)");
 
-            //Asignamos dende xa os campos invariantes:
+            // Asignamos dende xa os campos invariantes:
             stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
             stmMensaxes.setString(3, mensaxe.getContido());
             stmMensaxes.setBoolean(4, false);
 
-
-            //A medida que lemos o result set imos procesando os envíos de mensaxes:
+            // A medida que lemos o result set imos procesando os envíos de mensaxes:
             while (rsUsuarios.next()) {
-                //Establecemos o parámetro variante en cada inserción:
+                // Establecemos o parámetro variante en cada inserción:
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
-                //Executamos entón actualizacións sobre a base de datos:
+                // Executamos entón actualizacións sobre a base de datos:
                 stmMensaxes.executeUpdate();
             }
 
-            //Facemos agora xa o commit, dado que rematamos a transacción:
+            // Facemos agora xa o commit, dado que rematamos a transacción:
             con.commit();
 
         } catch (SQLException e) {
-            //Lanzamos a nosa propia excepción cara arriba:
+            // Lanzamos a nosa propia excepción cara arriba:
             throw new ExcepcionBD(con, e);
         } finally {
-            //Intentamos pechar os statement:
+            // Intentamos pechar os statement:
             try {
                 stmMensaxes.close();
                 stmUsuarios.close();
@@ -161,55 +161,54 @@ public final class DAOMensaxes extends AbstractDAO {
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
     public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD {
-        //O que faremos será recoller primeiro os participantes da actividade e logo mandarlles a mensaxe:
+        // O que faremos será recoller primeiro os participantes da actividade e logo mandarlles a mensaxe:
         PreparedStatement stmUsuarios = null;
         PreparedStatement stmMensaxes = null;
         ResultSet rsUsuarios;
 
         Connection con;
-        //Recuperamos a conexión:
+        // Recuperamos a conexión:
         con = super.getConexion();
 
-        //Intentamos levar a cabo todas as accións:
+        // Intentamos levar a cabo todas as accións:
         try {
             stmUsuarios = con.prepareStatement("SELECT * FROM realizaractividade " +
                     " WHERE dataactividade = ? " +
                     "   AND area = ? " +
                     "   AND instalacion = ?");
 
-            //Completamos a consulta:
+            // Completamos a consulta:
             stmUsuarios.setTimestamp(1, actividade.getData());
             stmUsuarios.setInt(2, actividade.getArea().getCodArea());
             stmUsuarios.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
 
-            //Realizamos a consulta sobre a base de datos:
+            // Realizamos a consulta sobre a base de datos:
             rsUsuarios = stmUsuarios.executeQuery();
 
-            //Imos preparando xa a inserción para o envío dos avisos:
+            // Imos preparando xa a inserción para o envío dos avisos:
             stmMensaxes = con.prepareStatement("INSERT INTO enviarmensaxe (emisor, receptor, contido, lido) " +
                     " VALUES(?, ?, ?, ?) ");
 
-            //Completamos os campos invariantes da consulta:
+            // Completamos os campos invariantes da consulta:
             stmMensaxes.setString(1, mensaxe.getEmisor().getLogin());
             stmMensaxes.setString(3, mensaxe.getContido());
             stmMensaxes.setBoolean(4, false);
 
-            //Imos procesando o resultado e facendo os envíos que sexan precisos:
+            // Imos procesando o resultado e facendo os envíos que sexan precisos:
             while (rsUsuarios.next()) {
-                //Completamos co que falta a inserción:
+                // Completamos co que falta a inserción:
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
-                //Facemos a actualización:
+                // Facemos a actualización:
                 stmMensaxes.executeUpdate();
             }
 
-            //Feito isto, levamos a cabo o commit:
+            // Feito isto, levamos a cabo o commit:
             con.commit();
-
         } catch (SQLException e) {
-            //O que facemos é lanzar para arriba a nosa propia excepción:
+            // O que facemos é lanzar para arriba a nosa propia excepción:
             throw new ExcepcionBD(con, e);
         } finally {
-            //Tratamos de pechar os statements usados nesta consulta:
+            // Tratamos de pechar os statements usados nesta consulta:
             try {
                 stmMensaxes.close();
                 stmUsuarios.close();

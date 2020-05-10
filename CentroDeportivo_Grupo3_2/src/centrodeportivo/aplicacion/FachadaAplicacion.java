@@ -477,9 +477,12 @@ public class FachadaAplicacion extends Application {
     }
 
     /**
-     * Método que nos permite consultar os que esta apuntado un usuario
+     * Método que nos permite consultar os cursos ós que un usuario se pode apuntar (contemplaranse todos aqueles cursos
+     * que esten abertos, non esté apuntado e a maoires, que ainda non derán comezo). Contémplase a posibilidade de filtrar
+     * os cursos polo nome dos mesmos:
      *
-     * @param usuario Usuario co que se realiza a busqueda
+     * @param curso   Cursos que se empregará para o filtrado.
+     * @param usuario Usuario polo que se realiza a busca.
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
     public ArrayList<Curso> consultarCursosUsuario(Curso curso, Usuario usuario) {
