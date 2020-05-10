@@ -16,11 +16,13 @@ import java.util.ArrayList;
  * Introduciremos aquí as comprobacións que se realizarán para cada caso.
  */
 public class XestionInstalacions {
+
     /**
      * Atributos da xestión de instalacións: basicamente son referencias ás demáis fachadas.
      */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
+
 
     /**
      * Constructor da clase de xestión de instalacións:
@@ -29,10 +31,11 @@ public class XestionInstalacions {
      * @param fachadaBD  Referencia á fachada da parte da Base de datos.
      */
     public XestionInstalacions(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
-        //Asignamos os parámetros pasados aos atributos correspondentes:
+        // Asignamos os parámetros pasados aos atributos correspondentes:
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
+
 
     /**
      * Método que nos permitirá dar de alta unha nova instalación.
@@ -42,14 +45,14 @@ public class XestionInstalacions {
      * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
      */
     public TipoResultados darAltaInstalacion(Instalacion instalacion) throws ExcepcionBD {
-        //Primeiro comprobaremos se hai unha instalación co mesmo nome ca esta.
+        // Primeiro comprobaremos se hai unha instalación co mesmo nome ca esta.
         if (!fachadaBD.comprobarExistencia(instalacion)) {
-            //Se non existe, entón poderemos insertar esta sen ningún problema:
+            // Se non existe, entón poderemos insertar esta sen ningún problema:
             fachadaBD.darAltaInstalacion(instalacion);
-            //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que rematou ben a inserción:
+            // Se se completa a execución do método sen lanzamento de excepcións, devolvemos que rematou ben a inserción:
             return TipoResultados.correcto;
         } else {
-            //En caso de que xa existise unha instalación co mesmo nome, devolvemos un resultado incorrecto.
+            // En caso de que xa existise unha instalación co mesmo nome, devolvemos un resultado incorrecto.
             return TipoResultados.datoExiste;
         }
 
@@ -63,14 +66,14 @@ public class XestionInstalacions {
      * @throws ExcepcionBD Excepción asociada a problemas que poden xurdir ao actualizar a base de datos.
      */
     public TipoResultados borrarInstalacion(Instalacion instalacion) throws ExcepcionBD {
-        //Comprobamos se a instalación ten áreas asociadas:
+        // Comprobamos se a instalación ten áreas asociadas:
         if (!fachadaBD.tenAreas(instalacion)) {
-            //Se non ten áreas asociadas, poderemos borrala:
+            // Se non ten áreas asociadas, poderemos borrala:
             fachadaBD.borrarInstalacion(instalacion);
-            //Se se completou o método correctamente, devolvemos o enum que indica corrección:
+            // Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
         } else {
-            //Se houbese áreas asociadas a instalacións, devolvemos o enum de erro por referencias co restrict.
+            // Se houbese áreas asociadas a instalacións, devolvemos o enum de erro por referencias co restrict.
             return TipoResultados.referenciaRestrict;
         }
     }
@@ -83,15 +86,15 @@ public class XestionInstalacions {
      * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
      */
     public TipoResultados modificarInstalacion(Instalacion instalacion) throws ExcepcionBD {
-        //De xeito análogo ao que facemos cando se inserta, comprobamos que o nome non esté rexistrado xa na base
-        //de datos, ollo, NOUTRA instalación que non sexa esta.
+        // De xeito análogo ao que facemos cando se inserta, comprobamos que o nome non esté rexistrado xa na base
+        // de datos, ollo, NOUTRA instalación que non sexa esta.
         if (!fachadaBD.comprobarExistencia(instalacion)) {
-            //Se non o está, entón procedemos a modificar a instalación:
+            // Se non o está, entón procedemos a modificar a instalación:
             fachadaBD.modificarInstalacion(instalacion);
-            //Devolvemos co enum que se fixo a modificación sen problemas chegados a este punto:
+            // Devolvemos co enum que se fixo a modificación sen problemas chegados a este punto:
             return TipoResultados.correcto;
         } else {
-            //Se xa existe outra instalación co mesmo nome, entón devolvemos un enum que indique o propio:
+            // Se xa existe outra instalación co mesmo nome, entón devolvemos un enum que indique o propio:
             return TipoResultados.datoExiste;
         }
     }
