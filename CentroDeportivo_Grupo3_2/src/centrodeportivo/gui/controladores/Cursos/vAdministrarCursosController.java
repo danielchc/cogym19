@@ -99,7 +99,7 @@ public class vAdministrarCursosController extends AbstractController implements 
 
         //O booleano aberto: facemos que en función do seu valor se imprima un si ou un non (en lugar de ter "true" ou
         //"false").
-        TableColumn<Curso, String> abertoColumn = new TableColumn<>("Aberto");
+        TableColumn<Curso, String> abertoColumn = new TableColumn<>("Aberto ao público");
         abertoColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Curso, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Curso, String> p) {

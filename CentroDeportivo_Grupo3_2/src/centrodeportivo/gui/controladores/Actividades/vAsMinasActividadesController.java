@@ -204,7 +204,7 @@ public class vAsMinasActividadesController extends AbstractController implements
     public void onActionApuntarse() {
         if (!taboaActividade.getSelectionModel().isEmpty()) {
             Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
-            if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste apuntar a " + actividade.getNome()) == ButtonType.OK) {
+            if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste apuntar a " + actividade.getNome()+"?") == ButtonType.OK) {
                 //apuntar
                 try {
                     TipoResultados tipoResultados = super.getFachadaAplicacion().apuntarseActividade(actividade, controllerPrincipal.getUsuario());
