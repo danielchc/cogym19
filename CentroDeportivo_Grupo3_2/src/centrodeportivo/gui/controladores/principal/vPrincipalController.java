@@ -6,10 +6,7 @@ import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.Actividades.*;
 import centrodeportivo.gui.controladores.Areas.vAdministrarAreaController;
 import centrodeportivo.gui.controladores.Areas.vXestionAreaController;
-import centrodeportivo.gui.controladores.Cursos.vAdministrarCursosController;
-import centrodeportivo.gui.controladores.Cursos.vElixirCursoController;
-import centrodeportivo.gui.controladores.Cursos.vMeusCursosController;
-import centrodeportivo.gui.controladores.Cursos.vXestionCursoController;
+import centrodeportivo.gui.controladores.Cursos.*;
 import centrodeportivo.gui.controladores.DatosVista;
 import centrodeportivo.gui.controladores.Instalacions.vAdministrarInstalacionsController;
 import centrodeportivo.gui.controladores.Instalacions.vEditarInstalacionController;
@@ -38,6 +35,7 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
+ * <p>
  * Clase que funciona de controlador da ventá principal da aplicación: esta parte é a máis importante, dado que dende
  * aquí se colocarán todas as demais pantallas que ten a aplicación (salvo o que é o login).
  */
@@ -64,11 +62,11 @@ public class vPrincipalController extends AbstractController implements Initiali
      * Atributos privados: outras compoñentes necesarias dende o controlador:
      * Todos eles son final, dado que non os volvemos a modificar en toda a execución:
      */
-    private final HashMap<Button, Transicion> transicions; //HashMap de transicións para cada un dos botóns.
-    private final ArrayList<Button> btnsMenu; //Lista de botóns do menú.
-    private final HashMap<IdPantalla, DatosVista> pantallas; //HashMap de pantallas identificadas polos seus IDs.
-    private final Usuario usuario; //Usuario que iniciou sesión.
-    private final IdPantalla pantallaAMostrar; //Pantalla que se amosará en cada momento na ventá.
+    private final HashMap<Button, Transicion> transicions;  // HashMap de transicións para cada un dos botóns.
+    private final ArrayList<Button> btnsMenu;  // Lista de botóns do menú.
+    private final HashMap<IdPantalla, DatosVista> pantallas;  // HashMap de pantallas identificadas polos seus IDs.
+    private final Usuario usuario;  // Usuario que iniciou sesión.
+    private final IdPantalla pantallaAMostrar;  // Pantalla que se amosará en cada momento na ventá.
 
     /**
      * Constructor do controlador da ventá principal.
@@ -78,16 +76,16 @@ public class vPrincipalController extends AbstractController implements Initiali
      * @param pantallaAMostrar  A pantalla que se amosará para comezar.
      */
     public vPrincipalController(FachadaAplicacion fachadaAplicacion, Usuario usuario, IdPantalla pantallaAMostrar) {
-        //Chamamos ao constructor da clase pai (AbstractController):
+        // Chamamos ao constructor da clase pai (AbstractController):
         super(fachadaAplicacion);
-        //Asignamos os demais parámetros pasados aos atributos:
+        // Asignamos os demais parámetros pasados aos atributos:
         this.usuario = usuario;
         this.pantallaAMostrar = pantallaAMostrar;
-        //Creamos os conxuntos de datos:
+        // Creamos os conxuntos de datos:
         this.transicions = new HashMap<>();
         this.btnsMenu = new ArrayList<>();
         this.pantallas = new HashMap<>();
-        //Procedemos ao que se chama carga de pantallas, que se pode analizar en detalle máis abaixo:
+        // Procedemos ao que se chama carga de pantallas, que se pode analizar en detalle máis abaixo:
         cargarPantallas();
     }
 
@@ -99,11 +97,11 @@ public class vPrincipalController extends AbstractController implements Initiali
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Coménzanse as transicións:
+        // Coménzanse as transicións:
         inicioTransicions();
-        //Ocúltanse todos aqueles menús que sexan innecesarios. Isto dependerá do usuario que se loggeara.
+        // Ocúltanse todos aqueles menús que sexan innecesarios. Isto dependerá do usuario que se loggeara.
         ocultarMenusInnecesarios();
-        //Amosamos, por defecto, a pantalla de inicio.
+        // Amosamos, por defecto, a pantalla de inicio.
         mostrarPantalla(IdPantalla.INICIO);
     }
 
@@ -156,6 +154,9 @@ public class vPrincipalController extends AbstractController implements Initiali
         //Pantalla para administrar as actividades:
         this.pantallas.put(IdPantalla.ADMINACTIVIDADE, new DatosVista("../../vistas/Actividades/vAdministrarActividade.fxml", new vAdministrarActividadeController(super.getFachadaAplicacion(), this)));
         //Pantalla para apuntarse a actividade:
+        // Pantalla informacion curso: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        this.pantallas.put(IdPantalla.INFORMACIONCURSO, new DatosVista("../../vistas/Cursos/vInformacionCursos.fxml", new vInformacionCursosController(super.getFachadaAplicacion(), this)));
+
 
     }
 
@@ -163,28 +164,28 @@ public class vPrincipalController extends AbstractController implements Initiali
      * Método que nos permite empezar a levar a cabo as transicións da pantalla:
      */
     private void inicioTransicions() {
-        //Creamos un array de sliders (son vBoxes):
+        // Creamos un array de sliders (son vBoxes):
         ArrayList<VBox> sliders = new ArrayList<>();
-        //Engadimos as distintas barras da ventá:
+        // Engadimos as distintas barras da ventá:
         sliders.add(sideBarAreasPersoal);
         sliders.add(sideBarActividadesPersoal);
         sliders.add(sideBarMaterialPersoal);
         sliders.add(sideBarActividadesSocios);
         sliders.add(sideBarCursosSocios);
 
-        //Engadimos os botóns de cada un:
+        // Engadimos os botóns de cada un:
         btnsMenu.add(btnAreasPersoal);
         btnsMenu.add(btnActividadesPersoal);
         btnsMenu.add(btnMaterialPersoal);
         btnsMenu.add(btnActividadesSocios);
         btnsMenu.add(btnCursosSocios);
 
-        //Imos engadindo as transicións para cada un dos botóns:
+        // Imos engadindo as transicións para cada un dos botóns:
         for (int i = 0; i < btnsMenu.size(); i++) {
             this.transicions.put(btnsMenu.get(i), new Transicion(sliders.get(i)));
         }
 
-        //Mediante a seguinte chamada poderemos ir facendo actualizacións sobre os sliders:
+        // Mediante a seguinte chamada poderemos ir facendo actualizacións sobre os sliders:
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -202,12 +203,12 @@ public class vPrincipalController extends AbstractController implements Initiali
      * que se abra (para persoal ou para socio).
      */
     private void ocultarMenusInnecesarios() {
-        //Se se vai executar a aplicación para a pantalla do persoal, ocultaremos o menú dos socios:
+        // Se se vai executar a aplicación para a pantalla do persoal, ocultaremos o menú dos socios:
         if (pantallaAMostrar == IdPantalla.PANTALLAPERSOAL) {
             this.menuSocioPersoal.setVisible(false);
             sideBarActividadesSocios.setVisible(false);
 
-            //Pola contra, se se vai a executar a aplicación para a pantalla dos socios, ocultaremos a parte do persoal:
+            // Pola contra, se se vai a executar a aplicación para a pantalla dos socios, ocultaremos a parte do persoal:
         } else if (pantallaAMostrar == IdPantalla.PANTALLASOCIO) {
             this.menuPersoal.setVisible(false);
             sideBarAreasPersoal.setVisible(false);
@@ -222,19 +223,19 @@ public class vPrincipalController extends AbstractController implements Initiali
      * @param actionEvent
      */
     public void btnMenuAction(ActionEvent actionEvent) {
-        //Recuperamos o botón que foi pulsado:
+        // Recuperamos o botón que foi pulsado:
         Button boton = (Button) actionEvent.getSource();
-        //Recuperamos a transición asociada a dito botón:
+        // Recuperamos a transición asociada a dito botón:
         Transicion t = this.transicions.get(boton);
-        //Escondemos todos os sliders:
+        // Escondemos todos os sliders:
         esconderTodosSliders();
-        //Se o slider está pechado, ábrese:
+        // Se o slider está pechado, ábrese:
         if ((t.getSlider().getTranslateX()) == -(t.getSlider().getWidth())) {
             boton.getStyleClass().remove("sidebar-button");
             boton.getStyleClass().add("sidebar-button-active");
             t.getTransicionAbrir().play();
         } else {
-            //Se non, procédese a pechar o slider:
+            // Se non, procédese a pechar o slider:
             esconderSliderBotonMenu(boton);
         }
     }
@@ -247,11 +248,11 @@ public class vPrincipalController extends AbstractController implements Initiali
     private void esconderSliderBotonMenu(Button boton) {
         boton.getStyleClass().remove("sidebar-button-active");
         boton.getStyleClass().add("sidebar-button");
-        //Recupérase a transición do botón:
+        // Recupérase a transición do botón:
         Transicion t = this.transicions.get(boton);
-        //Emprégase a transición de peche para isto:
+        // Emprégase a transición de peche para isto:
         t.getTransicionCerrar().setToX(-(t.getSlider().getWidth()));
-        //Execútase:
+        // Execútase:
         t.getTransicionCerrar().play();
     }
 
@@ -259,7 +260,7 @@ public class vPrincipalController extends AbstractController implements Initiali
      * Método que permite agochar directamente todos os sliders:
      */
     private void esconderTodosSliders() {
-        //Chámase a esconderSliderBotonMenu para cada botón:
+        // Chámase a esconderSliderBotonMenu para cada botón:
         for (Button b : this.btnsMenu) {
             esconderSliderBotonMenu(b);
         }
@@ -271,24 +272,24 @@ public class vPrincipalController extends AbstractController implements Initiali
      * @param idPantalla O identificador da pantalla a amosar.
      */
     public void mostrarPantalla(IdPantalla idPantalla) {
-        //Primeiro, vaciamos o que hai no contedor principal:
+        // Primeiro, vaciamos o que hai no contedor principal:
         this.contedorPrincipal.getChildren().removeAll(this.contedorPrincipal.getChildren());
         try {
-            //recuperamos os datos da vista asociada ao id da pantalla pasado como argumento:
+            // Recuperamos os datos da vista asociada ao id da pantalla pasado como argumento:
             DatosVista dv = this.pantallas.get(idPantalla);
-            //Creamos un fxmlLoader:
+            // Creamos un fxmlLoader:
             FXMLLoader fxmlLoader = new FXMLLoader();
-            //Asociámoslle o controlador da pantalla a abrir:
+            // Asociámoslle o controlador da pantalla a abrir:
             fxmlLoader.setController(dv.getControlador());
-            //Asociámoslle a ubicación do fxml que contén a pantalla.
+            // Asociámoslle a ubicación do fxml que contén a pantalla:
             fxmlLoader.setLocation(getClass().getResource(dv.getPathFXML()));
-            //Engadimos no contedor principal o resultado da carga do fxml:
+            // Engadimos no contedor principal o resultado da carga do fxml:
             this.contedorPrincipal.getChildren().add(fxmlLoader.load());
-            //Chamamos ao método reiniciarForm (que calquera controlador ten) para aplicar aqueles cambios que sexan precisos antes
-            //de comezar.
+            // Chamamos ao método reiniciarForm (que calquera controlador ten) para aplicar aqueles cambios que sexan precisos antes
+            // de comezar:
             this.pantallas.get(idPantalla).getControlador().reiniciarForm();
         } catch (Exception e) {
-            //En caso de excepción, pintamos o stack trace correspondente:
+            // En caso de excepción, imprimimos o stack trace correspondente:
             e.printStackTrace();
         }
     }
@@ -299,9 +300,9 @@ public class vPrincipalController extends AbstractController implements Initiali
      * @param actionEvent O evento producido
      */
     public void btnSliderAction(ActionEvent actionEvent) {
-        //Agochamos todos os sliders:
+        // Agochamos todos os sliders:
         esconderTodosSliders();
-        //Amosamos a pantalla que corresponda ao botón que se premeu:
+        // Amosamos a pantalla que corresponda ao botón que se premeu:
         mostrarPantalla(IdPantalla.valueOf(((Button) actionEvent.getSource()).getId()));
     }
 
@@ -319,9 +320,10 @@ public class vPrincipalController extends AbstractController implements Initiali
 
     /**
      * Método que nos permite recuperar os datos do usuario que iniciou sesión
+     *
      * @return O usuario que iniciou sesión
      */
-    public Usuario getUsuario(){
+    public Usuario getUsuario() {
         return usuario;
     }
 }
