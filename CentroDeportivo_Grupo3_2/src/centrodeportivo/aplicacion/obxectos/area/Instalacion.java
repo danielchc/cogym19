@@ -34,9 +34,9 @@ public class Instalacion {
      * Constructor con tres argumentos: usarase cando un usuario queira introducir unha nova instalación, dado que
      * inicialmente non se coñecerá o seu código (ata que se inserte).
      *
-     * @param nome O nome da instalación
+     * @param nome        O nome da instalación
      * @param numTelefono O número de teléfono da instalación
-     * @param direccion A dirección da instalación
+     * @param direccion   A dirección da instalación
      */
     public Instalacion(String nome, String numTelefono, String direccion) {
         //Asignamos os atributos corespondentes:
@@ -50,9 +50,9 @@ public class Instalacion {
      * Constructor con todos os argumentos, para os casos nos que se teña toda a información (ao recuperala).
      *
      * @param codInstalacion O código identificador da instalación.
-     * @param nome O nome da instalación
-     * @param numTelefono O número de teléfono da instalación
-     * @param direccion A dirección da instalación
+     * @param nome           O nome da instalación
+     * @param numTelefono    O número de teléfono da instalación
+     * @param direccion      A dirección da instalación
      */
     public Instalacion(Integer codInstalacion, String nome, String numTelefono, String direccion) {
         this(nome, numTelefono, direccion);
