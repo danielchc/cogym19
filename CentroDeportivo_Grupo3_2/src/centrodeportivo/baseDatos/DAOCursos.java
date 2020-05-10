@@ -854,83 +854,7 @@ public final class DAOCursos extends AbstractDAO {
     }
 
     /**
-     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos e que todavia non comezaran.
-     *
-     * @param curso Curso polo que se realiza a busca.
-     * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
-     */
-    public ArrayList<Curso> consultarCursosAbertosSocios(Curso curso) {
-        // Esta é a consulta que se usará dende a parte de socio:
-        PreparedStatement stmCursos = null;
-        ResultSet rsCursos;
-        ArrayList<Curso> resultado = new ArrayList<>();
-        String consulta;
-
-        // Recuperamos a conexión:
-        Connection con = super.getConexion();
-
-        // Intentamos levar a cabo a consulta dos cursos. O resultado que se vai a ofrecer combina diferentes cuestións.
-        try {
-            // A búsqueda que poderá facer o socio non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
-            // No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
-            consulta = "SELECT c.codcurso, c.nome, c.aberto, " +
-                    "count(distinct dataactividade) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion, " +
-                    "DATE(max(a.dataactividade)) as datafin " +
-                    "FROM curso as c LEFT JOIN actividade as a " +
-                    "ON (c.codcurso = a.curso) " +
-                    "WHERE c.aberto = true AND a.dataactividade > NOW() ";
-
-            // No caso de que pasemos o curso co nome,
-            if (curso != null) {
-                consulta += "AND lower(c.nome) like lower(?) ";
-            }
-
-            // Agrupamos tamén polo código do curso:
-            consulta += "GROUP BY c.codcurso ";
-
-            // Preparamos entón o statement de cursos para levar a cabo a consulta:
-            stmCursos = con.prepareStatement(consulta);
-
-            // Completamos a consulta (se procede):
-            if (curso != null) {
-                stmCursos.setString(1, "%" + curso.getNome() + "%");
-            }
-
-            // Intentamos levala a cabo:
-            rsCursos = stmCursos.executeQuery();
-
-            // Unha vez feita a consulta, xestionamos o resultado:
-            while (rsCursos.next()) {
-                // Imos creando instancias de cursos cos datos recuperados:
-                resultado.add(new Curso(rsCursos.getInt("codcurso"), rsCursos.getString("nome"),
-                        rsCursos.getBoolean("aberto"), rsCursos.getFloat("duracion"),
-                        rsCursos.getInt("numactividades"), rsCursos.getDate("datainicio"),
-                        rsCursos.getDate("datafin")));
-            }
-            // Rematado isto, facemos o commit:
-            con.commit();
-        } catch (SQLException e) {
-            // Intentase facer rollback:
-            e.printStackTrace();
-            try {
-                con.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        } finally {
-            // Pechamos o statement:
-            try {
-                stmCursos.close();
-            } catch (SQLException e) {
-                System.out.println("Imposible pechar os cursores");
-            }
-        }
-        // Devolvemos os cursos consultados:
-        return resultado;
-    }
-
-    /**
-     * Método que nos permite consultar os que esta apuntado un usuario
+     * Método que nos permite consultar os cursos os que non esta apuntado un usuario e que ademais existe a posibilidade de que se poida apuntar
      *
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
@@ -949,7 +873,6 @@ public final class DAOCursos extends AbstractDAO {
         try {
             // A búsqueda que poderá facer o socio non ten sentido que inclúa campos como número de actividades ou un rango de prezos.
             // No noso caso centrarémonos en buscar simplemente por un campo, o nome do curso.
-
             consulta = "SELECT c.*, " +
                     "count(distinct dataactividade) as numactividades, DATE(min(a.dataactividade)) as datainicio, sum(a.duracion) as duracion, " +
                     "DATE(max(a.dataactividade)) as datafin " +
@@ -961,7 +884,7 @@ public final class DAOCursos extends AbstractDAO {
                     "AND a.dataactividade > now() ";
 
 
-            // No caso de que pasemos o curso co nome,
+            // No caso de que pasemos o curso co nome:
             if (curso != null) {
                 consulta += "AND lower(c.nome) like lower(?) ";
             }
@@ -1188,7 +1111,6 @@ public final class DAOCursos extends AbstractDAO {
      * @param curso   Curso no que se quer comprobar se esta apuntado
      * @param usuario Usuario que se quer comprobar se esta apuntado
      * @return Retorna true no caso de que este apuntado e false en caso contrario
-     * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
      */
     public boolean estarApuntado(Curso curso, Usuario usuario) {
         // Comprobamos que o usuario esta apuntado en dito curso

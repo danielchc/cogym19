@@ -394,22 +394,12 @@ public final class FachadaBD {
     }
 
     /**
-     * Método que nos permite consultar os cursos abertos que hai almacenados na base de datos e que todavia non comezaran.
-     *
-     * @param curso Curso polo que se realiza a busca.
-     * @return Se curso vale null, devolveranse todos os cursos abertos, noutro caso, filtraranse polo nome do curso pasado.
-     */
-    public ArrayList<Curso> consultarCursosAbertosSocios(Curso curso) {
-        return daoCursos.consultarCursosAbertosSocios(curso);
-    }
-
-    /**
-     * Método que nos permite consultar os que esta apuntado un usuario
+     * Método que nos permite consultar os que esta non esta apuntado un usuario pero estan dispoñibles para apuntarse
      *
      * @param usuario Usuario co que se realiza a busqueda
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario){
+    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario) {
         return daoCursos.consultarCursosDisponhibles(curso, usuario);
     }
 
