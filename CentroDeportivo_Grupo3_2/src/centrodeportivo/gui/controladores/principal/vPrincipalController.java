@@ -129,8 +129,6 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARCURSOS, new DatosVista("../../vistas/Cursos/vAdministrarCursos.fxml", new vAdministrarCursosController(super.getFachadaAplicacion(), this)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ELIXIRCURSO, new DatosVista("../../vistas/Cursos/vElixirCurso.fxml", new vElixirCursoController(super.getFachadaAplicacion(), this, this.usuario)));
-        // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
-        this.pantallas.put(IdPantalla.OSMEUSCURSOS, new DatosVista("../../vistas/Cursos/vMeusCursos.fxml", new vMeusCursosController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla de valorar actividades en xeral: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.VALORARACTIVIDADE, new DatosVista("../../vistas/Actividades/vAsMinasActividades.fxml", new vAsMinasActividadesController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
