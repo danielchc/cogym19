@@ -151,7 +151,8 @@ public class vElixirCursoController extends AbstractController implements Initia
     }
 
     /**
-     * Método que representa as accións que teñen lugar ao premer o botón de apuntarse nun curso:
+     * Método que representa as accións que teñen lugar ao premer o botón de xestionar un curso, neste caso,
+     * levarasenos a una pantalla onde poderemos apuntarnos ou desapuntarnos dun curso en función de si xa estamos anotados ou non
      *
      * @param actionEvent A acción que tivo lugar
      */
@@ -161,54 +162,12 @@ public class vElixirCursoController extends AbstractController implements Initia
         if (taboaCursos.getSelectionModel().getSelectedItem() != null) {
             if (getFachadaAplicacion().estarApuntado((Curso) taboaCursos.getSelectionModel().getSelectedItem(), usuario)) {
                 ((vInformacionCursosController) this.controllerPrincipal.getControlador(IdPantalla.INFORMACIONCURSO)).setEstaApuntado(true);
-            }else {
+            } else {
                 ((vInformacionCursosController) this.controllerPrincipal.getControlador(IdPantalla.INFORMACIONCURSO)).setEstaApuntado(false);
             }
             ((vInformacionCursosController) this.controllerPrincipal.getControlador(IdPantalla.INFORMACIONCURSO)).setCurso((Curso) taboaCursos.getSelectionModel().getSelectedItem());
             this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMACIONCURSO);
         }
-        // Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
-        // Para iso, empezamos mirando se hai unha selección feita:
-        /*Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            // Gardamos o resultado noutra variable para refrescar toda a información
-            // Iso será o que se lle pase ó método de apuntarse
-            Curso res = getFachadaAplicacion().recuperarDatosCurso(selected);
-            if (res != null) {
-                // Anotamolo no curso
-                try {
-                    // TODO: Non te podes apuntar nun curso que non comezou
-                    TipoResultados resultado = getFachadaAplicacion().apuntarseCurso(res, usuario);
-                    switch (resultado) {
-                        case correcto:
-                            // Amosamos unha mensaxe por pantalla en como xa esta anotado no curso
-                            getFachadaAplicacion().mostrarInformacion("Cursos", "Boas, " + usuario.getNome()
-                                    + ". Agora estas apuntado no curso " + res.getNome() + "!");
-                            // Actualizamos a taboa porque desaparecerá o curso mudará de color o curso:
-                            actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
-                            break;
-                        case sitIncoherente:
-                            // Amosamos unha mensaxe por pantalla en como esta anotado no curso
-                            getFachadaAplicacion().mostrarErro("Cursos", "Boas, " + usuario.getNome()
-                                    + ". Non te podes apuntar no curso " + res.getNome() + "!");
-                            break;
-                    }
-                } catch (ExcepcionBD e) {
-                    // Se houbese algun erro, mostrase unha mensaxe por pantalla
-                    getFachadaAplicacion().mostrarErro("Cursos", e.getMessage());
-                }
-            } else {
-                // Se houbo problemas ao recuperar a información, avisamos do erro:
-                getFachadaAplicacion().mostrarErro("Cursos",
-                        "Produciuse un erro ao recuperar os datos do curso.");
-                // Para evitar problemas maiores, actualizaremos a táboa de cursos (se vale null é probable que se borrara):
-                actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
-            }
-        } else {
-            // Se non se ten selección, indícase que hai que facela primeiro (podería ser que a lista estivese vacía):
-            this.getFachadaAplicacion().mostrarErro("Cursos",
-                    "Selecciona un curso no que apuntarte!");
-        }*/
     }
 
 

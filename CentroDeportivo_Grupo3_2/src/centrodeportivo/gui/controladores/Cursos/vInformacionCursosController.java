@@ -1,8 +1,10 @@
 package centrodeportivo.gui.controladores.Cursos;
 
 import centrodeportivo.aplicacion.FachadaAplicacion;
+import centrodeportivo.aplicacion.excepcions.ExcepcionBD;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
+import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
@@ -115,10 +117,10 @@ public class vInformacionCursosController extends AbstractController implements 
 
     }
 
-    public void btnRefrescarAction(ActionEvent actionEvent) {
-        // TODO: Volver a listar a información, recuperar de novo o curso e actualizar a taboa; un novo inicializar
-    }
 
+    /**
+     * Setters
+     */
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
@@ -127,9 +129,112 @@ public class vInformacionCursosController extends AbstractController implements 
         this.estaApuntado = estaApuntado;
     }
 
+    /**
+     * Método que permite que te apuntes/desapuntes dun curso en función de se estas actualmente anotado ou non
+     *
+     * @param actionEvent Accion ou evento que tivo lugar
+     */
+    public void btnXestionarAction(ActionEvent actionEvent) {
+        if (estaApuntado) {
+            // No caso de que xa este apuntado, desapuntaste:
+            if (curso != null) {
+                // Gardamos o resultado noutra variable para refrescar toda a información
+                // Iso será o que se lle pase ó método de desapuntarse
+                Curso res = getFachadaAplicacion().recuperarDatosCurso(curso);
+                if (res != null) {
+                    // Tentamos desanotar o usuario do curso
+                    try {
+                        TipoResultados resultado = getFachadaAplicacion().desapuntarseCurso(res, usuario);
+                        switch (resultado) {
+                            case correcto:
+                                // Amosamos unha mensaxe por pantalla en como xa non esta anotado no curso
+                                getFachadaAplicacion().mostrarInformacion("Cursos", "Boas, " + usuario.getNome()
+                                        + ". Agora xa non estás apuntado no curso " + res.getNome() + "!");
+                                // Volvemos a pantalla anterior:
+                                this.controllerPrincipal.mostrarPantalla(IdPantalla.ELIXIRCURSO);
+                                break;
+                            case sitIncoherente:
+                                // Amosamos unha mensaxe por pantalla en como esta anotado no curso
+                                getFachadaAplicacion().mostrarErro("Cursos", "Boas, " + usuario.getNome()
+                                        + ". Non te podes desapuntar do curso " + res.getNome() + "!");
+                                // Volvemos a pantalla anterior:
+                                this.controllerPrincipal.mostrarPantalla(IdPantalla.ELIXIRCURSO);
+                                break;
+                        }
+                    } catch (ExcepcionBD e) {
+                        // Se houbese algun erro, mostrase unha mensaxe por pantalla
+                        getFachadaAplicacion().mostrarErro("Cursos", e.getMessage());
+                    }
+                } else {
+                    // Se houbo problemas ao recuperar a información, avisamos do erro:
+                    getFachadaAplicacion().mostrarErro("Cursos",
+                            "Produciuse un erro ao recuperar os datos do curso.");
+                    // Para evitar problemas maiores, actualizaremos a táboa de cursos (se vale null é probable que se borrara):
+                    // Volvemos a pantalla anterior:
+                    this.controllerPrincipal.mostrarPantalla(IdPantalla.ELIXIRCURSO);
+                }
+            } else {
+                // Se non se ten selección, indícase que hai que facela primeiro (podería ser que a lista estivese vacía):
+                this.getFachadaAplicacion().mostrarErro("Cursos",
+                        "Selecciona un curso do que desapuntarte!");
+            }
+        } else {
+            // No caso de que non este apuntado, apuntase:
+            if (curso != null) {
+                // Gardamos o resultado noutra variable para refrescar toda a información
+                // Iso será o que se lle pase ó método de apuntarse
+                Curso res = getFachadaAplicacion().recuperarDatosCurso(curso);
+                if (res != null) {
+                    // Anotamolo no curso
+                    try {
+                        // TODO: Non te podes apuntar nun curso que non comezou
+                        TipoResultados resultado = getFachadaAplicacion().apuntarseCurso(res, usuario);
+                        switch (resultado) {
+                            case correcto:
+                                // Amosamos unha mensaxe por pantalla en como xa esta anotado no curso
+                                getFachadaAplicacion().mostrarInformacion("Cursos", "Boas, " + usuario.getNome()
+                                        + ". Agora estas apuntado no curso " + res.getNome() + "!");
+                                // Volvemos a pantalla anterior:
+                                this.controllerPrincipal.mostrarPantalla(IdPantalla.ELIXIRCURSO);
+                                break;
+                            case sitIncoherente:
+                                // Amosamos unha mensaxe por pantalla en como esta anotado no curso
+                                getFachadaAplicacion().mostrarErro("Cursos", "Boas, " + usuario.getNome()
+                                        + ". Non te podes apuntar no curso " + res.getNome() + "!");
+                                // Voltamos a pantalla anterior
+                                this.controllerPrincipal.mostrarPantalla(IdPantalla.ELIXIRCURSO);
+                                break;
+                        }
+                    } catch (ExcepcionBD e) {
+                        // Se houbese algun erro, mostrase unha mensaxe por pantalla
+                        getFachadaAplicacion().mostrarErro("Cursos", e.getMessage());
+                    }
+                } else {
+                    // Se houbo problemas ao recuperar a información, avisamos do erro:
+                    getFachadaAplicacion().mostrarErro("Cursos",
+                            "Produciuse un erro ao recuperar os datos do curso.");
+                }
+            } else {
+                // Se non se ten selección, indícase que hai que facela primeiro (podería ser que a lista estivese vacía):
+                this.getFachadaAplicacion().mostrarErro("Cursos",
+                        "Selecciona un curso no que apuntarte!");
+            }
+            // Voltamos a pantalla anterior
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.ELIXIRCURSO);
+        }
+    }
+
+    /**
+     * Método que volve a pantalla anterior cando premes o botón volver
+     *
+     * @param actionEvent Accion ou evento que ten lugar
+     */
     public void btnVolverAction(ActionEvent actionEvent) {
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ELIXIRCURSO);
     }
 
+    public void btnRefrescarAction(ActionEvent actionEvent) {
+        // TODO: Volver a listar a información, recuperar de novo o curso e actualizar a taboa; un novo inicializar
+    }
 
 }

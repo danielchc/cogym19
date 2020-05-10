@@ -101,7 +101,7 @@
                         <Insets right="15.0" />
                     </padding>
                     <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="252.0" spacing="10.0">
-                        <Button fx:id="btnXestionar" mnemonicParsing="false" prefHeight="26.0" prefWidth="147.0" text="Xestionar" />
+                        <Button fx:id="btnXestionar" onAction="#btnXestionarAction" mnemonicParsing="false" prefHeight="26.0" prefWidth="147.0"/>
                         <Button fx:id="btnRefrescar" mnemonicParsing="false" prefHeight="26.0" prefWidth="182.0" text="Refrescar Información" />
                     </HBox>
                 </VBox>
