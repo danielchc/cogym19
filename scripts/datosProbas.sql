@@ -996,9 +996,7 @@ INSERT INTO realizaractividade VALUES ('2020-02-21 15:00:00.00', 1, 4, 'nataliaS
 INSERT INTO realizaractividade VALUES ('2020-04-21 18:00:00.00', 1, 4, 'nataliaSocio', 0);
 INSERT INTO realizaractividade VALUES ('2020-04-28 20:00:00.00', 3, 4, 'nataliaSocio', 1);
 
-
-
-
+--UPDATE para poñer calificacións nas actividades dos cursos que se insertan co trigger
 UPDATE realizaractividade SET valoracion=1 WHERE dataActividade='2019-10-02 10:00:00' AND area = 1 AND instalacion= 1;
 UPDATE realizaractividade SET valoracion=1 WHERE dataActividade='2019-10-02 12:00:00' AND area = 1 AND instalacion= 1;
 UPDATE realizaractividade SET valoracion=1 WHERE dataActividade='2019-10-05 15:00:00' AND area = 1 AND instalacion= 1;
