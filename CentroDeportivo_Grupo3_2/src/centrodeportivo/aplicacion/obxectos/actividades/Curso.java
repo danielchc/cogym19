@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Victor Barreiro
- *
+ * <p>
  * Esta clase modela a información sobre os cursos almacenada na base de datos.
  */
 public class Curso {
@@ -41,7 +41,7 @@ public class Curso {
     private Float valMedia; //Valoración media total do curso.
 
     //Constructores
-    public Curso(String nome){
+    public Curso(String nome) {
         this.nome = nome;
         this.actividades = new ArrayList<>();
         this.participantes = new ArrayList<>();
@@ -50,15 +50,16 @@ public class Curso {
 
     /**
      * Constructor que empregaremos no caso de querer listar os cursos: recollemos datos xerais de cada un
-     * @param codCurso O código do curso
-     * @param nome O nome que ten o curso
-     * @param aberto Indicador de se o curso está aberto ou non
-     * @param duracion Duración do curso
+     *
+     * @param codCurso       O código do curso
+     * @param nome           O nome que ten o curso
+     * @param aberto         Indicador de se o curso está aberto ou non
+     * @param duracion       Duración do curso
      * @param numActividades Número de actividades que ten o curso.
-     * @param dataInicio Data de comezo do curso
-     * @param dataFin Data de fin do curso
+     * @param dataInicio     Data de comezo do curso
+     * @param dataFin        Data de fin do curso
      */
-    public Curso(Integer codCurso, String nome, boolean aberto, Float duracion, Integer numActividades, Date dataInicio, Date dataFin){
+    public Curso(Integer codCurso, String nome, boolean aberto, Float duracion, Integer numActividades, Date dataInicio, Date dataFin) {
         this(nome);
         this.codCurso = codCurso;
         this.aberto = aberto;
@@ -70,15 +71,16 @@ public class Curso {
 
     /**
      * Constructor que empregaremos ao recuperar datos relevantes do curso para ser editados na pantalla correspondente.
-     * @param codCurso O código do curso
-     * @param nome O nome do curso
+     *
+     * @param codCurso   O código do curso
+     * @param nome       O nome do curso
      * @param descricion A descrición do curso
-     * @param prezo O prezo que ten o curso
-     * @param aberto Información se o curso está aberto.
+     * @param prezo      O prezo que ten o curso
+     * @param aberto     Información se o curso está aberto.
      * @param dataInicio Data de inicio do curso.
-     * @param dataFin Data de finalización do curso.
+     * @param dataFin    Data de finalización do curso.
      */
-    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Date dataInicio, Date dataFin){
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Date dataInicio, Date dataFin) {
         //Imos asignando todos os atributos, aproveitando que temos xa un constructor para o nome (de aí usar this()).
         this(nome);
         //Asignamos o resto de atributos:
@@ -90,19 +92,19 @@ public class Curso {
         this.dataFin = dataFin;
     }
 
-    public Curso(String nome, String descricion, Float prezo){
+    public Curso(String nome, String descricion, Float prezo) {
         this(nome);
         this.descricion = descricion;
         this.prezo = prezo;
     }
 
-    public Curso(Integer codCurso, String nome, String descricion, Float prezo, Date dataInicio){
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, Date dataInicio) {
         this(nome, descricion, prezo);
         this.codCurso = codCurso;
         this.dataInicio = dataInicio;
     }
 
-    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio){
+    public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio) {
         this(codCurso, nome, descricion, prezo, dataInicio);
         this.aberto = aberto;
         this.duracion = duracion;
@@ -110,63 +112,63 @@ public class Curso {
     }
 
     public Curso(Integer codCurso, String nome, String descricion, Float prezo, boolean aberto, Float duracion, Integer numActividades, Date dataInicio,
-                 Date dataFin, Integer numProfesores, Float valMedia){
+                 Date dataFin, Integer numProfesores, Float valMedia) {
         this(codCurso, nome, descricion, prezo, aberto, duracion, numActividades, dataInicio);
         this.dataFin = dataFin;
         this.numProfesores = numProfesores;
         this.valMedia = valMedia;
     }
 
-    public Curso(int codCurso){
+    public Curso(int codCurso) {
         this.codCurso = codCurso;
     }
 
     //Getters e setters:
-    public void setCodCurso(Integer codCurso){
+    public void setCodCurso(Integer codCurso) {
         this.codCurso = codCurso;
     }
 
-    public Integer getCodCurso(){
+    public Integer getCodCurso() {
         return codCurso;
     }
 
-    public void setNome(String nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
 
-    public void setDescricion(String descricion){
+    public void setDescricion(String descricion) {
         this.descricion = descricion;
     }
 
-    public String getDescricion(){
+    public String getDescricion() {
         return descricion;
     }
 
-    public void setDuracion(Float duracion){
+    public void setDuracion(Float duracion) {
         this.duracion = duracion;
     }
 
-    public Float getDuracion(){
+    public Float getDuracion() {
         return duracion;
     }
 
-    public void setPrezo(Float prezo){
+    public void setPrezo(Float prezo) {
         this.prezo = prezo;
     }
 
-    public Float getPrezo(){
+    public Float getPrezo() {
         return prezo;
     }
 
-    public void setActividades(ArrayList<Actividade> actividades){
+    public void setActividades(ArrayList<Actividade> actividades) {
         this.actividades = actividades;
     }
 
-    public ArrayList<Actividade> getActividades(){
+    public ArrayList<Actividade> getActividades() {
         return this.actividades;
     }
 

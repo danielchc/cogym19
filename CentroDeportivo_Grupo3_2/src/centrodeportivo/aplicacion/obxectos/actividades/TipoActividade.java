@@ -18,9 +18,10 @@ public class TipoActividade {
     /**
      * Constructor que involucra todos os atributos. Usarémolo cando se coñeza toda a información sobre o tipo de actividade
      * de antemán (por exemplo, cando se recuperen datos da base de datos).
+     *
      * @param codTipoActividade O código do tipo de actividade.
-     * @param nome O nome do tipo de actividade
-     * @param descricion A descrición asociada ao tipo de actividade.
+     * @param nome              O nome do tipo de actividade
+     * @param descricion        A descrición asociada ao tipo de actividade.
      */
     public TipoActividade(Integer codTipoActividade, String nome, String descricion) {
         this.codTipoActividade = codTipoActividade;
@@ -37,7 +38,8 @@ public class TipoActividade {
      * Constructor que involucra sómentes o nome e a descrición, que son os atributos que pode introducir o usuario.
      * Usarémolo precisamente cando se queira insertar un novo tipo de actividade na base de datos (e aínda non se coñeza
      * o código xerado).
-     * @param nome O nome do tipo de actividade
+     *
+     * @param nome       O nome do tipo de actividade
      * @param descricion A descrición asociada ao tipo de actividade.
      */
     public TipoActividade(String nome, String descricion) {
@@ -49,6 +51,7 @@ public class TipoActividade {
     /**
      * Constructor que involucra somentes o nome do tipo de actividade, que usaremos para cando se fagan buscas (pois
      * só se busca polo nome, tanto nos teñen o resto de atributos da clase).
+     *
      * @param nome O nome do tipo de actividade considerado.
      */
     public TipoActividade(String nome) {
@@ -59,6 +62,7 @@ public class TipoActividade {
     /**
      * Constructor que involucra só o código do tipo de actividade, necesario cando se fai referencia ao tipo de actividade
      * dende outras clases e non se quere almacenar nada máis.
+     *
      * @param codTipoActividade O código do tipo de actividade considerado.
      */
     public TipoActividade(Integer codTipoActividade) {
@@ -67,6 +71,7 @@ public class TipoActividade {
 
     /**
      * Getter do código do tipo de actividade.
+     *
      * @return O código que contén esta instancia como atributo.
      */
     public Integer getCodTipoActividade() {
@@ -75,6 +80,7 @@ public class TipoActividade {
 
     /**
      * Setter do código do tipo de actividade.
+     *
      * @param codTipoActividade O código do tipo de actividade a asignar.
      */
     public void setCodTipoActividade(Integer codTipoActividade) {
@@ -84,6 +90,7 @@ public class TipoActividade {
 
     /**
      * Getter do nome do tipo de actividade.
+     *
      * @return O nome que ten esa instancia como atributo.
      */
     public String getNome() {
@@ -92,6 +99,7 @@ public class TipoActividade {
 
     /**
      * Setter do nome do tipo de actividade
+     *
      * @param nome O nome do tipo de actividade a asignar.
      */
     public void setNome(String nome) {
@@ -100,6 +108,7 @@ public class TipoActividade {
 
     /**
      * Getter da descrición do tipo de actividade
+     *
      * @return A descrición que ten esta instancia como atributo.
      */
     public String getDescricion() {
@@ -108,6 +117,7 @@ public class TipoActividade {
 
     /**
      * Setter da descrición dun tipo de actividade.
+     *
      * @param descricion A descrición do tipo de actividade a asignar.
      */
     public void setDescricion(String descricion) {
@@ -116,23 +126,25 @@ public class TipoActividade {
 
     /**
      * Método que permite convertir un tipo de actividade a cadea de caracteres.
+     *
      * @return cadea de caracteres que representa un tipo de actividade.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return nome;
     }
 
     /**
      * Método que permite determinar se dous obxectos son iguais
+     *
      * @param obj O obxecto a comparar con este tipo de actividade.
      * @return Booleano que indica se dúas instancias de tipo de actividade son iguais.
      */
     @Override
-    public boolean equals(Object obj){
-        if(obj instanceof TipoActividade){
+    public boolean equals(Object obj) {
+        if (obj instanceof TipoActividade) {
             //Consideramos que dúas instancias do tipo de actividade son iguais se teñen o mesmo código.
-            if(((TipoActividade)obj).getCodTipoActividade() == codTipoActividade){
+            if (((TipoActividade) obj).getCodTipoActividade() == codTipoActividade) {
                 return true;
             }
         }

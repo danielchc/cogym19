@@ -9,12 +9,15 @@ import java.util.Objects;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- *
+ * <p>
  * Clase xeral para almacenar información de Area.
  * Incorporanse distintos construtores coa finalidade de que poida atender as distintas
  * finalidades de xestión, incluso cando a información recuperada da area non sexa completa.
  */
 public class Area {
+    /**
+     * Atributos dunha área
+     */
     private int aforoMaximo;
     private int codArea;
     private Date dataBaixa;
@@ -24,6 +27,9 @@ public class Area {
     private String nome;
 
 
+    /**
+     * Constructores
+     */
     public Area(int codArea, Instalacion instalacion) {
         this.codArea = codArea;
         this.instalacion = instalacion;
@@ -63,7 +69,6 @@ public class Area {
         this.nome = nome;
     }
 
-    //TODO: Constructor helena
     public Area(int codArea, Instalacion instalacion, String nome, String descricion) {
         this.codArea = codArea;
         this.instalacion = instalacion;
@@ -71,7 +76,10 @@ public class Area {
         this.descricion = descricion;
     }
 
-    //Getters e setters
+
+    /**
+     * Getters e setters
+     */
     public int getAforoMaximo() {
         return aforoMaximo;
     }
@@ -137,7 +145,7 @@ public class Area {
 
     @Override
     public String toString() {
-        //Utilidade á hora de mostrar unha área concreta nas táboas.
+        // Utilidade á hora de mostrar unha área concreta nas táboas.
         return nome + ", inst. " + instalacion.getCodInstalacion();
     }
 
