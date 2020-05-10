@@ -4,16 +4,14 @@ import centrodeportivo.aplicacion.FachadaAplicacion;
 import centrodeportivo.aplicacion.obxectos.actividades.Actividade;
 import centrodeportivo.aplicacion.obxectos.actividades.Curso;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
+import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -35,9 +33,12 @@ public class vInformacionCursosController extends AbstractController implements 
     public TextField campoDataFin;
     public TextArea campoDescricion;
     public TableView taboaActividades;
+    public Button btnXestionar;
 
     private vPrincipalController controllerPrincipal;
     private Curso curso;
+    private boolean estaApuntado = false;
+    private Usuario usuario;
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
@@ -45,11 +46,13 @@ public class vInformacionCursosController extends AbstractController implements 
      * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
-    public vInformacionCursosController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+    public vInformacionCursosController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal, Usuario usuario) {
         // Chamamos ao constructor da clase pai:
         super(fachadaAplicacion);
         // Asignamos o parámetro pasado de controlador da ventá principal ao atributo correspondente:
         this.controllerPrincipal = controllerPrincipal;
+        // Asignamos o usuario que esta loggeado:
+        this.usuario = usuario;
     }
 
     /**
@@ -63,7 +66,7 @@ public class vInformacionCursosController extends AbstractController implements 
         campoNome.setDisable(true);
         campoNome.setText(curso.getNome());
         campoDuracion.setDisable(true);
-        campoDuracion.setText(curso.getDuracion().intValue() + "h, " +
+        campoDuracion.setText(curso.getDuracion().intValue() + "h: " +
                 (int) ((curso.getDuracion().floatValue() - curso.getDuracion().intValue()) * 60) + "m");
         campoDataInicio.setDisable(true);
         campoDataInicio.setText(new SimpleDateFormat("dd/MM/yyyy").format(curso.getDataInicio().getTime()));
@@ -72,6 +75,11 @@ public class vInformacionCursosController extends AbstractController implements 
         campoDescricion.setDisable(true);
         campoDescricion.setText(curso.getDescricion());
 
+        if (estaApuntado) {
+            btnXestionar.setText("Desapuntarse");
+        } else {
+            btnXestionar.setText("Apuntarse");
+        }
 
         TableColumn<Actividade, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -113,6 +121,10 @@ public class vInformacionCursosController extends AbstractController implements 
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public void setEstaApuntado(boolean estaApuntado) {
+        this.estaApuntado = estaApuntado;
     }
 
     public void btnVolverAction(ActionEvent actionEvent) {

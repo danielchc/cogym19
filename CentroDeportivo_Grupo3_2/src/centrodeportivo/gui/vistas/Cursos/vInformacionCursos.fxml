@@ -90,19 +90,19 @@
                 </AnchorPane>
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" VBox.vgrow="NEVER">
-                <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="544.0" spacing="20.0">
+                <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="20.0">
                     <padding>
                         <Insets left="15.0" />
                     </padding>
-                    <Button fx:id="btnVolver" onAction="#btnVolverAction" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Volver" />
+                    <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#btnVolverAction" prefHeight="26.0" prefWidth="134.0" text="Volver" />
                 </VBox>
                 <VBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="548.0">
                     <padding>
                         <Insets right="15.0" />
                     </padding>
                     <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="252.0" spacing="10.0">
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Xestionar" />
-                        <Button fx:id="btnRefrescar" mnemonicParsing="false" text="Refrescar Información" />
+                        <Button fx:id="btnXestionar" mnemonicParsing="false" prefHeight="26.0" prefWidth="147.0" text="Xestionar" />
+                        <Button fx:id="btnRefrescar" mnemonicParsing="false" prefHeight="26.0" prefWidth="182.0" text="Refrescar Información" />
                     </HBox>
                 </VBox>
             </HBox>

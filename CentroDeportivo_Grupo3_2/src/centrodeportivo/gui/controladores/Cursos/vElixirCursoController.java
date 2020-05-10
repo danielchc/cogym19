@@ -158,7 +158,12 @@ public class vElixirCursoController extends AbstractController implements Initia
     public void btnXestionarAction(ActionEvent actionEvent) {
 
         // Volvemos a pantalla de administrar materiais:
-        if(taboaCursos.getSelectionModel().getSelectedItem() != null) {
+        if (taboaCursos.getSelectionModel().getSelectedItem() != null) {
+            if (getFachadaAplicacion().estarApuntado((Curso) taboaCursos.getSelectionModel().getSelectedItem(), usuario)) {
+                ((vInformacionCursosController) this.controllerPrincipal.getControlador(IdPantalla.INFORMACIONCURSO)).setEstaApuntado(true);
+            }else {
+                ((vInformacionCursosController) this.controllerPrincipal.getControlador(IdPantalla.INFORMACIONCURSO)).setEstaApuntado(false);
+            }
             ((vInformacionCursosController) this.controllerPrincipal.getControlador(IdPantalla.INFORMACIONCURSO)).setCurso((Curso) taboaCursos.getSelectionModel().getSelectedItem());
             this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMACIONCURSO);
         }

@@ -5,264 +5,304 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="482.0" prefWidth="783.0" stylesheets="@cssMenu.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <StackPane fx:id="contedorPrincipal" layoutX="101.0" maxHeight="1.7976931348623157E308" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-            </children>
-        </StackPane>
+<AnchorPane prefHeight="482.0" prefWidth="783.0" stylesheets="@cssMenu.css"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane fx:id="contedorPrincipal" layoutX="101.0" maxHeight="1.7976931348623157E308" prefWidth="682.0"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+    </StackPane>
 
-        <!--Persoal-->
-        <VBox id="vb-sidebar" fx:id="sideBarAreasPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <Button id="NOVAINSTALACION" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Instalación" textFill="WHITE">
+    <!--Persoal-->
+    <VBox id="vb-sidebar" fx:id="sideBarAreasPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
+          style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
+          AnchorPane.topAnchor="0.0">
+        <Button id="NOVAINSTALACION" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                text="Nova Instalación" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../imaxes/novo.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button id="ADMINISTRARINSTALACIONS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                text="Administrar instalacións" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../imaxes/editar.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </VBox>
+
+    <VBox id="vb-sidebar" fx:id="sideBarActividadesPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
+          style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
+          AnchorPane.topAnchor="0.0">
+        <children>
+            <Button id="ADMINISTRARTIPOSACTIVIDADES" contentDisplay="TOP" layoutX="10.0" layoutY="10.0"
+                    mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0"
+                    styleClass="slider-button" text="Tipos de Actividades" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0" />
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../imaxes/editar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button id="INSERCIONACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                    text="Nova Actividade" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
                 </font>
                 <graphic>
                     <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../../imaxes/novo.png" />
+                            <Image url="@../../imaxes/NovaActividade.png"/>
                         </image>
                     </ImageView>
                 </graphic>
             </Button>
-            <Button id="ADMINISTRARINSTALACIONS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Administrar instalacións" textFill="WHITE">
+            <Button id="ADMINACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                    text="Administrar Actividade" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0" />
+                    <Font name="System Bold" size="12.0"/>
                 </font>
                 <graphic>
                     <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../../imaxes/editar.png" />
+                            <Image url="@../../imaxes/NovaActividade.png"/>
                         </image>
                     </ImageView>
                 </graphic>
             </Button>
-        </VBox>
-
-        <VBox id="vb-sidebar" fx:id="sideBarActividadesPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button id="ADMINISTRARTIPOSACTIVIDADES" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Tipos de Actividades" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/editar.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button id="INSERCIONACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Nova Actividade" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/NovaActividade.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button id="ADMINACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Administrar Actividade" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/NovaActividade.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button id="XESTIONCURSO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo Curso" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/novocurso.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button id="ADMINISTRARCURSOS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Administrar Cursos" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../imaxes/curso.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-        </VBox>
-
-        <VBox id="vb-sidebar" fx:id="sideBarMaterialPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Novo material" textFill="WHITE">
+            <Button id="XESTIONCURSO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                    text="Novo Curso" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0" />
+                    <Font name="System Bold" size="12.0"/>
                 </font>
                 <graphic>
                     <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../imaxes/novo.png" />
+                        <image>
+                            <Image url="@../../imaxes/novocurso.png"/>
+                        </image>
                     </ImageView>
                 </graphic>
             </Button>
-            <Button id="ADMINISTRARMATERIAIS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Administrar materiais" textFill="WHITE">
+            <Button id="ADMINISTRARCURSOS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                    text="Administrar Cursos" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0" />
+                    <Font name="System Bold" size="12.0"/>
                 </font>
                 <graphic>
                     <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../imaxes/editar.png" />
+                        <image>
+                            <Image url="@../../imaxes/curso.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </children>
+    </VBox>
+
+    <VBox id="vb-sidebar" fx:id="sideBarMaterialPersoal" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
+          style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
+          AnchorPane.topAnchor="0.0">
+        <Button id="NOVOMATERIAL" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                text="Novo material" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../imaxes/novo.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button id="ADMINISTRARMATERIAIS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                text="Administrar materiais" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../imaxes/editar.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+
+    </VBox>
+
+
+    <!--Socios-->
+
+    <VBox id="vb-sidebar" fx:id="sideBarActividadesSocios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
+          style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
+          AnchorPane.topAnchor="0.0">
+        <children>
+            <Button id="VALORARACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
+                    text="Realización de Actividades" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../imaxes/actividades.png"/>
                     </ImageView>
                 </graphic>
             </Button>
 
-        </VBox>
+        </children>
+    </VBox>
+    <VBox id="vb-sidebar" fx:id="sideBarCursosSocios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
+          style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
+          AnchorPane.topAnchor="0.0">
+        <Button id="ELIXIRCURSO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Todos"
+                textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../imaxes/anotarseCurso.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </VBox>
 
+    <!-- MENU PRINCIPAL -->
 
-        <!--Socios-->
-
-        <VBox id="vb-sidebar" fx:id="sideBarActividadesSocios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button id="VALORARACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Realización de Actividades" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../../imaxes/actividades.png" />
-                        </ImageView>
-                    </graphic>
-                </Button>
-
-            </children>
-        </VBox>
-        <VBox id="vb-sidebar" fx:id="sideBarCursosSocios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0" style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
-            <Button id="ELIXIRCURSO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Todos" textFill="WHITE">
+    <VBox id="vb-sidebar" fx:id="menuPersoal" prefHeight="482.0" prefWidth="100.0"
+          style="-fx-background-color: #005bbd;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <children>
+            <Button id="INICIO" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSliderAction"
+                    prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Inicio" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0" />
+                    <Font name="System Bold" size="15.0"/>
                 </font>
                 <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../imaxes/anotarseCurso.png" />
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
+                               styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/inicio.png"/>
+                        </image>
                     </ImageView>
                 </graphic>
             </Button>
-            <Button id="OSMEUSCURSOS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Os meus cursos" textFill="WHITE">
+            <Button fx:id="btnAreasPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false"
+                    onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button"
+                    text="Infraestructura" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="12.0" />
+                    <Font name="System Bold" size="11.0"/>
                 </font>
                 <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../../imaxes/curso.png" />
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
+                               styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/building.png"/>
+                        </image>
                     </ImageView>
                 </graphic>
             </Button>
-        </VBox>
-
-        <!-- MENU PRINCIPAL -->
-
-        <VBox id="vb-sidebar" fx:id="menuPersoal" prefHeight="482.0" prefWidth="100.0" style="-fx-background-color: #005bbd;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button id="INICIO" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Inicio" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <image>
-                                <Image url="@../../imaxes/inicio.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnAreasPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Infraestructura" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="11.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <image>
-                                <Image url="@../../imaxes/building.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnActividadesPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <image>
-                                <Image url="@../../imaxes/actividades.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnMaterialPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Material" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <image>
-                                <Image url="@../../imaxes/material.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-        </VBox>
+            <Button fx:id="btnActividadesPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="189.0"
+                    mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0"
+                    styleClass="sidebar-button" text="Actividades" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="14.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
+                               styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/actividades.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnMaterialPersoal" contentDisplay="TOP" layoutX="10.0" layoutY="279.0"
+                    mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0"
+                    styleClass="sidebar-button" text="Material" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
+                               styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/material.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </children>
+    </VBox>
 
 
-        <VBox id="vb-sidebar" fx:id="menuSocioPersoal" prefHeight="482.0" prefWidth="100.0" style="-fx-background-color: #005bbd;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Button id="INICIO" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSliderAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Inicio" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <image>
-                                <Image url="@../../imaxes/inicio.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnActividadesSocios" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Actividades" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <image>
-                                <Image url="@../../imaxes/actividades.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="btnCursosSocios" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Cursos" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
-                            <Image url="@../../imaxes/curso.png" />
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </children>
-        </VBox>
-    </children>
+    <VBox id="vb-sidebar" fx:id="menuSocioPersoal" prefHeight="482.0" prefWidth="100.0"
+          style="-fx-background-color: #005bbd;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <children>
+            <Button id="INICIO" contentDisplay="TOP" mnemonicParsing="false" onAction="#btnSliderAction"
+                    prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Inicio" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
+                               styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/inicio.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnActividadesSocios" contentDisplay="TOP" layoutX="10.0" layoutY="189.0"
+                    mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0"
+                    styleClass="sidebar-button" text="Actividades" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="14.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
+                               styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/actividades.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnCursosSocios" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false"
+                    onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button"
+                    text="Cursos" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="14.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
+                               styleClass="sidebar-button">
+                        <Image url="@../../imaxes/curso.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </children>
+    </VBox>
 </AnchorPane>

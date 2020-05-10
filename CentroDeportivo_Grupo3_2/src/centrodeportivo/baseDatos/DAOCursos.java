@@ -1096,6 +1096,7 @@ public final class DAOCursos extends AbstractDAO {
      *
      * @param curso   Curso no que se quer comprobar se esta apuntado
      * @param usuario Usuario que se quer comprobar se esta apuntado
+     * @return Retorna true no caso de que este apuntado e false en caso contrario
      * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante a consulta
      */
     public boolean estarApuntado(Curso curso, Usuario usuario) {
