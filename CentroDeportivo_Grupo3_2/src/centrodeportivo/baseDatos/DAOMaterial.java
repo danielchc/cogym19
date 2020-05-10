@@ -25,16 +25,16 @@ import java.sql.Date;
 public final class DAOMaterial extends AbstractDAO {
 
     /**
-     * Constructor
+     * Constructor do DAO de materiais
+     *
+     * @param conexion          Referencia á conexión coa base de datos.
+     * @param fachadaAplicacion Referencia á fachada da parte da aplicación.
      */
     public DAOMaterial(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 
-
-    /**
-     * Outros metodos
-     */
 
     /**
      * DarAltaMaterial -> crea unha nova tupla insertando un material na base de datos

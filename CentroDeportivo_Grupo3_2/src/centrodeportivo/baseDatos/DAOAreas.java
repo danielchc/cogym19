@@ -16,7 +16,14 @@ import java.util.ArrayList;
  */
 public final class DAOAreas extends AbstractDAO {
 
+    /**
+     * Constructor do DAO de Areas
+     *
+     * @param conexion          Referencia á conexión coa base de datos.
+     * @param fachadaAplicacion Referencia á fachada da parte da aplicación.
+     */
     public DAOAreas(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 
@@ -145,7 +152,7 @@ public final class DAOAreas extends AbstractDAO {
                     " WHERE area = ? and instalacion = ? ";
 
             //Se se pideu buscar as actividades desa área non comezadas, entón engadimos outro filtro
-            if(senComezar){
+            if (senComezar) {
                 busca += " and dataactividade > NOW()";
             }
 
@@ -255,7 +262,6 @@ public final class DAOAreas extends AbstractDAO {
             }
         }
     }
-
 
     public void modificarArea(Area area) throws ExcepcionBD {
         PreparedStatement stmAreas = null;
@@ -418,7 +424,6 @@ public final class DAOAreas extends AbstractDAO {
         return false;
     }
 
-
     public ArrayList<Area> listarAreas() {
         ArrayList<Area> areas = new ArrayList<>();
 
@@ -484,7 +489,7 @@ public final class DAOAreas extends AbstractDAO {
 
             if (area != null) {
                 consulta += " and lower(nome) like lower(?) ";
-                if(area.getAforoMaximo() != 0){
+                if (area.getAforoMaximo() != 0) {
                     consulta += " and aforomaximo = ? ";
                 }
             }
@@ -500,7 +505,7 @@ public final class DAOAreas extends AbstractDAO {
             if (area != null) {
                 //Establecemos os valores da consulta segundo a instancia de instalación pasada:
                 stmAreas.setString(2, "%" + area.getNome() + "%");
-                if(area.getAforoMaximo() != 0) {
+                if (area.getAforoMaximo() != 0) {
                     stmAreas.setInt(3, area.getAforoMaximo());
                 }
             }
@@ -532,7 +537,6 @@ public final class DAOAreas extends AbstractDAO {
         }
         return areas;
     }
-
 
     /**
      * Método que nos permite buscar areas na base de datos en función dunha instalación.

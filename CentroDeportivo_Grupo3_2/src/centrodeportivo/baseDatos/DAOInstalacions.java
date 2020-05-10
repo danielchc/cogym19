@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public final class DAOInstalacions extends AbstractDAO {
 
     /**
-     * Constructor do DAO de instalacións:
+     * Constructor do DAO de instalacións
      *
      * @param conexion          Referencia á conexión coa base de datos.
      * @param fachadaAplicacion Referencia á fachada da parte da aplicación.

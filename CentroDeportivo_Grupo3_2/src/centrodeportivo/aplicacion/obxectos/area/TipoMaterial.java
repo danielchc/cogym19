@@ -49,5 +49,9 @@ public class TipoMaterial {
         return nome;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
 

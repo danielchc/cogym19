@@ -17,13 +17,13 @@ import java.sql.*;
 public final class DAOUsuarios extends AbstractDAO {
 
     /**
-     * Constructor deste DAO.
+     * Constructor do DAO de usuario
      *
-     * @param conexion          A conexión coa base de datos.
-     * @param fachadaAplicacion Referencia coa fachada da parte de aplicación.
+     * @param conexion          Referencia á conexión coa base de datos.
+     * @param fachadaAplicacion Referencia á fachada da parte da aplicación.
      */
     protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
-        //Chamamos á clase pai co constructor que pide os mesmos dous argumentos.
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 

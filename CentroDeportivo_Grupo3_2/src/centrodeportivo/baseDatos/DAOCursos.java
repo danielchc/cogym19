@@ -29,7 +29,7 @@ public final class DAOCursos extends AbstractDAO {
      * @param fachadaAplicacion Referencia á fachada da parte de aplicación.
      */
     public DAOCursos(Connection conexion, FachadaAplicacion fachadaAplicacion) {
-        //Asignaremos estes atributos no constructor da clase pai ao que chamamos:
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 
@@ -139,6 +139,13 @@ public final class DAOCursos extends AbstractDAO {
         }
     }
 
+    /**
+     * Método que nos permite engadir unha actividade a un curso
+     *
+     * @param curso      O curso no que se desexa engadir dita actividade.
+     * @param actividade A actividade que se desexa engadir o curso.
+     * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos
+     */
     public void engadirActividade(Curso curso, Actividade actividade) throws ExcepcionBD {
         //Accederemos á táboa de actividades e inseriremos unha nova asociándoa ao curso correspondente.
         PreparedStatement stmActividades = null;

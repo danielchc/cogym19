@@ -19,13 +19,13 @@ import java.util.ArrayList;
 public final class DAOTiposActividades extends AbstractDAO {
 
     /**
-     * Construtor do DAO de tipos de actividades.
+     * Construtor do DAO de tipos de actividades
      *
      * @param conexion          A referencia da conexión coa base de datos.
      * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
      */
     public DAOTiposActividades(Connection conexion, FachadaAplicacion fachadaAplicacion) {
-        //Chamamos ao constructor da clase pai:
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 

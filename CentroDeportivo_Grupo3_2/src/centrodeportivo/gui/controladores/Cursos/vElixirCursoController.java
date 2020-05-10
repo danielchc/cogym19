@@ -12,12 +12,15 @@ import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -40,7 +43,7 @@ public class vElixirCursoController extends AbstractController implements Initia
     public Button btnLimpar;
     public TableView taboaCursos;
     public Button btnXestionar;
-    public CheckBox checkResaltar;
+    public CheckBox checkAnotado;
 
     /**
      * Atributos privados: gardamos a referencia ó controlador da ventá principal é o usuario que esta loggeado
@@ -77,13 +80,15 @@ public class vElixirCursoController extends AbstractController implements Initia
         TableColumn<Curso, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        // Ca data de inicio comprobamos cales estan sen comezar:
-        TableColumn<Curso, String> iniciadoColum = new TableColumn<>("Iniciado");
-        iniciadoColum.setCellValueFactory(p -> {
-            if (p.getValue().getDataInicio() != null && p.getValue().getDataInicio().toLocalDate().isBefore(LocalDate.now())) {
-                return new SimpleStringProperty("Si");
+        // Data comezo das actividades
+        TableColumn<Curso, String> dataColumn = new TableColumn<>("Data comezo");
+        dataColumn.setCellValueFactory(p -> {
+            // Haberá que comprobar que a data de inicio non teña nulos ainda que non debería por ter que estar aberto:
+            if (p.getValue().getDataInicio() != null) {
+                return new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(p.getValue().getDataInicio()));
             } else {
-                return new SimpleStringProperty("Non");
+                // En caso de que teña nulos, será porque o curso inda non ten fixada a data de inicio:
+                return new SimpleStringProperty("Sen inicio fixado");
             }
         });
 
@@ -99,23 +104,21 @@ public class vElixirCursoController extends AbstractController implements Initia
                         (int) ((c.getValue().getDuracion().floatValue() - c.getValue().getDuracion().intValue()) * 60) + "m"
         ));
 
-
-        // Engadimos o seguinte para poder resaltar dunha cor diferente os cursos que xa comezaron
+        // Resaltamos aqueles cursos que xa esten rematados, é dicir, que a data de fin sexa menor que a data actual:
         taboaCursos.setRowFactory(tv -> new TableRow<Curso>() {
             @Override
             public void updateItem(Curso item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item != null && getFachadaAplicacion().estarApuntado(item, usuario)) {
+                if (item != null && item.getDataFin() != null && item.getDataFin().toLocalDate().isBefore(LocalDate.now())) {
                     getStyleClass().add("resaltar");
                 } else {
                     getStyleClass().remove("resaltar");
                 }
-
             }
         });
 
         // Metemos as columnas creadas na táboa:
-        taboaCursos.getColumns().addAll(nomeColumn, numActividadesColumn, duracionColumn, iniciadoColum);
+        taboaCursos.getColumns().addAll(nomeColumn, numActividadesColumn, duracionColumn, dataColumn);
         // Buscamos os datos dos cursos abertos e engadímolos:
         taboaCursos.getItems().addAll(getFachadaAplicacion().consultarCursosAbertos(null));
         // Modelo de selección:
@@ -133,8 +136,13 @@ public class vElixirCursoController extends AbstractController implements Initia
             // Listar todos os cursos -> Pasamos a consultarCursosAbertos parámetro null:
             this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
         } else {
-            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
-            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(new Curso(campoNome.getText())));
+            if (checkAnotado.isSelected()) {
+                // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+                this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(new Curso(campoNome.getText()), usuario));
+            } else {
+                // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+                this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(new Curso(campoNome.getText())));
+            }
         }
     }
 
@@ -147,7 +155,33 @@ public class vElixirCursoController extends AbstractController implements Initia
         // Ó limpar os campos, o que facemos será poñer o campo de búsqueda baleiro e refrescar a táboa sen filtros:
         AuxGUI.vaciarCamposTexto(campoNome);
         // Listar todos os cursos -> Pasamos a consultarCursosAbertos parámetro null:
-        this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
+        if (checkAnotado.isSelected()) {
+            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(new Curso(campoNome.getText()), usuario));
+        } else {
+            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(new Curso(campoNome.getText())));
+        }
+    }
+
+    /**
+     * Método que se executa cando se pulsa o checkbox para amosar so os cursos nos que o usuario esta apuntado:
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void checkResaltarAction(ActionEvent actionEvent) {
+        // Únicamente se refresca a táboa:
+        if (checkAnotado.isSelected()) {
+            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosUsuario(null, usuario));
+            taboaCursos.refresh();
+            AuxGUI.vaciarCamposTexto(campoNome);
+        } else {
+            // Buscar por un curso: pasamos un curso co campo de busca: o nome:
+            this.actualizarTaboaCursos(getFachadaAplicacion().consultarCursosAbertos(null));
+            AuxGUI.vaciarCamposTexto(campoNome);
+            taboaCursos.refresh();
+        }
     }
 
     /**

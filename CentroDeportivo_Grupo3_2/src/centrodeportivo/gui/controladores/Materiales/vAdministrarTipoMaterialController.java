@@ -135,7 +135,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         // Primeiro comprobamos que o nome non este valeiro
         if (!ValidacionDatos.estanCubertosCampos(campoTipoMaterial)) {
             // Se algún campo non esta cuberto, non se fai nada máis
-            // TODO: Amosar mensaxe de erro
+            getFachadaAplicacion().mostrarErro("Engadir novo Tipo de Material", "Debes introducir un nome para engadir o tipo de material!");
             return;
         }
 

@@ -60,48 +60,8 @@ public class vEditarMaterialController extends AbstractController implements Ini
             comboTipoMaterial.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarTipoMaterial(null)));
             comboTipoMaterial.setDisable(true);
 
-            // Facemos que se vexa o nome dos tipos no comboBox:
-            comboTipoMaterial.setConverter(new StringConverter<TipoMaterial>() {
-                @Override
-                public String toString(TipoMaterial object) {
-                    return object.getNome();
-                }
-
-                @Override
-                public TipoMaterial fromString(String string) {
-                    return comboTipoMaterial.getItems().stream().filter(ap ->
-                            ap.getNome().equals(string)).findFirst().orElse(null);
-                }
-            });
-            // Facemos que se vexa o nome das areas no comboBox
-            comboArea.setConverter(new StringConverter<Area>() {
-                @Override
-                public String toString(Area object) {
-                    return object.getNome();
-                }
-
-                @Override
-                public Area fromString(String string) {
-                    return comboArea.getItems().stream().filter(ap ->
-                            ap.getNome().equals(string)).findFirst().orElse(null);
-                }
-            });
-
             // Inicializamos o comboBox das instalacions
             comboInstalacion.setItems(FXCollections.observableArrayList(getFachadaAplicacion().buscarInstalacions(null)));
-            // Facemos que se vexa o nome das instalacions no comboBox:
-            comboInstalacion.setConverter(new StringConverter<Instalacion>() {
-                @Override
-                public String toString(Instalacion object) {
-                    return object.getNome();
-                }
-
-                @Override
-                public Instalacion fromString(String string) {
-                    return comboInstalacion.getItems().stream().filter(ap ->
-                            ap.getNome().equals(string)).findFirst().orElse(null);
-                }
-            });
 
             // Cargamos as areas en funcion da instalacion seleccionada
             comboInstalacion.valueProperty().addListener((observable, oldValue, newValue) -> {

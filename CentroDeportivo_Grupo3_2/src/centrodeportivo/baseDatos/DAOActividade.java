@@ -24,7 +24,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class DAOActividade extends AbstractDAO {
 
+    /**
+     * Constructor do DAO de actividades
+     *
+     * @param conexion          Referencia á conexión coa base de datos.
+     * @param fachadaAplicacion Referencia á fachada da parte da aplicación.
+     */
     public DAOActividade(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 

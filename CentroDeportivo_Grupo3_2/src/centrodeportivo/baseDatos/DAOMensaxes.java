@@ -20,20 +20,22 @@ import java.sql.SQLException;
  * Facemos tamén a clase dado que nun futuro poderíamos seguir engadindo funcionalidade.
  */
 
-public final class DAOMensaxes extends AbstractDAO{
+public final class DAOMensaxes extends AbstractDAO {
 
     /**
-     * Constructor do DAO de mensaxes.
-     * @param conexion Referencia á conexión coa base de datos
+     * Constructor do DAO de mensaxes
+     *
+     * @param conexion          Referencia á conexión coa base de datos
      * @param fachadaAplicacion Referencia á fachada da parte de aplicación
      */
-    public DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion){
-        //Asignamos os atributos ao constructor da clase pai:
+    public DAOMensaxes(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 
     /**
      * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
+     *
      * @param mensaxe A mensaxe a transmitir
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
@@ -75,9 +77,9 @@ public final class DAOMensaxes extends AbstractDAO{
             //Facemos o commit para rematar:
             con.commit();
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             //Lanzamos a nosa propia excepción:
-            throw new ExcepcionBD(con,e);
+            throw new ExcepcionBD(con, e);
         } finally {
             //Intentamos pechar os statement:
             try {
@@ -91,8 +93,9 @@ public final class DAOMensaxes extends AbstractDAO{
 
     /**
      * Método que nos permite enviar un aviso aos socios dun curso determinado.
+     *
      * @param mensaxe A mensaxe que se vai a enviar aos socios.
-     * @param curso O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @param curso   O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
     public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
@@ -106,7 +109,7 @@ public final class DAOMensaxes extends AbstractDAO{
         con = super.getConexion();
 
         //Tentamos levar a cabo a consulta:
-        try{
+        try {
             //Comezaremos por buscar os participantes no curso:
             stmUsuarios = con.prepareStatement("SELECT usuario FROM realizarcurso WHERE curso = ?");
             //Completamos a consulta co código do curso:
@@ -126,7 +129,7 @@ public final class DAOMensaxes extends AbstractDAO{
 
 
             //A medida que lemos o result set imos procesando os envíos de mensaxes:
-            while(rsUsuarios.next()){
+            while (rsUsuarios.next()) {
                 //Establecemos o parámetro variante en cada inserción:
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
                 //Executamos entón actualizacións sobre a base de datos:
@@ -136,9 +139,9 @@ public final class DAOMensaxes extends AbstractDAO{
             //Facemos agora xa o commit, dado que rematamos a transacción:
             con.commit();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             //Lanzamos a nosa propia excepción cara arriba:
-            throw new ExcepcionBD(con,e);
+            throw new ExcepcionBD(con, e);
         } finally {
             //Intentamos pechar os statement:
             try {
@@ -152,11 +155,12 @@ public final class DAOMensaxes extends AbstractDAO{
 
     /**
      * Método que nos permite realizar o envío dun aviso aos socios dunha actividade.
-     * @param mensaxe A mensaxe a enviar a eses socios.
+     *
+     * @param mensaxe    A mensaxe a enviar a eses socios.
      * @param actividade A actividade de referencia da que se collerán os participantes aos que enviar as mensaxes.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD{
+    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD {
         //O que faremos será recoller primeiro os participantes da actividade e logo mandarlles a mensaxe:
         PreparedStatement stmUsuarios = null;
         PreparedStatement stmMensaxes = null;
@@ -167,7 +171,7 @@ public final class DAOMensaxes extends AbstractDAO{
         con = super.getConexion();
 
         //Intentamos levar a cabo todas as accións:
-        try{
+        try {
             stmUsuarios = con.prepareStatement("SELECT * FROM realizaractividade " +
                     " WHERE dataactividade = ? " +
                     "   AND area = ? " +
@@ -191,7 +195,7 @@ public final class DAOMensaxes extends AbstractDAO{
             stmMensaxes.setBoolean(4, false);
 
             //Imos procesando o resultado e facendo os envíos que sexan precisos:
-            while(rsUsuarios.next()){
+            while (rsUsuarios.next()) {
                 //Completamos co que falta a inserción:
                 stmMensaxes.setString(2, rsUsuarios.getString("usuario"));
                 //Facemos a actualización:
@@ -201,15 +205,15 @@ public final class DAOMensaxes extends AbstractDAO{
             //Feito isto, levamos a cabo o commit:
             con.commit();
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             //O que facemos é lanzar para arriba a nosa propia excepción:
             throw new ExcepcionBD(con, e);
         } finally {
             //Tratamos de pechar os statements usados nesta consulta:
-            try{
+            try {
                 stmMensaxes.close();
                 stmUsuarios.close();
-            } catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }

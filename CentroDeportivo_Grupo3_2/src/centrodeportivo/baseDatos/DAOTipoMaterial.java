@@ -18,9 +18,14 @@ import java.util.ArrayList;
  */
 public final class DAOTipoMaterial extends AbstractDAO {
 
-    // Constructor
-
+    /**
+     * Constructor do DAO dos tipos de materiais
+     *
+     * @param conexion          Referencia á conexión coa base de datos.
+     * @param fachadaAplicacion Referencia á fachada da parte da aplicación.
+     */
     public DAOTipoMaterial(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+        // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
 
