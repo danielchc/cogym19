@@ -42,7 +42,8 @@ public class vNovaInstalacionController extends AbstractController implements In
 
     /**
      * Constructor do controlador da pantalla de nova instalación:
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vNovaInstalacionController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -52,6 +53,7 @@ public class vNovaInstalacionController extends AbstractController implements In
 
     /**
      * Método initialize, que se executa cada vez que se abre a ventá-
+     *
      * @param url
      * @param resourceBundle
      */
@@ -63,6 +65,7 @@ public class vNovaInstalacionController extends AbstractController implements In
 
     /**
      * Método que representa as accións realizadas ao premer o botón de gardado da instalación.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnGardarAction(ActionEvent actionEvent) {
@@ -83,7 +86,7 @@ public class vNovaInstalacionController extends AbstractController implements In
         }
 
         //Comprobamos que o nome da instalación e a dirección teñan a lonxitude necesaria.
-        if(campoNome.getText().length() > 50 || campoDireccion.getText().length() > 200){
+        if (campoNome.getText().length() > 50 || campoDireccion.getText().length() > 200) {
             avisoCampos.setText("Lonxitudes incorrectas!");
             AuxGUI.amosarCampos(avisoCampos);
             return;
@@ -121,6 +124,7 @@ public class vNovaInstalacionController extends AbstractController implements In
 
     /**
      * Método que representa as accións realizadas ao premer o botón de limpado de campos.
+     *
      * @param actionEvent A acción que tivo lugar
      */
     public void btnLimparAction(ActionEvent actionEvent) {

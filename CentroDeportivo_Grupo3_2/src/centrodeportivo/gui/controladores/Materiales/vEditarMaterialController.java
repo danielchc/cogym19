@@ -55,7 +55,8 @@ public class vEditarMaterialController extends AbstractController implements Ini
 
     /**
      * Constructor da clase que representa o controlador da ventá de edición dun material.
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vEditarMaterialController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -66,6 +67,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
 
     /**
      * Método que se executará ao abrir a ventá correspondente, para inicializar as compoñentes.
+     *
      * @param url
      * @param resourceBundle
      */
@@ -136,6 +138,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
 
     }
 
+
     /**
      * Setter do material a editar
      *
@@ -144,7 +147,6 @@ public class vEditarMaterialController extends AbstractController implements Ini
     public void setMaterial(Material material) {
         this.material = material;
     }
-
 
     /**
      * Método que realiza unha consulta sobre o material e actualiza os campos
@@ -207,8 +209,8 @@ public class vEditarMaterialController extends AbstractController implements Ini
      */
     public void btnRestaurarAction(ActionEvent actionEvent) {
         // Cando se pide borrar, primeiro solicitase a confirmación por parte do usuario:
-      actualizarCamposMaterial();
-      AuxGUI.ocultarCampos(avisoCampos);
+        actualizarCamposMaterial();
+        AuxGUI.ocultarCampos(avisoCampos);
     }
 
 
@@ -228,7 +230,7 @@ public class vEditarMaterialController extends AbstractController implements Ini
         }
 
         //Comprobamos a lonxitude do campo variable do estado:
-        if(campoEstadoMaterial.getText().length() > 50){
+        if (campoEstadoMaterial.getText().length() > 50) {
             avisoCampos.setText("Lonxitudes incorrectas!");
             AuxGUI.amosarCampos(avisoCampos);
             return;

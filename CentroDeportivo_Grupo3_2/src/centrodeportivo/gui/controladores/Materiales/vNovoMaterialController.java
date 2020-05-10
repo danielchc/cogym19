@@ -57,18 +57,20 @@ public class vNovoMaterialController extends AbstractController implements Initi
 
     /**
      * Constructor da clase que representa o controlador da ventá de engadido dun novo material.
-     * @param fachadaAplicacion A referencia á fachada de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vNovoMaterialController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
-        //Chamamos ao constructor da clase pai.
+        // Chamamos ao constructor da clase pai.
         super(fachadaAplicacion);
-        //Asignamos ao controlador principal
+        // Asignamos ao controlador principal
         this.controllerPrincipal = controllerPrincipal;
     }
 
     /**
      * Método que permite inicializar a ventá, o que se executará ao abrir a pantalla.
+     *
      * @param url
      * @param resourceBundle
      */
@@ -129,7 +131,6 @@ public class vNovoMaterialController extends AbstractController implements Initi
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnXestionarAction(ActionEvent actionEvent) {
-
         // Facemos que sexa visible a ventá de administrar os tipos de materiais:
         this.controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARTIPOMATERIAL);
     }
@@ -167,7 +168,7 @@ public class vNovoMaterialController extends AbstractController implements Initi
         }
 
         //Comprobamos a lonxitude:
-        if(campoEstadoMaterial.getText().length() > 50){
+        if (campoEstadoMaterial.getText().length() > 50) {
             avisoCampos.setText("Lonxitudes incorrectas!");
             AuxGUI.amosarCampos(avisoCampos);
             return;

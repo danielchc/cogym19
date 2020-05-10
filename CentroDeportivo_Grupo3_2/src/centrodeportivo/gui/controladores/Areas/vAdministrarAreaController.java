@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- *
+ * <p>
  * Clase que funciona como controlador da ventá de administración de áreas.
  */
 public class vAdministrarAreaController extends AbstractController implements Initializable {
@@ -52,7 +52,8 @@ public class vAdministrarAreaController extends AbstractController implements In
 
     /**
      * Constructor do controlador da ventá de administración de áreas
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vAdministrarAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -64,6 +65,7 @@ public class vAdministrarAreaController extends AbstractController implements In
 
     /**
      * Método que se executa ao abrir a ventá, para inicializar as compoñentes.
+     *
      * @param url
      * @param resourceBundle
      */
@@ -107,9 +109,9 @@ public class vAdministrarAreaController extends AbstractController implements In
     public void enSeleccion() {
         //Escollemos o item seleccionado da táboa de áreas:
         Area area = ((Area) taboaAreas.getSelectionModel().getSelectedItem());
-        if(area != null){
+        if (area != null) {
             //Se a data de baixa está rexistrada a área estará de baixa, polo que habilitaremos a opción de dala de alta.
-            if(area.getDataBaixa() != null){
+            if (area.getDataBaixa() != null) {
                 AuxGUI.habilitarCampos(btnDarDeAlta);
                 AuxGUI.inhabilitarCampos(btnDarBaixa);
             } else {
@@ -132,6 +134,7 @@ public class vAdministrarAreaController extends AbstractController implements In
 
     /**
      * Setter da instalación
+     *
      * @param instalacion A instalación a asignar.
      */
     public void setInstalacion(Instalacion instalacion) {
@@ -148,7 +151,7 @@ public class vAdministrarAreaController extends AbstractController implements In
         //Borramos primeiro todas as áreas da táboa:
         taboaAreas.getItems().removeAll(taboaAreas.getItems());
         //Se non se cubriu ningún campo, o que faremos será listar todas as áreas.
-        if(!ValidacionDatos.estanCubertosCampos(campoNome) && !ValidacionDatos.estanCubertosCampos(campoAforo)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome) && !ValidacionDatos.estanCubertosCampos(campoAforo)) {
             taboaAreas.getItems().addAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         } else {
             //Noutro caso, buscaremos segundo a información dos campos.
@@ -185,12 +188,12 @@ public class vAdministrarAreaController extends AbstractController implements In
     public void btnModificarAreaAction(ActionEvent actionEvent) {
         //Recuperamos primeiro a area seleccionada:
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
-        if(area != null){
+        if (area != null) {
             //Se non é null seguimos adiante.
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONAREA);
             //Accedemos ao controlador de creación dun area:
-            vXestionAreaController cont = ((vXestionAreaController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONAREA));
+            vXestionAreaController cont = ((vXestionAreaController) this.controllerPrincipal.getControlador(IdPantalla.XESTIONAREA));
             //Recuperamos a área seleccionada e establecémola:
             cont.setArea((Area) taboaAreas.getSelectionModel().getSelectedItem());
             //Establecemos tamén a instalación de referencia:
@@ -207,14 +210,14 @@ public class vAdministrarAreaController extends AbstractController implements In
      *
      * @param actionEvent A acción que tivo lugar.
      */
-    public void btnDarBaixaAction(ActionEvent actionEvent)  {
+    public void btnDarBaixaAction(ActionEvent actionEvent) {
         //Tomamos a área seleccionada da táboa:
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
             try {
                 //Avaliamos o resultado da operación:
                 TipoResultados res = getFachadaAplicacion().darDeBaixaArea(area);
-                switch(res) {
+                switch (res) {
                     case correcto:
                         //En caso de que se conseguira a baixa, avísase de que se fixo correctamente:
                         getFachadaAplicacion().mostrarInformacion("Administración de áreas",
@@ -254,7 +257,7 @@ public class vAdministrarAreaController extends AbstractController implements In
             try {
                 //Intentamos a alta, avaliamos o resultado.
                 TipoResultados res = this.getFachadaAplicacion().darDeAltaArea(area);
-                switch (res){
+                switch (res) {
                     case correcto:
                         //Se rematou ben, avisamos desa situación:
                         getFachadaAplicacion().mostrarInformacion("Administración de áreas",
@@ -271,7 +274,7 @@ public class vAdministrarAreaController extends AbstractController implements In
             }
             //Actualizamos a táboa correspondente en calquera caso.
             this.actualizarTaboa();
-        }else {
+        } else {
             //En caso de non ter selección sobre a táboa, avisamos.
             getFachadaAplicacion().mostrarErro("Administración de Áreas",
                     "Debes seleccionar unha das áreas!");
@@ -288,8 +291,8 @@ public class vAdministrarAreaController extends AbstractController implements In
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
             //Pedimos primeiro unha confirmación por parte do usuario:
-            if(getFachadaAplicacion().mostrarConfirmacion("Administración de Áreas",
-                    "Desexas borrar a área '" + area.getNome() + "'?")  == ButtonType.OK) {
+            if (getFachadaAplicacion().mostrarConfirmacion("Administración de Áreas",
+                    "Desexas borrar a área '" + area.getNome() + "'?") == ButtonType.OK) {
                 try {
                     //De tela, intentamos o borrado:
                     TipoResultados res = getFachadaAplicacion().borrarArea(area);
@@ -311,7 +314,7 @@ public class vAdministrarAreaController extends AbstractController implements In
                     }
                     //En calquera caso, actualizamos a táboa:
                     this.actualizarTaboa();
-                } catch(ExcepcionBD e) {
+                } catch (ExcepcionBD e) {
                     //Amosamos un erro, en caso de capturar a excepción da parte da base de datos:
                     getFachadaAplicacion().mostrarErro("Administración de Áreas",
                             e.getMessage());
@@ -329,7 +332,7 @@ public class vAdministrarAreaController extends AbstractController implements In
      *
      * @param actionEvent A acción que tivo lugar.
      */
-    public void btnVolverAction(ActionEvent actionEvent){
+    public void btnVolverAction(ActionEvent actionEvent) {
         //Regresamos á pantalla anterior e amosámola:
         controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
     }

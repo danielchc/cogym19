@@ -47,10 +47,11 @@ public class vAdministrarInstalacionsController extends AbstractController imple
 
     /**
      * Constructor do controlador da ventá de administración de instalacións:
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
-    public vAdministrarInstalacionsController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal){
+    public vAdministrarInstalacionsController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         //Chamamos ao constructor da clase pai
         super(fachadaAplicacion);
         //Asignamos o controlador principal ao atributo correspondente:
@@ -59,11 +60,12 @@ public class vAdministrarInstalacionsController extends AbstractController imple
 
     /**
      * Método que se executa ao abrir a ventá para realizar a inicialización:
+     *
      * @param url
      * @param resourceBundle
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         //Neste caso temos que colocar todos os campos na táboa que amosa as instalacións:
         //A primeira columna terá o código da Instalación:
         TableColumn<Instalacion, Integer> colCodigo = new TableColumn<>("Código");
@@ -88,14 +90,15 @@ public class vAdministrarInstalacionsController extends AbstractController imple
 
     /**
      * Acción efectuada ao premer o botón para realizar a búsqueda.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnBuscarAction(ActionEvent actionEvent) {
         //Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
         //Se non se cubriu ningún campo, o que faremos será listar todas as instalacións.
         //Inda que poida parecer redundante, é un xeito de actualizar a información:
-        if(!ValidacionDatos.estanCubertosCampos(campoNome) &&  !ValidacionDatos.estanCubertosCampos(campoTelefono)
-                && !ValidacionDatos.estanCubertosCampos(campoDireccion)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome) && !ValidacionDatos.estanCubertosCampos(campoTelefono)
+                && !ValidacionDatos.estanCubertosCampos(campoDireccion)) {
             //Listamos todas as instalacións. Valémonos do auxiliar para reemprazar directamente o contido da táboa:
             actualizarTaboaInstalacions(super.getFachadaAplicacion().buscarInstalacions(null));
         } else {
@@ -109,27 +112,29 @@ public class vAdministrarInstalacionsController extends AbstractController imple
 
     /**
      * Acción efectuada ao premer o botón para limpar unha búsqueda.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnLimparAction(ActionEvent actionEvent) {
         //Vaciaranse os campos e, depaso, listaranse todas as instalacións dispoñibeis de novo:
-        AuxGUI.vaciarCamposTexto(campoNome,campoDireccion,campoTelefono);
+        AuxGUI.vaciarCamposTexto(campoNome, campoDireccion, campoTelefono);
         //Aproveitamos entón para actualizar a táboa:
         actualizarTaboaInstalacions(super.getFachadaAplicacion().buscarInstalacions(null));
     }
 
     /**
      * Método que se executa cando se preme o botón asociado a xestionar unha instalación seleccionada.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnXestionarAction(ActionEvent actionEvent) {
         //Recuperamos primeiro a instalación seleccionada:
         Instalacion instalacion = (Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem();
         //Comprobamos se o item seleccionado non é nulo: se o é, é que non se seleccionou ningún item da táboa.
-        if(instalacion != null){
+        if (instalacion != null) {
             //Se non é null seguimos adiante.
             //Accedemos ao controlador da ventá de edición dunha instalación:
-            ((vEditarInstalacionController)this.controllerPrincipal.getControlador(IdPantalla.EDITARINSTALACION)).setInstalacion((Instalacion)taboaInstalacions.getSelectionModel().getSelectedItem());
+            ((vEditarInstalacionController) this.controllerPrincipal.getControlador(IdPantalla.EDITARINSTALACION)).setInstalacion((Instalacion) taboaInstalacions.getSelectionModel().getSelectedItem());
             //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
         } else {
@@ -141,9 +146,10 @@ public class vAdministrarInstalacionsController extends AbstractController imple
 
     /**
      * Método que nos permite actualizar a táboa de instalacións.
+     *
      * @param instalacionArrayList As instalacións coas que se quere actualizar a táboa.
      */
-    private void actualizarTaboaInstalacions(ArrayList<Instalacion> instalacionArrayList){
+    private void actualizarTaboaInstalacions(ArrayList<Instalacion> instalacionArrayList) {
         //O primeiro que faremos será vaciar a táboa de instalacións:
         taboaInstalacions.getItems().removeAll(taboaInstalacions.getItems());
         //Agora, insertaremos todos os items que se pasen como argumento:

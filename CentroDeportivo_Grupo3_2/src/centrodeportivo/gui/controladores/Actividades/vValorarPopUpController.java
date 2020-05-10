@@ -74,8 +74,8 @@ public class vValorarPopUpController
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Inicializamos todas as compoñentes da ventá:
-        this.toggleGroup=new ToggleGroup();
-        this.radioButtons=new ArrayList<>();
+        this.toggleGroup = new ToggleGroup();
+        this.radioButtons = new ArrayList<>();
 
         this.radioButtons.add(radio0);
         this.radioButtons.add(radio1);
@@ -84,7 +84,7 @@ public class vValorarPopUpController
         this.radioButtons.add(radio4);
         this.radioButtons.add(radio5);
 
-        for(RadioButton r:this.radioButtons){
+        for (RadioButton r : this.radioButtons) {
             r.setToggleGroup(this.toggleGroup);
         }
     }
@@ -94,14 +94,15 @@ public class vValorarPopUpController
      *
      * @param event A acción que tivo lugar.
      */
-    public void listenerRadioButton(MouseEvent event){
-        this.valoracion=this.radioButtons.indexOf((RadioButton) event.getSource());
+    public void listenerRadioButton(MouseEvent event) {
+        this.valoracion = this.radioButtons.indexOf((RadioButton) event.getSource());
         //Con isto amósase a puntuación que se escolleu por pantalla.
         msg.setText("Puntuación : " + this.valoracion + "/5");
     }
 
     /**
      * Setter da actividade.
+     *
      * @param actividade A actividade que se vai a valorar nesta ventá.
      */
     public void setActividade(Actividade actividade) {

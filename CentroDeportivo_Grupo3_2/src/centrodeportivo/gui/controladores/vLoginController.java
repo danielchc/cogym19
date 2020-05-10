@@ -21,14 +21,20 @@ import java.util.ResourceBundle;
  * @author Victor Barreiro
  * Clase que nos serve de controlador para a ventá de login, de inicio de sesión na aplicación.
  */
-public class vLoginController  extends AbstractController implements Initializable {
+public class vLoginController extends AbstractController implements Initializable {
 
     /**
      * Atributos da clase públicos: correspóndense con partes da interface correspondente:
      */
-    public PasswordField tfContrasinal; /**Campo do controsinal introducido.*/
-    public TextField tfUsuario; /**Campo do número de teléfono do usuario.*/
-    public Label labelError; /**Etiqueta que se amosa cando se produce un erro de autenticación.*/
+    public PasswordField tfContrasinal;
+    /**
+     * Campo do controsinal introducido.
+     */
+    public TextField tfUsuario;
+    /**
+     * Campo do número de teléfono do usuario.
+     */
+    public Label labelError; /*Etiqueta que se amosa cando se produce un erro de autenticación.*/
 
     /**
      * Atributos da clase privados: non teñen que ver con partes da interface.
@@ -37,18 +43,20 @@ public class vLoginController  extends AbstractController implements Initializab
 
     /**
      * Constructor da ventá de Login:
+     *
      * @param fachadaAplicacion a referencia da fachada de aplicación.
      */
     public vLoginController(FachadaAplicacion fachadaAplicacion) {
         //Chamamos ao constructor da clase pai coa fachada de aplicación:
         super(fachadaAplicacion);
         //Para lograr un acceso rápido ao atributo da fachada de aplicación, asociámolo tamén nesta clase:
-        fa=super.getFachadaAplicacion();
+        fa = super.getFachadaAplicacion();
     }
 
 
     /**
      * Método para facer inicialización da ventá asociada ao controlador.
+     *
      * @param location
      * @param resources
      */
@@ -63,14 +71,14 @@ public class vLoginController  extends AbstractController implements Initializab
      */
     public void btnIniciarAction() {
         //Para comezar, validaremos que os datos estén cubertos:
-        if(ValidacionDatos.estanCubertosCampos(tfUsuario,tfContrasinal)){
-            try{
+        if (ValidacionDatos.estanCubertosCampos(tfUsuario, tfContrasinal)) {
+            try {
                 //Se están cubertos os campos, tentamos facer a validación:
-                if(fa.validarUsuario(tfUsuario.getText(), tfContrasinal.getText())){
+                if (fa.validarUsuario(tfUsuario.getText(), tfContrasinal.getText())) {
                     //Se se logra realizar a validación, consúltanse máis datos do usuario para manter tras iniciar sesión:
                     Usuario usuario = fa.consultarUsuario(tfUsuario.getText());
                     //Se o tipo do usuario é socio, entón amosamos a ventá de socios.
-                    if(usuario.getTipoUsuario() == TipoUsuario.Socio){
+                    if (usuario.getTipoUsuario() == TipoUsuario.Socio) {
                         fa.mostrarVentaSocios(usuario);
                     } else {
                         //Se é persoal (tanto profesor activo coma non activo), entón amosamos a ventá de persoal.
@@ -79,14 +87,14 @@ public class vLoginController  extends AbstractController implements Initializab
                     //Neste caso, pecharíamos esta escena, porque agora pasaremos á ventá principal dunha das dúas partes
                     //da aplicación.
                     ((Stage) tfUsuario.getScene().getWindow()).close();
-                }else{
+                } else {
                     //Se non se puido facer a validación, ponse na etiqueta unha mensaxe indicando o problema:
                     labelError.setText("Algún campo incorrecto");
                 }
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        }else{
+        } else {
             //Se non están cubertos, establecemos unha mensaxe adecuada na etiqueta:
             labelError.setText("Algún campo está incompleto");
         }
@@ -94,11 +102,12 @@ public class vLoginController  extends AbstractController implements Initializab
 
     /**
      * Método invocado cando se presiona unha tecla calquera do teclado.
+     *
      * @param keyEvent O evento de pulsado dunha tecla.
      */
     public void keyPressedIniciar(KeyEvent keyEvent) {
         //Se se pulsase a tecla enter, nesta ventá, faríase o análogo a iniciar sesión:
-        if(keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
+        if (keyEvent.getCode() == KeyCode.ENTER) btnIniciarAction();
     }
 
 }

@@ -52,7 +52,8 @@ public class vXestionAreaController extends AbstractController implements Initia
 
     /**
      * Constructor do controlador da pantalla de nova area:
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vXestionAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -62,6 +63,7 @@ public class vXestionAreaController extends AbstractController implements Initia
 
     /**
      * Método initialize, que se executa cada vez que se abre a ventá-
+     *
      * @param url
      * @param resourceBundle
      */
@@ -77,20 +79,21 @@ public class vXestionAreaController extends AbstractController implements Initia
             }
         });
         //Por defecto, deixanse editables todos os campos e abertos:
-        AuxGUI.habilitarCampos(campoAforoMax,campoDescricion,campoNome);
+        AuxGUI.habilitarCampos(campoAforoMax, campoDescricion, campoNome);
     }
 
     /**
      * Método sobreescrito que se executa tras inicializar a ventá, para aquelas restauracións que se queiran facer.
      */
     @Override
-    public void reiniciarForm(){
+    public void reiniciarForm() {
         //Reestablecemos a área a null:
         this.area = null;
     }
 
     /**
      * Setter da instalación á que pertence a área a insertar/modificar:
+     *
      * @param instalacion A instalación a asignar.
      */
     public void setInstalacion(Instalacion instalacion) {
@@ -101,13 +104,14 @@ public class vXestionAreaController extends AbstractController implements Initia
 
     /**
      * Setter da área a editar. A súa execución implica que se acaba de insertar unha nova área
+     *
      * @param area A área a insertar.
      */
-    public void setArea(Area area){
+    public void setArea(Area area) {
         //Asignamos a área.
         this.area = area;
         //En función da data de baixa, o que faremos será amosar o campo do aforo editable ou non:
-        if(this.area.getDataBaixa() != null){
+        if (this.area.getDataBaixa() != null) {
             AuxGUI.habilitarCampos(campoAforoMax);
         } else {
             AuxGUI.inhabilitarCampos(campoAforoMax);
@@ -121,6 +125,7 @@ public class vXestionAreaController extends AbstractController implements Initia
 
     /**
      * Método que representa as accións realizadas ao premer o botón de gardado da area.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnGardarAction(ActionEvent actionEvent) {
@@ -142,7 +147,7 @@ public class vXestionAreaController extends AbstractController implements Initia
         }
 
         //Comprobamos as lonxitudes dos campos:
-        if(campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200) {
+        if (campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200) {
             avisoCampos.setText("Lonxitudes incorrectas!!");
             AuxGUI.amosarCampos(avisoCampos);
             return;
@@ -172,9 +177,9 @@ public class vXestionAreaController extends AbstractController implements Initia
                     case datoExiste:
                         //Se xa existía unha área co nome pasado, entón imprímese un erro e séguese na pantalla.
                         this.getFachadaAplicacion().mostrarErro("Administración de Areas",
-                                "Xa hai unha area co nome '" + area1.getNome() +"' na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
+                                "Xa hai unha area co nome '" + area1.getNome() + "' na instalación " + area1.getInstalacion().getCodInstalacion() + "'.");
                         break;
-                        //Neste outro caso, mantémonos nesta mesma pantalla.
+                    //Neste outro caso, mantémonos nesta mesma pantalla.
                 }
             } else {
                 //Noutro caso, asignamos á área que se vai modificar o código e a data de baixa que se teñen no atributo da clase.
@@ -197,7 +202,7 @@ public class vXestionAreaController extends AbstractController implements Initia
                     case datoExiste:
                         //Se xa existía unha área co nome pasado, entón imprímese un erro e séguese na pantalla.
                         this.getFachadaAplicacion().mostrarErro("Administración de Areas",
-                                "Xa hai unha area co nome '" + area1.getNome() + "' na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
+                                "Xa hai unha area co nome '" + area1.getNome() + "' na instalación " + area1.getInstalacion().getCodInstalacion() + "'.");
                         break;
                 }
             }
@@ -210,11 +215,12 @@ public class vXestionAreaController extends AbstractController implements Initia
 
     /**
      * Método que representa as accións realizadas ao premer o botón de limpado de campos.
+     *
      * @param actionEvent A acción que tivo lugar
      */
     public void btnRestaurarAction(ActionEvent actionEvent) {
         //Hai que comprobar se a área vale null (estamos engadindo unha nova área) ou non.
-        if(area == null){
+        if (area == null) {
             //O que imos a facer e limpar os tres campos, vaciar o que teñan:
             AuxGUI.vaciarCamposTexto(campoNome, campoDescricion, campoAforoMax);
         } else {
@@ -229,11 +235,12 @@ public class vXestionAreaController extends AbstractController implements Initia
 
     /**
      * Método que representa as accións realizadas ao premer o botón de retorno.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnVolverAction(ActionEvent actionEvent) {
         //Se se está editando unha área vólvese á pantalla de administración:
-        if(area != null){
+        if (area != null) {
             controllerPrincipal.mostrarPantalla(IdPantalla.ADMINAREA);
         } else {
             //Se non, volvemos á de xestión da instalación:

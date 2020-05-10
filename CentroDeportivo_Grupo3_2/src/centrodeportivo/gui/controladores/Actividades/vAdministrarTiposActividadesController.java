@@ -44,7 +44,8 @@ public class vAdministrarTiposActividadesController extends AbstractController i
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vAdministrarTiposActividadesController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -56,6 +57,7 @@ public class vAdministrarTiposActividadesController extends AbstractController i
 
     /**
      * Método que nos permite inicializar a pantalla ao abrila.
+     *
      * @param location
      * @param resources
      */
@@ -83,12 +85,13 @@ public class vAdministrarTiposActividadesController extends AbstractController i
 
     /**
      * Método executado cando se pulsa o botón de realizar unha búsqueda
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnBuscarAction(ActionEvent actionEvent) {
         //A búsqueda pódese realizar polo nome.
         //Pero realmente, se ese campo está baleiro, resulta máis sinxelo que se faga un simple listado.
-        if(!ValidacionDatos.estanCubertosCampos(campoNome)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome)) {
             //Entón, se non se cubriu filtro de busca, simplemente se fai un listado (pasamos null ao método):
             this.refrescarTaboaTiposAct(super.getFachadaAplicacion().buscarTiposActividades(null));
         } else {
@@ -101,6 +104,7 @@ public class vAdministrarTiposActividadesController extends AbstractController i
     /**
      * Método executado cando se pulsa o botón de limpar. Basicamente limpanse filtros e deixase a lista de tipos
      * completa.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnLimparAction(ActionEvent actionEvent) {
@@ -112,6 +116,7 @@ public class vAdministrarTiposActividadesController extends AbstractController i
 
     /**
      * Acción realizada ao pulsar o botón de rexistro dun novo tipo de actividade.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnRexistrarAction(ActionEvent actionEvent) {
@@ -125,18 +130,19 @@ public class vAdministrarTiposActividadesController extends AbstractController i
 
     /**
      * Acción realizada ao pulsar o botón de xestión dun tipo de actividade.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnXestionarAction(ActionEvent actionEvent) {
         //Se se quere xestionar un tipo de actividade existente, hai que comprobar que haxa unha selección:
         TipoActividade tipoActividade = (TipoActividade) taboaTiposActividades.getSelectionModel().getSelectedItem();
-        if(tipoActividade != null) {
+        if (tipoActividade != null) {
             //Se hai selección, recuperamos o controlador da ventá de inserción do tipo de actividade:
             vInsercionTipoActividadeController cont = (vInsercionTipoActividadeController) controllerPrincipal.getControlador(IdPantalla.INSERCIONTIPOACTIVIDADE);
             //Introducese o tipo de actividade como atributo no controlador correspondente, pero antes consúltase
             //de novo na base de datos, por se pasou moito tempo e xa non está rexistrado:
             tipoActividade = super.getFachadaAplicacion().consultarTipoActividade(tipoActividade);
-            if(tipoActividade != null) {
+            if (tipoActividade != null) {
                 //En caso de seguir almacenado, establécese o tipo de actividade do controlador da seguinte ventá:
                 cont.setTipoActividade(tipoActividade);
                 //Agora, amósase esa pantalla:
@@ -158,9 +164,10 @@ public class vAdministrarTiposActividadesController extends AbstractController i
     /**
      * Método que nos permite refrescar a táboa (vaciar e encher de novo) cos tipos de actividades pasados como
      * argumento
+     *
      * @param tipoActividadeArrayList Os tipos de actividades a introducir na táboa correspondente.
      */
-    private void refrescarTaboaTiposAct(ArrayList<TipoActividade> tipoActividadeArrayList){
+    private void refrescarTaboaTiposAct(ArrayList<TipoActividade> tipoActividadeArrayList) {
         //O primeiro é borrar o contido da táboa:
         taboaTiposActividades.getItems().removeAll(taboaTiposActividades.getItems());
         //Agora introducimos todos os valores pasados no arraylist pasado como argumento:

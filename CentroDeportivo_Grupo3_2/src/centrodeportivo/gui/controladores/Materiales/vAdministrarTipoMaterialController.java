@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
  */
 public class vAdministrarTipoMaterialController extends AbstractController implements Initializable {
 
-
     /**
      * Atributos públicos: correspóndense con partes da interface gráfica:
      */
@@ -37,10 +36,12 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
     public Button btnEliminar;
     public TextField campoTipoMaterial;
 
+
     /**
      * Atributos privados: referencia ó controlador da pantalla principal sobre o que se amosan as diferentes pantallas.
      */
     private vPrincipalController controllerPrincipal;
+
 
     /**
      * Constructor do controlador da ventá de administración dos tipos de materiais:
@@ -54,6 +55,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         // Asignamos o controlador principal ó atributo correspondente:
         this.controllerPrincipal = controllerPrincipal;
     }
+
 
     /**
      * Método que se executa ao abrir a ventá para realizar a inicialización:
@@ -78,6 +80,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         // Establecemos unha selección sobre a táboa no caso de que haxa resultados:
         taboaTipoMaterial.getSelectionModel().selectFirst();
     }
+
 
     /**
      * Acción efectuada ao premer o botón para realizar a búsqueda.
@@ -136,7 +139,7 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         }
 
         //Comprobar lonxitude do tipo de material:
-        if(campoTipoMaterial.getText().length() > 100){
+        if (campoTipoMaterial.getText().length() > 100) {
             getFachadaAplicacion().mostrarErro("Engadir novo Tipo de Material",
                     "O nome non pode sobrepasar os 100 caracteres!");
             return;

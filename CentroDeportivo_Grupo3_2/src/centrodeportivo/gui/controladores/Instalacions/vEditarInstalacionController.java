@@ -51,10 +51,11 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     /**
      * Constructor do controlador da ventá de edición dunha instalación:
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia do controlador principal.
      */
-    public vEditarInstalacionController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal){
+    public vEditarInstalacionController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         //Asignamos os atributos pasados, un ao constructor da clase pai:
         super(fachadaAplicacion);
         //O outro é propio desta clase:
@@ -64,13 +65,14 @@ public class vEditarInstalacionController extends AbstractController implements 
     /**
      * Sobreescritura do método initialize, por implementar a interface initializable. É o método que se executa cando
      * se abre a ventá.
+     *
      * @param url
      * @param resourceBundle
      */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         //Para inicializar, comprobaremos se hai unha instalación:
-        if(instalacion != null){
+        if (instalacion != null) {
             //Antes de nada o que faremos será consultar de novo a instalación, por se tivo cambios:
             actualizarCamposInstalacion();
         } else {
@@ -84,27 +86,29 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     /**
      * Setter da instalación a configurar
+     *
      * @param instalacion A instalación que se vai a querer asociar á pantalla.
      */
-    public void setInstalacion(Instalacion instalacion){
+    public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
     }
 
     /**
      * Acción efectuada ao premer o botón de modificar unha instalación.
+     *
      * @param actionEvent O evento que tivo lugar.
      */
     public void btnModificarAction(ActionEvent actionEvent) {
         //Cando se modifica unha instalación, hai que comprobar primeiro que os campos sexan correctos.
         //Empezamos comprobando que os campos non estén baleiros.
-        if(!ValidacionDatos.estanCubertosCampos(campoNome, campoDireccion, campoTelefono)){
+        if (!ValidacionDatos.estanCubertosCampos(campoNome, campoDireccion, campoTelefono)) {
             //Amosaremos unha mensaxe avisando de que non se cubriron todos os campos.
             etiquetaAviso.setText("Campos Obrigatorios *!!!");
             AuxGUI.amosarCampos(etiquetaAviso);
             return;
         }
         //Comprobamos agora que o número de teléfono sexa correcto:
-        if(!ValidacionDatos.isCorrectoTelefono(campoTelefono.getText())){
+        if (!ValidacionDatos.isCorrectoTelefono(campoTelefono.getText())) {
             //Amosaremos unha mensaxe de erro.
             super.getFachadaAplicacion().mostrarErro("Adiministración de Instalacións",
                     "O número de teléfono é incorrecto!");
@@ -112,7 +116,7 @@ public class vEditarInstalacionController extends AbstractController implements 
         }
 
         //Comprobamos que o nome da instalación e a dirección teñan a lonxitude necesaria.
-        if(campoNome.getText().length() > 50 || campoDireccion.getText().length() > 200){
+        if (campoNome.getText().length() > 50 || campoDireccion.getText().length() > 200) {
             etiquetaAviso.setText("Lonxitudes incorrectas!");
             AuxGUI.amosarCampos(etiquetaAviso);
             return;
@@ -127,7 +131,7 @@ public class vEditarInstalacionController extends AbstractController implements 
         try {
             TipoResultados res = super.getFachadaAplicacion().modificarInstalacion(instalacion);
             //En función do resultado procedemos:
-            switch(res){
+            switch (res) {
                 case datoExiste:
                     //Se xa existía outra instalación co mesmo nome, avísase do problema.
                     super.getFachadaAplicacion().mostrarErro("Administración de Instalacións",
@@ -136,10 +140,10 @@ public class vEditarInstalacionController extends AbstractController implements 
                 case correcto:
                     //Se rematou correctamente, mostramos unha mensaxe de confirmación:
                     super.getFachadaAplicacion().mostrarInformacion("Administración de Instalacións",
-                            "Datos da instalación " + instalacion.getCodInstalacion() + " modificados correctamente." );
+                            "Datos da instalación " + instalacion.getCodInstalacion() + " modificados correctamente.");
                     break;
             }
-        } catch (ExcepcionBD e){
+        } catch (ExcepcionBD e) {
             //Se hai un erro na base de datos, amósase a mensaxe,
             //que é creada na nosa excepción con getMessage():
             super.getFachadaAplicacion().mostrarErro("Administración de Instalacións", e.getMessage());
@@ -150,17 +154,18 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     /**
      * Acción efectuada ao premer o botón de borrado dunha instalación.
+     *
      * @param actionEvent O evento que tivo lugar.
      */
     public void btnBorrarAction(ActionEvent actionEvent) {
         //Cando se pide borrar, primeiro solicitarase a confirmación por parte do usuario.
-        if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
+        if (super.getFachadaAplicacion().mostrarConfirmacion("Administración de Instalacións",
                 "Desexa eliminar a instalación seleccionada?") == ButtonType.OK) {
             //Intentamos levar a cabo o borrado da instalación:
-            try{
+            try {
                 TipoResultados res = super.getFachadaAplicacion().borrarInstalacion(instalacion);
                 //En función do resultado, actuamos:
-                switch(res){
+                switch (res) {
                     case referenciaRestrict:
                         //En caso de ter áreas asociadas devólvese este enumerado, polo que imprimimos un erro explicando
                         //o problema.
@@ -176,7 +181,7 @@ public class vEditarInstalacionController extends AbstractController implements 
                         controllerPrincipal.mostrarPantalla(IdPantalla.ADMINISTRARINSTALACIONS);
                         break;
                 }
-            } catch(ExcepcionBD e){
+            } catch (ExcepcionBD e) {
                 //No caso de termos outra excepción da base de datos, haberá que amosala.
                 //A mensaxe xestiónase a través do método getMessage:
                 super.getFachadaAplicacion().mostrarErro("Administración de Instalacións", e.getMessage());
@@ -186,6 +191,7 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     /**
      * Acción efectuada ao premer o botón de engadido dunha área.
+     *
      * @param actionEvent O evento que tivo lugar.
      */
     public void btnEngadirAreaAction(ActionEvent actionEvent) {
@@ -197,6 +203,7 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     /**
      * Acción efectuada ao premer o botón de administración das áreas desa instalación.
+     *
      * @param actionEvent O evento que tivo lugar.
      */
     public void btnAdministrarAreasAction(ActionEvent actionEvent) {
@@ -208,6 +215,7 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     /**
      * Acción efectuada ao premer o botón de regreso.
+     *
      * @param actionEvent O evento que tivo lugar.
      */
     public void btnVolverAction(ActionEvent actionEvent) {
@@ -217,6 +225,7 @@ public class vEditarInstalacionController extends AbstractController implements 
 
     /**
      * Acción efectuada ao premer o botón de restaurar os campos:
+     *
      * @param actionEvent O evento que tivo lugar.
      */
     public void btnRestaurarAction(ActionEvent actionEvent) {
@@ -228,11 +237,11 @@ public class vEditarInstalacionController extends AbstractController implements 
     /**
      * Método que realiza a consulta da instalación que se está a considerar e actualiza os seus campos.
      */
-    private void actualizarCamposInstalacion(){
+    private void actualizarCamposInstalacion() {
         //Consultamos a instalación:
         instalacion = getFachadaAplicacion().consultarInstalacion(instalacion);
         //Volvemos a validar que está rexistrada a instalación:
-        if(instalacion != null){
+        if (instalacion != null) {
             //Se a hai, enchemos os campos coa información:
             campoNome.setText(instalacion.getNome());
             campoDireccion.setText(instalacion.getDireccion());

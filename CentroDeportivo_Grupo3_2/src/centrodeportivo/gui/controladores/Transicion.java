@@ -10,7 +10,7 @@ import javafx.util.Duration;
  * @author Víctor Barreiro
  * Nesta clase modelaranse as animacións para as transicións:
  */
-public final class Transicion{
+public final class Transicion {
     /**
      * Atributos que son necesarios. Como non se permite modificalos, facémolos finais:
      */
@@ -20,19 +20,21 @@ public final class Transicion{
 
     /**
      * Constructor dunha transición:
+     *
      * @param slider O despregable que estará asociado á clase e polo tanto á transición
      */
     public Transicion(VBox slider) {
         //Asociamos o slider:
         this.slider = slider;
         //Creamos as transicións de apertura e de peche:
-        this.transicionAbrir = new TranslateTransition(Duration.millis(100),slider);
-        this.transicionAbrir.setToX(slider.getTranslateX()-slider.getWidth());
+        this.transicionAbrir = new TranslateTransition(Duration.millis(100), slider);
+        this.transicionAbrir.setToX(slider.getTranslateX() - slider.getWidth());
         this.transicionCerrar = new TranslateTransition(Duration.millis(100), slider);
     }
 
     /**
      * Getter do despregable:
+     *
      * @return o slider asociado á clase.
      */
     public VBox getSlider() {
@@ -41,6 +43,7 @@ public final class Transicion{
 
     /**
      * Getter da transición de apertura.
+     *
      * @return a transición que foi creada no constructor.
      */
     public TranslateTransition getTransicionAbrir() {
@@ -49,6 +52,7 @@ public final class Transicion{
 
     /**
      * Getter da transición de peche.
+     *
      * @return a transición que foi creada no constructor.
      */
     public TranslateTransition getTransicionCerrar() {

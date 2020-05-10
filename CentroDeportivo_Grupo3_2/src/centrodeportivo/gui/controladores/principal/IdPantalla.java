@@ -32,5 +32,4 @@ public enum IdPantalla {
     ADMINAREA,
     INSERCIONACTIVIDADE,
     ADMINACTIVIDADE,
-
 }

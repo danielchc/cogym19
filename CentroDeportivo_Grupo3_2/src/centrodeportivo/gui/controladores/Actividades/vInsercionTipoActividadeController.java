@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * Clase que servirá de controlador da pantalla de inserción/modificación dun tipo de actividade.
  */
 public class vInsercionTipoActividadeController extends AbstractController implements Initializable {
-    
+
     /**
      * Atributos públicos: son compoñentes da pantalla de inserción de tipos de actividades.
      */
@@ -50,10 +50,11 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     /**
      * Constructor do controlador da ventá de inserción/modificación dun tipo de actividade.
-     * @param fachadaAplicacion Referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   Referencia á fachada da parte de aplicación.
      * @param controllerPrincipal Referencia ao controlador da ventá principal.
      */
-    public vInsercionTipoActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal){
+    public vInsercionTipoActividadeController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         //Chamamos ao constructor da clase pai.
         super(fachadaAplicacion);
         //Asociamos o controlador principal ao atributo que lle corresponde:
@@ -62,16 +63,17 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     /**
      * Método que se executará ao amosar esta pantalla, co que inicializala.
+     *
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //A inicialización pode darse de dous xeitos: que se teña un tipo de actividade ou que sexa un null.
-        if(tipoActividade == null){
+        if (tipoActividade == null) {
             AuxGUI.ocultarCampos(caixaCodigo, btnBorrar); //Ocultamos a parte que amosa o código e o borrado.
             //Vaciamos os campos de nome e código:
-            AuxGUI.vaciarCamposTexto(campoNome,campoCodigo);
+            AuxGUI.vaciarCamposTexto(campoNome, campoCodigo);
         } else {
             //Se hai un tipo de actividade, entón amosarase a súa información.
             //Facemos visible a parte do código e do borrado:
@@ -84,6 +86,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     /**
      * Método que se executará ao premer no botón de retorno.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnVolverAction(ActionEvent actionEvent) {
@@ -93,6 +96,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     /**
      * Método que se executará ao premer no botón de gardado dun tipo de actividade.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnGardarAction(ActionEvent actionEvent) {
@@ -105,7 +109,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
         }
 
         //Validamos a lonxitude dos campos:
-        if(campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200){
+        if (campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200) {
             super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
                     "A lonxitude dos campos non é correcta! O nome non pode ter máis de 50 caracteres e a " +
                             "descrición non pode superar os 200.");
@@ -113,7 +117,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
         }
 
         //Poden ocorrer dúas cousas: que haxa que insertar un novo tipo ou modificalo.
-        if(tipoActividade != null) {
+        if (tipoActividade != null) {
             //Se o tipo de actividade non é nulo, é unha modificación. Como a descrición pode ser nula, faise a
             //actualización directamente.
             tipoActividade.setDescricion(campoDescricion.getText());
@@ -123,7 +127,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
             try {
                 //Executamos a operación e avaliamos o resultado obtido:
                 TipoResultados res = this.getFachadaAplicacion().modificarTipoActividade(tipoActividade);
-                switch(res){
+                switch (res) {
                     case correcto:
                         //Se rematou o método sen problema, entón amósase confirmación:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
@@ -150,7 +154,7 @@ public class vInsercionTipoActividadeController extends AbstractController imple
             try {
                 TipoResultados res = this.getFachadaAplicacion().crearTipoActividade(tipoActividade);
                 //En función do resultado, avaliamos:
-                switch(res){
+                switch (res) {
                     case datoExiste:
                         //Mostramos un erro en caso de que xa exista un tipo de actividade co mesmo nome:
                         this.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
@@ -174,18 +178,19 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     /**
      * Método que se executará ao premer no botón de borrado dun tipo de actividade.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnBorrarAction(ActionEvent actionEvent) {
         //Se se puido presionar, é porque se quere borrar o tipo de actividade presentado.
         //Por iso, pediremos unha confirmación adicional do usuario.
-        if(super.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
+        if (super.getFachadaAplicacion().mostrarConfirmacion("Administración de Tipos de Actividades",
                 "Desexa eliminar o tipo de actividade seleccionado?") == ButtonType.OK) {
             //Se así o quere facer o usuario, tentaremos o borrado do tipo:
             try {
                 TipoResultados res = this.getFachadaAplicacion().eliminarTipoActividade(tipoActividade);
                 //En función do resultado, diferentes opcións:
-                switch(res){
+                switch (res) {
                     case correcto:
                         //Amosamos unha mensaxe de confirmación:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Tipos de Actividades",
@@ -207,27 +212,28 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     /**
      * Método que se executará ao premer o botón de limpar os campos da pantalla.
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnRestaurarAction(ActionEvent actionEvent) {
         //Dúas opcións, cando estamos insertando un novo tipo de actividade e cando o modificamos:
-        if(tipoActividade != null){
+        if (tipoActividade != null) {
             //Se estamos modificando (tipo de actividade non nulo) actualizamos os campos, non os borramos:
             actualizarCamposTAct();
         } else {
             //Noutro caso, estaremos insertando: vaciaremos os campos:
-            AuxGUI.vaciarCamposTexto(campoNome,campoDescricion);
+            AuxGUI.vaciarCamposTexto(campoNome, campoDescricion);
         }
     }
 
     /**
      * Método que nos permite actualizar a información dos campos do tipo de actividade asociado.
      */
-    private void actualizarCamposTAct(){
+    private void actualizarCamposTAct() {
         //Volvemos a consultar o tipo de actividade:
         tipoActividade = super.getFachadaAplicacion().consultarTipoActividade(tipoActividade);
         //Ao rematar, consultamos se houbo resultado ou non:
-        if(tipoActividade != null){
+        if (tipoActividade != null) {
             //Se hai resultado, completamos os campos:
             campoCodigo.setText(tipoActividade.getCodTipoActividade().toString());
             campoNome.setText(tipoActividade.getNome());
@@ -244,9 +250,10 @@ public class vInsercionTipoActividadeController extends AbstractController imple
 
     /**
      * Setter para o tipo de actividade asociado á pantalla.
+     *
      * @param tipoActividade O tipo de actividade a asignar ao atributo do controlador.
      */
-    public void setTipoActividade(TipoActividade tipoActividade){
+    public void setTipoActividade(TipoActividade tipoActividade) {
         this.tipoActividade = tipoActividade;
     }
 

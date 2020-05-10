@@ -26,12 +26,12 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- *
+ * <p>
  * Clase que funciona como controlador da ventá de administración de materiais.
  */
 public class vAdministrarMateriaisController extends AbstractController implements Initializable {
     /**
-    * Atributos públicos: correspóndense con cuestións da ventá correspondente
+     * Atributos públicos: correspóndense con cuestións da ventá correspondente
      */
     public TableView taboaMateriais;
     public Button btnBuscar;
@@ -50,7 +50,8 @@ public class vAdministrarMateriaisController extends AbstractController implemen
 
     /**
      * Constructor da ventá de administración de materiais:
-     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     *
+     * @param fachadaAplicacion   A referencia á fachada da parte de aplicación.
      * @param controllerPrincipal A referencia ao controlador da ventá principal.
      */
     public vAdministrarMateriaisController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
@@ -62,6 +63,7 @@ public class vAdministrarMateriaisController extends AbstractController implemen
 
     /**
      * Método que se executa ao abrir a ventá, para inicializar compoñentes.
+     *
      * @param url
      * @param resourceBundle
      */

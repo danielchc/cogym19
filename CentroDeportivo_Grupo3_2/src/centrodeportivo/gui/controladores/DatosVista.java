@@ -16,7 +16,8 @@ public final class DatosVista {
 
     /**
      * Constructor da clase: dous parámetros que son os dous atributos da clase:
-     * @param pathFXML O path do fxml da vista
+     *
+     * @param pathFXML    O path do fxml da vista
      * @param controlador O controlador correspondente.
      */
     public DatosVista(String pathFXML, AbstractController controlador) {
@@ -27,6 +28,7 @@ public final class DatosVista {
 
     /**
      * Getter do controlador
+     *
      * @return O controlador da ventá contido na clase.
      */
     public AbstractController getControlador() {
@@ -35,6 +37,7 @@ public final class DatosVista {
 
     /**
      * Setter do controlador
+     *
      * @param controlador O controlador da ventá a asignar.
      */
     public void setControlador(AbstractController controlador) {
@@ -43,6 +46,7 @@ public final class DatosVista {
 
     /**
      * Getter do path do fxml
+     *
      * @return O path fxml contido nesta clase.
      */
     public String getPathFXML() {
@@ -51,6 +55,7 @@ public final class DatosVista {
 
     /**
      * Setter do path do fxml.
+     *
      * @param pathFXML O path fxml contido nesta clase.
      */
     public void setPathFXML(String pathFXML) {

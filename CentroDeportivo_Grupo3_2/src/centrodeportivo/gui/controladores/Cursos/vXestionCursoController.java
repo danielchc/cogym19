@@ -338,7 +338,7 @@ public class vXestionCursoController extends AbstractController implements Initi
         }
 
         //Comprobamos a lonxitude dos campos:
-        if(campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200){
+        if (campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200) {
             tagAviso.setText("Lonxitudes incorrectas!!");
             AuxGUI.amosarCampos(tagAviso);
             return; //Non seguimos adiante.
@@ -462,7 +462,7 @@ public class vXestionCursoController extends AbstractController implements Initi
             //Tomamos a selección da táboa (se é posíbel):
             if (!taboaActividades.getSelectionModel().isEmpty()) {
                 //Pedimos primeiramente confirmación
-                if(getFachadaAplicacion().mostrarConfirmacion("Administración de cursos",
+                if (getFachadaAplicacion().mostrarConfirmacion("Administración de cursos",
                         "Está completamente seguro de que desexa borrar a actividade seleccionada?") == ButtonType.OK) {
                     Actividade actividade = ((Actividade) taboaActividades.getSelectionModel().getSelectedItem());
                     //Elaboramos a mensaxe que se enviará automáticamente aos socios:

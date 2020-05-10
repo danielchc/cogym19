@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
  */
 public class vInformeActividadeController extends AbstractController implements Initializable {
 
-
     /**
      * Atributos públicos: compoñentes da ventá:
      */
@@ -44,6 +43,7 @@ public class vInformeActividadeController extends AbstractController implements 
      */
     private vPrincipalController controllerPrincipal;
     private Actividade actividade;
+
 
     /**
      * Constructor do controlador da pantalla de administración de tipos de actividades.
@@ -66,7 +66,7 @@ public class vInformeActividadeController extends AbstractController implements 
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Deshabilitaremos todos os campos e estableceremos en cada un o que corresponde:
+        // Deshabilitaremos todos os campos e estableceremos en cada un o que corresponde:
         campoNomeActividade.setDisable(true);
         campoNomeActividade.setText(actividade.getNome());
         campoArea.setDisable(true);
@@ -76,7 +76,7 @@ public class vInformeActividadeController extends AbstractController implements 
         campoDataInicio.setDisable(true);
         campoDataInicio.setText(new SimpleDateFormat("dd/MM/yyyy").format(actividade.getData().getTime()));
         campoDuracion.setDisable(true);
-        //A duración porémola no formato (horas, minutos).
+        // A duración porémola no formato (horas, minutos).
         campoDuracion.setText(actividade.getDuracion().intValue() + "h, " +
                 (int) ((actividade.getDuracion().floatValue() - actividade.getDuracion().intValue()) * 60) + "m");
         campoNomeProfesor.setDisable(true);
@@ -88,7 +88,7 @@ public class vInformeActividadeController extends AbstractController implements 
             campoValoracion.setText("-");
         }
 
-        //Columnas da táboa de participantes da actividade:
+        // Columnas da táboa de participantes da actividade:
         TableColumn<Socio, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
@@ -114,6 +114,7 @@ public class vInformeActividadeController extends AbstractController implements 
 
     /**
      * Método que representa as accións executadas ao premer no botón de refresco dos campos:
+     *
      * @param actionEvent A acción que tivo lugar.
      */
     public void btnRefrescarAction(ActionEvent actionEvent) {
@@ -123,6 +124,7 @@ public class vInformeActividadeController extends AbstractController implements 
 
     /**
      * Setter da actividade:
+     *
      * @param actividade A actividade a asignar, da que se amosará o informe.
      */
     public void setActividade(Actividade actividade) {

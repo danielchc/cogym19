@@ -191,7 +191,7 @@ public class vAsMinasActividadesController extends AbstractController implements
                 btnValorar.setDisable(true);
             }
             //O botón de desanotarse deshabilitarase se a actividade xa se levou a cabo ou se a actividade pertence a un curso:
-            btnDesapuntarse.setDisable(!(!estaAcabada && checkApuntado.isSelected() && actividade.getCurso().getCodCurso()==0));
+            btnDesapuntarse.setDisable(!(!estaAcabada && checkApuntado.isSelected() && actividade.getCurso().getCodCurso() == 0));
             //O botón de apuntarse deshabilitarase cando se amosen as actividades nas que o usuario está anotado. Noutro
             //caso, habilitaranse:
             btnApuntarse.setDisable(checkApuntado.isSelected());
@@ -207,7 +207,7 @@ public class vAsMinasActividadesController extends AbstractController implements
                     actividade.getArea().getInstalacion().getNome(),
                     actividade.getArea().getNome(),
                     actividade.getTipoActividadenome(),
-                    actividade.getCurso().getCodCurso()!=0?actividade.getCurso().getCodCurso():"-"
+                    actividade.getCurso().getCodCurso() != 0 ? actividade.getCurso().getCodCurso() : "-"
             );
 
             //Establecemos texto do campo de información:
@@ -271,7 +271,7 @@ public class vAsMinasActividadesController extends AbstractController implements
         if (!taboaActividade.getSelectionModel().isEmpty()) {
             //Recuperamos a actividade correspondente:
             Actividade actividade = (Actividade) taboaActividade.getSelectionModel().getSelectedItem();
-            if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste apuntar a " + actividade.getNome()+"?") == ButtonType.OK) {
+            if (super.getFachadaAplicacion().mostrarConfirmacion("Actividade", "Quereste apuntar a " + actividade.getNome() + "?") == ButtonType.OK) {
                 //Preguntamos se o usuario se quere apuntar á actividade para confirmar e entón pasaremos a chamar á parte de aplicación:
                 try {
                     TipoResultados tipoResultados = super.getFachadaAplicacion().apuntarseActividade(actividade, controllerPrincipal.getUsuario());
@@ -324,7 +324,7 @@ public class vAsMinasActividadesController extends AbstractController implements
                             super.getFachadaAplicacion().mostrarInformacion("Actividade",
                                     "Desapuntácheste da actividade " + actividade.getNome());
                             break;
-                            //En caso de ter que xa non se esté apuntado á actividade, entón avísase:
+                        //En caso de ter que xa non se esté apuntado á actividade, entón avísase:
                         case sitIncoherente:
                             super.getFachadaAplicacion().mostrarErro("Actividade",
                                     "Non está apuntado a esta actividade.");

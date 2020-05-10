@@ -17,6 +17,7 @@ public abstract class AbstractController {
 
     /**
      * Constructor do controlador abstracto.
+     *
      * @param fachadaAplicacion A referencia á fachada de aplicación.
      */
     public AbstractController(FachadaAplicacion fachadaAplicacion) {
@@ -26,6 +27,7 @@ public abstract class AbstractController {
 
     /**
      * Getter da fachada de aplicación.
+     *
      * @return A fachada de aplicación que posúe esta clase.
      */
     public FachadaAplicacion getFachadaAplicacion() {
@@ -34,6 +36,7 @@ public abstract class AbstractController {
 
     /**
      * Setter da fachada de aplicación
+     *
      * @param fachadaAplicacion A fachada de aplicación a asignar a esta clase.
      */
     public void setFachadaAplicacion(FachadaAplicacion fachadaAplicacion) {
@@ -45,7 +48,7 @@ public abstract class AbstractController {
      * ventás correspondentes. Será algo que se invoque cada vez que se chama á ventá correspondente.
      * Os controladores fillos serán os que o poidan sobreescribir e realizar accións útiles con el (non teñen porque).
      */
-    public void reiniciarForm(){
+    public void reiniciarForm() {
 
     }
 }
