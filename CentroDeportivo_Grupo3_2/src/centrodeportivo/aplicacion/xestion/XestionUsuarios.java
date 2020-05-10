@@ -20,18 +20,20 @@ public class XestionUsuarios {
 
     /**
      * Constructor da clase de xestión de usuarios.
+     *
      * @param fachadaGUI A fachada da interface gráfica.
-     * @param fachadaBD A fachada da base de datos.
+     * @param fachadaBD  A fachada da base de datos.
      */
-    public XestionUsuarios(FachadaGUI fachadaGUI,FachadaBD fachadaBD) {
+    public XestionUsuarios(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         //Asignamos as fachadas pasadas como argumento aos atributos correspondentes da clase.
-        this.fachadaGUI=fachadaGUI;
-        this.fachadaBD=fachadaBD;
+        this.fachadaGUI = fachadaGUI;
+        this.fachadaBD = fachadaBD;
     }
 
     /**
      * Método que nos permitirá levar a cabo a validación dun usuario:
-     * @param login O login introducido polo usuario.
+     *
+     * @param login       O login introducido polo usuario.
      * @param contrasinal O contrasinal introducido polo usuario.
      * @return booleano que nos indica se a validación foi correcta ou non.
      */
@@ -43,10 +45,11 @@ public class XestionUsuarios {
 
     /**
      * Método que nos permitirá consultar os datos esenciais dun usuario:
+     *
      * @param login O login do usuario que se quere consultar.
      * @return Usuario con algúns datos asociados na base de datos ao login pasado como argumento.
      */
-    public Usuario consultarUsuario(String login)  {
+    public Usuario consultarUsuario(String login) {
         //Chamamos ao método correspondente da fachada da base de datos.
         return fachadaBD.consultarUsuario(login);
     }

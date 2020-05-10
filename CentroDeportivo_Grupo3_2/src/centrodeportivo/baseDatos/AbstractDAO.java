@@ -25,7 +25,7 @@ public abstract class AbstractDAO {
      * @param fachadaAplicacion A referencia da fachada da parte de aplicación
      */
     public AbstractDAO(Connection conexion, FachadaAplicacion fachadaAplicacion) {
-        //Asignamos os parámetros pasados a cada atributo:
+        // Asignamos os parámetros pasados a cada atributo:
         this.conexion = conexion;
         this.fachadaAplicacion = fachadaAplicacion;
     }

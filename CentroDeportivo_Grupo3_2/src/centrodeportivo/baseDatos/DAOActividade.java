@@ -16,6 +16,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que conterá todos os métodos DAO relacionados na súa maioría con xestións das actividades.
+ */
 public class DAOActividade extends AbstractDAO {
 
     public DAOActividade(Connection conexion, FachadaAplicacion fachadaAplicacion) {

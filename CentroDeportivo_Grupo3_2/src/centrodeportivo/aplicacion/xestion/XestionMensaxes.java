@@ -24,40 +24,44 @@ public class XestionMensaxes {
 
     /**
      * Constructor da clase de xestión de mensaxes
+     *
      * @param fachadaGUI A referencia á fachada da interface gráfica.
-     * @param fachadaBD A referencia á fachada da parte da base de datos.
+     * @param fachadaBD  A referencia á fachada da parte da base de datos.
      */
-    public XestionMensaxes(FachadaGUI fachadaGUI, FachadaBD fachadaBD){
+    public XestionMensaxes(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaBD = fachadaBD;
         this.fachadaGUI = fachadaGUI;
     }
 
     /**
      * Método que nos permite enviar unha mensaxe de aviso a todos os socios.
+     *
      * @param mensaxe A mensaxe a transmitir
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD{
+    public void enviarAvisoSocios(Mensaxe mensaxe) throws ExcepcionBD {
         fachadaBD.enviarAvisoSocios(mensaxe);
     }
 
     /**
      * Método que nos permite enviar un aviso aos socios dun curso determinado.
+     *
      * @param mensaxe A mensaxe que se vai a enviar aos socios.
-     * @param curso O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
+     * @param curso   O curso ao que pertencen os usuarios aos que se lle vai enviar a mensaxe.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD{
+    public void enviarAvisoSociosCurso(Mensaxe mensaxe, Curso curso) throws ExcepcionBD {
         fachadaBD.enviarAvisoSociosCurso(mensaxe, curso);
     }
 
     /**
      * Método que nos permite realizar o envío dun aviso aos socios dunha actividade.
-     * @param mensaxe A mensaxe a enviar a eses socios.
+     *
+     * @param mensaxe    A mensaxe a enviar a eses socios.
      * @param actividade A actividade de referencia da que se collerán os participantes aos que enviar as mensaxes.
      * @throws ExcepcionBD Excepción que se pode producir por problemas coa base de datos.
      */
-    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD{
+    public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD {
         fachadaBD.enviarAvisoSociosAct(mensaxe, actividade);
     }
 }

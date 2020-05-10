@@ -15,6 +15,13 @@ import javax.swing.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Esta clase é aquela na que se levarán a cabo tarefas de xestión na parte de aplicación relacionadas coas actividades.
+ * Introduciremos aquí as comprobacións que se realizarán para cada caso.
+ */
 public class XestionActividade {
 
     private FachadaGUI fachadaGUI;
@@ -35,8 +42,7 @@ public class XestionActividade {
             } else {
                 return TipoResultados.foraTempo;
             }
-        }
-        else
+        } else
             return TipoResultados.sitIncoherente;
     }
 
@@ -110,7 +116,7 @@ public class XestionActividade {
     }
 
     public TipoResultados valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
-        if ( actividade != null && usuario != null) {
+        if (actividade != null && usuario != null) {
             if ((actividade.getData()).before(new Timestamp(System.currentTimeMillis()))) {
                 fachadaBD.valorarActividade(valoracion, actividade, usuario);
                 return TipoResultados.correcto;

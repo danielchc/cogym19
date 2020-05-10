@@ -8,6 +8,12 @@ import centrodeportivo.aplicacion.obxectos.area.Instalacion;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que conterá todos os métodos DAO relacionados na súa maioría con xestións das areas.
+ */
 public final class DAOAreas extends AbstractDAO {
 
     public DAOAreas(Connection conexion, FachadaAplicacion fachadaAplicacion) {

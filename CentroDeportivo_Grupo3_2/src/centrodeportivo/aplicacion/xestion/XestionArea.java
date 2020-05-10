@@ -19,14 +19,14 @@ public class XestionArea {
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
-    public XestionArea(FachadaGUI fachadaGUI, FachadaBD fachadaBD){
+    public XestionArea(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
         //Se non existe outra área co mesmo nome, dase de alta:
-        if(!fachadaBD.ExisteArea(area)) {
+        if (!fachadaBD.ExisteArea(area)) {
             fachadaBD.EngadirArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -37,7 +37,7 @@ public class XestionArea {
     }
 
     public TipoResultados borrarArea(Area area) throws ExcepcionBD {
-        if(!fachadaBD.tenActividadesArea(area, false) && !fachadaBD.tenMateriaisArea(area)){
+        if (!fachadaBD.tenActividadesArea(area, false) && !fachadaBD.tenMateriaisArea(area)) {
             fachadaBD.borrarArea(area);
             //Se se completou o método correctamente, devolvemos o enum que indica corrección:
             return TipoResultados.correcto;
@@ -48,7 +48,7 @@ public class XestionArea {
 
     public TipoResultados modificarArea(Area area) throws ExcepcionBD {
         //Comprobamos que non haxa outra area na instalación co mesmo nome que a que se quere meter:
-        if(!fachadaBD.ExisteArea(area)) {
+        if (!fachadaBD.ExisteArea(area)) {
             fachadaBD.modificarArea(area);
             //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
             return TipoResultados.correcto;
@@ -60,8 +60,8 @@ public class XestionArea {
 
     public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {
         //A área non pode estar xa dada de baixa nin ter actividades sen comezar:
-        if (!fachadaBD.EBaixaArea(area)){
-            if(!fachadaBD.tenActividadesArea(area, true)){
+        if (!fachadaBD.EBaixaArea(area)) {
+            if (!fachadaBD.tenActividadesArea(area, true)) {
                 fachadaBD.darDeBaixaArea(area);
                 //Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
                 return TipoResultados.correcto;
@@ -69,7 +69,7 @@ public class XestionArea {
                 //Se ten actividades sen comezar, non se pode levar a cabo a baixa:
                 return TipoResultados.referenciaRestrict;
             }
-        }  else {
+        } else {
             //Se a área xa está dada de baixa, estaremos nunha situacion incorrecta na que non se pode facer o borrado:
             return TipoResultados.sitIncoherente;
         }
@@ -105,7 +105,7 @@ public class XestionArea {
      * @return Se o parametro non é null, será devolto unha ObservableList con todas as areas que coincidan,
      * noutro caso, listaranse todas as areas.
      */
-    public ArrayList<Area> listarAreasActivas(Instalacion instalacion){
+    public ArrayList<Area> listarAreasActivas(Instalacion instalacion) {
         return fachadaBD.listarAreasActivas(instalacion);
     }
 }

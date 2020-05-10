@@ -8,6 +8,13 @@ import centrodeportivo.gui.FachadaGUI;
 
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Esta clase é aquela na que se levarán a cabo tarefas de xestión na parte de aplicación relacionadas cos tipos de materiais.
+ * Introduciremos aquí as comprobacións que se realizarán para cada caso.
+ */
 public class XestionTipoMaterial {
 
     // Atributos

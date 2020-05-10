@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 /**
  * No noso caso non temos que xestionar o envío de mensaxes entre pares, pero si que nos resultará interesante o envío
  * de mensaxes a modo de aviso, por exemplo, cando se crea unha actividade.
+ *
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Victor Barreiro
@@ -21,12 +22,18 @@ public class Mensaxe {
     private String contido;
     private boolean lido;
 
+    /**
+     * Constructor
+     */
     public Mensaxe(Usuario emisor,String contido){
         this.emisor=emisor;
         this.contido=contido;
         this.lido=false;
     }
 
+    /**
+     * Getters e setters
+     */
     public Usuario getEmisor() {
         return emisor;
     }

@@ -18,17 +18,19 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Constructor deste DAO.
-     * @param conexion A conexión coa base de datos.
+     *
+     * @param conexion          A conexión coa base de datos.
      * @param fachadaAplicacion Referencia coa fachada da parte de aplicación.
      */
     protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         //Chamamos á clase pai co constructor que pide os mesmos dous argumentos.
-        super(conexion,fachadaAplicacion);
+        super(conexion, fachadaAplicacion);
     }
 
     /**
      * Método que nos permitirá levar a cabo a validación dun usuario:
-     * @param login O login introducido polo usuario.
+     *
+     * @param login       O login introducido polo usuario.
      * @param contrasinal O contrasinal introducido polo usuario.
      * @return booleano que nos indica se a validación foi correcta ou non.
      */
@@ -60,18 +62,18 @@ public final class DAOUsuarios extends AbstractDAO {
             con.commit();
         } catch (SQLException e) {
             //En caso de recibir unha excepción, tratamos de facer o rollback:
-            try{
+            try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             //Logo, imprimimos o stack trace:
             e.printStackTrace();
-        }finally {
+        } finally {
             //Para rematar, en calquera caso, tentamos pechar o statement:
             try {
                 stmUsuarios.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }
@@ -81,6 +83,7 @@ public final class DAOUsuarios extends AbstractDAO {
 
     /**
      * Método que nos permitirá consultar os datos esenciais dun usuario:
+     *
      * @param login O login do usuario que se quere consultar.
      * @return Usuario con algúns dos datos asociados na base de datos ao login pasado como argumento.
      */
@@ -117,14 +120,20 @@ public final class DAOUsuarios extends AbstractDAO {
             //En función do string devolto (se chegamos a este punto, sabendo que non se pode borrar un usuario, vaisenos
             //devolver ou socio ou persoal ou profesor), escollemos o tipo de usuario.
             //De todos os xeitos, por se isto tivese outras aplicacións posibles, mantense o caso do erro por se acaso.
-            switch(rsUsuarios.getString("tipoUsuario")) {
-                case "socio": tipoUsuario = TipoUsuario.Socio; break; //O usuario é socio.
-                case "persoal": tipoUsuario = TipoUsuario.Persoal; break; //O usuario é persoal
-                case "profesor": tipoUsuario = TipoUsuario.ProfesorActivo; break; //O usuario é un profesor activo, ademais de persoal.
+            switch (rsUsuarios.getString("tipoUsuario")) {
+                case "socio":
+                    tipoUsuario = TipoUsuario.Socio;
+                    break; //O usuario é socio.
+                case "persoal":
+                    tipoUsuario = TipoUsuario.Persoal;
+                    break; //O usuario é persoal
+                case "profesor":
+                    tipoUsuario = TipoUsuario.ProfesorActivo;
+                    break; //O usuario é un profesor activo, ademais de persoal.
             }
 
             //Agora consultaremos os datos do usuario. Na nosa parte da aplicación somentes tomaremos datos realmente esenciais.
-            if(tipoUsuario==TipoUsuario.Socio) {
+            if (tipoUsuario == TipoUsuario.Socio) {
                 //Neste caso consultaremos un socio, accedendo á vista de socios:
                 stmUsuarios = con.prepareStatement("SELECT nome, dni, login " +
                         " FROM vistasocio " +
@@ -140,7 +149,7 @@ public final class DAOUsuarios extends AbstractDAO {
                             rsUsuarios.getString("dni"),
                             rsUsuarios.getString("login"));
                 }
-            }else{
+            } else {
                 //Noutro caso (profesor/persoal): consultamos un membro do persoal.
                 stmUsuarios = con.prepareStatement("SELECT nome, dni, login, profesorActivo " +
                         " FROM vistapersoal " +
@@ -162,18 +171,18 @@ public final class DAOUsuarios extends AbstractDAO {
             con.commit();
         } catch (SQLException e) {
             //En caso de haber excepción, faise o rollback:
-            try{
+            try {
                 con.rollback();
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             //Imprimimos o stack trace:
             e.printStackTrace();
-        }finally {
+        } finally {
             //Para rematar, téntase pechar o statement de usuarios:
             try {
                 stmUsuarios.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println("Imposible pechar os cursores");
             }
         }

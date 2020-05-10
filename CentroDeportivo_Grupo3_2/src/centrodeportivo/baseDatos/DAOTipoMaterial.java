@@ -10,6 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que conterá todos os métodos DAO relacionados na súa maioría con xestións do tipo dos materiais
+ */
 public final class DAOTipoMaterial extends AbstractDAO {
 
     // Constructor
