@@ -43,19 +43,19 @@ public class XestionCursos {
     /**
      * Método que nos permite introducir os datos dun novo curso na base de datos.
      *
-     * @param curso O curso a insertar
-     * @return O resultado da operación
+     * @param curso O curso a insertar.
+     * @return O resultado da operación.
      * @throws ExcepcionBD Excepción asociada a problemas que puideron ocorrer na base de datos.
      */
     public TipoResultados rexistrarCurso(Curso curso) throws ExcepcionBD {
-        //Primeiro, verificamos que non exista xa un curso co mesmo nome:
+        // Primeiro, verificamos que non exista xa un curso co mesmo nome:
         if (!fachadaBD.comprobarExistencia(curso)) {
-            //Se non existe, xa poderemos rexistrar o curso:
+            // Se non existe, xa poderemos rexistrar o curso:
             fachadaBD.rexistrarCurso(curso);
-            //Se chegamos ata este punto, remataríase correctamente:
+            // Se chegamos ata este punto, remataríase correctamente:
             return TipoResultados.correcto;
         } else {
-            //Se existe, entón haberá que devolver o enum correspondente:
+            // Se existe, entón haberá que devolver o enum correspondente:
             return TipoResultados.datoExiste;
         }
     }
@@ -68,20 +68,20 @@ public class XestionCursos {
      * @throws ExcepcionBD Excepción asociada a problemas producidos coa base de datos.
      */
     public TipoResultados modificarCurso(Curso curso) throws ExcepcionBD {
-        //Comezamos comprobando se comezou o curso, posto que nese caso xa non deixaremos modificar a información principal:
+        // Comezamos comprobando se comezou o curso, posto que nese caso xa non deixaremos modificar a información principal:
         if (curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis()))) {
-            //Temos que verificar se o nome pertence a outro curso rexistrado na base de datos:
+            // Temos que verificar se o nome pertence a outro curso rexistrado na base de datos:
             if (!fachadaBD.comprobarExistencia(curso)) {
-                //Se non existe, como antes, poderemos facer a modificación:
+                // Se non existe, como antes, poderemos facer a modificación:
                 fachadaBD.modificarCurso(curso);
-                //Chegados a este punto, remataríase correctamente:
+                // Chegados a este punto, remataríase correctamente:
                 return TipoResultados.correcto;
             } else {
-                //Se existe, non se pode actualizar:
+                // Se existe, non se pode actualizar:
                 return TipoResultados.datoExiste;
             }
         } else {
-            //Se o curso xa comezou, entón non deixamos modificar eses datos.
+            // Se o curso xa comezou, entón non deixamos modificar eses datos.
             return TipoResultados.foraTempo;
         }
     }
@@ -95,16 +95,16 @@ public class XestionCursos {
      * @throws ExcepcionBD Excepción asociada a problemas que poden ocorrer durante o borrado.
      */
     public TipoResultados cancelarCurso(Curso curso, Mensaxe mensaxe) throws ExcepcionBD {
-        //Para cancelar un curso, hai que comprobar se o curso está xa comezado ou se ten participantes:
-        //Non comezado -> Data de inicio maior á data actual
+        // Para cancelar un curso, hai que comprobar se o curso está xa comezado ou se ten participantes:
+        // Non comezado -> Data de inicio maior á data actual
         if (curso.getDataInicio() == null || curso.getDataInicio().after(new Date(System.currentTimeMillis()))
                 || !fachadaBD.tenParticipantes(curso)) {
-            //Nestes dous casos, poderase proceder ao borrado:
+            // Nestes dous casos, poderase proceder ao borrado:
             fachadaBD.cancelarCurso(curso, mensaxe);
-            //Se chegamos a este punto, indicamos que se remata correctamente:
+            // Se chegamos a este punto, indicamos que se remata correctamente:
             return TipoResultados.correcto;
         } else {
-            //Se non, haberá un erro no borrado:
+            // Se non, haberá un erro no borrado:
             return TipoResultados.incoherenciaBorrado;
         }
     }
@@ -117,14 +117,14 @@ public class XestionCursos {
      * @throws ExcepcionBD Excepción asociada a problemas producidos na base de datos.
      */
     public TipoResultados activarCurso(Curso curso) throws ExcepcionBD {
-        //Primeiro haberá que comprobar que cumple as condicións para poder ser activado:
+        // Primeiro haberá que comprobar que cumple as condicións para poder ser activado:
         if (fachadaBD.listoParaActivar(curso)) {
-            //Neste caso faremos a activación:
+            // Neste caso faremos a activación:
             fachadaBD.abrirCurso(curso);
-            //Se se chega a este punto, devolvemos un tipo de resultado correcto:
+            // Se se chega a este punto, devolvemos un tipo de resultado correcto:
             return TipoResultados.correcto;
         } else {
-            //Noutro caso, haberá un erro:
+            // Noutro caso, haberá un erro:
             return TipoResultados.sitIncoherente;
         }
     }
@@ -180,7 +180,7 @@ public class XestionCursos {
      * @param usuario Usuario polo que se realiza a busca.
      * @return Devolverase un ArrayList con todos os cursos nos que esta apuntado o usuario
      */
-    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario){
+    public ArrayList<Curso> consultarCursosDisponhibles(Curso curso, Usuario usuario) {
         return fachadaBD.consultarCursosDisponhibles(curso, usuario);
     }
 
