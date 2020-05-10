@@ -158,7 +158,7 @@
         <children>
             <Button id="VALORARACTIVIDADE" contentDisplay="TOP" layoutX="10.0" layoutY="100.0" mnemonicParsing="false"
                     onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button"
-                    text="Realización de Actividades" textFill="WHITE">
+                    text="Actividades" textFill="WHITE">
                 <font>
                     <Font name="System Bold" size="12.0"/>
                 </font>
@@ -168,24 +168,19 @@
                     </ImageView>
                 </graphic>
             </Button>
-
+            <Button id="ELIXIRCURSO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Cursos"
+                    textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../../imaxes/anotarseCurso.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </children>
-    </VBox>
-    <VBox id="vb-sidebar" fx:id="sideBarCursosSocios" layoutX="100.0" prefHeight="482.0" prefWidth="150.0"
-          style="-fx-background-color: #82beff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0"
-          AnchorPane.topAnchor="0.0">
-        <Button id="ELIXIRCURSO" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                onAction="#btnSliderAction" prefHeight="90.0" prefWidth="150.0" styleClass="slider-button" text="Todos"
-                textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-            <graphic>
-                <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../../imaxes/anotarseCurso.png"/>
-                </ImageView>
-            </graphic>
-        </Button>
     </VBox>
 
     <!-- MENU PRINCIPAL -->
@@ -204,6 +199,42 @@
                                styleClass="sidebar-button">
                         <image>
                             <Image url="@../../imaxes/inicio.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnUsuariosP" contentDisplay="TOP" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Usuarios" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/usuario.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnMensaxesP" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Mensaxes" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/mensaxe.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnTarifasP" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Tarifas" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/tarifa.png" />
                         </image>
                     </ImageView>
                 </graphic>
@@ -253,6 +284,18 @@
                     </ImageView>
                 </graphic>
             </Button>
+            <Button fx:id="btnIncidenciaP" contentDisplay="TOP" layoutX="10.0" layoutY="412.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Incidencias" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/incidencia.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </children>
     </VBox>
 
@@ -275,6 +318,31 @@
                     </ImageView>
                 </graphic>
             </Button>
+
+            <Button fx:id="btnUsuariosS" contentDisplay="TOP" mnemonicParsing="false"  prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Usuarios" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/usuario.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnMensaxesS" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Mensaxes" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/mensaxe.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
             <Button fx:id="btnActividadesSocios" contentDisplay="TOP" layoutX="10.0" layoutY="189.0"
                     mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0"
                     styleClass="sidebar-button" text="Actividades" textFill="WHITE">
@@ -290,16 +358,15 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="btnCursosSocios" contentDisplay="TOP" layoutX="10.0" layoutY="189.0" mnemonicParsing="false"
-                    onAction="#btnMenuAction" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button"
-                    text="Cursos" textFill="WHITE">
+            <Button fx:id="btnIncidenciaS" contentDisplay="TOP" layoutX="10.0" layoutY="412.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="100.0" styleClass="sidebar-button" text="Incidencias" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="14.0"/>
+                    <Font name="System Bold" size="15.0" />
                 </font>
                 <graphic>
-                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true"
-                               styleClass="sidebar-button">
-                        <Image url="@../../imaxes/curso.png"/>
+                    <ImageView fitHeight="30.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-button">
+                        <image>
+                            <Image url="@../../imaxes/incidencia.png" />
+                        </image>
                     </ImageView>
                 </graphic>
             </Button>
