@@ -536,10 +536,23 @@ public final class FachadaBD {
         return this.daoTipoMaterial.isTipoMaterial(tipoMaterial);
     }
 
+    /**
+     * BuscarTipoMaterial -> permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
+     *
+     * @param tipoMaterial -> se non é null, a consulta realizase en base o nome do tipo de material.
+     * @return -> se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
+     * noutro caso, listanse todos os tipos de materiais.
+     */
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return this.daoTipoMaterial.buscarTipoMaterial(tipoMaterial);
     }
 
+    /**
+     * TenMateriais -> permite comprobar existen materiais vinculados o tipo.
+     *
+     * @param tipoMaterial -> o tipo de material do cal queremos comprobar se existen materiais vinculados
+     * @return -> retorna true se o tipo ten materiais vinculados, False en caso contrario.
+     */
     public boolean tenMateriais(TipoMaterial tipoMaterial) {
         return this.daoTipoMaterial.tenMateriais(tipoMaterial);
     }

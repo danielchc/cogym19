@@ -510,6 +510,13 @@ public class FachadaAplicacion extends Application {
         return xestionTipoMaterial.borrarTipoMaterial(tipoMaterial);
     }
 
+    /**
+     * BuscarTipoMaterial -> permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
+     *
+     * @param tipoMaterial -> se non é null, a consulta realizase en base o nome do tipo de material.
+     * @return -> se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
+     * noutro caso, listanse todos os tipos de materiais.
+     */
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return xestionTipoMaterial.buscarTipoMaterial(tipoMaterial);
     }

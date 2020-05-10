@@ -25,12 +25,14 @@ public final class DAOTipoMaterial extends AbstractDAO {
     }
 
 
-    // Outros metodos
+    /**
+     * Outros métodos
+     */
 
     /**
      * EngadirTipoMaterial -> engadese unha nova tupla cun novo tipo de material na base de datos
      *
-     * @param tipoMaterial -> datos do material que creará
+     * @param tipoMaterial -> datos do tipo de material que se creará (en concreto, o nome)
      * @throws ExcepcionBD -> excepción procedente do método dao para indicar problemas na inserción
      */
     public void darAltaTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
@@ -116,6 +118,8 @@ public final class DAOTipoMaterial extends AbstractDAO {
         }
     }
 
+    // Non se contempla a modificación do tipo de material por motivos de deseño
+
     /**
      * IsTipoMaterial -> comproba se certo tipo de material existe na base de datos
      *
@@ -171,10 +175,10 @@ public final class DAOTipoMaterial extends AbstractDAO {
     }
 
     /**
-     * Método que nos permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
+     * BuscarTipoMaterial -> permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
      *
-     * @param tipoMaterial Se non é null, a consulta realizase en base o nome do tipo de material.
-     * @return Se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
+     * @param tipoMaterial -> se non é null, a consulta realizase en base o nome do tipo de material.
+     * @return -> se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
      * noutro caso, listanse todos os tipos de materiais.
      */
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
@@ -238,10 +242,10 @@ public final class DAOTipoMaterial extends AbstractDAO {
     }
 
     /**
-     * Método que nos permite comprobar existen materiais vinculados o tipo.
+     * TenMateriais -> permite comprobar existen materiais vinculados o tipo.
      *
-     * @param tipoMaterial O tipo de material do cal queremos comprobar se existen materiais vinculados
-     * @return True se o tipo ten materiais vinculados, False en caso contrario.
+     * @param tipoMaterial -> o tipo de material do cal queremos comprobar se existen materiais vinculados
+     * @return -> retorna true se o tipo ten materiais vinculados, False en caso contrario.
      */
     public boolean tenMateriais(TipoMaterial tipoMaterial) {
         boolean resultado = false;
