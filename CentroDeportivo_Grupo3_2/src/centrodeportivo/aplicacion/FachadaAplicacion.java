@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * onde arrancará a execución.
  */
 public class FachadaAplicacion extends Application {
+
     /**
      * Atributos: comezamos polo que son as referencias ás outras fachadas.
      */
@@ -49,6 +50,7 @@ public class FachadaAplicacion extends Application {
     private XestionArea xestionArea;
     private XestionMensaxes xestionMensaxes;
     private XestionActividade xestionActividade;
+
 
     /**
      * Constructor da clase, onde se inicializan todos os atributos comentados antes (fachadas e ventás ded xestión).
@@ -78,6 +80,7 @@ public class FachadaAplicacion extends Application {
         this.xestionActividade = new XestionActividade(fachadaGUI, fachadaBD);
     }
 
+
     /**
      * Con este outro método sobreescrito, start, iniciarase o que é a ventá de login, a partir do que o usuario
      * poderá comezar a meter os datos.
@@ -87,7 +90,7 @@ public class FachadaAplicacion extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Chamamos ao método da GUI co que se abre devandita ventá.
+        // Chamamos ao método da GUI co que se abre devandita ventá.
         fachadaGUI.mostrarVentaLogin(primaryStage);
     }
 
@@ -174,6 +177,7 @@ public class FachadaAplicacion extends Application {
         return fachadaGUI.mostrarConfirmacion(titulo, texto);
     }
 
+
     /*
         Métodos de usuarios.
      */
@@ -200,6 +204,7 @@ public class FachadaAplicacion extends Application {
         //Imos á xestión de usuarios
         return xestionUsuarios.consultarUsuario(login);
     }
+
 
     /*
         Xestión mensaxes
@@ -236,6 +241,7 @@ public class FachadaAplicacion extends Application {
     public void enviarAvisoSociosAct(Mensaxe mensaxe, Actividade actividade) throws ExcepcionBD {
         xestionMensaxes.enviarAvisoSociosAct(mensaxe, actividade);
     }
+
 
     /*
         Xestion instalacións
@@ -297,9 +303,6 @@ public class FachadaAplicacion extends Application {
     }
 
 
-
-
-
     /*
         Xestión TIPOS de actividade
      */
@@ -309,7 +312,7 @@ public class FachadaAplicacion extends Application {
      * se pasa como arugmento.
      *
      * @param tipoActividade Os datos do tipo de actividade a insertar.
-     * @return O resultado da operación levada a cabo.
+     * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran na actualización da base de datos.
      */
     public TipoResultados crearTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
@@ -321,8 +324,8 @@ public class FachadaAplicacion extends Application {
      * actividade xa está rexistrado e, polo tanto, ten un código asociado.
      *
      * @param tipoActividade O tipo de actividade cos datos a actualizar.
-     * @return O resultado da operación levada a cabo.
-     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a actualización da base de datos.
+     * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
+     * @throws ExcepcionBD Excepción asociada a problemas que poidan ocorrer durante a modificación na base de datos.
      */
     public TipoResultados modificarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
         return xestionActividades.modificarTipoActividade(tipoActividade);
@@ -332,7 +335,7 @@ public class FachadaAplicacion extends Application {
      * Método que nos permite eliminar da base de datos o tipo de actividade pasado como argumento.
      *
      * @param tipoActividade O tipo de actividade que se quere eliminar.
-     * @return O resultado da operación levada a cabo.
+     * @return Se instalación non é null, devolveranse as instalacións que coincidan cos campos de consulta, en caso
      * @throws ExcepcionBD Excepción asociada a problemas que ocorran durante a actualización da base de datos.
      */
     public TipoResultados eliminarTipoActividade(TipoActividade tipoActividade) throws ExcepcionBD {
@@ -354,11 +357,12 @@ public class FachadaAplicacion extends Application {
      * Método que nos permite consultar un tipo de actividade a partir do código do tipo pasado como argumento.
      *
      * @param tipoActividade O tipo de actividade do que se collerá o código para a consulta.
-     * @return O tipo de actividade co código buscado (se todavía existe na base de datos).
+     * @return O tipo de actividade co código buscado (se aínda existe na base de datos).
      */
     public TipoActividade consultarTipoActividade(TipoActividade tipoActividade) {
         return xestionActividades.consultarTipoActividade(tipoActividade);
     }
+
 
     /*
         Xestión cursos
@@ -505,78 +509,172 @@ public class FachadaAplicacion extends Application {
     /*
         Xestión TIPOS de material
      */
+
+    /**
+     * Método que permite engadir unh nova tupla na base de datos cun novo tipo de material.
+     *
+     * @param tipoMaterial Datos do tipo de material que se creará (en concreto, o nome).
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na inserción.
+     */
     public TipoResultados darAltaTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         return xestionTipoMaterial.darAltaTipoMaterial(tipoMaterial);
     }
 
+    /**
+     * Método que permite eliminar un tipo de material da base de datos.
+     *
+     * @param tipoMaterial Datos do tipo de material que se eliminará.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas no borrado.
+     */
     public TipoResultados borrarTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         return xestionTipoMaterial.borrarTipoMaterial(tipoMaterial);
     }
 
     /**
-     * BuscarTipoMaterial -> permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
+     * Método que permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
      *
-     * @param tipoMaterial -> se non é null, a consulta realizase en base o nome do tipo de material.
-     * @return -> se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
+     * @param tipoMaterial Se non é null, a consulta realizase en base o nome do tipo de material.
+     * @return Se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
      * noutro caso, listanse todos os tipos de materiais.
      */
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
         return xestionTipoMaterial.buscarTipoMaterial(tipoMaterial);
     }
 
+
     /*
         Xestión materiais
      */
 
+    /**
+     * Método que crea unha nova tupla insertando un material na base de datos.
+     *
+     * @param material Datos do material que se engadirá na base de datos.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na inserción.
+     */
     public TipoResultados darAltaMaterial(Material material) throws ExcepcionBD {
         return xestionMaterial.darAltaMaterial(material);
     }
 
+    /**
+     * Método que elimina a tupla dun material na base de datos.
+     *
+     * @param material Datos do material que se eliminará.
+     * @return Devolve un enum que tipifica os posibles errores durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas no borrado.
+     */
     public TipoResultados borrarMaterial(Material material) throws ExcepcionBD {
         return xestionMaterial.borrarMaterial(material);
     }
 
+    /**
+     * Método que modifica os datos un material na base de datos
+     *
+     * @param material Datos do material que se modificará.
+     * @return Devolve un enum que tipifica os posibles errores durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na modificación.
+     */
     public TipoResultados modificarMaterial(Material material) throws ExcepcionBD {
         return xestionMaterial.modificarMaterial(material);
     }
 
+    /**
+     * Método que obten todos os materiais almacenados na base de datos e permite filtrar en función
+     * da área e instalación na que se atope así como, polo tipo de material.
+     *
+     * @param material Datos do material co que poderemos filtrar en función da instalación e área na que
+     *                 se atope así como, polo seu tipo.
+     * @return Devolve un ArrayList cos materiais da base de datos que cumpran ditas condicións.
+     */
     public ArrayList<Material> listarMateriais(Material material) {
         return xestionMaterial.listarMateriais(material);
     }
 
+    /**
+     * Método que comproba se certo material existe na base de datos e devolve os datos actualizados.
+     *
+     * @param material Datos do material que se quere consultar.
+     * @return Devolve os datos do material actualizado.
+     */
     public Material consultarMaterial(Material material) {
         return xestionMaterial.consultarMaterial(material);
     }
+
 
       /*
         Xestión areas
      */
 
+    /**
+     * Método que permite engadir unha nova área na base de datos.
+     *
+     * @param area Información da área a engadir na base de datos
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na inserción.
+     */
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
         return xestionArea.EngadirArea(area);
     }
 
+    /**
+     * Método que permite borrar unha área da base de datos.
+     *
+     * @param area Área que se desexa eliminar da base de datos.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas no borrado.
+     */
     public TipoResultados borrarArea(Area area) throws ExcepcionBD {
         return xestionArea.borrarArea(area);
     }
 
+    /**
+     * Método que permite modificar os datos dunha área na base de datos.
+     *
+     * @param area Área cos datos modificados para realizar ditos cambios na base de datos.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na modificación.
+     */
     public TipoResultados modificarArea(Area area) throws ExcepcionBD {
         return xestionArea.modificarArea(area);
     }
 
+    /**
+     * Método que permite dar de alta unha área que xa exisita na base de datos pero, agora estará
+     * dispoñible para a realización de actividades.
+     *
+     * @param area Área que se procura dar de alta.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na actualización.
+     */
     public TipoResultados darDeAltaArea(Area area) throws ExcepcionBD {
         return xestionArea.darDeAltaArea(area);
     }
 
+    /**
+     * Método que permite dar de baixa un área, é dicir, non se elimina da base de datos pero,
+     * deixará de estar dispoñible para realizar actividades.
+     *
+     * @param area Área que se quere dar de baixa.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente da base de datos para indicar problemas na actualización.
+     */
     public TipoResultados darDeBaixaArea(Area area) throws ExcepcionBD {
         return xestionArea.darDeBaixaArea(area);
     }
 
+    /**
+     * Método que permite realizar a busca de áreas en función dos datos dunha instalación e seguindo un modelo de área.
+     *
+     * @param instalacion Instalación que empregaremos para filtrar.
+     * @param area        Área modelo que empregaremos para filtrar.
+     * @return Retorna un ArrayList de áreas que cumpran ditas condicións de filtrado.
+     */
     public ArrayList<Area> buscarArea(Instalacion instalacion, Area area) {
         return xestionArea.buscarArea(instalacion, area);
     }
-
-
 
     /**
      * Método que nos permite buscar areas na base de datos en función dunha instalación.
@@ -593,55 +691,148 @@ public class FachadaAplicacion extends Application {
     Xestion Actividades
      */
 
+    /**
+     * Método que permite engadir unha actividade na base de datos.
+     *
+     * @param actividade Actividade que se desexa engadir na base de datos.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a inserción sobre a base de datos.
+     */
     public TipoResultados EngadirActiviade(Actividade actividade) throws ExcepcionBD {
         return xestionActividade.EngadirActividade(actividade);
     }
 
+    /**
+     * Método que permite modificar os datos dunha actividade.
+     *
+     * @param actVella Datos da actividade actualmente.
+     * @param actNova  Datos da actividade polos que se desexan cambiar os actuais.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción asociada a problemas ó tentar facer a modificación na base de datos.
+     */
     public TipoResultados modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
         return xestionActividade.modificarActividade(actVella, actNova);
     }
 
+    /**
+     * Método que permite eliminar os datos dunha actividade da base de datos.
+     *
+     * @param actividade Actividade que se desexa eliminar da base de datos.
+     * @param mensaxe    Mensaxe que se enviara os usuarios que estaban apuntados a dita actividade.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción asociada a problemas ó tentar borrar a actividade da base de datos.
+     */
     public TipoResultados borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {
         return xestionActividade.borrarActividade(actividade, mensaxe);
     }
 
+    /**
+     * Método que permite anotar un usuario a unha actividade como participante.
+     *
+     * @param actividade Actividade a que se desexa apuntar o usuario.
+     * @param usuario    Usuario que se quer apuntar a dita actividade.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción asociada a inserción dunha nova tupla na táboa de realización de actividade.
+     */
     public TipoResultados apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         return xestionActividade.apuntarseActividade(actividade, usuario);
     }
 
+    /**
+     * Método que permite desapuntar un usuario dunha actividade.
+     *
+     * @param actividade Actividade a que se desexa desapuntar dito usuario.
+     * @param usuario    Usuario que se desexa desapuntar de dita actividade.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción asociada o borrado dunha tupla na táboa de datos de realización de actividade.
+     */
     public TipoResultados borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         return xestionActividade.borrarseDeActividade(actividade, usuario);
     }
 
+    /**
+     * Método que permite listar as actividades filtrándoas a través dunha actividade modelo.
+     *
+     * @param actividade Actividade modelo que se empregará apra dito filtrado.
+     * @return Retorna un ArrayList das actividades que cumpren dita condición ou, no caso de ser null,
+     * un ArrayList con todas as posibles actividades.
+     */
     public ArrayList<Actividade> buscarActividade(Actividade actividade) {
         return xestionActividade.buscarActividade(actividade);
     }
 
+    /**
+     * Método que permite listar os profesores ca posibilidade de listar en función dun tipo de actividade.
+     *
+     * @param tipoactividade Tipo de actividade para a que se comprobarán, de non ser nula, os profesores que hai.
+     * @return Devolve un ArrayList cos profesores que cumpran ditas condicións de filtrado.
+     */
     public ArrayList<Persoal> buscarProfesores(TipoActividade tipoActividade) {
         return xestionActividade.buscarProfesores(tipoActividade);
     }
 
+    /**
+     * Método que permite listar as actividades nas que participa certo usuario.
+     *
+     * @param actividade Actividade modelo que se empregará para realizar un filtrado.
+     * @param usuario    Usuario que se desexa asegurar que participa nas actividades.
+     * @return Devolve un ArrayList que compre cas condicións de filtrado en función do usuario pasado.
+     */
     public ArrayList<Actividade> buscarActividadeParticipa(Actividade actividade, Usuario usuario) {
         return xestionActividade.buscarActividadeParticipa(actividade, usuario);
     }
 
+    /**
+     * Método que permite listar as actividades onde NON participa certo usuario.
+     *
+     * @param actividade Actividade modelo que se empregará para realizar un filtrado.
+     * @param usuario    Usuario que se desexa asegurar que NON particida nas actividades
+     * @return Devolve un ArrayList que compre cas condicións de filtrado da actividade en función do usuario pasado.
+     */
     public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
         return xestionActividade.buscarActividadeNONParticipa(actividade, usuario);
     }
 
+    /**
+     * Método que permite valorar por certo usuario unha actividade na que participará.
+     *
+     * @param valoracion Puntuación que lle será asignada a dita actividade.
+     * @param actividade Actividade que se desexa valorar.
+     * @param usuario    Usuario que esta a valorar dita actividade.
+     * @throws ExcepcionBD Excepción asociada a actualización na base de datos.
+     */
     public TipoResultados valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
         return xestionActividade.valorarActividade(valoracion, actividade, usuario);
     }
 
+    /**
+     * Método que comproba se unha actividade foi valorada por un usuario.
+     *
+     * @param actividade Actividade que se comproba se foi valorada.
+     * @param usuario    Usuario que se comproba se a valorou.
+     * @return Devolve true se a actividade xa foi valorada.
+     */
     public boolean isValorada(Actividade actividade, Usuario usuario) {
         return xestionActividade.isValorada(actividade, usuario);
     }
 
+    /**
+     * Método que permite listar todos os participantes dunha actividade.
+     *
+     * @param actividade Actividade da que se queren listar os seus participantes.
+     * @return Retorna un ArrayList con todos os participantes que estan apuntados na mesma.
+     */
     public ArrayList<Socio> listarParticipantes(Actividade actividade) {
         return xestionActividade.listarParticipantes(actividade);
     }
 
-    public Actividade recuperarActividade(Actividade actividade){
+    /**
+     * Método que permite recuperar os datos dunha actividade da base de datos a partir das súas claves primarias.
+     *
+     * @param actividade Actividade da que se obteñen os datos para realizar a consulta en función dos mesmos.
+     * @return Retorna a Actividade cos datos actualizados.
+     */
+    public Actividade recuperarActividade(Actividade actividade) {
         return xestionActividade.recuperarActividade(actividade);
     }
 }

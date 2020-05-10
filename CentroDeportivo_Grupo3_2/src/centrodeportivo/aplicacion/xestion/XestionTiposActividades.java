@@ -35,7 +35,6 @@ public class XestionTiposActividades {
         this.fachadaGUI = fachadaGUI;
     }
 
-
     /**
      * Método que nos permite introducir na base de datos a información dun novo tipo de actividade, cuxa información
      * se pasa como arugmento.
