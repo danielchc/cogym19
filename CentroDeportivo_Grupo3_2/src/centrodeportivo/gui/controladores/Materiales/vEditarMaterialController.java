@@ -181,6 +181,16 @@ public class vEditarMaterialController extends AbstractController implements Ini
         }
     }
 
+    /**
+     * Acción efectuada o premer o boton de borrar un material.
+     *
+     * @param actionEvent O evento que tivo lugar.
+     */
+    public void btnRestaurarAction(ActionEvent actionEvent) {
+        // Cando se pide borrar, primeiro solicitase a confirmación por parte do usuario:
+      actualizarCamposMaterial();
+    }
+
 
     /**
      * Acción efectuada ao premer o botón de modificar un material

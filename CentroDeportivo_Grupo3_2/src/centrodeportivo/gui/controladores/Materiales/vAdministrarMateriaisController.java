@@ -136,10 +136,10 @@ public class vAdministrarMateriaisController extends AbstractController implemen
             //Se non é null seguimos adiante.
             //Accedemos ao controlador da ventá de edición dunha instalación:
             ((vEditarMaterialController) this.controllerPrincipal.getControlador(IdPantalla.EDITARMATERIAL)).setMaterial(material);
-            //Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
+            // Feito iso, facemos que a ventá visíbel sexa a de edición dunha instalación:
             this.controllerPrincipal.mostrarPantalla(IdPantalla.EDITARMATERIAL);
         } else {
-            //En caso de que o item si sexa nulo, haberá que mostrar un erro pedindo unha selección:
+            // En caso de que o item si sexa nulo, haberá que mostrar un erro pedindo unha selección:
             this.getFachadaAplicacion().mostrarErro("Administración de materiais", "Non hai ningún material seleccionado!");
         }
 
