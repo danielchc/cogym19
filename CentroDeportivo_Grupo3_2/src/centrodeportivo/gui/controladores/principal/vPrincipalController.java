@@ -55,8 +55,6 @@ public class vPrincipalController extends AbstractController implements Initiali
     public VBox sideBarActividadesPersoal;
     public VBox sideBarMaterialPersoal;
     public VBox sideBarActividadesSocios;
-    public VBox sideBarCursosSocios;
-    public Button btnCursosSocios;
 
     /**
      * Atributos privados: outras compoñentes necesarias dende o controlador:
@@ -169,14 +167,13 @@ public class vPrincipalController extends AbstractController implements Initiali
         sliders.add(sideBarActividadesPersoal);
         sliders.add(sideBarMaterialPersoal);
         sliders.add(sideBarActividadesSocios);
-        sliders.add(sideBarCursosSocios);
+
 
         // Engadimos os botóns de cada un:
         btnsMenu.add(btnAreasPersoal);
         btnsMenu.add(btnActividadesPersoal);
         btnsMenu.add(btnMaterialPersoal);
         btnsMenu.add(btnActividadesSocios);
-        btnsMenu.add(btnCursosSocios);
 
         // Imos engadindo as transicións para cada un dos botóns:
         for (int i = 0; i < btnsMenu.size(); i++) {
