@@ -16,9 +16,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que conterá todos os métodos DAO relacionados na súa maioría con xestións dos materiais.
+ */
 public final class DAOMaterial extends AbstractDAO {
 
-    // Constructor
+    /**
+     * Constructor
+     */
     public DAOMaterial(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         super(conexion, fachadaAplicacion);
     }
