@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * Clase na que levaremos a cabo xestións relativas ás áreas.
  */
 public class XestionArea {
+
     /**
      * Atributos da xestión de Áreas: basicamente son referencias ás demáis fachadas.
      */

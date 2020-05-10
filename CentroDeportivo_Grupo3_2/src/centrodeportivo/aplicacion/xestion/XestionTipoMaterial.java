@@ -17,22 +17,32 @@ import java.util.ArrayList;
  */
 public class XestionTipoMaterial {
 
-    // Atributos
-
+    /**
+     * Atributos da xestión dos tipo de materias: basicamente son referencias ás demáis fachadas.
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
 
-    // Constructor
-
+    /**
+     * Constructor da clase de xestión dos tipo de materiais:
+     *
+     * @param fachadaGUI Referencia á fachada da interface gráfica.
+     * @param fachadaBD  Referencia á fachada da parte da Base de datos.
+     */
     public XestionTipoMaterial(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
 
-    // Outros metodos
-
+    /**
+     * Método que permite engadir unh nova tupla na base de datos cun novo tipo de material.
+     *
+     * @param tipoMaterial Datos do tipo de material que se creará (en concreto, o nome).
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas na inserción.
+     */
     public TipoResultados darAltaTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         // Se o tipo de material non existe, dase de alta:
         if (!fachadaBD.isTipoMaterial(tipoMaterial)) {
@@ -44,6 +54,13 @@ public class XestionTipoMaterial {
         }
     }
 
+    /**
+     * Método que permite eliminar un tipo de material da base de datos.
+     *
+     * @param tipoMaterial Datos do tipo de material que se eliminará.
+     * @return Devolve un enum que tipifica os posibles erroes durante a execución do método.
+     * @throws ExcepcionBD Excepción procedente do método dao para indicar problemas no borrado.
+     */
     public TipoResultados borrarTipoMaterial(TipoMaterial tipoMaterial) throws ExcepcionBD {
         // Comprobamos se existen materiais dese tipo:
         if (!fachadaBD.tenMateriais(tipoMaterial)) {
@@ -58,10 +75,10 @@ public class XestionTipoMaterial {
     }
 
     /**
-     * BuscarTipoMaterial -> permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
+     * Método que permite buscar tipos de materiais na base de datos con campos de busqueda, ou sen eles.
      *
-     * @param tipoMaterial -> se non é null, a consulta realizase en base o nome do tipo de material.
-     * @return -> se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
+     * @param tipoMaterial Se non é null, a consulta realizase en base o nome do tipo de material.
+     * @return Se o parametro non é null, será devolto un array con todos os tipos de materiais que coincidan,
      * noutro caso, listanse todos os tipos de materiais.
      */
     public ArrayList<TipoMaterial> buscarTipoMaterial(TipoMaterial tipoMaterial) {
