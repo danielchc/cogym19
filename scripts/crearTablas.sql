@@ -1,3 +1,4 @@
+--Creación de todas as táboas:
 CREATE TABLE tarifa(
 	codTarifa 		SERIAL NOT NULL,
 	nome 			VARCHAR(50) NOT NULL,
@@ -224,7 +225,7 @@ CREATE TABLE estarCapacitado(
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
+--Crearemos adicionalmente dúas vistas: unha para persoal e outra para socios:
 
 CREATE OR REPLACE VIEW vistapersoal AS
 SELECT 
@@ -264,6 +265,8 @@ FROM socio AS so
 JOIN persoaFisica AS pf ON so.login=pf.usuariosocio 
 JOIN usuario AS us ON us.login=so.login;
 
+
+--TRIGGERS e FUNCIÓNS:
 
 --Función que cando un socio se apunta nun curso, apunta o socio nas actividades de ese curso
 
