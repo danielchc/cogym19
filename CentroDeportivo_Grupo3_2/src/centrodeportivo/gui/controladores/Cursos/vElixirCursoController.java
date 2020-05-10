@@ -7,6 +7,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
+import centrodeportivo.gui.controladores.Actividades.vInformeActividadeController;
 import centrodeportivo.gui.controladores.AuxGUI;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
@@ -38,7 +39,7 @@ public class vElixirCursoController extends AbstractController implements Initia
     public Button btnBuscar;
     public Button btnLimpar;
     public TableView taboaCursos;
-    public Button btnApuntarse;
+    public Button btnXestionar;
     public CheckBox checkResaltar;
 
     /**
@@ -154,10 +155,13 @@ public class vElixirCursoController extends AbstractController implements Initia
      *
      * @param actionEvent A acción que tivo lugar
      */
-    public void btnXestionar(ActionEvent actionEvent) {
+    public void btnXestionarAction(ActionEvent actionEvent) {
 
         // Volvemos a pantalla de administrar materiais:
-        this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMECURSO);
+        if(taboaCursos.getSelectionModel().getSelectedItem() != null) {
+            ((vInformacionCursosController) this.controllerPrincipal.getControlador(IdPantalla.INFORMACIONCURSO)).setCurso((Curso) taboaCursos.getSelectionModel().getSelectedItem());
+            this.controllerPrincipal.mostrarPantalla(IdPantalla.INFORMACIONCURSO);
+        }
         // Neste caso, o que teremos que facer é recopilar os datos completos do curso seleccionado:
         // Para iso, empezamos mirando se hai unha selección feita:
         /*Curso selected = (Curso) taboaCursos.getSelectionModel().getSelectedItem();

@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -32,7 +33,7 @@ public class vInformacionCursosController extends AbstractController implements 
     public TextField campoDuracion;
     public TextField campoDataInicio;
     public TextField campoDataFin;
-    public TextField campoDescricion;
+    public TextArea campoDescricion;
     public TableView taboaActividades;
 
     private vPrincipalController controllerPrincipal;
@@ -110,7 +111,7 @@ public class vInformacionCursosController extends AbstractController implements 
         // TODO: Volver a listar a información, recuperar de novo o curso e actualizar a taboa; un novo inicializar
     }
 
-    public void setActividade(Curso curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
 

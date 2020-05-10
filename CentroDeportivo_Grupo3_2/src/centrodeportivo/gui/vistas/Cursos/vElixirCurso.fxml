@@ -67,7 +67,7 @@
                 </VBox>
                 <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                     <HBox alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="160.0" VBox.vgrow="ALWAYS">
-                        <Button fx:id="btnApuntarse" alignment="CENTER" mnemonicParsing="false" onAction="#btnXestionarAction" prefHeight="26.0" prefWidth="135.0" text="Xestionar" />
+                        <Button fx:id="btnXestionar" alignment="CENTER" mnemonicParsing="false" onAction="#btnXestionarAction" prefHeight="26.0" prefWidth="135.0" text="Xestionar" />
                     </HBox>
                 </VBox>
             </HBox>
