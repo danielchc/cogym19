@@ -103,9 +103,6 @@ public class vInformeActividadeController extends AbstractController implements 
 
     }
 
-    public void btnXerarInformeAction(ActionEvent actionEvent) {
-    }
-
     public void btnRefrescarAction(ActionEvent actionEvent) {
     }
 

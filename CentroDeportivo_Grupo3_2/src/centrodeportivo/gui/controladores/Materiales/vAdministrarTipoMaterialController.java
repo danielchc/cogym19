@@ -7,6 +7,7 @@ import centrodeportivo.aplicacion.obxectos.tipos.TipoResultados;
 import centrodeportivo.funcionsAux.ValidacionDatos;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.AuxGUI;
+import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -111,6 +112,16 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         AuxGUI.vaciarCamposTexto(campoTipoMaterial);
         // Aproveitamos entón para actualizar a táboa:
         actualizarTaboaTipoMaterial(super.getFachadaAplicacion().buscarTipoMaterial(null));
+    }
+
+    /**
+     * Acción efectuada ao premer o botón para limpar unha búsqueda.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
+    public void btnVolverAction(ActionEvent actionEvent) {
+        // Volvemos a pantalla de administrar materiais:
+        this.controllerPrincipal.mostrarPantalla(IdPantalla.NOVOMATERIAL);
     }
 
     /**
