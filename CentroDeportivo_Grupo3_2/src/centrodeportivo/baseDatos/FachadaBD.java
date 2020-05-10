@@ -75,7 +75,7 @@ public final class FachadaBD {
             System.exit(1);
         }
 
-        // A partir da información lida imos ir asociando as propiedades ao usuario para o acceso á BD:
+        // A partir da información lida imos ir asociando as propiedades a usuario para o acceso á BD:
         Properties usuario = new Properties();
         // Nome de usuario da base de datos:
         usuario.setProperty("user", configuracion.getProperty("usuario"));
@@ -86,7 +86,7 @@ public final class FachadaBD {
         try {
             // Tentamos establecer a conexión:
             this.conexion = DriverManager.getConnection(con, usuario);
-            // Por convenio global estableceremos o autoCommit a false. POLO TANTO, teremos que facer commit nos métodos
+            // Por convenio estableceremos o autoCommit a false. POLO TANTO, teremos que facer commit nos métodos
             // de DAO.
             this.conexion.setAutoCommit(false);
         } catch (SQLException e) {
