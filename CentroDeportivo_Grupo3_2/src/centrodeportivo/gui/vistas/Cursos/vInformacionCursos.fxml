@@ -70,7 +70,7 @@
                                        <Font name="System Bold" size="14.0" />
                                     </font>
                                  </Label>
-                                 <TextArea fx:id="campoDescricion" prefHeight="35.0" prefWidth="269.0" promptText="Descrición do curso..." />
+                                 <TextArea fx:id="campoDescricion" prefHeight="35.0" prefWidth="269.0" promptText="Descrición do curso..." wrapText="true" />
                               </children>
                            </HBox>
                                     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="524.0">
@@ -101,7 +101,7 @@
                         <Insets right="15.0" />
                     </padding>
                     <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="252.0" spacing="10.0">
-                        <Button fx:id="btnXestionar" onAction="#btnXestionarAction" mnemonicParsing="false" prefHeight="26.0" prefWidth="147.0"/>
+                        <Button fx:id="btnXestionar" mnemonicParsing="false" onAction="#btnXestionarAction" prefHeight="26.0" prefWidth="147.0" />
                         <Button fx:id="btnRefrescar" mnemonicParsing="false" prefHeight="26.0" prefWidth="182.0" text="Refrescar Información" />
                     </HBox>
                 </VBox>
