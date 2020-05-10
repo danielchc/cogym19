@@ -12,6 +12,7 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Persoal;
 import centrodeportivo.aplicacion.obxectos.usuarios.Socio;
 import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 
+import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -869,6 +870,61 @@ public class DAOActividade extends AbstractDAO {
             }
         }
         return false;
+    }
+
+    public Actividade recuperarActividade(Actividade actividade) {
+        // Usaremos un ArrayList para almacenar unha nova actividade:
+        Actividade resultado = null;
+        PreparedStatement stmActividades = null;
+        ResultSet rsActividades;
+        Connection con;
+
+        // Recuperamos a conexión:
+        con = super.getConexion();
+
+        // Preparamos a consulta:
+        try {
+            stmActividades = con.prepareStatement("SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, " +
+                    " actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
+                    " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
+                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
+                    " WHERE curso is NULL AND dataactividade = ? AND area = ? AND actividade.instalacion = ? ORDER BY dataactividade asc");
+
+            stmActividades.setTimestamp(1, actividade.getData());
+            stmActividades.setInt(2, actividade.getArea().getCodArea());
+            stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+
+
+            // Realizamos a consulta:
+            rsActividades = stmActividades.executeQuery();
+
+            // Recibida a consulta, procesámola:
+            if (rsActividades.next()) {
+                // Imos engadindo ao ArrayList do resultado cada area consultada:
+                resultado = new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"),
+                        new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")),
+                        rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")),
+                        new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor")));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Peche do statement:
+            try {
+                assert stmActividades != null;
+                stmActividades.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
     }
 
     /**

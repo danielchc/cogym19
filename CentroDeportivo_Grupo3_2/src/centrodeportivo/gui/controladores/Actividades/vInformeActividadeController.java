@@ -79,7 +79,6 @@ public class vInformeActividadeController extends AbstractController implements 
             campoValoracion.setText("-");
         }
 
-
         TableColumn<Socio, String> nomeColumn = new TableColumn<>("Nome");
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
@@ -96,7 +95,7 @@ public class vInformeActividadeController extends AbstractController implements 
         taboaPersonal.getColumns().addAll(nomeColumn, loginColumn, idadeColumn, dificultadesColumn);
         // Buscamos os datos dos participantes da actividade:
         taboaPersonal.getItems().addAll(getFachadaAplicacion().listarParticipantes(actividade));
-        //Controlamos tamaño das columnas:
+        // Controlamos tamaño das columnas:
         taboaPersonal.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         // Modelo de selección:
         taboaPersonal.getSelectionModel().selectFirst();
@@ -104,6 +103,8 @@ public class vInformeActividadeController extends AbstractController implements 
     }
 
     public void btnRefrescarAction(ActionEvent actionEvent) {
+        // Se houbese algunha modificacion na actividade, recurepase a información:
+        this.setActividade(getFachadaAplicacion().recuperarActividade(actividade));
     }
 
     public void setActividade(Actividade actividade) {
