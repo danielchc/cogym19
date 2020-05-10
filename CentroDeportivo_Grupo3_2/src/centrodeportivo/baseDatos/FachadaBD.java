@@ -800,78 +800,187 @@ public final class FachadaBD {
      */
 
     /**
-     * Método que nos permite insertar unha actividade na base de datos
+     * Método que permite engadir unha actividade na base de datos.
      *
-     * @param actividade A actividade que se quer insertar na base de datos
-     * @throws ExcepcionBD Excepción asociada a posibles problemas dados ao actualizar a base de datos.
+     * @param actividade Actividade que se desexa engadir na base de datos.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a inserción sobre a base de datos.
      */
     public void EngadirActividade(Actividade actividade) throws ExcepcionBD {
         daoActividade.EngadirActividade(actividade);
     }
 
+    /**
+     * Método que permite avaliar se a actividade pasada se superporía con algunha das existentes
+     * na base de datos, sempre e cando sexa unha actividade con datos cambiados.
+     *
+     * @param actVella Datos da actividade antiga.
+     * @param actNova  Datos da actividade que se desexa.
+     * @return Devolve True cando hai incompatibilidades co horario ou ben da área ou do persoal.
+     */
     public boolean horarioOcupadoActividade(Actividade actVella, Actividade actNova) {
         return daoActividade.horarioOcupadoActividade(actVella, actNova);
     }
 
+    /**
+     * Método que permite modificar os datos dunha actividade.
+     *
+     * @param actVella Datos da actividade actualmente.
+     * @param actNova  Datos da actividade polos que se desexan cambiar os actuais.
+     * @throws ExcepcionBD Excepción asociada a problemas ó tentar facer a modificación na base de datos.
+     */
     public void modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
         daoActividade.modificarActividade(actVella, actNova);
     }
 
+    /**
+     * Método que permite eliminar os datos dunha actividade da base de datos.
+     *
+     * @param actividade Actividade que se desexa eliminar da base de datos.
+     * @param mensaxe    Mensaxe que se enviara os usuarios que estaban apuntados a dita actividade.
+     * @throws ExcepcionBD Excepción asociada a problemas ó tentar borrar a actividade da base de datos.
+     */
     public void borrarActividade(Actividade actividade, Mensaxe mensaxe) throws ExcepcionBD {
         daoActividade.borrarActividade(actividade, mensaxe);
     }
 
+    /**
+     * Método que permite anotar un usuario a unha actividade como participante.
+     *
+     * @param actividade Actividade a que se desexa apuntar o usuario.
+     * @param usuario    Usuario que se quer apuntar a dita actividade.
+     * @throws ExcepcionBD Excepción asociada a inserción dunha nova tupla na táboa de realización de actividade.
+     */
     public void apuntarseActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         daoActividade.apuntarseActividade(actividade, usuario);
     }
 
+    /**
+     * Método que permite listar as actividades filtrándoas a través dunha actividade modelo.
+     *
+     * @param actividade Actividade modelo que se empregará apra dito filtrado.
+     * @return Retorna un ArrayList das actividades que cumpren dita condición ou, no caso de ser null,
+     * un ArrayList con todas as posibles actividades.
+     */
     public ArrayList<Actividade> buscarActividade(Actividade actividade) {
         return daoActividade.buscarActividade(actividade);
     }
 
-    // Alguen apuntado
+    /**
+     * Método que permite recuperar os datos dunha actividade da base de datos a partir das súas claves primarias.
+     *
+     * @param actividade Actividade da que se obteñen os datos para realizar a consulta en función dos mesmos.
+     * @return Retorna a Actividade cos datos actualizados.
+     */
+    public Actividade recuperarActividade(Actividade actividade) {
+        return daoActividade.recuperarActividade(actividade);
+    }
 
+    // --------Alguen apuntado
+
+    /**
+     * Método que permite desapuntar un usuario dunha actividade.
+     *
+     * @param actividade Actividade a que se desexa desapuntar dito usuario.
+     * @param usuario    Usuario que se desexa desapuntar de dita actividade.
+     * @throws ExcepcionBD Excepción asociada o borrado dunha tupla na táboa de datos de realización de actividade.
+     */
     public void borrarseDeActividade(Actividade actividade, Usuario usuario) throws ExcepcionBD {
         daoActividade.borrarseDeActividade(actividade, usuario);
     }
 
+    /**
+     * Método que permite comprobar se un usuario esta apuntado.
+     *
+     * @param actividade Actividade na que se desexa comprobar se esta apuntado.
+     * @param usuario    Usuario que se quere comprobar si esta apuntado.
+     * @return Devolve true se o usuario esta apuntado en dita actividade e false en calquer outro caso.
+     */
     public boolean estarApuntado(Actividade actividade, Usuario usuario) {
         return daoActividade.estarApuntado(actividade, usuario);
     }
 
-    public boolean NonEMaximoAforoActividade(Actividade actividade) {
-        return daoActividade.NonEMaximoAforoActividade(actividade);
-    }
-
+    /**
+     * Método que permite listar os profesores ca posibilidade de listar en función dun tipo de actividade.
+     *
+     * @param tipoactividade Tipo de actividade para a que se comprobarán, de non ser nula, os profesores que hai.
+     * @return Devolve un ArrayList cos profesores que cumpran ditas condicións de filtrado.
+     */
     public ArrayList<Persoal> buscarProfesores(TipoActividade tipoactividade) {
         return daoActividade.buscarProfesores(tipoactividade);
     }
 
-    public ArrayList<Actividade> buscarActividadeparticipa(Actividade actividade, Usuario usuario) {
-        return daoActividade.buscarActividadeParticipa(actividade, usuario);
+    /**
+     * Método que comproba se o aforo da actividade é o máximo.
+     *
+     * @param actividade Actividade da que se desexa comprobar o aforo.
+     * @return Retorna true no caso de que o aforo non sexa o máximo e false en caso contrario.
+     */
+    public boolean NonEMaximoAforoActividade(Actividade actividade) {
+        return daoActividade.NonEMaximoAforoActividade(actividade);
     }
 
+    /**
+     * Método que permite listar as actividades onde NON participa certo usuario.
+     *
+     * @param actividade Actividade modelo que se empregará para realizar un filtrado.
+     * @param usuario    Usuario que se desexa asegurar que NON particida nas actividades
+     * @return Devolve un ArrayList que compre cas condicións de filtrado da actividade en función do usuario pasado.
+     */
     public ArrayList<Actividade> buscarActividadeNONParticipa(Actividade actividade, Usuario usuario) {
         return daoActividade.buscarActividadeNONParticipa(actividade, usuario);
     }
 
+    /**
+     * Método que permite listar as actividades nas que participa certo usuario.
+     *
+     * @param actividade Actividade modelo que se empregará para realizar un filtrado.
+     * @param usuario    Usuario que se desexa asegurar que participa nas actividades.
+     * @return Devolve un ArrayList que compre cas condicións de filtrado en función do usuario pasado.
+     */
+    public ArrayList<Actividade> buscarActividadeparticipa(Actividade actividade, Usuario usuario) {
+        return daoActividade.buscarActividadeParticipa(actividade, usuario);
+    }
+
+    /**
+     * Método que permite valorar por certo usuario unha actividade na que participará.
+     *
+     * @param valoracion Puntuación que lle será asignada a dita actividade.
+     * @param actividade Actividade que se desexa valorar.
+     * @param usuario    Usuario que esta a valorar dita actividade.
+     * @throws ExcepcionBD Excepción asociada a actualización na base de datos.
+     */
     public void valorarActividade(Integer valoracion, Actividade actividade, Usuario usuario) throws ExcepcionBD {
         daoActividade.valorarActividade(valoracion, actividade, usuario);
     }
 
+    /**
+     * Método que comproba se certo profesor está activo.
+     *
+     * @param profesor Profesor que se desexa comprobar se esta activo.
+     * @return Retorna true se o profesor esta activo e false en caso contrario.
+     */
     public boolean EProfesorActivo(Persoal profesor) {
         return daoActividade.EProfesorActivo(profesor);
     }
 
+    /**
+     * Método que comproba se unha actividade foi valorada por un usuario.
+     *
+     * @param actividade Actividade que se comproba se foi valorada.
+     * @param usuario    Usuario que se comproba se a valorou.
+     * @return Devolve true se a actividade xa foi valorada.
+     */
     public boolean isValorada(Actividade actividade, Usuario usuario) {
         return daoActividade.isValorada(actividade, usuario);
     }
 
+    /**
+     * Método que permite listar todos os participantes dunha actividade.
+     *
+     * @param actividade Actividade da que se queren listar os seus participantes.
+     * @return Retorna un ArrayList con todos os participantes que estan apuntados na mesma.
+     */
     public ArrayList<Socio> listarParticipantes(Actividade actividade) {
         return daoActividade.listarParticipantes(actividade);
-    }
-
-    public Actividade recuperarActividade(Actividade actividade) {
-        return daoActividade.recuperarActividade(actividade);
     }
 }

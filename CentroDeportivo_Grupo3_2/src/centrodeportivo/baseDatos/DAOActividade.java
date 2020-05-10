@@ -359,6 +359,138 @@ public class DAOActividade extends AbstractDAO {
     }
 
     /**
+     * Método que permite listar as actividades filtrándoas a través dunha actividade modelo.
+     *
+     * @param actividade Actividade modelo que se empregará apra dito filtrado.
+     * @return Retorna un ArrayList das actividades que cumpren dita condición ou, no caso de ser null,
+     * un ArrayList con todas as posibles actividades.
+     */
+    public ArrayList<Actividade> buscarActividade(Actividade actividade) {
+        PreparedStatement stmActividades = null;
+        ResultSet rsActividades;
+        Connection con;
+        // Usaremos un ArrayList para almacenar as actividades:
+        ArrayList<Actividade> actividades = new ArrayList<>();
+
+        // Recuperamos a conexión:
+        con = super.getConexion();
+
+        // Preparamos a consulta:
+        try {
+            String consulta = "SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, " +
+                    " actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
+                    " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
+                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
+                    " WHERE curso is NULL";
+
+            // Engadimos o filtro de actividade polo que, se non é nula, filtramos polo nome:
+            if (actividade != null) {
+                consulta += " AND LOWER(actividade.nome) LIKE LOWER(?)  ";
+            }
+
+            // Ordenaremos o resultado pola data da actividade:
+            consulta += " ORDER BY dataactividade asc";
+
+            stmActividades = con.prepareStatement(consulta);
+
+            // No caso de pasar a actividade non nula, completamos a consulta:
+            if (actividade != null) {
+                // Establecemos os valores da consulta segundo a actividade pasada:
+                stmActividades.setString(1, "%" + actividade.getNome() + "%");
+            }
+
+            // Realizamos a consulta:
+            rsActividades = stmActividades.executeQuery();
+
+            // Recibida a consulta, procesámola:
+            while (rsActividades.next()) {
+                // Imos engadindo ao ArrayList do resultado cada área consultada:
+                actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")), rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Peche do statement:
+            try {
+                stmActividades.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return actividades;
+    }
+
+    /**
+     * Método que permite recuperar os datos dunha actividade da base de datos a partir das súas claves primarias.
+     *
+     * @param actividade Actividade da que se obteñen os datos para realizar a consulta en función dos mesmos.
+     * @return Retorna a Actividade cos datos actualizados.
+     */
+    public Actividade recuperarActividade(Actividade actividade) {
+        PreparedStatement stmActividades = null;
+        ResultSet rsActividades;
+        Connection con;
+        // Devolvemos unha Actividade como resultado:
+        Actividade resultado = null;
+
+        // Recuperamos a conexión:
+        con = super.getConexion();
+
+        // Preparamos a consulta:
+        try {
+            stmActividades = con.prepareStatement("SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, " +
+                    " actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
+                    " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
+                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
+                    " WHERE curso is NULL AND dataactividade = ? AND area = ? AND actividade.instalacion = ? ORDER BY dataactividade asc");
+
+            // Completamos ca información da actividade que, damos por feito que non é null (comprobase antes de tentar
+            // recuperar a información que a actividade pasada non sexa null):
+            stmActividades.setTimestamp(1, actividade.getData());
+            stmActividades.setInt(2, actividade.getArea().getCodArea());
+            stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
+
+            // Realizamos a consulta:
+            rsActividades = stmActividades.executeQuery();
+
+            // Recibida a consulta, procesámola:
+            if (rsActividades.next()) {
+                // Creamos a actividade cos datos actualizados:
+                resultado = new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
+                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"),
+                        new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")),
+                        rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")),
+                        new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor")));
+            }
+
+            // Facemos commit:
+            con.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            // Peche do statement:
+            try {
+                stmActividades.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible pechar os cursores");
+            }
+        }
+        return resultado;
+    }
+
+    /**
      * Método que permite desapuntar un usuario dunha actividade.
      *
      * @param actividade Actividade a que se desexa desapuntar dito usuario.
@@ -574,75 +706,6 @@ public class DAOActividade extends AbstractDAO {
             }
         }
         return false;
-    }
-
-    /**
-     * Método que permite listar as actividades filtrándoas a través dunha actividade modelo.
-     *
-     * @param actividade Actividade modelo que se empregará apra dito filtrado.
-     * @return Retorna un ArrayList das actividades que cumpren dita condición ou, no caso de ser null,
-     * un ArrayList con todas as posibles actividades.
-     */
-    public ArrayList<Actividade> buscarActividade(Actividade actividade) {
-        PreparedStatement stmActividades = null;
-        ResultSet rsActividades;
-        Connection con;
-        // Usaremos un ArrayList para almacenar as actividades:
-        ArrayList<Actividade> actividades = new ArrayList<>();
-
-        // Recuperamos a conexión:
-        con = super.getConexion();
-
-        // Preparamos a consulta:
-        try {
-            String consulta = "SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, " +
-                    " actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
-                    " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
-                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
-                    " WHERE curso is NULL";
-
-            // Engadimos o filtro de actividade polo que, se non é nula, filtramos polo nome:
-            if (actividade != null) {
-                consulta += " AND LOWER(actividade.nome) LIKE LOWER(?)  ";
-            }
-
-            // Ordenaremos o resultado pola data da actividade:
-            consulta += " ORDER BY dataactividade asc";
-
-            stmActividades = con.prepareStatement(consulta);
-
-            // No caso de pasar a actividade non nula, completamos a consulta:
-            if (actividade != null) {
-                // Establecemos os valores da consulta segundo a actividade pasada:
-                stmActividades.setString(1, "%" + actividade.getNome() + "%");
-            }
-
-            // Realizamos a consulta:
-            rsActividades = stmActividades.executeQuery();
-
-            // Recibida a consulta, procesámola:
-            while (rsActividades.next()) {
-                // Imos engadindo ao ArrayList do resultado cada área consultada:
-                actividades.add(new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"), new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")), rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")), new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor"))));
-            }
-            con.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try {
-                con.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        } finally {
-            // Peche do statement:
-            try {
-                stmActividades.close();
-            } catch (SQLException e) {
-                System.out.println("Imposible pechar os cursores");
-            }
-        }
-        return actividades;
     }
 
     /**
@@ -959,69 +1022,6 @@ public class DAOActividade extends AbstractDAO {
     }
 
     /**
-     * Método que permite recuperar os datos dunha actividade da base de datos a partir das súas claves primarias.
-     *
-     * @param actividade Actividade da que se obteñen os datos para realizar a consulta en función dos mesmos.
-     * @return Retorna a Actividade cos datos actualizados.
-     */
-    public Actividade recuperarActividade(Actividade actividade) {
-        PreparedStatement stmActividades = null;
-        ResultSet rsActividades;
-        Connection con;
-        // Devolvemos unha Actividade como resultado:
-        Actividade resultado = null;
-
-        // Recuperamos a conexión:
-        con = super.getConexion();
-
-        // Preparamos a consulta:
-        try {
-            stmActividades = con.prepareStatement("SELECT dataactividade, area, area.instalacion, tipoactividade, curso, profesor, " +
-                    " actividade.nome, duracion, area.nome as areanome, instalacion.nome as instalacionnome " +
-                    " FROM actividade JOIN area ON actividade.area=area.codarea  AND actividade.instalacion=area.instalacion " +
-                    " JOIN instalacion ON area.codarea=instalacion.codinstalacion " +
-                    " WHERE curso is NULL AND dataactividade = ? AND area = ? AND actividade.instalacion = ? ORDER BY dataactividade asc");
-
-            // Completamos ca información da actividade que, damos por feito que non é null (comprobase antes de tentar
-            // recuperar a información que a actividade pasada non sexa null):
-            stmActividades.setTimestamp(1, actividade.getData());
-            stmActividades.setInt(2, actividade.getArea().getCodArea());
-            stmActividades.setInt(3, actividade.getArea().getInstalacion().getCodInstalacion());
-
-            // Realizamos a consulta:
-            rsActividades = stmActividades.executeQuery();
-
-            // Recibida a consulta, procesámola:
-            if (rsActividades.next()) {
-                // Creamos a actividade cos datos actualizados:
-                resultado = new Actividade(rsActividades.getTimestamp(1), rsActividades.getString("nome"),
-                        rsActividades.getFloat("duracion"), new Area(rsActividades.getInt("area"),
-                        new Instalacion(rsActividades.getInt("instalacion"), rsActividades.getString("instalacionnome")),
-                        rsActividades.getString("areanome")), new TipoActividade(rsActividades.getInt("tipoactividade")),
-                        new Curso(rsActividades.getInt("curso")), new Persoal(rsActividades.getString("profesor")));
-            }
-
-            // Facemos commit:
-            con.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try {
-                con.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        } finally {
-            // Peche do statement:
-            try {
-                stmActividades.close();
-            } catch (SQLException e) {
-                System.out.println("Imposible pechar os cursores");
-            }
-        }
-        return resultado;
-    }
-
-    /**
      * Método que comproba se unha actividade foi valorada por un usuario.
      *
      * @param actividade Actividade que se comproba se foi valorada.
@@ -1135,5 +1135,4 @@ public class DAOActividade extends AbstractDAO {
         }
         return usuarios;
     }
-
 }
