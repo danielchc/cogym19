@@ -16,14 +16,30 @@ import java.util.ArrayList;
  * Clase na que levaremos a cabo xestións relativas ás áreas.
  */
 public class XestionArea {
+    /**
+     * Atributos da xestión de Areas: basicamente son referencias ás demáis fachadas.
+     */
     private FachadaGUI fachadaGUI;
     private FachadaBD fachadaBD;
 
+
+    /**
+     * Constructor da clase de xestión de instalacións:
+     *
+     * @param fachadaGUI Referencia á fachada da interface gráfica.
+     * @param fachadaBD  Referencia á fachada da parte da Base de datos.
+     */
     public XestionArea(FachadaGUI fachadaGUI, FachadaBD fachadaBD) {
         this.fachadaGUI = fachadaGUI;
         this.fachadaBD = fachadaBD;
     }
 
+
+    /**
+     * @param area a engadir
+     * @return O resultado da operación levada a cabo.
+     * @throws ExcepcionBD Excepción asociada a problemas ao tentar facer a actualización sobre a base de datos.
+     */
     public TipoResultados EngadirArea(Area area) throws ExcepcionBD {
         //Se non existe outra área co mesmo nome, dase de alta:
         if (!fachadaBD.ExisteArea(area)) {
