@@ -135,4 +135,12 @@ public class XestionActividade {
         return fachadaBD.listarParticipantes(actividade);
     }
 
+    public Actividade recuperarActividade(Actividade actividade){
+        if(actividade!=null) {
+            return fachadaBD.recuperarActividade(actividade);
+        }else {
+            return null;
+        }
+    }
+
 }

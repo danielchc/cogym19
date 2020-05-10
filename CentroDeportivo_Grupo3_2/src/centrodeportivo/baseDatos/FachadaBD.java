@@ -734,4 +734,8 @@ public final class FachadaBD {
     public ArrayList<Socio> listarParticipantes(Actividade actividade) {
         return daoActividade.listarParticipantes(actividade);
     }
+
+    public Actividade recuperarActividade(Actividade actividade){
+        return daoActividade.recuperarActividade(actividade);
+    }
 }

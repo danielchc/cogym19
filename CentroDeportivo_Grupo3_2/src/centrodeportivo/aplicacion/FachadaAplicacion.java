@@ -640,4 +640,8 @@ public class FachadaAplicacion extends Application {
     public ArrayList<Socio> listarParticipantes(Actividade actividade) {
         return xestionActividade.listarParticipantes(actividade);
     }
+
+    public Actividade recuperarActividade(Actividade actividade){
+        return xestionActividade.recuperarActividade(actividade);
+    }
 }
