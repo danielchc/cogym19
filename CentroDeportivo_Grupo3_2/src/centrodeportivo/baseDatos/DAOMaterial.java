@@ -32,7 +32,9 @@ public final class DAOMaterial extends AbstractDAO {
     }
 
 
-    // Outros métodos
+    /**
+     * Outros metodos
+     */
 
     /**
      * DarAltaMaterial -> crea unha nova tupla insertando un material na base de datos
@@ -176,7 +178,7 @@ public final class DAOMaterial extends AbstractDAO {
      * IsMaterial -> comproba se certo material existe na base de datos
      *
      * @param material -> datos do material que se quer validar
-     * @return -> devolve true se o material se encontra na base de datos
+     * @return -> devolve true se o material se encontra na base de datos e false en caso contrario
      */
     public boolean isMaterial(Material material) {
 
@@ -358,6 +360,7 @@ public final class DAOMaterial extends AbstractDAO {
 
             stmMaterial = con.prepareStatement(consultaMaterial);
 
+            // Completamos onde corresponda
             if (material != null) {
                 if (material.getTipoMaterial() != null) {
                     stmMaterial.setString(1, "" + material.getTipoMaterial().getCodTipoMaterial());
@@ -404,9 +407,10 @@ public final class DAOMaterial extends AbstractDAO {
                     Float prezocompra = ((BigDecimal) rsMaterial.getObject("prezocompra")).floatValue();
                     resultado.setPrezoCompra(prezocompra);
                 }
-
+                // Engadimos o material o ArrayList final:
                 materiais.add(resultado);
             }
+            // Facemos commit:
             con.commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -424,6 +428,7 @@ public final class DAOMaterial extends AbstractDAO {
                 System.out.println("Imposible pechar os cursores.");
             }
         }
+        // Devolvemos, finalmente, un ArrayList de materiais
         return materiais;
     }
 
