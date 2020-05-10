@@ -135,6 +135,12 @@ public class vInsercionActividadeController extends AbstractController implement
             avisoCampos.setText("Data incorrecta. ");
             return false;
         }
+
+        if (campoNome.getText().length() > 50){
+            avisoCampos.setText("Lonxitude do nome incorrecta!");
+            return false;
+        }
+
         return true;
     }
 

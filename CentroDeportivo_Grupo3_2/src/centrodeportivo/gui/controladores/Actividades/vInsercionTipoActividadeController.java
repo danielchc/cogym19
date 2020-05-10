@@ -104,6 +104,14 @@ public class vInsercionTipoActividadeController extends AbstractController imple
             return;
         }
 
+        //Validamos a lonxitude dos campos:
+        if(campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200){
+            super.getFachadaAplicacion().mostrarErro("Administración de Tipos de Actividades",
+                    "A lonxitude dos campos non é correcta! O nome non pode ter máis de 50 caracteres e a " +
+                            "descrición non pode superar os 200.");
+            return;
+        }
+
         //Poden ocorrer dúas cousas: que haxa que insertar un novo tipo ou modificalo.
         if(tipoActividade != null) {
             //Se o tipo de actividade non é nulo, é unha modificación. Como a descrición pode ser nula, faise a
