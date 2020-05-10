@@ -72,12 +72,16 @@ public class XestionActividade {
      * @throws ExcepcionBD Excepción asociada a problemas ó tentar facer a modificación na base de datos.
      */
     public TipoResultados modificarActividade(Actividade actVella, Actividade actNova) throws ExcepcionBD {
-        if (!fachadaBD.horarioOcupadoActividade(actVella, actNova)) {
-            fachadaBD.modificarActividade(actVella, actNova);
-            // Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
-            return TipoResultados.correcto;
+        if(fachadaBD.EProfesorActivo(actNova.getProfesor())) {
+            if (!fachadaBD.horarioOcupadoActividade(actVella, actNova)) {
+                fachadaBD.modificarActividade(actVella, actNova);
+                // Se se completa a execución do método sen lanzamento de excepcións, devolvemos que foi ben:
+                return TipoResultados.correcto;
+            } else {
+                return TipoResultados.datoExiste;
+            }
         } else {
-            return TipoResultados.datoExiste;
+            return TipoResultados.sitIncoherente;
         }
     }
 

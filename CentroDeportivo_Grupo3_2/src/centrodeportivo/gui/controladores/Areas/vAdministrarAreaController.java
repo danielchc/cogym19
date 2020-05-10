@@ -20,9 +20,18 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 
-
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ *
+ * Clase que funciona como controlador da ventá de administración de áreas.
+ */
 public class vAdministrarAreaController extends AbstractController implements Initializable {
-    //Atributos públicos: correspóndense con cuestións da ventá correspondente:
+
+    /**
+     * Atributos públicos: correspóndense con cuestións da ventá correspondente.
+     */
     public TableView taboaAreas;
     public Button btnBuscar;
     public Button btnLimpar;
@@ -34,16 +43,30 @@ public class vAdministrarAreaController extends AbstractController implements In
     public Button btnEliminarArea;
     public Button btnModificarArea;
 
-    public Instalacion instalacion;
 
-    //Atributos privados: manteremos o controlador da ventá de procedencia:
+    /**
+     * Atributos privados: manteremos o controlador da ventá de procedencia e a instalación de referencia:
+     */
     private vPrincipalController controllerPrincipal;
+    private Instalacion instalacion;
 
+    /**
+     * Constructor do controlador da ventá de administración de áreas
+     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     * @param controllerPrincipal A referencia ao controlador da ventá principal.
+     */
     public vAdministrarAreaController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+        //Chamamos ao constructor da clase pai:
         super(fachadaAplicacion);
+        //Asignamos o controlador:
         this.controllerPrincipal = controllerPrincipal;
     }
 
+    /**
+     * Método que se executa ao abrir a ventá, para inicializar as compoñentes.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Neste caso temos que colocar todos os campos na táboa:
@@ -53,13 +76,13 @@ public class vAdministrarAreaController extends AbstractController implements In
         //A segunda columna terá o seu nome:
         TableColumn<Area, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        //A terceira columna corresponderase co aforomaximo:
+        //A terceira columna corresponderase co aforo máximo:
         TableColumn<Area, Integer> colAforo = new TableColumn<>("Aforo Máximo");
         colAforo.setCellValueFactory(new PropertyValueFactory<>("aforoMaximo"));
         //A cuarta columna corresponderase coa data de baixa:
         TableColumn<Area, Date> coldata = new TableColumn<>("Data de Baixa");
         coldata.setCellValueFactory(new PropertyValueFactory<>("dataBaixa"));
-        //A cuarta columna corresponderase coa desciricon da Area:
+        //A quinta columna corresponderase coa desciricon da área:
         TableColumn<Area, String> colDes = new TableColumn<>("Descricion");
         colDes.setCellValueFactory(new PropertyValueFactory<>("descricion"));
 
@@ -77,7 +100,12 @@ public class vAdministrarAreaController extends AbstractController implements In
         });
     }
 
+    /**
+     * Método executado ao seleccionar unha actividade determinada, o que executa o listener de cando se seleccione
+     * unha actividade.
+     */
     public void enSeleccion() {
+        //Escollemos o item seleccionado da táboa de áreas:
         Area area = ((Area) taboaAreas.getSelectionModel().getSelectedItem());
         if(area != null){
             //Se a data de baixa está rexistrada a área estará de baixa, polo que habilitaremos a opción de dala de alta.
@@ -92,18 +120,29 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
     }
 
+    /**
+     * Método que permite actualizar a táboa de áreas presente nesta ventá con todas as áreas.
+     */
     public void actualizarTaboa() {
-        //Agora engadimos items:
+        //Engadimos items:
         taboaAreas.getItems().setAll(super.getFachadaAplicacion().buscarArea(instalacion, null));
         //Establecemos unha selección sobre a táboa (se hai resultados):
         taboaAreas.getSelectionModel().selectFirst();
-        //Facemos que se actúe cando se fai unha selección:
     }
 
+    /**
+     * Setter da instalación
+     * @param instalacion A instalación a asignar.
+     */
     public void setInstalacion(Instalacion instalacion) {
         this.instalacion = instalacion;
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de busca:
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnBuscarAction(ActionEvent actionEvent) {
         //Cando se lle dá ao botón de buscar, hai que efectuar unha busca na Base de Datos segundo os campos dispostos.
         //Borramos primeiro todas as áreas da táboa:
@@ -121,6 +160,11 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de limpado da táboa
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnLimparAction(ActionEvent actionEvent) {
         //Vaciaranse os campos e, depaso, listaranse todas as áreas dispoñibeis de novo:
         AuxGUI.vaciarCamposTexto(campoAforo, campoNome);
@@ -133,6 +177,11 @@ public class vAdministrarAreaController extends AbstractController implements In
         taboaAreas.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de modificación dunha área.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnModificarAreaAction(ActionEvent actionEvent) {
         //Recuperamos primeiro a area seleccionada:
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
@@ -142,18 +191,28 @@ public class vAdministrarAreaController extends AbstractController implements In
             this.controllerPrincipal.mostrarPantalla(IdPantalla.XESTIONAREA);
             //Accedemos ao controlador de creación dun area:
             vXestionAreaController cont = ((vXestionAreaController)this.controllerPrincipal.getControlador(IdPantalla.XESTIONAREA));
+            //Recuperamos a área seleccionada e establecémola:
             cont.setArea((Area) taboaAreas.getSelectionModel().getSelectedItem());
+            //Establecemos tamén a instalación de referencia:
             cont.setInstalacion(instalacion);
 
         } else {
+            //Se non se tivese ningunha selección amósase un erro.
             this.getFachadaAplicacion().mostrarErro("Administración de areas", "Non hai celda seleccionada!");
         }
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de dar de baixa unha área.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnDarBaixaAction(ActionEvent actionEvent)  {
+        //Tomamos a área seleccionada da táboa:
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
             try {
+                //Avaliamos o resultado da operación:
                 TipoResultados res = getFachadaAplicacion().darDeBaixaArea(area);
                 switch(res) {
                     case correcto:
@@ -168,11 +227,12 @@ public class vAdministrarAreaController extends AbstractController implements In
                                         "sen comezar planificadas nela.");
                         break;
                     case sitIncoherente:
-                        //Nese caso, avisaremos que xa está dada de baixa:
+                        //Se se ten unha situación incoherente, avisaremos que xa está dada de baixa:
                         getFachadaAplicacion().mostrarInformacion("Administración de áreas",
                                 "Non se pode dar de baixa a área '" + area.getNome() + "' , pois xa está dada de baixa.");
                         break;
                 }
+                //Actualizamos para rematar a táboa de áreas.
                 this.actualizarTaboa();
             } catch (ExcepcionBD excepcionBD) {
                 excepcionBD.printStackTrace();
@@ -183,10 +243,16 @@ public class vAdministrarAreaController extends AbstractController implements In
         }
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de alta dunha área.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnDarAltaAction(ActionEvent actionEvent) {
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
             try {
+                //Intentamos a alta, avaliamos o resultado.
                 TipoResultados res = this.getFachadaAplicacion().darDeAltaArea(area);
                 switch (res){
                     case correcto:
@@ -203,29 +269,40 @@ public class vAdministrarAreaController extends AbstractController implements In
             } catch (ExcepcionBD excepcionBD) {
                 excepcionBD.printStackTrace();
             }
+            //Actualizamos a táboa correspondente en calquera caso.
             this.actualizarTaboa();
         }else {
+            //En caso de non ter selección sobre a táboa, avisamos.
             getFachadaAplicacion().mostrarErro("Administración de Áreas",
                     "Debes seleccionar unha das áreas!");
         }
     }
 
+    /**
+     * Método que representa as accións levadas a cabo ao premer o botón de eliminación dunha área.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnEliminarAreaAction(ActionEvent actionEvent) {
+        //Recuperamos a área seleccionada sobre a táboa:
         Area area = (Area) taboaAreas.getSelectionModel().getSelectedItem();
         if (area != null) {
             //Pedimos primeiro unha confirmación por parte do usuario:
             if(getFachadaAplicacion().mostrarConfirmacion("Administración de Áreas",
                     "Desexas borrar a área '" + area.getNome() + "'?")  == ButtonType.OK) {
                 try {
+                    //De tela, intentamos o borrado:
                     TipoResultados res = getFachadaAplicacion().borrarArea(area);
                     //En función do resultado, avaliamos:
                     switch (res) {
                         case correcto:
+                            //Se se puido facer avísase do suceso:
                             getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
                                     "A área '" + area.getNome() + "' da instalación '" + instalacion.getNome() + "' " +
                                             "foi borrada satisfactoriamente.");
                             break;
                         case referenciaRestrict:
+                            //Se a área ten actividades, avísase do propio.
                             getFachadaAplicacion().mostrarErro("Administración de Áreas",
                                     "Non se pode borrar a área '" + area.getNome() + "'. " +
                                             "Unha vez que ten material ou actividades rexistradas," +
@@ -235,16 +312,23 @@ public class vAdministrarAreaController extends AbstractController implements In
                     //En calquera caso, actualizamos a táboa:
                     this.actualizarTaboa();
                 } catch(ExcepcionBD e) {
+                    //Amosamos un erro, en caso de capturar a excepción da parte da base de datos:
                     getFachadaAplicacion().mostrarErro("Administración de Áreas",
                             e.getMessage());
                 }
             }
         } else {
+            //Amosamos un erro tamén en caso de non ter selección sobre a táboa:
             getFachadaAplicacion().mostrarErro("Administración de Áreas",
                     "Debes seleccionar unha das áreas!");
         }
     }
 
+    /**
+     * Método que se executa cando se pulsa o botón de retorno.
+     *
+     * @param actionEvent A acción que tivo lugar.
+     */
     public void btnVolverAction(ActionEvent actionEvent){
         //Regresamos á pantalla anterior e amosámola:
         controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);

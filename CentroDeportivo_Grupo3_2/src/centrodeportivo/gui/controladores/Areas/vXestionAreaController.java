@@ -94,6 +94,7 @@ public class vXestionAreaController extends AbstractController implements Initia
      * @param instalacion A instalación a asignar.
      */
     public void setInstalacion(Instalacion instalacion) {
+        //Asignamos a instalación e o campo correspondente:
         this.instalacion = instalacion;
         this.campoInstalacion.setText(instalacion.getNome());
     }
@@ -132,6 +133,7 @@ public class vXestionAreaController extends AbstractController implements Initia
             return;
         }
 
+        //Comprobamos que o aforo máximo sexa maior ca cero.
         if (!ValidacionDatos.isNatural(campoAforoMax.getText())) {
             //O mesmo que no caso dos campos vacíos: avisamos do erro e non se fai nada máis:
             avisoCampos.setText("Aforo máximo debe ser positivo!");
@@ -139,26 +141,27 @@ public class vXestionAreaController extends AbstractController implements Initia
             return;
         }
 
-        //Comprobamos as lonxitudes:
+        //Comprobamos as lonxitudes dos campos:
         if(campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200) {
             avisoCampos.setText("Lonxitudes incorrectas!!");
             AuxGUI.amosarCampos(avisoCampos);
             return;
         }
 
-        //Creamos un obxecto Area con todos os datos facilitados
+        //Creamos un obxecto Area con todos os datos facilitados:
         Area area1 = new Area(instalacion, campoNome.getText(), campoDescricion.getText(), Integer.parseInt(campoAforoMax.getText()));
 
         //Accedemos á base de datos: intentamos que se efectúe sen problemas dito acceso.
         try {
-            //A consulta pódenos devolver varios resultados en función da situación. Avaliámolos:
+            //Pode ser que a área sexa null, caso no que estaremos na inserción dunha nova área, ou que non sexa null,
+            //caso no que teremos que modificala.
             TipoResultados res;
             if (area == null) {
                 res = this.getFachadaAplicacion().EngadirArea(area1);
                 //En función do resultado, mostraremos unha mensaxe ou outra:
                 switch (res) {
                     case correcto:
-                        //Correcto -> Imprimimos mensaxe de éxito co ID da instalación insertada:
+                        //Correcto -> Imprimimos mensaxe de éxito co ID da instalación e da área insertada:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
                                 "Creada a Area " + area1.getNome() +
                                         ". O seu id de Area é " + area1.getCodArea() +
@@ -167,21 +170,24 @@ public class vXestionAreaController extends AbstractController implements Initia
                         this.controllerPrincipal.mostrarPantalla(IdPantalla.EDITARINSTALACION);
                         break;
                     case datoExiste:
-                        //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
+                        //Se xa existía unha área co nome pasado, entón imprímese un erro e séguese na pantalla.
                         this.getFachadaAplicacion().mostrarErro("Administración de Areas",
                                 "Xa hai unha area co nome '" + area1.getNome() +"' na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
                         break;
-                        //Neste outro caso, mantémonos nesta pantalla.
+                        //Neste outro caso, mantémonos nesta mesma pantalla.
                 }
             } else {
+                //Noutro caso, asignamos á área que se vai modificar o código e a data de baixa que se teñen no atributo da clase.
+                //Así, poderemos levar a cabo a modificación con garantías.
                 area1.setCodArea(area.getCodArea());
                 area1.setDataBaixa(area.getDataBaixa());
                 res = this.getFachadaAplicacion().modificarArea(area1);
                 switch (res) {
+                    //Avaliamos o resultado:
                     case correcto:
                         //Facemos a asignación entre áreas:
                         area = area1;
-                        //Correcto -> Imprimimos mensaxe de éxito co ID da instalación insertada:
+                        //Correcto -> Imprimimos mensaxe de éxito co ID da área e da instalación insertada:
                         this.getFachadaAplicacion().mostrarInformacion("Administración de Áreas",
                                 "Modificada a Area " + area.getNome() +
                                         " con id " + area.getCodArea() +
@@ -189,7 +195,7 @@ public class vXestionAreaController extends AbstractController implements Initia
                         //Neste caso, mantémonos nesta pantalla para poder seguir editando se se quere.
                         break;
                     case datoExiste:
-                        //Se xa existía unha instalación co nome pasado, entón imprímese un erro e séguese na pantalla.
+                        //Se xa existía unha área co nome pasado, entón imprímese un erro e séguese na pantalla.
                         this.getFachadaAplicacion().mostrarErro("Administración de Areas",
                                 "Xa hai unha area co nome '" + area1.getNome() + "' na instalación "+ area1.getInstalacion().getCodInstalacion()+ "'.");
                         break;
@@ -207,11 +213,12 @@ public class vXestionAreaController extends AbstractController implements Initia
      * @param actionEvent A acción que tivo lugar
      */
     public void btnRestaurarAction(ActionEvent actionEvent) {
+        //Hai que comprobar se a área vale null (estamos engadindo unha nova área) ou non.
         if(area == null){
             //O que imos a facer e limpar os tres campos, vaciar o que teñan:
             AuxGUI.vaciarCamposTexto(campoNome, campoDescricion, campoAforoMax);
         } else {
-            //Reestablecemos os valores dos campos
+            //Reestablecemos os valores dos campos:
             campoNome.setText(area.getNome());
             campoDescricion.setText(area.getDescricion());
             campoAforoMax.setText(Integer.toString(area.getAforoMaximo()));

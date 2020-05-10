@@ -22,7 +22,7 @@ public final class DAOUsuarios extends AbstractDAO {
      * @param conexion          Referencia á conexión coa base de datos.
      * @param fachadaAplicacion Referencia á fachada da parte da aplicación.
      */
-    protected DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
+    public DAOUsuarios(Connection conexion, FachadaAplicacion fachadaAplicacion) {
         // Asignaremos estes atributos no constructor da clase pai ao que chamamos:
         super(conexion, fachadaAplicacion);
     }
@@ -35,7 +35,7 @@ public final class DAOUsuarios extends AbstractDAO {
      * @param contrasinal O contrasinal introducido polo usuario.
      * @return booleano que nos indica se a validación foi correcta ou non.
      */
-    protected boolean validarUsuario(String login, String contrasinal) {
+    public boolean validarUsuario(String login, String contrasinal) {
         // O que faremos será comprobar se hai un usuario rexistrado estrictamente con ese login e ese contrasinal.
         // Á parte, regularemos que non se dera de baixa para que non poida iniciar sesión.
         PreparedStatement stmUsuarios = null;
@@ -88,7 +88,7 @@ public final class DAOUsuarios extends AbstractDAO {
      * @param login O login do usuario que se quere consultar.
      * @return Usuario con algúns dos datos asociados na base de datos ao login pasado como argumento.
      */
-    protected Usuario consultarUsuario(String login) {
+    public Usuario consultarUsuario(String login) {
         // Nesta consulta comprobaremos primeiro o tipo de usuario e recupesaremos algúns datos comúns do usuario.
         PreparedStatement stmUsuarios = null;
         ResultSet rsUsuarios;

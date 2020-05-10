@@ -121,11 +121,11 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.ADMINISTRARTIPOSACTIVIDADES, new DatosVista("../../vistas/Actividades/vAdministrarTiposActividades.fxml", new vAdministrarTiposActividadesController(super.getFachadaAplicacion(), this)));
         //Pantalla para inserción/modificación de tipos de actividades:
         this.pantallas.put(IdPantalla.INSERCIONTIPOACTIVIDADE, new DatosVista("../../vistas/Actividades/vInsercionTipoActividade.fxml", new vInsercionTipoActividadeController(super.getFachadaAplicacion(), this)));
-        //Pantalla de novo curso:
+        //Pantalla de xestión dun curso:
         this.pantallas.put(IdPantalla.XESTIONCURSO, new DatosVista("../../vistas/Cursos/vXestionCurso.fxml", new vXestionCursoController(super.getFachadaAplicacion(), this)));
         //Pantalla de administración de cursos:
         this.pantallas.put(IdPantalla.ADMINISTRARCURSOS, new DatosVista("../../vistas/Cursos/vAdministrarCursos.fxml", new vAdministrarCursosController(super.getFachadaAplicacion(), this)));
-        // Pantalla novo material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        // Pantalla de elección dun curso (socios): pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ELIXIRCURSO, new DatosVista("../../vistas/Cursos/vElixirCurso.fxml", new vElixirCursoController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla para anotarse a actividades en xeral: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ASMINASACTIVIDADES, new DatosVista("../../vistas/Actividades/vAsMinasActividades.fxml", new vAsMinasActividadesController(super.getFachadaAplicacion(), this, this.usuario)));
@@ -135,25 +135,22 @@ public class vPrincipalController extends AbstractController implements Initiali
         this.pantallas.put(IdPantalla.VALORARACTIVIDADEPOPUP, new DatosVista("../../vistas/Actividades/vValorarPopUp.fxml", new vValorarPopUpController(super.getFachadaAplicacion(), this, this.usuario)));
         // Pantalla administrar tipos de materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ADMINISTRARTIPOMATERIAL, new DatosVista("../../vistas/Materiales/vAdministrarTipoMaterial.fxml", new vAdministrarTipoMaterialController(super.getFachadaAplicacion(), this)));
-        // Pantalla administrar materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
+        // Pantalla de informe dunha actividade: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.INFORMEACTIVIDADE, new DatosVista("../../vistas/Actividades/vInformeActividade.fxml", new vInformeActividadeController(super.getFachadaAplicacion(), this)));
         // Pantalla administrar materiais: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.ADMINISTRARMATERIAIS, new DatosVista("../../vistas/Materiales/vAdministrarMaterial.fxml", new vAdministrarMateriaisController(super.getFachadaAplicacion(), this)));
         // Pantalla editar material: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.EDITARMATERIAL, new DatosVista("../../vistas/Materiales/vEditarMaterial.fxml", new vEditarMaterialController(super.getFachadaAplicacion(), this)));
-        //Pantalla para crear unha nova area
+        //Pantalla de creación/modificación dunha área.
         this.pantallas.put(IdPantalla.XESTIONAREA, new DatosVista("../../vistas/Areas/vXestionArea.fxml", new vXestionAreaController(super.getFachadaAplicacion(), this)));
-        //Pantalla para modificar unha area e eliminala
+        //Pantalla para administrar unha área.
         this.pantallas.put(IdPantalla.ADMINAREA, new DatosVista("../../vistas/Areas/vAdministrarArea.fxml", new vAdministrarAreaController(super.getFachadaAplicacion(), this)));
         //Pantalla para crear unha nova actividade:
         this.pantallas.put(IdPantalla.INSERCIONACTIVIDADE, new DatosVista("../../vistas/Actividades/vInsercionActividade.fxml", new vInsercionActividadeController(super.getFachadaAplicacion(), this)));
         //Pantalla para administrar as actividades:
         this.pantallas.put(IdPantalla.ADMINACTIVIDADE, new DatosVista("../../vistas/Actividades/vAdministrarActividade.fxml", new vAdministrarActividadeController(super.getFachadaAplicacion(), this)));
-        //Pantalla para apuntarse a actividade:
         // Pantalla informacion curso: pasámoslle o fxml e o controlador. O controlador pide como argumentos fachada de aplicación e este mesmo controlador.
         this.pantallas.put(IdPantalla.INFORMACIONCURSO, new DatosVista("../../vistas/Cursos/vInformacionCursos.fxml", new vInformacionCursosController(super.getFachadaAplicacion(), this, this.usuario)));
-
-
     }
 
     /**

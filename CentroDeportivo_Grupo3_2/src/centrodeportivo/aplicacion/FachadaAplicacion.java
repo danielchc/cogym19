@@ -764,7 +764,7 @@ public class FachadaAplicacion extends Application {
     /**
      * Método que permite listar os profesores ca posibilidade de listar en función dun tipo de actividade.
      *
-     * @param tipoactividade Tipo de actividade para a que se comprobarán, de non ser nula, os profesores que hai.
+     * @param tipoActividade Tipo de actividade para a que se comprobarán, de non ser nula, os profesores que hai.
      * @return Devolve un ArrayList cos profesores que cumpran ditas condicións de filtrado.
      */
     public ArrayList<Persoal> buscarProfesores(TipoActividade tipoActividade) {

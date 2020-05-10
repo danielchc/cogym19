@@ -26,6 +26,9 @@ import java.util.ResourceBundle;
 public class vValorarPopUpController
         extends AbstractController implements Initializable {
 
+    /**
+     * Atributos do controlador da ventá:
+     */
     public Button btnVolver;
     public Label msg;
     public RadioButton radio0;
@@ -39,6 +42,9 @@ public class vValorarPopUpController
     private ArrayList<RadioButton> radioButtons;
 
 
+    /**
+     * Estes atributos privados son os que nos serven para as demáis xestións:
+     */
     private vPrincipalController controllerPrincipal;
     private Usuario usuario;
     private Integer valoracion;
@@ -67,6 +73,7 @@ public class vValorarPopUpController
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Inicializamos todas as compoñentes da ventá:
         this.toggleGroup=new ToggleGroup();
         this.radioButtons=new ArrayList<>();
 
@@ -82,11 +89,21 @@ public class vValorarPopUpController
         }
     }
 
+    /**
+     * Listener do radio button para poder facer a valoración.
+     *
+     * @param event A acción que tivo lugar.
+     */
     public void listenerRadioButton(MouseEvent event){
         this.valoracion=this.radioButtons.indexOf((RadioButton) event.getSource());
+        //Con isto amósase a puntuación que se escolleu por pantalla.
         msg.setText("Puntuación : " + this.valoracion + "/5");
     }
 
+    /**
+     * Setter da actividade.
+     * @param actividade A actividade que se vai a valorar nesta ventá.
+     */
     public void setActividade(Actividade actividade) {
         this.actividade = actividade;
     }
@@ -97,14 +114,15 @@ public class vValorarPopUpController
      * @param actionEvent A acción que tivo lugar
      */
     public void btnVolverAction(ActionEvent actionEvent) {
-        // Engadimos a valoracion a actividade:
+        //Engadimos a valoracion á actividade, en caso de non ser null (se fose null non se fai nada, só se volve).
         try {
             if (valoracion != null) {
+                //Engadimos a valoración:
                 TipoResultados res = super.getFachadaAplicacion().valorarActividade(valoracion, actividade, usuario);
                 // En función do resultado, actuamos:
                 switch (res) {
                     case correcto:
-                        // Se sae correcto saímos á ventá das miñas actividades
+                        //Se sae correcto saímos á ventá das miñas actividades
                         controllerPrincipal.mostrarPantalla(IdPantalla.ASMINASACTIVIDADES);
                         break;
                     case foraTempo:
@@ -130,7 +148,6 @@ public class vValorarPopUpController
             // Saímos á ventá das miñas actividades
             controllerPrincipal.mostrarPantalla(IdPantalla.ASMINASACTIVIDADES);
         }
-
     }
 
 
