@@ -13,6 +13,7 @@ import java.sql.Timestamp;
  * Clase que almacenará a información recuperada da base de datos sobre as actividades.
  */
 public class Actividade {
+
     /**
      * Atributos dunha actividade
      */
@@ -28,6 +29,7 @@ public class Actividade {
 
     /**
      * Constructor recurperar o nome das activiades
+     *
      * @param nome
      */
     public Actividade(String nome) {
@@ -36,6 +38,7 @@ public class Actividade {
 
     /**
      * Constructor coa clave primaria da activiade
+     *
      * @param data
      * @param area
      */
@@ -46,6 +49,7 @@ public class Actividade {
 
     /**
      * Contructor Co nome e a clave primaria da activiadede
+     *
      * @param nome
      * @param area
      */
@@ -55,7 +59,8 @@ public class Actividade {
     }
 
     /**
-     *  Consutructor completo sen valMedia, atributo calculado
+     * Consutructor completo sen valMedia, atributo calculado
+     *
      * @param data
      * @param nome
      * @param duracion
@@ -77,6 +82,7 @@ public class Actividade {
 
     /**
      * Constructor completo de Actividade
+     *
      * @param data
      * @param nome
      * @param duracion

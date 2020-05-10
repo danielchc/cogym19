@@ -25,10 +25,10 @@ public class Mensaxe {
     /**
      * Constructor
      */
-    public Mensaxe(Usuario emisor,String contido){
-        this.emisor=emisor;
-        this.contido=contido;
-        this.lido=false;
+    public Mensaxe(Usuario emisor, String contido) {
+        this.emisor = emisor;
+        this.contido = contido;
+        this.lido = false;
     }
 
     /**
