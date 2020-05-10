@@ -5,41 +5,33 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0"
-            prefWidth="350.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <center>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0"
-                    style="-fx-background-image: url('centrodeportivo/gui/imaxes/fondologin.png'); -fx-background-size: cover;"
-                    BorderPane.alignment="CENTER">
-            <VBox prefHeight="374.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('centrodeportivo/gui/imaxes/fondologin.png'); -fx-background-size: cover;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="374.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <HBox alignment="CENTER" prefHeight="110.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
-                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"
-                               HBox.hgrow="ALWAYS">
-                        <Image url="@../imaxes/usuariologin.png"/>
+                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <Image url="@../imaxes/usuariologin.png" />
                     </ImageView>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="30.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
-                    <TextField fx:id="tfUsuario" alignment="CENTER" onKeyPressed="#keyPressedIniciar" prefHeight="40.0"
-                               prefWidth="250.0" promptText="Login Usuario" text="test0">
+                    <TextField fx:id="tfUsuario" alignment="CENTER" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="Login Usuario">
                         <font>
-                            <Font name="System Bold" size="15.0"/>
+                            <Font name="System Bold" size="15.0" />
                         </font>
                     </TextField>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="30.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
-                    <PasswordField fx:id="tfContrasinal" alignment="CENTER" onKeyPressed="#keyPressedIniciar"
-                                   prefHeight="40.0" prefWidth="250.0" promptText="**********" text="abc123">
+                    <PasswordField fx:id="tfContrasinal" alignment="CENTER" onKeyPressed="#keyPressedIniciar" prefHeight="40.0" prefWidth="250.0" promptText="**********">
                         <font>
-                            <Font size="15.0"/>
+                            <Font size="15.0" />
                         </font>
                     </PasswordField>
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="22.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
-                    <Label fx:id="labelError" alignment="CENTER" prefHeight="35.0" prefWidth="330.0" textFill="#bf0a0a"
-                           HBox.hgrow="ALWAYS">
+                    <Label fx:id="labelError" alignment="CENTER" prefHeight="35.0" prefWidth="330.0" textFill="#bf0a0a" HBox.hgrow="ALWAYS">
                         <font>
-                            <Font name="System Bold" size="20.0"/>
+                            <Font name="System Bold" size="20.0" />
                         </font>
                     </Label>
                 </HBox>
@@ -48,13 +40,9 @@
     </center>
     <bottom>
         <AnchorPane prefHeight="75.0" prefWidth="350.0" BorderPane.alignment="CENTER">
-            <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnIniciarAction"
-                    onKeyPressed="#keyPressedIniciar" prefHeight="75.0" prefWidth="350.0"
-                    style="-fx-background-color: white; -fx-border-radius: 0;" text="Iniciar Sesión" textFill="#255ddf"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
+            <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnIniciarAction" onKeyPressed="#keyPressedIniciar" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-radius: 0;" text="Iniciar Sesión" textFill="#255ddf" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Button>
         </AnchorPane>

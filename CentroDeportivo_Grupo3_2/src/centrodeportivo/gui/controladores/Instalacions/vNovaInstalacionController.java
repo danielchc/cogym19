@@ -70,6 +70,7 @@ public class vNovaInstalacionController extends AbstractController implements In
         if (!ValidacionDatos.estanCubertosCampos(campoNome, campoNumTlf, campoDireccion)) {
             //Se hai campos non cubertos amósase unha mensaxe e non se fai nada máis.
             //Amosamos a mensaxe de erro:
+            avisoCampos.setText("Campos Obrigatorios *!!!");
             AuxGUI.amosarCampos(avisoCampos);
             return;
         }
@@ -78,6 +79,13 @@ public class vNovaInstalacionController extends AbstractController implements In
         if (!ValidacionDatos.isCorrectoTelefono(campoNumTlf.getText())) {
             //O mesmo que no caso dos campos vacíos: avisamos do erro e non se fai nada máis:
             this.getFachadaAplicacion().mostrarErro("Instalacións", "O número de teléfono é incorrecto!");
+            return;
+        }
+
+        //Comprobamos que o nome da instalación e a dirección teñan a lonxitude necesaria.
+        if(campoNome.getText().length() > 50 || campoDireccion.getText().length() > 200){
+            avisoCampos.setText("Lonxitudes incorrectas!");
+            AuxGUI.amosarCampos(avisoCampos);
             return;
         }
 

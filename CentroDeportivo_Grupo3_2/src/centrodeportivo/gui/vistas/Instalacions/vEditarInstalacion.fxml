@@ -58,7 +58,7 @@
                               </HBox>
                                         <HBox alignment="CENTER" prefHeight="110.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <Label prefHeight="20.0" prefWidth="70.0" text="Nome" HBox.hgrow="ALWAYS">
+                                                <Label prefHeight="20.0" prefWidth="70.0" text="Nome*" HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="System Bold" size="14.0" />
                                                     </font>
@@ -68,7 +68,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="110.0" prefWidth="275.0" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <Label prefWidth="70.0" text="Dirección" HBox.hgrow="ALWAYS">
+                                                <Label prefWidth="70.0" text="Dirección*" HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="System Bold" size="14.0" />
                                                     </font>
@@ -78,7 +78,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <Label prefWidth="70.0" text="Teléfono" HBox.hgrow="ALWAYS">
+                                                <Label prefWidth="70.0" text="Teléfono*" HBox.hgrow="ALWAYS">
                                                     <font>
                                                         <Font name="System Bold" size="14.0" />
                                                     </font>
@@ -86,7 +86,14 @@
                                                 <TextField fx:id="campoTelefono" prefWidth="190.0" promptText="Número de teléfono a modificar..." />
                                             </children>
                                         </HBox>
-                              <HBox prefHeight="75.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                              <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label fx:id="etiquetaAviso" text="Campos Obrigatorios*!!!" textFill="RED" visible="false">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children></HBox>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">

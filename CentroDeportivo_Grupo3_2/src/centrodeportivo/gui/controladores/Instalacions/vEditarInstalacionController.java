@@ -99,6 +99,7 @@ public class vEditarInstalacionController extends AbstractController implements 
         //Empezamos comprobando que os campos non estén baleiros.
         if(!ValidacionDatos.estanCubertosCampos(campoNome, campoDireccion, campoTelefono)){
             //Amosaremos unha mensaxe avisando de que non se cubriron todos os campos.
+            etiquetaAviso.setText("Campos Obrigatorios *!!!");
             AuxGUI.amosarCampos(etiquetaAviso);
             return;
         }
@@ -107,6 +108,13 @@ public class vEditarInstalacionController extends AbstractController implements 
             //Amosaremos unha mensaxe de erro.
             super.getFachadaAplicacion().mostrarErro("Adiministración de Instalacións",
                     "O número de teléfono é incorrecto!");
+            return;
+        }
+
+        //Comprobamos que o nome da instalación e a dirección teñan a lonxitude necesaria.
+        if(campoNome.getText().length() > 50 || campoDireccion.getText().length() > 200){
+            etiquetaAviso.setText("Lonxitudes incorrectas!");
+            AuxGUI.amosarCampos(etiquetaAviso);
             return;
         }
 
@@ -214,6 +222,7 @@ public class vEditarInstalacionController extends AbstractController implements 
     public void btnRestaurarAction(ActionEvent actionEvent) {
         //Actualizamos os campos chamando ao método privado:
         actualizarCamposInstalacion();
+        AuxGUI.ocultarCampos(etiquetaAviso);
     }
 
     /**

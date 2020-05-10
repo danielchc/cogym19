@@ -127,13 +127,22 @@ public class vXestionAreaController extends AbstractController implements Initia
         if (!ValidacionDatos.estanCubertosCampos(campoNome, campoAforoMax)) {
             //Se hai campos non cubertos amósase unha mensaxe e non se fai nada máis.
             //Amosamos a mensaxe de erro:
+            avisoCampos.setText("Campos Obrigatorios*!!!");
             AuxGUI.amosarCampos(avisoCampos);
             return;
         }
 
         if (!ValidacionDatos.isNatural(campoAforoMax.getText())) {
             //O mesmo que no caso dos campos vacíos: avisamos do erro e non se fai nada máis:
-            this.getFachadaAplicacion().mostrarErro("Area", "O valor de aforo máximo é incorrecto!");
+            avisoCampos.setText("Aforo máximo debe ser positivo!");
+            AuxGUI.amosarCampos(avisoCampos);
+            return;
+        }
+
+        //Comprobamos as lonxitudes:
+        if(campoNome.getText().length() > 50 || campoDescricion.getText().length() > 200) {
+            avisoCampos.setText("Lonxitudes incorrectas!!");
+            AuxGUI.amosarCampos(avisoCampos);
             return;
         }
 
