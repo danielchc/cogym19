@@ -26,10 +26,18 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que representa ao controlador da ventá de engadido dun novo material.
+ */
 public class vNovoMaterialController extends AbstractController implements Initializable {
 
 
-    // Atributos públicos - trátase dos campos da interface aos que queremos acceder:
+    /**
+     * Atributos públicos - trátase dos campos da interface aos que queremos acceder:
+     */
     public ComboBox<TipoMaterial> comboTipoMaterial;
     public TextField campoEstadoMaterial;
     public ComboBox<Instalacion> comboInstalacion;
@@ -41,17 +49,29 @@ public class vNovoMaterialController extends AbstractController implements Initi
     public Label avisoCampos;
 
 
-    // Atributos privados: correspóndense con cuestións necesarias para realizar as diferentes xestións.
+    /**
+     * Atributos privados: correspóndense con cuestións necesarias para realizar as diferentes xestións.
+     */
     private vPrincipalController controllerPrincipal;
     private Stage primaryStage;
 
-    // Constructor:
+    /**
+     * Constructor da clase que representa o controlador da ventá de engadido dun novo material.
+     * @param fachadaAplicacion A referencia á fachada de aplicación.
+     * @param controllerPrincipal A referencia ao controlador da ventá principal.
+     */
     public vNovoMaterialController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+        //Chamamos ao constructor da clase pai.
         super(fachadaAplicacion);
+        //Asignamos ao controlador principal
         this.controllerPrincipal = controllerPrincipal;
     }
 
-    // Outros metodos:
+    /**
+     * Método que permite inicializar a ventá, o que se executará ao abrir a pantalla.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

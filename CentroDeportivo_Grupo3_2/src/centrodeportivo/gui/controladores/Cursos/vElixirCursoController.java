@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- * <p>
+ *
  * Clase que funciona como controlador da pantalla de cursos para un socio ( ve un listado de todos os cursos abertos )
  */
 public class vElixirCursoController extends AbstractController implements Initializable {

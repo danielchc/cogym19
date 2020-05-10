@@ -17,15 +17,22 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ *
+ * Clase que funciona como controlador da ventá de administración de materiais.
+ */
 public class vAdministrarMateriaisController extends AbstractController implements Initializable {
-
-    // Atributos públicos: correspóndense con cuestións da ventá correspondente
+    /**
+    * Atributos públicos: correspóndense con cuestións da ventá correspondente
+     */
     public TableView taboaMateriais;
     public Button btnBuscar;
     public Button btnLimpar;
@@ -35,15 +42,29 @@ public class vAdministrarMateriaisController extends AbstractController implemen
     public ComboBox<Area> comboArea;
 
 
-    // Atributos privados: manteremos o controlador da ventá de procedencia:
+    /**
+     * Atributos privados: manteremos o controlador da ventá de procedencia:
+     */
+
     private vPrincipalController controllerPrincipal;
 
-    // Constructor:
+    /**
+     * Constructor da ventá de administración de materiais:
+     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     * @param controllerPrincipal A referencia ao controlador da ventá principal.
+     */
     public vAdministrarMateriaisController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
+        //Chamamos ao constructor da clase pai (controllerPrincipal):
         super(fachadaAplicacion);
+        //Asignámoslle o controlador principal ao atributo correspondente.
         this.controllerPrincipal = controllerPrincipal;
     }
 
+    /**
+     * Método que se executa ao abrir a ventá, para inicializar compoñentes.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Neste caso temos que colocar todos os campos na táboa:

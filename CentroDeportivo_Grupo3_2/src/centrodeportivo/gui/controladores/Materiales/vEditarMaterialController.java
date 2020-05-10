@@ -25,9 +25,17 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/**
+ * @author Manuel Bendaña
+ * @author Helena Castro
+ * @author Víctor Barreiro
+ * Clase que representa o controlador da ventá que permite a edición dun material determinado.
+ */
 public class vEditarMaterialController extends AbstractController implements Initializable {
 
-    // Atributos públicos: referentes a ventá correspondente
+    /**
+     * Atributos públicos: referentes a ventá correspondente.
+     */
     public TextField campoCodigo;
     public ComboBox<TipoMaterial> comboTipoMaterial;
     public TextField campoEstadoMaterial;
@@ -39,17 +47,28 @@ public class vEditarMaterialController extends AbstractController implements Ini
     public Button btnLimparMaterial;
     public Label avisoCampos;
 
-    // Atributos privados: matenmos o controlador da ventá de procedencia e o material a xestionar
+    /**
+     * Atributos privados: matenmos o controlador da ventá de procedencia e o material a xestionar.
+     */
     private vPrincipalController controllerPrincipal;
     private Material material;
 
-    // Constructor:
+    /**
+     * Constructor da clase que representa o controlador da ventá de edición dun material.
+     * @param fachadaAplicacion A referencia á fachada da parte de aplicación.
+     * @param controllerPrincipal A referencia ao controlador da ventá principal.
+     */
     public vEditarMaterialController(FachadaAplicacion fachadaAplicacion, vPrincipalController controllerPrincipal) {
         super(fachadaAplicacion);
         this.controllerPrincipal = controllerPrincipal;
     }
 
 
+    /**
+     * Método que se executará ao abrir a ventá correspondente, para inicializar as compoñentes.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * @author Manuel Bendaña
  * @author Helena Castro
  * @author Víctor Barreiro
- * Clase que servirá de controlador da pantalla que amosa información dun curso ó usuario
+ * Clase que servirá de controlador da pantalla que amosa información dun curso ó usuario.
  */
 public class vInformacionCursosController extends AbstractController implements Initializable {
 

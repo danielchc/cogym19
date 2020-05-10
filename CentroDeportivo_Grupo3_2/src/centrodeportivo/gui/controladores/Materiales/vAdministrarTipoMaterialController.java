@@ -27,8 +27,9 @@ import java.util.ResourceBundle;
 public class vAdministrarTipoMaterialController extends AbstractController implements Initializable {
 
 
-    // Atributos públicos: correspóndense con partes da interface gráfica:
-
+    /**
+     * Atributos públicos: correspóndense con partes da interface gráfica:
+     */
     public TableView taboaTipoMaterial;
     public Button btnBuscar;
     public Button btnLimpar;
@@ -36,12 +37,10 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
     public Button btnEliminar;
     public TextField campoTipoMaterial;
 
-
-    // Atributos privados: referencia ó controlador da pantalla principal sobre o que se amosan as diferentes pantallas
+    /**
+     * Atributos privados: referencia ó controlador da pantalla principal sobre o que se amosan as diferentes pantallas.
+     */
     private vPrincipalController controllerPrincipal;
-
-
-    // Constructor
 
     /**
      * Constructor do controlador da ventá de administración dos tipos de materiais:
@@ -79,9 +78,6 @@ public class vAdministrarTipoMaterialController extends AbstractController imple
         // Establecemos unha selección sobre a táboa no caso de que haxa resultados:
         taboaTipoMaterial.getSelectionModel().selectFirst();
     }
-
-
-    // Outros métodos
 
     /**
      * Acción efectuada ao premer o botón para realizar a búsqueda.

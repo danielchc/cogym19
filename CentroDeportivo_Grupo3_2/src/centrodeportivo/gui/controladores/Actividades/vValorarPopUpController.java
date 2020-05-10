@@ -8,13 +8,10 @@ import centrodeportivo.aplicacion.obxectos.usuarios.Usuario;
 import centrodeportivo.gui.controladores.AbstractController;
 import centrodeportivo.gui.controladores.principal.IdPantalla;
 import centrodeportivo.gui.controladores.principal.vPrincipalController;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import org.controlsfx.control.Rating;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -108,21 +105,21 @@ public class vValorarPopUpController
                 switch (res) {
                     case correcto:
                         // Se sae correcto saímos á ventá das miñas actividades
-                        controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
+                        controllerPrincipal.mostrarPantalla(IdPantalla.ASMINASACTIVIDADES);
                         break;
                     case foraTempo:
                         // Amosamos unha mensaxe que clarifique o usuario a situación especificando o erro:
                         super.getFachadaAplicacion().mostrarErro("Valorar Actividades",
                                 "Non podes valorar unha actividade que ainda non comezou!");
                         // Saímos á ventá das miñas actividades
-                        controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
+                        controllerPrincipal.mostrarPantalla(IdPantalla.ASMINASACTIVIDADES);
                         break;
                     case sitIncoherente:
                         // Amosamos unha mensaxe que clarifique o usuario a situación:
                         super.getFachadaAplicacion().mostrarErro("Valorar actividades",
                                 "Non se pode valorar esta actividade, comproba a valoración!");
                         // Saímos á ventá das miñas actividades
-                        controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
+                        controllerPrincipal.mostrarPantalla(IdPantalla.ASMINASACTIVIDADES);
                         break;
                 }
             }
@@ -131,7 +128,7 @@ public class vValorarPopUpController
             super.getFachadaAplicacion().mostrarErro("Valorar actividades", e.getMessage());
         } finally {
             // Saímos á ventá das miñas actividades
-            controllerPrincipal.mostrarPantalla(IdPantalla.VALORARACTIVIDADE);
+            controllerPrincipal.mostrarPantalla(IdPantalla.ASMINASACTIVIDADES);
         }
 
     }
