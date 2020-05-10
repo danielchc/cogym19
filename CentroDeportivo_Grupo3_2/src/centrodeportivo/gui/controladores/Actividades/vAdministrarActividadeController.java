@@ -267,7 +267,6 @@ public class vAdministrarActividadeController extends AbstractController impleme
                 getFachadaAplicacion().mostrarErro("Informe de Actividades", "Selecciona a actividade da que queiras ver o informe!");
             }
         }
-
     }
 
 }
